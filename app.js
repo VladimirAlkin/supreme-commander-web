@@ -211,10 +211,10 @@
     const rk = new Map(r.units.map((u, i) => [u.instanceId, [unitRank(ctx.unitById[u.datasheetId], ctx, u), i]]));
     r.units.sort((a, b) => { const x = rk.get(a.instanceId), y = rk.get(b.instanceId); return x[0] - y[0] || x[1] - y[1]; });
   }
-  function catOf(def, r) {
+  function catOf(def, r, inst) {
     const ctx = Engine.ctxFor(r, DATA);
     if (def.faction !== fdata(r.factionId).armyFaction) return 'allies';
-    if (Engine.hasKw(def, ctx, 'Character')) return 'character';
+    if (Engine.hasKw(def, ctx, 'Character', inst)) return 'character';
     if (Engine.hasKw(def, ctx, 'Battleline')) return 'battleline';
     if (Engine.hasKw(def, ctx, 'Dedicated Transport')) return 'transport';
     for (const k of ['Infantry', 'Mounted', 'Beast', 'Monster', 'Vehicle', 'Swarm']) if (Engine.hasKw(def, ctx, k)) return k.toLowerCase();
@@ -490,6 +490,18 @@
       + (blAllowed.length ? '' : (fd.alliedFactions || []).map(a => `<div class="faint" style="font-size:.85rem;margin-top:8px">${esc(a.faction)} allies appear when ${esc((fd.detachments.find(d => d.id === a.requiresDetachment) || {}).name || '')} is in the roster.</div>`).join(''));
   }
   /* display order: each bodyguard followed by the leaders attached to it */
+  /* roster split into GW-app categories; an attached leader stays with its bodyguard */
+  function rosterGroups(r) {
+    const pts = rosterPts(r), groups = {};
+    const top = r.units.filter(u => !u.attachedTo || !r.units.some(b => b.instanceId === u.attachedTo));
+    top.forEach(u => {
+      const def = unitDef(r.factionId, u.datasheetId); if (!def) return;
+      const c = catOf(def, r, u), g = groups[c] || (groups[c] = { cat: c, label: CAT_NAME[c] || 'Other', items: [], pts: 0 });
+      [u, ...r.units.filter(a => a.attachedTo === u.instanceId)].forEach(x => { g.items.push(x); g.pts += (pts.per[x.instanceId] || { total: 0 }).total; });
+    });
+    return Object.keys(CAT_NAME).concat('other').filter(c => groups[c]).map(c => groups[c]);
+  }
+  const groupHdr = g => `<div class="grouphdr rgh"><span>${esc(g.label)}</span><span class="num">${g.items.length} · ${g.pts} pts</span></div>`;
   function rosterOrder(r) {
     const top = r.units.filter(u => !u.attachedTo || !r.units.some(b => b.instanceId === u.attachedTo));
     const out = [];
@@ -509,8 +521,7 @@
     // roster column
     const v = Engine.validate(r, DATA);
     const errUnits = new Set(v.filter(x => x.severity === 'error' && x.unitInstanceId).map(x => x.unitInstanceId));
-    const top = r.units.filter(u => !u.attachedTo || !r.units.some(b => b.instanceId === u.attachedTo));
-    const cards = top.map(u => unitCard(r, u, pts, errUnits) + r.units.filter(a => a.attachedTo === u.instanceId).map(a => unitCard(r, a, pts, errUnits, true)).join('')).join('');
+    const cards = rosterGroups(r).map(g => groupHdr(g) + g.items.map(u => unitCard(r, u, pts, errUnits, !!(u.attachedTo && r.units.some(b => b.instanceId === u.attachedTo)))).join('')).join('');
     const rosterCol = `<section class="stack" aria-label="Roster"><div class="row"><h2 class="grow">Roster</h2><span class="dim num">${r.units.length} units</span></div>
       ${cards || '<div class="empty">Your roster is empty. Add a CHARACTER first; tap a name or portrait to read its datasheet.</div>'}
       <div class="panel pad stack"><h3>Validation</h3>${valList(v)}</div>
@@ -1011,16 +1022,17 @@
     const ne = v.filter(x => x.severity === 'error').length;
     const errUnits = new Set(v.filter(x => x.severity === 'error' && x.unitInstanceId).map(x => x.unitInstanceId));
     const fd = fdata(r.factionId), bs = bsDef(r.battleSize);
-    const rows = rosterOrder(r).map(u => {
+    const rowOf = u => {
       const def = unitDef(r.factionId, u.datasheetId); if (!def) return '';
       const p = pts.per[u.instanceId] || { total: 0 };
       const enh = u.enhancementId ? ctx.allEnh[u.enhancementId] : null;
       const att = u.attachedTo && r.units.some(b => b.instanceId === u.attachedTo);
       const meta = [u.size > 1 ? `${u.size} models` : '', r.warlordUnitId === u.instanceId ? '<span class="gold">★ Warlord</span>' : '', enh ? `<span class="gold">${esc(enh.name)}</span>` : '', p.surcharge ? `<span class="warn">${ORD(p.copyNo)} copy +${p.surcharge}</span>` : ''].filter(Boolean).join(' · ');
       return `<div class="mrow ${att ? 'att' : ''} ${errUnits.has(u.instanceId) ? 'err' : ''} ${S.flash === u.instanceId ? 'flash' : ''}" id="u-${u.instanceId}"><button class="ptbtn" data-act="openInst" data-id="${u.instanceId}" aria-label="Datasheet: ${esc(dispName(r, u))}">${portrait(def, r.factionId)}</button><button class="mrow-main" data-act="openUnit" data-id="${u.instanceId}"><span class="mrow-name">${errUnits.has(u.instanceId) ? '<span class="bad">✕ </span>' : ''}${esc(dispName(r, u))}</span><span class="mrow-meta">${meta || '&nbsp;'}</span></button><span class="mrow-pts num">${p.total}</span></div>`;
-    }).join('');
+    };
+    const rows = rosterGroups(r).map(g => groupHdr(g) + `<div class="mlist">${g.items.map(rowOf).join('')}</div>`).join('');
     return `<div class="mdet"><span class="dim">${esc(bs.name)} · ${esc(r.detachmentIds.map(id => fd.detachments.find(d => d.id === id).name).join(' + '))}</span><span class="dim num">${r.units.length} units</span></div>
-      ${rows ? `<div class="mlist">${rows}</div>` : `<div class="empty">Your roster is empty. Start with a CHARACTER.<br><button class="btn primary" data-act="openCatalog" style="margin-top:12px">${ICON.plus} Add your first unit</button></div>`}
+      ${rows ? `<div class="mgroups">${rows}</div>` : `<div class="empty">Your roster is empty. Start with a CHARACTER.<br><button class="btn primary" data-act="openCatalog" style="margin-top:12px">${ICON.plus} Add your first unit</button></div>`}
       <label class="fld" style="margin-top:18px">Roster notes<textarea id="roster-notes" data-inp="rosterNotes">${esc(r.notes || '')}</textarea></label>
       ${ne ? `<button class="errstrip" data-act="openStatus"><span>✕ ${ne} problem${ne > 1 ? 's' : ''}</span><span>Show ›</span></button>` : ''}
       <button class="fab" data-act="openCatalog">${ICON.plus}<span>Add unit</span></button>`;
