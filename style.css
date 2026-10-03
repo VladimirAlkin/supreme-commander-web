@@ -281,6 +281,9 @@ pre.export { white-space: pre-wrap; word-break: break-word; font: .9rem/1.45 ui-
 .hero .h-display { font-size: clamp(2.2rem, 7vw, 3.4rem); color: var(--fg); }
 .rgh { display: flex; justify-content: space-between; align-items: center; gap: 8px; width: 100%; min-height: 40px; padding: 6px 4px; background: none; border: 0; border-radius: 8px; cursor: pointer; font: inherit; font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; color: var(--fg-dim); font-weight: 700; text-align: left; }
 .rgh:hover { color: var(--fg); }
+.badge.link, .linktxt { color: color-mix(in srgb, var(--accent) 80%, white); }
+.badge.link { border-color: color-mix(in srgb, var(--accent) 45%, transparent); }
+.linktxt::before { content: '⛓ '; opacity: .8; }
 .rgh-l { display: inline-flex; align-items: center; gap: 6px; }
 .rgh .chev { width: 16px; height: 16px; flex: none; transition: transform .18s ease; }
 .rgh.closed .chev { transform: rotate(-90deg); }

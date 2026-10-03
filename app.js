@@ -514,20 +514,25 @@
       return `<div class="hisum"><span class="kwfx" style="--d:0s">${esc(h.label)}</span><span class="dim">${list.length ? esc(list.map(x => dispName(r, x.u) + (x.st.cond ? '*' : '')).join(', ')) : esc(h.none || 'No units')}</span></div>`;
     }).join('');
   }
-  /* roster split into GW-app categories; an attached leader stays with its bodyguard */
+  /* roster split into GW-app categories; every unit stays in its own category (an attached leader is labelled, not moved) */
   function rosterGroups(r) {
     const pts = rosterPts(r), groups = {};
-    const top = r.units.filter(u => !u.attachedTo || !r.units.some(b => b.instanceId === u.attachedTo));
-    top.forEach(u => {
+    r.units.forEach(u => {
       const def = unitDef(r.factionId, u.datasheetId); if (!def) return;
       const c = catOf(def, r, u), g = groups[c] || (groups[c] = { cat: c, label: CAT_NAME[c] || 'Other', items: [], pts: 0 });
-      [u, ...r.units.filter(a => a.attachedTo === u.instanceId)].forEach(x => { g.items.push(x); g.pts += (pts.per[x.instanceId] || { total: 0 }).total; });
+      g.items.push(u); g.pts += (pts.per[u.instanceId] || { total: 0 }).total;
     });
     return Object.keys(CAT_NAME).concat('other').filter(c => groups[c]).map(c => groups[c]);
   }
   const COLL_KEY = 'mr.ui.collapsed';
   let COLL = lsGet(COLL_KEY) || {};
   const isColl = (r, c) => (COLL[r.id] || []).includes(c);
+  /* "Attached to X" on a leader, "Led by Y" on its bodyguard */
+  function attachInfo(r, u) {
+    const to = u.attachedTo ? r.units.find(b => b.instanceId === u.attachedTo) : null;
+    const by = r.units.filter(a => a.attachedTo === u.instanceId);
+    return { to, by, text: [to ? 'Attached to ' + dispName(r, to) : '', by.length ? 'Led by ' + by.map(a => dispName(r, a)).join(', ') : ''].filter(Boolean).join(' · ') };
+  }
   const groupHdr = (r, g, errUnits) => { const c = isColl(r, g.cat), bad = errUnits && g.items.some(u => errUnits.has(u.instanceId));
     return `<button class="grouphdr rgh ${c ? 'closed' : ''}" data-act="toggleGrp" data-id="${g.cat}" aria-expanded="${!c}"><span class="rgh-l">${CHEV}${esc(g.label)}${bad && c ? ' <span class="bad">✕</span>' : ''}</span><span class="num">${g.items.length} · ${g.pts} pts</span></button>`; };
   function rosterOrder(r) {
@@ -549,7 +554,7 @@
     // roster column
     const v = Engine.validate(r, DATA);
     const errUnits = new Set(v.filter(x => x.severity === 'error' && x.unitInstanceId).map(x => x.unitInstanceId));
-    const cards = hiSummary(r) + rosterGroups(r).map(g => groupHdr(r, g, errUnits) + (isColl(r, g.cat) ? '' : g.items.map(u => unitCard(r, u, pts, errUnits, !!(u.attachedTo && r.units.some(b => b.instanceId === u.attachedTo)))).join(''))).join('');
+    const cards = hiSummary(r) + rosterGroups(r).map(g => groupHdr(r, g, errUnits) + (isColl(r, g.cat) ? '' : g.items.map(u => unitCard(r, u, pts, errUnits)).join(''))).join('');
     const rosterCol = `<section class="stack" aria-label="Roster"><div class="row"><h2 class="grow">Roster</h2><span class="dim num">${r.units.length} units</span></div>
       ${cards || '<div class="empty">Your roster is empty. Add a CHARACTER first; tap a name or portrait to read its datasheet.</div>'}
       <div class="panel pad stack"><h3>Validation</h3>${valList(v)}</div>
@@ -630,7 +635,8 @@
     Engine.instGrants(unitDef(r.factionId, inst.datasheetId), ctx, inst).forEach(g => badges.push(`<span class="badge">${esc(g.keyword)}</span>`));
     if (enh) badges.push(`<span class="badge gold">${esc(enh.name)}</span>`);
     if (p.surcharge) badges.push(`<span class="badge red">${ORD(p.copyNo)} copy +${p.surcharge}</span>`);
-    if (att) badges.push(`<span class="badge">Leading ${esc(dispName(r, att))}</span>`);
+    if (att) badges.push(`<span class="badge link">Attached to ${esc(dispName(r, att))}</span>`);
+    r.units.filter(a => a.attachedTo === inst.instanceId).forEach(a => badges.push(`<span class="badge link">Led by ${esc(dispName(r, a))}</span>`));
     return badges;
   }
 
@@ -1056,8 +1062,8 @@
       const def = unitDef(r.factionId, u.datasheetId); if (!def) return '';
       const p = pts.per[u.instanceId] || { total: 0 };
       const enh = u.enhancementId ? ctx.allEnh[u.enhancementId] : null;
-      const att = u.attachedTo && r.units.some(b => b.instanceId === u.attachedTo);
-      const meta = [u.size > 1 ? `${u.size} models` : '', r.warlordUnitId === u.instanceId ? '<span class="gold">★ Warlord</span>' : '', enh ? `<span class="gold">${esc(enh.name)}</span>` : '', p.surcharge ? `<span class="warn">${ORD(p.copyNo)} copy +${p.surcharge}</span>` : ''].filter(Boolean).join(' · ');
+      const att = false, ai = attachInfo(r, u);
+      const meta = [u.size > 1 ? `${u.size} models` : '', ai.text ? `<span class="linktxt">${esc(ai.text)}</span>` : '', r.warlordUnitId === u.instanceId ? '<span class="gold">★ Warlord</span>' : '', enh ? `<span class="gold">${esc(enh.name)}</span>` : '', p.surcharge ? `<span class="warn">${ORD(p.copyNo)} copy +${p.surcharge}</span>` : ''].filter(Boolean).join(' · ');
       return `<div class="mrow ${att ? 'att' : ''} ${errUnits.has(u.instanceId) ? 'err' : ''} ${S.flash === u.instanceId ? 'flash' : ''}" id="u-${u.instanceId}"><button class="ptbtn" data-act="openInst" data-id="${u.instanceId}" aria-label="Datasheet: ${esc(dispName(r, u))}">${portrait(def, r.factionId)}</button><button class="mrow-main" data-act="openUnit" data-id="${u.instanceId}"><span class="mrow-name">${errUnits.has(u.instanceId) ? '<span class="bad">✕ </span>' : ''}${esc(dispName(r, u))}${kwBadges(r, def, u)}</span><span class="mrow-meta">${meta || '&nbsp;'}</span></button><span class="mrow-pts num">${p.total}</span></div>`;
     };
     const rows = rosterGroups(r).map(g => groupHdr(r, g, errUnits) + (isColl(r, g.cat) ? '' : `<div class="mlist">${g.items.map(rowOf).join('')}</div>`)).join('');
