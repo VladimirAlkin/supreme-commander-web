@@ -319,7 +319,7 @@
     }
     const embers = Array.from({ length: 14 }, (_, i) => `<i style="--x:${(i * 37 + 11) % 100}%;--d:${14 + (i * 7) % 11}s;--delay:${-(i * 2.3).toFixed(1)}s;--s:${2 + (i % 3)}px"></i>`).join('');
     return `<div class="homebg" aria-hidden="true"><div class="glow"></div><div class="embers">${embers}</div></div>` + topbar(`<span class="title">Supreme Commander</span> <span class="dim" style="font-size:.85rem">11th edition</span>`) +
-      `<main class="wrap">${body}<div style="margin-top:22px">${stamp()}${PL.android ? ` <span class="stamp">· App ${esc((() => { try { return AND.version(); } catch (e) { return ''; } })())}</span>` : ''}</div></main>` + tabbar(tabs, S.homeTab, 'homeTab') + modalHTML() + sheetHTML();
+      `<main class="wrap">${body}<div style="margin-top:22px">${stamp()}${PL.android ? ` <span class="stamp">· App ${esc((() => { try { return AND.version(); } catch (e) { return ''; } })())}</span>` : ''}${window.SC_FLAVOUR === 'pwa' ? ` <span class="stamp">· Web ${esc(window.SC_BUILD || '')}</span> <button class="btn sm" data-act="pwaUpdate" style="margin-top:8px">Check for updates</button>` : ''}</div></main>` + tabbar(tabs, S.homeTab, 'homeTab') + modalHTML() + sheetHTML();
   }
   const glossItems = items => items.map(([k, v]) => `<div class="abil"><b>${esc(k)}</b>${esc(v)}</div>`).join('') || '<div class="empty">No terms match.</div>';
   const FACTION_TERMS = new Set(Object.values(DATA.factionData).flatMap(fd => fd.armyRules.map(a => a.name)));
@@ -1376,6 +1376,19 @@
     startRename: () => { S.renaming = true; render(); const i = document.getElementById('roster-name'); if (i) { i.focus(); i.select(); } },
     rosterTab: el => { if (el.dataset.id === 'home') { S.homeTab = 'armies'; go('home'); return; } if (S.m && el.dataset.id === S.tab && !S.sub) { window.scrollTo({ top: 0, behavior: 'smooth' }); return; } S.tab = el.dataset.id; S.modal = null; S.sheet = null; S.sub = null; render(); },
     cat: el => { S.cat = el.dataset.id; render(); },
+    /* web app on a phone: fetch the newest build now; if nothing new arrives, drop the offline cache and reload from the site */
+    pwaUpdate: async () => {
+      toast('Checking for updates…');
+      try {
+        const r = window.__scSW || (navigator.serviceWorker && await navigator.serviceWorker.getRegistration());
+        if (r) await r.update();
+        await new Promise(res => setTimeout(res, 2500));
+        if (r && (r.installing || r.waiting)) return; // the new version reloads the page itself
+        if (window.caches) { const ks = await caches.keys(); await Promise.all(ks.map(k => caches.delete(k))); }
+        if (r) await r.unregister();
+      } catch (e) { }
+      location.reload();
+    },
     toggleGrp: el => { const r = cur(); if (!r) return; const l = COLL[r.id] || []; COLL[r.id] = l.includes(el.dataset.id) ? l.filter(x => x !== el.dataset.id) : [...l, el.dataset.id]; lsSet(COLL_KEY, COLL); PL.haptic('tick'); render(); },
     addUnit: el => {
       if (el.getAttribute('aria-disabled') === 'true') { toast(el.closest('.additem').querySelector('.why').textContent); return; }
