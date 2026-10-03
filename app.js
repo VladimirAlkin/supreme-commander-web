@@ -1,0 +1,1551 @@
+(function () {
+  'use strict';
+  /* ---------------- platform ---------------- */
+  /* Android app: window.SCNative (Java bridge). It stores the same keys as the Windows app,
+     so the storage code below sees one interface: window.__MR_NATIVE + mrSave/mrDel. */
+  const AND = window.SCNative || null;
+  if (AND && !window.__MR_NATIVE) {
+    const m = {};
+    try { const raw = JSON.parse(AND.loadAll() || '{}'); Object.keys(raw).forEach(k => { try { m[k] = JSON.parse(raw[k]); } catch (e) { } }); } catch (e) { }
+    window.__MR_NATIVE = m;
+    window.mrSave = (k, v) => AND.save(k, v);
+    window.mrDel = k => AND.del(k);
+    try { const fs = +AND.fontScale(); if (fs > 0) document.documentElement.style.fontSize = (16 * Math.min(1.3, Math.max(0.85, fs))).toFixed(1) + 'px'; } catch (e) { }
+  }
+  const PL = {
+    android: !!AND,
+    sdk: (() => { try { return AND ? +AND.sdk() : 0; } catch (e) { return 0; } })(),
+    haptic(kind) { if (AND) { try { AND.haptic(kind || 'tick'); } catch (e) { } } },
+    awake: false, lock: null,
+    keepAwake(on) {
+      if (on === this.awake) return; this.awake = on;
+      if (AND) { try { AND.keepAwake(on); } catch (e) { } return; }
+      try { if (on && navigator.wakeLock) navigator.wakeLock.request('screen').then(l => { this.lock = l; }, () => { }); else if (!on && this.lock) { this.lock.release(); this.lock = null; } } catch (e) { }
+    },
+    canShare() { return !!AND || !!navigator.share; },
+    share(subject, text) { if (AND) { AND.shareText(subject, text); return Promise.resolve(true); } return navigator.share({ title: subject, text }).then(() => true, () => false); },
+    copy(text) {
+      if (AND) { AND.copyText(text); return Promise.resolve(true); }
+      try { return navigator.clipboard.writeText(text).then(() => true, () => false); } catch (e) { return Promise.resolve(false); }
+    },
+    paste() {
+      if (AND) { try { return Promise.resolve(AND.readClipboard() || ''); } catch (e) { return Promise.resolve(''); } }
+      try { return navigator.clipboard.readText().then(t => t || '', () => ''); } catch (e) { return Promise.resolve(''); }
+    },
+    bar(hex) { if (AND) { try { AND.setBarColor(hex); } catch (e) { } } },
+  };
+  /* Images arrive as data: URLs in single-file builds. Turn each into a blob: URL once,
+     so every re-render writes a short URL instead of ~700 KB of base64. */
+  const BLOBS = new Map();
+  function blobURL(src) {
+    if (!src || src.slice(0, 5) !== 'data:') return src;
+    let u = BLOBS.get(src);
+    if (u) return u;
+    try {
+      const i = src.indexOf(','), mime = src.slice(5, src.indexOf(';')), bin = atob(src.slice(i + 1));
+      const a = new Uint8Array(bin.length); for (let k = 0; k < bin.length; k++) a[k] = bin.charCodeAt(k);
+      u = URL.createObjectURL(new Blob([a], { type: mime }));
+    } catch (e) { u = src; }
+    BLOBS.set(src, u); return u;
+  }
+  const IMG = {};
+  let blobsOk = true;
+  Object.entries(window.IMAGES || {}).forEach(([k, v]) => { IMG[k] = blobURL(v); });
+  (() => { // a host whose CSP refuses blob: images falls back to the data: URLs
+    const k = Object.keys(IMG).find(x => IMG[x] && IMG[x].slice(0, 5) === 'blob:'); if (!k) return;
+    const im = new Image(); im.onerror = () => { blobsOk = false; Object.entries(window.IMAGES).forEach(([a, v]) => { IMG[a] = v; }); try { render(); } catch (e) { } }; im.src = IMG[k];
+  })();
+  const imgSrc = src => (blobsOk ? blobURL(src) : src);
+  const GR = DATA.gameRules;
+  const $app = document.getElementById('app');
+
+  /* ---------------- helpers ---------------- */
+  const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+  const ORD = n => n + (n % 100 >= 11 && n % 100 <= 13 ? 'th' : ['th', 'st', 'nd', 'rd', 'th', 'th', 'th', 'th', 'th', 'th'][n % 10]);
+  const fdata = id => DATA.factionData[id];
+  const faction = id => DATA.factions.find(f => f.id === id);
+  const bsDef = id => GR.battleSizes.find(b => b.id === id);
+  const CHEV = '<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
+  const ICON = {
+    camera: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>',
+    home: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h5v-6h4v6h5V10"/></svg>',
+    back: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>',
+    close: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>',
+    shield: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></svg>',
+    list: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>',
+    plus: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>',
+    book: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20V3H6.5A2.5 2.5 0 004 5.5z"/><path d="M4 19.5V21h16"/></svg>',
+    bolt: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h8l-1 8 10-12h-8z"/></svg>',
+    dice: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.2" fill="currentColor"/><circle cx="15.5" cy="15.5" r="1.2" fill="currentColor"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></svg>',
+    edit: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></svg>',
+    share: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8h16v-8M16 6l-4-4-4 4M12 2v13"/></svg>',
+    more: '<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg>',
+    info: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>',
+    copy: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 00-1-1H5a1 1 0 00-1 1v10a1 1 0 001 1h3"/></svg>',
+    save: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12M7 10l5 5 5-5M4 19h16"/></svg>',
+    paste: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4h6v3H9z"/></svg>',
+    file: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3H6v18h12V7z"/><path d="M14 3v4h4"/></svg>',
+    trash: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/></svg>',
+    dup: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M4 16V5a1 1 0 011-1h11"/></svg>',
+    gear: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 00.3 1.8l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.7 1.7 0 00-1.8-.3 1.7 1.7 0 00-1 1.5V21a2 2 0 11-4 0v-.1a1.7 1.7 0 00-1.1-1.5 1.7 1.7 0 00-1.8.3l-.1.1a2 2 0 11-2.8-2.8l.1-.1a1.7 1.7 0 00.3-1.8 1.7 1.7 0 00-1.5-1H3a2 2 0 110-4h.1a1.7 1.7 0 001.5-1.1 1.7 1.7 0 00-.3-1.8l-.1-.1a2 2 0 112.8-2.8l.1.1a1.7 1.7 0 001.8.3H9a1.7 1.7 0 001-1.5V3a2 2 0 114 0v.1a1.7 1.7 0 001 1.5 1.7 1.7 0 001.8-.3l.1-.1a2 2 0 112.8 2.8l-.1.1a1.7 1.7 0 00-.3 1.8V9a1.7 1.7 0 001.5 1H21a2 2 0 110 4h-.1a1.7 1.7 0 00-1.5 1z"/></svg>',
+    undo: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 14L4 9l5-5"/><path d="M4 9h11a5 5 0 010 10h-3"/></svg>',
+  };
+
+  /* ---------------- storage ---------------- */
+  const LS_KEY = 'mr.rosters.v1';
+  /* Desktop app: the host injects window.__MR_NATIVE (saved data) and binds mrSave/mrDel/mrSaveFile. */
+  const NATIVE = (window.__MR_NATIVE && typeof window.__MR_NATIVE === 'object') ? window.__MR_NATIVE : null;
+  const lsGet = k => { if (NATIVE) return k in NATIVE ? NATIVE[k] : null; try { return JSON.parse(localStorage.getItem(k) || 'null'); } catch (e) { return null; } };
+  const lsSet = (k, v) => { if (NATIVE) { NATIVE[k] = v; try { window.mrSave(k, JSON.stringify(v)); } catch (e) { } return; } try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { } };
+  const lsDel = k => { if (NATIVE) { delete NATIVE[k]; try { window.mrDel(k); } catch (e) { } return; } try { localStorage.removeItem(k); } catch (e) { } };
+  const Store = {
+    mode: 'local', db: null, uidv: null, downloads: null, timers: {}, busy: {},
+    async init() {
+      try {
+        if (!window.claude || !window.claude.use) return;
+        const [user, db, dl] = await Promise.all([window.claude.use('user'), window.claude.use('db'), window.claude.use('downloads')]);
+        this.downloads = dl;
+        if (!user || !db) return;
+        const id = await user.id();
+        if (!id) return;
+        this.db = db; this.uidv = id;
+        const snap = await db.collection('data/users/' + id).get();
+        const remote = snap.docs.map(d => d.data() && d.data().roster).filter(Boolean);
+        this.mode = 'db';
+        const byId = {};
+        remote.forEach(r => (byId[r.id] = r));
+        // local rosters not yet in db (made before db answered) get pushed up
+        const hasRemote = remote.length > 0;
+        rosters.forEach(r => {
+          if (r.isExample) { if (!hasRemote) byId[r.id] = r; return; } // the untouched example never syncs
+          if (!byId[r.id] || (byId[r.id].updatedAt || 0) < (r.updatedAt || 0)) { byId[r.id] = r; this.save(r); }
+        });
+        rosters = Object.values(byId);
+        lsSet(LS_KEY, rosters);
+        render();
+        Portraits.load();
+      } catch (e) { /* stay local */ }
+    },
+    save(r) {
+      lsSet(LS_KEY, rosters);
+      if (this.mode !== 'db' || r.isExample) return;
+      clearTimeout(this.timers[r.id]);
+      this.timers[r.id] = setTimeout(async () => {
+        if (this.busy[r.id]) { this.save(r); return; }
+        this.busy[r.id] = true;
+        try { await this.db.collection('data/users/' + this.uidv).doc(r.id).set({ roster: JSON.parse(JSON.stringify(r)) }); }
+        catch (e) { if (e && e.code === 'quota_exceeded') toast('Storage is full. Delete old rosters or export them.'); }
+        this.busy[r.id] = false;
+      }, 500);
+    },
+    async remove(id) {
+      lsSet(LS_KEY, rosters);
+      if (this.mode === 'db') { try { await this.db.collection('data/users/' + this.uidv).doc(id).delete(); } catch (e) { } }
+    },
+  };
+  let rosters = lsGet(LS_KEY) || [];
+  /* custom unit portraits: unitId -> data URL (per user; db + local cache) */
+  const PT_KEY = 'mr.portraits.v1';
+  let CUSTOM = lsGet(PT_KEY) || {};
+  /* one-time: drop the old hand-set portraits of units that now ship with a matching official photo */
+  if (!lsGet('mr.portraits.reset1')) { ['angron', 'exalted_eightbound'].forEach(k => delete CUSTOM[k]); lsSet(PT_KEY, CUSTOM); lsSet('mr.portraits.reset1', 1); }
+  const Portraits = {
+    col() { return Store.mode === 'db' ? Store.db.collection('data/users/' + Store.uidv + '/portraits/items') : null; },
+    async load() {
+      const c = this.col(); if (!c) return;
+      try { const snap = await c.get(); const remote = {}; snap.docs.forEach(d => { const v = d.data(); if (v && v.img) remote[d.id] = v.img; });
+        Object.entries(CUSTOM).forEach(([k, v]) => { if (!remote[k]) this.push(k, v); });
+        CUSTOM = Object.assign({}, CUSTOM, remote); lsSet(PT_KEY, CUSTOM); render(); } catch (e) { }
+    },
+    async push(id, img) { const c = this.col(); if (!c) return; try { await c.doc(id).set({ img, updatedAt: Date.now() }); } catch (e) { toast('Could not save the portrait online. It is kept on this device.'); } },
+    set(id, img) { CUSTOM[id] = img; lsSet(PT_KEY, CUSTOM); this.push(id, img); },
+    async clear(id) { delete CUSTOM[id]; lsSet(PT_KEY, CUSTOM); const c = this.col(); if (c) { try { await c.doc(id).delete(); } catch (e) { } } },
+  };
+  const playKey = id => 'mr.play.' + id;
+
+  /* ---------------- state ---------------- */
+  const S = {
+    view: 'home', homeTab: 'armies', factionId: null, factionTab: 'army', rosterId: null, tab: 'build',
+    search: '', cat: 'all', expanded: {}, confirmDel: null, renaming: false, modal: null, draft: null,
+    stratPhase: 'All', stratSrc: 'All', rulesSeg: 'army', dsBuff: true, homeSearch: '', confirmRoster: null, renameRoster: null,
+    m: false, sub: null, sheet: null, playSeg: 'turn', stratMode: 'now', stratOpen: {}, scrollMem: {}, rosterFrom: 'faction', flash: null,
+  };
+  const cur = () => rosters.find(r => r.id === S.rosterId);
+  const unitDef = (fid, id) => fdata(fid).units.find(u => u.id === id);
+  const touch = r => { sortUnits(r); r.updatedAt = Date.now(); if (r.isExample) delete r.isExample; Store.save(r); };
+
+  /* ---------------- theme ---------------- */
+  const DEF_THEME = { bg: '#121012', bg2: '#1c1719', bgDeep: '#0b0a0b', accent: '#c99a4b', accent2: '#d94a3c' };
+  function applyTheme(fid) {
+    const t = (fid && faction(fid) && faction(fid).theme) || DEF_THEME;
+    const s = document.documentElement.style;
+    s.setProperty('--bg', t.bg); s.setProperty('--bg-glow', t.bg2); s.setProperty('--bg-deep', t.bgDeep || t.bg); s.setProperty('--accent', t.accent); s.setProperty('--accent2', t.accent2);
+    if (applyTheme.last !== t.bg) { applyTheme.last = t.bg; PL.bar(t.bg); }
+  }
+
+  /* ---------------- images ---------------- */
+  const logoOf = fid => { const f = faction(fid); return (f && f.logo && IMG[f.logo]) || null; };
+  const iconOf = fid => { const f = faction(fid); return (f && f.rosterIcon && IMG[f.rosterIcon]) || null; };
+  const facVars = f => { const t = f.theme || {}; return `--fc1:${t.card1 || t.bg2};--fc2:${t.card2 || t.bgDeep};--fi1:${t.icon1 || t.bg2};--fi2:${t.icon2 || t.bgDeep};--fa:${t.accent}`; };
+  function portrait(def, fid, cls = '') {
+    const src = (def && CUSTOM[def.id] && imgSrc(CUSTOM[def.id])) || (def && def.image && IMG[def.image]) || logoOf(fid);
+    if (src) return `<img class="pt ${cls}" src="${src}" alt="" loading="lazy">`;
+    return `<span class="pt ${cls}">${faction(fid).emblemSvg}</span>`;
+  }
+
+  /* ---------------- derived ---------------- */
+  function rosterPts(r) { return Engine.points(r, DATA); }
+  function rosterDp(r) { const fd = fdata(r.factionId); return r.detachmentIds.reduce((s, id) => s + ((fd.detachments.find(d => d.id === id) || {}).dp || 0), 0); }
+  /* GW-app style order: Epic Heroes, Characters, Battleline, Dedicated Transports, Infantry, Mounted, Beasts, Monsters, Vehicles */
+  const RANK_KW = ['Battleline', 'Dedicated Transport', 'Infantry', 'Mounted', 'Beast', 'Monster', 'Vehicle', 'Swarm'];
+  function unitRank(def, ctx, inst) {
+    if (!def) return 99;
+    if (Engine.hasKw(def, ctx, 'Epic Hero')) return 0;
+    if (Engine.hasKw(def, ctx, 'Character', inst)) return 1;
+    const i = RANK_KW.findIndex(k => Engine.hasKw(def, ctx, k));
+    return i < 0 ? 20 : 2 + i;
+  }
+  function sortUnits(r) {
+    const ctx = Engine.ctxFor(r, DATA);
+    const rk = new Map(r.units.map((u, i) => [u.instanceId, [unitRank(ctx.unitById[u.datasheetId], ctx, u), i]]));
+    r.units.sort((a, b) => { const x = rk.get(a.instanceId), y = rk.get(b.instanceId); return x[0] - y[0] || x[1] - y[1]; });
+  }
+  function catOf(def, r) {
+    const ctx = Engine.ctxFor(r, DATA);
+    if (def.faction !== fdata(r.factionId).armyFaction) return 'allies';
+    if (Engine.hasKw(def, ctx, 'Character')) return 'character';
+    if (Engine.hasKw(def, ctx, 'Battleline')) return 'battleline';
+    if (Engine.hasKw(def, ctx, 'Dedicated Transport')) return 'transport';
+    for (const k of ['Infantry', 'Mounted', 'Beast', 'Monster', 'Vehicle', 'Swarm']) if (Engine.hasKw(def, ctx, k)) return k.toLowerCase();
+    return 'other';
+  }
+  const CATS = [['all', 'All'], ['character', 'Characters'], ['battleline', 'Battleline'], ['transport', 'Dedicated Transports'], ['infantry', 'Infantry'], ['mounted', 'Mounted'], ['beast', 'Beasts'], ['monster', 'Monsters'], ['vehicle', 'Vehicles'], ['swarm', 'Swarms'], ['allies', 'Allies']];
+  const CAT_NAME = Object.fromEntries(CATS);
+  function newInstance(def) {
+    const wg = {};
+    (def.options || []).forEach(o => { if (o.type === 'choice') wg[o.id] = o.choices[0].id; });
+    return { instanceId: uid(), datasheetId: def.id, size: def.sizes[0].models, wargear: wg, enhancementId: null, attachedTo: null, notes: '', customName: '' };
+  }
+  function wargearSummary(def, inst) {
+    const out = [];
+    (def.slots || []).forEach(sl => { const n = Engine.slotSize(sl, inst) - Engine.slotUsed(def, inst, sl.id); if (n > 0) out.push(`${n}× ${sl.default}`); });
+    (def.options || []).forEach(o => {
+      const v = (inst.wargear || {})[o.id];
+      if (o.type === 'choice') { const c = o.choices.find(c => c.id === v); if (c && c !== o.choices[0] && c.id !== 'none') out.push(c.label); }
+      else if (o.type === 'toggle' && v) out.push(o.label);
+      else if (o.type === 'count' && +v) out.push(`${v}× ${o.label.replace(/ \(.*\)/, '')}`);
+    });
+    return out;
+  }
+  function dispName(r, inst) { const def = unitDef(r.factionId, inst.datasheetId); return inst.customName || (def && def.name) || '?'; }
+
+  /* ---------------- toast / tooltip ---------------- */
+  /* Snackbar: a message with up to two actions (Undo, Configure…); sits above the bottom bar. */
+  let toastT, snackFns = [];
+  function toast(msg, actions) {
+    let t = document.querySelector('.toast');
+    if (!t) {
+      t = document.createElement('div'); t.className = 'toast'; t.setAttribute('role', 'status'); document.body.appendChild(t);
+      t.addEventListener('click', e => { const b = e.target.closest('[data-snack]'); if (!b) return; e.stopPropagation(); const fn = snackFns[+b.dataset.snack]; t.hidden = true; clearTimeout(toastT); if (fn) fn(); });
+    }
+    actions = actions || []; snackFns = actions.map(a => a.fn);
+    t.innerHTML = `<span class="tmsg">${esc(msg)}</span>${actions.map((a, i) => `<button type="button" data-snack="${i}">${esc(a.label)}</button>`).join('')}`;
+    t.classList.toggle('has-act', actions.length > 0);
+    t.hidden = false;
+    clearTimeout(toastT); toastT = setTimeout(() => (t.hidden = true), actions.length ? 6000 : 2600);
+  }
+  window.__scToast = msg => toast(msg);
+  function showTip(el, text) {
+    hideTip();
+    const t = document.createElement('div'); t.className = 'tip'; t.id = 'tip'; t.setAttribute('role', 'tooltip'); t.textContent = text;
+    document.body.appendChild(t);
+    const r = el.getBoundingClientRect();
+    const w = t.offsetWidth, h = t.offsetHeight;
+    let x = Math.min(window.innerWidth - w - 8, Math.max(8, r.left));
+    let y = r.bottom + 6; if (y + h > window.innerHeight - 8) y = r.top - h - 6;
+    t.style.left = x + 'px'; t.style.top = y + 'px';
+  }
+  function hideTip() { const t = document.getElementById('tip'); if (t) t.remove(); }
+  function glossFor(kw) {
+    const g = GR.glossary, low = kw.toLowerCase();
+    const key = Object.keys(g).filter(k => low.startsWith(k.toLowerCase())).sort((x, y) => y.length - x.length)[0];
+    return key ? `${kw}: ${g[key]}` : kw;
+  }
+
+  /* ---------------- common bits ---------------- */
+  function topbar(title, opts = {}) {
+    return `<header class="topbar"><div class="topbar-in">
+      ${opts.back ? `<button class="iconbtn" data-act="${opts.back}" aria-label="Back">${ICON.back}</button>` : '<span class="brand" aria-hidden="true">✠</span>'}
+      <div class="grow">${title}</div>${opts.right || ''}</div>${opts.below || ''}</header>`;
+  }
+  function tabbar(items, current, act) {
+    return `<nav class="tabbar" aria-label="Sections"><div class="tabbar-in">${items.map(([id, label, ic]) => `<button data-act="${act}" data-id="${id}" ${id === current ? 'aria-current="page"' : ''}>${ICON[ic] || ''}<span>${label}</span></button>`).join('')}</div></nav>`;
+  }
+  function meters(r) {
+    const bs = bsDef(r.battleSize), pts = rosterPts(r).total, dp = rosterDp(r);
+    const enh = Engine.enhancementCount(r, Engine.ctxFor(r, DATA));
+    const v = Engine.validate(r, DATA);
+    const ne = v.filter(x => x.severity === 'error').length, nw = v.filter(x => x.severity === 'warning').length;
+    const pct = Math.min(100, (pts / bs.points) * 100);
+    return `<div class="meters">
+      <div class="meter points"><div class="row nowrap"><span class="lbl">Points</span><span class="spacer"></span><b class="num">${pts} / ${bs.points}</b></div><div class="bar ${pts > bs.points ? 'over' : ''}"><i style="width:${pct}%"></i></div></div>
+      <div class="meter"><span class="lbl">DP</span><b class="num" ${dp > bs.dp ? 'style="color:var(--err)"' : ''}>${dp} / ${bs.dp}</b></div>
+      <div class="meter"><span class="lbl">Enhancements</span><b class="num" ${enh > bs.enhancements ? 'style="color:var(--err)"' : ''}>${enh} / ${bs.enhancements}</b></div>
+      <button class="vbadge" data-act="openVal" aria-label="Validation: ${ne} errors, ${nw} warnings">${ne ? `<span class="e">✕ ${ne}</span>` : '<span class="k">✓ Legal</span>'}${nw ? `<span class="w">! ${nw}</span>` : ''}</button>
+    </div>`;
+  }
+  function stamp() { return `<p class="stamp">${esc(DATA.meta.stamp)}</p>`; }
+
+  /* ---------------- HOME ---------------- */
+  function viewHome() {
+    applyTheme(null);
+    const tabs = [['armies', 'Armies', 'shield'], ['rosters', 'My Rosters', 'list'], ['glossary', 'Rules Glossary', 'book']];
+    let body = '';
+    if (S.homeTab === 'armies') {
+      body = `<div class="section-title"><h2>Choose an army</h2></div>
+      <div class="fgrid">${DATA.factions.slice().sort((x, y) => (y.enabled ? 1 : 0) - (x.enabled ? 1 : 0)).map(f => f.enabled
+        ? `<button class="fcard on" style="${facVars(f)}" data-act="openFaction" data-id="${f.id}"><span class="emb">${logoOf(f.id) ? `<img class="emb" src="${logoOf(f.id)}" alt="">` : f.emblemSvg}</span><span><span class="fname">${esc(f.name)}</span><br><span class="dim">${(n => n + (n === 1 ? ' roster' : ' rosters'))(rosters.filter(r => r.factionId === f.id).length)}</span></span></button>`
+        : `<div class="fcard off" aria-disabled="true"><span class="fname">${esc(f.name)}</span><span class="soon">Coming soon</span></div>`).join('')}</div>`;
+    } else if (S.homeTab === 'glossary') {
+      const q = (S.glossSearch || '').trim().toLowerCase();
+      const items = Object.entries(GR.glossary).filter(([k]) => !FACTION_TERMS.has(k)).sort((a, b) => a[0].localeCompare(b[0])).filter(([k, v]) => !q || k.toLowerCase().includes(q) || v.toLowerCase().includes(q));
+      body = `<div class="section-title"><h2>Rules Glossary</h2><span class="dim num">${items.length}</span></div>
+      <p class="dim" style="margin:0 0 12px">Core weapon abilities and unit abilities used by every army.</p>
+      <input class="search" type="search" id="gloss-search" data-inp="glossSearch" placeholder="Search terms, e.g. Lance or Feel No Pain" value="${esc(S.glossSearch || '')}" aria-label="Search the glossary">
+      <div class="stack" id="gloss-list" style="margin-top:12px">${glossItems(items)}</div>`;
+    } else {
+      body = rosterListBlock(null);
+    }
+    const embers = Array.from({ length: 14 }, (_, i) => `<i style="--x:${(i * 37 + 11) % 100}%;--d:${14 + (i * 7) % 11}s;--delay:${-(i * 2.3).toFixed(1)}s;--s:${2 + (i % 3)}px"></i>`).join('');
+    return `<div class="homebg" aria-hidden="true"><div class="glow"></div><div class="embers">${embers}</div></div>` + topbar(`<span class="title">Supreme Commander</span> <span class="dim" style="font-size:.85rem">11th edition</span>`) +
+      `<main class="wrap">${body}<div style="margin-top:22px">${stamp()}${PL.android ? ` <span class="stamp">· App ${esc((() => { try { return AND.version(); } catch (e) { return ''; } })())}</span>` : ''}</div></main>` + tabbar(tabs, S.homeTab, 'homeTab') + modalHTML() + sheetHTML();
+  }
+  const glossItems = items => items.map(([k, v]) => `<div class="abil"><b>${esc(k)}</b>${esc(v)}</div>`).join('') || '<div class="empty">No terms match.</div>';
+  const FACTION_TERMS = new Set(Object.values(DATA.factionData).flatMap(fd => fd.armyRules.map(a => a.name)));
+  function glossFiltered() { const q = (S.glossSearch || '').trim().toLowerCase(); return Object.entries(GR.glossary).filter(([k]) => !FACTION_TERMS.has(k)).sort((a, b) => a[0].localeCompare(b[0])).filter(([k, v]) => !q || k.toLowerCase().includes(q) || v.toLowerCase().includes(q)); }
+  function rosterListInner(fid) {
+    const q = S.homeSearch.trim().toLowerCase();
+    const list = rosters.filter(r => (!fid || r.factionId === fid) && (!q || r.name.toLowerCase().includes(q))).sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
+    const groups = {};
+    list.forEach(r => (groups[r.factionId] = groups[r.factionId] || []).push(r));
+    const items = r => {
+      const f = faction(r.factionId), fd = fdata(r.factionId), bs = bsDef(r.battleSize);
+      const dets = r.detachmentIds.map(id => (fd.detachments.find(d => d.id === id) || {}).name).filter(Boolean).join(', ');
+      const pts = rosterPts(r).total;
+      const d = new Date(r.updatedAt || r.createdAt || Date.now());
+      const confirm = S.confirmRoster === r.id;
+      const renaming = S.renameRoster === r.id;
+      const cardAct = confirm || renaming ? '' : `data-act="openRoster" data-id="${r.id}"`;
+      return `<div class="panel ritem ${cardAct ? 'clickable' : ''}" ${cardAct}>
+        <span class="emb rlogo" style="${facVars(f)}">${iconOf(f.id) ? `<img src="${iconOf(f.id)}" alt="">` : f.emblemSvg}</span>
+        <div class="grow">${renaming ? `<input type="text" id="rn-${r.id}" data-inp="rosterRename" data-id="${r.id}" value="${esc(r.name)}" aria-label="Roster name" style="width:100%">` : `<button class="ptbtn rname" data-act="openRoster" data-id="${r.id}" style="text-align:left">${esc(r.name)}</button>`}
+          <div class="rmeta">${esc(f.name)} · ${bs ? bs.name : ''} · <span class="num">${pts}/${bs ? bs.points : '?'} pts</span></div>
+          <div class="rmeta">${esc(dets || 'No detachment')} · ${d.toLocaleDateString()}</div></div>
+        <div class="acts">${S.m && !confirm && !renaming ? `<button class="iconbtn" data-act="rosterMenu2" data-id="${r.id}" aria-label="Actions for ${esc(r.name)}">${ICON.more}</button>` : confirm ? `<span class="confirm">Delete “${esc(r.name)}”? <button class="btn sm danger" data-act="rosterDelYes" data-id="${r.id}">Delete</button><button class="btn sm" data-act="rosterDelNo">Keep</button></span>` :
+          renaming ? `<button class="btn sm primary" data-act="rosterRenameDone" data-id="${r.id}">Save name</button><button class="btn sm" data-act="rosterRenameCancel" data-id="${r.id}">Cancel</button>` :
+          `<button class="btn sm" data-act="openRoster" data-id="${r.id}">Open</button><button class="btn sm" data-act="rosterDup" data-id="${r.id}">Duplicate</button><button class="btn sm" data-act="rosterRename" data-id="${r.id}">Rename</button><button class="btn sm" data-act="exportRoster" data-id="${r.id}">Export</button><button class="btn sm danger" data-act="rosterDel" data-id="${r.id}">Delete</button>`}</div>
+      </div>`;
+    };
+    return list.length ? Object.entries(groups).map(([f, rs]) => `<div class="grouphdr">${esc(faction(f).name)}</div><div class="rlist">${rs.map(items).join('')}</div>`).join('') :
+        `<div class="empty">No rosters yet. Pick an army and tap <b>New Roster</b>.${fid ? '' : ' <button class="btn sm primary" data-act="homeTab" data-id="armies">Choose an army</button>'}</div>`;
+  }
+  function rosterListBlock(fid) {
+    const n = rosters.filter(r => !fid || r.factionId === fid).length;
+    return `<div class="section-title"><h2>My Rosters</h2><span class="dim num">${n}</span><span class="spacer"></span>${rosters.length ? '<button class="btn sm" data-act="openBackup">Back up</button>' : ''}<button class="btn sm" data-act="openImport">Import</button></div>
+      <input class="search" type="search" id="home-search" data-inp="homeSearch" placeholder="Search rosters by name" value="${esc(S.homeSearch)}" aria-label="Search rosters">
+      <div class="stack" id="roster-list" style="margin-top:12px">${rosterListInner(fid)}</div>`;
+  }
+
+  /* ---------------- FACTION ---------------- */
+  function viewFaction() {
+    const f = faction(S.factionId), fd = fdata(S.factionId);
+    applyTheme(S.factionId);
+    const tabs = [['army', 'Army Rules'], ['dets', 'Detachments'], ['sheets', 'Datasheets']];
+    let rules = '';
+    if (S.factionTab === 'army') rules = armyRulesHTML(fd);
+    if (S.factionTab === 'dets') rules = `<div class="stack">${fd.detachments.map(d => detachmentHTML(d)).join('')}</div>`;
+    if (S.factionTab === 'sheets') {
+      const q = S.search.toLowerCase();
+      const us = fd.units.filter(u => !q || u.name.toLowerCase().includes(q) || u.keywords.join(' ').toLowerCase().includes(q));
+      rules = `<input class="search" type="search" id="fs-search" data-inp="search" placeholder="Search datasheets or keywords" value="${esc(S.search)}" aria-label="Search datasheets">
+        <div class="addlist" style="margin-top:10px">${us.map(u => `<div class="panel additem"><button class="ptbtn" data-act="openDs" data-id="${u.id}" aria-label="Open ${esc(u.name)} datasheet">${portrait(u, S.factionId)}</button>
+          <div class="grow"><button class="nm" data-act="openDs" data-id="${u.id}">${esc(u.name)}</button><div class="sub">${u.faction !== fd.armyFaction ? esc(u.faction) + ' · ' : ''}${u.sizes.map(s => `${s.models} model${s.models === 1 ? '' : 's'} ${s.pts}`).join(' / ')} pts</div></div><button class="btn sm" data-act="editPortrait" data-id="${u.id}" aria-label="Change portrait of ${esc(u.name)}">${ICON.camera}<span class="hide-sm">Portrait</span></button></div>`).join('')}</div>`;
+    }
+    return topbar(`<span class="title">${esc(f.name)}</span>`, { back: 'goHome' }) +
+      `<main class="wrap"><div class="hero">${logoOf(f.id) ? `<img src="${logoOf(f.id)}" alt="">` : f.emblemSvg}<div><div class="eyebrow">Army</div><h1 class="h-display">${esc(f.name)}</h1></div></div>
+      <div class="row" style="margin:8px 0 6px"><button class="btn primary" data-act="newRoster">${ICON.plus} New Roster</button><button class="btn" data-act="openImport">Import roster</button></div>
+      ${rosterListBlock(S.factionId)}
+      <div class="section-title" style="margin-top:28px"><h2>Rules browser</h2></div>
+      <div class="tabs" role="tablist">${tabs.map(([id, l]) => `<button role="tab" aria-selected="${S.factionTab === id}" data-act="factionTab" data-id="${id}">${l}</button>`).join('')}</div>
+      <div style="margin-top:14px">${rules}</div><div style="margin-top:22px">${stamp()}</div></main>` + modalHTML() + sheetHTML();
+  }
+
+  function armyRulesHTML(fd) {
+    return `<div class="stack">${fd.armyRules.map(r => `<div class="panel pad stack"><h3>${esc(r.name)}</h3>${r.text.map(t => `<p style="margin:0">${esc(t)}</p>`).join('')}
+      ${r.blessings ? `<div class="stack" style="gap:6px">${r.blessings.map(b => `<div class="blessing"><div><b>${esc(b.name)}</b><div class="dim">${esc(b.effect)}</div></div><span class="badge gold">${esc(b.reqText)}</span></div>`).join('')}</div>` : ''}</div>`).join('')}</div>`;
+  }
+  function enhLine(e, carriers) {
+    return `<div class="abil"><div class="row nowrap"><b class="grow">${esc(e.name)}${e.upgrade ? ' <span class="badge gold">Upgrade</span>' : ''}</b><span class="num" style="font-weight:700">${e.pts} pts</span></div><div>${esc(e.text)}</div>${carriers ? `<div class="dim" style="margin-top:4px">Carried by: ${esc(carriers)}</div>` : ''}</div>`;
+  }
+  function detachmentHTML(d, r) {
+    const carriers = e => r ? r.units.filter(u => Engine.enhIds(u).includes(e.id)).map(u => dispName(r, u)).join(', ') : '';
+    const enhs = r ? d.enhancements.filter(e => carriers(e)) : d.enhancements;
+    return `<details class="panel pad" ${r ? 'open' : ''}><summary style="cursor:pointer;list-style:none"><div class="row"><h3 class="grow">${esc(d.name)}</h3><span class="badge gold">${d.dp} DP</span>${Engine.dispositionsOf(d).map(x => `<span class="badge">${esc(x)}</span>`).join('')}${(d.tags || []).map(t => `<span class="badge red">${esc(t)}</span>`).join('')}</div><div class="dim" style="margin-top:4px">${esc(d.summary || '')}</div></summary>
+      <div class="stack" style="margin-top:12px"><div class="abil"><b>${esc(d.rule.name)}</b>${esc(d.rule.text)}</div>
+      <div class="eyebrow">${r ? 'Enhancements in this roster' : 'Enhancements'}</div>${enhs.length ? enhs.map(e => enhLine(e, r && carriers(e))).join('') : '<div class="dim">None taken.</div>'}
+      ${r ? '' : `<div class="eyebrow">Stratagems</div><div class="sgrid">${d.stratagems.map(s => stratCard(s, d.name)).join('')}</div>`}</div></details>`;
+  }
+  const PH_VAR = { Command: '--ph-command', Movement: '--ph-movement', Shooting: '--ph-shooting', Charge: '--ph-charge', Fight: '--ph-fight', Any: '--ph-any' };
+  function stratCard(s, src) {
+    const ph = s.phases[0];
+    return `<article class="scard" style="--ph:var(${PH_VAR[ph] || '--ph-any'})"><div class="row nowrap"><div class="grow"><div class="ph">${esc(s.phases.join(' / '))} · ${esc(s.type || 'Core')}</div><h3>${esc(s.name)}</h3></div><span class="cp num">${s.cp} CP</span></div>
+      <dl><dt>When</dt><dd>${esc(s.when)}</dd><dt>Target</dt><dd>${esc(s.target)}</dd><dt>Effect</dt><dd>${esc(s.effect)}</dd>${s.restrictions ? `<dt>Limit</dt><dd>${esc(s.restrictions)}</dd>` : ''}</dl>
+      <div class="faint" style="font-size:.8rem">${esc(src)}</div></article>`;
+  }
+
+  /* ---------------- WIZARD ---------------- */
+  function detBlock(d, draft) {
+    const fd = fdata(draft.factionId), bs = bsDef(draft.battleSize);
+    if (draft.detachmentIds.includes(d.id)) return null;
+    const sel = draft.detachmentIds.map(id => fd.detachments.find(x => x.id === id));
+    const used = sel.reduce((s, x) => s + x.dp, 0);
+    if (bs.loneThreeDp && sel.some(x => x.dp === 3)) return `A 3 DP detachment must be your only one in ${bs.name}.`;
+    if (d.dp === 3 && sel.some(x => x.dp === 3)) return 'Only one 3 DP detachment per army.';
+    if (used + d.dp > bs.dp && !(bs.loneThreeDp && d.dp === 3 && !sel.length)) return `Needs ${d.dp} DP, you have ${bs.dp - used} left.`;
+    const tag = (d.tags || []).find(t => sel.some(x => (x.tags || []).includes(t)));
+    if (tag) return `Shares the ${tag} tag with a chosen detachment.`;
+    return null;
+  }
+  function viewWizard() {
+    const dr = S.draft, fd = fdata(dr.factionId), f = faction(dr.factionId), bs = bsDef(dr.battleSize);
+    applyTheme(dr.factionId);
+    const used = dr.detachmentIds.reduce((s, id) => s + fd.detachments.find(d => d.id === id).dp, 0);
+    const disps = [...new Set(dr.detachmentIds.flatMap(id => Engine.dispositionsOf(fd.detachments.find(d => d.id === id))))];
+    if (disps.length === 1) dr.forceDisposition = disps[0];
+    if (dr.forceDisposition && !disps.includes(dr.forceDisposition)) dr.forceDisposition = null;
+    const ok = dr.name.trim() && dr.detachmentIds.length && dr.forceDisposition;
+    return topbar(`<span class="title">${dr.editing ? 'Edit setup' : 'New ' + esc(f.name) + ' roster'}</span>`, { back: dr.editing ? 'wizCancel' : 'goFaction' }) +
+      `<main class="wrap stack" style="gap:22px">
+      <section class="stack"><div class="eyebrow">1 · Roster name</div><input type="text" id="wiz-name" data-inp="draftName" value="${esc(dr.name)}" aria-label="Roster name" style="max-width:520px"></section>
+      <section class="stack"><div class="eyebrow">2 · Battle size</div><div class="cards3">${GR.battleSizes.map(b => `<button class="choice" aria-pressed="${dr.battleSize === b.id}" data-act="draftSize" data-id="${b.id}"><span class="big">${b.name}</span><dl><dt>Points</dt><dd>${b.points}</dd><dt>DP budget</dt><dd>${b.dp}</dd><dt>Enhancements</dt><dd>${b.enhancements}</dd><dt>Copies per datasheet</dt><dd>${b.copyLimit} (Battleline / Transport ${b.copyLimit * 2})</dd></dl>${b.loneThreeDp ? '<span class="dim" style="font-size:.85rem">A single 3 DP detachment may be taken on its own.</span>' : ''}</button>`).join('')}</div></section>
+      <section class="stack"><div class="row"><div class="eyebrow grow">3 · Detachments</div><b class="num">${used} / ${bs.dp} DP</b></div><div class="bar ${used > bs.dp ? 'over' : ''}"><i style="width:${Math.min(100, used / bs.dp * 100)}%"></i></div>
+        <div class="stack" style="gap:8px">${fd.detachments.map(d => { const why = detBlock(d, dr); const on = dr.detachmentIds.includes(d.id); return `<button class="choice detrow" role="checkbox" aria-checked="${on}" ${why ? 'aria-disabled="true"' : ''} data-act="draftDet" data-id="${d.id}"><span class="check">${on ? '✓' : ''}</span><span class="stack" style="gap:4px"><span class="row"><span class="big">${esc(d.name)}</span><span class="badge gold">${d.dp} DP</span>${Engine.dispositionsOf(d).map(x => `<span class="badge">${esc(x)}</span>`).join('')}${(d.tags || []).map(t => `<span class="badge red">${esc(t)}</span>`).join('')}</span><span class="dim">${esc(d.summary)}</span>${why ? `<span class="why">⚠ ${esc(why)}</span>` : ''}</span></button>`; }).join('')}</div></section>
+      <section class="stack"><div class="eyebrow">4 · Force Disposition</div>${disps.length ? `<div class="row">${disps.map(x => `<button class="chip" aria-pressed="${dr.forceDisposition === x}" data-act="draftDisp" data-id="${esc(x)}">${esc(x)}</button>`).join('')}</div>${disps.length === 1 ? '<span class="dim">Set automatically: only one disposition is available.</span>' : '<span class="dim">Pick one of your detachments\' dispositions.</span>'}` : '<span class="dim">Choose a detachment first.</span>'}</section>
+      <div class="row"><button class="btn primary" data-act="wizDone" ${ok ? '' : 'disabled'}>${dr.editing ? 'Save setup' : 'Create roster'}</button>${ok ? '' : '<span class="dim">Pick a detachment and a disposition to continue.</span>'}</div>
+      </main>`;
+  }
+
+  /* ---------------- ROSTER (builder & tabs) ---------------- */
+  function viewRoster() {
+    const r = cur();
+    if (!r) { S.view = 'home'; return viewHome(); }
+    applyTheme(r.factionId);
+    if (S.m) return viewRosterM(r);
+    const title = S.renaming
+      ? `<input type="text" id="roster-name" data-inp="rosterName" value="${esc(r.name)}" aria-label="Roster name" style="width:100%;max-width:420px">`
+      : `<button class="ptbtn title" data-act="startRename" style="max-width:100%;text-align:left" aria-label="Rename roster">${esc(r.name)} <span class="faint" style="font-size:.8rem">${ICON.edit.replace('<svg', '<svg width="14" height="14"')}</span></button>`;
+    const right = `<button class="btn sm" data-act="exportRoster" data-id="${r.id}">${ICON.share}<span class="sr">Export</span></button>`;
+    let body = '';
+    if (S.tab === 'build') body = builderHTML(r);
+    if (S.tab === 'list') body = rosterViewHTML(r);
+    if (S.tab === 'rules') body = rulesTabHTML(r);
+    if (S.tab === 'strats') body = stratsTabHTML(r);
+    if (S.tab === 'play') body = playHTML(r);
+    const tabs = [['home', 'Home', 'home'], ['build', 'Build', 'plus'], ['list', 'Roster', 'list'], ['rules', 'Rules', 'book'], ['strats', 'Stratagems', 'bolt'], ['play', 'Play', 'dice']];
+    return topbar(title, { back: 'goBack', right, below: meters(r) }) + `<main class="wrap">${body}</main>` + tabbar(tabs, S.tab, 'rosterTab') + modalHTML() + sheetHTML();
+  }
+
+  /* catalogue of addable units (desktop left column, phone "Add units" screen) */
+  function catalogCats(r) {
+    const fd = fdata(r.factionId);
+    const blAllowed = (fd.alliedFactions || []).filter(a => r.detachmentIds.includes(a.requiresDetachment)).map(a => a.faction);
+    const present = new Set(fd.units.filter(u => u.faction === fd.armyFaction || blAllowed.includes(u.faction)).map(u => catOf(u, r)));
+    return { blAllowed, cats: CATS.filter(([c]) => c === 'all' || present.has(c)) };
+  }
+  function catalogList(r) {
+    const fd = fdata(r.factionId), bs = bsDef(r.battleSize);
+    const ctx = Engine.ctxFor(r, DATA);
+    const { blAllowed } = catalogCats(r);
+    const q = S.search.trim().toLowerCase();
+    const units = fd.units.filter(u => (u.faction === fd.armyFaction || blAllowed.includes(u.faction)))
+      .filter(u => S.cat === 'all' || catOf(u, r) === S.cat)
+      .filter(u => !q || u.name.toLowerCase().includes(q) || [...Engine.keywordsOf(u, ctx)].join(' ').toLowerCase().includes(q));
+    const pts = rosterPts(r);
+    const grouped = {};
+    units.forEach(u => (grouped[catOf(u, r)] = grouped[catOf(u, r)] || []).push(u));
+    const have = id => r.units.filter(x => x.datasheetId === id).length;
+    const addRow = u => {
+      const nx = Engine.nextCopyInfo(u, r, DATA, u.sizes[0].models);
+      const blocked = nx.copyNo > nx.limit ? `Limit ${nx.limit} reached in ${bs.name}` : null;
+      const overPts = !blocked && pts.total + nx.pts > bs.points ? `Over points by ${pts.total + nx.pts - bs.points}` : null;
+      const n = have(u.id);
+      return `<div class="panel additem"><button class="ptbtn" data-act="openDs" data-id="${u.id}" aria-label="Open ${esc(u.name)} datasheet">${portrait(u, r.factionId)}</button>
+        <div class="grow"><button class="nm" data-act="openDs" data-id="${u.id}">${esc(u.name)}${n ? ` <span class="have">×${n}</span>` : ''}</button>
+        <div class="sub num">${u.sizes.map(s => `${s.models}: ${s.pts}`).join(' · ')} pts</div>
+        ${nx.surcharge ? `<div class="sub" style="color:var(--warn)">Next copy: +${nx.surcharge} pts</div>` : ''}${blocked ? `<div class="why">${esc(blocked)}</div>` : overPts ? `<div class="why">${esc(overPts)}</div>` : ''}</div>
+        <button class="addbtn" data-act="addUnit" data-id="${u.id}" ${blocked ? 'aria-disabled="true"' : ''} aria-label="Add ${esc(u.name)}${blocked ? ' (' + esc(blocked) + ')' : ''}">+</button></div>`;
+    };
+    return (Object.keys(CAT_NAME).filter(c => grouped[c]).map(c => `<div class="grouphdr">${CAT_NAME[c]}${c === 'allies' ? ' · Blood Legions' : ''}</div>${grouped[c].map(addRow).join('')}`).join('') || '<div class="empty">No units match.</div>')
+      + (blAllowed.length ? '' : (fd.alliedFactions || []).map(a => `<div class="faint" style="font-size:.85rem;margin-top:8px">${esc(a.faction)} allies appear when ${esc((fd.detachments.find(d => d.id === a.requiresDetachment) || {}).name || '')} is in the roster.</div>`).join(''));
+  }
+  /* display order: each bodyguard followed by the leaders attached to it */
+  function rosterOrder(r) {
+    const top = r.units.filter(u => !u.attachedTo || !r.units.some(b => b.instanceId === u.attachedTo));
+    const out = [];
+    top.forEach(u => { out.push(u); r.units.filter(a => a.attachedTo === u.instanceId).forEach(a => out.push(a)); });
+    return out;
+  }
+
+  function builderHTML(r) {
+    const fd = fdata(r.factionId), bs = bsDef(r.battleSize);
+    const { cats } = catalogCats(r);
+    const pts = rosterPts(r);
+    const addCol = `<section class="addcol stack" aria-label="Add units"><div class="row"><h2 class="grow">Add units</h2><button class="btn sm" data-act="editSetup">Edit setup</button></div>
+      <div class="dim" style="font-size:.9rem">${esc(bs.name)} · ${esc(r.detachmentIds.map(id => fd.detachments.find(d => d.id === id).name).join(' + '))} · ${esc(r.forceDisposition || 'no disposition')}</div>
+      <input class="search" type="search" id="add-search" data-inp="search" placeholder="Search name or keyword" value="${esc(S.search)}" aria-label="Search units" autocomplete="off">
+      <div class="chips" role="group" aria-label="Categories">${cats.map(([c, l]) => `<button class="chip" aria-pressed="${S.cat === c}" data-act="cat" data-id="${c}">${l}</button>`).join('')}</div>
+      <div class="addlist" id="cat-list">${catalogList(r)}</div></section>`;
+    // roster column
+    const v = Engine.validate(r, DATA);
+    const errUnits = new Set(v.filter(x => x.severity === 'error' && x.unitInstanceId).map(x => x.unitInstanceId));
+    const top = r.units.filter(u => !u.attachedTo || !r.units.some(b => b.instanceId === u.attachedTo));
+    const cards = top.map(u => unitCard(r, u, pts, errUnits) + r.units.filter(a => a.attachedTo === u.instanceId).map(a => unitCard(r, a, pts, errUnits, true)).join('')).join('');
+    const rosterCol = `<section class="stack" aria-label="Roster"><div class="row"><h2 class="grow">Roster</h2><span class="dim num">${r.units.length} units</span></div>
+      ${cards || '<div class="empty">Your roster is empty. Add a CHARACTER first; tap a name or portrait to read its datasheet.</div>'}
+      <div class="panel pad stack"><h3>Validation</h3>${valList(v)}</div>
+      <label class="fld">Roster notes<textarea id="roster-notes" data-inp="rosterNotes">${esc(r.notes || '')}</textarea></label></section>`;
+    return `<div class="builder">${addCol}${rosterCol}</div>`;
+  }
+
+  function valList(v) {
+    if (!v.length) return '<div class="dim">✓ No problems found. This roster is legal.</div>';
+    const order = { error: 0, warning: 1, info: 2 };
+    const ic = { error: '✕', warning: '!', info: 'i' };
+    const lbl = { error: 'Error', warning: 'Warning', info: 'Note' };
+    return `<div class="vpanel">${v.slice().sort((a, b) => order[a.severity] - order[b.severity]).map(m => `<button class="vmsg ${m.severity}" data-act="jumpUnit" data-id="${m.unitInstanceId || ''}"><span class="ic" aria-hidden="true">${ic[m.severity]}</span><span><span class="sr">${lbl[m.severity]}: </span>${esc(m.message)}</span></button>`).join('')}</div>`;
+  }
+
+  /* pickers: enhancement / upgrade and attach-to-bodyguard; inline popover on desktop, bottom sheet on phones */
+  function pickCard(act, instId, val, name, meta, desc, on, why, pre = '') {
+    return `<button class="pick ${on ? 'on' : ''}" role="radio" aria-checked="${on}" ${why ? 'aria-disabled="true"' : ''} data-act="${act}" data-id="${instId}" data-v="${val}"><span class="pick-dot" aria-hidden="true"></span>${pre}<span class="pick-body"><span class="pick-top"><b>${name}</b>${meta}</span>${desc ? `<span class="pick-desc">${desc}</span>` : ''}${why ? `<span class="pick-why">⚠ ${esc(why)}</span>` : ''}</span></button>`;
+  }
+  function enhChoices(r, inst) {
+    const def = unitDef(r.factionId, inst.datasheetId), ctx = Engine.ctxFor(r, DATA);
+    const isChar = Engine.hasKw(def, ctx, 'Character', inst);
+    const ctxEnh = ctx.dets.flatMap(d => d.enhancements.map(e => ({ ...e, det: d.name })));
+    return { isChar, relevant: ctxEnh.filter(e => isChar ? !e.upgrade : (e.upgrade && !Engine.eligibleReason(e, inst, r, DATA))) };
+  }
+  function enhPickList(r, inst) {
+    const { relevant } = enhChoices(r, inst);
+    return pickCard('pickEnh', inst.instanceId, '', 'None', '', '', !inst.enhancementId, null)
+      + relevant.map(e => { const on = e.id === inst.enhancementId; const why = on ? null : Engine.enhancementBlock(e, inst, r, DATA); return pickCard('pickEnh', inst.instanceId, e.id, esc(e.name), `<span class="pick-pts num">+${e.pts} pts</span><span class="badge">${esc(e.det)}</span>${e.upgrade ? '<span class="badge gold">Upgrade</span>' : ''}`, esc(e.text), on, why); }).join('');
+  }
+  function attTargets(r, inst) {
+    const def = unitDef(r.factionId, inst.datasheetId);
+    const can = Engine.canLead(def, inst, r, DATA);
+    return { can, targets: r.units.filter(u => u.instanceId !== inst.instanceId && can.includes(u.datasheetId)) };
+  }
+  function attPickList(r, inst) {
+    const { targets } = attTargets(r, inst);
+    return pickCard('pickAtt', inst.instanceId, '', 'Not attached', '', '', !inst.attachedTo, null)
+      + targets.map(t => { const taken = r.units.find(u => u.attachedTo === t.instanceId && u.instanceId !== inst.instanceId); const on = inst.attachedTo === t.instanceId; const tdef = unitDef(r.factionId, t.datasheetId); return pickCard('pickAtt', inst.instanceId, t.instanceId, esc(dispName(r, t)), `<span class="pick-pts num">${t.size} models</span>`, '', on, taken ? `Leader slot taken by ${dispName(r, taken)}` : null, portrait(tdef, r.factionId, 'sm')); }).join('');
+  }
+  function unitBody(r, inst, pts, mobile) {
+    const def = unitDef(r.factionId, inst.datasheetId);
+    const ctx = Engine.ctxFor(r, DATA);
+    const p = pts.per[inst.instanceId] || { total: 0 };
+    const sizes = def.sizes.length > 1 ? `<div class="stack" style="gap:6px"><span class="eyebrow">Unit size</span><div class="seg" role="group" aria-label="Unit size">${def.sizes.map(s => { const later = def.stepFrom && p.copyNo >= def.stepFrom && s.ptsLater != null; return `<button aria-pressed="${inst.size === s.models}" data-act="setSize" data-id="${inst.instanceId}" data-v="${s.models}">${s.models} · ${later ? s.ptsLater : s.pts} pts</button>`; }).join('')}</div></div>` : '';
+    const opts = wargearHTML(def, inst);
+    const { isChar, relevant } = enhChoices(r, inst);
+    let enhHTML = '';
+    if (Engine.hasKw(def, ctx, 'Epic Hero')) enhHTML = '<div class="dim">Epic Heroes cannot take enhancements.</div>';
+    else if (relevant.length) {
+      const kE = inst.instanceId + ':enh', openE = !mobile && S.openPick === kE, curE = relevant.find(e => e.id === inst.enhancementId);
+      const trigE = `<button class="picktrig ${curE ? 'set' : ''}" data-act="${mobile ? 'pickSheet' : 'togglePick'}" data-k="${kE}" data-kind="enh" data-id="${inst.instanceId}" aria-expanded="${openE}"><span class="pick-body"><span class="pick-top"><b>${curE ? esc(curE.name) : 'None'}</b>${curE ? `<span class="pick-pts num">+${curE.pts} pts</span><span class="badge">${esc(curE.det)}</span>` : ''}</span>${curE ? `<span class="pick-desc">${esc(curE.text)}</span>` : ''}</span>${CHEV}</button>`;
+      enhHTML = `<div class="stack" style="gap:6px"><span class="eyebrow">${isChar ? 'Enhancement' : 'Upgrade'}</span><div class="pickwrap">${trigE}${openE ? `<div class="picklist pickpop" role="radiogroup" aria-label="${isChar ? 'Enhancement' : 'Upgrade'}">${enhPickList(r, inst)}</div>` : ''}</div></div>`;
+    }
+    const { can, targets } = attTargets(r, inst);
+    let attHTML = '';
+    if (can.length) {
+      const kA = inst.instanceId + ':att', openA = !mobile && S.openPick === kA, curA = inst.attachedTo ? r.units.find(u => u.instanceId === inst.attachedTo) : null;
+      const trigA = `<button class="picktrig ${curA ? 'set' : ''}" data-act="${mobile ? 'pickSheet' : 'togglePick'}" data-k="${kA}" data-kind="att" data-id="${inst.instanceId}" aria-expanded="${openA}">${curA ? portrait(unitDef(r.factionId, curA.datasheetId), r.factionId, 'sm') : ''}<span class="pick-body"><span class="pick-top"><b>${curA ? esc(dispName(r, curA)) : 'Not attached'}</b>${curA ? `<span class="pick-pts num">${curA.size} models</span>` : ''}</span></span>${CHEV}</button>`;
+      attHTML = `<div class="stack" style="gap:6px"><span class="eyebrow">Attach to bodyguard</span><div class="pickwrap">${trigA}${openA ? `<div class="picklist pickpop" role="radiogroup" aria-label="Attach to bodyguard">${attPickList(r, inst)}</div>` : ''}</div></div>
+        <div class="faint" style="font-size:.85rem">Can lead: ${esc(can.map(id => (unitDef(r.factionId, id) || {}).name).join(', '))}${targets.length ? '' : ' — add one of these units first.'}</div>`;
+    }
+    const leaders = r.units.filter(u => u.attachedTo === inst.instanceId);
+    const grants = Engine.grantsFor(def, ctx).map(g => `<label class="row toggle-row"><input type="checkbox" id="gr-${inst.instanceId}-${g.id}" data-chg="grant" data-id="${inst.instanceId}" data-g="${g.id}" ${(inst.grants || []).includes(g.id) ? 'checked' : ''}> ${esc(g.label)}</label>${g.note ? `<div class="faint" style="font-size:.85rem;margin-top:-6px">${esc(g.note)}</div>` : ''}`).join('');
+    const wlWhy = isChar ? Engine.warlordBlock(def, inst, ctx) : null, isWl = r.warlordUnitId === inst.instanceId;
+    return `${grants}${sizes}${opts ? `<div class="stack" style="gap:10px"><span class="eyebrow">Wargear</span>${opts}</div>` : ''}${enhHTML}${attHTML}
+      ${leaders.length ? `<div class="dim">Led by: ${esc(leaders.map(l => dispName(r, l)).join(', '))}</div>` : ''}
+      ${isChar ? `<label class="row toggle-row"><input type="checkbox" id="wl-${inst.instanceId}" data-chg="warlord" data-id="${inst.instanceId}" ${isWl ? 'checked' : ''} ${wlWhy && !isWl ? 'disabled' : ''}> Warlord</label>${wlWhy ? `<div class="faint" style="font-size:.85rem;margin-top:-6px">${esc(wlWhy)}</div>` : ''}` : ''}
+      ${mobile ? '' : S.confirmDel === inst.instanceId ? `<div class="confirm">Remove ${esc(dispName(r, inst))} from the roster? <button class="btn sm danger" data-act="delYes" data-id="${inst.instanceId}">Remove</button><button class="btn sm" data-act="delNo">Keep</button></div>` :
+        `<div class="row"><button class="btn sm" data-act="dupUnit" data-id="${inst.instanceId}">Duplicate</button><button class="btn sm danger" data-act="delUnit" data-id="${inst.instanceId}">Remove</button></div>`}`;
+  }
+  function unitBadges(r, inst, p, ctx) {
+    const enh = inst.enhancementId ? ctx.allEnh[inst.enhancementId] : null;
+    const att = inst.attachedTo ? r.units.find(u => u.instanceId === inst.attachedTo) : null;
+    const badges = [];
+    if (r.warlordUnitId === inst.instanceId) badges.push('<span class="badge gold">Warlord</span>');
+    Engine.instGrants(unitDef(r.factionId, inst.datasheetId), ctx, inst).forEach(g => badges.push(`<span class="badge">${esc(g.keyword)}</span>`));
+    if (enh) badges.push(`<span class="badge gold">${esc(enh.name)}</span>`);
+    if (p.surcharge) badges.push(`<span class="badge red">${ORD(p.copyNo)} copy +${p.surcharge}</span>`);
+    if (att) badges.push(`<span class="badge">Leading ${esc(dispName(r, att))}</span>`);
+    return badges;
+  }
+
+  function unitCard(r, inst, pts, errUnits, attached) {
+    const def = unitDef(r.factionId, inst.datasheetId);
+    if (!def) return '';
+    const ctx = Engine.ctxFor(r, DATA);
+    const p = pts.per[inst.instanceId] || { total: 0 };
+    const open = !!S.expanded[inst.instanceId];
+    const meta = [`${inst.size} model${inst.size > 1 ? 's' : ''}`];
+    const badges = unitBadges(r, inst, p, ctx);
+    const bodyHTML = open ? `<div class="ubody">${unitBody(r, inst, pts, false)}</div>` : '';
+    return `<article class="ucard ${attached ? 'attached' : ''} ${errUnits.has(inst.instanceId) ? 'flag-err' : ''}" id="u-${inst.instanceId}">
+      <div class="uhead"><button class="ptbtn" data-act="openInst" data-id="${inst.instanceId}" aria-label="Open datasheet">${portrait(def, r.factionId)}</button>
+      <div class="grow"><button class="uname" data-act="openInst" data-id="${inst.instanceId}">${errUnits.has(inst.instanceId) ? '<span style="color:var(--err)" aria-label="Has errors">✕ </span>' : ''}${esc(dispName(r, inst))}</button><div class="umeta">${meta.join(' · ')} ${badges.join('')}</div></div>
+      <span class="upts num">${p.total}</span>
+      <button class="iconbtn" data-act="toggleUnit" data-id="${inst.instanceId}" aria-expanded="${open}" aria-label="${open ? 'Collapse' : 'Edit'} ${esc(dispName(r, inst))}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="transform:rotate(${open ? 180 : 0}deg)"><path d="M6 9l6 6 6-6"/></svg></button></div>
+      ${bodyHTML}</article>`;
+  }
+
+  function wargearHTML(def, inst) {
+    const slots = def.slots || [];
+    if (!slots.length) return (def.options || []).map(o => optionHTML(inst, o, def)).join('');
+    const placed = new Set();
+    const blocks = slots.map((sl, i) => {
+      const size = Engine.slotSize(sl, inst), used = Engine.slotUsed(def, inst, sl.id);
+      const mine = (def.options || []).filter(o => o.slots && o.slots[o.slots.length - 1] === sl.id);
+      mine.forEach(o => placed.add(o.id));
+      return `<div class="wslot"><div class="wslot-h"><span class="eyebrow">${esc(sl.label)}</span><span class="faint num">${size} model${size === 1 ? '' : 's'}</span></div>
+        <div class="opt wdefault"><div><div><b>${esc(sl.default)}</b> <span class="faint">(default)</span></div><div class="cap">Every model that does not take an option below</div></div><output class="num wcount">${Math.max(0, size - used)}</output></div>
+        ${mine.map(o => optionHTML(inst, o, def)).join('')}${sl.fixedNote ? `<div class="faint" style="font-size:.85rem">${esc(sl.fixedNote)}</div>` : ''}</div>`;
+    }).join('');
+    const rest = (def.options || []).filter(o => !placed.has(o.id));
+    return blocks + (rest.length ? `<div class="wslot"><div class="wslot-h"><span class="eyebrow">Other wargear</span></div>${rest.map(o => optionHTML(inst, o, def)).join('')}</div>` : '');
+  }
+  function clampWargear(def, inst) {
+    const wg = inst.wargear = inst.wargear || {};
+    (def.options || []).forEach(o => { if (o.type === 'count' || o.type === 'toggle') { const c = Engine.ownCap(o, inst, def); if ((+wg[o.id] || 0) > c) wg[o.id] = c; } });
+    (def.slots || []).forEach(sl => { const size = Engine.slotSize(sl, inst); const opts = (def.options || []).filter(o => (o.slots || []).includes(sl.id)).reverse(); let over = Engine.slotUsed(def, inst, sl.id) - size; for (const o of opts) { if (over <= 0) break; const v = +wg[o.id] || 0, cut = Math.min(v, over); wg[o.id] = v - cut; over -= cut; } });
+    (def.optionGroups || []).forEach(g => { const cap = Math.floor(inst.size / g.per) * g.n; const opts = (def.options || []).filter(o => o.group === g.id).reverse(); let over = opts.reduce((a, o) => a + (+wg[o.id] || 0), 0) - cap; for (const o of opts) { if (over <= 0) break; const v = +wg[o.id] || 0, cut = Math.min(v, over); wg[o.id] = v - cut; over -= cut; } });
+  }
+  function optionHTML(inst, o, def) {
+    const wg = inst.wargear || {};
+    if (o.type === 'choice') {
+      const v = wg[o.id] || o.choices[0].id;
+      return `<div class="stack" style="gap:6px"><span>${esc(o.label)}</span><div class="choicechips" role="radiogroup" aria-label="${esc(o.label)}">${o.choices.map(c => `<button class="cchip" role="radio" aria-checked="${c.id === v}" data-act="pickOpt" data-id="${inst.instanceId}" data-o="${o.id}" data-v="${c.id}">${esc(c.label)}${c.pts ? ` <span class="num">+${c.pts}</span>` : ''}</button>`).join('')}</div></div>`;
+    }
+    const mx = Engine.optionMax(o, inst, def), val = +wg[o.id] || 0, cap = Engine.ownCap(o, inst, def);
+    if (o.type === 'toggle') return `<label class="row" style="min-height:44px"><input type="checkbox" id="opt-${inst.instanceId}-${o.id}" data-chg="optToggle" data-id="${inst.instanceId}" data-o="${o.id}" ${val ? 'checked' : ''} ${!val && mx < 1 ? 'disabled' : ''} style="width:22px;height:22px"> ${esc(o.label)}</label>`;
+    const grp = o.group && def ? (def.optionGroups || []).find(g => g.id === o.group) : null;
+    const capTxt = grp ? `${grp.n} ${grp.label.toLowerCase()} per ${grp.per} models` : o.per ? `${o.n || 1} per ${o.per} models` : o.max === 'models' ? 'any number' : o.max === 'slot' ? 'any of them' : `max ${cap}`;
+    return `<div class="opt"><div><div>${esc(o.label)}${o.note ? ` <span class="faint">(${esc(o.note)})</span>` : ''}</div><div class="cap num" ${val > cap ? 'style="color:var(--err)"' : ''}>${val}/${cap} · ${capTxt}</div></div>
+      <div class="stepper"><button data-act="optDec" data-id="${inst.instanceId}" data-o="${o.id}" aria-label="Fewer">−</button><output class="num">${val}</output><button data-act="optInc" data-id="${inst.instanceId}" data-o="${o.id}" aria-label="More" ${val >= mx ? 'disabled' : ''}>+</button></div></div>`;
+  }
+
+  function rosterViewHTML(r) {
+    const fd = fdata(r.factionId), pts = rosterPts(r);
+    const ctx = Engine.ctxFor(r, DATA);
+    const rows = r.units.slice();
+    S.listOrder = rows.map(u => u.instanceId);
+    const bs = bsDef(r.battleSize);
+    return `<div class="stack"><div class="panel pad"><div class="row"><div class="grow"><div class="eyebrow">${esc(faction(r.factionId).name)} · ${bs.name}</div><h2>${esc(r.name)}</h2>
+      <div class="dim">${esc(r.detachmentIds.map(id => fd.detachments.find(d => d.id === id).name).join(' + '))} · ${esc(r.forceDisposition || '—')}</div></div><b class="num" style="font-size:1.4rem">${pts.total} pts</b></div></div>
+      ${rows.length ? rows.map(inst => { const def = unitDef(r.factionId, inst.datasheetId); const p = pts.per[inst.instanceId]; const enh = inst.enhancementId ? ctx.allEnh[inst.enhancementId] : null; const att = inst.attachedTo ? r.units.find(u => u.instanceId === inst.attachedTo) : null; const ws = wargearSummary(def, inst);
+        return `<div class="panel additem"><button class="ptbtn" data-act="openInst" data-id="${inst.instanceId}" aria-label="Open datasheet">${portrait(def, r.factionId, 'sm')}</button><div class="grow"><button class="nm" data-act="openInst" data-id="${inst.instanceId}">${esc(dispName(r, inst))}${inst.size > 1 ? ` <span class="dim">×${inst.size}</span>` : ''}</button>
+        <div class="sub">${[r.warlordUnitId === inst.instanceId ? '★ Warlord' : '', enh ? esc(enh.name) : '', att ? 'Leading ' + esc(dispName(r, att)) : '', ws.length ? esc(ws.join(', ')) : ''].filter(Boolean).join(' · ') || '&nbsp;'}</div></div><b class="num">${p ? p.total : ''}</b></div>`; }).join('') : '<div class="empty">No units yet. Add them on the Build tab.</div>'}
+      <div class="row"><button class="btn" data-act="exportRoster" data-id="${r.id}">${ICON.share} Export / Share</button><button class="btn" data-act="rosterTab" data-id="play">${ICON.dice} Play mode</button></div>${stamp()}</div>`;
+  }
+
+  function rulesTabHTML(r) {
+    const fd = fdata(r.factionId);
+    const dets = r.detachmentIds.map(id => fd.detachments.find(d => d.id === id));
+    return `<div class="stack"><div class="seg" role="tablist"><button role="tab" aria-pressed="${S.rulesSeg === 'army'}" data-act="rulesSeg" data-id="army">Army Rules</button><button role="tab" aria-pressed="${S.rulesSeg === 'det'}" data-act="rulesSeg" data-id="det">Detachment Rules</button></div>
+      ${S.rulesSeg === 'army' ? armyRulesHTML(fd) : dets.map(d => detachmentHTML(d, r)).join('')}</div>`;
+  }
+
+  function stratsTabHTML(r) {
+    const fd = fdata(r.factionId);
+    const dets = r.detachmentIds.map(id => fd.detachments.find(d => d.id === id));
+    let list = [...GR.coreStratagems.map(s => ({ s, src: 'Core' })), ...dets.flatMap(d => d.stratagems.map(s => ({ s, src: d.name })))];
+    if (S.stratSrc !== 'All') list = list.filter(x => x.src === S.stratSrc);
+    if (S.stratPhase !== 'All') list = list.filter(x => x.s.phases.includes(S.stratPhase) || x.s.phases.includes('Any'));
+    const phases = ['All', 'Command', 'Movement', 'Shooting', 'Charge', 'Fight', 'Any'];
+    const srcs = ['All', 'Core', ...dets.map(d => d.name)];
+    return `<div class="stack"><div class="chips phase-row" role="group" aria-label="Phase">${phases.map(p => `<button class="chip" aria-pressed="${S.stratPhase === p}" data-act="stratPhase" data-id="${p}" ${p !== 'All' ? `style="border-color:var(${PH_VAR[p]})"` : ''}>${p === 'Any' ? 'Any / Other' : p}</button>`).join('')}</div>
+      <div class="chips" role="group" aria-label="Source">${srcs.map(s => `<button class="chip" aria-pressed="${S.stratSrc === s}" data-act="stratSrc" data-id="${esc(s)}">${esc(s)}</button>`).join('')}</div>
+      ${S.stratPhase !== 'All' ? '<div class="faint" style="font-size:.85rem">Stratagems usable in any phase are included.</div>' : ''}
+      <div class="sgrid">${list.map(x => stratCard(x.s, x.src)).join('') || '<div class="empty">No stratagems for this filter.</div>'}</div></div>`;
+  }
+
+  /* ---------------- PLAY MODE ---------------- */
+  const PHASES = ['Command', 'Movement', 'Shooting', 'Charge', 'Fight'];
+  function playState(r) {
+    if (S.play && S.playFor === r.id) return S.play;
+    let p = lsGet(playKey(r.id));
+    S.playFor = r.id;
+    if (!p) p = { cp: 1, round: 1, phase: 'Command', turn: 'mine', first: 'mine', vp: [0, 0], wounds: {}, dice: [], used: [], active: [], extra: 0, sel: [], usedStrats: {} };
+    if (!p.turn) p.turn = 'mine';
+    if (!p.first) p.first = 'mine';
+    if (!p.usedStrats) p.usedStrats = {};
+    S.play = p; return p;
+  }
+  const savePlay = (r) => lsSet(playKey(r.id), S.play);
+  /* every game change can be undone once from the snackbar */
+  function playChange(r, fn, msg, kind) {
+    const before = JSON.stringify(S.play);
+    const res = fn(S.play);
+    if (res === false) { PL.haptic('reject'); return; }
+    savePlay(r); PL.haptic(kind || 'tick'); render();
+    const text = typeof msg === 'function' ? msg() : msg;
+    if (text) toast(text, [{ label: 'Undo', fn: () => { S.play = JSON.parse(before); savePlay(r); PL.haptic('tick'); render(); } }]);
+  }
+  function canActivate(b, dice, used) {
+    for (const q of b.req) {
+      const counts = {};
+      dice.forEach((d, i) => { if (!used.includes(i)) counts[d] = (counts[d] || 0) + 1; });
+      const vals = Object.keys(counts).map(Number).filter(v => v >= q.min && counts[v] >= q.n).sort((a, b) => a - b);
+      if (vals.length) { const v = vals[0]; const idx = []; dice.forEach((d, i) => { if (idx.length < q.n && d === v && !used.includes(i)) idx.push(i); }); return idx; }
+    }
+    return null;
+  }
+  const counterHTML = (label, key, val) => `<div class="panel counter"><div class="eyebrow">${label}</div><div class="row nowrap"><button data-act="pc" data-k="${key}" data-d="-1" aria-label="Decrease ${label}">−</button><span class="val num">${val}</span><button data-act="pc" data-k="${key}" data-d="1" aria-label="Increase ${label}">+</button></div></div>`;
+  function blessHTML(r, p) {
+    const bless = fdata(r.factionId).armyRules.find(a => a.blessings);
+    if (!bless) return '';
+    const triple6 = p.dice.filter((d, i) => d === 6 && !p.used.includes(i)).length >= 3;
+    const sorted = bless.blessings.map(b => { const act = p.active.includes(b.id); const idx = !act && p.active.length < 2 ? canActivate(b, p.dice, p.used) : null; return { b, act, idx }; });
+    if (S.m) sorted.sort((x, y) => (y.act - x.act) || (!!y.idx - !!x.idx));
+    return `<div class="panel pad stack bless"><div class="row"><h3 class="grow">Blessings of Khorne</h3><span class="dim">Round ${p.round}</span></div>
+      <div class="row"><div class="stepper sm-step" role="group" aria-label="Extra dice"><span class="dim">Extra dice</span><button data-act="plExtra" data-d="-1" aria-label="Fewer extra dice">−</button><output class="num">${p.extra || 0}</output><button data-act="plExtra" data-d="1" aria-label="More extra dice">+</button></div></div>
+      <div class="row"><button class="btn primary grow" data-act="rollBless">${ICON.dice} Roll ${8 + (+p.extra || 0)}D6</button>${p.sel.length ? `<button class="btn" data-act="rerollSel">Re-roll ${p.sel.length}</button>` : ''}${p.dice.length ? '<button class="btn ghost" data-act="clearBless">Clear</button>' : ''}</div>
+      <div class="dice">${p.dice.map((d, i) => `<button class="die ${p.used.includes(i) ? 'used' : ''} ${p.sel.includes(i) ? 'sel' : ''}" data-act="selDie" data-id="${i}" aria-label="Die ${d}${p.used.includes(i) ? ', used' : ''}${p.sel.includes(i) ? ', selected for re-roll' : ''}">${d}</button>`).join('') || '<span class="dim">Roll at the start of the battle round, or enter your real dice below. Tap a die to pick it for a re-roll; tap again to unpick.</span>'}</div>
+      <div class="stack" style="gap:6px"><span class="eyebrow">Enter real dice</span><div class="dpad" role="group" aria-label="Add a die">${[1, 2, 3, 4, 5, 6].map(n => `<button data-act="addDie" data-v="${n}" aria-label="Add a ${n}">${n}</button>`).join('')}<button data-act="popDie" aria-label="Remove the last die">⌫</button></div></div>
+      ${triple6 ? '<div class="badge gold">Triple 6 available: Angron can use Reborn in Blood instead of Blessings.</div>' : ''}
+      <div class="stack" style="gap:6px">${sorted.map(({ b, act, idx }) => `<div class="blessing ${act ? 'active' : idx ? 'can' : ''}"><div><b>${esc(b.name)}</b> <span class="badge">${esc(b.reqText)}</span><div class="dim">${esc(b.effect)}</div></div>${act ? '<button class="btn sm" data-act="unbless" data-id="' + b.id + '">Active ✓</button>' : `<button class="btn sm ${idx ? 'primary' : ''}" data-act="bless" data-id="${b.id}" ${idx ? '' : 'aria-disabled="true"'}>Activate</button>`}</div>`).join('')}</div>
+      <div class="faint" style="font-size:.85rem">Up to two Blessings per battle round. Activating one spends the lowest dice that meet its requirement.</div></div>`;
+  }
+  /* Faction / detachment trackers for the game screen (Tyranids: Shadow in the Warp, Hyper-adaptations,
+     Synaptic Imperatives, Tunnel Markers, Protean Purpose, Feed the Swarm reminder). */
+  function factionPlayHTML(r, p) {
+    const fd = fdata(r.factionId), dets = r.detachmentIds.map(id => fd.detachments.find(d => d.id === id)).filter(Boolean);
+    const out = [];
+    const panel = (title, badge, body) => `<div class="panel pad stack trk"><div class="row"><h3 class="grow">${esc(title)}</h3>${badge || ''}</div>${body}</div>`;
+    if (fd.armyRules.some(a => a.shadow)) {
+      const has = r.units.some(u => (unitDef(r.factionId, u.datasheetId).factionAbilities || []).some(a => a.startsWith('Shadow in the Warp')));
+      out.push(panel('Shadow in the Warp', p.shadow ? `<span class="badge">Used · round ${p.shadow}</span>` : '<span class="badge gold">Ready</span>',
+        `<div class="dim">Once per battle, in either player's Command phase: every enemy unit takes a battle-shock test, at -1 within 6" of your SYNAPSE units.</div>
+        ${p.shadow ? '' : `<button class="btn ${p.phase === 'Command' && has ? 'primary' : ''}" data-act="tyrShadow" ${has && p.phase === 'Command' ? '' : 'aria-disabled="true"'}>Unleash the Shadow in the Warp</button>`}
+        ${has ? (p.shadow || p.phase === 'Command' ? '' : '<div class="faint" style="font-size:.85rem">Available in a Command phase.</div>') : '<div class="faint" style="font-size:.85rem">No unit in this roster has Shadow in the Warp.</div>'}`));
+    }
+    dets.forEach(d => {
+      if (d.hyperAdaptations) {
+        const H = d.hyperAdaptations, cur = H.find(h => h.id === p.hyper), x = p.hyperExtra && H.find(h => h.id === p.hyperExtra.id);
+        out.push(panel('Hyper-adaptation', cur ? `<span class="badge gold">${esc(cur.name)}</span>` : '<span class="badge">Pick at the start of round 1</span>',
+          `<div class="chips" role="group" aria-label="Hyper-adaptation for the battle">${H.map(h => `<button class="chip" aria-pressed="${p.hyper === h.id}" data-act="tyrHyper" data-id="${h.id}" ${p.hyper && p.hyper !== h.id && p.round > 1 ? 'aria-disabled="true"' : ''}>${esc(h.name)}</button>`).join('')}</div>
+          ${cur ? `<div class="dim">${esc(cur.effect)} Active for your TYRANIDS units for the whole battle.</div>` : '<div class="dim">Choose one; it stays active for the rest of the battle.</div>'}
+          ${cur ? `<div class="eyebrow" style="margin-top:4px">Predatory Imperative (extra, until your next Command phase)</div><div class="chips" role="group" aria-label="Extra Hyper-adaptation">${H.filter(h => h.id !== p.hyper).map(h => `<button class="chip" aria-pressed="${!!x && x.id === h.id}" data-act="tyrHyperX" data-id="${h.id}">${esc(h.name)}</button>`).join('')}</div>${x ? `<div class="dim">${esc(x.effect)} For the units you targeted with the Stratagem.</div>` : '<div class="faint" style="font-size:.85rem">Mark it after you use the Predatory Imperative Stratagem.</div>'}` : ''}`));
+      }
+      if (d.imperatives) {
+        const now = (p.imp || {})[p.round], usedIn = id => Object.entries(p.imp || {}).find(([rd, v]) => v === id && +rd !== p.round);
+        const curI = d.imperatives.find(i => i.id === now);
+        out.push(panel('Synaptic Imperative', curI ? `<span class="badge gold">Round ${p.round}: ${esc(curI.name)}</span>` : `<span class="badge">Round ${p.round}: none</span>`,
+          `<div class="stack" style="gap:6px">${d.imperatives.map(i => { const u = usedIn(i.id); return `<div class="blessing ${now === i.id ? 'active' : u ? '' : 'can'}"><div><b>${esc(i.name)}</b><div class="dim">${esc(i.effect)}</div></div>${u ? `<span class="badge">Used · round ${u[0]}</span>` : `<button class="btn sm ${now === i.id ? '' : 'primary'}" data-act="tyrImp" data-id="${i.id}">${now === i.id ? 'Active ✓' : 'Pick'}</button>`}</div>`; }).join('')}</div>
+          <div class="faint" style="font-size:.85rem">Pick at the start of each battle round; each one only once per battle. Units within Synapse Range benefit.</div>`));
+      }
+      if (d.tunnelMarkers) {
+        out.push(panel('Tunnel Markers', '', `<div class="row"><div class="stepper" role="group" aria-label="Tunnel Markers"><button data-act="pc" data-k="tunnels" data-d="-1" aria-label="Remove a Tunnel Marker">−</button><output class="num" style="font-size:1.2rem;font-weight:800">${p.tunnels || 0}</output><button data-act="pc" data-k="tunnels" data-d="1" aria-label="Place a Tunnel Marker">+</button></div><span class="dim">on the battlefield</span></div>
+          <div class="faint" style="font-size:.85rem">Place one when a BURROWER unit arrives from Reserves. Remove it when an enemy model (not AIRCRAFT) ends a move within 3".</div>`));
+      }
+      if (d.protean) {
+        const norns = r.units.filter(u => d.protean.includes(u.datasheetId));
+        if (norns.length) out.push(panel('Protean Purpose', '', `<div class="stack" style="gap:6px">${norns.map(u => { const used = (p.protean || {})[u.instanceId]; return `<div class="blessing ${used ? '' : 'can'}"><div><b>${esc(dispName(r, u))}</b><div class="dim">Your Command phase: make a new Singular Purpose selection.</div></div>${used ? `<button class="btn sm" data-act="tyrProtean" data-id="${u.instanceId}">Used · round ${used}</button>` : `<button class="btn sm primary" data-act="tyrProtean" data-id="${u.instanceId}">Use</button>`}</div>`; }).join('')}</div><div class="faint" style="font-size:.85rem">Once per battle for each Norn.</div>`));
+      }
+      if (d.harvesterReminder) {
+        const ctx = Engine.ctxFor(r, DATA);
+        const hs = r.units.filter(u => Engine.hasKw(unitDef(r.factionId, u.datasheetId), ctx, 'Harvester'));
+        const nowCmd = p.phase === 'Command' && p.turn !== 'opp';
+        out.push(panel('Feed the Swarm', nowCmd ? '<span class="badge gold">Now</span>' : '', `<div class="dim">In your Command phase each HARVESTER unit can Regenerate one friendly TYRANIDS unit within 6": one model regains up to D3+1 wounds, or one destroyed INFANTRY model returns (up to 3 for ENDLESS MULTITUDE).</div>
+          <div class="${hs.length ? '' : 'faint'}" style="font-size:.9rem">${hs.length ? 'Harvesters: ' + esc(hs.map(u => dispName(r, u)).join(', ')) : 'No HARVESTER units in this roster.'}</div>`));
+      }
+    });
+    return out.join('');
+  }
+  function roundHint(r, p) {
+    const fd = fdata(r.factionId), dets = r.detachmentIds.map(id => fd.detachments.find(d => d.id === id)).filter(Boolean);
+    const startOfRound = p.turn === (p.first || 'mine');
+    if (fd.armyRules.some(a => a.blessings)) return startOfRound && !p.dice.length ? ' Roll Blessings of Khorne.' : '';
+    const h = [];
+    if (startOfRound && dets.some(d => d.imperatives) && !(p.imp || {})[p.round]) h.push(' Pick a Synaptic Imperative.');
+    if (p.round === 1 && dets.some(d => d.hyperAdaptations) && !p.hyper) h.push(' Pick a Hyper-adaptation.');
+    if (p.turn !== 'opp' && dets.some(d => d.harvesterReminder)) h.push(' Feed the Swarm.');
+    if (!p.shadow && fd.armyRules.some(a => a.shadow)) h.push(' Shadow in the Warp is ready.');
+    return h.join('');
+  }
+  function turnRow(p) {
+    return `<div class="seg wide" role="group" aria-label="Whose turn"><button aria-pressed="${p.turn !== 'opp'}" data-act="plTurn" data-id="mine">Your turn</button><button aria-pressed="${p.turn === 'opp'}" data-act="plTurn" data-id="opp">Opponent's turn</button></div>
+      <div class="chips scroll phase-row" role="group" aria-label="Current phase">${PHASES.map(ph => `<button class="chip" aria-pressed="${p.phase === ph}" data-act="plPhase" data-id="${ph}" style="border-color:var(${PH_VAR[ph]})">${ph}</button>`).join('')}</div>
+      ${p.round === 1 && p.phase === 'Command' ? `<div class="row"><span class="dim">First turn:</span><button class="chip" aria-pressed="${p.first !== 'opp'}" data-act="plFirst" data-id="mine">Me</button><button class="chip" aria-pressed="${p.first === 'opp'}" data-act="plFirst" data-id="opp">Opponent</button></div>` : ''}`;
+  }
+  function playHTML(r) {
+    const p = playState(r);
+    const units = rosterOrder(r).map(inst => woundCard(r, inst, p)).join('');
+    const resetHTML = S.confirmReset
+      ? `<div class="confirm">Reset this game? Round, phase, CP, VP, Blessings dice and all wounds go back to the start. <button class="btn sm danger" data-act="resetGameYes">Reset game</button><button class="btn sm" data-act="resetGameNo">Cancel</button></div>`
+      : `<div class="row"><span class="grow eyebrow">Game tracker</span><button class="btn sm danger" data-act="resetGameAsk">Reset game</button></div>`;
+    return `<div class="stack">${resetHTML}<div class="playtop">${counterHTML('Command Points', 'cp', p.cp)}${counterHTML('Battle round', 'round', p.round)}${counterHTML('Your VP', 'vp0', p.vp[0])}${counterHTML('Opponent VP', 'vp1', p.vp[1])}</div>
+      ${turnRow(p)}<div class="row"><button class="btn primary" data-act="nextPhase">Next phase →</button></div>
+      <div class="faint" style="font-size:.85rem">Both players gain 1CP at the start of every Command phase. “Next phase” after Fight hands the turn over; a new battle round starts when it comes back to the player who went first.</div>
+      ${blessHTML(r, p)}${factionPlayHTML(r, p)}
+      <div class="row"><h3 class="grow">Units</h3><button class="btn sm" data-act="resetWounds">Reset wounds</button><button class="btn sm" data-act="rosterTab" data-id="strats">${ICON.bolt} Stratagems</button></div>
+      ${units || '<div class="empty">Add units on the Build tab first.</div>'}</div>`;
+  }
+  function woundCard(r, inst, p) {
+    const def = unitDef(r.factionId, inst.datasheetId);
+    const W = parseInt(def.profile.W, 10) || 1;
+    const wl = woundsOf(p, inst, W, def);
+    const alive = wl.filter(w => w > 0).length;
+    let body;
+    if (W === 1 && inst.size > 1) {
+      body = `<div class="row"><div class="stepper"><button data-act="mAlive" data-id="${inst.instanceId}" data-d="-1" aria-label="Remove a model">−</button><output class="num" style="font-size:1.2rem;font-weight:800">${alive}/${inst.size}</output><button data-act="mAlive" data-id="${inst.instanceId}" data-d="1" aria-label="Return a model">+</button></div><span class="dim">models alive</span></div>`;
+    } else {
+      body = `<div class="models">${wl.map((w, i) => { const dmg = def.damaged && w > 0 && w <= def.damaged.threshold; return `<div class="model ${w <= 0 ? 'dead' : ''} ${dmg ? 'dmg' : ''}"><span class="faint" style="font-size:.75rem">Model ${i + 1}</span><span class="w num">${w}/${maxW(def, i)}</span><div class="mb"><button data-act="mw" data-id="${inst.instanceId}" data-i="${i}" data-d="-1" aria-label="Model ${i + 1}: lose a wound">−</button><button data-act="mw" data-id="${inst.instanceId}" data-i="${i}" data-d="1" aria-label="Model ${i + 1}: heal a wound">+</button></div></div>`; }).join('')}</div>`;
+    }
+    const dmgOn = def.damaged && inst.size === 1 && wl[0] > 0 && wl[0] <= def.damaged.threshold;
+    return `<div class="ucard ${inst.attachedTo ? 'attached' : ''}" style="padding:10px"><div class="row nowrap"><button class="ptbtn" data-act="openInst" data-id="${inst.instanceId}" aria-label="Open datasheet">${portrait(def, r.factionId, 'sm')}</button><div class="grow"><b>${esc(dispName(r, inst))}</b><div class="dim" style="font-size:.85rem">T${def.profile.T} · Sv ${def.profile.Sv}${def.profile.InSv !== '—' ? ' · ' + def.profile.InSv + ' invuln' : ''} · OC ${def.profile.OC}${alive === 0 ? ' · <span style="color:var(--err)">Destroyed</span>' : ''}</div></div></div>
+      ${dmgOn ? `<div class="badge red" style="margin:8px 0">DAMAGED · ${esc(def.damaged.text)}</div>` : ''}<div style="margin-top:8px">${body}</div></div>`;
+  }
+  const maxW = (def, i) => (def.leadModel && i === 0 ? parseInt(def.leadModel.W, 10) : parseInt(def.profile.W, 10) || 1);
+  function woundsOf(p, inst, W, def) {
+    const wl = p.wounds[inst.instanceId] || (p.wounds[inst.instanceId] = Array.from({ length: inst.size }, (_, i) => def ? maxW(def, i) : W));
+    while (wl.length < inst.size) wl.push(W);
+    if (wl.length > inst.size) wl.length = inst.size;
+    return wl;
+  }
+
+  /* ---------------- DATASHEET MODAL ---------------- */
+  function weaponTable(list, kind) {
+    if (!list.length) return '';
+    if (S.m) { // phones: name on its own line, numbers in one aligned grid, keyword chips below
+      const cols = ['range', 'A', 'skill', 'S', 'AP', 'D'];
+      return `<div class="stack" style="gap:6px"><span class="eyebrow">${kind} weapons</span><div class="wlist"><div class="wl-h"><span>Range</span><span>A</span><span>${kind === 'Ranged' ? 'BS' : 'WS'}</span><span>S</span><span>AP</span><span>D</span></div>
+        ${list.map(w => `<div class="wl-row"><div class="wl-name">${esc(w.name)}</div><div class="wl-stats">${cols.map(k => { const m = w.mark && w.mark[k]; return m ? `<button class="mod" data-act="tip" data-tip="${esc(m)}" data-title="${esc(w.name)}">${esc(w[k])}</button>` : `<span>${esc(w[k])}</span>`; }).join('')}</div>${w.kw.length ? `<div class="wl-kw">${w.kw.map(k => `<button class="kwchip" data-act="tip" data-tip="${esc(glossFor(k))}" data-title="${esc(k)}">${esc(k)}</button>`).join('')}</div>` : ''}</div>`).join('')}</div></div>`;
+    }
+    return `<div class="stack" style="gap:6px"><span class="eyebrow">${kind} weapons</span><div class="tablewrap"><table class="wt"><thead><tr><th>Weapon</th><th>Range</th><th>A</th><th>${kind === 'Ranged' ? 'BS' : 'WS'}</th><th>S</th><th>AP</th><th>D</th></tr></thead><tbody>
+      ${list.map(w => `<tr><td><b>${esc(w.name)}</b>${w.kw.length ? '<br>' + w.kw.map(k => `<button class="kwchip" data-act="tip" data-tip="${esc(glossFor(k))}">${esc(k)}</button>`).join('') : ''}</td><td>${esc(w.range)}</td>${['A', 'skill', 'S', 'AP', 'D'].map(k => `<td class="${w.mark && w.mark[k] ? 'mod' : ''}" ${w.mark && w.mark[k] ? `title="${esc(w.mark[k])}"` : ''}>${esc(w[k])}</td>`).join('')}</tr>`).join('')}</tbody></table></div></div>`;
+  }
+  function dsHTML(m) {
+    const r = cur();
+    const fid = r ? r.factionId : S.factionId;
+    const inst = m.instId && r ? r.units.find(u => u.instanceId === m.instId) : null;
+    const def = unitDef(fid, inst ? inst.datasheetId : m.unitId);
+    const roster = r || { factionId: fid, battleSize: 'strike', detachmentIds: [], units: [] };
+    const ctx = Engine.ctxFor(roster, DATA);
+    const useBuff = S.dsBuff && r;
+    const B = Engine.buffed(def, inst, roster, DATA, { detachment: !!useBuff });
+    const prof = useBuff ? B.profile : def.profile, pm = useBuff ? B.pmark : {};
+    const kws = [...Engine.keywordsOf(def, ctx, inst)];
+    const isEpic = kws.includes('Epic Hero');
+    const pts = r && inst ? Engine.points(r, DATA).per[inst.instanceId] : null;
+    const enh = inst && inst.enhancementId ? ctx.allEnh[inst.enhancementId] : null;
+    const badges = [];
+    if (r && inst && r.warlordUnitId === inst.instanceId) badges.push('<span class="badge gold">Warlord</span>');
+    if (enh) badges.push(`<span class="badge gold">${esc(enh.name)}</span>`);
+    if (isEpic) badges.push('<span class="badge">Epic Hero</span>');
+    if (kws.includes('Battleline')) badges.push('<span class="badge">Battleline</span>');
+    if (kws.includes('Dedicated Transport')) badges.push('<span class="badge">Dedicated Transport</span>');
+    const ledBy = fdata(fid).units.filter(u => (u.leaderOf || []).includes(def.id)).map(u => u.name);
+    const group = r && inst ? Engine.attachedGroup(r, inst) : null;
+    const nav = m.list && m.list.length > 1 ? (() => { const i = m.list.indexOf(m.instId); return `<button class="btn sm" data-act="dsNav" data-d="-1" ${i <= 0 ? 'disabled' : ''} aria-label="Previous unit">‹ Prev</button><span class="dim num">${i + 1}/${m.list.length}</span><button class="btn sm" data-act="dsNav" data-d="1" ${i >= m.list.length - 1 ? 'disabled' : ''} aria-label="Next unit">Next ›</button>`; })() : '';
+    let combined = '';
+    if (m.combined && group) {
+      const members = [group.bodyguard, ...group.attached];
+      const bgDef = unitDef(fid, group.bodyguard.datasheetId);
+      combined = `<div class="panel pad stack"><h3>Combined view</h3><div>Attacks against this attached unit use the <b>highest Toughness among the bodyguard models: T${esc(bgDef.profile.T)}</b>. If only leader models are left, use their highest T.</div>
+        ${members.map(u => { const d = unitDef(fid, u.datasheetId); const b = Engine.buffed(d, u, r, DATA, { detachment: S.dsBuff }); return `<div class="stack" style="gap:8px"><div class="row nowrap">${portrait(d, fid, 'sm')}<b>${esc(dispName(r, u))}</b>${u === group.bodyguard ? '<span class="badge">Bodyguard</span>' : '<span class="badge gold">Leader</span>'}</div>${statlineHTML(b.profile, b.pmark)}${weaponTable(b.ranged, 'Ranged')}${weaponTable(b.melee, 'Melee')}<div class="dim">${d.abilities.map(a => esc(a.name)).join(' · ')}</div></div>`; }).join('<hr style="border:0;border-top:1px solid var(--line);width:100%">')}</div>`;
+    }
+    const W = useBuff ? B : { ranged: def.ranged.map(w => ({ ...w, mark: {} })), melee: def.melee.map(w => ({ ...w, mark: {} })) };
+    return `<div class="modal-back" data-act="closeModalBack"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="ds-title">
+      <div class="modal-head">${portrait(def, fid, 'lg')}<div class="stack" style="gap:4px;min-width:0"><div class="eyebrow">${esc(CAT_NAME[catOf(def, roster)] || '')} · Base ${esc(def.baseSize)}</div><h2 id="ds-title">${esc(inst ? dispName(r, inst) : def.name)}</h2>
+        <div class="row" style="gap:6px">${pts ? `<span class="badge gold num">${pts.total} pts</span>` : `<span class="badge num">${def.sizes.map(s => s.pts).join(' / ')} pts</span>`}${badges.join('')}</div>${S.m ? '' : `<div class="row" style="gap:6px">${nav}</div>`}</div>
+        <button class="iconbtn" data-act="closeModal" aria-label="Close">${ICON.close}</button></div>
+      <div class="modal-body">
+        ${r ? `<div class="row"><div class="seg" role="group" aria-label="Show values"><button aria-pressed="${!S.dsBuff}" data-act="dsBuff" data-v="0">Base</button><button aria-pressed="${S.dsBuff}" data-act="dsBuff" data-v="1">With detachment buffs</button></div>${group ? `<button class="btn sm" data-act="dsCombined">${m.combined ? 'Single view' : 'Combined view'}</button>` : ''}</div>${useBuff && B.notes.length ? `<div class="dim" style="font-size:.9rem">Highlighted values include: ${esc(B.notes.join(', '))}. Conditional effects (charges, Blessings, stratagems) are not applied.</div>` : ''}` : ''}
+        ${combined}
+        ${m.combined ? '' : `${statlineHTML(prof, pm)}${def.leadModel ? `<div class="dim" style="font-size:.9rem">${esc(def.leadModel.name)}: W ${esc(def.leadModel.W)}, Ld ${esc(def.leadModel.Ld)}. The other models use the line above.</div>` : ''}
+        ${def.damaged ? `<div class="abil"><b>Damaged profile</b>${esc(def.damaged.text)}</div>` : ''}
+        ${weaponTable(W.ranged, 'Ranged')}${weaponTable(W.melee, 'Melee')}
+        <div class="stack" style="gap:8px"><span class="eyebrow">Abilities</span>
+          ${def.coreAbilities.length ? `<div><b>Core:</b> ${def.coreAbilities.map(a => `<button class="kwchip" data-act="tip" data-tip="${esc(glossFor(a))}" data-title="${esc(a)}">${esc(a)}</button>`).join('')}</div>` : ''}
+          ${def.factionAbilities.length ? `<div><b>Faction:</b> ${def.factionAbilities.map(a => `<button class="kwchip" data-act="tip" data-tip="${esc(abilityTip(fid, a))}" data-title="${esc(a)}">${esc(a)}</button>`).join('')}</div>` : ''}
+          ${def.abilities.map(a => `<div class="abil"><b>${esc(a.name)}${a.kind === 'wargear' ? ' <span class="badge">Wargear</span>' : ''}</b>${esc(a.text)}</div>`).join('')}
+          ${enh ? `<div class="abil"><b>${esc(enh.name)} <span class="badge gold">Enhancement</span></b>${esc(enh.text)}</div>` : ''}
+          ${def.transport ? `<div class="abil"><b>Transport</b>${esc(def.transport)}</div>` : ''}</div>
+        ${def.options.length ? `<div class="stack" style="gap:6px"><span class="eyebrow">Wargear options</span><ul style="margin:0;padding-left:20px">${def.options.map(o => `<li>${esc(o.label)}${o.type === 'choice' ? ': ' + esc(o.choices.map(c => c.label + (c.pts ? ` (+${c.pts})` : '')).join(' / ')) : o.per ? ` — ${o.n || 1} per ${o.per} models` : o.max === 'models' ? ' — any number' : ' — one model'}</li>`).join('')}</ul></div>` : ''}
+        <div class="stack" style="gap:6px"><span class="eyebrow">Unit composition</span><div>${esc(def.composition)}</div></div>
+        <div class="stack" style="gap:6px"><span class="eyebrow">Points</span><div class="num">${def.sizes.map(s => `${s.models} model${s.models > 1 ? 's' : ''}: ${s.pts} pts${s.ptsLater != null ? ` (${ORD(def.stepFrom)}+ copy: ${s.ptsLater} pts)` : ''}`).join('<br>')}</div></div>
+        ${def.leaderOf.length ? `<div><b>Can lead:</b> ${esc(def.leaderOf.map(id => unitDef(fid, id).name).join(', '))}</div>` : ''}
+        ${ledBy.length ? `<div><b>Led by:</b> ${esc(ledBy.join(', '))}</div>` : ''}
+        <div><span class="eyebrow">Keywords</span><div>${kws.map(k => `<span class="kwchip">${esc(k)}</span>`).join('')}</div><div style="margin-top:6px"><span class="eyebrow">Faction</span> <span class="kwchip">${esc(inst && r ? Engine.factionOf(inst, def, ctx) : def.faction)}</span></div></div>`}
+      </div>${S.m && nav ? `<div class="dsnav">${nav}</div>` : ''}</div></div>`;
+  }
+  function abilityTip(fid, a) {
+    const tips = faction(fid).abilityTips || {};
+    return tips[a] || tips[a.replace(/ \(.*\)$/, '')] || 'See Army Rules.';
+  }
+  function statlineHTML(p, pm) {
+    return `<div class="statline">${['M', 'T', 'Sv', 'InSv', 'W', 'Ld', 'OC'].map(k => pm && pm[k]
+      ? `<button class="stat mod" data-act="tip" data-tip="${esc(pm[k])}" data-title="${k}" title="${esc(pm[k])}"><div class="k">${k === 'InSv' ? 'Inv' : k}</div><div class="v">${esc(p[k])}</div></button>`
+      : `<div class="stat"><div class="k">${k === 'InSv' ? 'Inv' : k}</div><div class="v">${esc(p[k])}</div></div>`).join('')}</div>`;
+  }
+
+  /* ---------------- OTHER MODALS ---------------- */
+  function exportText(r, fmt) {
+    const fd = fdata(r.factionId), bs = bsDef(r.battleSize), pts = Engine.points(r, DATA);
+    const ctx = Engine.ctxFor(r, DATA);
+    const dets = r.detachmentIds.map(id => fd.detachments.find(d => d.id === id).name);
+    const line = inst => {
+      const def = unitDef(r.factionId, inst.datasheetId), p = pts.per[inst.instanceId];
+      const enh = inst.enhancementId ? ctx.allEnh[inst.enhancementId] : null;
+      const att = inst.attachedTo ? r.units.find(u => u.instanceId === inst.attachedTo) : null;
+      return { def, p, enh, att, ws: wargearSummary(def, inst), name: dispName(r, inst), wl: r.warlordUnitId === inst.instanceId, size: inst.size };
+    };
+    const order = ['character', 'battleline', 'transport', 'infantry', 'mounted', 'beast', 'monster', 'vehicle', 'allies', 'other'];
+    const byCat = {};
+    r.units.forEach(u => (byCat[catOf(unitDef(r.factionId, u.datasheetId), r)] = byCat[catOf(unitDef(r.factionId, u.datasheetId), r)] || []).push(line(u)));
+    if (fmt === 'gw') {
+      let t = `${r.name} (${pts.total} points)\n\n${faction(r.factionId).name}\n${dets.join(', ')}\n${bs.name} (${bs.points} points)\nForce Disposition: ${r.forceDisposition || '-'}\n`;
+      order.filter(c => byCat[c]).forEach(c => {
+        t += `\n${CAT_NAME[c].toUpperCase()}\n\n`;
+        byCat[c].forEach(l => { t += `${l.name} (${l.p.total} points)\n`; if (l.wl) t += '  • Warlord\n'; if (l.size > 1) t += `  • ${l.size} models\n`; l.ws.forEach(w => (t += `  • ${w}\n`)); if (l.enh) t += `  • Enhancement: ${l.enh.name} (+${l.enh.pts} points)\n`; if (l.att) t += `  • Attached to: ${dispName(r, l.att)}\n`; t += '\n'; });
+      });
+      return t + 'Exported with Supreme Commander (approximate GW app format)\n';
+    }
+    if (fmt === 'wtc') {
+      let t = `+++ ${r.name} +++\nFACTION: ${faction(r.factionId).name}\nDETACHMENTS: ${dets.join(' + ')} | DISPOSITION: ${r.forceDisposition || '-'}\nSIZE: ${bs.name} | TOTAL: ${pts.total}/${bs.points}\n`;
+      const wl = r.units.find(u => u.instanceId === r.warlordUnitId);
+      t += `WARLORD: ${wl ? dispName(r, wl) : '-'}\nENHANCEMENTS: ${r.units.filter(u => u.enhancementId).map(u => `${ctx.allEnh[u.enhancementId].name} (${dispName(r, u)})`).join(', ') || '-'}\n\n`;
+      order.filter(c => byCat[c]).forEach(c => byCat[c].forEach(l => { t += `${CAT_NAME[c].slice(0, 4).toUpperCase()}: ${l.size > 1 ? l.size + 'x ' : ''}${l.name} (${l.p.total})${l.wl ? ' [WL]' : ''}${l.enh ? ' [' + l.enh.name + ']' : ''}${l.ws.length ? ' – ' + l.ws.join(', ') : ''}${l.att ? ' → ' + dispName(r, l.att) : ''}\n`; }));
+      return t;
+    }
+    let t = `**${r.name}** — ${faction(r.factionId).name}, ${bs.name} ${pts.total}/${bs.points}\n*${dets.join(' + ')} · ${r.forceDisposition || '-'}*\n`;
+    order.filter(c => byCat[c]).forEach(c => byCat[c].forEach(l => { t += `• ${l.size > 1 ? l.size + '× ' : ''}${l.name} — ${l.p.total}${l.wl ? ' ★' : ''}${l.enh ? ' · ' + l.enh.name : ''}${l.att ? ' → ' + dispName(r, l.att) : ''}\n`; }));
+    return t;
+  }
+  const shareCode = r => 'MR1:' + btoa(unescape(encodeURIComponent(JSON.stringify(r))));
+  function modalHTML() {
+    const m = S.modal;
+    if (!m) return '';
+    if (m.type === 'ds') return dsHTML(m);
+    const wrap = (title, inner) => `<div class="modal-back" data-act="closeModalBack"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="mt"><div class="modal-head" style="grid-template-columns:1fr auto"><h2 id="mt">${title}</h2><button class="iconbtn" data-act="closeModal" aria-label="Close">${ICON.close}</button></div><div class="modal-body">${inner}</div></div></div>`;
+    if (m.type === 'val') { const r = cur(); return wrap('Validation', valList(Engine.validate(r, DATA))); }
+    if (m.type === 'portrait') {
+      const def = unitDef(S.factionId, m.unitId);
+      const has = !!CUSTOM[m.unitId];
+      return wrap(`Portrait · ${esc(def.name)}`, `<div class="stack">
+        <p class="dim" style="margin:0">Portraits are square. Choose an image, then drag it to frame the unit and use the slider to zoom.</p>
+        <div class="cropper"><canvas id="crop-canvas" width="280" height="280" aria-label="Crop area: drag to move the image"></canvas><div class="crop-frame" aria-hidden="true"></div></div>
+        <label class="fld">Zoom<input type="range" id="crop-zoom" min="1" max="4" step="0.01" value="${m.zoom || 1}" ${m.img ? '' : 'disabled'}></label>
+        <div class="row"><label class="btn">${ICON.camera} Choose image<input type="file" id="crop-file" accept="image/*" data-chg="portraitFile" class="sr"></label>
+          <button class="btn primary" data-act="savePortrait" ${m.dirty ? '' : 'disabled'}>Save portrait</button>
+          ${has ? '<button class="btn danger" data-act="resetPortrait">Use default</button>' : ''}
+          <button class="btn ghost" data-act="closeModal">Cancel</button></div>
+        <div class="row" style="gap:10px"><span class="dim">Current</span>${portrait(def, S.factionId, 'sm')}<span class="faint" style="font-size:.85rem">${has ? 'Custom portrait in use.' : 'Default portrait in use.'}</span></div>
+      </div>`);
+    }
+    if (m.type === 'export') {
+      const r = rosters.find(x => x.id === m.rosterId);
+      const fmts = [['gw', 'GW app style'], ['wtc', 'WTC compact'], ['discord', 'Discord'], ['json', 'Share code (JSON)']];
+      const txt = m.fmt === 'json' ? shareCode(r) : exportText(r, m.fmt);
+      return wrap(`Export · ${esc(r.name)}`, `<div class="chips">${fmts.map(([id, l]) => `<button class="chip" aria-pressed="${m.fmt === id}" data-act="expFmt" data-id="${id}">${l}</button>`).join('')}</div>
+        ${m.fmt === 'gw' ? '<div class="faint" style="font-size:.85rem">Approximate format. Paste a real export from the Warhammer 40,000 app to match it exactly.</div>' : ''}${m.fmt === 'json' ? '<div class="faint" style="font-size:.85rem">Paste this code into Import on any device to recreate the roster.</div>' : ''}
+        <textarea id="exp-text" readonly style="min-height:260px;font:.9rem/1.45 ui-monospace,Menlo,monospace">${esc(txt)}</textarea>
+        <div class="row">${PL.canShare() ? `<button class="btn primary" data-act="shareExport">${ICON.share} Share</button>` : ''}<button class="btn ${PL.canShare() ? '' : 'primary'}" data-act="copyExport">${ICON.copy} Copy</button>${Store.downloads || window.mrSaveFile || PL.android ? `<button class="btn" data-act="downloadExport">${ICON.save} ${window.mrSaveFile || PL.android ? 'Save to file' : 'Download'}</button>` : ''}</div>`);
+    }
+    if (m.type === 'import') return wrap('Import roster', `<div class="row"><button class="btn" data-act="pasteImport">${ICON.paste} Paste</button><label class="btn">${ICON.file} Open file<input type="file" id="imp-file" accept=".json,.txt,application/json,text/plain" data-chg="importFile" class="sr"></label></div>
+      <label class="fld">Share code (MR1:…), roster JSON or a backup file<textarea id="imp-text" style="min-height:180px">${esc(m.text || '')}</textarea></label>${m.error ? `<div class="vmsg error"><span class="ic">✕</span><span>${esc(m.error)}</span></div>` : ''}<div class="row"><button class="btn primary" data-act="doImport">Import</button><span class="faint" style="font-size:.85rem">Text exports from the GW app can't be imported yet.</span></div>`);
+    if (m.type === 'backup') {
+      const json = backupJSON();
+      return wrap('Back up all rosters', `<p class="dim" style="margin:0">One file with all ${rosters.length} rosters and your custom portraits. Keep it somewhere safe (cloud drive, e-mail to yourself). Import restores it on any device.</p>
+        <div class="row">${PL.canShare() ? `<button class="btn primary" data-act="shareBackup">${ICON.share} Share</button>` : ''}${Store.downloads || window.mrSaveFile || PL.android ? `<button class="btn ${PL.canShare() ? '' : 'primary'}" data-act="saveBackup">${ICON.save} Save to file</button>` : ''}<button class="btn" data-act="copyBackup">${ICON.copy} Copy</button></div>
+        <div class="faint" style="font-size:.85rem">${(json.length / 1024).toFixed(0)} KB</div>`);
+    }
+    return '';
+  }
+
+  /* ---------------- PHONE LAYOUT ---------------- */
+  /* Below 760px (and always in the Android app on a phone) the roster becomes a stack of screens:
+     roster list -> "Add units" catalogue / unit editor, with a 4-item bottom bar and bottom sheets. */
+  function statusLine(r) {
+    const bs = bsDef(r.battleSize), pts = rosterPts(r).total, dp = rosterDp(r);
+    const ne = Engine.validate(r, DATA).filter(x => x.severity === 'error').length;
+    return `<button class="mstatus" data-act="openStatus" aria-label="Points ${pts} of ${bs.points}, ${dp} of ${bs.dp} DP, ${ne ? ne + ' problems' : 'legal'}"><span class="num ${pts > bs.points ? 'bad' : ''}">${pts}/${bs.points}</span><i></i><span class="num ${dp > bs.dp ? 'bad' : ''}">DP ${dp}/${bs.dp}</span><i></i>${ne ? `<span class="bad">✕ ${ne}</span>` : '<span class="ok">✓ Legal</span>'}</button>`;
+  }
+  function gameLine(r) {
+    const p = playState(r);
+    return `<div class="mstatus game" aria-label="Game state"><span>R${p.round}</span><i></i><span style="color:var(${PH_VAR[p.phase]})">${p.phase}</span><i></i><span>${p.turn === 'opp' ? 'Opponent' : 'You'}</span><i></i><span class="num">CP ${p.cp}</span><i></i><span class="num">VP ${p.vp[0]}:${p.vp[1]}</span>${p.active.length ? '<i></i><span class="gold">✦' + p.active.length + '</span>' : ''}</div>`;
+  }
+  function mHeader(title, opts = {}) {
+    return `<header class="mbar"><button class="iconbtn" data-act="${opts.back || 'goBack'}" aria-label="Back">${ICON.back}</button><div class="mbar-t"><div class="mbar-title">${title}</div>${opts.sub || ''}</div>${opts.right || ''}</header>`;
+  }
+  function viewRosterM(r) {
+    const sub = S.sub;
+    if (sub && sub.type === 'catalog') return catalogM(r);
+    if (sub && sub.type === 'unit') { const u = r.units.find(x => x.instanceId === sub.id); if (u) return unitScreenM(r, u); S.sub = null; }
+    if (sub && sub.type === 'summary') return mHeader('Summary', { back: 'closeSub' }) + `<main class="wrap mwrap">${rosterViewHTML(r)}</main>` + modalHTML() + sheetHTML();
+    const gameTab = S.tab === 'play' || S.tab === 'strats';
+    const head = mHeader(esc(r.name), { sub: gameTab ? gameLine(r) : statusLine(r), right: `<button class="iconbtn" data-act="rosterMenu" aria-label="Roster menu">${ICON.more}</button>` });
+    let body = '';
+    if (S.tab === 'play') body = playM(r);
+    else if (S.tab === 'strats') body = stratsM(r);
+    else if (S.tab === 'rules') body = rulesTabHTML(r);
+    else body = rosterListM(r);
+    const tabs = [['build', 'Roster', 'list'], ['play', 'Play', 'dice'], ['strats', 'Stratagems', 'bolt'], ['rules', 'Rules', 'book']];
+    return head + `<main class="wrap mwrap tab-${S.tab}">${body}</main>` + tabbar(tabs, S.tab, 'rosterTab') + modalHTML() + sheetHTML();
+  }
+  function rosterListM(r) {
+    const pts = rosterPts(r), v = Engine.validate(r, DATA), ctx = Engine.ctxFor(r, DATA);
+    const ne = v.filter(x => x.severity === 'error').length;
+    const errUnits = new Set(v.filter(x => x.severity === 'error' && x.unitInstanceId).map(x => x.unitInstanceId));
+    const fd = fdata(r.factionId), bs = bsDef(r.battleSize);
+    const rows = rosterOrder(r).map(u => {
+      const def = unitDef(r.factionId, u.datasheetId); if (!def) return '';
+      const p = pts.per[u.instanceId] || { total: 0 };
+      const enh = u.enhancementId ? ctx.allEnh[u.enhancementId] : null;
+      const att = u.attachedTo && r.units.some(b => b.instanceId === u.attachedTo);
+      const meta = [u.size > 1 ? `${u.size} models` : '', r.warlordUnitId === u.instanceId ? '<span class="gold">★ Warlord</span>' : '', enh ? `<span class="gold">${esc(enh.name)}</span>` : '', p.surcharge ? `<span class="warn">${ORD(p.copyNo)} copy +${p.surcharge}</span>` : ''].filter(Boolean).join(' · ');
+      return `<div class="mrow ${att ? 'att' : ''} ${errUnits.has(u.instanceId) ? 'err' : ''} ${S.flash === u.instanceId ? 'flash' : ''}" id="u-${u.instanceId}"><button class="ptbtn" data-act="openInst" data-id="${u.instanceId}" aria-label="Datasheet: ${esc(dispName(r, u))}">${portrait(def, r.factionId)}</button><button class="mrow-main" data-act="openUnit" data-id="${u.instanceId}"><span class="mrow-name">${errUnits.has(u.instanceId) ? '<span class="bad">✕ </span>' : ''}${esc(dispName(r, u))}</span><span class="mrow-meta">${meta || '&nbsp;'}</span></button><span class="mrow-pts num">${p.total}</span></div>`;
+    }).join('');
+    return `<div class="mdet"><span class="dim">${esc(bs.name)} · ${esc(r.detachmentIds.map(id => fd.detachments.find(d => d.id === id).name).join(' + '))}</span><span class="dim num">${r.units.length} units</span></div>
+      ${rows ? `<div class="mlist">${rows}</div>` : `<div class="empty">Your roster is empty. Start with a CHARACTER.<br><button class="btn primary" data-act="openCatalog" style="margin-top:12px">${ICON.plus} Add your first unit</button></div>`}
+      <label class="fld" style="margin-top:18px">Roster notes<textarea id="roster-notes" data-inp="rosterNotes">${esc(r.notes || '')}</textarea></label>
+      ${ne ? `<button class="errstrip" data-act="openStatus"><span>✕ ${ne} problem${ne > 1 ? 's' : ''}</span><span>Show ›</span></button>` : ''}
+      <button class="fab" data-act="openCatalog">${ICON.plus}<span>Add unit</span></button>`;
+  }
+  function catalogM(r) {
+    const { cats } = catalogCats(r);
+    return mHeader('Add units', { back: 'closeSub', sub: statusLine(r), right: '<button class="btn sm primary donebtn" data-act="closeSub">Done</button>' })
+      + `<main class="wrap mwrap"><input class="search" type="search" id="add-search" data-inp="search" placeholder="Search name or keyword" value="${esc(S.search)}" aria-label="Search units" autocomplete="off" enterkeyhint="search">
+      <div class="chips scroll" role="group" aria-label="Categories">${cats.map(([c, l]) => `<button class="chip" aria-pressed="${S.cat === c}" data-act="cat" data-id="${c}">${l}</button>`).join('')}</div>
+      <div id="cat-list" class="addlist">${catalogList(r)}</div></main>` + modalHTML() + sheetHTML();
+  }
+  function unitScreenM(r, inst) {
+    const def = unitDef(r.factionId, inst.datasheetId), pts = rosterPts(r), ctx = Engine.ctxFor(r, DATA);
+    const p = pts.per[inst.instanceId] || { total: 0 };
+    const badges = unitBadges(r, inst, p, ctx);
+    return mHeader(esc(dispName(r, inst)), { back: 'closeSub', sub: statusLine(r), right: `<button class="iconbtn" data-act="openInst" data-id="${inst.instanceId}" aria-label="Datasheet">${ICON.info}</button>` })
+      + `<main class="wrap mwrap unitscreen"><button class="uhero" data-act="openInst" data-id="${inst.instanceId}">${portrait(def, r.factionId, 'lg')}<span class="stack" style="gap:6px;min-width:0"><span class="row" style="gap:6px">${badges.join('') || `<span class="dim">${esc(CAT_NAME[catOf(def, r)] || '')}</span>`}</span><span class="link">Open datasheet ›</span></span></button>
+      <div class="stack ubody-m">${unitBody(r, inst, pts, true)}</div></main>
+      <div class="mfoot"><span class="num mfoot-pts"><b>${p.total}</b> pts</span><button class="btn" data-act="dupUnit" data-id="${inst.instanceId}">${ICON.dup} Duplicate</button><button class="btn danger" data-act="removeUnit" data-id="${inst.instanceId}">${ICON.trash} Remove</button></div>` + modalHTML() + sheetHTML();
+  }
+  function playM(r) {
+    const p = playState(r);
+    const seg = `<div class="seg wide" role="group" aria-label="Play view"><button aria-pressed="${S.playSeg !== 'units'}" data-act="playSeg" data-id="turn">Turn</button><button aria-pressed="${S.playSeg === 'units'}" data-act="playSeg" data-id="units">Units</button></div>`;
+    if (S.playSeg === 'units') return `<div class="stack">${seg}${playUnitsM(r, p)}</div>`;
+    return `<div class="stack">${seg}${turnRow(p)}
+      <div class="playtop m2">${counterHTML('Command Points', 'cp', p.cp)}${counterHTML('Battle round', 'round', p.round)}${counterHTML('Your VP', 'vp0', p.vp[0])}${counterHTML('Opponent VP', 'vp1', p.vp[1])}</div>
+      ${blessHTML(r, p)}${factionPlayHTML(r, p)}
+      <button class="btn danger ghost" data-act="resetGameAsk">Reset game…</button></div>
+      <div class="mact"><button class="btn" data-act="pc" data-k="cp" data-d="-1" aria-label="Spend 1 CP">CP −</button><button class="btn" data-act="pc" data-k="cp" data-d="1" aria-label="Gain 1 CP">CP +</button><button class="btn primary grow" data-act="nextPhase">${p.phase === 'Fight' ? (p.turn === 'opp' ? 'Your turn →' : 'Opponent turn →') : 'Next: ' + PHASES[PHASES.indexOf(p.phase) + 1] + ' →'}</button></div>`;
+  }
+  function playUnitsM(r, p) {
+    const order = rosterOrder(r);
+    if (!order.length) return '<div class="empty">Add units on the Roster tab first.</div>';
+    const groups = [];
+    order.forEach(u => { const top = !u.attachedTo || !r.units.some(b => b.instanceId === u.attachedTo); if (top) groups.push([u]); else groups[groups.length - 1].push(u); });
+    const dead = g => g.every(u => { const def = unitDef(r.factionId, u.datasheetId); return woundsOf(p, u, parseInt(def.profile.W, 10) || 1, def).every(w => w <= 0); });
+    const live = groups.filter(g => !dead(g)), gone = groups.filter(dead);
+    const card = g => `<div class="pgroup ${dead(g) ? 'dead' : ''}">${g.map(u => woundM(r, u, p)).join('')}</div>`;
+    return `${live.map(card).join('')}${gone.length ? `<div class="grouphdr">Destroyed</div>${gone.map(card).join('')}` : ''}
+      <button class="btn ghost" data-act="resetWounds">Reset all wounds</button>`;
+  }
+  function woundM(r, inst, p) {
+    const def = unitDef(r.factionId, inst.datasheetId);
+    const W = parseInt(def.profile.W, 10) || 1;
+    const wl = woundsOf(p, inst, W, def);
+    const alive = wl.filter(w => w > 0).length;
+    const wi = wl.findIndex((w, i) => w > 0 && w < maxW(def, i));
+    const id = inst.instanceId, name = esc(dispName(r, inst));
+    let read, btns;
+    if (inst.size === 1) {
+      read = `<span class="wbig num">${wl[0]}<small>/${W}</small></span><span class="dim">wounds</span>`;
+      btns = `<button class="wb minus" data-act="wnd" data-k="w" data-d="-1" data-id="${id}" aria-label="${name}: lose a wound">−1 wound</button><button class="wb plus" data-act="wnd" data-k="w" data-d="1" data-id="${id}" aria-label="${name}: heal a wound">+</button>`;
+    } else if (W === 1) {
+      read = `<span class="wbig num">${alive}<small>/${inst.size}</small></span><span class="dim">models</span>`;
+      btns = `<button class="wb minus" data-act="wnd" data-k="m" data-d="-1" data-id="${id}" aria-label="${name}: remove a model">−1 model</button><button class="wb plus" data-act="wnd" data-k="m" data-d="1" data-id="${id}" aria-label="${name}: return a model">+</button>`;
+    } else {
+      read = `<span class="wbig num">${alive}<small>/${inst.size}</small></span><span class="dim">models${wi >= 0 ? ` · wounded model <b class="num">${wl[wi]}/${maxW(def, wi)}</b>` : ''}</span>`;
+      btns = `<button class="wb minus" data-act="wnd" data-k="w" data-d="-1" data-id="${id}" aria-label="${name}: lose a wound">−1 wound</button><button class="wb minus2" data-act="wnd" data-k="m" data-d="-1" data-id="${id}" aria-label="${name}: remove a model">−1 model</button><button class="wb plus" data-act="wnd" data-k="w" data-d="1" data-id="${id}" aria-label="${name}: heal or return">+</button>`;
+    }
+    const dmgOn = def.damaged && inst.size === 1 && wl[0] > 0 && wl[0] <= def.damaged.threshold;
+    return `<div class="pcard ${alive ? '' : 'dead'} ${inst.attachedTo ? 'att' : ''}"><div class="row nowrap"><button class="ptbtn" data-act="openInst" data-id="${id}" aria-label="Datasheet: ${name}">${portrait(def, r.factionId, 'sm')}</button><div class="grow"><b>${name}</b><div class="dim pstats">T${def.profile.T} · Sv ${def.profile.Sv}${def.profile.InSv !== '—' ? ' · ' + def.profile.InSv + ' inv' : ''} · OC ${def.profile.OC}</div></div><div class="wread">${read}</div></div>
+      ${dmgOn ? `<div class="badge red dmgbadge">DAMAGED · ${esc(def.damaged.text)}</div>` : ''}${alive === 0 ? '<div class="bad" style="font-weight:700">Destroyed</div>' : ''}<div class="wbtns">${btns}</div></div>`;
+  }
+  /* stratagems: whose turn a stratagem is used in, read from its timing text */
+  const stratTurn = s => /opponent's/i.test(s.when) ? 'opp' : /\byour\b/i.test(s.when) ? 'mine' : 'both';
+  function allStrats(r) {
+    const fd = fdata(r.factionId);
+    const dets = r.detachmentIds.map(id => fd.detachments.find(d => d.id === id));
+    return [...GR.coreStratagems.map(s => ({ s, src: 'Core' })), ...dets.flatMap(d => d.stratagems.map(s => ({ s, src: d.name })))].map(x => ({ ...x, key: x.src + ':' + x.s.name, turn: stratTurn(x.s) }));
+  }
+  function stratsM(r) {
+    const p = playState(r);
+    const fd = fdata(r.factionId);
+    const dets = r.detachmentIds.map(id => fd.detachments.find(d => d.id === id));
+    let list = allStrats(r);
+    const mode = S.stratMode;
+    if (mode === 'now') list = list.filter(x => (x.s.phases.includes(p.phase) || x.s.phases.includes('Any')) && (x.turn === 'both' || x.turn === p.turn));
+    else if (mode !== 'all') list = list.filter(x => x.s.phases.includes(mode) || x.s.phases.includes('Any'));
+    if (S.stratSrc !== 'All') list = list.filter(x => x.src === S.stratSrc);
+    const stamp = `${p.round}-${p.turn}-${p.phase}`;
+    const modes = [['now', `Now · ${p.phase}`], ['all', 'All'], ...PHASES.map(ph => [ph, ph])];
+    const row = x => {
+      const open = !!S.stratOpen[x.key], used = p.usedStrats[x.key] === stamp, ph = x.s.phases[0];
+      return `<article class="srow ${used ? 'used' : ''}" style="--ph:var(${PH_VAR[ph] || '--ph-any'})"><button class="srow-h" data-act="stratToggle" data-id="${esc(x.key)}" aria-expanded="${open}"><span class="srow-t"><span class="ph">${esc(x.s.phases.join(' / '))}${x.turn === 'opp' ? ' · opponent' : x.turn === 'mine' ? ' · your turn' : ''}</span><b>${esc(x.s.name)}</b></span><span class="cp num">${x.s.cp} CP</span>${CHEV}</button>
+        ${open ? `<div class="srow-b"><dl><dt>When</dt><dd>${esc(x.s.when)}</dd><dt>Target</dt><dd>${esc(x.s.target)}</dd><dt>Effect</dt><dd>${esc(x.s.effect)}</dd>${x.s.restrictions ? `<dt>Limit</dt><dd>${esc(x.s.restrictions)}</dd>` : ''}</dl><div class="faint" style="font-size:.8rem">${esc(x.src)}</div>
+          <button class="btn ${used || p.cp < x.s.cp ? '' : 'primary'}" data-act="useStrat" data-id="${esc(x.key)}" data-cp="${x.s.cp}" ${used ? 'aria-disabled="true"' : ''}>${used ? 'Used this phase' : p.cp < x.s.cp ? `Needs ${x.s.cp} CP · you have ${p.cp}` : `Use · −${x.s.cp} CP (you have ${p.cp})`}</button></div>` : ''}</article>`;
+    };
+    return `<div class="stack"><div class="chips scroll" role="group" aria-label="When">${modes.map(([id, l]) => `<button class="chip" aria-pressed="${mode === id}" data-act="stratMode" data-id="${id}" ${PH_VAR[id] ? `style="border-color:var(${PH_VAR[id]})"` : ''}>${esc(l)}</button>`).join('')}</div>
+      <div class="chips scroll" role="group" aria-label="Source">${['All', 'Core', ...dets.map(d => d.name)].map(x => `<button class="chip" aria-pressed="${S.stratSrc === x}" data-act="stratSrc" data-id="${esc(x)}">${esc(x)}</button>`).join('')}</div>
+      ${mode === 'now' ? `<div class="faint" style="font-size:.85rem">${p.turn === 'opp' ? "Opponent's" : 'Your'} ${p.phase} phase, from the Play tab. Stratagems usable in any phase are included.</div>` : ''}
+      <div class="slist">${list.map(row).join('') || '<div class="empty">No stratagems for this moment.</div>'}</div></div>`;
+  }
+  /* bottom sheets (phones) */
+  function sheetHTML() {
+    const sh = S.sheet; if (!sh) return '';
+    const r = cur();
+    let title = '', inner = '';
+    if (sh.type === 'pick' && r) {
+      const u = r.units.find(x => x.instanceId === sh.id); if (!u) { S.sheet = null; return ''; }
+      if (sh.kind === 'enh') { const { isChar } = enhChoices(r, u); title = isChar ? 'Enhancement' : 'Upgrade'; inner = `<div class="picklist" role="radiogroup" aria-label="${title}">${enhPickList(r, u)}</div>`; }
+      else { title = 'Attach to bodyguard'; inner = `<div class="picklist" role="radiogroup" aria-label="${title}">${attPickList(r, u)}</div>`; }
+    } else if (sh.type === 'status' && r) {
+      title = 'Roster check'; inner = meters(r) + valList(Engine.validate(r, DATA)) + `<button class="btn" data-act="editSetup">${ICON.gear} Battle size & detachments</button>`;
+    } else if (sh.type === 'menu' && r) {
+      title = esc(r.name);
+      inner = `<div class="mmenu"><button data-act="openSummary">${ICON.list} Summary</button><button data-act="exportRoster" data-id="${r.id}">${ICON.share} Export / Share</button><button data-act="renameSheet" data-id="${r.id}">${ICON.edit} Rename</button><button data-act="editSetup">${ICON.gear} Battle size & detachments</button>${S.tab === 'play' ? `<button data-act="resetGameAsk" class="danger">${ICON.undo} Reset game</button>` : ''}<button data-act="goHomeArmies">${ICON.home} Home</button></div>`;
+    } else if (sh.type === 'rmenu') {
+      const x = rosters.find(q => q.id === sh.id); if (!x) { S.sheet = null; return ''; }
+      title = esc(x.name);
+      inner = `<div class="mmenu"><button data-act="openRoster" data-id="${x.id}">${ICON.list} Open</button><button data-act="rosterDup" data-id="${x.id}">${ICON.dup} Duplicate</button><button data-act="renameSheet" data-id="${x.id}">${ICON.edit} Rename</button><button data-act="exportRoster" data-id="${x.id}">${ICON.share} Export / Share</button><button class="danger" data-act="rosterDelAsk" data-id="${x.id}">${ICON.trash} Delete</button></div>`;
+    } else if (sh.type === 'rename') {
+      const x = rosters.find(q => q.id === sh.id); if (!x) { S.sheet = null; return ''; }
+      title = 'Rename roster';
+      inner = `<input type="text" id="sheet-rename" value="${esc(sh.value != null ? sh.value : x.name)}" aria-label="Roster name" autocomplete="off" enterkeyhint="done"><div class="row sheet-btns"><button class="btn" data-act="closeSheet">Cancel</button><button class="btn primary" data-act="renameSave" data-id="${x.id}">Save</button></div>`;
+    } else if (sh.type === 'confirm') {
+      title = esc(sh.title);
+      inner = `<p style="margin:0">${esc(sh.text)}</p><div class="row sheet-btns"><button class="btn" data-act="closeSheet">${esc(sh.no || 'Cancel')}</button><button class="btn danger solid" data-act="${sh.act}" data-id="${esc(sh.id || '')}">${esc(sh.yes)}</button></div>`;
+    } else if (sh.type === 'tip') {
+      title = esc(sh.title || 'Rule');
+      inner = `<p style="margin:0;font-size:1.05rem;line-height:1.5">${esc(sh.text)}</p>`;
+    }
+    return `<div class="sheet-back" data-act="sheetBack"><div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sh-t"><div class="sheet-grip" aria-hidden="true"><i></i></div><div class="sheet-head"><h2 id="sh-t">${title}</h2><button class="iconbtn" data-act="closeSheet" aria-label="Close">${ICON.close}</button></div><div class="sheet-body">${inner}</div></div></div>`;
+  }
+  /* one Back for everything: Android system Back, Escape, and the ← buttons */
+  function goBack() {
+    if (document.getElementById('tip')) { hideTip(); return true; }
+    if (S.sheet) { S.sheet = null; render(); return true; }
+    if (S.modal) { S.modal = null; render(); return true; }
+    if (S.renaming) { S.renaming = false; render(); return true; }
+    if (S.renameRoster) { S.renameRoster = null; render(); return true; }
+    if (S.confirmRoster || S.confirmReset || S.confirmDel) { S.confirmRoster = S.confirmReset = S.confirmDel = null; render(); return true; }
+    if (S.view === 'roster') {
+      if (S.sub) { A.closeSub(); return true; }
+      if (S.tab !== 'build' && S.m) { A.rosterTab({ dataset: { id: 'build' } }); return true; }
+      leaveRoster(); return true;
+    }
+    if (S.view === 'wizard') { if (S.draft && S.draft.editing) go('roster'); else go('faction'); return true; }
+    if (S.view === 'faction') { go('home'); return true; }
+    if (S.view === 'home' && S.homeTab === 'glossary') { S.homeTab = 'armies'; render(); return true; }
+    return false;
+  }
+  function leaveRoster() {
+    const from = S.rosterFrom;
+    S.sub = null; S.renaming = false;
+    if (from === 'home') go('home', { rosterId: null }); else go('faction', { factionId: (cur() || {}).factionId || S.factionId || 'worldEaters', rosterId: null });
+  }
+  window.__onNativeBack = () => { try { return goBack(); } catch (e) { return false; } };
+  window.__onNativePause = () => { };
+
+  /* ---------------- render ---------------- */
+  /* ---------------- portrait cropper ---------------- */
+  const CROP = 280;
+  function loadCropSrc(src, dirty) {
+    const m = S.modal; if (!m || m.type !== 'portrait') return;
+    const img = new Image();
+    img.onload = () => { if (S.modal !== m) return; m.img = img; m.zoom = 1; m.base = Math.max(CROP / img.naturalWidth, CROP / img.naturalHeight); m.scale = m.base; m.ox = (CROP - img.naturalWidth * m.scale) / 2; m.oy = (CROP - img.naturalHeight * m.scale) / 2; m.dirty = dirty; render(); };
+    img.onerror = () => toast('Could not open that image.');
+    img.src = src;
+  }
+  function clampCrop(m) { const w = m.img.naturalWidth * m.scale, h = m.img.naturalHeight * m.scale; m.ox = Math.min(0, Math.max(CROP - w, m.ox)); m.oy = Math.min(0, Math.max(CROP - h, m.oy)); }
+  function drawCrop() {
+    const m = S.modal, cv = document.getElementById('crop-canvas'); if (!cv || !m) return;
+    const dpr = window.devicePixelRatio || 1; if (cv.width !== CROP * dpr) { cv.width = cv.height = CROP * dpr; }
+    const g = cv.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.fillStyle = '#1c0507'; g.fillRect(0, 0, CROP, CROP);
+    if (m.img) g.drawImage(m.img, m.ox, m.oy, m.img.naturalWidth * m.scale, m.img.naturalHeight * m.scale);
+  }
+  function wireCrop() {
+    const m = S.modal, cv = document.getElementById('crop-canvas'); if (!cv) return;
+    drawCrop();
+    const zoom = document.getElementById('crop-zoom');
+    if (zoom) zoom.oninput = () => { if (!m.img) return; const cx = CROP / 2, cy = CROP / 2; const old = m.scale; m.zoom = +zoom.value; m.scale = m.base * m.zoom; m.ox = cx - (cx - m.ox) * (m.scale / old); m.oy = cy - (cy - m.oy) * (m.scale / old); clampCrop(m); m.dirty = true; drawCrop(); const b = document.querySelector('[data-act="savePortrait"]'); if (b) b.disabled = false; };
+    let drag = null;
+    cv.onpointerdown = e => { if (!m.img) return; drag = { x: e.clientX, y: e.clientY, ox: m.ox, oy: m.oy }; cv.setPointerCapture(e.pointerId); e.preventDefault(); };
+    cv.onpointermove = e => { if (!drag) return; const k = CROP / cv.getBoundingClientRect().width; m.ox = drag.ox + (e.clientX - drag.x) * k; m.oy = drag.oy + (e.clientY - drag.y) * k; clampCrop(m); m.dirty = true; drawCrop(); };
+    cv.onpointerup = cv.onpointercancel = () => { if (drag) { drag = null; const b = document.querySelector('[data-act="savePortrait"]'); if (b && m.dirty) b.disabled = false; } };
+    cv.onclick = e => e.stopPropagation();
+  }
+  const MQ = () => window.innerWidth < 760;
+  let lastKey = null;
+  function screenKey() { return [S.view, S.rosterId, S.view === 'roster' ? S.tab : '', S.sub ? S.sub.type + (S.sub.id || '') : '', S.view === 'home' ? S.homeTab : '', S.view === 'faction' ? S.factionId : ''].join('|'); }
+  function render() {
+    S.m = MQ();
+    const root = document.documentElement;
+    root.classList.toggle('m', S.m);
+    root.classList.toggle('android', PL.android);
+    const key = screenKey();
+    const y = window.scrollY;
+    if (lastKey !== null && key !== lastKey) S.scrollMem[lastKey] = y;
+    const focusId = document.activeElement && document.activeElement.id;
+    const selStart = document.activeElement && document.activeElement.selectionStart;
+    const modalScroll = document.querySelector('.modal') ? document.querySelector('.modal').scrollTop : 0;
+    let html = '';
+    if (S.view === 'home') html = viewHome();
+    else if (S.view === 'faction') html = viewFaction();
+    else if (S.view === 'wizard') html = viewWizard();
+    else html = viewRoster();
+    $app.innerHTML = html;
+    if (key !== lastKey || S.modal || S.sheet) { const t = document.querySelector('.toast'); if (t && !t.hidden) { t.hidden = true; clearTimeout(toastT); } }
+    root.classList.toggle('has-fab', !!document.querySelector('.fab'));
+    root.classList.toggle('has-mact', !!document.querySelector('.mact, .mfoot'));
+    root.classList.toggle('has-err', !!document.querySelector('.errstrip'));
+    root.classList.toggle('has-tabbar', !!document.querySelector('.tabbar'));
+    document.body.style.overflow = S.modal || S.sheet ? 'hidden' : '';
+    if (key !== lastKey) window.scrollTo(0, S.scrollMem[key] || 0); else window.scrollTo(0, y);
+    lastKey = key;
+    const md = document.querySelector('.modal'); if (md && S.keepModalScroll) md.scrollTop = modalScroll; S.keepModalScroll = false;
+    if (focusId) { const el = document.getElementById(focusId); if (el) { el.focus({ preventScroll: true }); try { if (selStart != null && el.setSelectionRange) el.setSelectionRange(selStart, selStart); } catch (e) { } } }
+    if (S.modal && S.modal.type === 'portrait') wireCrop();
+    if (S.sheet) wireSheet();
+    if (S.flash) { const n = document.getElementById('u-' + S.flash); const id = S.flash; if (n) n.scrollIntoView({ block: 'center' }); setTimeout(() => { if (S.flash === id) S.flash = null; }, 1600); }
+    PL.keepAwake(S.view === 'roster' && S.tab === 'play');
+  }
+  /* sheets close with a downward drag on the grip or header */
+  function wireSheet() {
+    const sh = document.querySelector('.sheet'); if (!sh) return;
+    const grip = sh.querySelector('.sheet-grip'), head = sh.querySelector('.sheet-head');
+    let st = null;
+    const down = e => { st = { y: e.clientY, id: e.pointerId }; sh.style.transition = 'none'; };
+    const move = e => { if (!st) return; const d = Math.max(0, e.clientY - st.y); sh.style.transform = `translateY(${d}px)`; };
+    const up = e => { if (!st) return; const d = e.clientY - st.y; st = null; sh.style.transition = ''; if (d > 90) { S.sheet = null; render(); } else sh.style.transform = ''; };
+    [grip, head].forEach(el => { if (!el) return; el.addEventListener('pointerdown', down); });
+    window.onpointermove = move; window.onpointerup = up; window.onpointercancel = up;
+    const inp = document.getElementById('sheet-rename'); if (inp && document.activeElement !== inp) { inp.focus(); inp.select(); }
+  }
+  function go(view, patch = {}) { Object.assign(S, { view }, patch); S.modal = null; S.sheet = null; S.sub = null; S.scrollMem[screenKey()] = 0; render(); }
+
+  /* ---------------- backup & files ---------------- */
+  function backupJSON() { return JSON.stringify({ scBackup: 1, app: 'Supreme Commander', savedAt: new Date().toISOString(), rosters: rosters.filter(r => !r.isExample), portraits: CUSTOM }); }
+  async function saveText(fn, data) {
+    if (PL.android) { AND.saveFile(fn, data); return; }
+    try {
+      if (!Store.downloads && window.mrSaveFile) { const path = await window.mrSaveFile(fn, data); toast(path ? 'Saved to ' + path : 'Saved.'); return; }
+      if (Store.downloads) { await Store.downloads.save({ filename: fn, data }); toast('Saved.'); return; }
+      const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([data], { type: 'application/json' })); a.download = fn; document.body.appendChild(a); a.click(); a.remove();
+    } catch (e) { if (e && e.code !== 'declined') toast('Saving is not available here. Use Copy.'); }
+  }
+
+  /* ---------------- actions ---------------- */
+  function defaultName(fid, bsId) {
+    const f = faction(fid), b = bsDef(bsId);
+    const n = rosters.filter(r => r.factionId === fid).length + 1;
+    return `${f.name} ${b.points} #${n}`;
+  }
+  function inst(id) { return cur().units.find(u => u.instanceId === id); }
+  const A = {
+    editPortrait: el => { const id = el.dataset.id; const def = unitDef(S.factionId, id); S.modal = { type: 'portrait', unitId: id, zoom: 1, dirty: false }; render(); loadCropSrc(CUSTOM[id] || (def.image && IMG[def.image]) || IMG._logo, false); },
+    savePortrait: () => { const m = S.modal; if (!m || !m.img) return; const out = document.createElement('canvas'); out.width = out.height = 320; const k = 320 / CROP; const g = out.getContext('2d'); g.fillStyle = '#1c0507'; g.fillRect(0, 0, 320, 320); g.drawImage(m.img, m.ox * k, m.oy * k, m.img.naturalWidth * m.scale * k, m.img.naturalHeight * m.scale * k); let url = out.toDataURL('image/webp', 0.82); if (!url.startsWith('data:image/webp')) url = out.toDataURL('image/jpeg', 0.85); Portraits.set(m.unitId, url); S.modal = null; toast('Portrait saved.'); render(); },
+    resetPortrait: async () => { const m = S.modal; await Portraits.clear(m.unitId); S.modal = null; toast('Default portrait restored.'); render(); },
+    pickEnh: el => { if (el.getAttribute('aria-disabled') === 'true') { const w = el.querySelector('.pick-why'); if (w) toast(w.textContent.replace('⚠ ', '')); PL.haptic('reject'); return; } const r = cur(); inst(el.dataset.id).enhancementId = el.dataset.v || null; S.openPick = null; S.sheet = null; touch(r); PL.haptic('confirm'); render(); },
+    pickAtt: el => { if (el.getAttribute('aria-disabled') === 'true') { const w = el.querySelector('.pick-why'); if (w) toast(w.textContent.replace('⚠ ', '')); PL.haptic('reject'); return; } const r = cur(); inst(el.dataset.id).attachedTo = el.dataset.v || null; S.openPick = null; S.sheet = null; touch(r); PL.haptic('confirm'); render(); },
+    pickSheet: el => { S.sheet = { type: 'pick', kind: el.dataset.kind, id: el.dataset.id }; render(); },
+    goBack: () => { goBack(); },
+    closeSheet: () => { S.sheet = null; render(); },
+    sheetBack: (el, ev) => { if (ev.target === el) { S.sheet = null; render(); } },
+    openStatus: () => { S.sheet = { type: 'status' }; render(); },
+    rosterMenu: () => { S.sheet = { type: 'menu' }; render(); },
+    rosterMenu2: (el, ev) => { ev.stopPropagation(); S.sheet = { type: 'rmenu', id: el.dataset.id }; render(); },
+    openCatalog: () => { S.sub = { type: 'catalog' }; render(); },
+    openUnit: el => { S.sub = { type: 'unit', id: el.dataset.id }; render(); },
+    openSummary: () => { S.sheet = null; S.sub = { type: 'summary' }; render(); },
+    closeSub: () => { const wasCat = S.sub && S.sub.type === 'catalog', wasUnit = S.sub && S.sub.type === 'unit' ? S.sub.id : null; S.sub = null; S.flash = wasCat ? S.lastAdded : wasUnit; S.lastAdded = null; render(); },
+    renameSheet: el => { S.sheet = { type: 'rename', id: el.dataset.id }; render(); },
+    renameSave: el => { const x = rosters.find(q => q.id === el.dataset.id); const v = (document.getElementById('sheet-rename') || {}).value; if (x) { x.name = (v || '').trim() || defaultName(x.factionId, x.battleSize); touch(x); } S.sheet = null; toast('Renamed.'); render(); },
+    rosterDelAsk: el => { const x = rosters.find(q => q.id === el.dataset.id); S.sheet = { type: 'confirm', title: 'Delete roster?', text: `“${x.name}” and its game tracker will be deleted from this device. Export it first if you may want it back.`, yes: 'Delete roster', no: 'Keep it', act: 'rosterDelYes', id: x.id }; render(); },
+    rosterRenameCancel: () => { S.renameRoster = null; render(); },
+    removeUnit: el => {
+      const r = cur(), id = el.dataset.id, u = inst(id); if (!u) return;
+      const before = JSON.stringify({ units: r.units, wl: r.warlordUnitId }), name = dispName(r, u);
+      r.units = r.units.filter(x => x.instanceId !== id); r.units.forEach(x => { if (x.attachedTo === id) x.attachedTo = null; }); if (r.warlordUnitId === id) r.warlordUnitId = null;
+      S.sub = null; touch(r); PL.haptic('confirm'); render();
+      toast(`${name} removed.`, [{ label: 'Undo', fn: () => { const b = JSON.parse(before); r.units = b.units; r.warlordUnitId = b.wl; touch(r); S.flash = id; render(); } }]);
+    },
+    togglePick: el => { S.openPick = S.openPick === el.dataset.k ? null : el.dataset.k; render(); },
+    pickOpt: el => { const r = cur(), u = inst(el.dataset.id); u.wargear = u.wargear || {}; u.wargear[el.dataset.o] = el.dataset.v; touch(r); render(); },
+    goHomeArmies: () => { S.homeTab = 'armies'; go('home'); },
+    resetGameAsk: () => { if (S.m) { const p = playState(cur()); S.sheet = { type: 'confirm', title: 'Reset game?', text: `Round ${p.round}, ${p.cp} CP, VP ${p.vp[0]}:${p.vp[1]}, Blessings dice and all wounds go back to the start.`, yes: 'Reset game', no: 'Keep playing', act: 'resetGameYes' }; } else S.confirmReset = true; render(); },
+    resetGameNo: () => { S.confirmReset = false; render(); },
+    resetGameYes: () => { const r = cur(); S.confirmReset = false; S.sheet = null; lsDel(playKey(r.id)); S.play = null; playState(r); savePlay(r); toast('Game reset: round 1, Command phase, 1 CP, 0 VP, full wounds.'); render(); },
+    homeTab: el => { S.homeTab = el.dataset.id; S.view = 'home'; render(); },
+    goHome: () => go('home'),
+    goFaction: () => { const r = cur(); go('faction', { factionId: r ? r.factionId : S.factionId || 'worldEaters', rosterId: null, renaming: false }); },
+    goHomeArmies2: () => { S.homeTab = 'armies'; go('home', { rosterId: null }); },
+    openFaction: el => go('faction', { factionId: el.dataset.id, search: '' }),
+    factionTab: el => { S.factionTab = el.dataset.id; render(); },
+    newRoster: () => { S.draft = { factionId: S.factionId, name: defaultName(S.factionId, 'strike'), nameTouched: false, battleSize: 'strike', detachmentIds: [], forceDisposition: null }; go('wizard'); },
+    editSetup: () => { const r = cur(); S.draft = { editing: true, factionId: r.factionId, name: r.name, nameTouched: true, battleSize: r.battleSize, detachmentIds: r.detachmentIds.slice(), forceDisposition: r.forceDisposition }; go('wizard'); },
+    wizCancel: () => go('roster'),
+    draftSize: el => { const d = S.draft; d.battleSize = el.dataset.id; if (!d.nameTouched) d.name = defaultName(d.factionId, d.battleSize); const fd = fdata(d.factionId); /* drop detachments that no longer fit */ const keep = []; d.detachmentIds.forEach(id => { const tmp = { ...d, detachmentIds: keep }; if (!detBlock(fd.detachments.find(x => x.id === id), tmp)) keep.push(id); }); if (keep.length !== d.detachmentIds.length) toast('Some detachments no longer fit and were removed.'); d.detachmentIds = keep; render(); },
+    draftDet: el => { const d = S.draft, id = el.dataset.id; if (d.detachmentIds.includes(id)) d.detachmentIds = d.detachmentIds.filter(x => x !== id); else { const det = fdata(d.factionId).detachments.find(x => x.id === id); const why = detBlock(det, d); if (why) { toast(why); return; } d.detachmentIds.push(id); } render(); },
+    draftDisp: el => { S.draft.forceDisposition = el.dataset.id; render(); },
+    wizDone: () => {
+      const d = S.draft;
+      const name = d.name.trim() || defaultName(d.factionId, d.battleSize);
+      if (d.editing) {
+        const r = cur(); Object.assign(r, { name, battleSize: d.battleSize, detachmentIds: d.detachmentIds.slice(), forceDisposition: d.forceDisposition });
+        const ctx = Engine.ctxFor(r, DATA); let dropped = 0;
+        r.units.forEach(u => { if (u.enhancementId && !ctx.enhById[u.enhancementId]) { u.enhancementId = null; dropped++; } });
+        touch(r); go('roster', { tab: 'build' }); if (dropped) toast(`${dropped} enhancement${dropped > 1 ? 's' : ''} removed: detachment no longer selected.`);
+        return;
+      }
+      const r = { id: 'r' + uid(), name, factionId: d.factionId, battleSize: d.battleSize, detachmentIds: d.detachmentIds.slice(), forceDisposition: d.forceDisposition, warlordUnitId: null, units: [], notes: '', createdAt: Date.now(), updatedAt: Date.now(), dataVersion: Engine.dataVersionFor(d.factionId, DATA) };
+      rosters.push(r); Store.save(r); go('roster', { rosterId: r.id, tab: 'build', cat: 'character', search: '' });
+    },
+    openRoster: el => { const r = rosters.find(x => x.id === el.dataset.id); if (!r) return; sortUnits(r); const from = S.view === 'home' ? 'home' : 'faction'; go('roster', { rosterId: r.id, factionId: r.factionId, tab: 'build', cat: 'all', search: '', rosterFrom: from, play: null, playFor: null }); if (r.dataVersion !== DATA.meta.dataVersion) toast('Built on older data. Check the Validation panel.'); },
+    rosterDup: el => { const r = rosters.find(x => x.id === el.dataset.id); const c = JSON.parse(JSON.stringify(r)); c.id = 'r' + uid(); delete c.isExample; c.name = r.name + ' (copy)'; c.createdAt = c.updatedAt = Date.now(); rosters.push(c); Store.save(c); S.sheet = null; toast('Roster duplicated.'); render(); },
+    rosterRename: el => { S.renameRoster = el.dataset.id; render(); const i = document.getElementById('rn-' + el.dataset.id); if (i) { i.focus(); i.select(); } },
+    rosterRenameDone: el => { const r = rosters.find(x => x.id === el.dataset.id); if (r && !r.name.trim()) r.name = defaultName(r.factionId, r.battleSize); if (r) touch(r); S.renameRoster = null; render(); },
+    rosterDel: el => { S.confirmRoster = el.dataset.id; render(); },
+    rosterDelNo: () => { S.confirmRoster = null; render(); },
+    rosterDelYes: el => { const id = el.dataset.id; rosters = rosters.filter(r => r.id !== id); Store.remove(id); lsDel(playKey(id)); S.confirmRoster = null; S.sheet = null; toast('Roster deleted.'); render(); },
+    startRename: () => { S.renaming = true; render(); const i = document.getElementById('roster-name'); if (i) { i.focus(); i.select(); } },
+    rosterTab: el => { if (el.dataset.id === 'home') { S.homeTab = 'armies'; go('home'); return; } if (S.m && el.dataset.id === S.tab && !S.sub) { window.scrollTo({ top: 0, behavior: 'smooth' }); return; } S.tab = el.dataset.id; S.modal = null; S.sheet = null; S.sub = null; render(); },
+    cat: el => { S.cat = el.dataset.id; render(); },
+    addUnit: el => {
+      if (el.getAttribute('aria-disabled') === 'true') { toast(el.closest('.additem').querySelector('.why').textContent); return; }
+      const r = cur(), def = unitDef(r.factionId, el.dataset.id), u = newInstance(def);
+      r.units.push(u);
+      if (!r.warlordUnitId && !Engine.warlordBlock(def, u, Engine.ctxFor(r, DATA)) && def.faction === fdata(r.factionId).armyFaction) r.warlordUnitId = u.instanceId;
+      touch(r); PL.haptic('confirm'); S.lastAdded = u.instanceId;
+      if (S.m) toast(`${def.name} added.`, [{ label: 'Configure', fn: () => { S.sub = { type: 'unit', id: u.instanceId }; render(); } }, { label: 'Undo', fn: () => { r.units = r.units.filter(x => x.instanceId !== u.instanceId); if (r.warlordUnitId === u.instanceId) r.warlordUnitId = null; touch(r); render(); } }]);
+      else toast(`${def.name} added.`);
+      if (S.m && document.getElementById('cat-list')) { document.getElementById('cat-list').innerHTML = catalogList(r); const st = document.querySelector('.mbar .mstatus'); if (st) st.outerHTML = statusLine(r); } else render();
+    },
+    toggleUnit: el => { S.expanded[el.dataset.id] = !S.expanded[el.dataset.id]; render(); },
+    setSize: el => { const r = cur(), u = inst(el.dataset.id); u.size = +el.dataset.v; clampWargear(unitDef(r.factionId, u.datasheetId), u); touch(r); render(); },
+    optInc: el => { const r = cur(), u = inst(el.dataset.id), def = unitDef(r.factionId, u.datasheetId), o = def.options.find(x => x.id === el.dataset.o); u.wargear = u.wargear || {}; if ((+u.wargear[o.id] || 0) >= Engine.optionMax(o, u, def)) { toast('No more models can take this option.'); return; } u.wargear[o.id] = (+u.wargear[o.id] || 0) + 1; touch(r); render(); },
+    optDec: el => { const r = cur(), u = inst(el.dataset.id); u.wargear = u.wargear || {}; u.wargear[el.dataset.o] = Math.max(0, (+u.wargear[el.dataset.o] || 0) - 1); touch(r); render(); },
+    dupUnit: el => { const r = cur(), u = inst(el.dataset.id); const c = JSON.parse(JSON.stringify(u)); c.instanceId = uid(); c.enhancementId = null; c.attachedTo = null; r.units.splice(r.units.indexOf(u) + 1, 0, c); touch(r); PL.haptic('confirm'); if (S.m) toast('Duplicated (without enhancement or attachment).', [{ label: 'Open copy', fn: () => { S.sub = { type: 'unit', id: c.instanceId }; render(); } }]); else toast('Unit duplicated (without enhancement or attachment).'); render(); },
+    delUnit: el => { S.confirmDel = el.dataset.id; render(); },
+    delNo: () => { S.confirmDel = null; render(); },
+    delYes: el => { const r = cur(), id = el.dataset.id; r.units = r.units.filter(u => u.instanceId !== id); r.units.forEach(u => { if (u.attachedTo === id) u.attachedTo = null; }); if (r.warlordUnitId === id) r.warlordUnitId = null; S.confirmDel = null; touch(r); render(); },
+    openVal: () => { S.modal = { type: 'val' }; render(); },
+    jumpUnit: el => { const id = el.dataset.id; S.modal = null; S.sheet = null; if (!id) { render(); return; } if (S.m) { S.tab = 'build'; S.sub = { type: 'unit', id }; render(); return; } S.tab = 'build'; S.expanded[id] = true; render(); const n = document.getElementById('u-' + id); if (n) { n.scrollIntoView({ block: 'center', behavior: 'smooth' }); n.querySelector('.uname').focus({ preventScroll: true }); } },
+    openDs: el => { S.modal = { type: 'ds', unitId: el.dataset.id }; render(); },
+    openInst: el => { const r = cur(); const list = S.tab === 'list' && S.listOrder ? S.listOrder : rosterOrder(r).map(u => u.instanceId); S.modal = { type: 'ds', instId: el.dataset.id, list }; render(); },
+    dsNav: el => { const m = S.modal; const i = m.list.indexOf(m.instId) + +el.dataset.d; if (i >= 0 && i < m.list.length) { m.instId = m.list[i]; m.combined = false; render(); } },
+    dsBuff: el => { S.dsBuff = el.dataset.v === '1'; S.keepModalScroll = true; render(); },
+    dsCombined: () => { S.modal.combined = !S.modal.combined; render(); },
+    closeModal: () => { S.modal = null; hideTip(); render(); },
+    closeModalBack: (el, ev) => { if (ev.target === el) A.closeModal(); },
+    tip: (el, ev) => { ev.stopPropagation(); if (S.m) { const t = el.dataset.tip || '', ti = el.dataset.title || el.textContent.trim(); S.sheet = { type: 'tip', title: ti, text: t.startsWith(ti + ': ') ? t.slice(ti.length + 2) : t }; render(); return; } if (document.getElementById('tip') && S.tipFor === el) { hideTip(); S.tipFor = null; return; } S.tipFor = el; showTip(el, el.dataset.tip); },
+    rulesSeg: el => { S.rulesSeg = el.dataset.id; render(); },
+    stratPhase: el => { S.stratPhase = el.dataset.id; render(); },
+    stratSrc: el => { S.stratSrc = el.dataset.id; render(); },
+    exportRoster: el => { S.sheet = null; S.modal = { type: 'export', rosterId: el.dataset.id, fmt: 'gw' }; render(); },
+    expFmt: el => { S.modal.fmt = el.dataset.id; render(); },
+    copyExport: () => { const ta = document.getElementById('exp-text'); const t = ta.value; const fb = () => { ta.focus(); ta.select(); toast(S.m ? 'Selected. Long-press and choose Copy.' : 'Selected. Press Ctrl/Cmd+C to copy.'); }; PL.copy(t).then(ok => { if (!ok) return fb(); PL.haptic('confirm'); if (!(PL.android && PL.sdk >= 33)) toast('Copied.'); }); },
+    shareExport: () => { const m = S.modal, r = rosters.find(x => x.id === m.rosterId); PL.share(r.name, document.getElementById('exp-text').value); },
+    openBackup: () => { S.modal = { type: 'backup' }; render(); },
+    shareBackup: () => PL.share('Supreme Commander backup', backupJSON()),
+    copyBackup: () => PL.copy(backupJSON()).then(ok => { if (ok && !(PL.android && PL.sdk >= 33)) toast('Copied.'); if (!ok) toast('Copy is not available here. Use Save or Share.'); }),
+    saveBackup: () => saveText('supreme-commander-backup-' + new Date().toISOString().slice(0, 10) + '.json', backupJSON()),
+    pasteImport: () => PL.paste().then(t => { if (!t) { toast('The clipboard is empty or not readable. Long-press the box and choose Paste.'); return; } S.modal = { type: 'import', text: t }; render(); }),
+    downloadExport: async () => { const m = S.modal, r = rosters.find(x => x.id === m.rosterId); const json = m.fmt === 'json'; const data = json ? JSON.stringify(r, null, 1) : document.getElementById('exp-text').value; const fn = r.name.replace(/[^\w\- ]+/g, '').trim().replace(/\s+/g, '_') + (json ? '.json' : '.txt'); if (PL.android) { AND.saveFile(fn, data); return; } try { if (!Store.downloads && window.mrSaveFile) { const path = await window.mrSaveFile(fn, data); toast(path ? 'Saved to ' + path : 'Saved.'); return; } await Store.downloads.save({ filename: fn, data }); toast('Saved.'); } catch (e) { if (e && e.code !== 'declined') toast('Download is not available here. Use Copy.'); } },
+    openImport: () => { S.modal = { type: 'import' }; render(); },
+    doImport: () => {
+      const txt = document.getElementById('imp-text').value.trim();
+      let r;
+      try { r = JSON.parse(txt.startsWith('MR1:') ? decodeURIComponent(escape(atob(txt.slice(4)))) : txt); } catch (e) { S.modal = { type: 'import', text: txt, error: 'This is not a valid share code or roster JSON. Copy the whole code, including MR1:.' }; render(); return; }
+      if (r && (r.scBackup || Array.isArray(r))) {
+        const list = (Array.isArray(r) ? r : r.rosters || []).filter(x => x && Array.isArray(x.units) && x.factionId && DATA.factionData[x.factionId]);
+        let added = 0, updated = 0;
+        list.forEach(x => { const old = rosters.find(q => q.id === x.id); if (old) { if ((old.updatedAt || 0) < (x.updatedAt || 0)) { Object.assign(old, x); Store.save(old); updated++; } } else { delete x.isExample; rosters.push(x); Store.save(x); added++; } });
+        if (r.portraits && typeof r.portraits === 'object') Object.entries(r.portraits).forEach(([k, v]) => { if (typeof v === 'string' && v.startsWith('data:image/') && !CUSTOM[k]) Portraits.set(k, v); });
+        S.modal = null; S.homeTab = 'rosters'; go('home'); toast(`Backup restored: ${added} new, ${updated} updated.`); return;
+      }
+      if (!r || !Array.isArray(r.units) || !r.factionId || !DATA.factionData[r.factionId]) { S.modal = { type: 'import', text: txt, error: 'The code was read, but it is not a roster for an available army.' }; render(); return; }
+      r.id = 'r' + uid(); delete r.isExample; r.name = r.name || defaultName(r.factionId, r.battleSize || 'strike'); r.updatedAt = Date.now(); r.createdAt = r.createdAt || Date.now(); r.detachmentIds = r.detachmentIds || [];
+      rosters.push(r); Store.save(r); toast(r.dataVersion !== Engine.dataVersionFor(r.factionId, DATA) ? 'Imported. It was built on other data; check validation.' : 'Roster imported.'); go('roster', { rosterId: r.id, factionId: r.factionId, tab: 'build' });
+    },
+    // play
+    pc: el => { const r = cur(), d = +el.dataset.d, k = el.dataset.k; playChange(r, p => {
+      if (k === 'cp') { if (p.cp + d < 0) return false; p.cp += d; }
+      if (k === 'round') { const n = Math.min(5, Math.max(1, p.round + d)); if (n === p.round) return false; p.round = n; if (d > 0) { p.active = []; p.dice = []; p.used = []; p.sel = []; } }
+      if (k === 'vp0' || k === 'vp1') { const i = k === 'vp0' ? 0 : 1; if (p.vp[i] + d < 0) return false; p.vp[i] += d; }
+      if (k === 'tunnels') { const n = Math.max(0, Math.min(20, (p.tunnels || 0) + d)); if (n === (p.tunnels || 0)) return false; p.tunnels = n; }
+    }); },
+    tyrShadow: el => { if (el.getAttribute('aria-disabled') === 'true') { toast(S.play && S.play.phase !== 'Command' ? 'Unleash it in a Command phase (either player).' : 'No unit in this roster has Shadow in the Warp.'); PL.haptic('reject'); return; } const r = cur(); playChange(r, p => { if (p.shadow) return false; p.shadow = p.round; }, 'Shadow in the Warp unleashed: every enemy unit takes a battle-shock test.', 'confirm'); },
+    tyrHyper: el => { if (el.getAttribute('aria-disabled') === 'true') { toast('The Hyper-adaptation was picked at the start of round 1.'); PL.haptic('reject'); return; } const r = cur(); playChange(r, p => { p.hyper = p.hyper === el.dataset.id ? null : el.dataset.id; if (p.hyperExtra && p.hyperExtra.id === p.hyper) p.hyperExtra = null; }); },
+    tyrHyperX: el => { const r = cur(); playChange(r, p => { p.hyperExtra = p.hyperExtra && p.hyperExtra.id === el.dataset.id ? null : { id: el.dataset.id, round: p.round }; }); },
+    tyrImp: el => { const r = cur(); playChange(r, p => { p.imp = p.imp || {}; if (p.imp[p.round] === el.dataset.id) delete p.imp[p.round]; else p.imp[p.round] = el.dataset.id; }, null, 'confirm'); },
+    tyrProtean: el => { const r = cur(); playChange(r, p => { p.protean = p.protean || {}; if (p.protean[el.dataset.id]) delete p.protean[el.dataset.id]; else p.protean[el.dataset.id] = p.round; }); },
+    plPhase: el => { const r = cur(); playChange(r, p => { p.phase = el.dataset.id; }); },
+    plTurn: el => { const r = cur(); playChange(r, p => { p.turn = el.dataset.id; }); },
+    plFirst: el => { const r = cur(); playChange(r, p => { p.first = el.dataset.id; p.turn = el.dataset.id; }); },
+    playSeg: el => { S.playSeg = el.dataset.id; render(); },
+    nextPhase: () => {
+      const r = cur(); let msg = '';
+      playChange(r, p => {
+        let i = PHASES.indexOf(p.phase) + 1;
+        if (i >= PHASES.length) {
+          i = 0; p.turn = p.turn === 'opp' ? 'mine' : 'opp';
+          if (p.turn === (p.first || 'mine')) { if (p.round >= 5) { msg = 'Battle round 5 is over: the game ends.'; return; } p.round++; p.active = []; p.dice = []; p.used = []; p.sel = []; }
+        }
+        p.phase = PHASES[i];
+        if (p.phase === 'Command') { p.cp += 1; if (p.turn !== 'opp') p.hyperExtra = null; msg = `${p.turn === 'opp' ? "Opponent's" : 'Your'} Command phase, round ${p.round}: +1 CP.${roundHint(r, p)}`; }
+        else msg = `${p.turn === 'opp' ? "Opponent's" : 'Your'} ${p.phase} phase.`;
+      }, () => msg, 'confirm');
+    },
+    rollBless: () => { const r = cur(); playChange(r, p => { const n = 8 + (+p.extra || 0); p.dice = Array.from({ length: n }, () => 1 + Math.floor(Math.random() * 6)).sort((a, b) => a - b); p.used = []; p.sel = []; p.active = []; }, null, 'confirm'); },
+    addDie: el => { const r = cur(); playChange(r, p => { if (p.dice.length >= 20) return false; p.dice.push(+el.dataset.v); p.dice.sort((a, b) => a - b); p.used = []; p.active = []; p.sel = []; }); },
+    popDie: () => { const r = cur(); playChange(r, p => { if (!p.dice.length) return false; p.dice.pop(); p.used = []; p.active = []; p.sel = []; }); },
+    plExtra: el => { const r = cur(); playChange(r, p => { const n = Math.max(0, Math.min(10, (+p.extra || 0) + +el.dataset.d)); if (n === (+p.extra || 0)) return false; p.extra = n; }); },
+    selDie: el => { const r = cur(), i = +el.dataset.id; playChange(r, p => { if (p.used.includes(i)) return false; p.sel = p.sel.includes(i) ? p.sel.filter(x => x !== i) : [...p.sel, i]; }); },
+    rerollSel: () => { const r = cur(); playChange(r, p => { p.sel.forEach(i => (p.dice[i] = 1 + Math.floor(Math.random() * 6))); p.sel = []; }, 'Dice re-rolled.', 'confirm'); },
+    clearBless: () => { const r = cur(); playChange(r, p => { Object.assign(p, { dice: [], used: [], active: [], sel: [] }); }, 'Dice cleared.'); },
+    bless: el => { if (el.getAttribute('aria-disabled') === 'true') { toast(S.play && S.play.active.length >= 2 ? 'Two Blessings are already active this round.' : 'Your dice do not meet this requirement.'); PL.haptic('reject'); return; } const r = cur(); playChange(r, p => { const b = fdata(r.factionId).armyRules.find(a => a.blessings).blessings.find(x => x.id === el.dataset.id); const idx = canActivate(b, p.dice, p.used); if (!idx || p.active.length >= 2) return false; p.used.push(...idx); p.active.push(b.id); p.sel = p.sel.filter(i => !idx.includes(i)); }, null, 'confirm'); },
+    unbless: el => { const r = cur(); playChange(r, p => { p.active = p.active.filter(x => x !== el.dataset.id); p.used = []; const bl = fdata(r.factionId).armyRules.find(a => a.blessings).blessings; p.active.forEach(id => { const idx = canActivate(bl.find(x => x.id === id), p.dice, p.used); if (idx) p.used.push(...idx); }); }); },
+    mw: el => { const r = cur(), u = inst(el.dataset.id), def = unitDef(r.factionId, u.datasheetId); const W = parseInt(def.profile.W, 10) || 1; const i = +el.dataset.i; playChange(r, p => { const wl = woundsOf(p, u, W, def); const n = Math.min(maxW(def, i), Math.max(0, wl[i] + +el.dataset.d)); if (n === wl[i]) return false; wl[i] = n; }); },
+    mAlive: el => { const r = cur(), u = inst(el.dataset.id); playChange(r, p => { const wl = woundsOf(p, u, 1); if (+el.dataset.d < 0) { const i = wl.findIndex(w => w > 0); if (i < 0) return false; wl[i] = 0; } else { const i = wl.findIndex(w => w <= 0); if (i < 0) return false; wl[i] = 1; } }); },
+    /* phone wound buttons: −1 wound goes to the already wounded model first, then the next model;
+       −1 model removes the wounded model first; + heals the wounded model or returns a model at full wounds */
+    wnd: el => {
+      const r = cur(), u = inst(el.dataset.id), def = unitDef(r.factionId, u.datasheetId), W = parseInt(def.profile.W, 10) || 1, d = +el.dataset.d, k = el.dataset.k;
+      let msg = null;
+      playChange(r, p => {
+        const wl = woundsOf(p, u, W, def);
+        const wi = wl.findIndex((w, i) => w > 0 && w < maxW(def, i)), ai = wl.findIndex(w => w > 0), di = wl.findIndex(w => w <= 0);
+        if (d < 0) {
+          const i = wi >= 0 ? wi : ai; if (i < 0) return false;
+          if (k === 'm') wl[i] = 0; else wl[i] -= 1;
+          if (!wl.some(w => w > 0)) msg = `${dispName(r, u)} destroyed.`;
+        } else {
+          if (k === 'w' && wi >= 0) wl[wi] += 1; else if (di >= 0) wl[di] = k === 'w' && u.size === 1 ? 1 : maxW(def, di); else return false;
+        }
+      }, () => msg, d < 0 ? 'tick' : 'confirm');
+    },
+    resetWounds: () => { const r = cur(); playChange(r, p => { p.wounds = {}; }, 'Wounds reset.'); },
+    stratMode: el => { S.stratMode = el.dataset.id; render(); },
+    stratToggle: el => { S.stratOpen[el.dataset.id] = !S.stratOpen[el.dataset.id]; render(); },
+    useStrat: el => {
+      if (el.getAttribute('aria-disabled') === 'true') { toast('Already used this phase. Most stratagems can be used once per phase.'); PL.haptic('reject'); return; }
+      const r = cur(), cp = +el.dataset.cp, key = el.dataset.id, name = key.split(':').slice(1).join(':');
+      if (S.play.cp < cp) { toast(`Not enough CP: ${name} costs ${cp}, you have ${S.play.cp}.`); PL.haptic('reject'); return; }
+      playChange(r, p => { p.cp -= cp; p.usedStrats[key] = `${p.round}-${p.turn}-${p.phase}`; }, `${name}: −${cp} CP.`, 'confirm');
+    },
+  };
+
+  document.addEventListener('click', ev => {
+    const el = ev.target.closest('[data-act]');
+    if (!el) { hideTip(); return; }
+    if (el.dataset.act !== 'tip') hideTip();
+    const fn = A[el.dataset.act];
+    if (fn) { if (el.dataset.act !== 'closeModalBack') ev.preventDefault(); fn(el, ev); }
+  });
+  document.addEventListener('keydown', ev => {
+    if (ev.key === 'Escape') { if (S.view === 'roster' && !S.sheet && !S.modal && !S.sub && !S.renaming && !document.getElementById('tip')) return; goBack(); }
+    if (ev.key === 'Enter' && ev.target.id === 'sheet-rename') { ev.preventDefault(); const b = document.querySelector('[data-act="renameSave"]'); if (b) A.renameSave(b); }
+    if (ev.key === 'Enter' && ev.target.id === 'roster-name') { ev.preventDefault(); ev.target.blur(); }
+    if (ev.key === 'Enter' && ev.target.dataset && ev.target.dataset.inp === 'rosterRename') { ev.preventDefault(); A.rosterRenameDone(ev.target); }
+  });
+  document.addEventListener('input', ev => {
+    const el = ev.target, k = el.dataset && el.dataset.inp;
+    if (!k) return;
+    const r = cur();
+    /* search boxes refresh only their result list, so the field (and the keyboard's composition) is never replaced */
+    if (k === 'homeSearch') { S.homeSearch = el.value; const box = document.getElementById('roster-list'); if (box) box.innerHTML = rosterListInner(S.view === 'faction' ? S.factionId : null); else render(); }
+    if (k === 'glossSearch') { S.glossSearch = el.value; const box = document.getElementById('gloss-list'); if (box) box.innerHTML = glossItems(glossFiltered()); else render(); }
+    if (k === 'search') { S.search = el.value; const box = document.getElementById('cat-list'); if (box && r && S.view === 'roster') box.innerHTML = catalogList(r); else render(); }
+    if (k === 'draftName') { S.draft.name = el.value; S.draft.nameTouched = true; const b = document.querySelector('[data-act="wizDone"]'); if (b) b.disabled = !(el.value.trim() && S.draft.detachmentIds.length && S.draft.forceDisposition); }
+    if (k === 'rosterName' && r) { r.name = el.value; touch(r); }
+    if (k === 'rosterRename') { const x = rosters.find(q => q.id === el.dataset.id); if (x) x.name = el.value; }
+    if (k === 'rosterNotes' && r) { r.notes = el.value; touch(r); }
+    if (k === 'customName' && r) { inst(el.dataset.id).customName = el.value; touch(r); }
+    if (k === 'unitNotes' && r) { inst(el.dataset.id).notes = el.value; touch(r); }
+  });
+  document.addEventListener('focusout', ev => {
+    const el = ev.target;
+    if (el.id === 'roster-name') { const r = cur(); if (r && !r.name.trim()) { r.name = defaultName(r.factionId, r.battleSize); touch(r); } S.renaming = false; setTimeout(render, 0); }
+    if (el.id === 'wiz-name' && S.draft && !S.draft.name.trim()) { S.draft.name = defaultName(S.draft.factionId, S.draft.battleSize); S.draft.nameTouched = false; setTimeout(render, 0); }
+    if (el.dataset && el.dataset.inp === 'customName') setTimeout(render, 0);
+  });
+  document.addEventListener('change', ev => {
+    const el = ev.target, k = el.dataset && el.dataset.chg;
+    if (!k) return;
+    const r = cur();
+    if (k === 'importFile') { const f = el.files && el.files[0]; if (!f) return; if (f.size > 20e6) { toast('That file is too large.'); return; } const rd = new FileReader(); rd.onload = () => { S.modal = { type: 'import', text: String(rd.result || '').trim() }; render(); }; rd.onerror = () => toast('Could not read that file.'); rd.readAsText(f); return; }
+    if (k === 'portraitFile') { const f = el.files && el.files[0]; if (!f) return; if (!/^image\//.test(f.type)) { toast('That file is not an image.'); return; } const rd = new FileReader(); rd.onload = () => loadCropSrc(rd.result, true); rd.onerror = () => toast('Could not read that image.'); rd.readAsDataURL(f); return; }
+    if (k === 'enh') { inst(el.dataset.id).enhancementId = el.value || null; touch(r); }
+    if (k === 'attach') { inst(el.dataset.id).attachedTo = el.value || null; touch(r); }
+    if (k === 'warlord') { r.warlordUnitId = el.checked ? el.dataset.id : null; touch(r); }
+    if (k === 'grant') {
+      const u = inst(el.dataset.id), def = unitDef(r.factionId, u.datasheetId), ctx = Engine.ctxFor(r, DATA);
+      const g = Engine.grantsFor(def, ctx).find(x => x.id === el.dataset.g);
+      if (!g) return;
+      if (el.checked) {
+        const n = r.units.filter(x => x.instanceId !== u.instanceId && (x.grants || []).includes(g.id)).length;
+        if (g.max != null && n >= g.max) { el.checked = false; toast(`Up to ${g.max} units can have this.`); PL.haptic('reject'); return; }
+        u.grants = [...new Set([...(u.grants || []), g.id])];
+      } else {
+        u.grants = (u.grants || []).filter(x => x !== g.id);
+        if (g.keyword === 'Character') {
+          if (r.warlordUnitId === u.instanceId) r.warlordUnitId = null;
+          const e = u.enhancementId && ctx.allEnh[u.enhancementId]; if (e && !e.upgrade) u.enhancementId = null;
+        }
+      }
+      touch(r); render(); return;
+    }
+    if (k === 'optChoice') { const u = inst(el.dataset.id); u.wargear = u.wargear || {}; u.wargear[el.dataset.o] = el.value; touch(r); }
+    if (k === 'optToggle') { const u = inst(el.dataset.id); u.wargear = u.wargear || {}; u.wargear[el.dataset.o] = el.checked ? 1 : 0; clampWargear(unitDef(r.factionId, u.datasheetId), u); touch(r); }
+    if (k === 'plExtra') { S.play.extra = Math.max(0, Math.min(10, +el.value || 0)); savePlay(r); }
+    if (k === 'plDice') { const ds = (el.value.match(/[1-6]/g) || []).map(Number); S.play.dice = ds; S.play.used = []; S.play.active = []; S.play.sel = []; savePlay(r); }
+    render();
+  });
+
+  /* keyboard open: hide the bottom bars so the field stays visible */
+  document.addEventListener('focusin', ev => { if (ev.target.matches && ev.target.matches('input[type=text], input[type=search], textarea')) document.documentElement.classList.add('kb'); });
+  document.addEventListener('focusout', () => setTimeout(() => { const a = document.activeElement; if (!(a && a.matches && a.matches('input[type=text], input[type=search], textarea'))) document.documentElement.classList.remove('kb'); }, 50));
+  let wasM = MQ();
+  window.addEventListener('resize', () => { const m = MQ(); if (m !== wasM) { wasM = m; render(); } });
+
+  // Seed: first visit shows an example roster so the builder opens in a working state.
+  if (!rosters.length && !lsGet('mr.seeded')) {
+    lsSet('mr.seeded', true);
+    const ex = { id: 'r' + uid(), name: 'Example: Berzerker spearhead', factionId: 'worldEaters', battleSize: 'strike', detachmentIds: ['berzerker_warband', 'vessels_of_wrath'], forceDisposition: 'Purge the Foe', warlordUnitId: null, units: [], notes: 'Example roster. Edit or delete it.', isExample: true, createdAt: Date.now(), updatedAt: Date.now() - 1000, dataVersion: DATA.meta.dataVersion };
+    const add = (id, patch = {}) => { const def = unitDef('worldEaters', id); const u = Object.assign(newInstance(def), patch); ex.units.push(u); return u; };
+    const b1 = add('khorne_berzerkers', { size: 10, wargear: { evisc: 2, icon: 1 } });
+    const lord = add('lord_on_juggernaut', { enhancementId: 'berzerker_glaive', attachedTo: b1.instanceId });
+    const b2 = add('khorne_berzerkers', { size: 10, wargear: { evisc: 2 } });
+    add('master_of_executions', { attachedTo: b2.instanceId });
+    add('angron'); add('chaos_rhino'); add('chaos_rhino'); add('eightbound', { size: 3 }); add('maulerfiend');
+    ex.warlordUnitId = lord.instanceId;
+    rosters.push(ex); lsSet(LS_KEY, rosters);
+  }
+
+  render();
+  Store.init();
+})();
