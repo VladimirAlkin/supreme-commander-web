@@ -461,15 +461,17 @@
     const fd = fdata(r.factionId);
     const blAllowed = (fd.alliedFactions || []).filter(a => r.detachmentIds.includes(a.requiresDetachment)).map(a => a.faction);
     const present = new Set(fd.units.filter(u => u.faction === fd.armyFaction || blAllowed.includes(u.faction)).map(u => catOf(u, r)));
-    return { blAllowed, cats: CATS.filter(([c]) => c === 'all' || present.has(c)) };
+    const hi = (faction(r.factionId).highlights || []).map(h => ['kw:' + h.keyword, h.label.charAt(0) + h.label.slice(1).toLowerCase()]);
+    return { blAllowed, cats: CATS.filter(([c]) => c === 'all' || present.has(c)).concat(hi) };
   }
   function catalogList(r) {
     const fd = fdata(r.factionId), bs = bsDef(r.battleSize);
     const ctx = Engine.ctxFor(r, DATA);
-    const { blAllowed } = catalogCats(r);
+    const { blAllowed, cats } = catalogCats(r);
+    if (!cats.some(([c]) => c === S.cat)) S.cat = 'all';
     const q = S.search.trim().toLowerCase();
     const units = fd.units.filter(u => (u.faction === fd.armyFaction || blAllowed.includes(u.faction)))
-      .filter(u => S.cat === 'all' || catOf(u, r) === S.cat)
+      .filter(u => S.cat === 'all' || (S.cat.startsWith('kw:') ? (faction(r.factionId).highlights || []).some(h => 'kw:' + h.keyword === S.cat && hiState(r, u, null, h)) : catOf(u, r) === S.cat))
       .filter(u => !q || u.name.toLowerCase().includes(q) || [...Engine.keywordsOf(u, ctx)].join(' ').toLowerCase().includes(q));
     const pts = rosterPts(r);
     const grouped = {};
@@ -481,7 +483,7 @@
       const overPts = !blocked && pts.total + nx.pts > bs.points ? `Over points by ${pts.total + nx.pts - bs.points}` : null;
       const n = have(u.id);
       return `<div class="panel additem"><button class="ptbtn" data-act="openDs" data-id="${u.id}" aria-label="Open ${esc(u.name)} datasheet">${portrait(u, r.factionId)}</button>
-        <div class="grow"><button class="nm" data-act="openDs" data-id="${u.id}">${esc(u.name)}${n ? ` <span class="have">×${n}</span>` : ''}</button>
+        <div class="grow"><button class="nm" data-act="openDs" data-id="${u.id}">${esc(u.name)}${n ? ` <span class="have">×${n}</span>` : ''}${kwBadges(r, u, null)}</button>
         <div class="sub num">${u.sizes.map(s => `${s.models}: ${s.pts}`).join(' · ')} pts</div>
         ${nx.surcharge ? `<div class="sub" style="color:var(--warn)">Next copy: +${nx.surcharge} pts</div>` : ''}${blocked ? `<div class="why">${esc(blocked)}</div>` : overPts ? `<div class="why">${esc(overPts)}</div>` : ''}</div>
         <button class="addbtn" data-act="addUnit" data-id="${u.id}" ${blocked ? 'aria-disabled="true"' : ''} aria-label="Add ${esc(u.name)}${blocked ? ' (' + esc(blocked) + ')' : ''}">+</button></div>`;
@@ -490,6 +492,28 @@
       + (blAllowed.length ? '' : (fd.alliedFactions || []).map(a => `<div class="faint" style="font-size:.85rem;margin-top:8px">${esc(a.faction)} allies appear when ${esc((fd.detachments.find(d => d.id === a.requiresDetachment) || {}).name || '')} is in the roster.</div>`).join(''));
   }
   /* display order: each bodyguard followed by the leaders attached to it */
+  /* Faction keyword highlights (Tyranids: SYNAPSE). Returns '' when the unit has none. */
+  function hiState(r, def, inst, h) {
+    const ctx = Engine.ctxFor(r, DATA);
+    if (Engine.hasKw(def, ctx, h.keyword, inst)) return { on: true, note: (h.notes || {})[def.id] || '' };
+    if ((h.conditional || {})[def.id]) return { on: true, cond: true, note: h.conditional[def.id] };
+    return null;
+  }
+  function kwBadges(r, def, inst) {
+    const f = faction(r.factionId); if (!f || !f.highlights || !def) return '';
+    return f.highlights.map(h => {
+      const st = hiState(r, def, inst, h); if (!st) return '';
+      const d = -(((inst ? inst.instanceId : def.id).split('').reduce((a, c) => a + c.charCodeAt(0), 0) % 37) / 10).toFixed(1);
+      return `<span class="kwfx ${st.cond ? 'cond' : ''}" style="--d:${d}s" title="${esc(st.note || h.title || '')}">${esc(h.label)}${st.cond ? '*' : ''}</span>`;
+    }).join('');
+  }
+  function hiSummary(r) {
+    const f = faction(r.factionId); if (!f || !f.highlights || !r.units.length) return '';
+    return f.highlights.map(h => {
+      const list = r.units.map(u => ({ u, st: hiState(r, unitDef(r.factionId, u.datasheetId), u, h) })).filter(x => x.st);
+      return `<div class="hisum"><span class="kwfx" style="--d:0s">${esc(h.label)}</span><span class="dim">${list.length ? esc(list.map(x => dispName(r, x.u) + (x.st.cond ? '*' : '')).join(', ')) : esc(h.none || 'No units')}</span></div>`;
+    }).join('');
+  }
   /* roster split into GW-app categories; an attached leader stays with its bodyguard */
   function rosterGroups(r) {
     const pts = rosterPts(r), groups = {};
@@ -501,7 +525,11 @@
     });
     return Object.keys(CAT_NAME).concat('other').filter(c => groups[c]).map(c => groups[c]);
   }
-  const groupHdr = g => `<div class="grouphdr rgh"><span>${esc(g.label)}</span><span class="num">${g.items.length} · ${g.pts} pts</span></div>`;
+  const COLL_KEY = 'mr.ui.collapsed';
+  let COLL = lsGet(COLL_KEY) || {};
+  const isColl = (r, c) => (COLL[r.id] || []).includes(c);
+  const groupHdr = (r, g, errUnits) => { const c = isColl(r, g.cat), bad = errUnits && g.items.some(u => errUnits.has(u.instanceId));
+    return `<button class="grouphdr rgh ${c ? 'closed' : ''}" data-act="toggleGrp" data-id="${g.cat}" aria-expanded="${!c}"><span class="rgh-l">${CHEV}${esc(g.label)}${bad && c ? ' <span class="bad">✕</span>' : ''}</span><span class="num">${g.items.length} · ${g.pts} pts</span></button>`; };
   function rosterOrder(r) {
     const top = r.units.filter(u => !u.attachedTo || !r.units.some(b => b.instanceId === u.attachedTo));
     const out = [];
@@ -521,7 +549,7 @@
     // roster column
     const v = Engine.validate(r, DATA);
     const errUnits = new Set(v.filter(x => x.severity === 'error' && x.unitInstanceId).map(x => x.unitInstanceId));
-    const cards = rosterGroups(r).map(g => groupHdr(g) + g.items.map(u => unitCard(r, u, pts, errUnits, !!(u.attachedTo && r.units.some(b => b.instanceId === u.attachedTo)))).join('')).join('');
+    const cards = hiSummary(r) + rosterGroups(r).map(g => groupHdr(r, g, errUnits) + (isColl(r, g.cat) ? '' : g.items.map(u => unitCard(r, u, pts, errUnits, !!(u.attachedTo && r.units.some(b => b.instanceId === u.attachedTo)))).join(''))).join('');
     const rosterCol = `<section class="stack" aria-label="Roster"><div class="row"><h2 class="grow">Roster</h2><span class="dim num">${r.units.length} units</span></div>
       ${cards || '<div class="empty">Your roster is empty. Add a CHARACTER first; tap a name or portrait to read its datasheet.</div>'}
       <div class="panel pad stack"><h3>Validation</h3>${valList(v)}</div>
@@ -598,6 +626,7 @@
     const att = inst.attachedTo ? r.units.find(u => u.instanceId === inst.attachedTo) : null;
     const badges = [];
     if (r.warlordUnitId === inst.instanceId) badges.push('<span class="badge gold">Warlord</span>');
+    { const k = kwBadges(r, unitDef(r.factionId, inst.datasheetId), inst); if (k) badges.unshift(k); }
     Engine.instGrants(unitDef(r.factionId, inst.datasheetId), ctx, inst).forEach(g => badges.push(`<span class="badge">${esc(g.keyword)}</span>`));
     if (enh) badges.push(`<span class="badge gold">${esc(enh.name)}</span>`);
     if (p.surcharge) badges.push(`<span class="badge red">${ORD(p.copyNo)} copy +${p.surcharge}</span>`);
@@ -826,7 +855,7 @@
       body = `<div class="models">${wl.map((w, i) => { const dmg = def.damaged && w > 0 && w <= def.damaged.threshold; return `<div class="model ${w <= 0 ? 'dead' : ''} ${dmg ? 'dmg' : ''}"><span class="faint" style="font-size:.75rem">Model ${i + 1}</span><span class="w num">${w}/${maxW(def, i)}</span><div class="mb"><button data-act="mw" data-id="${inst.instanceId}" data-i="${i}" data-d="-1" aria-label="Model ${i + 1}: lose a wound">−</button><button data-act="mw" data-id="${inst.instanceId}" data-i="${i}" data-d="1" aria-label="Model ${i + 1}: heal a wound">+</button></div></div>`; }).join('')}</div>`;
     }
     const dmgOn = def.damaged && inst.size === 1 && wl[0] > 0 && wl[0] <= def.damaged.threshold;
-    return `<div class="ucard ${inst.attachedTo ? 'attached' : ''}" style="padding:10px"><div class="row nowrap"><button class="ptbtn" data-act="openInst" data-id="${inst.instanceId}" aria-label="Open datasheet">${portrait(def, r.factionId, 'sm')}</button><div class="grow"><b>${esc(dispName(r, inst))}</b><div class="dim" style="font-size:.85rem">T${def.profile.T} · Sv ${def.profile.Sv}${def.profile.InSv !== '—' ? ' · ' + def.profile.InSv + ' invuln' : ''} · OC ${def.profile.OC}${alive === 0 ? ' · <span style="color:var(--err)">Destroyed</span>' : ''}</div></div></div>
+    return `<div class="ucard ${inst.attachedTo ? 'attached' : ''}" style="padding:10px"><div class="row nowrap"><button class="ptbtn" data-act="openInst" data-id="${inst.instanceId}" aria-label="Open datasheet">${portrait(def, r.factionId, 'sm')}</button><div class="grow"><b>${esc(dispName(r, inst))}</b>${kwBadges(r, def, inst)}<div class="dim" style="font-size:.85rem">T${def.profile.T} · Sv ${def.profile.Sv}${def.profile.InSv !== '—' ? ' · ' + def.profile.InSv + ' invuln' : ''} · OC ${def.profile.OC}${alive === 0 ? ' · <span style="color:var(--err)">Destroyed</span>' : ''}</div></div></div>
       ${dmgOn ? `<div class="badge red" style="margin:8px 0">DAMAGED · ${esc(def.damaged.text)}</div>` : ''}<div style="margin-top:8px">${body}</div></div>`;
   }
   const maxW = (def, i) => (def.leadModel && i === 0 ? parseInt(def.leadModel.W, 10) : parseInt(def.profile.W, 10) || 1);
@@ -866,6 +895,7 @@
     if (r && inst && r.warlordUnitId === inst.instanceId) badges.push('<span class="badge gold">Warlord</span>');
     if (enh) badges.push(`<span class="badge gold">${esc(enh.name)}</span>`);
     if (isEpic) badges.push('<span class="badge">Epic Hero</span>');
+    { const k = kwBadges(roster, def, inst); if (k) badges.push(k); }
     if (kws.includes('Battleline')) badges.push('<span class="badge">Battleline</span>');
     if (kws.includes('Dedicated Transport')) badges.push('<span class="badge">Dedicated Transport</span>');
     const ledBy = fdata(fid).units.filter(u => (u.leaderOf || []).includes(def.id)).map(u => u.name);
@@ -1028,11 +1058,11 @@
       const enh = u.enhancementId ? ctx.allEnh[u.enhancementId] : null;
       const att = u.attachedTo && r.units.some(b => b.instanceId === u.attachedTo);
       const meta = [u.size > 1 ? `${u.size} models` : '', r.warlordUnitId === u.instanceId ? '<span class="gold">★ Warlord</span>' : '', enh ? `<span class="gold">${esc(enh.name)}</span>` : '', p.surcharge ? `<span class="warn">${ORD(p.copyNo)} copy +${p.surcharge}</span>` : ''].filter(Boolean).join(' · ');
-      return `<div class="mrow ${att ? 'att' : ''} ${errUnits.has(u.instanceId) ? 'err' : ''} ${S.flash === u.instanceId ? 'flash' : ''}" id="u-${u.instanceId}"><button class="ptbtn" data-act="openInst" data-id="${u.instanceId}" aria-label="Datasheet: ${esc(dispName(r, u))}">${portrait(def, r.factionId)}</button><button class="mrow-main" data-act="openUnit" data-id="${u.instanceId}"><span class="mrow-name">${errUnits.has(u.instanceId) ? '<span class="bad">✕ </span>' : ''}${esc(dispName(r, u))}</span><span class="mrow-meta">${meta || '&nbsp;'}</span></button><span class="mrow-pts num">${p.total}</span></div>`;
+      return `<div class="mrow ${att ? 'att' : ''} ${errUnits.has(u.instanceId) ? 'err' : ''} ${S.flash === u.instanceId ? 'flash' : ''}" id="u-${u.instanceId}"><button class="ptbtn" data-act="openInst" data-id="${u.instanceId}" aria-label="Datasheet: ${esc(dispName(r, u))}">${portrait(def, r.factionId)}</button><button class="mrow-main" data-act="openUnit" data-id="${u.instanceId}"><span class="mrow-name">${errUnits.has(u.instanceId) ? '<span class="bad">✕ </span>' : ''}${esc(dispName(r, u))}${kwBadges(r, def, u)}</span><span class="mrow-meta">${meta || '&nbsp;'}</span></button><span class="mrow-pts num">${p.total}</span></div>`;
     };
-    const rows = rosterGroups(r).map(g => groupHdr(g) + `<div class="mlist">${g.items.map(rowOf).join('')}</div>`).join('');
+    const rows = rosterGroups(r).map(g => groupHdr(r, g, errUnits) + (isColl(r, g.cat) ? '' : `<div class="mlist">${g.items.map(rowOf).join('')}</div>`)).join('');
     return `<div class="mdet"><span class="dim">${esc(bs.name)} · ${esc(r.detachmentIds.map(id => fd.detachments.find(d => d.id === id).name).join(' + '))}</span><span class="dim num">${r.units.length} units</span></div>
-      ${rows ? `<div class="mgroups">${rows}</div>` : `<div class="empty">Your roster is empty. Start with a CHARACTER.<br><button class="btn primary" data-act="openCatalog" style="margin-top:12px">${ICON.plus} Add your first unit</button></div>`}
+      ${rows ? `${hiSummary(r)}<div class="mgroups">${rows}</div>` : `<div class="empty">Your roster is empty. Start with a CHARACTER.<br><button class="btn primary" data-act="openCatalog" style="margin-top:12px">${ICON.plus} Add your first unit</button></div>`}
       <label class="fld" style="margin-top:18px">Roster notes<textarea id="roster-notes" data-inp="rosterNotes">${esc(r.notes || '')}</textarea></label>
       ${ne ? `<button class="errstrip" data-act="openStatus"><span>✕ ${ne} problem${ne > 1 ? 's' : ''}</span><span>Show ›</span></button>` : ''}
       <button class="fab" data-act="openCatalog">${ICON.plus}<span>Add unit</span></button>`;
@@ -1093,7 +1123,7 @@
       btns = `<button class="wb minus" data-act="wnd" data-k="w" data-d="-1" data-id="${id}" aria-label="${name}: lose a wound">−1 wound</button><button class="wb minus2" data-act="wnd" data-k="m" data-d="-1" data-id="${id}" aria-label="${name}: remove a model">−1 model</button><button class="wb plus" data-act="wnd" data-k="w" data-d="1" data-id="${id}" aria-label="${name}: heal or return">+</button>`;
     }
     const dmgOn = def.damaged && inst.size === 1 && wl[0] > 0 && wl[0] <= def.damaged.threshold;
-    return `<div class="pcard ${alive ? '' : 'dead'} ${inst.attachedTo ? 'att' : ''}"><div class="row nowrap"><button class="ptbtn" data-act="openInst" data-id="${id}" aria-label="Datasheet: ${name}">${portrait(def, r.factionId, 'sm')}</button><div class="grow"><b>${name}</b><div class="dim pstats">T${def.profile.T} · Sv ${def.profile.Sv}${def.profile.InSv !== '—' ? ' · ' + def.profile.InSv + ' inv' : ''} · OC ${def.profile.OC}</div></div><div class="wread">${read}</div></div>
+    return `<div class="pcard ${alive ? '' : 'dead'} ${inst.attachedTo ? 'att' : ''}"><div class="row nowrap"><button class="ptbtn" data-act="openInst" data-id="${id}" aria-label="Datasheet: ${name}">${portrait(def, r.factionId, 'sm')}</button><div class="grow"><b>${name}</b>${kwBadges(r, def, inst)}<div class="dim pstats">T${def.profile.T} · Sv ${def.profile.Sv}${def.profile.InSv !== '—' ? ' · ' + def.profile.InSv + ' inv' : ''} · OC ${def.profile.OC}</div></div><div class="wread">${read}</div></div>
       ${dmgOn ? `<div class="badge red dmgbadge">DAMAGED · ${esc(def.damaged.text)}</div>` : ''}${alive === 0 ? '<div class="bad" style="font-weight:700">Destroyed</div>' : ''}<div class="wbtns">${btns}</div></div>`;
   }
   /* stratagems: whose turn a stratagem is used in, read from its timing text */
@@ -1346,6 +1376,7 @@
     startRename: () => { S.renaming = true; render(); const i = document.getElementById('roster-name'); if (i) { i.focus(); i.select(); } },
     rosterTab: el => { if (el.dataset.id === 'home') { S.homeTab = 'armies'; go('home'); return; } if (S.m && el.dataset.id === S.tab && !S.sub) { window.scrollTo({ top: 0, behavior: 'smooth' }); return; } S.tab = el.dataset.id; S.modal = null; S.sheet = null; S.sub = null; render(); },
     cat: el => { S.cat = el.dataset.id; render(); },
+    toggleGrp: el => { const r = cur(); if (!r) return; const l = COLL[r.id] || []; COLL[r.id] = l.includes(el.dataset.id) ? l.filter(x => x !== el.dataset.id) : [...l, el.dataset.id]; lsSet(COLL_KEY, COLL); PL.haptic('tick'); render(); },
     addUnit: el => {
       if (el.getAttribute('aria-disabled') === 'true') { toast(el.closest('.additem').querySelector('.why').textContent); return; }
       const r = cur(), def = unitDef(r.factionId, el.dataset.id), u = newInstance(def);

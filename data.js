@@ -297,6 +297,20 @@ const DATA = {
    "emblemSvg": "<svg viewBox=\"0 0 64 64\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\"><circle cx=\"32\" cy=\"32\" r=\"30\" fill=\"#1c0826\"/><path d=\"M47 14a22 22 0 1 0 6 26c-5 4-12 5-18 2l3-3-5-1 3-3-5-1 3-3-5-1c5-6 12-9 18-16z\" fill=\"#e6d8b8\"/></svg>",
    "logo": "tyr_logo",
    "rosterIcon": "tyr_roster",
+   "highlights": [
+    {
+     "keyword": "Synapse",
+     "label": "SYNAPSE",
+     "title": "Synapse: friendly TYRANIDS units within 6\" are within Synapse Range.",
+     "none": "No SYNAPSE units yet",
+     "notes": {
+      "hyperadapted_raveners": "Synapse: the Ravener Prime only."
+     },
+     "conditional": {
+      "neurogaunts": "Neurocytes: SYNAPSE only while within Synapse Range of another TYRANIDS unit (not NEUROGAUNTS)."
+     }
+    }
+   ],
    "abilityTips": {
     "Synapse": "Within 6\" of a friendly SYNAPSE model: battle-shock tests on 3D6 and +1 S for melee attacks. See Army Rules.",
     "Shadow in the Warp": "Once per battle, in either Command phase: every enemy unit takes a battle-shock test (-1 near your SYNAPSE units). See Army Rules."
@@ -5927,6 +5941,9 @@ const DATA = {
          "stat": "WS",
          "improve": 1
         }
+       ],
+       "addKeywords": [
+        "Synapse"
        ]
       },
       {

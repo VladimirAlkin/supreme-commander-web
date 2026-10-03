@@ -30,6 +30,7 @@ const Engine = (function () {
     const kw = new Set(def.keywords);
     ctx.dets.forEach(d => (d.grantKeywords || []).forEach(g => { if (g.unitIds.includes(def.id)) kw.add(g.keyword); }));
     instGrants(def, ctx, inst).forEach(g => kw.add(g.keyword));
+    if (inst) enhIds(inst).forEach(id => { const e = ctx.allEnh[id]; ((e && e.addKeywords) || []).forEach(k => kw.add(k)); });
     return kw;
   }
   function hasKw(def, ctx, k, inst) { return [...keywordsOf(def, ctx, inst)].some(x => x.toLowerCase() === k.toLowerCase()); }
