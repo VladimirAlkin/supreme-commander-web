@@ -301,6 +301,8 @@ pre.export { white-space: pre-wrap; word-break: break-word; font: .9rem/1.45 ui-
 @keyframes kwglow { 0%, 100% { box-shadow: 0 0 0 rgba(127, 200, 255, 0); } 50% { box-shadow: 0 0 6px rgba(127, 200, 255, .28); } }
 @media (prefers-reduced-motion: reduce) { .kwfx { animation: none; -webkit-text-fill-color: #8fd0ff; background: none; } }
 .uname .kwfx, .mrow-name .kwfx { margin-left: 6px; }
+.synS { display: inline; padding: 0 0 0 2px; margin: 0; border: 0; background: none; font: inherit; font-weight: 800; color: #7fc8ff; cursor: help; }
+.wl-stats .synS { display: block; font-size: .8em; line-height: 1.1; padding: 0; }
 .hisum { display: flex; align-items: baseline; gap: 10px; padding: 8px 10px; margin: 4px 0 2px; border-radius: 10px; border: 1px solid rgba(127, 200, 255, .22); background: rgba(127, 200, 255, .05); font-size: .9rem; }
 .hisum .kwfx { margin-left: 0; flex: none; }
 .mgroups { display: flex; flex-direction: column; gap: 6px; }

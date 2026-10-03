@@ -303,6 +303,11 @@ const DATA = {
      "label": "SYNAPSE",
      "title": "Synapse: friendly TYRANIDS units within 6\" are within Synapse Range.",
      "none": "No SYNAPSE units yet",
+     "meleeBonus": {
+      "stat": "S",
+      "add": 1,
+      "tip": "Synapse: +1 S in melee"
+     },
      "notes": {
       "hyperadapted_raveners": "Synapse: the Ravener Prime only."
      },

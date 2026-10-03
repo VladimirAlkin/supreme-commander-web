@@ -507,6 +507,11 @@
       return `<span class="kwfx ${st.cond ? 'cond' : ''}" style="--d:${d}s" title="${esc(st.note || h.title || '')}">${esc(h.label)}${st.cond ? '*' : ''}</span>`;
     }).join('');
   }
+  function meleeBonus(r, def, inst) {
+    const f = faction(r.factionId); if (!f || !f.highlights || !def) return null;
+    for (const h of f.highlights) { if (!h.meleeBonus) continue; const st = hiState(r, def, inst, h); if (st && !st.cond) return h.meleeBonus; }
+    return null;
+  }
   function hiSummary(r) {
     const f = faction(r.factionId); if (!f || !f.highlights || !r.units.length) return '';
     return f.highlights.map(h => {
@@ -873,15 +878,16 @@
   }
 
   /* ---------------- DATASHEET MODAL ---------------- */
-  function weaponTable(list, kind) {
+  function weaponTable(list, kind, bonus) {
+    const plus = (w, k) => { if (!bonus || k !== bonus.stat) return ''; const v = Engine.addStat(w[k], bonus.add); return v != null && v !== String(w[k]) ? ` <span class="synS" role="button" tabindex="0" data-act="tip" data-tip="${esc(bonus.tip)}" data-title="${esc(w.name)}">(${esc(v)})</span>` : ''; };
     if (!list.length) return '';
     if (S.m) { // phones: name on its own line, numbers in one aligned grid, keyword chips below
       const cols = ['range', 'A', 'skill', 'S', 'AP', 'D'];
       return `<div class="stack" style="gap:6px"><span class="eyebrow">${kind} weapons</span><div class="wlist"><div class="wl-h"><span>Range</span><span>A</span><span>${kind === 'Ranged' ? 'BS' : 'WS'}</span><span>S</span><span>AP</span><span>D</span></div>
-        ${list.map(w => `<div class="wl-row"><div class="wl-name">${esc(w.name)}</div><div class="wl-stats">${cols.map(k => { const m = w.mark && w.mark[k]; return m ? `<button class="mod" data-act="tip" data-tip="${esc(m)}" data-title="${esc(w.name)}">${esc(w[k])}</button>` : `<span>${esc(w[k])}</span>`; }).join('')}</div>${w.kw.length ? `<div class="wl-kw">${w.kw.map(k => `<button class="kwchip" data-act="tip" data-tip="${esc(glossFor(k))}" data-title="${esc(k)}">${esc(k)}</button>`).join('')}</div>` : ''}</div>`).join('')}</div></div>`;
+        ${list.map(w => `<div class="wl-row"><div class="wl-name">${esc(w.name)}</div><div class="wl-stats">${cols.map(k => { const m = w.mark && w.mark[k]; return (m ? `<button class="mod" data-act="tip" data-tip="${esc(m)}" data-title="${esc(w.name)}">${esc(w[k])}</button>` : `<span>${esc(w[k])}</span>`).replace(/<\/(button|span)>$/, `${plus(w, k)}</$1>`); }).join('')}</div>${w.kw.length ? `<div class="wl-kw">${w.kw.map(k => `<button class="kwchip" data-act="tip" data-tip="${esc(glossFor(k))}" data-title="${esc(k)}">${esc(k)}</button>`).join('')}</div>` : ''}</div>`).join('')}</div></div>`;
     }
     return `<div class="stack" style="gap:6px"><span class="eyebrow">${kind} weapons</span><div class="tablewrap"><table class="wt"><thead><tr><th>Weapon</th><th>Range</th><th>A</th><th>${kind === 'Ranged' ? 'BS' : 'WS'}</th><th>S</th><th>AP</th><th>D</th></tr></thead><tbody>
-      ${list.map(w => `<tr><td><b>${esc(w.name)}</b>${w.kw.length ? '<br>' + w.kw.map(k => `<button class="kwchip" data-act="tip" data-tip="${esc(glossFor(k))}">${esc(k)}</button>`).join('') : ''}</td><td>${esc(w.range)}</td>${['A', 'skill', 'S', 'AP', 'D'].map(k => `<td class="${w.mark && w.mark[k] ? 'mod' : ''}" ${w.mark && w.mark[k] ? `title="${esc(w.mark[k])}"` : ''}>${esc(w[k])}</td>`).join('')}</tr>`).join('')}</tbody></table></div></div>`;
+      ${list.map(w => `<tr><td><b>${esc(w.name)}</b>${w.kw.length ? '<br>' + w.kw.map(k => `<button class="kwchip" data-act="tip" data-tip="${esc(glossFor(k))}">${esc(k)}</button>`).join('') : ''}</td><td>${esc(w.range)}</td>${['A', 'skill', 'S', 'AP', 'D'].map(k => `<td class="${w.mark && w.mark[k] ? 'mod' : ''}" ${w.mark && w.mark[k] ? `title="${esc(w.mark[k])}"` : ''}>${esc(w[k])}${plus(w, k)}</td>`).join('')}</tr>`).join('')}</tbody></table></div></div>`;
   }
   function dsHTML(m) {
     const r = cur();
@@ -912,7 +918,7 @@
       const members = [group.bodyguard, ...group.attached];
       const bgDef = unitDef(fid, group.bodyguard.datasheetId);
       combined = `<div class="panel pad stack"><h3>Combined view</h3><div>Attacks against this attached unit use the <b>highest Toughness among the bodyguard models: T${esc(bgDef.profile.T)}</b>. If only leader models are left, use their highest T.</div>
-        ${members.map(u => { const d = unitDef(fid, u.datasheetId); const b = Engine.buffed(d, u, r, DATA, { detachment: S.dsBuff }); return `<div class="stack" style="gap:8px"><div class="row nowrap">${portrait(d, fid, 'sm')}<b>${esc(dispName(r, u))}</b>${u === group.bodyguard ? '<span class="badge">Bodyguard</span>' : '<span class="badge gold">Leader</span>'}</div>${statlineHTML(b.profile, b.pmark)}${weaponTable(b.ranged, 'Ranged')}${weaponTable(b.melee, 'Melee')}<div class="dim">${d.abilities.map(a => esc(a.name)).join(' · ')}</div></div>`; }).join('<hr style="border:0;border-top:1px solid var(--line);width:100%">')}</div>`;
+        ${members.map(u => { const d = unitDef(fid, u.datasheetId); const b = Engine.buffed(d, u, r, DATA, { detachment: S.dsBuff }); return `<div class="stack" style="gap:8px"><div class="row nowrap">${portrait(d, fid, 'sm')}<b>${esc(dispName(r, u))}</b>${u === group.bodyguard ? '<span class="badge">Bodyguard</span>' : '<span class="badge gold">Leader</span>'}</div>${statlineHTML(b.profile, b.pmark)}${weaponTable(b.ranged, 'Ranged')}${weaponTable(b.melee, 'Melee', meleeBonus(r, d, u))}<div class="dim">${d.abilities.map(a => esc(a.name)).join(' · ')}</div></div>`; }).join('<hr style="border:0;border-top:1px solid var(--line);width:100%">')}</div>`;
     }
     const W = useBuff ? B : { ranged: def.ranged.map(w => ({ ...w, mark: {} })), melee: def.melee.map(w => ({ ...w, mark: {} })) };
     return `<div class="modal-back" data-act="closeModalBack"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="ds-title">
@@ -924,7 +930,7 @@
         ${combined}
         ${m.combined ? '' : `${statlineHTML(prof, pm)}${def.leadModel ? `<div class="dim" style="font-size:.9rem">${esc(def.leadModel.name)}: W ${esc(def.leadModel.W)}, Ld ${esc(def.leadModel.Ld)}. The other models use the line above.</div>` : ''}
         ${def.damaged ? `<div class="abil"><b>Damaged profile</b>${esc(def.damaged.text)}</div>` : ''}
-        ${weaponTable(W.ranged, 'Ranged')}${weaponTable(W.melee, 'Melee')}
+        ${weaponTable(W.ranged, 'Ranged')}${weaponTable(W.melee, 'Melee', meleeBonus(roster, def, inst))}
         <div class="stack" style="gap:8px"><span class="eyebrow">Abilities</span>
           ${def.coreAbilities.length ? `<div><b>Core:</b> ${def.coreAbilities.map(a => `<button class="kwchip" data-act="tip" data-tip="${esc(glossFor(a))}" data-title="${esc(a)}">${esc(a)}</button>`).join('')}</div>` : ''}
           ${def.factionAbilities.length ? `<div><b>Faction:</b> ${def.factionAbilities.map(a => `<button class="kwchip" data-act="tip" data-tip="${esc(abilityTip(fid, a))}" data-title="${esc(a)}">${esc(a)}</button>`).join('')}</div>` : ''}
