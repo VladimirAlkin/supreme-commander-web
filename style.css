@@ -585,42 +585,65 @@ html.m .toast { left: 12px; right: 12px; transform: none; max-width: none; }
 html:not(.m) .dpad { max-width: 480px; }
 html:not(.m) .seg.wide { max-width: 560px; }
 
-/* ---- Blessings of Khorne: ember cards that flare when activated ---- */
+/* ---- Blessings of Khorne: ember cards that flare when activated ----
+   Only opacity/transform are animated (smooth on phones); toggling changes classes in place so transitions run. */
 .kbl-list { display: flex; flex-direction: column; gap: 8px; }
-.kbl { position: relative; overflow: hidden; display: grid; grid-template-columns: 1fr auto; grid-template-areas: "t s" "e s"; gap: 2px 12px; align-items: center; width: 100%; text-align: left; padding: 11px 12px; border-radius: 12px; cursor: pointer; font: inherit; color: #f6e7dc;
-  background: linear-gradient(180deg, #1d0706, #110203); border: 1px solid rgba(214, 72, 26, .38);
-  box-shadow: inset 0 -10px 18px -14px rgba(214, 72, 26, .55); animation: kbIdle 4.2s ease-in-out infinite; animation-delay: var(--d, 0s); }
+.kbl { position: relative; overflow: hidden; isolation: isolate; display: grid; grid-template-columns: 1fr auto; grid-template-areas: "t s" "e s"; gap: 2px 12px; align-items: center; width: 100%; text-align: left; padding: 11px 12px; border-radius: 12px; cursor: pointer; font: inherit; color: #f6e7dc;
+  background: #140404; border: 1px solid rgba(214, 72, 26, .38); box-shadow: 0 0 0 rgba(255, 110, 40, 0);
+  transition: border-color .5s ease, box-shadow .7s ease; -webkit-tap-highlight-color: transparent; }
+.kbl > span:not(.kbl-fire) { position: relative; z-index: 1; }
+.kbl::before { content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background: radial-gradient(120% 70% at 50% 115%, rgba(232, 92, 32, .55), rgba(120, 22, 10, .25) 55%, transparent 80%);
+  opacity: .45; animation: kbIdle 4.2s ease-in-out infinite; animation-delay: var(--d, 0s); will-change: opacity; }
+.kbl-fire { position: absolute; inset: -10% -2% 0; z-index: 0; pointer-events: none; transform-origin: 50% 100%;
+  background: radial-gradient(110% 85% at 50% 112%, rgba(255, 170, 70, .55), rgba(220, 60, 16, .55) 38%, rgba(90, 10, 6, .55) 70%, transparent 92%);
+  opacity: 0; transition: opacity .6s ease; will-change: opacity, transform; }
+.kbl.on .kbl-fire { opacity: 1; animation: kbBurn 2.4s ease-in-out infinite; }
+.kbl.on { border-color: rgba(255, 150, 70, .9); box-shadow: 0 0 14px rgba(255, 100, 35, .4); }
+.kbl.on::before { opacity: 0; transition: opacity .6s ease; }
 .kbl-t { grid-area: t; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; }
-.kbl-t b { font-size: 1.02rem; color: #ffeadf; }
-.kbl-req { font-size: .74rem; font-weight: 700; letter-spacing: .06em; color: #f0b27a; border: 1px solid rgba(240, 160, 90, .4); border-radius: 6px; padding: 0 6px; }
-.kbl-e { grid-area: e; font-size: .9rem; color: #e6c8b6; }
-.kbl-s { grid-area: s; font-size: .8rem; font-weight: 800; letter-spacing: .04em; color: #ffb27a; white-space: nowrap; }
+.kbl-t b { font-size: 1.02rem; color: #ffeadf; text-shadow: 0 1px 2px rgba(0, 0, 0, .6); }
+.kbl-req { font-size: .74rem; font-weight: 700; letter-spacing: .06em; color: #f0b27a; border: 1px solid rgba(240, 160, 90, .4); border-radius: 6px; padding: 0 6px; background: rgba(20, 3, 3, .45); }
+.kbl-e { grid-area: e; font-size: .9rem; color: #ecd3c3; text-shadow: 0 1px 2px rgba(0, 0, 0, .55); }
+.kbl-s { grid-area: s; min-width: 5.6em; text-align: right; font-size: .8rem; font-weight: 800; letter-spacing: .04em; color: #ffb27a; white-space: nowrap; transition: color .4s ease; }
 .kbl.extra { border-style: dashed; }
 .kbl.extra:not(.on) .kbl-s { color: #c99a83; font-weight: 700; }
-.kbl.on { border-color: rgba(255, 150, 70, .9); background: linear-gradient(0deg, rgba(160, 32, 12, .6), rgba(46, 7, 5, .92) 72%); animation: kbBurn 1.7s ease-in-out infinite alternate; }
-.kbl.on .kbl-s { color: #fff1e0; }
-.kbl.flare::after { content: ''; position: absolute; inset: -4px; pointer-events: none; border-radius: inherit;
-  background: radial-gradient(130% 100% at 50% 125%, rgba(255, 190, 90, .85), rgba(255, 90, 20, .4) 45%, transparent 72%); animation: kbFlare .8s ease-out forwards; }
-@keyframes kbIdle { 50% { box-shadow: inset 0 -12px 22px -12px rgba(232, 92, 32, .7), 0 0 8px rgba(214, 72, 26, .14); } }
-@keyframes kbBurn { from { box-shadow: inset 0 -16px 26px -12px rgba(255, 120, 40, .75), 0 0 10px rgba(255, 90, 30, .35); } to { box-shadow: inset 0 -24px 30px -10px rgba(255, 160, 70, .9), 0 0 18px rgba(255, 110, 40, .55); } }
-@keyframes kbFlare { 0% { opacity: 0; transform: translateY(35%); } 30% { opacity: 1; } 100% { opacity: 0; transform: translateY(-25%); } }
+.kbl.on .kbl-s { color: #fff3e6; }
+.kbl.flare::after { content: ''; position: absolute; inset: -20% -5% -5%; z-index: 0; pointer-events: none;
+  background: radial-gradient(90% 70% at 50% 100%, rgba(255, 210, 120, .9), rgba(255, 110, 30, .55) 40%, transparent 75%);
+  animation: kbFlare 1.1s cubic-bezier(.22, .61, .36, 1) forwards; will-change: opacity, transform; }
+@keyframes kbIdle { 0%, 100% { opacity: .38; } 50% { opacity: .62; } }
+@keyframes kbBurn { 0%, 100% { opacity: .88; transform: scaleY(1); } 50% { opacity: 1; transform: scaleY(1.07); } }
+@keyframes kbFlare { 0% { opacity: 0; transform: translateY(45%) scaleY(.7); } 25% { opacity: 1; } 100% { opacity: 0; transform: translateY(-30%) scaleY(1.15); } }
 
 /* ---- Shadow in the Warp: a void button that screams once ---- */
 .voidwrap { position: relative; }
 .voidbtn { position: relative; z-index: 1; width: 100%; min-height: 54px; border-radius: 12px; cursor: pointer; font: inherit; font-weight: 800; letter-spacing: .05em; color: #eadfff;
   border: 1px solid rgba(150, 90, 230, .5); background: radial-gradient(120% 150% at 50% 0%, #2c0f40, #07020b 70%); animation: voidIdle 3.6s ease-in-out infinite; }
 .voidbtn[aria-disabled="true"]:not(.used) { opacity: .7; }
-.voidbtn.used { opacity: .5; animation: none; cursor: default; font-weight: 700; }
-.voidbtn.scream { opacity: 1; animation: voidShake .6s cubic-bezier(.36, .07, .19, .97) both; box-shadow: 0 0 26px rgba(150, 70, 240, .7); }
+.voidbtn.used { opacity: .5; animation: none; cursor: default; font-weight: 700; transition: opacity 1.2s ease 1.6s; }
+.voidbtn.scream { opacity: 1; box-shadow: 0 0 30px rgba(160, 80, 255, .8), inset 0 0 22px rgba(160, 80, 255, .5); animation: voidShake 1.5s cubic-bezier(.36, .07, .19, .97) both; }
 @keyframes voidIdle { 50% { box-shadow: 0 0 14px rgba(140, 70, 230, .38), inset 0 0 18px rgba(120, 50, 210, .38); } }
-@keyframes voidShake { 10%, 90% { transform: translateX(-1px); } 20%, 80% { transform: translateX(3px); } 30%, 50%, 70% { transform: translateX(-5px) rotate(-.6deg); } 40%, 60% { transform: translateX(5px) rotate(.6deg); } }
-.voidring { position: absolute; left: 50%; top: 50%; width: 64px; height: 64px; margin: -32px 0 0 -32px; border-radius: 50%; border: 3px solid rgba(160, 90, 255, .75); pointer-events: none; z-index: 2; animation: voidRing 1.25s ease-out forwards; }
-.voidring:nth-of-type(2) { animation-delay: .18s; }
-.voidring:nth-of-type(3) { animation-delay: .36s; }
-@keyframes voidRing { from { transform: scale(.4); opacity: .9; } to { transform: scale(8); opacity: 0; border-width: 1px; } }
-.voidpulse { position: fixed; inset: 0; z-index: 95; pointer-events: none; animation: voidEdge 1.2s ease-out forwards; }
-@keyframes voidEdge { 0% { box-shadow: inset 0 0 0 0 rgba(10, 0, 22, 0), inset 0 0 0 0 rgba(160, 90, 255, 0); } 25% { box-shadow: inset 0 0 110px 36px rgba(10, 0, 22, .88), inset 0 0 26px 4px rgba(160, 90, 255, .45); } 100% { box-shadow: inset 0 0 170px 70px rgba(10, 0, 22, 0), inset 0 0 40px 8px rgba(160, 90, 255, 0); } }
+@keyframes voidShake {
+  0% { transform: scale(1); } 8% { transform: scale(.96); } 14% { transform: scale(1.04) translateX(-4px); }
+  20%, 44%, 68% { transform: translateX(-6px) rotate(-.8deg); } 26%, 50%, 74% { transform: translateX(6px) rotate(.8deg); }
+  32%, 56% { transform: translateX(-4px) rotate(-.4deg); } 38%, 62% { transform: translateX(4px) rotate(.4deg); }
+  84% { transform: translateX(-2px); } 92% { transform: translateX(1px); } 100% { transform: none; } }
+.voidfx { position: fixed; inset: 0; z-index: 95; pointer-events: none; overflow: hidden; }
+.vring { position: absolute; left: var(--x); top: var(--y); width: 120px; height: 120px; margin: -60px 0 0 -60px; overflow: visible; opacity: 0;
+  animation: vRing 2.4s cubic-bezier(.2, .6, .35, 1) var(--dl) forwards; will-change: transform, opacity; }
+.vring path { fill: none; stroke: rgba(170, 100, 255, .9); stroke-width: 2.2; vector-effect: non-scaling-stroke; filter: drop-shadow(0 0 4px rgba(150, 70, 255, .9)); }
+@keyframes vRing { 0% { opacity: 0; transform: scale(.25) rotate(0deg); } 10% { opacity: 1; } 70% { opacity: .55; } 100% { opacity: 0; transform: scale(11) rotate(calc(var(--rot) * 28deg)); } }
+.voidpulse { position: absolute; inset: 0; animation: voidEdge 3s ease-out forwards; }
+@keyframes voidEdge {
+  0% { box-shadow: inset 0 0 0 0 rgba(10, 0, 22, 0), inset 0 0 0 0 rgba(160, 90, 255, 0); }
+  14% { box-shadow: inset 0 0 120px 40px rgba(10, 0, 22, .9), inset 0 0 30px 6px rgba(160, 90, 255, .55); }
+  32% { box-shadow: inset 0 0 90px 24px rgba(10, 0, 22, .55), inset 0 0 18px 3px rgba(160, 90, 255, .25); }
+  48% { box-shadow: inset 0 0 150px 56px rgba(10, 0, 22, .92), inset 0 0 36px 8px rgba(160, 90, 255, .6); }
+  100% { box-shadow: inset 0 0 200px 80px rgba(10, 0, 22, 0), inset 0 0 50px 10px rgba(160, 90, 255, 0); } }
+.quake { animation: quake .9s cubic-bezier(.36, .07, .19, .97) both; }
+@keyframes quake { 10%, 90% { transform: translate(-1px, 0); } 20%, 80% { transform: translate(2px, 1px); } 30%, 50%, 70% { transform: translate(-3px, -1px); } 40%, 60% { transform: translate(3px, 1px); } }
 @media (prefers-reduced-motion: reduce) {
-  .kbl, .kbl.on, .voidbtn, .voidbtn.scream { animation: none; }
-  .kbl.flare::after, .voidring, .voidpulse { display: none; }
+  .kbl::before, .kbl.on .kbl-fire, .voidbtn, .voidbtn.scream, .quake { animation: none; }
+  .kbl.flare::after, .voidfx { display: none; }
 }
