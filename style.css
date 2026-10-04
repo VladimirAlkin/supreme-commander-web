@@ -649,7 +649,49 @@ html:not(.m) .seg.wide { max-width: 560px; }
 @keyframes kwglowB { 0%, 100% { box-shadow: 0 0 0 rgba(240, 80, 60, 0); } 50% { box-shadow: 0 0 6px rgba(240, 80, 60, .35); } }
 .hisum.tone-green { border-color: rgba(168, 204, 74, .25); background: rgba(168, 204, 74, .05); }
 .hisum.tone-blood { border-color: rgba(240, 87, 74, .25); background: rgba(240, 87, 74, .05); }
-@media (prefers-reduced-motion: reduce) { .kwfx.tone-green { -webkit-text-fill-color: #b8d65a; } .kwfx.tone-blood { -webkit-text-fill-color: #ff7a66; } }
+.kwfx.tone-arcane { border-color: rgba(63, 182, 201, .55); color: #6fd6e6;
+  background-image: linear-gradient(100deg, #46c2d4 0%, #46c2d4 30%, #e6fbff 40%, #46c2d4 50%, #9be6f0 62%, #46c2d4 72%, #46c2d4 100%);
+  animation-name: kwwave, kwglowA; }
+@keyframes kwglowA { 0%, 100% { box-shadow: 0 0 0 rgba(63, 182, 201, 0); } 50% { box-shadow: 0 0 6px rgba(63, 182, 201, .38); } }
+.kwfx.tone-gold { border-color: rgba(216, 180, 90, .6); color: #e6c878;
+  background-image: linear-gradient(100deg, #d8b45a 0%, #d8b45a 30%, #fff3cf 40%, #d8b45a 50%, #f0d68e 62%, #d8b45a 72%, #d8b45a 100%);
+  animation-name: kwwave, kwglowY; }
+@keyframes kwglowY { 0%, 100% { box-shadow: 0 0 0 rgba(216, 180, 90, 0); } 50% { box-shadow: 0 0 6px rgba(216, 180, 90, .38); } }
+.hisum.tone-arcane { border-color: rgba(63, 182, 201, .25); background: rgba(63, 182, 201, .05); }
+.hisum.tone-gold { border-color: rgba(216, 180, 90, .25); background: rgba(216, 180, 90, .05); }
+@media (prefers-reduced-motion: reduce) { .kwfx.tone-green { -webkit-text-fill-color: #b8d65a; } .kwfx.tone-blood { -webkit-text-fill-color: #ff7a66; } .kwfx.tone-arcane { -webkit-text-fill-color: #6fd6e6; } .kwfx.tone-gold { -webkit-text-fill-color: #e6c878; } }
+
+/* ---- Thousand Sons: Ritual cards; a lapis glow drifts, a manifested Ritual burns with warpfire ---- */
+.rit-list { display: flex; flex-direction: column; gap: 8px; }
+.rit { position: relative; overflow: hidden; isolation: isolate; display: grid; grid-template-columns: auto 1fr auto; grid-template-areas: "w t s" "w e e" "w b b"; gap: 2px 12px; align-items: center; width: 100%; text-align: left; padding: 11px 12px; border-radius: 12px; cursor: pointer; font: inherit; color: #e6eefc;
+  background: #08142a; border: 1px solid rgba(63, 182, 201, .3); transition: border-color .5s ease, box-shadow .7s ease, opacity .4s ease; -webkit-tap-highlight-color: transparent; }
+.rit > * { position: relative; z-index: 1; }
+.rit::before { content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background: radial-gradient(90% 80% at 0% 50%, rgba(63, 182, 201, .25), rgba(31, 79, 138, .18) 50%, transparent 80%);
+  opacity: .5; animation: kbIdle 5s ease-in-out infinite; animation-delay: var(--d, 0s); will-change: opacity; }
+.rit-w { grid-area: w; width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; font-size: 1.25rem; color: #f3dfa4;
+  border: 2px solid rgba(216, 180, 90, .65); background: radial-gradient(circle, rgba(216, 180, 90, .2), rgba(8, 20, 42, .9) 70%); }
+.rit-w small { display: block; font-size: .55rem; letter-spacing: .08em; color: #9fb6d6; margin-top: -4px; }
+.rit-t { grid-area: t; } .rit-t b { font-size: 1.02rem; color: #f5f8ff; }
+.rit-e { grid-area: e; font-size: .9rem; color: #c6d4ea; } .rit-b { grid-area: b; font-size: .82rem; color: #e6c878; }
+.rit-s { grid-area: s; text-align: right; font-size: .8rem; font-weight: 800; letter-spacing: .04em; color: #6fd6e6; white-space: nowrap; }
+.rit.ok { border-color: rgba(120, 220, 240, .85); box-shadow: 0 0 16px rgba(63, 182, 201, .35), inset 0 0 22px rgba(160, 80, 220, .18); }
+.rit.ok::before { background: radial-gradient(90% 90% at 0% 50%, rgba(80, 210, 230, .45), rgba(170, 70, 200, .25) 55%, transparent 85%); opacity: 1; }
+.rit.ok .rit-s { color: #bff4fb; }
+.rit.ko { opacity: .62; border-color: rgba(150, 160, 190, .35); } .rit.ko .rit-s { color: #9aa5bd; }
+.rit[aria-disabled="true"] { opacity: .5; cursor: default; }
+.rit.open { border-color: rgba(216, 180, 90, .8); }
+.ritpick { display: flex; flex-direction: column; gap: 8px; padding: 10px; border-radius: 10px; border: 1px dashed rgba(216, 180, 90, .45); background: rgba(8, 20, 42, .6); }
+.ritpick .chip.cond { border-style: dashed; }
+.wfx { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: visible; }
+.wfx .rune { position: absolute; left: 7px; top: 50%; width: 62px; height: 62px; margin-top: -31px; border-radius: 50%; border: 2px dashed rgba(140, 230, 245, .9);
+  animation: wRune 1.6s ease-out forwards; will-change: transform, opacity; }
+.wfx .rune + .rune { border-style: dotted; border-color: rgba(230, 140, 255, .85); animation-delay: .15s; animation-direction: normal; }
+@keyframes wRune { 0% { opacity: 0; transform: scale(.4) rotate(0); } 25% { opacity: 1; } 100% { opacity: 0; transform: scale(2.3) rotate(200deg); } }
+.wfx i { position: absolute; bottom: -6px; width: 10px; height: 22px; border-radius: 50% 50% 40% 40% / 70% 70% 30% 30%; filter: blur(.4px);
+  background: radial-gradient(circle at 50% 70%, #fff 0%, var(--c) 45%, transparent 75%); opacity: 0; animation: wFlame var(--t) ease-out var(--dl) forwards; will-change: transform, opacity; }
+@keyframes wFlame { 0% { opacity: 0; transform: translate(0, 0) scale(.6); } 15% { opacity: 1; } 100% { opacity: 0; transform: translate(var(--x), -110px) scale(1.4) rotate(var(--r)); } }
+@media (prefers-reduced-motion: reduce) { .wfx { display: none; } .rit::before { animation: none; } }
 
 /* ---- Death Guard: Contagion Range plate with a slow miasma pulse ---- */
 .contag { border-color: rgba(150, 180, 60, .32); }

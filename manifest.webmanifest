@@ -1,7 +1,7 @@
 {
  "name": "Supreme Commander",
  "short_name": "Supreme Commander",
- "description": "Army builder for Warhammer 40,000 11th edition: World Eaters, Tyranids and Death Guard",
+ "description": "Army builder for Warhammer 40,000 11th edition: World Eaters, Tyranids, Death Guard and Thousand Sons",
  "start_url": "./",
  "scope": "./",
  "display": "standalone",

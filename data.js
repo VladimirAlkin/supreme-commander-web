@@ -4,9 +4,10 @@ const DATA = {
   "factionVersions": {
    "worldEaters": "2026-10-02-mfm15-fp13",
    "tyranids": "2026-10-03-mfm15-fp12",
-   "deathGuard": "2026-10-04-mfm15-fp13"
+   "deathGuard": "2026-10-04-mfm15-fp13",
+   "thousandSons": "2026-10-04-mfm15-fp13"
   },
-  "stamp": "Data as of: MFM v1.5 (30/09/2026), Faction Packs World Eaters v1.3, Tyranids v1.2 and Death Guard v1.3, GDM data v972 (02/10/2026). Checked 04.10.2026",
+  "stamp": "Data as of: MFM v1.5 (30/09/2026), Faction Packs World Eaters v1.3, Tyranids v1.2, Death Guard v1.3 and Thousand Sons v1.3, GDM data v972 (02/10/2026). Checked 04.10.2026",
   "checked": "2026-10-04"
  },
  "gameRules": {
@@ -207,7 +208,10 @@ const DATA = {
    "Afflicted": "An Afflicted enemy unit has -1 Toughness and the effect of the Death Guard player's chosen Plague.",
    "Contagion Range": "Round 1: 3\". Round 2: 6\". Round 3 onwards: 9\". Never more than 12\" after modifiers.",
    "Pact of Decay": "PLAGUE LEGIONS cannot be your Army Faction. Death Guard can field them with the Tallyband Summoners detachment.",
-   "Reverberating Summons": "Each time this weapon destroys a model, you can return 1 destroyed Plaguebearer to a friendly PLAGUEBEARERS unit within 12\" of the bearer."
+   "Reverberating Summons": "Each time this weapon destroys a model, you can return 1 destroyed Plaguebearer to a friendly PLAGUEBEARERS unit within 12\" of the bearer.",
+   "Cabal of Sorcerers": "Thousand Sons army rule. At the start of your Shooting phase each model with it can attempt one Ritual (each Ritual once per turn): roll 2D6 (optionally a third D6 to Channel the Warp) and beat the Warp Charge. See Army Rules.",
+   "Pact of Sorcery": "SCINTILLATING LEGIONS cannot be your Army Faction. Thousand Sons can field them with the Changehost of Deceit detachment.",
+   "Psychic Test": "Roll 2D6 (plus one more D6 if you Channel the Warp). If you Channelled and rolled any double or triple, the model's unit suffers D3 mortal wounds. The total must equal or beat the Ritual's Warp Charge."
   }
  },
  "factions": [
@@ -304,7 +308,76 @@ const DATA = {
   {
    "id": "thousandSons",
    "name": "Thousand Sons",
-   "enabled": false
+   "enabled": true,
+   "theme": {
+    "bg": "#0f2340",
+    "bg2": "#1f4f8a",
+    "bgDeep": "#050b16",
+    "accent": "#d8b45a",
+    "accent2": "#3fb6c9",
+    "panel": "rgba(6,14,30,.82)",
+    "card1": "#173a68",
+    "card2": "#081428",
+    "icon1": "#0f2340",
+    "icon2": "#050b16"
+   },
+   "emblemSvg": "<svg viewBox=\"0 0 64 64\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\"><circle cx=\"32\" cy=\"32\" r=\"30\" fill=\"#0b1a33\"/><circle cx=\"32\" cy=\"32\" r=\"9\" fill=\"none\" stroke=\"#d8b45a\" stroke-width=\"3.4\"/><path d=\"M32 6v13M32 45v13M6 32h13M45 32h13M13.6 13.6l9.2 9.2M41.2 41.2l9.2 9.2M50.4 13.6l-9.2 9.2M22.8 41.2l-9.2 9.2\" stroke=\"#d8b45a\" stroke-width=\"3.2\" stroke-linecap=\"round\"/></svg>",
+   "logo": "ts_logo",
+   "rosterIcon": "ts_roster",
+   "highlights": [
+    {
+     "id": "cabal",
+     "label": "CABAL",
+     "tone": "arcane",
+     "title": "Can attempt a Ritual in your Shooting phase (Cabal of Sorcerers).",
+     "none": "No unit can attempt Rituals",
+     "unitIds": {
+      "magnus_the_red": "Up to two Rituals per turn, +2 to the Psychic test.",
+      "ahriman": "+1 to the Psychic test.",
+      "exalted_sorcerer": "",
+      "exalted_sorcerer_on_disc_of_tzeentch": "",
+      "infernal_master": "",
+      "sorcerer": "",
+      "sorcerer_in_terminator_armour": "",
+      "daemon_prince_of_tzeentch": "",
+      "daemon_prince_of_tzeentch_with_wings": "",
+      "tzaangor_shaman": "",
+      "rubric_marines": "The Aspiring Sorcerer attempts the Ritual.",
+      "scarab_occult_terminators": "The Scarab Occult Sorcerer attempts the Ritual."
+     },
+     "detachments": {
+      "changehost_of_deceit": {
+       "factionsAll": [
+        "Scintillating Legions"
+       ],
+       "keywordsAll": [
+        "Psyker"
+       ],
+       "cond": true,
+       "note": "Mortal Sorcery: has Cabal of Sorcerers while within 6\" of a friendly THOUSAND SONS unit."
+      }
+     }
+    },
+    {
+     "id": "dust",
+     "label": "ALL IS DUST",
+     "tone": "gold",
+     "title": "All Is Dust: +1 to armour saves against attacks with an unmodified Damage of 1.",
+     "none": "No RUBRICAE units",
+     "detachments": {
+      "rubricae_phalanx": {
+       "keywordsAll": [
+        "Rubricae"
+       ],
+       "note": "All Is Dust: +1 to armour saves against Damage 1 attacks."
+      }
+     }
+    }
+   ],
+   "abilityTips": {
+    "Cabal of Sorcerers": "Start of your Shooting phase: attempt Rituals with a Psychic test (2D6, optionally +1D6 to Channel the Warp). Each model and each Ritual once per turn. See Army Rules.",
+    "Pact of Sorcery": "SCINTILLATING LEGIONS join a Thousand Sons army only through Changehost of Deceit (points cap by battle size)."
+   }
   },
   {
    "id": "emperorsChildren",
@@ -18613,6 +18686,6020 @@ const DATA = {
      "stepFrom": null,
      "leaderOf": [],
      "composition": "3 or 6 Nurgling Swarms: diseased claws and teeth.",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    }
+   ]
+  },
+  "thousandSons": {
+   "armyFaction": "Thousand Sons",
+   "alliedFactions": [
+    {
+     "faction": "Scintillating Legions",
+     "requiresDetachment": "changehost_of_deceit",
+     "capKey": "blCap",
+     "cannotBeWarlord": true
+    }
+   ],
+   "armyRules": [
+    {
+     "id": "cabal",
+     "name": "Cabal of Sorcerers",
+     "rituals": [
+      {
+       "id": "destinys_ruin",
+       "name": "Destiny's Ruin",
+       "wc": 5,
+       "effect": "One enemy unit within 24\" and visible: until the end of the phase your THOUSAND SONS and SCINTILLATING LEGIONS attacks against it re-roll hit rolls of 1.",
+       "boost": "10+: re-roll the whole hit roll instead."
+      },
+      {
+       "id": "temporal_surge",
+       "name": "Temporal Surge",
+       "wc": 6,
+       "effect": "One unengaged friendly THOUSAND SONS or SCINTILLATING LEGIONS unit within 24\" and visible makes a Normal move of up to D6\"; it cannot charge this turn.",
+       "boost": "10+: move up to 6\" instead."
+      },
+      {
+       "id": "doombolt",
+       "name": "Doombolt",
+       "wc": 7,
+       "effect": "One enemy unit within 24\" and visible (a lone Lone Operative only within 12\") suffers D3 mortal wounds.",
+       "boost": "11+: D3+3 mortal wounds instead."
+      },
+      {
+       "id": "twist_of_fate",
+       "name": "Twist of Fate",
+       "wc": 9,
+       "effect": "One enemy unit within 24\" and visible: until the end of the phase your THOUSAND SONS and SCINTILLATING LEGIONS attacks against it get +1 AP.",
+       "boost": "12+: +2 AP instead."
+      }
+     ],
+     "text": [
+      "If your Army Faction is THOUSAND SONS: at the start of your Shooting phase, models with this ability can attempt Rituals one at a time. Pick a model that has not attempted a Ritual this turn and a Ritual no model has attempted this turn, then take a Psychic test.",
+      "Psychic test: roll 2D6. You can then Channel the Warp and roll one more D6; if you did and any double or triple was rolled, the model's unit suffers D3 mortal wounds. If the model survives, the total of all dice is the result: equal to or above the Warp Charge, the Ritual is manifested.",
+      "Destiny's Ruin (Warp Charge 5): One enemy unit within 24\" and visible: until the end of the phase your THOUSAND SONS and SCINTILLATING LEGIONS attacks against it re-roll hit rolls of 1. 10+: re-roll the whole hit roll instead.",
+      "Temporal Surge (Warp Charge 6): One unengaged friendly THOUSAND SONS or SCINTILLATING LEGIONS unit within 24\" and visible makes a Normal move of up to D6\"; it cannot charge this turn. 10+: move up to 6\" instead.",
+      "Doombolt (Warp Charge 7): One enemy unit within 24\" and visible (a lone Lone Operative only within 12\") suffers D3 mortal wounds. 11+: D3+3 mortal wounds instead.",
+      "Twist of Fate (Warp Charge 9): One enemy unit within 24\" and visible: until the end of the phase your THOUSAND SONS and SCINTILLATING LEGIONS attacks against it get +1 AP. 12+: +2 AP instead."
+     ]
+    },
+    {
+     "id": "pact_of_sorcery",
+     "name": "Pact of Sorcery",
+     "text": [
+      "SCINTILLATING LEGIONS units cannot be your Army Faction unless a rule says otherwise.",
+      "A Thousand Sons army can include them with the Changehost of Deceit detachment (up to 500/1000/1500 pts by battle size); none of them can be your WARLORD."
+     ]
+    }
+   ],
+   "detachments": [
+    {
+     "id": "grand_coven",
+     "name": "Grand Coven",
+     "dp": 3,
+     "dispositions": [
+      "Disruption",
+      "Priority Assets"
+     ],
+     "tags": [],
+     "summary": "Each Command phase pick one Kindred Sorcery boost for your psychic weapons; each only once per battle.",
+     "rule": {
+      "name": "Kindred Sorcery",
+      "text": "In your Command phase you can pick one of these, active until the start of your next Command phase; each only once per battle. Imbued Manifestation: +6\" Range for ranged Psychic weapons of your THOUSAND SONS models. Psychic Maelstrom: +1 to wound for attacks with Psychic weapons by your THOUSAND SONS models. Wrath of the Immaterium: Psychic weapons of your THOUSAND SONS models have [DEVASTATING WOUNDS]."
+     },
+     "imperatives": [
+      {
+       "id": "imbued",
+       "name": "Imbued Manifestation",
+       "effect": "+6\" Range for ranged Psychic weapons of your THOUSAND SONS models."
+      },
+      {
+       "id": "maelstrom",
+       "name": "Psychic Maelstrom",
+       "effect": "+1 to wound for attacks with Psychic weapons by your THOUSAND SONS models."
+      },
+      {
+       "id": "wrath",
+       "name": "Wrath of the Immaterium",
+       "effect": "Psychic weapons of your THOUSAND SONS models have [DEVASTATING WOUNDS]."
+      }
+     ],
+     "impTitle": "Kindred Sorcery",
+     "impNote": "Pick in your Command phase; it lasts until your next Command phase. Each only once per battle.",
+     "enhancements": [
+      {
+       "id": "lord_of_forbidden_lore",
+       "name": "Lord of Forbidden Lore",
+       "pts": 20,
+       "upgrade": false,
+       "text": "THOUSAND SONS model only. Rituals the bearer manifests get +6\" range.",
+       "eligible": {
+        "factionsAll": [
+         "Thousand Sons"
+        ]
+       }
+      },
+      {
+       "id": "incandaeum",
+       "name": "Incandaeum",
+       "pts": 15,
+       "upgrade": false,
+       "text": "EXALTED SORCERER only. Once per battle the bearer can attempt Doombolt even if another model already attempted it this phase.",
+       "eligible": {
+        "factionsAll": [
+         "Thousand Sons"
+        ],
+        "keywordsAll": [
+         "Exalted Sorcerer"
+        ]
+       }
+      },
+      {
+       "id": "umbralefic_crystal",
+       "name": "Umbralefic Crystal",
+       "pts": 30,
+       "upgrade": false,
+       "text": "THOUSAND SONS model only. Once per battle (per army), in your Command phase, if unengaged: place the unit in Strategic Reserves; it has Deep Strike until your next Shooting phase and must arrive in your next Movement phase.",
+       "eligible": {
+        "factionsAll": [
+         "Thousand Sons"
+        ]
+       }
+      },
+      {
+       "id": "eldritch_vortex_of_etaph",
+       "name": "Eldritch Vortex of E'Taph",
+       "pts": 35,
+       "upgrade": false,
+       "text": "THOUSAND SONS model only. +1 S and +1 D for the bearer's Psychic weapons.",
+       "eligible": {
+        "factionsAll": [
+         "Thousand Sons"
+        ]
+       }
+      }
+     ],
+     "stratagems": [
+      {
+       "id": "psychic_dominion",
+       "name": "Psychic Dominion",
+       "cp": 1,
+       "type": "Epic Deed",
+       "phases": [
+        "Any"
+       ],
+       "when": "Any phase, right after an enemy unit selects its targets.",
+       "target": "One THOUSAND SONS unit targeted by those attacks.",
+       "effect": "Until the end of the phase, the attackers' Psychic weapons have [HAZARDOUS], and your unit has Feel No Pain 4+ against Psychic Attacks."
+      },
+      {
+       "id": "destined_by_fate",
+       "name": "Destined by Fate",
+       "cp": 1,
+       "type": "Epic Deed",
+       "phases": [
+        "Any"
+       ],
+       "when": "Any phase, right after a saving throw is failed for a THOUSAND SONS PSYKER model.",
+       "target": "That model.",
+       "effect": "Change the Damage of that attack to 0."
+      },
+      {
+       "id": "egotistical_power",
+       "name": "Egotistical Power",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Command"
+       ],
+       "when": "Your Command phase.",
+       "target": "One THOUSAND SONS PSYKER unit.",
+       "effect": "Pick any Kindred Sorcery ability, even one already used: until your next Command phase it applies to this unit instead of the army's current one."
+      },
+      {
+       "id": "desecration_of_worlds",
+       "name": "Desecration of Worlds",
+       "cp": 1,
+       "type": "Epic Deed",
+       "phases": [
+        "Command"
+       ],
+       "when": "Your Command phase.",
+       "target": "One THOUSAND SONS PSYKER unit within range of an objective you control.",
+       "effect": "That objective stays yours until your opponent's Level of Control over it is higher at the end of a phase."
+      },
+      {
+       "id": "arcane_focus",
+       "name": "Arcane Focus",
+       "cp": 1,
+       "type": "Epic Deed",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Your Shooting phase, right after a Psychic test for a THOUSAND SONS model that Channelled the Warp.",
+       "target": "That model.",
+       "effect": "Re-roll all the dice of that Psychic test, including the extra D6."
+      },
+      {
+       "id": "devastating_sorcery",
+       "name": "Devastating Sorcery",
+       "cp": 2,
+       "type": "Battle Tactic",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Your Shooting phase.",
+       "target": "One THOUSAND SONS PSYKER unit that has not shot this phase.",
+       "effect": "Until the end of the phase its Psychic weapons get +9\" Range and can re-roll hit and wound rolls."
+      }
+     ]
+    },
+    {
+     "id": "changehost_of_deceit",
+     "name": "Changehost of Deceit",
+     "dp": 2,
+     "dispositions": [
+      "Reconnaissance"
+     ],
+     "tags": [],
+     "summary": "Field the daemons of Tzeentch (SCINTILLATING LEGIONS); psykers shield them and they cast Rituals near your Thousand Sons.",
+     "rule": {
+      "name": "Infernal Pacts",
+      "text": "SCINTILLATING LEGIONS units get Daemonic Illusions (Aura): while a friendly THOUSAND SONS PSYKER unit is within 6\" and visible, they have a 4+ invulnerable save against ranged attacks. THOUSAND SONS units get Mortal Sorcery (Aura): a friendly SCINTILLATING LEGIONS PSYKER unit within 6\" and visible has Cabal of Sorcerers. You can include SCINTILLATING LEGIONS units up to 500 pts (Incursion), 1000 pts (Strike Force) or 1500 pts (Onslaught); none of them can be your WARLORD."
+     },
+     "enhancements": [
+      {
+       "id": "nethershriek_mind_eater",
+       "name": "Nethershriek Mind-Eater",
+       "pts": 10,
+       "upgrade": false,
+       "text": "THOUSAND SONS or LORD OF CHANGE model only. Start of your Shooting phase: one visible enemy unit within 12\" takes a battle-shock test; if failed it suffers 3 mortal wounds.",
+       "eligible": {
+        "factionsAll": [
+         "Thousand Sons"
+        ],
+        "orUnitIds": [
+         "lord_of_change"
+        ]
+       }
+      },
+      {
+       "id": "diabolic_savant",
+       "name": "Diabolic Savant",
+       "pts": 20,
+       "upgrade": false,
+       "text": "THOUSAND SONS INFANTRY model only. While within 6\" of a friendly SCINTILLATING LEGIONS unit, +1 to its Psychic test result when it Channels the Warp.",
+       "eligible": {
+        "factionsAll": [
+         "Thousand Sons"
+        ],
+        "keywordsAll": [
+         "Infantry"
+        ]
+       }
+      },
+      {
+       "id": "duplicitous_malediction",
+       "name": "Duplicitous Malediction",
+       "pts": 15,
+       "upgrade": false,
+       "text": "THOUSAND SONS or LORD OF CHANGE model only. After both armies deploy, redeploy up to three THOUSAND SONS units; they can go into Strategic Reserves regardless of the usual limit.",
+       "eligible": {
+        "factionsAll": [
+         "Thousand Sons"
+        ],
+        "orUnitIds": [
+         "lord_of_change"
+        ]
+       }
+      },
+      {
+       "id": "tome_of_true_names",
+       "name": "Tome of True Names",
+       "pts": 20,
+       "upgrade": false,
+       "text": "THOUSAND SONS INFANTRY model only. Once per battle, at the start of any phase: the bearer has a 2+ invulnerable save until the end of the phase.",
+       "eligible": {
+        "factionsAll": [
+         "Thousand Sons"
+        ],
+        "keywordsAll": [
+         "Infantry"
+        ]
+       }
+      }
+     ],
+     "stratagems": [
+      {
+       "id": "sulphurous_veil",
+       "name": "Sulphurous Veil",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Shooting",
+        "Fight"
+       ],
+       "when": "Your opponent's Shooting phase or the Fight phase, right after an enemy unit selects its targets.",
+       "target": "One THOUSAND SONS or SCINTILLATING LEGIONS unit targeted by those attacks.",
+       "effect": "Until the end of the phase, attacks against it get -1 to hit."
+      },
+      {
+       "id": "deceptive_glamour",
+       "name": "Deceptive Glamour",
+       "cp": 2,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Start of the Fight phase.",
+       "target": "One THOUSAND SONS unit.",
+       "effect": "Until the end of the phase, engaged enemy models can only target it if no SCINTILLATING LEGIONS unit is an eligible target."
+      },
+      {
+       "id": "ethereal_phantasm",
+       "name": "Ethereal Phantasm",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Movement"
+       ],
+       "when": "Your opponent's Movement phase, right after an enemy unit ends a Normal, Advance or Fall Back move.",
+       "target": "One unengaged SCINTILLATING LEGIONS unit within 8\" of that enemy unit.",
+       "effect": "It makes a Normal move of up to D6\", or up to 6\" if it is wholly within 6\" of a friendly THOUSAND SONS unit."
+      },
+      {
+       "id": "fractal_disjunction",
+       "name": "Fractal Disjunction",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Your opponent's Shooting phase, right after an enemy unit selects its targets.",
+       "target": "One SCINTILLATING LEGIONS unit (not MONSTER) targeted by those attacks.",
+       "effect": "Until the end of the phase it can only be shot by models within 18\"."
+      },
+      {
+       "id": "chronosorcerous_bleed",
+       "name": "Chronosorcerous Bleed",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Charge"
+       ],
+       "when": "Start of your opponent's Charge phase.",
+       "target": "One unengaged THOUSAND SONS PSYKER or SCINTILLATING LEGIONS unit.",
+       "effect": "Pick one visible enemy unit within 12\": if it declares a charge, -1 to its charge roll."
+      },
+      {
+       "id": "glimmershift_portal",
+       "name": "Glimmershift Portal",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Fight"
+       ],
+       "when": "End of your opponent's Fight phase.",
+       "target": "Up to two SCINTILLATING LEGIONS units (not MONSTERS), or one SCINTILLATING LEGIONS MONSTER, all more than 6\" from enemy units.",
+       "effect": "Place them into Strategic Reserves."
+      }
+     ]
+    },
+    {
+     "id": "warpmeld_pact",
+     "name": "Warpmeld Pact",
+     "dp": 2,
+     "dispositions": [
+      "Purge the Foe"
+     ],
+     "tags": [
+      "MUTANT"
+     ],
+     "summary": "Mutants trade wounds for power with Warpmeld Sacrifice; Tzaangors are Battleline with +1 OC.",
+     "rule": {
+      "name": "Warpmeld Sacrifice",
+      "text": "When an enemy unit shoots or fights and targets your TZEENTCH MUTANT INFANTRY or MOUNTED units, each of them can make a Warpmeld Sacrifice: attacks against it get -1 to wound until the end of the phase, then it suffers D3 mortal wounds. When such a unit of yours shoots or fights, it can instead sacrifice before picking targets: +1 to wound until the end of the phase, then D3 mortal wounds. TZAANGORS units are BATTLELINE and, while not battle-shocked, their Tzaangor models get +1 OC."
+     },
+     "grantKeywords": [
+      {
+       "unitIds": [
+        "tzaangors"
+       ],
+       "keyword": "Battleline"
+      }
+     ],
+     "enhancements": [
+      {
+       "id": "warpmeld_dagger",
+       "name": "Warpmeld Dagger",
+       "pts": 10,
+       "upgrade": false,
+       "text": "TZAANGOR SHAMAN only. When it attempts a Ritual, before the result it can suffer D3 mortal wounds; if it survives, add that many to the Psychic test result.",
+       "eligible": {
+        "factionsAll": [
+         "Thousand Sons"
+        ],
+        "unitIds": [
+         "tzaangor_shaman"
+        ]
+       }
+      },
+      {
+       "id": "diamond_of_distortion",
+       "name": "Diamond of Distortion",
+       "pts": 20,
+       "upgrade": false,
+       "text": "TZAANGOR SHAMAN only. While it leads a unit, attacks against that unit get -1 to hit.",
+       "eligible": {
+        "factionsAll": [
+         "Thousand Sons"
+        ],
+        "unitIds": [
+         "tzaangor_shaman"
+        ]
+       }
+      },
+      {
+       "id": "bray_lord",
+       "name": "Bray Lord",
+       "pts": 15,
+       "upgrade": false,
+       "text": "SORCERER or INFERNAL MASTER only. The bearer has Scouts 6\" and can lead TZAANGORS.",
+       "eligible": {
+        "factionsAll": [
+         "Thousand Sons"
+        ],
+        "keywordsAny": [
+         "Sorcerer",
+         "Infernal Master"
+        ]
+       },
+       "leaderOf": [
+        "tzaangors"
+       ]
+      },
+      {
+       "id": "flowing_flesh",
+       "name": "Flowing Flesh",
+       "pts": 10,
+       "upgrade": false,
+       "text": "TZAANGOR SHAMAN only. Feel No Pain 4+ and W 5.",
+       "eligible": {
+        "factionsAll": [
+         "Thousand Sons"
+        ],
+        "unitIds": [
+         "tzaangor_shaman"
+        ]
+       },
+       "mods": [
+        {
+         "target": "profile",
+         "stat": "W",
+         "set": "5"
+        }
+       ]
+      }
+     ],
+     "stratagems": [
+      {
+       "id": "gift_of_change",
+       "name": "Gift of Change",
+       "cp": 1,
+       "type": "Epic Deed",
+       "phases": [
+        "Any"
+       ],
+       "when": "Any phase, when a THOUSAND SONS CHARACTER model (not MONSTER) is destroyed.",
+       "target": "That model (even though it was just destroyed).",
+       "effect": "At the end of the phase add a one-model TZEENTCH CHAOS SPAWN unit as close as possible to where it died, not in Engagement Range.",
+       "restrictions": "Once per battle round."
+      },
+      {
+       "id": "warped_vicissitude",
+       "name": "Warped Vicissitude",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Shooting",
+        "Fight"
+       ],
+       "when": "Your opponent's Shooting phase or the Fight phase, right after an enemy unit selects its targets.",
+       "target": "One TZAANGORS unit targeted by those attacks.",
+       "effect": "Until the end of the phase its models have a 4+ invulnerable save."
+      },
+      {
+       "id": "deranged_ferocity",
+       "name": "Deranged Ferocity",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Fight phase, right after a TZEENTCH MUTANT unit is selected to fight.",
+       "target": "That unit.",
+       "effect": "Until the end of the phase it piles in and consolidates up to 6\", and models within 3\" of an enemy model can fight (against a unit within 3\" of them that is engaged with their unit)."
+      },
+      {
+       "id": "blessed_transmutations",
+       "name": "Blessed Transmutations",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Command"
+       ],
+       "when": "Your Command phase.",
+       "target": "One THOUSAND SONS PSYKER model and one friendly TZAANGORS unit below Starting Strength within 12\" of it.",
+       "effect": "Return up to D3+1 destroyed models (not CHARACTERS) to the TZAANGORS unit."
+      },
+      {
+       "id": "touched_by_tzeentch",
+       "name": "Touched by Tzeentch",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Movement"
+       ],
+       "when": "Start of your Movement phase.",
+       "target": "One TZEENTCH MUTANT unit.",
+       "effect": "Until the end of the turn it can shoot or declare a charge in a turn in which it advanced."
+      },
+      {
+       "id": "twisted_mirage",
+       "name": "Twisted Mirage",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Movement"
+       ],
+       "when": "Reinforcements step of your Movement phase.",
+       "target": "One TZEENTCH MUTANT unit arriving from Strategic Reserves.",
+       "effect": "Set it up more than 6\" horizontally from all enemy units (more than 8\" for a MONSTER); it cannot charge this turn."
+      }
+     ]
+    },
+    {
+     "id": "rubricae_phalanx",
+     "name": "Rubricae Phalanx",
+     "dp": 3,
+     "dispositions": [
+      "Take and Hold",
+      "Priority Assets"
+     ],
+     "tags": [],
+     "summary": "Rubricae shrug off small-arms fire: +1 to armour saves against Damage 1 attacks.",
+     "rule": {
+      "name": "All Is Dust",
+      "text": "Each time an attack with an unmodified Damage of 1 is allocated to a RUBRICAE model from your army, add 1 to its armour saving throw."
+     },
+     "enhancements": [
+      {
+       "id": "risen_rubricae",
+       "name": "Risen Rubricae",
+       "pts": 30,
+       "upgrade": false,
+       "text": "THOUSAND SONS model only. At the start of Declare Battle Formations pick two RUBRICAE BATTLELINE units or one other RUBRICAE unit: they have Infiltrators (an attached CHARACTER too).",
+       "eligible": {
+        "factionsAll": [
+         "Thousand Sons"
+        ]
+       }
+      },
+      {
+       "id": "arcane_thralls",
+       "name": "Arcane Thralls (Aura)",
+       "pts": 5,
+       "upgrade": false,
+       "text": "THOUSAND SONS model only. Friendly RUBRICAE units within 9\" can re-roll battle-shock tests.",
+       "eligible": {
+        "factionsAll": [
+         "Thousand Sons"
+        ]
+       }
+      },
+      {
+       "id": "lord_of_the_rubricae",
+       "name": "Lord of the Rubricae",
+       "pts": 15,
+       "upgrade": false,
+       "text": "THOUSAND SONS model only. While the bearer leads a unit, attacks by RUBRICAE models in it get +1 to hit.",
+       "eligible": {
+        "factionsAll": [
+         "Thousand Sons"
+        ]
+       }
+      },
+      {
+       "id": "stave_abominus",
+       "name": "The Stave Abominus",
+       "pts": 20,
+       "upgrade": false,
+       "text": "THOUSAND SONS INFANTRY model only. The bearer's melee weapons have [SUSTAINED HITS D3] and [DEVASTATING WOUNDS].",
+       "eligible": {
+        "factionsAll": [
+         "Thousand Sons"
+        ],
+        "keywordsAll": [
+         "Infantry"
+        ]
+       }
+      }
+     ],
+     "stratagems": [
+      {
+       "id": "ardent_automata",
+       "name": "Ardent Automata",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Movement"
+       ],
+       "when": "Your Movement phase, right after a RUBRICAE unit falls back.",
+       "target": "That unit.",
+       "effect": "Until the end of the turn it can shoot and declare a charge in a turn in which it fell back."
+      },
+      {
+       "id": "inexorable_advance",
+       "name": "Inexorable Advance",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Movement"
+       ],
+       "when": "Your Movement phase.",
+       "target": "One RUBRICAE unit.",
+       "effect": "Until the end of the turn it ignores modifiers to its Move and Advance rolls, and its ranged weapons have [ASSAULT]."
+      },
+      {
+       "id": "infernal_fusillade",
+       "name": "Infernal Fusillade",
+       "cp": 1,
+       "type": "Wargear",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Your Shooting phase.",
+       "target": "One THOUSAND SONS PSYKER unit that has not shot this phase.",
+       "effect": "Until the end of the phase its inferno bolt pistols, boltguns, combi-bolters and combi-weapons have [PSYCHIC] and S 5."
+      },
+      {
+       "id": "revenge_of_the_rubricae",
+       "name": "Revenge of the Rubricae",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Your opponent's Shooting phase, right after a THOUSAND SONS PSYKER model is destroyed.",
+       "target": "One RUBRICAE unit that was within 6\" of it.",
+       "effect": "After the attacker has shot, your unit shoots as if it were your Shooting phase, only at that enemy unit."
+      },
+      {
+       "id": "implacable_guardians",
+       "name": "Implacable Guardians",
+       "cp": 2,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Your opponent's Shooting phase, right after an enemy unit selects its targets.",
+       "target": "One RUBRIC MARINES PSYKER unit targeted by those attacks.",
+       "effect": "Until the end of the phase, attacks allocated to its non-PSYKER models get -1 Damage."
+      },
+      {
+       "id": "unwavering_phalanx",
+       "name": "Unwavering Phalanx",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Charge"
+       ],
+       "when": "Your opponent's Charge phase, right after an enemy unit ends a Charge move.",
+       "target": "One RUBRIC MARINES unit engaged with that enemy unit.",
+       "effect": "Until the end of the turn, attacks against it with S higher than its T get -1 to wound."
+      }
+     ]
+    },
+    {
+     "id": "warpforged_cabal",
+     "name": "Warpforged Cabal",
+     "dp": 2,
+     "dispositions": [
+      "Priority Assets"
+     ],
+     "tags": [],
+     "summary": "Vehicles re-roll a hit, wound and damage roll near your psykers and explode more readily.",
+     "rule": {
+      "name": "Warpfire Infusion",
+      "text": "Each time a THOUSAND SONS VEHICLE unit shoots or fights: within 6\" of a friendly THOUSAND SONS PSYKER model it can re-roll one hit roll, one wound roll and one damage roll; otherwise one of those. A THOUSAND SONS VEHICLE with Deadly Demise destroyed within 6\" of a friendly PSYKER model inflicts its Deadly Demise mortal wounds on a 5+."
+     },
+     "enhancements": [
+      {
+       "id": "warp_syphon",
+       "name": "Warp Syphon",
+       "pts": 5,
+       "upgrade": false,
+       "text": "THOUSAND SONS model only. Within 6\" of a friendly THOUSAND SONS VEHICLE, when it Channels the Warp: one of those vehicles suffers 1 mortal wound and you re-roll the extra D6 (before checking for doubles).",
+       "eligible": {
+        "factionsAll": [
+         "Thousand Sons"
+        ]
+       }
+      },
+      {
+       "id": "perplexing_cloak",
+       "name": "The Perplexing Cloak",
+       "pts": 20,
+       "upgrade": false,
+       "text": "THOUSAND SONS INFANTRY model only. Lone Operative while within 3\" of a friendly THOUSAND SONS VEHICLE.",
+       "eligible": {
+        "factionsAll": [
+         "Thousand Sons"
+        ],
+        "keywordsAll": [
+         "Infantry"
+        ]
+       }
+      },
+      {
+       "id": "biomechanical_mutation",
+       "name": "Biomechanical Mutation",
+       "pts": 15,
+       "upgrade": false,
+       "text": "THOUSAND SONS model only. Your Command phase: one friendly THOUSAND SONS VEHICLE model within 6\" regains up to D3 wounds.",
+       "eligible": {
+        "factionsAll": [
+         "Thousand Sons"
+        ]
+       }
+      },
+      {
+       "id": "warp_cursed_runemaster",
+       "name": "Warp-Cursed Runemaster",
+       "pts": 10,
+       "upgrade": false,
+       "text": "THOUSAND SONS model only. While within 6\" of a friendly THOUSAND SONS VEHICLE, Rituals it manifests get +6\" range.",
+       "eligible": {
+        "factionsAll": [
+         "Thousand Sons"
+        ]
+       }
+      }
+     ],
+     "stratagems": [
+      {
+       "id": "hex_marked_armour",
+       "name": "Hex-marked Armour",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Shooting",
+        "Fight"
+       ],
+       "when": "Your opponent's Shooting phase or the Fight phase, right after an enemy unit selects its targets.",
+       "target": "One THOUSAND SONS VEHICLE unit targeted by those attacks.",
+       "effect": "Until the attacker finishes, attacks against it get -1 AP (worse)."
+      },
+      {
+       "id": "mutate_landscape",
+       "name": "Mutate Landscape",
+       "cp": 1,
+       "type": "Epic Deed",
+       "phases": [
+        "Command"
+       ],
+       "when": "Your Command phase.",
+       "target": "One THOUSAND SONS PSYKER unit within range of an objective you control.",
+       "effect": "That objective is mutated and stays yours until your opponent's Level of Control is higher at the end of a phase. While mutated and yours, each enemy unit ending a Normal, Advance, Fall Back or Charge move within range rolls D6: on a 4+ it suffers D3 mortal wounds."
+      },
+      {
+       "id": "cyberspirit_machinations",
+       "name": "Cyberspirit Machinations",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Movement"
+       ],
+       "when": "Your Movement phase, right after a THOUSAND SONS VEHICLE unit falls back.",
+       "target": "That unit and one friendly THOUSAND SONS PSYKER unit within 6\" of it.",
+       "effect": "Until the end of the turn the vehicle can shoot and declare a charge after falling back."
+      },
+      {
+       "id": "malevolent_animus",
+       "name": "Malevolent Animus",
+       "cp": 1,
+       "type": "Epic Deed",
+       "phases": [
+        "Command"
+       ],
+       "when": "Your Command phase.",
+       "target": "One THOUSAND SONS VEHICLE unit within 6\" of a friendly THOUSAND SONS PSYKER unit.",
+       "effect": "Until your next Command phase it ignores all modifiers to its characteristics, its BS/WS and its rolls and tests (not saving throws)."
+      },
+      {
+       "id": "ensorcelled_infusion",
+       "name": "Ensorcelled Infusion",
+       "cp": 2,
+       "type": "Battle Tactic",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Your Shooting phase.",
+       "target": "One THOUSAND SONS VEHICLE unit that has not shot this phase and is within 6\" of a friendly THOUSAND SONS PSYKER unit.",
+       "effect": "Until the end of the phase its ranged weapons have [PSYCHIC] and +1 to wound."
+      },
+      {
+       "id": "warpflame_gargoyles",
+       "name": "Warpflame Gargoyles",
+       "cp": 1,
+       "type": "Wargear",
+       "phases": [
+        "Charge"
+       ],
+       "when": "Your opponent's Charge phase, right after an enemy unit ends a Charge move.",
+       "target": "One THOUSAND SONS VEHICLE unit engaged with that enemy unit.",
+       "effect": "Roll six D6: each 5+ inflicts 1 mortal wound on that enemy unit, which then takes a battle-shock test."
+      }
+     ]
+    },
+    {
+     "id": "ritual_of_regeneration",
+     "name": "Ritual of Regeneration",
+     "dp": 1,
+     "dispositions": [
+      "Take and Hold"
+     ],
+     "tags": [],
+     "summary": "Psykers heal themselves each time they manifest a Ritual.",
+     "rule": {
+      "name": "Sorcerous Invigoration",
+      "text": "(Once per turn per unit) When a friendly THOUSAND SONS PSYKER unit (not MONSTER) manifests a Ritual, that unit heals D3 wounds."
+     },
+     "regenHint": true,
+     "enhancements": [
+      {
+       "id": "eruption_of_vitality",
+       "name": "Eruption of Vitality",
+       "pts": 35,
+       "upgrade": false,
+       "text": "INFANTRY/MOUNTED THOUSAND SONS PSYKER only. Once per battle (per army), when it is destroyed, roll D6 at the end of the phase: on a 2+ set it back up unengaged as close as possible, on its own, with 3 wounds.",
+       "eligible": {
+        "factionsAll": [
+         "Thousand Sons"
+        ],
+        "keywordsAll": [
+         "Psyker"
+        ],
+        "keywordsNone": [
+         "Monster"
+        ]
+       }
+      },
+      {
+       "id": "curse_of_life",
+       "name": "Curse of Life",
+       "pts": 20,
+       "upgrade": false,
+       "text": "INFANTRY/MOUNTED THOUSAND SONS PSYKER only. When it heals through Sorcerous Invigoration, it can heal 3 more wounds.",
+       "eligible": {
+        "factionsAll": [
+         "Thousand Sons"
+        ],
+        "keywordsAll": [
+         "Psyker"
+        ],
+        "keywordsNone": [
+         "Monster"
+        ]
+       }
+      }
+     ],
+     "stratagems": [
+      {
+       "id": "relentless_rebirth",
+       "name": "Relentless Rebirth",
+       "cp": 1,
+       "type": "Ritual of Regeneration",
+       "phases": [
+        "Any"
+       ],
+       "when": "Any phase, when a friendly INFANTRY/MOUNTED THOUSAND SONS PSYKER unit suffers a mortal wound.",
+       "target": "That unit.",
+       "effect": "It has Feel No Pain 5+ against mortal wounds."
+      },
+      {
+       "id": "mutagenic_magicks",
+       "name": "Mutagenic Magicks",
+       "cp": 1,
+       "type": "Ritual of Regeneration",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Start of the Fight phase.",
+       "target": "One engaged THOUSAND SONS PSYKER unit.",
+       "effect": "Pick one engaged enemy unit and roll six D6: each 4+ inflicts 1 mortal wound."
+      },
+      {
+       "id": "multitudinous_limbs",
+       "name": "Multitudinous Limbs",
+       "cp": 1,
+       "type": "Ritual of Regeneration",
+       "phases": [
+        "Movement"
+       ],
+       "when": "Your Movement phase, when a friendly INFANTRY/MOUNTED THOUSAND SONS PSYKER unit advances or falls back.",
+       "target": "That unit.",
+       "effect": "That move does not stop it from starting an action."
+      }
+     ]
+    },
+    {
+     "id": "sekhetar_cohort",
+     "name": "Sekhetar Cohort",
+     "dp": 1,
+     "dispositions": [
+      "Disruption"
+     ],
+     "tags": [],
+     "summary": "Sekhetar Robots strike with psychic force and fight better near your psykers.",
+     "rule": {
+      "name": "Ensorcelled Animus",
+      "text": "Attacks by friendly SEKHETAR ROBOTS units have [PSYCHIC]. THOUSAND SONS PSYKER units have Infusion (Aura): a friendly SEKHETAR ROBOTS unit within 12\" gets +1 WS for melee attacks."
+     },
+     "enhancements": [
+      {
+       "id": "walking_rampart",
+       "name": "Walking Rampart",
+       "pts": 30,
+       "upgrade": false,
+       "text": "SORCERER or EXALTED SORCERER only. Movement phase, start or end of its move: one SEKHETAR ROBOTS unit within 3\" heals D3+1 wounds. Lone Operative while within 3\" of a SEKHETAR ROBOTS unit.",
+       "eligible": {
+        "factionsAll": [
+         "Thousand Sons"
+        ],
+        "keywordsAny": [
+         "Sorcerer",
+         "Exalted Sorcerer"
+        ]
+       }
+      },
+      {
+       "id": "occulus_infernum",
+       "name": "Occulus Infernum",
+       "pts": 20,
+       "upgrade": false,
+       "text": "SORCERER or EXALTED SORCERER only. Movement phase, start or end of its move: one SEKHETAR ROBOTS unit within 6\" gets +1 BS for ranged attacks until your next turn.",
+       "eligible": {
+        "factionsAll": [
+         "Thousand Sons"
+        ],
+        "keywordsAny": [
+         "Sorcerer",
+         "Exalted Sorcerer"
+        ]
+       }
+      }
+     ],
+     "stratagems": [
+      {
+       "id": "arcane_venting",
+       "name": "Arcane Venting",
+       "cp": 1,
+       "type": "Sekhetar Cohort",
+       "phases": [
+        "Movement"
+       ],
+       "when": "End of your Movement phase.",
+       "target": "One SEKHETAR ROBOTS unit.",
+       "effect": "One objective it controls becomes secured."
+      },
+      {
+       "id": "ectoplasmic_extrusion",
+       "name": "Ectoplasmic Extrusion",
+       "cp": 1,
+       "type": "Sekhetar Cohort",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Your Shooting phase, when a SEKHETAR ROBOTS unit within 12\" of a friendly THOUSAND SONS PSYKER unit starts an action.",
+       "target": "That unit.",
+       "effect": "The action does not stop it from shooting."
+      },
+      {
+       "id": "warp_fields",
+       "name": "Warp Fields",
+       "cp": 1,
+       "type": "Sekhetar Cohort",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Your opponent's Shooting phase, when a SEKHETAR ROBOTS unit within 12\" of a friendly THOUSAND SONS PSYKER unit is targeted.",
+       "target": "That unit.",
+       "effect": "Ranged attacks against it with S higher than its T get -1 to wound."
+      }
+     ]
+    },
+    {
+     "id": "servants_of_change",
+     "name": "Servants of Change",
+     "dp": 1,
+     "dispositions": [
+      "Reconnaissance"
+     ],
+     "tags": [
+      "MUTANT"
+     ],
+     "summary": "Tzaangors are Battleline and mutants expose their targets.",
+     "rule": {
+      "name": "All-seeing Mutant Hordes",
+      "text": "Friendly TZAANGORS units have BATTLELINE. In your Shooting phase, while a friendly MUTANT unit is shooting, enemy units have +6\" detection range. Cannot be taken with another MUTANT detachment."
+     },
+     "grantKeywords": [
+      {
+       "unitIds": [
+        "tzaangors"
+       ],
+       "keyword": "Battleline"
+      }
+     ],
+     "enhancements": [
+      {
+       "id": "unravelled_fates",
+       "name": "Unravelled Fates",
+       "pts": 15,
+       "upgrade": false,
+       "text": "TZAANGOR SHAMAN only. Movement phase, start or end of its move: one battle-shocked friendly MUTANT unit within 6\" is no longer battle-shocked.",
+       "eligible": {
+        "factionsAll": [
+         "Thousand Sons"
+        ],
+        "unitIds": [
+         "tzaangor_shaman"
+        ]
+       }
+      },
+      {
+       "id": "thicket_of_bladed_bone",
+       "name": "Thicket of Bladed Bone",
+       "pts": 10,
+       "upgrade": true,
+       "text": "SPAWN unit only. Its melee attacks get +1 AP and [CLEAVE 1].",
+       "eligible": {
+        "unitIds": [
+         "chaos_spawn"
+        ]
+       },
+       "mods": [
+        {
+         "target": "melee",
+         "stat": "AP",
+         "add": -1
+        }
+       ]
+      }
+     ],
+     "stratagems": [
+      {
+       "id": "prismatic_displacement",
+       "name": "Prismatic Displacement",
+       "cp": 1,
+       "type": "Servants of Change",
+       "phases": [
+        "Movement"
+       ],
+       "when": "Your Movement phase, when a friendly INFANTRY/MOUNTED MUTANT unit advances or falls back.",
+       "target": "That unit.",
+       "effect": "Its ranged attacks have [ASSAULT] until the end of the turn, and the move does not stop it shooting or charging."
+      },
+      {
+       "id": "temporal_instability",
+       "name": "Temporal Instability",
+       "cp": 1,
+       "type": "Servants of Change",
+       "phases": [
+        "Movement"
+       ],
+       "when": "Your Movement phase, when a friendly INFANTRY/MOUNTED MUTANT unit advances or falls back.",
+       "target": "That unit.",
+       "effect": "That move does not stop it from starting an action."
+      },
+      {
+       "id": "the_land_writhes",
+       "name": "The Land Writhes",
+       "cp": 1,
+       "type": "Servants of Change",
+       "phases": [
+        "Movement"
+       ],
+       "when": "Your Movement phase, when a friendly MONSTER MUTANT unit is selected to move.",
+       "target": "That unit.",
+       "effect": "It has MOBILE."
+      }
+     ]
+    },
+    {
+     "id": "hexwarp_thrallband",
+     "name": "Hexwarp Thrallband",
+     "dp": 3,
+     "dispositions": [
+      "Take and Hold",
+      "Reconnaissance"
+     ],
+     "tags": [],
+     "summary": "Psychic attacks re-roll wound rolls of 1, or get +1 to wound inside your Flow of Magic.",
+     "rule": {
+      "name": "Flow of Magic",
+      "text": "Your deployment zone is always within your Flow of Magic; No Man's Land joins it for a phase if at the start of that phase you control at least half its objectives, and so does your opponent's deployment zone. Psychic Attacks by your THOUSAND SONS models re-roll wound rolls of 1, or get +1 to wound instead if the model is wholly within your Flow of Magic."
+     },
+     "enhancements": [
+      {
+       "id": "arcane_might",
+       "name": "Arcane Might",
+       "pts": 20,
+       "upgrade": false,
+       "text": "THOUSAND SONS model only. +1 S for Psychic weapons in the bearer's unit (+2 while wholly within your Flow of Magic).",
+       "eligible": {
+        "factionsAll": [
+         "Thousand Sons"
+        ]
+       }
+      },
+      {
+       "id": "empowered_manifestation",
+       "name": "Empowered Manifestation",
+       "pts": 20,
+       "upgrade": false,
+       "text": "THOUSAND SONS model only. While wholly within your Flow of Magic: +6\" to the range of its ranged Psychic abilities (Rituals too) and re-roll Hazardous tests for Psychic weapons.",
+       "eligible": {
+        "factionsAll": [
+         "Thousand Sons"
+        ]
+       }
+      },
+      {
+       "id": "empyric_onslaught",
+       "name": "Empyric Onslaught",
+       "pts": 25,
+       "upgrade": false,
+       "text": "THOUSAND SONS model only. While wholly within your Flow of Magic: +3 A for the bearer's ranged Psychic weapons.",
+       "eligible": {
+        "factionsAll": [
+         "Thousand Sons"
+        ]
+       }
+      },
+      {
+       "id": "noctilith_mantle",
+       "name": "Noctilith Mantle",
+       "pts": 15,
+       "upgrade": false,
+       "text": "THOUSAND SONS model only. The bearer's unit is always wholly within your Flow of Magic, but its models cannot attempt Rituals.",
+       "eligible": {
+        "factionsAll": [
+         "Thousand Sons"
+        ]
+       }
+      }
+     ],
+     "stratagems": [
+      {
+       "id": "warding_hex",
+       "name": "Warding Hex",
+       "cp": 1,
+       "type": "Epic Deed",
+       "phases": [
+        "Command"
+       ],
+       "when": "Command phase.",
+       "target": "One THOUSAND SONS PSYKER unit within range of an objective you control that is wholly within your Flow of Magic.",
+       "effect": "That objective stays yours until your opponent's Level of Control over it is higher at the end of a phase."
+      },
+      {
+       "id": "wrath_of_the_doomed",
+       "name": "Wrath of the Doomed",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Fight phase, right after an enemy unit selects its targets.",
+       "target": "One THOUSAND SONS unit targeted by those attacks.",
+       "effect": "Until the end of the phase, a model destroyed before it has fought rolls D6 (+1 if the unit is wholly within your Flow of Magic): on a 4+ it fights after the attacker, then is removed."
+      },
+      {
+       "id": "strands_of_time",
+       "name": "Strands of Time",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Movement"
+       ],
+       "when": "Your Movement phase, right after a THOUSAND SONS PSYKER unit falls back.",
+       "target": "That unit.",
+       "effect": "It can shoot or declare a charge this turn; if wholly within your Flow of Magic, it can do both."
+      },
+      {
+       "id": "through_the_veil",
+       "name": "Through the Veil",
+       "cp": 1,
+       "type": "Epic Deed",
+       "phases": [
+        "Movement"
+       ],
+       "when": "Start of the Reinforcements step of your Movement phase.",
+       "target": "One RUBRIC MARINES or SCARAB OCCULT TERMINATORS unit in Strategic Reserves.",
+       "effect": "Rubric Marines gain Deep Strike this phase. Scarab Occult Terminators arriving by Deep Strike can be set up wholly within your Flow of Magic more than 6\" from enemy models, but cannot charge this turn."
+      },
+      {
+       "id": "scouring_warpflame",
+       "name": "Scouring Warpflame",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Your Shooting phase.",
+       "target": "One THOUSAND SONS PSYKER unit that has not shot this phase and is wholly within your Flow of Magic.",
+       "effect": "Its ranged weapons have [IGNORES COVER]; after it shoots, one enemy unit it hit cannot have the benefit of cover until the end of the phase."
+      },
+      {
+       "id": "kaleidoscopic_tempest",
+       "name": "Kaleidoscopic Tempest",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Your opponent's Shooting phase, right after an enemy unit selects its targets.",
+       "target": "One THOUSAND SONS PSYKER unit targeted by those attacks.",
+       "effect": "It has Stealth, and -3\" detection range if wholly within your Flow of Magic."
+      }
+     ]
+    }
+   ],
+   "units": [
+    {
+     "id": "magnus_the_red",
+     "name": "Magnus the Red",
+     "role": "unit",
+     "faction": "Thousand Sons",
+     "keywords": [
+      "Monster",
+      "Psyker",
+      "Fly",
+      "Character",
+      "Epic Hero",
+      "Daemon",
+      "Chaos",
+      "Tzeentch",
+      "Primarch",
+      "Magnus the Red"
+     ],
+     "image": "ts_magnus_the_red",
+     "baseSize": "100mm",
+     "profile": {
+      "M": "14\"",
+      "T": "11",
+      "Sv": "2+",
+      "InSv": "4+",
+      "W": "16",
+      "OC": "6",
+      "Ld": "5+"
+     },
+     "damaged": {
+      "threshold": 6,
+      "text": "While it has 1-6 wounds left: -1 to hit rolls."
+     },
+     "ranged": [
+      {
+       "name": "Gaze of Magnus",
+       "range": "24\"",
+       "A": "3D3",
+       "skill": "2+",
+       "S": "11",
+       "AP": "-2",
+       "D": "3",
+       "kw": [
+        "Devastating Wounds",
+        "Psychic"
+       ]
+      },
+      {
+       "name": "Tzeentch's Firestorm",
+       "range": "24\"",
+       "A": "D6+3",
+       "skill": "2+",
+       "S": "6",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Blast",
+        "Ignores Cover",
+        "Psychic"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Blade of Magnus - strike",
+       "range": "Melee",
+       "A": "7",
+       "skill": "2+",
+       "S": "16",
+       "AP": "-3",
+       "D": "3",
+       "kw": [
+        "Devastating Wounds",
+        "Psychic"
+       ]
+      },
+      {
+       "name": "Blade of Magnus - sweep",
+       "range": "Melee",
+       "A": "14",
+       "skill": "2+",
+       "S": "8",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Psychic"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D6",
+      "Deep Strike"
+     ],
+     "factionAbilities": [
+      "Cabal of Sorcerers"
+     ],
+     "abilities": [
+      {
+       "name": "Supreme Commander",
+       "text": "If this model is in your army, it must be your WARLORD.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Unearthly Power",
+       "text": "Start of each battle round: Magnus gains one Crimson King ability until the next round. Impossible Form: -1 Damage for non-psychic attacks against him. Treason of Tzeentch: start of your opponent's Shooting phase, one enemy unit within 24\" has [HAZARDOUS] ranged weapons that phase. Time Flux (Aura): friendly THOUSAND SONS units within 6\" get +2\" Move.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Lord of the Planet of the Sorcerers (Psychic)",
+       "text": "Magnus can attempt up to two Rituals per turn and adds 2 to his Psychic test results.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 455
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 Magnus the Red (Epic Hero): Gaze of Magnus, Tzeentch's Firestorm, blade of Magnus.",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "ritualsPerTurn": 2,
+     "ritualBonus": 2,
+     "mustBeWarlord": "Supreme Commander: Magnus the Red must be your Warlord."
+    },
+    {
+     "id": "ahriman",
+     "name": "Ahriman",
+     "role": "unit",
+     "faction": "Thousand Sons",
+     "keywords": [
+      "Infantry",
+      "Character",
+      "Epic Hero",
+      "Psyker",
+      "Chaos",
+      "Tzeentch",
+      "Fly",
+      "Mounted",
+      "Ahriman"
+     ],
+     "image": "ts_ahriman",
+     "baseSize": "40mm",
+     "profile": {
+      "M": "10\"",
+      "T": "5",
+      "Sv": "3+",
+      "InSv": "4+",
+      "W": "6",
+      "OC": "2",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Transmogrifying Blast",
+       "range": "18\"",
+       "A": "D6+1",
+       "skill": "2+",
+       "S": "6",
+       "AP": "-1",
+       "D": "D3",
+       "kw": [
+        "Blast",
+        "Psychic"
+       ]
+      },
+      {
+       "name": "Inferno bolt pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "2+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Black Staff of Ahriman",
+       "range": "Melee",
+       "A": "5",
+       "skill": "2+",
+       "S": "7",
+       "AP": "-1",
+       "D": "3",
+       "kw": [
+        "Psychic"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Leader"
+     ],
+     "factionAbilities": [
+      "Cabal of Sorcerers"
+     ],
+     "abilities": [
+      {
+       "name": "Scryer of Fates (Psychic)",
+       "text": "After both armies deploy, redeploy up to three THOUSAND SONS units; they can go into Strategic Reserves regardless of the usual limit.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Arch-Sorcerer of Tzeentch (Psychic)",
+       "text": "+1 to this model's Psychic test results.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 105
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "rubric_marines",
+      "tzaangor_enlightened",
+      "tzaangor_enlightened_fatecaster"
+     ],
+     "composition": "1 Ahriman (Epic Hero): inferno bolt pistol, Transmogrifying Blast, Black Staff of Ahriman.",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "ritualBonus": 1
+    },
+    {
+     "id": "exalted_sorcerer",
+     "name": "Exalted Sorcerer",
+     "role": "unit",
+     "faction": "Thousand Sons",
+     "keywords": [
+      "Infantry",
+      "Character",
+      "Grenades",
+      "Psyker",
+      "Chaos",
+      "Tzeentch",
+      "Exalted Sorcerer"
+     ],
+     "image": "ts_exalted_sorcerer",
+     "baseSize": "32mm",
+     "profile": {
+      "M": "6\"",
+      "T": "5",
+      "Sv": "3+",
+      "InSv": "4+",
+      "W": "5",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Astral Blast",
+       "range": "18\"",
+       "A": "D6",
+       "skill": "2+",
+       "S": "6",
+       "AP": "-2",
+       "D": "D3",
+       "kw": [
+        "Blast",
+        "Devastating Wounds",
+        "Psychic"
+       ]
+      },
+      {
+       "name": "Inferno bolt pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "2+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Prosperine khopesh",
+       "range": "Melee",
+       "A": "4",
+       "skill": "2+",
+       "S": "5",
+       "AP": "-2",
+       "D": "2",
+       "kw": []
+      },
+      {
+       "name": "Force weapon",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-1",
+       "D": "D3",
+       "kw": [
+        "Psychic"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Leader"
+     ],
+     "factionAbilities": [
+      "Cabal of Sorcerers"
+     ],
+     "abilities": [
+      {
+       "name": "Arcane Shield (Psychic)",
+       "text": "While this model leads a unit, its models have a 4+ invulnerable save.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Rebind Rubricae (Psychic)",
+       "text": "Your Command phase, while leading a unit: roll D6. 1: the unit suffers D3 mortal wounds; 2-5: return 1 destroyed Bodyguard model; 6: return up to 2.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 100
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "rubric_marines"
+     ],
+     "composition": "1 Exalted Sorcerer: Astral Blast, inferno bolt pistol, force weapon.",
+     "options": [
+      {
+       "id": "khopesh",
+       "type": "toggle",
+       "label": "Prosperine khopesh"
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "exalted_sorcerer_on_disc_of_tzeentch",
+     "name": "Exalted Sorcerer on Disc of Tzeentch",
+     "role": "unit",
+     "faction": "Thousand Sons",
+     "keywords": [
+      "Infantry",
+      "Character",
+      "Psyker",
+      "Chaos",
+      "Tzeentch",
+      "Exalted Sorcerer",
+      "Fly",
+      "Grenades",
+      "Mounted"
+     ],
+     "image": "ts_exalted_sorcerer_on_disc_of_tzeentch",
+     "baseSize": "40mm",
+     "profile": {
+      "M": "10\"",
+      "T": "5",
+      "Sv": "3+",
+      "InSv": "4+",
+      "W": "6",
+      "OC": "2",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Arcane Fire",
+       "range": "18\"",
+       "A": "D6",
+       "skill": "—",
+       "S": "6",
+       "AP": "-2",
+       "D": "D3",
+       "kw": [
+        "Ignores Cover",
+        "Psychic",
+        "Torrent"
+       ]
+      },
+      {
+       "name": "Inferno bolt pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "2+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Prosperine khopesh",
+       "range": "Melee",
+       "A": "4",
+       "skill": "2+",
+       "S": "5",
+       "AP": "-2",
+       "D": "2",
+       "kw": []
+      },
+      {
+       "name": "Force weapon",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-1",
+       "D": "D3",
+       "kw": [
+        "Psychic"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Leader"
+     ],
+     "factionAbilities": [
+      "Cabal of Sorcerers"
+     ],
+     "abilities": [
+      {
+       "name": "Illusions of Tzeentch (Psychic)",
+       "text": "While this model leads a unit, that unit can only be shot by models within 18\".",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Binding Tendrils (Psychic)",
+       "text": "Your Shooting phase, after this model shoots: one enemy INFANTRY unit hit by its Arcane Fire is ensnared until your next turn: -2\" Move and -2 to charge rolls.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 95
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "rubric_marines",
+      "tzaangor_enlightened",
+      "tzaangor_enlightened_fatecaster"
+     ],
+     "composition": "1 Exalted Sorcerer on Disc of Tzeentch: Arcane Fire, inferno bolt pistol, force weapon.",
+     "options": [
+      {
+       "id": "khopesh",
+       "type": "toggle",
+       "label": "Prosperine khopesh"
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "infernal_master",
+     "name": "Infernal Master",
+     "role": "unit",
+     "faction": "Thousand Sons",
+     "keywords": [
+      "Infantry",
+      "Character",
+      "Grenades",
+      "Psyker",
+      "Chaos",
+      "Tzeentch",
+      "Infernal Master"
+     ],
+     "image": "ts_infernal_master",
+     "baseSize": "40mm",
+     "profile": {
+      "M": "6\"",
+      "T": "5",
+      "Sv": "3+",
+      "InSv": "5+",
+      "W": "4",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Fires of the Abyss - witchfire",
+       "range": "18\"",
+       "A": "D6",
+       "skill": "—",
+       "S": "6",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Psychic",
+        "Torrent"
+       ]
+      },
+      {
+       "name": "Fires of the Abyss - focused witchfire",
+       "range": "18\"",
+       "A": "2D6",
+       "skill": "—",
+       "S": "6",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Hazardous",
+        "Psychic",
+        "Torrent"
+       ]
+      },
+      {
+       "name": "Inferno bolt pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "2+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Force weapon",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-1",
+       "D": "D3",
+       "kw": [
+        "Psychic"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Leader"
+     ],
+     "factionAbilities": [
+      "Cabal of Sorcerers"
+     ],
+     "abilities": [
+      {
+       "name": "Malefic Maelstrom (Psychic)",
+       "text": "While this model leads a unit, weapons in that unit have [SUSTAINED HITS 1].",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Glimpse of Eternity (Psychic)",
+       "text": "Once per turn, change one hit roll, wound roll or saving throw made for this model to an unmodified 6.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 105
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "rubric_marines"
+     ],
+     "composition": "1 Infernal Master: inferno bolt pistol, Fires of the Abyss, force weapon.",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "sorcerer",
+     "name": "Sorcerer",
+     "role": "unit",
+     "faction": "Thousand Sons",
+     "keywords": [
+      "Infantry",
+      "Character",
+      "Psyker",
+      "Grenades",
+      "Chaos",
+      "Tzeentch",
+      "Sorcerer"
+     ],
+     "image": "ts_sorcerer",
+     "baseSize": "32mm",
+     "profile": {
+      "M": "6\"",
+      "T": "5",
+      "Sv": "3+",
+      "InSv": "5+",
+      "W": "4",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Pandaemonic Delusion",
+       "range": "24\"",
+       "A": "6",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Psychic",
+        "Sustained Hits 3"
+       ]
+      },
+      {
+       "name": "Inferno bolt pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "2+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Prosperine khopesh",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-2",
+       "D": "2",
+       "kw": []
+      },
+      {
+       "name": "Force weapon",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-1",
+       "D": "D3",
+       "kw": [
+        "Psychic"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Leader"
+     ],
+     "factionAbilities": [
+      "Cabal of Sorcerers"
+     ],
+     "abilities": [
+      {
+       "name": "Twisted Sorceries (Psychic)",
+       "text": "Once per battle, in your Shooting phase or the Fight phase: +3 S and +3 A for this model's Psychic weapons until the end of the phase.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Empyric Guidance (Psychic)",
+       "text": "While this model leads a unit, weapons in that unit have [LETHAL HITS].",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 100,
+       "ptsLater": 110
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [
+      "rubric_marines"
+     ],
+     "composition": "1 Sorcerer: inferno bolt pistol, Pandaemonic Delusion, force weapon.",
+     "options": [
+      {
+       "id": "khopesh",
+       "type": "toggle",
+       "label": "Prosperine khopesh"
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "sorcerer_in_terminator_armour",
+     "name": "Sorcerer in Terminator Armour",
+     "role": "unit",
+     "faction": "Thousand Sons",
+     "keywords": [
+      "Infantry",
+      "Character",
+      "Psyker",
+      "Chaos",
+      "Tzeentch",
+      "Sorcerer",
+      "Terminator"
+     ],
+     "image": "ts_sorcerer_in_terminator_armour",
+     "baseSize": "40mm",
+     "profile": {
+      "M": "5\"",
+      "T": "6",
+      "Sv": "2+",
+      "InSv": "4+",
+      "W": "5",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Gaze of Hate",
+       "range": "18\"",
+       "A": "3",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-3",
+       "D": "2",
+       "kw": [
+        "Anti-monster 4+",
+        "Anti-vehicle 4+",
+        "Devastating Wounds",
+        "Psychic"
+       ]
+      },
+      {
+       "name": "Inferno combi-bolter",
+       "range": "24\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Rapid Fire 2"
+       ]
+      },
+      {
+       "name": "Inferno combi-weapon",
+       "range": "24\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Anti-infantry 4+",
+        "Devastating Wounds",
+        "Rapid Fire 1"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Force weapon",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-1",
+       "D": "D3",
+       "kw": [
+        "Psychic"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Deep Strike",
+      "Leader"
+     ],
+     "factionAbilities": [
+      "Cabal of Sorcerers"
+     ],
+     "abilities": [
+      {
+       "name": "Marked by Fate (Psychic)",
+       "text": "Start of your Shooting phase: pick one enemy unit visible to this model. Until the end of the phase, attacks by models in this unit against it get +1 to hit.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Empyric Guidance (Psychic)",
+       "text": "While this model leads a unit, weapons in that unit have [LETHAL HITS].",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 110,
+       "ptsLater": 120
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [
+      "scarab_occult_terminators"
+     ],
+     "composition": "1 Sorcerer in Terminator Armour: Gaze of Hate, inferno combi-bolter, force weapon.",
+     "options": [
+      {
+       "id": "gun",
+       "type": "choice",
+       "label": "Gun",
+       "choices": [
+        {
+         "id": "combib",
+         "label": "Inferno combi-bolter",
+         "pts": 0
+        },
+        {
+         "id": "combiw",
+         "label": "Inferno combi-weapon",
+         "pts": 0
+        }
+       ]
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "daemon_prince_of_tzeentch",
+     "name": "Daemon Prince of Tzeentch",
+     "role": "unit",
+     "faction": "Thousand Sons",
+     "keywords": [
+      "Monster",
+      "Character",
+      "Daemon",
+      "Psyker",
+      "Chaos",
+      "Tzeentch",
+      "Daemon Prince"
+     ],
+     "image": "ts_daemon_prince_of_tzeentch",
+     "baseSize": "60mm",
+     "profile": {
+      "M": "9\"",
+      "T": "10",
+      "Sv": "2+",
+      "InSv": "4+",
+      "W": "10",
+      "OC": "3",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Dark Blessing",
+       "range": "24\"",
+       "A": "9",
+       "skill": "2+",
+       "S": "4",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Ignores Cover",
+        "Psychic",
+        "Sustained Hits 1"
+       ]
+      },
+      {
+       "name": "Infernal cannon",
+       "range": "24\"",
+       "A": "3",
+       "skill": "2+",
+       "S": "5",
+       "AP": "-2",
+       "D": "2",
+       "kw": []
+      }
+     ],
+     "melee": [
+      {
+       "name": "Hellforged weapons - strike",
+       "range": "Melee",
+       "A": "6",
+       "skill": "2+",
+       "S": "8",
+       "AP": "-2",
+       "D": "3",
+       "kw": [
+        "Devastating Wounds",
+        "Psychic"
+       ]
+      },
+      {
+       "name": "Hellforged weapons - sweep",
+       "range": "Melee",
+       "A": "12",
+       "skill": "2+",
+       "S": "6",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Devastating Wounds",
+        "Psychic"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D3"
+     ],
+     "factionAbilities": [
+      "Cabal of Sorcerers"
+     ],
+     "abilities": [
+      {
+       "name": "Spirit Snare",
+       "text": "When a friendly THOUSAND SONS PSYKER with Cabal of Sorcerers dies within 9\" of models with this ability, one of them gets +1 to its Psychic tests for the rest of the battle (max +2).",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Servile Pawns",
+       "text": "While within 3\" of a friendly THOUSAND SONS INFANTRY unit, this model has Lone Operative.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Glamour of Tzeentch (Aura, Psychic)",
+       "text": "Friendly THOUSAND SONS INFANTRY units within 6\" have Stealth.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 170
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 Daemon Prince of Tzeentch: Dark Blessing, infernal cannon, hellforged weapons.",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "daemon_prince_of_tzeentch_with_wings",
+     "name": "Daemon Prince of Tzeentch with Wings",
+     "role": "unit",
+     "faction": "Thousand Sons",
+     "keywords": [
+      "Monster",
+      "Character",
+      "Daemon",
+      "Psyker",
+      "Chaos",
+      "Tzeentch",
+      "Daemon Prince",
+      "Fly"
+     ],
+     "image": "ts_daemon_prince_of_tzeentch_with_wings",
+     "baseSize": "60mm",
+     "profile": {
+      "M": "13\"",
+      "T": "9",
+      "Sv": "2+",
+      "InSv": "4+",
+      "W": "10",
+      "OC": "3",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Dark Blessing",
+       "range": "24\"",
+       "A": "9",
+       "skill": "2+",
+       "S": "4",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Ignores Cover",
+        "Psychic",
+        "Sustained Hits 1"
+       ]
+      },
+      {
+       "name": "Infernal cannon",
+       "range": "24\"",
+       "A": "3",
+       "skill": "2+",
+       "S": "5",
+       "AP": "-2",
+       "D": "2",
+       "kw": []
+      }
+     ],
+     "melee": [
+      {
+       "name": "Hellforged weapons - strike",
+       "range": "Melee",
+       "A": "6",
+       "skill": "2+",
+       "S": "8",
+       "AP": "-2",
+       "D": "3",
+       "kw": [
+        "Devastating Wounds",
+        "Psychic"
+       ]
+      },
+      {
+       "name": "Hellforged weapons - sweep",
+       "range": "Melee",
+       "A": "12",
+       "skill": "2+",
+       "S": "6",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Devastating Wounds",
+        "Psychic"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D3",
+      "Deep Strike"
+     ],
+     "factionAbilities": [
+      "Cabal of Sorcerers"
+     ],
+     "abilities": [
+      {
+       "name": "Aetherstride (Psychic)",
+       "text": "When it arrives by Deep Strike in your Movement phase it can aetherstride: set up more than 6\" from enemy units, its Dark Blessing gains [SUSTAINED HITS D3] this turn, and it cannot charge this turn.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Hunter of Souls",
+       "text": "Attacks against CHARACTER units re-roll hit and wound rolls of 1 (full re-rolls against PSYKER CHARACTERS). Destroying a CHARACTER unit heals up to D3 wounds (3 if it was a PSYKER).",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 170,
+       "ptsLater": 180
+      }
+     ],
+     "stepFrom": 2,
+     "leaderOf": [],
+     "composition": "1 Daemon Prince of Tzeentch with Wings: Dark Blessing, infernal cannon, hellforged weapons.",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "tzaangor_shaman",
+     "name": "Tzaangor Shaman",
+     "role": "unit",
+     "faction": "Thousand Sons",
+     "keywords": [
+      "Mounted",
+      "Character",
+      "Fly",
+      "Psyker",
+      "Chaos",
+      "Tzeentch",
+      "Tzaangor Shaman",
+      "Infantry",
+      "Mutant"
+     ],
+     "image": "ts_tzaangor_shaman",
+     "baseSize": "40mm",
+     "profile": {
+      "M": "10\"",
+      "T": "4",
+      "Sv": "5+",
+      "InSv": "5+",
+      "W": "4",
+      "OC": "2",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Baleful Devolution",
+       "range": "18\"",
+       "A": "D6",
+       "skill": "3+",
+       "S": "9",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Blast",
+        "Devastating Wounds",
+        "Psychic"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Force stave",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "D3",
+       "kw": [
+        "Psychic"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Leader"
+     ],
+     "factionAbilities": [
+      "Cabal of Sorcerers"
+     ],
+     "abilities": [
+      {
+       "name": "Sacrificial Blessing",
+       "text": "While leading a unit, when that unit shoots or fights: destroy one Bodyguard model to give this model's Psychic weapons +D3 A and +D3 S until the end of the phase.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Bestial Prophet",
+       "text": "While this model leads a unit, that unit's attacks get +1 to hit.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 65
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "tzaangors",
+      "tzaangor_enlightened",
+      "tzaangor_enlightened_fatecaster"
+     ],
+     "composition": "1 Tzaangor Shaman: Baleful Devolution, force stave.",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "rubric_marines",
+     "name": "Rubric Marines",
+     "role": "unit",
+     "faction": "Thousand Sons",
+     "keywords": [
+      "Infantry",
+      "Battleline",
+      "Chaos",
+      "Tzeentch",
+      "Rubric Marines",
+      "Rubricae"
+     ],
+     "image": "ts_rubric_marines",
+     "baseSize": "32mm",
+     "profile": {
+      "M": "6\"",
+      "T": "5",
+      "Sv": "3+",
+      "InSv": "5+",
+      "W": "2",
+      "OC": "2",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Malefic Curse",
+       "range": "24\"",
+       "A": "3",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-3",
+       "D": "1",
+       "kw": [
+        "Anti-infantry 4+",
+        "Devastating Wounds",
+        "Psychic"
+       ]
+      },
+      {
+       "name": "Inferno bolt pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Warpflame pistol",
+       "range": "12\"",
+       "A": "D6",
+       "skill": "—",
+       "S": "3",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Ignores Cover",
+        "Pistol",
+        "Torrent"
+       ]
+      },
+      {
+       "name": "Inferno boltgun",
+       "range": "24\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Warpflamer",
+       "range": "12\"",
+       "A": "D6",
+       "skill": "—",
+       "S": "4",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Ignores Cover",
+        "Torrent"
+       ]
+      },
+      {
+       "name": "Soulreaper cannon",
+       "range": "24\"",
+       "A": "6",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Devastating Wounds"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Force weapon",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-1",
+       "D": "D3",
+       "kw": [
+        "Psychic"
+       ]
+      },
+      {
+       "name": "Close combat weapon",
+       "range": "Melee",
+       "A": "2",
+       "skill": "3+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [],
+     "factionAbilities": [
+      "Cabal of Sorcerers (Aspiring Sorcerer only)"
+     ],
+     "abilities": [
+      {
+       "name": "Bringers of Change",
+       "text": "Ranged attacks re-roll wound rolls of 1, or the whole wound roll against a unit within range of an objective you do not control.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Icon of Flame",
+       "text": "Ranged weapons of the bearer's unit (not CHARACTERS) have [IGNORES COVER].",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 5,
+       "pts": 115,
+       "ptsLater": 125
+      },
+      {
+       "models": 10,
+       "pts": 210,
+       "ptsLater": 220
+      }
+     ],
+     "stepFrom": 4,
+     "leaderOf": [],
+     "composition": "1 Aspiring Sorcerer (inferno bolt pistol, Malefic Curse, force weapon) and 4 or 9 Rubric Marines (inferno boltgun, close combat weapon).",
+     "options": [
+      {
+       "id": "ch_gun",
+       "type": "choice",
+       "label": "Champion: pistol",
+       "choices": [
+        {
+         "id": "bolt",
+         "label": "Inferno bolt pistol",
+         "pts": 0
+        },
+        {
+         "id": "warp",
+         "label": "Warpflame pistol",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "soulreaper",
+       "type": "count",
+       "label": "Soulreaper cannon",
+       "slots": [
+        "rm"
+       ],
+       "max": 1
+      },
+      {
+       "id": "warpflamer",
+       "type": "count",
+       "label": "Warpflamer",
+       "slots": [
+        "rm"
+       ],
+       "max": "slot"
+      },
+      {
+       "id": "icon",
+       "type": "toggle",
+       "label": "Icon of flame"
+      }
+     ],
+     "optionRules": [],
+     "slots": [
+      {
+       "id": "rm",
+       "label": "Rubric Marine gun",
+       "default": "Inferno boltgun",
+       "size": {
+        "models": 1,
+        "minus": 1
+       },
+       "fixedNote": "All also have a close combat weapon."
+      }
+     ],
+     "optionGroups": [],
+     "leadModel": {
+      "name": "Aspiring Sorcerer",
+      "W": "3",
+      "Ld": "6+"
+     }
+    },
+    {
+     "id": "scarab_occult_terminators",
+     "name": "Scarab Occult Terminators",
+     "role": "unit",
+     "faction": "Thousand Sons",
+     "keywords": [
+      "Infantry",
+      "Chaos",
+      "Tzeentch",
+      "Scarab Occult",
+      "Rubricae",
+      "Terminator"
+     ],
+     "image": "ts_scarab_occult_terminators",
+     "baseSize": "40mm",
+     "profile": {
+      "M": "5\"",
+      "T": "6",
+      "Sv": "2+",
+      "InSv": "4+",
+      "W": "3",
+      "OC": "1",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Malefic Curse",
+       "range": "24\"",
+       "A": "3",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-3",
+       "D": "1",
+       "kw": [
+        "Anti-infantry 4+",
+        "Devastating Wounds",
+        "Psychic"
+       ]
+      },
+      {
+       "name": "Inferno combi-bolter",
+       "range": "24\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Rapid Fire 2"
+       ]
+      },
+      {
+       "name": "Hellfyre missile rack",
+       "range": "36\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "10",
+       "AP": "-2",
+       "D": "3",
+       "kw": []
+      },
+      {
+       "name": "Heavy warpflamer",
+       "range": "12\"",
+       "A": "D6",
+       "skill": "—",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Ignores Cover",
+        "Torrent"
+       ]
+      },
+      {
+       "name": "Soulreaper cannon",
+       "range": "24\"",
+       "A": "6",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Devastating Wounds"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Force weapon",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-1",
+       "D": "D3",
+       "kw": [
+        "Psychic"
+       ]
+      },
+      {
+       "name": "Prosperine khopesh",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-2",
+       "D": "2",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deep Strike"
+     ],
+     "factionAbilities": [
+      "Cabal of Sorcerers (Scarab Occult Sorcerer only)"
+     ],
+     "abilities": [
+      {
+       "name": "Rites of Coalescence",
+       "text": "While this unit contains a PSYKER model, attacks against it get -1 to wound.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 5,
+       "pts": 200,
+       "ptsLater": 240
+      },
+      {
+       "models": 10,
+       "pts": 425,
+       "ptsLater": 465
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [],
+     "composition": "1 Scarab Occult Sorcerer (inferno combi-bolter, Malefic Curse, force weapon) and 4 or 9 Scarab Occult Terminators (inferno combi-bolter, Prosperine khopesh).",
+     "options": [
+      {
+       "id": "ch_gun",
+       "type": "choice",
+       "label": "Champion: inferno combi-bolter",
+       "choices": [
+        {
+         "id": "combib",
+         "label": "Inferno combi-bolter",
+         "pts": 0
+        },
+        {
+         "id": "khopesh",
+         "label": "Prosperine khopesh",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "hwf",
+       "type": "count",
+       "label": "Heavy warpflamer",
+       "slots": [
+        "so"
+       ],
+       "group": "heavy",
+       "per": 5,
+       "n": 1
+      },
+      {
+       "id": "reaper",
+       "type": "count",
+       "label": "Soulreaper cannon",
+       "slots": [
+        "so"
+       ],
+       "group": "heavy",
+       "per": 5,
+       "n": 1
+      },
+      {
+       "id": "rack",
+       "type": "count",
+       "label": "Hellfyre missile rack",
+       "per": 5,
+       "n": 1
+      }
+     ],
+     "optionRules": [],
+     "slots": [
+      {
+       "id": "so",
+       "label": "Terminator gun",
+       "default": "Inferno combi-bolter",
+       "size": {
+        "models": 1,
+        "minus": 1
+       },
+       "fixedNote": "All Terminators also have a Prosperine khopesh."
+      }
+     ],
+     "optionGroups": [
+      {
+       "id": "heavy",
+       "per": 5,
+       "n": 1,
+       "label": "Heavy warpflamer / soulreaper cannon"
+      }
+     ],
+     "leadModel": {
+      "name": "Scarab Occult Sorcerer",
+      "W": "4",
+      "Ld": "6+"
+     }
+    },
+    {
+     "id": "tzaangors",
+     "name": "Tzaangors",
+     "role": "unit",
+     "faction": "Thousand Sons",
+     "keywords": [
+      "Infantry",
+      "Chaos",
+      "Tzeentch",
+      "Tzaangors",
+      "Mutant"
+     ],
+     "image": "ts_tzaangors",
+     "baseSize": "32mm",
+     "profile": {
+      "M": "6\"",
+      "T": "4",
+      "Sv": "6+",
+      "InSv": "6+",
+      "W": "1",
+      "OC": "1",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Autopistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Chainsword",
+       "range": "Melee",
+       "A": "3",
+       "skill": "4+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Tzaangor blades",
+       "range": "Melee",
+       "A": "2",
+       "skill": "4+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Scouts 6\""
+     ],
+     "factionAbilities": [],
+     "abilities": [
+      {
+       "name": "Ambushing Hunters",
+       "text": "End of your opponent's turn: if more than 6\" from all enemy units, you can place this unit into Strategic Reserves.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Brayhorn",
+       "text": "Re-roll Advance and charge rolls for the bearer's unit.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Herd banner",
+       "text": "While the bearer's unit is within range of an objective you control, +1 Leadership (better) for its models.",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 10,
+       "pts": 75
+      },
+      {
+       "models": 20,
+       "pts": 145
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 Twistbray and 9 or 19 Tzaangors: Tzaangor blades.",
+     "options": [
+      {
+       "id": "pistols",
+       "type": "count",
+       "label": "Autopistol and chainsword",
+       "slots": [
+        "tz"
+       ],
+       "max": "slot"
+      },
+      {
+       "id": "horn",
+       "type": "toggle",
+       "label": "Brayhorn"
+      },
+      {
+       "id": "banner",
+       "type": "toggle",
+       "label": "Herd banner"
+      }
+     ],
+     "optionRules": [],
+     "slots": [
+      {
+       "id": "tz",
+       "label": "Tzaangor weapons",
+       "default": "Tzaangor blades",
+       "size": {
+        "models": 1
+       }
+      }
+     ],
+     "optionGroups": []
+    },
+    {
+     "id": "tzaangor_enlightened",
+     "name": "Tzaangor Enlightened",
+     "role": "unit",
+     "faction": "Thousand Sons",
+     "keywords": [
+      "Mounted",
+      "Fly",
+      "Chaos",
+      "Tzeentch",
+      "Tzaangor Enlightened",
+      "Mutant"
+     ],
+     "image": "ts_tzaangor_enlightened",
+     "baseSize": "40mm",
+     "profile": {
+      "M": "10\"",
+      "T": "4",
+      "Sv": "5+",
+      "InSv": "5+",
+      "W": "2",
+      "OC": "2",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Autopistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Chainsword",
+       "range": "Melee",
+       "A": "6",
+       "skill": "4+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Precision"
+       ]
+      },
+      {
+       "name": "Divining spear",
+       "range": "Melee",
+       "A": "3",
+       "skill": "4+",
+       "S": "5",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Lance",
+        "Precision"
+       ]
+      }
+     ],
+     "coreAbilities": [],
+     "factionAbilities": [],
+     "abilities": [
+      {
+       "name": "Prophesied Doom",
+       "text": "Each time this unit ends a Charge move, pick one engaged enemy unit and roll D6 per model in range: each 4+ inflicts 1 mortal wound.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 3,
+       "pts": 50
+      },
+      {
+       "models": 6,
+       "pts": 90
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 Aviarch and 2 or 5 Enlightened: divining spear.",
+     "options": [
+      {
+       "id": "pistols",
+       "type": "count",
+       "label": "Autopistol and chainsword",
+       "slots": [
+        "en"
+       ],
+       "max": "slot"
+      }
+     ],
+     "optionRules": [],
+     "slots": [
+      {
+       "id": "en",
+       "label": "Enlightened weapons",
+       "default": "Divining spear",
+       "size": {
+        "models": 1
+       }
+      }
+     ],
+     "optionGroups": []
+    },
+    {
+     "id": "tzaangor_enlightened_fatecaster",
+     "name": "Tzaangor Enlightened with Fatecaster Greatbows",
+     "role": "unit",
+     "faction": "Thousand Sons",
+     "keywords": [
+      "Mounted",
+      "Fly",
+      "Chaos",
+      "Tzeentch",
+      "Tzaangor Enlightened",
+      "Mutant",
+      "Tzaangor Enlightened with Fatecaster Greatbows"
+     ],
+     "image": "ts_tzaangor_enlightened_fatecaster",
+     "baseSize": "40mm",
+     "profile": {
+      "M": "10\"",
+      "T": "4",
+      "Sv": "5+",
+      "InSv": "5+",
+      "W": "2",
+      "OC": "2",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Fatecaster greatbow",
+       "range": "30\"",
+       "A": "2",
+       "skill": "4+",
+       "S": "5",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Ignores Cover",
+        "Lethal Hits",
+        "Precision"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Close combat weapon",
+       "range": "Melee",
+       "A": "2",
+       "skill": "4+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [],
+     "factionAbilities": [],
+     "abilities": [
+      {
+       "name": "Malign Trickery",
+       "text": "In your opponent's Movement phase, when an enemy unit ends a move within 8\" and this unit is unengaged, it can make a Normal move of up to D6\".",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 3,
+       "pts": 55
+      },
+      {
+       "models": 6,
+       "pts": 110
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 Aviarch and 2 or 5 Enlightened: fatecaster greatbow, close combat weapon.",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "mutalith_vortex_beast",
+     "name": "Mutalith Vortex Beast",
+     "role": "unit",
+     "faction": "Thousand Sons",
+     "keywords": [
+      "Monster",
+      "Chaos",
+      "Tzeentch",
+      "Mutalith Vortex Beast",
+      "Mutant"
+     ],
+     "image": "ts_mutalith_vortex_beast",
+     "baseSize": "120x92mm",
+     "profile": {
+      "M": "10\"",
+      "T": "10",
+      "Sv": "4+",
+      "InSv": "5+",
+      "W": "13",
+      "OC": "4",
+      "Ld": "6+"
+     },
+     "damaged": {
+      "threshold": 4,
+      "text": "While it has 1-4 wounds left: -1 to hit rolls."
+     },
+     "ranged": [
+      {
+       "name": "Warp vortex - blast",
+       "range": "24\"",
+       "A": "D6+3",
+       "skill": "3+",
+       "S": "9",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Blast"
+       ]
+      },
+      {
+       "name": "Warp vortex - beam",
+       "range": "36\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "18",
+       "AP": "-3",
+       "D": "D6+6",
+       "kw": [
+        "Devastating Wounds"
+       ]
+      },
+      {
+       "name": "Warp vortex - torrent",
+       "range": "18\"",
+       "A": "2D6",
+       "skill": "—",
+       "S": "6",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Ignores Cover",
+        "Torrent"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Betentacled maw",
+       "range": "Melee",
+       "A": "15",
+       "skill": "3+",
+       "S": "7",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Mutalith claws",
+       "range": "Melee",
+       "A": "5",
+       "skill": "3+",
+       "S": "10",
+       "AP": "-2",
+       "D": "3",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D6",
+      "Feel No Pain 5+"
+     ],
+     "factionAbilities": [],
+     "abilities": [
+      {
+       "name": "Mutating Vortex (Aura)",
+       "text": "End of your Movement phase: roll D6 for each enemy unit within 6\": 2-3 = 1 mortal wound, 4-5 = D3, 6 = D6; each of those units then takes a battle-shock test.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Immaterial Flare (Aura)",
+       "text": "A friendly THOUSAND SONS PSYKER within 6\" adds 1 to its Psychic test result when it Channels the Warp (does not stack with other modifiers).",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 170,
+       "ptsLater": 190
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [],
+     "composition": "1 Mutalith Vortex Beast: warp vortex, betentacled maw, Mutalith claws.",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "chaos_spawn",
+     "name": "Chaos Spawn",
+     "role": "unit",
+     "faction": "Thousand Sons",
+     "keywords": [
+      "Beast",
+      "Chaos",
+      "Tzeentch",
+      "Spawn",
+      "Mutant"
+     ],
+     "image": "ts_chaos_spawn",
+     "baseSize": "50mm",
+     "profile": {
+      "M": "8\"",
+      "T": "5",
+      "Sv": "4+",
+      "InSv": "5+",
+      "W": "4",
+      "OC": "1",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [],
+     "melee": [
+      {
+       "name": "Hideous Mutations",
+       "range": "Melee",
+       "A": "D6+2",
+       "skill": "4+",
+       "S": "5",
+       "AP": "-1",
+       "D": "2",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Feel No Pain 5+"
+     ],
+     "factionAbilities": [],
+     "abilities": [
+      {
+       "name": "Regenerating Monstrosities",
+       "text": "At the start of each player's Command phase, one model in this unit regains up to 3 wounds.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 2,
+       "pts": 65
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "2 Chaos Spawn: hideous mutations.",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "sekhetar_robots",
+     "name": "Sekhetar Robots",
+     "role": "unit",
+     "faction": "Thousand Sons",
+     "keywords": [
+      "Vehicle",
+      "Walker",
+      "Chaos",
+      "Tzeentch",
+      "Sekhetar Robots"
+     ],
+     "image": "ts_sekhetar_robots",
+     "baseSize": "40mm",
+     "profile": {
+      "M": "8\"",
+      "T": "6",
+      "Sv": "3+",
+      "InSv": "5+",
+      "W": "4",
+      "OC": "1",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Pyreflux meltagun",
+       "range": "12\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "10",
+       "AP": "-4",
+       "D": "D6",
+       "kw": [
+        "Melta 2"
+       ]
+      },
+      {
+       "name": "Heavy warpflamer",
+       "range": "12\"",
+       "A": "D6",
+       "skill": "—",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Ignores Cover",
+        "Torrent"
+       ]
+      },
+      {
+       "name": "Hellfyre missile rack",
+       "range": "36\"",
+       "A": "2",
+       "skill": "4+",
+       "S": "10",
+       "AP": "-2",
+       "D": "3",
+       "kw": []
+      },
+      {
+       "name": "Warpflame projector",
+       "range": "12\"",
+       "A": "D3",
+       "skill": "—",
+       "S": "3",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Ignores Cover",
+        "Torrent"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Close combat weapon",
+       "range": "Melee",
+       "A": "3",
+       "skill": "4+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Power claw",
+       "range": "Melee",
+       "A": "3",
+       "skill": "4+",
+       "S": "10",
+       "AP": "-2",
+       "D": "2",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Infiltrators",
+      "Stealth"
+     ],
+     "factionAbilities": [],
+     "abilities": [
+      {
+       "name": "Prophetic Sentinels",
+       "text": "Once per turn, Fire Overwatch or Heroic Intervention on this unit costs 1CP less.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 2,
+       "pts": 85,
+       "ptsLater": 100
+      },
+      {
+       "models": 4,
+       "pts": 175,
+       "ptsLater": 190
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [],
+     "composition": "2 or 4 Sekhetar Robots: heavy warpflamer, hellfyre missile rack, pyreflux meltagun, close combat weapon.",
+     "options": [
+      {
+       "id": "proj",
+       "type": "count",
+       "label": "Warpflame projector and power claw",
+       "slots": [
+        "sk"
+       ],
+       "max": "slot"
+      }
+     ],
+     "optionRules": [],
+     "slots": [
+      {
+       "id": "sk",
+       "label": "Robot weapons",
+       "default": "Pyreflux meltagun",
+       "size": {
+        "models": 1
+       },
+       "fixedNote": "All keep a heavy warpflamer, a hellfyre missile rack and a close combat weapon."
+      }
+     ],
+     "optionGroups": []
+    },
+    {
+     "id": "chaos_rhino",
+     "name": "Chaos Rhino",
+     "role": "unit",
+     "faction": "Thousand Sons",
+     "keywords": [
+      "Vehicle",
+      "Transport",
+      "Dedicated Transport",
+      "Chaos",
+      "Tzeentch",
+      "Rhino",
+      "Smoke",
+      "Frame"
+     ],
+     "image": "ts_chaos_rhino",
+     "baseSize": "Use model",
+     "profile": {
+      "M": "12\"",
+      "T": "9",
+      "Sv": "3+",
+      "InSv": "—",
+      "W": "10",
+      "OC": "2",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Inferno combi-bolter",
+       "range": "24\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Rapid Fire 2"
+       ]
+      },
+      {
+       "name": "Inferno combi-weapon",
+       "range": "24\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Anti-infantry 4+",
+        "Devastating Wounds",
+        "Rapid Fire 1"
+       ]
+      },
+      {
+       "name": "Havoc launcher",
+       "range": "48\"",
+       "A": "D6",
+       "skill": "3+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Blast"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Armoured tracks",
+       "range": "Melee",
+       "A": "3",
+       "skill": "4+",
+       "S": "6",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D3",
+      "Firing Deck 2"
+     ],
+     "factionAbilities": [],
+     "abilities": [
+      {
+       "name": "Sorcerous Support",
+       "text": "Your Shooting phase, after this model shoots: pick one enemy unit it hit. Until the end of the phase, Psychic Attacks against it by models that disembarked from this transport this turn get +1 to hit and +1 to wound.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 80,
+       "ptsLater": 90
+      }
+     ],
+     "stepFrom": 4,
+     "leaderOf": [],
+     "composition": "1 Chaos Rhino: inferno combi-bolter, armoured tracks.",
+     "options": [
+      {
+       "id": "extra",
+       "type": "choice",
+       "label": "Extra pintle weapon",
+       "choices": [
+        {
+         "id": "none",
+         "label": "None",
+         "pts": 0
+        },
+        {
+         "id": "combib",
+         "label": "Inferno combi-bolter",
+         "pts": 0
+        },
+        {
+         "id": "combiw",
+         "label": "Inferno combi-weapon",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "havoc",
+       "type": "toggle",
+       "label": "Havoc launcher"
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "transport": "Carries 12 THOUSAND SONS INFANTRY models (not TERMINATOR models)."
+    },
+    {
+     "id": "chaos_land_raider",
+     "name": "Chaos Land Raider",
+     "role": "unit",
+     "faction": "Thousand Sons",
+     "keywords": [
+      "Vehicle",
+      "Transport",
+      "Smoke",
+      "Chaos",
+      "Tzeentch",
+      "Land Raider",
+      "Frame"
+     ],
+     "image": "ts_chaos_land_raider",
+     "baseSize": "Use model",
+     "profile": {
+      "M": "10\"",
+      "T": "12",
+      "Sv": "2+",
+      "InSv": "—",
+      "W": "16",
+      "OC": "5",
+      "Ld": "6+"
+     },
+     "damaged": {
+      "threshold": 5,
+      "text": "While it has 1-5 wounds left: -1 to hit rolls."
+     },
+     "ranged": [
+      {
+       "name": "Soulshatter lascannon",
+       "range": "48\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "12",
+       "AP": "-3",
+       "D": "D6+1",
+       "kw": []
+      },
+      {
+       "name": "Inferno combi-bolter",
+       "range": "24\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Rapid Fire 2"
+       ]
+      },
+      {
+       "name": "Inferno combi-weapon",
+       "range": "24\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Anti-infantry 4+",
+        "Devastating Wounds",
+        "Rapid Fire 1"
+       ]
+      },
+      {
+       "name": "Havoc launcher",
+       "range": "48\"",
+       "A": "D6",
+       "skill": "3+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Blast"
+       ]
+      },
+      {
+       "name": "Twin inferno heavy bolter",
+       "range": "36\"",
+       "A": "3",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Sustained Hits 1",
+        "Twin-linked"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Armoured tracks",
+       "range": "Melee",
+       "A": "6",
+       "skill": "4+",
+       "S": "8",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D6"
+     ],
+     "factionAbilities": [],
+     "abilities": [
+      {
+       "name": "Assault Ramp",
+       "text": "A unit that disembarks after this model made a Normal move makes an assault disembark move.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 220,
+       "ptsLater": 240
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [],
+     "composition": "1 Chaos Land Raider: 2 soulshatter lascannons, twin inferno heavy bolter, armoured tracks.",
+     "options": [
+      {
+       "id": "pintle",
+       "type": "choice",
+       "label": "Pintle weapon",
+       "choices": [
+        {
+         "id": "none",
+         "label": "None",
+         "pts": 0
+        },
+        {
+         "id": "combib",
+         "label": "Inferno combi-bolter",
+         "pts": 0
+        },
+        {
+         "id": "combiw",
+         "label": "Inferno combi-weapon",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "havoc",
+       "type": "toggle",
+       "label": "Havoc launcher"
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "transport": "Carries 14 THOUSAND SONS INFANTRY models. Each TERMINATOR model takes the space of 2."
+    },
+    {
+     "id": "chaos_predator_annihilator",
+     "name": "Chaos Predator Annihilator",
+     "role": "unit",
+     "faction": "Thousand Sons",
+     "keywords": [
+      "Vehicle",
+      "Smoke",
+      "Chaos",
+      "Tzeentch",
+      "Predator Annihilator",
+      "Frame"
+     ],
+     "image": "ts_chaos_predator_annihilator",
+     "baseSize": "Use model",
+     "profile": {
+      "M": "10\"",
+      "T": "10",
+      "Sv": "3+",
+      "InSv": "—",
+      "W": "11",
+      "OC": "3",
+      "Ld": "6+"
+     },
+     "damaged": {
+      "threshold": 4,
+      "text": "While it has 1-4 wounds left: -1 to hit rolls."
+     },
+     "ranged": [
+      {
+       "name": "Predator twin lascannon",
+       "range": "48\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "14",
+       "AP": "-3",
+       "D": "D6+1",
+       "kw": [
+        "Twin-linked"
+       ]
+      },
+      {
+       "name": "Inferno combi-bolter",
+       "range": "24\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Rapid Fire 2"
+       ]
+      },
+      {
+       "name": "Inferno combi-weapon",
+       "range": "24\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Anti-infantry 4+",
+        "Devastating Wounds",
+        "Rapid Fire 1"
+       ]
+      },
+      {
+       "name": "Inferno heavy bolter",
+       "range": "36\"",
+       "A": "3",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Sustained Hits 1"
+       ]
+      },
+      {
+       "name": "Lascannon",
+       "range": "48\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "12",
+       "AP": "-3",
+       "D": "D6+1",
+       "kw": []
+      },
+      {
+       "name": "Havoc launcher",
+       "range": "48\"",
+       "A": "D6",
+       "skill": "3+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Blast"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Armoured tracks",
+       "range": "Melee",
+       "A": "3",
+       "skill": "4+",
+       "S": "6",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D3"
+     ],
+     "factionAbilities": [],
+     "abilities": [
+      {
+       "name": "Ensorcelled Annihilation",
+       "text": "Ranged attacks against a MONSTER or VEHICLE unit already hit this phase by a THOUSAND SONS PSYKER's Psychic Attack (Doombolt included) can re-roll the hit roll and the damage roll.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 140,
+       "ptsLater": 150
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [],
+     "composition": "1 Chaos Predator Annihilator: Predator twin lascannon, armoured tracks.",
+     "options": [
+      {
+       "id": "sponsons",
+       "type": "choice",
+       "label": "Sponsons",
+       "choices": [
+        {
+         "id": "none",
+         "label": "None",
+         "pts": 0
+        },
+        {
+         "id": "las",
+         "label": "2 lascannons",
+         "pts": 0
+        },
+        {
+         "id": "hb",
+         "label": "2 inferno heavy bolters",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "pintle",
+       "type": "choice",
+       "label": "Pintle weapon",
+       "choices": [
+        {
+         "id": "none",
+         "label": "None",
+         "pts": 0
+        },
+        {
+         "id": "combib",
+         "label": "Inferno combi-bolter",
+         "pts": 0
+        },
+        {
+         "id": "combiw",
+         "label": "Inferno combi-weapon",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "havoc",
+       "type": "toggle",
+       "label": "Havoc launcher"
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "chaos_predator_destructor",
+     "name": "Chaos Predator Destructor",
+     "role": "unit",
+     "faction": "Thousand Sons",
+     "keywords": [
+      "Vehicle",
+      "Smoke",
+      "Chaos",
+      "Tzeentch",
+      "Predator Destructor",
+      "Frame"
+     ],
+     "image": "ts_chaos_predator_destructor",
+     "baseSize": "Use model",
+     "profile": {
+      "M": "10\"",
+      "T": "10",
+      "Sv": "3+",
+      "InSv": "—",
+      "W": "11",
+      "OC": "3",
+      "Ld": "6+"
+     },
+     "damaged": {
+      "threshold": 4,
+      "text": "While it has 1-4 wounds left: -1 to hit rolls."
+     },
+     "ranged": [
+      {
+       "name": "Predator autocannon",
+       "range": "48\"",
+       "A": "4",
+       "skill": "3+",
+       "S": "9",
+       "AP": "-1",
+       "D": "3",
+       "kw": [
+        "Rapid Fire 2"
+       ]
+      },
+      {
+       "name": "Inferno combi-bolter",
+       "range": "24\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Rapid Fire 2"
+       ]
+      },
+      {
+       "name": "Inferno combi-weapon",
+       "range": "24\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Anti-infantry 4+",
+        "Devastating Wounds",
+        "Rapid Fire 1"
+       ]
+      },
+      {
+       "name": "Inferno heavy bolter",
+       "range": "36\"",
+       "A": "3",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Sustained Hits 1"
+       ]
+      },
+      {
+       "name": "Lascannon",
+       "range": "48\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "12",
+       "AP": "-3",
+       "D": "D6+1",
+       "kw": []
+      },
+      {
+       "name": "Havoc launcher",
+       "range": "48\"",
+       "A": "D6",
+       "skill": "3+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Blast"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Armoured tracks",
+       "range": "Melee",
+       "A": "3",
+       "skill": "4+",
+       "S": "6",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D3"
+     ],
+     "factionAbilities": [],
+     "abilities": [
+      {
+       "name": "Ensorcelled Destruction",
+       "text": "Ranged attacks against a non-MONSTER, non-VEHICLE unit already hit this phase by a THOUSAND SONS PSYKER's Psychic Attack (Doombolt included) get +1 S and +1 AP.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 140,
+       "ptsLater": 150
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [],
+     "composition": "1 Chaos Predator Destructor: Predator autocannon, armoured tracks.",
+     "options": [
+      {
+       "id": "sponsons",
+       "type": "choice",
+       "label": "Sponsons",
+       "choices": [
+        {
+         "id": "none",
+         "label": "None",
+         "pts": 0
+        },
+        {
+         "id": "las",
+         "label": "2 lascannons",
+         "pts": 0
+        },
+        {
+         "id": "hb",
+         "label": "2 inferno heavy bolters",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "pintle",
+       "type": "choice",
+       "label": "Pintle weapon",
+       "choices": [
+        {
+         "id": "none",
+         "label": "None",
+         "pts": 0
+        },
+        {
+         "id": "combib",
+         "label": "Inferno combi-bolter",
+         "pts": 0
+        },
+        {
+         "id": "combiw",
+         "label": "Inferno combi-weapon",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "havoc",
+       "type": "toggle",
+       "label": "Havoc launcher"
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "chaos_vindicator",
+     "name": "Chaos Vindicator",
+     "role": "unit",
+     "faction": "Thousand Sons",
+     "keywords": [
+      "Vehicle",
+      "Smoke",
+      "Chaos",
+      "Tzeentch",
+      "Vindicator",
+      "Frame"
+     ],
+     "image": "ts_chaos_vindicator",
+     "baseSize": "Use model",
+     "profile": {
+      "M": "9\"",
+      "T": "11",
+      "Sv": "2+",
+      "InSv": "—",
+      "W": "11",
+      "OC": "3",
+      "Ld": "6+"
+     },
+     "damaged": {
+      "threshold": 4,
+      "text": "While it has 1-4 wounds left: -1 to hit rolls."
+     },
+     "ranged": [
+      {
+       "name": "Demolisher cannon",
+       "range": "24\"",
+       "A": "D6+3",
+       "skill": "3+",
+       "S": "14",
+       "AP": "-3",
+       "D": "D6",
+       "kw": [
+        "Blast"
+       ]
+      },
+      {
+       "name": "Inferno combi-bolter",
+       "range": "24\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Rapid Fire 2"
+       ]
+      },
+      {
+       "name": "Inferno combi-weapon",
+       "range": "24\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Anti-infantry 4+",
+        "Devastating Wounds",
+        "Rapid Fire 1"
+       ]
+      },
+      {
+       "name": "Havoc launcher",
+       "range": "48\"",
+       "A": "D6",
+       "skill": "3+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Blast"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Armoured tracks",
+       "range": "Melee",
+       "A": "3",
+       "skill": "4+",
+       "S": "6",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D3"
+     ],
+     "factionAbilities": [],
+     "abilities": [
+      {
+       "name": "Siege Shield",
+       "text": "Its demolisher cannon can target enemy units in Engagement Range with it (if no other friendly unit is engaged with them), and it suffers no hit penalty for shooting while engaged.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 185,
+       "ptsLater": 195
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [],
+     "composition": "1 Chaos Vindicator: demolisher cannon, armoured tracks.",
+     "options": [
+      {
+       "id": "pintle",
+       "type": "choice",
+       "label": "Pintle weapon",
+       "choices": [
+        {
+         "id": "none",
+         "label": "None",
+         "pts": 0
+        },
+        {
+         "id": "combib",
+         "label": "Inferno combi-bolter",
+         "pts": 0
+        },
+        {
+         "id": "combiw",
+         "label": "Inferno combi-weapon",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "havoc",
+       "type": "toggle",
+       "label": "Havoc launcher"
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "defiler",
+     "name": "Defiler",
+     "role": "unit",
+     "faction": "Thousand Sons",
+     "keywords": [
+      "Vehicle",
+      "Walker",
+      "Chaos",
+      "Daemon",
+      "Defiler",
+      "Tzeentch"
+     ],
+     "image": "ts_defiler",
+     "baseSize": "160mm",
+     "profile": {
+      "M": "12\"",
+      "T": "11",
+      "Sv": "3+",
+      "InSv": "5+",
+      "W": "18",
+      "OC": "5",
+      "Ld": "6+"
+     },
+     "damaged": {
+      "threshold": 6,
+      "text": "While it has 1-6 wounds left: -1 to hit rolls."
+     },
+     "ranged": [
+      {
+       "name": "Heavy missile launcher - frag",
+       "range": "48\"",
+       "A": "2D6",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Blast"
+       ]
+      },
+      {
+       "name": "Heavy missile launcher - krak",
+       "range": "48\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "10",
+       "AP": "-2",
+       "D": "D6+1",
+       "kw": []
+      },
+      {
+       "name": "Hades lascannon",
+       "range": "48\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "12",
+       "AP": "-3",
+       "D": "D6+1",
+       "kw": []
+      },
+      {
+       "name": "Heavy reaper autocannon",
+       "range": "48\"",
+       "A": "4",
+       "skill": "3+",
+       "S": "9",
+       "AP": "-2",
+       "D": "3",
+       "kw": [
+        "Devastating Wounds",
+        "Sustained Hits 1"
+       ]
+      },
+      {
+       "name": "Hades battle cannon",
+       "range": "48\"",
+       "A": "D6+3",
+       "skill": "3+",
+       "S": "10",
+       "AP": "-1",
+       "D": "3",
+       "kw": [
+        "Blast"
+       ]
+      },
+      {
+       "name": "Ectoplasma destructor",
+       "range": "36\"",
+       "A": "D6",
+       "skill": "3+",
+       "S": "12",
+       "AP": "-3",
+       "D": "3",
+       "kw": [
+        "Blast"
+       ]
+      },
+      {
+       "name": "Heavy baleflamer",
+       "range": "12\"",
+       "A": "D6+3",
+       "skill": "—",
+       "S": "7",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Ignores Cover",
+        "Torrent"
+       ]
+      },
+      {
+       "name": "Excruciator cannon",
+       "range": "36\"",
+       "A": "6",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-2",
+       "D": "2",
+       "kw": []
+      },
+      {
+       "name": "Pyraflux magma cutter",
+       "range": "12\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "10",
+       "AP": "-4",
+       "D": "D6",
+       "kw": [
+        "Melta 2"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Shearing claws - strike",
+       "range": "Melee",
+       "A": "5",
+       "skill": "3+",
+       "S": "16",
+       "AP": "-3",
+       "D": "D6+1",
+       "kw": []
+      },
+      {
+       "name": "Shearing claws - sweep",
+       "range": "Melee",
+       "A": "10",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-2",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Electroscourge",
+       "range": "Melee",
+       "A": "5",
+       "skill": "3+",
+       "S": "12",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Extra Attacks",
+        "Sustained Hits 2"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D6"
+     ],
+     "factionAbilities": [],
+     "abilities": [
+      {
+       "name": "Scuttling Walker",
+       "text": "On Normal, Advance and Fall Back moves it can move through models (not TITANIC) and terrain, crossing Engagement Range without ending there; it automatically passes Desperate Escape tests.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Destroyer of Futures (Once per phase, per unit)",
+       "text": "Once per phase you can use Counteroffensive on this unit even if it was already used this phase; that use costs 1CP less and does not stop other units using it.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 300,
+       "ptsLater": 350
+      }
+     ],
+     "stepFrom": 2,
+     "leaderOf": [],
+     "composition": "1 Defiler: Hades battle cannon, 2 excruciator cannons, heavy missile launcher, heavy baleflamer, shearing claws.",
+     "options": [
+      {
+       "id": "main",
+       "type": "choice",
+       "label": "Main gun",
+       "choices": [
+        {
+         "id": "hbc",
+         "label": "Hades battle cannon",
+         "pts": 0
+        },
+        {
+         "id": "ecto",
+         "label": "Ectoplasma destructor",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "excr",
+       "type": "choice",
+       "label": "Hull guns",
+       "choices": [
+        {
+         "id": "excr",
+         "label": "2 excruciator cannons",
+         "pts": 0
+        },
+        {
+         "id": "magma",
+         "label": "2 pyraflux magma cutters",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "flamer",
+       "type": "choice",
+       "label": "Heavy baleflamer",
+       "choices": [
+        {
+         "id": "bale",
+         "label": "Heavy baleflamer",
+         "pts": 0
+        },
+        {
+         "id": "las",
+         "label": "Hades lascannon",
+         "pts": 15
+        },
+        {
+         "id": "reaper",
+         "label": "Heavy reaper autocannon",
+         "pts": 15
+        },
+        {
+         "id": "scourge",
+         "label": "Electroscourge",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "hml",
+       "type": "choice",
+       "label": "Heavy missile launcher",
+       "choices": [
+        {
+         "id": "hml",
+         "label": "Heavy missile launcher",
+         "pts": 0
+        },
+        {
+         "id": "las",
+         "label": "Hades lascannon",
+         "pts": 15
+        },
+        {
+         "id": "reaper",
+         "label": "Heavy reaper autocannon",
+         "pts": 15
+        },
+        {
+         "id": "scourge",
+         "label": "Electroscourge",
+         "pts": 0
+        }
+       ]
+      }
+     ],
+     "optionRules": [
+      {
+       "forbidAllOf": [
+        [
+         "flamer",
+         "scourge"
+        ],
+        [
+         "hml",
+         "scourge"
+        ]
+       ],
+       "message": "Only one electroscourge."
+      }
+     ],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "forgefiend",
+     "name": "Forgefiend",
+     "role": "unit",
+     "faction": "Thousand Sons",
+     "keywords": [
+      "Vehicle",
+      "Walker",
+      "Daemon",
+      "Chaos",
+      "Tzeentch",
+      "Forgefiend"
+     ],
+     "image": "ts_forgefiend",
+     "baseSize": "120x92mm",
+     "profile": {
+      "M": "8\"",
+      "T": "10",
+      "Sv": "3+",
+      "InSv": "5+",
+      "W": "12",
+      "OC": "3",
+      "Ld": "6+"
+     },
+     "damaged": {
+      "threshold": 4,
+      "text": "While it has 1-4 wounds left: -1 to hit rolls."
+     },
+     "ranged": [
+      {
+       "name": "Ectoplasma cannon",
+       "range": "36\"",
+       "A": "D3",
+       "skill": "3+",
+       "S": "10",
+       "AP": "-3",
+       "D": "3",
+       "kw": [
+        "Blast"
+       ]
+      },
+      {
+       "name": "Hades autocannon",
+       "range": "36\"",
+       "A": "6",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-2",
+       "D": "2",
+       "kw": []
+      }
+     ],
+     "melee": [
+      {
+       "name": "Forgefiend claws",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "6",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Forgefiend jaws",
+       "range": "Melee",
+       "A": "5",
+       "skill": "3+",
+       "S": "7",
+       "AP": "0",
+       "D": "2",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D3"
+     ],
+     "factionAbilities": [],
+     "abilities": [
+      {
+       "name": "Blazing Salvos",
+       "text": "Your Shooting phase, after this model shoots: one enemy unit it hit is suppressed until your next turn: -1 to hit for its attacks.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 135,
+       "ptsLater": 145
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [],
+     "composition": "1 Forgefiend: 2 Hades autocannons, Forgefiend jaws.",
+     "options": [
+      {
+       "id": "guns",
+       "type": "choice",
+       "label": "Guns",
+       "choices": [
+        {
+         "id": "hades",
+         "label": "2 Hades autocannons",
+         "pts": 0
+        },
+        {
+         "id": "ecto",
+         "label": "2 ectoplasma cannons",
+         "pts": 10
+        }
+       ]
+      },
+      {
+       "id": "jaws",
+       "type": "choice",
+       "label": "Forgefiend jaws",
+       "choices": [
+        {
+         "id": "jaws",
+         "label": "Forgefiend jaws",
+         "pts": 0
+        },
+        {
+         "id": "ecto",
+         "label": "Ectoplasma cannon and Forgefiend claws",
+         "pts": 5
+        }
+       ]
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "maulerfiend",
+     "name": "Maulerfiend",
+     "role": "unit",
+     "faction": "Thousand Sons",
+     "keywords": [
+      "Vehicle",
+      "Walker",
+      "Daemon",
+      "Chaos",
+      "Tzeentch",
+      "Maulerfiend"
+     ],
+     "image": "ts_maulerfiend",
+     "baseSize": "120x92mm",
+     "profile": {
+      "M": "10\"",
+      "T": "10",
+      "Sv": "3+",
+      "InSv": "5+",
+      "W": "12",
+      "OC": "3",
+      "Ld": "6+"
+     },
+     "damaged": {
+      "threshold": 4,
+      "text": "While it has 1-4 wounds left: -1 to hit rolls."
+     },
+     "ranged": [
+      {
+       "name": "Magma cutter",
+       "range": "6\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "9",
+       "AP": "-4",
+       "D": "D6",
+       "kw": [
+        "Melta 2"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Maulerfiend fists",
+       "range": "Melee",
+       "A": "6",
+       "skill": "3+",
+       "S": "14",
+       "AP": "-2",
+       "D": "D6+1",
+       "kw": []
+      },
+      {
+       "name": "Lasher tendrils",
+       "range": "Melee",
+       "A": "6",
+       "skill": "3+",
+       "S": "7",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Extra Attacks"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D3"
+     ],
+     "factionAbilities": [],
+     "abilities": [
+      {
+       "name": "Snarling Protector",
+       "text": "Heroic Intervention on this unit costs 1CP less and ignores other uses this phase. When it declares a charge with a friendly engaged PSYKER unit within 12\", it can re-roll the charge but must end engaged with an enemy unit engaged with that PSYKER.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 120,
+       "ptsLater": 130
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [],
+     "composition": "1 Maulerfiend: lasher tendrils, Maulerfiend fists.",
+     "options": [
+      {
+       "id": "tendrils",
+       "type": "choice",
+       "label": "Lasher tendrils",
+       "choices": [
+        {
+         "id": "tendrils",
+         "label": "Lasher tendrils",
+         "pts": 0
+        },
+        {
+         "id": "magma",
+         "label": "2 magma cutters",
+         "pts": 0
+        }
+       ]
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "helbrute",
+     "name": "Helbrute",
+     "role": "unit",
+     "faction": "Thousand Sons",
+     "keywords": [
+      "Vehicle",
+      "Walker",
+      "Chaos",
+      "Tzeentch",
+      "Helbrute"
+     ],
+     "image": "ts_helbrute",
+     "baseSize": "60mm",
+     "profile": {
+      "M": "8\"",
+      "T": "9",
+      "Sv": "2+",
+      "InSv": "5+",
+      "W": "8",
+      "OC": "3",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Inferno combi-bolter",
+       "range": "24\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Rapid Fire 2"
+       ]
+      },
+      {
+       "name": "Heavy flamer",
+       "range": "12\"",
+       "A": "D6",
+       "skill": "—",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Ignores Cover",
+        "Torrent"
+       ]
+      },
+      {
+       "name": "Missile launcher - frag",
+       "range": "48\"",
+       "A": "D6",
+       "skill": "3+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Blast"
+       ]
+      },
+      {
+       "name": "Missile launcher - krak",
+       "range": "48\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "9",
+       "AP": "-2",
+       "D": "D6",
+       "kw": []
+      },
+      {
+       "name": "Multi-melta",
+       "range": "18\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "9",
+       "AP": "-4",
+       "D": "D6",
+       "kw": [
+        "Melta 2"
+       ]
+      },
+      {
+       "name": "Twin autocannon",
+       "range": "48\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "9",
+       "AP": "-1",
+       "D": "3",
+       "kw": [
+        "Twin-linked"
+       ]
+      },
+      {
+       "name": "Helbrute plasma cannon",
+       "range": "36\"",
+       "A": "D3",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-3",
+       "D": "3",
+       "kw": [
+        "Blast",
+        "Hazardous"
+       ]
+      },
+      {
+       "name": "Twin inferno heavy bolter",
+       "range": "36\"",
+       "A": "3",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Sustained Hits 1",
+        "Twin-linked"
+       ]
+      },
+      {
+       "name": "Twin lascannon",
+       "range": "48\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "12",
+       "AP": "-3",
+       "D": "D6+1",
+       "kw": [
+        "Twin-linked"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Close combat weapon",
+       "range": "Melee",
+       "A": "5",
+       "skill": "3+",
+       "S": "6",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Helbrute fist",
+       "range": "Melee",
+       "A": "5",
+       "skill": "3+",
+       "S": "12",
+       "AP": "-2",
+       "D": "3",
+       "kw": []
+      },
+      {
+       "name": "Helbrute hammer",
+       "range": "Melee",
+       "A": "5",
+       "skill": "4+",
+       "S": "14",
+       "AP": "-3",
+       "D": "D6+1",
+       "kw": []
+      },
+      {
+       "name": "Power scourge",
+       "range": "Melee",
+       "A": "8",
+       "skill": "3+",
+       "S": "7",
+       "AP": "-1",
+       "D": "2",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise 1"
+     ],
+     "factionAbilities": [],
+     "abilities": [
+      {
+       "name": "Terrifying Assault",
+       "text": "After this model shoots or fights, one enemy unit it hit takes a battle-shock test (-1 if within 9\" of one of your THOUSAND SONS PSYKER units).",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Devoted to Destruction",
+       "text": "If equipped with 2 melee weapons besides its close combat weapon, those two weapons get +2 A.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 110
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 Helbrute: missile launcher, multi-melta, close combat weapon.",
+     "options": [
+      {
+       "id": "arm1",
+       "type": "choice",
+       "label": "Multi-melta arm",
+       "choices": [
+        {
+         "id": "mm",
+         "label": "Multi-melta",
+         "pts": 0
+        },
+        {
+         "id": "pc",
+         "label": "Helbrute plasma cannon",
+         "pts": 0
+        },
+        {
+         "id": "tac",
+         "label": "Twin autocannon",
+         "pts": 0
+        },
+        {
+         "id": "thb",
+         "label": "Twin inferno heavy bolter",
+         "pts": 0
+        },
+        {
+         "id": "tlc",
+         "label": "Twin lascannon",
+         "pts": 0
+        },
+        {
+         "id": "fist",
+         "label": "Helbrute fist",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "arm2",
+       "type": "choice",
+       "label": "Missile launcher arm",
+       "choices": [
+        {
+         "id": "ml",
+         "label": "Missile launcher",
+         "pts": 0
+        },
+        {
+         "id": "fist",
+         "label": "Helbrute fist",
+         "pts": 0
+        },
+        {
+         "id": "hammer",
+         "label": "Helbrute hammer",
+         "pts": 0
+        },
+        {
+         "id": "scourge",
+         "label": "Power scourge",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "fist1",
+       "type": "choice",
+       "label": "Fist weapon (needs a Helbrute fist)",
+       "choices": [
+        {
+         "id": "none",
+         "label": "None",
+         "pts": 0
+        },
+        {
+         "id": "combib",
+         "label": "Inferno combi-bolter",
+         "pts": 0
+        },
+        {
+         "id": "flamer",
+         "label": "Heavy flamer",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "fist2",
+       "type": "choice",
+       "label": "Second fist weapon (needs two fists)",
+       "choices": [
+        {
+         "id": "none",
+         "label": "None",
+         "pts": 0
+        },
+        {
+         "id": "combib",
+         "label": "Inferno combi-bolter",
+         "pts": 0
+        },
+        {
+         "id": "flamer",
+         "label": "Heavy flamer",
+         "pts": 0
+        }
+       ]
+      }
+     ],
+     "optionRules": [
+      {
+       "if": "fist1",
+       "notValue": "none",
+       "requireAnyOf": [
+        [
+         "arm1",
+         "fist"
+        ],
+        [
+         "arm2",
+         "fist"
+        ]
+       ],
+       "message": "The fist weapon needs at least one Helbrute fist."
+      },
+      {
+       "if": "fist2",
+       "notValue": "none",
+       "requireAllOf": [
+        [
+         "arm1",
+         "fist"
+        ],
+        [
+         "arm2",
+         "fist"
+        ]
+       ],
+       "message": "A second fist weapon needs two Helbrute fists."
+      }
+     ],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "heldrake",
+     "name": "Heldrake",
+     "role": "unit",
+     "faction": "Thousand Sons",
+     "keywords": [
+      "Vehicle",
+      "Fly",
+      "Chaos",
+      "Tzeentch",
+      "Heldrake"
+     ],
+     "image": "ts_heldrake",
+     "baseSize": "120x92mm (flying base)",
+     "profile": {
+      "M": "12\"",
+      "T": "9",
+      "Sv": "3+",
+      "InSv": "5+",
+      "W": "12",
+      "OC": "0",
+      "Ld": "6+"
+     },
+     "damaged": {
+      "threshold": 4,
+      "text": "While it has 1-4 wounds left: -1 to hit rolls."
+     },
+     "ranged": [
+      {
+       "name": "Baleflamer",
+       "range": "12\"",
+       "A": "D6+3",
+       "skill": "—",
+       "S": "6",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Ignores Cover",
+        "Torrent"
+       ]
+      },
+      {
+       "name": "Hades autocannon",
+       "range": "36\"",
+       "A": "6",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-2",
+       "D": "2",
+       "kw": []
+      }
+     ],
+     "melee": [
+      {
+       "name": "Heldrake claws",
+       "range": "Melee",
+       "A": "5",
+       "skill": "3+",
+       "S": "7",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Anti-fly 2+",
+        "Devastating Wounds"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D3",
+      "Hover"
+     ],
+     "factionAbilities": [],
+     "abilities": [
+      {
+       "name": "Flame-wreathed",
+       "text": "Each time this model ends a Normal move, one enemy unit it moved over cannot have the benefit of cover until the end of the turn.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 175
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 Heldrake: Hades autocannon, Heldrake claws.",
+     "options": [
+      {
+       "id": "gun",
+       "type": "choice",
+       "label": "Gun",
+       "choices": [
+        {
+         "id": "hades",
+         "label": "Hades autocannon",
+         "pts": 0
+        },
+        {
+         "id": "bale",
+         "label": "Baleflamer",
+         "pts": 0
+        }
+       ]
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "lord_of_change",
+     "name": "Lord of Change",
+     "role": "allies",
+     "faction": "Scintillating Legions",
+     "keywords": [
+      "Monster",
+      "Character",
+      "Fly",
+      "Psyker",
+      "Chaos",
+      "Daemon",
+      "Tzeentch",
+      "Summoned",
+      "Lord of Change"
+     ],
+     "image": "ts_lord_of_change",
+     "baseSize": "100mm",
+     "profile": {
+      "M": "12\"",
+      "T": "10",
+      "Sv": "6+",
+      "InSv": "4+",
+      "W": "18",
+      "OC": "5",
+      "Ld": "6+"
+     },
+     "damaged": {
+      "threshold": 6,
+      "text": "While it has 1-6 wounds left: -1 to hit rolls."
+     },
+     "ranged": [
+      {
+       "name": "Bolt of Change - witchfire",
+       "range": "18\"",
+       "A": "9",
+       "skill": "2+",
+       "S": "9",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Psychic"
+       ]
+      },
+      {
+       "name": "Bolt of Change - focused witchfire",
+       "range": "18\"",
+       "A": "9",
+       "skill": "2+",
+       "S": "9",
+       "AP": "-2",
+       "D": "3",
+       "kw": [
+        "Hazardous",
+        "Psychic"
+       ]
+      },
+      {
+       "name": "Rod of sorcery",
+       "range": "18\"",
+       "A": "6",
+       "skill": "2+",
+       "S": "8",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Psychic"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Staff of Tzeentch",
+       "range": "Melee",
+       "A": "5",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-1",
+       "D": "3",
+       "kw": [
+        "Psychic"
+       ]
+      },
+      {
+       "name": "Baleful sword",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "7",
+       "AP": "-2",
+       "D": "3",
+       "kw": [
+        "Extra Attacks"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D6",
+      "Deep Strike"
+     ],
+     "factionAbilities": [
+      "Pact of Sorcery"
+     ],
+     "abilities": [
+      {
+       "name": "Daemon Lord of Tzeentch (Aura)",
+       "text": "Ranged attacks by friendly SCINTILLATING LEGIONS units within 6\" get +1 S.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Master of Magicks (Aura)",
+       "text": "Your Shooting phase: its Bolt of Change gains [IGNORES COVER], [LETHAL HITS] or [SUSTAINED HITS D3] (your pick) until the end of the phase.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 320,
+       "ptsLater": 340
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [],
+     "composition": "1 Lord of Change: Bolt of Change, staff of Tzeentch.",
+     "options": [
+      {
+       "id": "extra",
+       "type": "choice",
+       "label": "Extra weapon",
+       "choices": [
+        {
+         "id": "none",
+         "label": "None",
+         "pts": 0
+        },
+        {
+         "id": "rod",
+         "label": "Rod of sorcery",
+         "pts": 0
+        },
+        {
+         "id": "sword",
+         "label": "Baleful sword",
+         "pts": 0
+        }
+       ]
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "kairos_fateweaver",
+     "name": "Kairos Fateweaver",
+     "role": "allies",
+     "faction": "Scintillating Legions",
+     "keywords": [
+      "Monster",
+      "Character",
+      "Epic Hero",
+      "Fly",
+      "Psyker",
+      "Chaos",
+      "Daemon",
+      "Tzeentch",
+      "Summoned",
+      "Kairos Fateweaver"
+     ],
+     "image": "ts_kairos_fateweaver",
+     "baseSize": "100mm",
+     "profile": {
+      "M": "12\"",
+      "T": "10",
+      "Sv": "6+",
+      "InSv": "4+",
+      "W": "20",
+      "OC": "5",
+      "Ld": "6+"
+     },
+     "damaged": {
+      "threshold": 7,
+      "text": "While it has 1-7 wounds left: -1 to hit rolls."
+     },
+     "ranged": [
+      {
+       "name": "Infernal Gateway - witchfire",
+       "range": "24\"",
+       "A": "D6+3",
+       "skill": "2+",
+       "S": "9",
+       "AP": "-2",
+       "D": "D3",
+       "kw": [
+        "Blast",
+        "Indirect Fire",
+        "Psychic"
+       ]
+      },
+      {
+       "name": "Infernal Gateway - focused witchfire",
+       "range": "24\"",
+       "A": "D3+6",
+       "skill": "2+",
+       "S": "9",
+       "AP": "-2",
+       "D": "3",
+       "kw": [
+        "Blast",
+        "Hazardous",
+        "Indirect Fire",
+        "Psychic"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Staff of Tomorrow",
+       "range": "Melee",
+       "A": "5",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-2",
+       "D": "2D3",
+       "kw": [
+        "Psychic"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D6",
+      "Deep Strike"
+     ],
+     "factionAbilities": [
+      "Pact of Sorcery"
+     ],
+     "abilities": [
+      {
+       "name": "One Head Looks Forward",
+       "text": "End of your Command phase: if this model is on the battlefield, take a Leadership test; if passed, gain 1CP.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "One Head Looks Back (Aura)",
+       "text": "Once per turn, when your opponent targets one of their units within 12\" with a Stratagem, you can make that use cost 1CP more.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 305
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 Kairos Fateweaver (Epic Hero): Infernal Gateway, Staff of Tomorrow.",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "pink_horrors",
+     "name": "Pink Horrors",
+     "role": "allies",
+     "faction": "Scintillating Legions",
+     "keywords": [
+      "Infantry",
+      "Battleline",
+      "Chaos",
+      "Daemon",
+      "Tzeentch",
+      "Summoned",
+      "Horrors"
+     ],
+     "image": "ts_pink_horrors",
+     "baseSize": "32mm (Blue/Brimstone 25mm)",
+     "profile": {
+      "M": "6\"",
+      "T": "3",
+      "Sv": "7+",
+      "InSv": "4+",
+      "W": "1",
+      "OC": "1",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Coruscating blue flames",
+       "range": "18\"",
+       "A": "2",
+       "skill": "4+",
+       "S": "3",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Pistol",
+        "Psychic"
+       ]
+      },
+      {
+       "name": "Coruscating yellow flames",
+       "range": "18\"",
+       "A": "2",
+       "skill": "5+",
+       "S": "2",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Pistol",
+        "Psychic"
+       ]
+      },
+      {
+       "name": "Coruscating pink flames",
+       "range": "18\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Pistol",
+        "Psychic"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Blue claws",
+       "range": "Melee",
+       "A": "1",
+       "skill": "5+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Yellow claws",
+       "range": "Melee",
+       "A": "2",
+       "skill": "5+",
+       "S": "2",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Pink claws",
+       "range": "Melee",
+       "A": "1",
+       "skill": "4+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deep Strike"
+     ],
+     "factionAbilities": [
+      "Pact of Sorcery"
+     ],
+     "abilities": [
+      {
+       "name": "Split",
+       "text": "When a Horror in this unit is destroyed, after the attacker finishes (if the unit survives) roll D6: on a 4+ a Pink Horror becomes two Blue Horrors, a Blue Horror becomes one Brimstone Horror.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Daemonic Icon",
+       "text": "Models in the bearer's unit have Leadership 6+.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Instrument of Chaos",
+       "text": "+1 to charge rolls for the bearer's unit.",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 10,
+       "pts": 115
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "10 Pink Horrors: coruscating pink flames, pink claws. Split adds Blue and Brimstone Horrors.",
+     "options": [
+      {
+       "id": "icon",
+       "type": "toggle",
+       "label": "Daemonic icon"
+      },
+      {
+       "id": "instrument",
+       "type": "toggle",
+       "label": "Instrument of Chaos"
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "blue_horrors",
+     "name": "Blue Horrors",
+     "role": "allies",
+     "faction": "Scintillating Legions",
+     "keywords": [
+      "Infantry",
+      "Battleline",
+      "Chaos",
+      "Daemon",
+      "Tzeentch",
+      "Summoned",
+      "Horrors"
+     ],
+     "image": "ts_blue_horrors",
+     "baseSize": "25mm",
+     "profile": {
+      "M": "6\"",
+      "T": "3",
+      "Sv": "7+",
+      "InSv": "4+",
+      "W": "1",
+      "OC": "0",
+      "Ld": "8+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Coruscating Yellow flames",
+       "range": "18\"",
+       "A": "2",
+       "skill": "5+",
+       "S": "2",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Pistol",
+        "Psychic"
+       ]
+      },
+      {
+       "name": "Coruscating Blue flames",
+       "range": "18\"",
+       "A": "2",
+       "skill": "4+",
+       "S": "3",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Pistol",
+        "Psychic"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Yellow claws",
+       "range": "Melee",
+       "A": "2",
+       "skill": "5+",
+       "S": "2",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Blue claws",
+       "range": "Melee",
+       "A": "1",
+       "skill": "5+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deep Strike",
+      "Infiltrators"
+     ],
+     "factionAbilities": [
+      "Pact of Sorcery"
+     ],
+     "abilities": [
+      {
+       "name": "Split",
+       "text": "When a Horror in this unit is destroyed, after the attacker finishes (if the unit survives) roll D6: on a 4+ a Pink Horror becomes two Blue Horrors, a Blue Horror becomes one Brimstone Horror.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Sullen Malevolence (Aura)",
+       "text": "While this unit has a Blue Horror, enemy units within 6\" get -1 Leadership.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Exploding Horrors",
+       "text": "When this unit fights, pick an engaged enemy unit and any of its Brimstone Horrors: roll D6 for each, on a 4+ that Brimstone Horror is destroyed and the enemy unit suffers 1 mortal wound.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 10,
+       "pts": 90
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "10 Blue Horrors: coruscating blue flames, blue claws. Split adds Brimstone Horrors.",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "flamers",
+     "name": "Flamers",
+     "role": "allies",
+     "faction": "Scintillating Legions",
+     "keywords": [
+      "Infantry",
+      "Fly",
+      "Chaos",
+      "Daemon",
+      "Tzeentch",
+      "Summoned",
+      "Flamers"
+     ],
+     "image": "ts_flamers",
+     "baseSize": "32mm",
+     "profile": {
+      "M": "9\"",
+      "T": "4",
+      "Sv": "7+",
+      "InSv": "4+",
+      "W": "3",
+      "OC": "1",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Flickering flames",
+       "range": "12\"",
+       "A": "D6",
+       "skill": "—",
+       "S": "4",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Ignores Cover",
+        "Psychic",
+        "Torrent"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Flamer mouths",
+       "range": "Melee",
+       "A": "3",
+       "skill": "4+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deep Strike"
+     ],
+     "factionAbilities": [
+      "Pact of Sorcery"
+     ],
+     "abilities": [
+      {
+       "name": "Bounding Leaps",
+       "text": "This unit can shoot in a turn in which it fell back.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 3,
+       "pts": 65
+      },
+      {
+       "models": 6,
+       "pts": 130
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 Pyrocaster and 2 or 5 Flamers: flickering flames, Flamer mouths.",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "screamers",
+     "name": "Screamers",
+     "role": "allies",
+     "faction": "Scintillating Legions",
+     "keywords": [
+      "Beast",
+      "Fly",
+      "Chaos",
+      "Daemon",
+      "Tzeentch",
+      "Summoned",
+      "Screamers"
+     ],
+     "image": "ts_screamers",
+     "baseSize": "32mm (flying base)",
+     "profile": {
+      "M": "14\"",
+      "T": "4",
+      "Sv": "6+",
+      "InSv": "4+",
+      "W": "3",
+      "OC": "1",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [],
+     "melee": [
+      {
+       "name": "Lamprey bite",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Anti-monster 4+",
+        "Anti-vehicle 4+"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Deep Strike"
+     ],
+     "factionAbilities": [
+      "Pact of Sorcery"
+     ],
+     "abilities": [
+      {
+       "name": "Slashing Dive",
+       "text": "Your Movement phase, after a Normal move: pick one enemy unit it moved over and roll D6 per model: each 4+ inflicts 1 mortal wound.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 3,
+       "pts": 80
+      },
+      {
+       "models": 6,
+       "pts": 160
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "3 or 6 Screamers: lamprey bite.",
      "options": [],
      "optionRules": [],
      "slots": [],

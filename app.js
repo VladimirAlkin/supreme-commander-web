@@ -497,17 +497,18 @@
       if (!inst) return { on: true, cond: true, note: h.condNote || '' };
       return (+((inst.wargear || {})[o]) || 0) > 0 ? { on: true, note: h.title || '' } : null;
     }
-    const notes = [];
+    const notes = [], conds = [];
     if (h.keyword && Engine.hasKw(def, ctx, h.keyword, inst)) notes.push((h.notes || {})[def.id] || '');
     if (h.unitIds && h.unitIds[def.id] != null) notes.push(h.unitIds[def.id]);
     Object.entries(h.detachments || {}).forEach(([did, rule]) => {
       if (!r.detachmentIds.includes(did)) return;
       if ((rule.factionsAll || []).length && !rule.factionsAll.includes(def.faction)) return;
       if ((rule.keywordsAll || []).some(k => !Engine.hasKw(def, ctx, k, inst))) return;
-      notes.push(rule.note || '');
+      (rule.cond ? conds : notes).push(rule.note || '');
     });
     if (notes.length) return { on: true, n: notes.length, note: notes.filter(Boolean).join(' ') };
-    if ((h.conditional || {})[def.id]) return { on: true, cond: true, note: h.conditional[def.id] };
+    if ((h.conditional || {})[def.id]) conds.push(h.conditional[def.id]);
+    if (conds.length) return { on: true, cond: true, note: conds.join(' ') };
     return null;
   }
   const hiLabel = (h, st) => h.rangeStep ? `${h.label} +${(st.n || 1) * h.rangeStep}″` : h.label;
@@ -993,6 +994,51 @@
     if (b) { b.textContent = cur ? cur.name : 'Pick before the battle'; b.classList.toggle('gold', !!cur); }
     const g = document.querySelector('.mstatus.game'); if (g) g.outerHTML = gameLine(r);
   }
+  /* Thousand Sons: Cabal of Sorcerers. Dice stay at the table; the player records who attempted which Ritual and how it went. */
+  function ritCasters(r, dets) {
+    const ctx = Engine.ctxFor(r, DATA), ch = dets.some(d => d.id === 'changehost_of_deceit');
+    return r.units.map(u => {
+      const def = unitDef(r.factionId, u.datasheetId); if (!def) return null;
+      if ((def.factionAbilities || []).some(a => a.startsWith('Cabal of Sorcerers'))) return { u, def, n: def.ritualsPerTurn || 1, bonus: def.ritualBonus || 0 };
+      if (ch && def.faction !== fdata(r.factionId).armyFaction && Engine.hasKw(def, ctx, 'Psyker', u)) return { u, def, n: 1, bonus: 0, cond: true };
+      return null;
+    }).filter(Boolean);
+  }
+  function ritualHTML(r, p, cabal, dets) {
+    const done = (p.rit || {})[p.round] || {}, casters = ritCasters(r, dets), mine = p.turn !== 'opp';
+    const used = id => Object.values(done).filter(x => x.by === id).length;
+    const now = mine && p.phase === 'Shooting', k = Object.keys(done).length;
+    const cards = cabal.rituals.map((x, i) => {
+      const d = done[x.id], open = S.ritOpen === x.id && !d, by = d && r.units.find(u => u.instanceId === d.by);
+      const card = `<button class="rit ${d ? (d.ok ? 'ok' : 'ko') : ''} ${open ? 'open' : ''}" style="--d:-${(i * 1.3).toFixed(1)}s" data-act="tsRit" data-id="${x.id}" aria-expanded="${open}">
+        <span class="rit-w num">${x.wc}<small>WC</small></span><span class="rit-t"><b>${esc(x.name)}</b>${by ? ` <span class="faint">· ${esc(dispName(r, by))}</span>` : ''}</span>
+        <span class="rit-s">${d ? (d.ok ? 'Manifested' : 'Failed') : 'Attempt'}</span><span class="rit-e">${esc(x.effect)}</span><span class="rit-b">${esc(x.boost)}</span></button>`;
+      if (!open) return card;
+      const chips = casters.map(c => { const left = c.n - used(c.u.instanceId);
+        return `<button class="chip ${c.cond ? 'cond' : ''}" aria-pressed="${S.ritBy === c.u.instanceId}" data-act="tsRitBy" data-id="${c.u.instanceId}" ${left <= 0 ? 'aria-disabled="true"' : ''}>${esc(dispName(r, c.u))}${c.bonus ? ` +${c.bonus}` : ''}${c.cond ? '*' : ''}${c.n > 1 ? ` (${left}/${c.n})` : ''}</button>`; }).join('');
+      return card + `<div class="ritpick" role="group" aria-label="Who attempts ${esc(x.name)}"><div class="eyebrow">Who attempts ${esc(x.name)}? Needs ${x.wc}+</div>
+        ${chips ? `<div class="chips">${chips}</div>` : '<div class="faint">No unit in this roster has Cabal of Sorcerers.</div>'}
+        ${casters.some(c => c.cond) ? '<div class="faint" style="font-size:.82rem">* only while within 6″ of a friendly THOUSAND SONS unit (Mortal Sorcery).</div>' : ''}
+        <div class="row"><button class="btn sm primary" data-act="tsRitRes" data-id="ok" ${S.ritBy ? '' : 'aria-disabled="true"'}>Manifested</button><button class="btn sm" data-act="tsRitRes" data-id="ko" ${S.ritBy ? '' : 'aria-disabled="true"'}>Failed</button><button class="btn sm" data-act="tsRitClose">Cancel</button></div></div>`;
+    }).join('');
+    const enh = [['incandaeum', 'Incandaeum: once per battle its bearer can attempt Doombolt even if it was already attempted.'], ['lord_of_forbidden_lore', 'Lord of Forbidden Lore: Rituals of the bearer get +6″ range.']]
+      .filter(([id]) => r.units.some(u => Engine.enhIds(u).includes(id))).map(x => x[1]);
+    return `<div class="panel pad stack rituals"><div class="row"><h3 class="grow">Cabal of Sorcerers</h3><span class="badge ${now ? 'gold' : ''}">${now ? 'Now · ' : ''}Round ${p.round} · ${k}/${cabal.rituals.length}</span></div>
+      <div class="dim" style="font-size:.9rem">Start of your Shooting phase. Roll the Psychic test at the table, then record it here. Each model and each Ritual once per turn.</div>
+      <div class="rit-list">${cards}</div>
+      <div class="faint" style="font-size:.85rem">Channelled the Warp and rolled a double or triple: the caster's unit suffers D3 mortal wounds before the Ritual resolves.</div>
+      ${enh.map(t => `<div class="faint" style="font-size:.85rem">${esc(t)}</div>`).join('')}</div>`;
+  }
+  /* a manifested Ritual: two rune rings spin out from the Warp Charge seal while blue and pink warpfire rises through the card */
+  function warpfire(card) {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const fx = document.createElement('span'); fx.className = 'wfx'; fx.setAttribute('aria-hidden', 'true');
+    const C = ['#e48cff', '#5fd8ee', '#9fe9ff'], R = (a, b) => a + Math.random() * (b - a);
+    fx.innerHTML = '<span class="rune"></span><span class="rune"></span>' + Array.from({ length: 18 }, (_, i) =>
+      `<i style="left:${R(3, 95).toFixed(1)}%;--c:${C[i % 3]};--x:${R(-22, 22).toFixed(0)}px;--r:${R(-40, 40).toFixed(0)}deg;--t:${R(.9, 1.7).toFixed(2)}s;--dl:${R(0, .55).toFixed(2)}s"></i>`).join('');
+    card.appendChild(fx); setTimeout(() => fx.remove(), 2400);
+    if (PL.android) setTimeout(() => PL.haptic('confirm'), 150);
+  }
   function factionPlayHTML(r, p) {
     const fd = fdata(r.factionId), dets = r.detachmentIds.map(id => fd.detachments.find(d => d.id === id)).filter(Boolean);
     const out = [];
@@ -1007,6 +1053,8 @@
     }
     const gift = fd.armyRules.find(a => a.contagion);
     if (gift) out.push(contagionHTML(r, p, gift, dets), plagueHTML(r, p, gift, dets));
+    const cabal = fd.armyRules.find(a => a.rituals);
+    if (cabal) out.push(ritualHTML(r, p, cabal, dets));
     dets.forEach(d => {
       if (d.numberlessHorde) {
         const rounds = d.numberlessHorde[r.battleSize] || d.numberlessHorde.strike, done = p.pox || {};
@@ -1037,9 +1085,9 @@
       if (d.imperatives) {
         const now = (p.imp || {})[p.round], usedIn = id => Object.entries(p.imp || {}).find(([rd, v]) => v === id && +rd !== p.round);
         const curI = d.imperatives.find(i => i.id === now);
-        out.push(panel('Synaptic Imperative', curI ? `<span class="badge gold">Round ${p.round}: ${esc(curI.name)}</span>` : `<span class="badge">Round ${p.round}: none</span>`,
+        out.push(panel(d.impTitle || 'Synaptic Imperative', curI ? `<span class="badge gold">Round ${p.round}: ${esc(curI.name)}</span>` : `<span class="badge">Round ${p.round}: none</span>`,
           `<div class="stack" style="gap:6px">${d.imperatives.map(i => { const u = usedIn(i.id); return `<div class="blessing ${now === i.id ? 'active' : u ? '' : 'can'}"><div><b>${esc(i.name)}</b><div class="dim">${esc(i.effect)}</div></div>${u ? `<span class="badge">Used · round ${u[0]}</span>` : `<button class="btn sm ${now === i.id ? '' : 'primary'}" data-act="tyrImp" data-id="${i.id}">${now === i.id ? 'Active ✓' : 'Pick'}</button>`}</div>`; }).join('')}</div>
-          <div class="faint" style="font-size:.85rem">Pick at the start of each battle round; each one only once per battle. Units within Synapse Range benefit.</div>`));
+          <div class="faint" style="font-size:.85rem">${esc(d.impNote || 'Pick at the start of each battle round; each one only once per battle. Units within Synapse Range benefit.')}</div>`));
       }
       if (d.tunnelMarkers) {
         out.push(panel('Tunnel Markers', '', `<div class="row"><div class="stepper" role="group" aria-label="Tunnel Markers"><button data-act="pc" data-k="tunnels" data-d="-1" aria-label="Remove a Tunnel Marker">−</button><output class="num" style="font-size:1.2rem;font-weight:800">${p.tunnels || 0}</output><button data-act="pc" data-k="tunnels" data-d="1" aria-label="Place a Tunnel Marker">+</button></div><span class="dim">on the battlefield</span></div>
@@ -1073,7 +1121,8 @@
       if (nh && p.turn !== 'opp' && (nh.numberlessHorde[r.battleSize] || []).includes(p.round) && !(p.pox || {})[p.round]) h.push(' Add 10 Poxwalkers to Strategic Reserves.');
       if (p.turn === 'opp' && dets.some(d => d.deadlyVectors)) h.push(' Deadly Vectors: roll for Afflicted enemy units.');
     }
-    if (startOfRound && dets.some(d => d.imperatives) && !(p.imp || {})[p.round]) h.push(' Pick a Synaptic Imperative.');
+    const impD = dets.find(d => d.imperatives);
+    if (impD && !(p.imp || {})[p.round] && (impD.impTitle ? p.turn !== 'opp' && p.phase === 'Command' : startOfRound)) h.push(` Pick ${impD.impTitle || 'a Synaptic Imperative'}.`);
     if (p.round === 1 && dets.some(d => d.hyperAdaptations) && !p.hyper) h.push(' Pick a Hyper-adaptation.');
     if (p.turn !== 'opp' && dets.some(d => d.harvesterReminder)) h.push(' Feed the Swarm.');
     if (!p.shadow && fd.armyRules.some(a => a.shadow)) h.push(' Shadow in the Warp is ready.');
@@ -1744,7 +1793,8 @@
         }
         p.phase = PHASES[i];
         if (p.phase === 'Command') { p.cp += 1; if (p.turn !== 'opp') p.hyperExtra = null; msg = `${p.turn === 'opp' ? "Opponent's" : 'Your'} Command phase, round ${p.round}: +1 CP.${roundHint(r, p)}`; }
-        else msg = `${p.turn === 'opp' ? "Opponent's" : 'Your'} ${p.phase} phase.`;
+        else msg = `${p.turn === 'opp' ? "Opponent's" : 'Your'} ${p.phase} phase.`
+        if (p.phase === 'Shooting' && p.turn !== 'opp' && fdata(r.factionId).armyRules.some(a => a.rituals)) msg += ' Attempt Rituals first.';
       }, () => msg, 'confirm');
     },
     dgPlague: el => {
@@ -1755,6 +1805,25 @@
       savePlay(r); PL.haptic('confirm'); patchPlague(r, id);
     },
     dgPox: el => { if (el.getAttribute('aria-disabled') === 'true') { toast('That battle round has not started yet.'); PL.haptic('reject'); return; } const r = cur(), rd = +el.dataset.id; playChange(r, p => { p.pox = p.pox || {}; if (p.pox[rd]) delete p.pox[rd]; else p.pox[rd] = true; }, null, 'confirm'); },
+    tsRit: el => {
+      const r = cur(), id = el.dataset.id, p = playState(r);
+      if (((p.rit || {})[p.round] || {})[id]) { playChange(r, p => { delete p.rit[p.round][id]; }, 'Ritual result cleared.'); return; }
+      S.ritOpen = S.ritOpen === id ? null : id; S.ritBy = null; PL.haptic('tick'); render();
+    },
+    tsRitBy: el => { if (el.getAttribute('aria-disabled') === 'true') { toast('That model already attempted a Ritual this turn.'); PL.haptic('reject'); return; } S.ritBy = S.ritBy === el.dataset.id ? null : el.dataset.id; PL.haptic('tick'); render(); },
+    tsRitClose: () => { S.ritOpen = S.ritBy = null; render(); },
+    tsRitRes: el => {
+      if (!S.ritBy) { toast('Pick who attempts the Ritual.'); PL.haptic('reject'); return; }
+      const r = cur(), id = S.ritOpen, by = S.ritBy, ok = el.dataset.id === 'ok', fd = fdata(r.factionId);
+      const x = fd.armyRules.find(a => a.rituals).rituals.find(q => q.id === id), u = r.units.find(q => q.instanceId === by), def = unitDef(r.factionId, u.datasheetId);
+      let msg = `${x.name}: ${ok ? 'manifested' : 'failed'}.`;
+      const regen = r.detachmentIds.some(d => (fd.detachments.find(q => q.id === d) || {}).regenHint), ctx = Engine.ctxFor(r, DATA);
+      if (ok && regen && def.faction === fd.armyFaction && Engine.hasKw(def, ctx, 'Psyker', u) && !Engine.hasKw(def, ctx, 'Monster', u))
+        msg += ` Sorcerous Invigoration: ${dispName(r, u)} heals D3 wounds${Engine.enhIds(u).includes('curse_of_life') ? ' (+3 with Curse of Life)' : ''}.`;
+      S.ritOpen = S.ritBy = null;
+      playChange(r, p => { p.rit = p.rit || {}; (p.rit[p.round] = p.rit[p.round] || {})[id] = { by, ok }; }, msg, ok ? 'confirm' : 'tick');
+      if (ok) { const c = document.querySelector(`.rit[data-id="${id}"]`); if (c) warpfire(c); }
+    },
     dgPests: () => { const r = cur(); playChange(r, p => { p.pests = p.pests ? null : p.round; }, null, 'confirm'); },
     blessPick: el => {
       const r = cur(), id = el.dataset.id, p = playState(r);

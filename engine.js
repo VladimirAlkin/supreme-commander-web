@@ -119,8 +119,10 @@ const Engine = (function () {
     const fac = def.faction;
     if (el.unitIds && !el.unitIds.includes(def.id)) return `${e.name} can only be given to ${el.unitIds.map(id => (ctx.unitById[id] || {}).name || id).join(' or ')}.`;
     if (el.excludeUnitIds && el.excludeUnitIds.includes(def.id)) return `${e.name} cannot be given to ${def.name}.`;
-    if (el.factionsAll && !el.factionsAll.includes(fac)) return `${e.name} needs a ${el.factionsAll.join('/').toUpperCase()} unit.`;
+    const extra = (el.orUnitIds || []).includes(def.id);
+    if (el.factionsAll && !extra && !el.factionsAll.includes(fac)) return `${e.name} needs a ${[...el.factionsAll, ...(el.orUnitIds || []).map(id => (ctx.unitById[id] || {}).name || id)].join('/').toUpperCase()} unit.`;
     if (el.keywordsAll) for (const k of el.keywordsAll) if (!hasKw(def, ctx, k, inst)) return `${e.name} needs the ${k.toUpperCase()} keyword.`;
+    if (el.keywordsAny && !el.keywordsAny.some(k => hasKw(def, ctx, k, inst))) return `${e.name} needs a ${el.keywordsAny.join(' or ').toUpperCase()} model.`;
     if (el.keywordsNone) for (const k of el.keywordsNone) if (hasKw(def, ctx, k, inst)) return `${e.name} cannot go on a ${k.toUpperCase()} unit.`;
     if (el.coreAll) for (const k of el.coreAll) if (!(def.coreAbilities || []).some(c => c.toLowerCase().startsWith(k.toLowerCase()))) return `${e.name} needs a model with ${k}.`;
     return null;
