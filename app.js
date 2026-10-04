@@ -169,7 +169,7 @@
     view: 'home', homeTab: 'armies', factionId: null, factionTab: 'army', rosterId: null, tab: 'build',
     search: '', cat: 'all', expanded: {}, renaming: false, modal: null, draft: null,
     stratPhase: 'All', stratSrc: 'All', rulesSeg: 'army', dsBuff: true, homeSearch: '',
-    m: false, sub: null, sheet: null, playSeg: 'turn', stratMode: 'now', stratOpen: {}, scrollMem: {}, rosterFrom: 'faction', flash: null,
+    m: false, sub: null, sheet: null, playSeg: 'turn', stratMode: 'now', stratOpen: {}, scrollMem: {}, rosterFrom: 'faction', flash: null, mpend: {}, msd: null, msAll: false, msCollapsed: false,
   };
   const cur = () => rosters.find(r => r.id === S.rosterId);
   const unitDef = (fid, id) => fdata(fid).units.find(u => u.id === id);
@@ -1181,7 +1181,206 @@
     const [a, b] = p.vp, res = a > b ? 'Victory' : a < b ? 'Defeat' : 'Draw';
     return `<div class="panel pad gameover stack" role="status"><div class="row"><span class="eyebrow grow">Game over · after battle round 5</span><b class="go-res ${res.toLowerCase()}">${res}</b></div>
       <div class="go-vp num"><span>You <b>${a}</b></span><span class="dim">:</span><span><b>${b}</b> Opponent</span></div>
-      <div class="row"><button class="btn" data-act="resumeGame">${ICON.undo} Back to round 5</button><button class="btn danger" data-act="resetGameAsk">Reset game…</button></div></div>`;
+      ${msOverHTML(p)}<div class="row"><button class="btn" data-act="resumeGame">${ICON.undo} Back to round 5</button><button class="btn danger" data-act="resetGameAsk">Reset game…</button></div></div>`;
+  }
+  /* ---------------- MISSIONS (Chapter Approved 2026-27) ----------------
+     p.ms keeps the mission set-up, the Secondary deck/hand and a log of every scoring (raw VP);
+     the shown VP always come from Missions.tally (caps applied in order). Opponent VP stays a plain counter. */
+  const MX = Missions;
+  const WIN_LABEL = { cmd: 'end of your Command phase', eot: 'end of your turn', opp: "end of the opponent's turn", eob: 'end of the battle' };
+  const msCard = (src, id) => (src === 'P' ? MX.P : MX.S)[id];
+  const msKey = (src, card, line, round, w) => `${src}|${card}|${line}|${w === 'eob' ? 'eob' : round + '|' + w}`;
+  function msSync(p) { if (p.ms) p.vp[0] = MX.tally(p.ms).total; }
+  function unitAlive(r, p, id) {
+    const u = r.units.find(x => x.instanceId === id); if (!u) return false;
+    const def = unitDef(r.factionId, u.datasheetId); if (!def) return false;
+    return woundsOf(p, u, parseInt(def.profile.W, 10) || 1, def).some(w => w > 0);
+  }
+  function rosterDisps(r) {
+    const fd = fdata(r.factionId);
+    const ds = [...new Set((r.detachmentIds || []).flatMap(id => { const d = fd.detachments.find(x => x.id === id); return d ? Engine.dispositionsOf(d) : []; }))];
+    return ds.length ? ds : MX.DISPS.slice();
+  }
+  const chipLbl = (ln, n) => `${n}${n === ln.max && ln.max * ln.per >= 15 ? '+' : ''}`;
+  /* one scoring line: either "scored" (tap to undo) or its options in the card's own breakpoints */
+  function msLine(src, card, ln, p, w, showTiming) {
+    const ms = p.ms, key = msKey(src, card, ln.id, p.round, w), done = ms.log.find(e => e.key === key);
+    const lbl = `<span class="ml-l">${esc(ln.l)}${showTiming ? `<span class="faint ml-t"> · ${esc(MX.timingLabel(ln))}</span>` : ''}</span>`;
+    const base = `data-src="${src}" data-card="${card}" data-line="${ln.id}" data-w="${w}"`;
+    if (done) {
+      const ap = (MX.tally(ms).entries.find(e => e.key === key) || {}).applied;
+      return `<div class="mline done">${lbl}<button class="chip on" data-act="msUnscore" data-key="${esc(key)}" aria-label="Scored ${done.raw} VP, tap to undo">✓ +${ap}${ap < done.raw ? ` <s class="faint">${done.raw}</s>` : ''} <span aria-hidden="true">↶</span></button></div>`;
+    }
+    const now = (v, l) => `<button class="chip" data-act="msScore" ${base} data-v="${esc(JSON.stringify(v))}">${l}</button>`;
+    let ctl = '';
+    if (ln.k === 'bool' && !ln.x) ctl = now({}, `+${ln.vp}`);
+    else if (ln.k === 'or') ctl = ln.opts.map((o, i) => now({ o: i }, `${esc(o.l)} · ${o.vp}`)).join('');
+    else if (ln.k === 'count' && !ln.x && !MX.isStepper(ln)) ctl = Array.from({ length: ln.max }, (_, i) => now({ n: i + 1 }, `${chipLbl(ln, i + 1)} · ${(i + 1) * ln.per}`)).join('');
+    else {
+      const v = S.mpend[key] || (S.mpend[key] = { n: ln.k === 'count' ? 1 : 0, m: 0, f: false });
+      const pend = (f, val, l, on) => `<button class="chip" aria-pressed="${!!on}" data-act="msPend" data-key="${esc(key)}" data-f="${f}" data-val="${val}">${l}</button>`;
+      if (ln.k === 'count') ctl += MX.isStepper(ln) ? `<span class="stepper sm"><button data-act="msPend" data-key="${esc(key)}" data-f="n" data-val="${Math.max(1, v.n - 1)}" aria-label="Fewer">−</button><output class="num">${v.n}</output><button data-act="msPend" data-key="${esc(key)}" data-f="n" data-val="${Math.min(ln.max, v.n + 1)}" aria-label="More">+</button></span>`
+        : Array.from({ length: ln.max }, (_, i) => pend('n', i + 1, chipLbl(ln, i + 1), v.n === i + 1)).join('');
+      let xs = '';
+      if (ln.x) {
+        if (ln.x.k === 'bool') xs = pend('f', v.f ? 0 : 1, esc(ln.x.l), v.f);
+        else { const mx = ln.x.max === 'n' ? v.n : ln.x.max; if (v.m > mx) v.m = mx; xs = `<span class="faint ml-x">${esc(ln.x.l)}</span>` + Array.from({ length: mx + 1 }, (_, i) => pend('m', i, i, v.m === i)).join(''); }
+      }
+      const vp = MX.lineVp(ln, v);
+      ctl += (xs ? `<span class="mline-x">${xs}</span>` : '') + `<button class="btn sm primary" data-act="msScore" ${base} data-pend="${esc(key)}">Score +${vp}</button>`;
+    }
+    return `<div class="mline">${lbl}<div class="ml-c">${ctl}</div></div>`;
+  }
+  /* lines of a card for the current moment (or all of this round with "All timings") */
+  function msLinesFor(src, id, p, win) {
+    const ms = p.ms, card = msCard(src, id), mode = src === 'S' ? ms.secMode : null;
+    const ls = MX.linesOf(card, mode);
+    if (S.msAll) return ls.filter(ln => ln.t === 'eob' ? p.round === 5 : MX.inRound(ln, p.round)).map(ln => msLine(src, id, ln, p, ln.t === 'eat' ? (win === 'opp' ? 'opp' : 'eot') : MX.lineWindow(ln, p.round), true)).join('');
+    const open = win ? ls.filter(ln => MX.lineOpen(ln, win, p.round)) : [];
+    if (open.length) return open.map(ln => msLine(src, id, ln, p, win)).join('');
+    const next = [...new Set(ls.filter(ln => ln.t === 'eob' || MX.inRound(ln, p.round)).map(ln => MX.TIMING[ln.t]))];
+    return `<div class="faint ml-next">${next.length ? 'Scores: ' + esc(next.join(' · ')) : 'Nothing to score this round.'}</div>`;
+  }
+  function msWdHTML(r, p, h, i) {
+    const k = h.wd, name = MX.S[h.id].name;
+    if (!k) return '';
+    const b = (act, l, cls) => `<button class="btn sm ${cls || ''}" data-act="${act}" data-i="${i}">${l}</button>`;
+    let body = '';
+    if (k === 'must') body = `<span>${esc(MX.wdText(h.id))}</span>` + b('msWdBack', 'Shuffle back · draw another', 'primary');
+    else if (k === 'may') body = `<span>${esc(MX.wdText(h.id))}</span>` + b('msWdBack', 'Shuffle back · draw another') + b('msWdKeep', 'Keep it');
+    else if (k === 'ask') body = `<span>${esc(MX.wdText(h.id))}</span>` + b('msWdDiscard', 'Discard · draw another') + b('msWdKeep', 'Keep it');
+    else if (k === 'beacon') body = `<span>${esc(MX.wdText(h.id))}</span>` + b('msBeaconAsk', 'Pick beacon unit', 'primary');
+    else if (k === 'note') body = `<span>${esc(MX.wdText(h.id))}</span>` + b('msWdKeep', 'OK');
+    return `<div class="mwd" role="group" aria-label="When drawn: ${esc(name)}"><b class="eyebrow">When drawn</b>${body}</div>`;
+  }
+  function msSecHTML(r, p, win) {
+    const ms = p.ms, t = MX.tally(ms), tac = ms.secMode === 'tactical';
+    const top = [];
+    if (tac && win === 'cmd') {
+      const left = Math.min(2 - (ms.drawn[p.round] || 0), ms.deck.length);
+      if (left > 0) top.push(ms.deckMode === 'real' ? `<button class="btn sm primary" data-act="msPickAsk">I drew… (${left})</button>` : `<button class="btn sm primary" data-act="msDraw">Draw ${left}</button>`);
+      if (!ms.swapUsed && ms.hand.length && !left && !ms.hand.some(h => h.wd && h.wd !== 'note')) top.push(`<button class="btn sm" data-act="msSwapAsk">New card · 1CP</button>`);
+    }
+    const cards = ms.hand.map((h, i) => {
+      const c = MX.S[h.id], wdPend = h.wd && h.wd !== 'note' ? true : false;
+      let extra = '';
+      if (h.id === 'beacon' && h.beacon) { const u = r.units.find(x => x.instanceId === h.beacon); extra = `<div class="faint ml-next">Beacon: ${u ? esc(dispName(r, u)) : '—'}${unitAlive(r, p, h.beacon) ? '' : ' · <span class="bad">destroyed: it cannot be achieved, discard it</span>'}</div>`; }
+      const disc = tac && win === 'eot' && !wdPend ? `<div class="row"><button class="btn sm ghost" data-act="msDiscard" data-i="${i}">${ICON.trash} Discard${ms.cpTurn === p.round ? '' : ' · +1CP'}</button></div>` : '';
+      const st = c.start && win === 'cmd' && !h.wd ? `<div class="faint ml-next">${esc(c.start)}</div>` : '';
+      return `<div class="mcard"><div class="row nowrap"><button class="mname grow" data-act="msInfo" data-k="S" data-id="${h.id}">${esc(c.name)} <span class="faint" aria-hidden="true">ⓘ</span></button>${!tac ? `<span class="badge ${t.fixed[h.id] >= 20 ? 'gold' : ''} num">${t.fixed[h.id] || 0}/20</span>` : ''}</div>
+        ${msWdHTML(r, p, h, i)}${extra}${st}${wdPend ? '' : msLinesFor('S', h.id, p, win)}${disc}</div>`;
+    }).join('');
+    const empty = tac && !ms.hand.length ? `<div class="faint ml-next">${win === 'cmd' ? '' : 'You draw two cards at the start of your Command phase.'}</div>` : '';
+    return `<div class="msec"><div class="row"><span class="eyebrow grow">Secondary · ${tac ? 'Tactical' : 'Fixed'}${tac ? ` · deck ${ms.deck.length}` : ''}</span>${top.join('')}</div>${cards}${empty}
+      ${tac && win === 'eot' && ms.hand.length ? `<div class="faint" style="font-size:.82rem">Discarding unachieved cards now gives 1CP in total${ms.event ? ' (event: max 1 extra CP per battle round)' : ''}.</div>` : ''}</div>`;
+  }
+  function missionsHTML(r, p) {
+    if (!p.ms) {
+      if (p.msSkip) return `<div class="row mskip"><span class="faint grow">Missions are off: VP counted by hand.</span><button class="btn sm" data-act="msSetup">Set up missions</button></div>`;
+      return `<div class="panel pad stack mpanel"><div class="row"><h3 class="grow">Missions</h3></div>
+        <div class="dim" style="font-size:.92rem">Your Primary Mission from both Force Dispositions, Secondary Missions and your VP with the official caps.</div>
+        <div class="row"><button class="btn primary" data-act="msSetup">Set up missions</button><button class="btn ghost" data-act="msSkip">Count VP by hand</button></div></div>`;
+    }
+    const ms = p.ms, t = MX.tally(ms), win = MX.windowOf(p), pr = MX.primaries(ms), pc = MX.P[pr.mine];
+    const rp = t.round.P[p.round] || 0, rs = t.round.S[p.round] || 0;
+    const head = `<div class="row nowrap mhead"><button class="mtitle grow" data-act="msCollapse" aria-expanded="${!S.msCollapsed}"><h3>Missions</h3><span class="faint num">R${p.round} · P ${rp}/15 · S ${rs}/15</span></button><button class="badge gold num mvpb" data-act="msVp" aria-label="VP details">VP ${t.total}</button></div>`;
+    if (S.msCollapsed) return `<div class="panel pad mpanel">${head}</div>`;
+    const tw = ms.twist ? MX.TWISTS.find(x => x.id === ms.twist) : null;
+    const winLine = p.over ? '' : `<div class="mwin ${win ? 'on' : ''}">${win ? `Scoring now: <b>${WIN_LABEL[win]}</b>` : 'Missions score at the end of your Command phase and at the end of each turn (Fight phase).'}</div>`;
+    const prim = p.over ? '' : `<div class="mcard prim"><div class="row nowrap"><button class="mname grow" data-act="msInfo" data-k="P" data-id="${pr.mine}">${esc(pc.name)} <span class="faint" aria-hidden="true">ⓘ</span></button><span class="faint mvs">vs ${esc(MX.DSHORT[ms.oppDisp])}</span></div>
+      ${pc.start && win === 'cmd' && (!pc.startR1 || p.round === 1) ? `<div class="mwd"><b class="eyebrow">Start of your turn</b><span>${esc(pc.start)}</span></div>` : ''}${msLinesFor('P', pr.mine, p, win)}</div>`;
+    return `<div class="panel pad stack mpanel">${head}${winLine}
+      ${tw ? `<button class="badge mtwist" data-act="tip" data-title="${esc(tw.name)}" data-tip="${esc(tw.name + ': ' + tw.text)}">Twist: ${esc(tw.name)}</button>` : ''}
+      ${prim}${p.over ? '<div class="faint">The game is over: end of battle scoring is in the result panel above.</div>' : msSecHTML(r, p, win)}
+      <div class="row">${p.over ? '' : `<button class="chip" aria-pressed="${!!S.msAll}" data-act="msAllT">All timings this round</button>`}<span class="grow"></span><button class="btn sm ghost" data-act="msVp">VP details</button></div></div>`;
+  }
+  /* end-of-battle scoring inside the Game over banner */
+  function msOverHTML(p) {
+    const ms = p.ms; if (!ms) return '';
+    const pr = MX.primaries(ms), pc = MX.P[pr.mine], t = MX.tally(ms);
+    const eob = pc.lines.filter(ln => ln.t === 'eob');
+    return `${eob.length ? `<div class="mcard prim"><div class="eyebrow">End of the battle · ${esc(pc.name)}</div>${eob.map(ln => msLine('P', pr.mine, ln, p, 'eob')).join('')}</div>` : ''}
+      <div class="faint num">Primary ${t.P}/45 · Secondary ${t.S}/45${t.battleReady ? ' · Battle Ready 10' : ''}</div>`;
+  }
+  const msTile = p => { const t = MX.tally(p.ms); return `<button class="panel counter mvptile" data-act="msVp"><div class="eyebrow">Your VP</div><span class="val num">${t.total}</span><span class="faint num">P ${t.P} · S ${t.S}${t.battleReady ? ' · +10' : ''}</span></button>`; };
+  const vpTile = p => p.ms ? msTile(p) : counterHTML('Your VP', 'vp0', p.vp[0]);
+
+  /* ---- sheets ---- */
+  function msSetupInner(r) {
+    const d = S.msd, chips = (act, list, cur, lab) => `<div class="chips">${list.map(x => `<button class="chip" aria-pressed="${cur === x}" data-act="${act}" data-id="${esc(x)}">${esc(lab ? lab(x) : x)}</button>`).join('')}</div>`;
+    const tog = (k, l) => `<button class="chip" aria-pressed="${!!d[k]}" data-act="msdTog" data-id="${k}">${l}</button>`;
+    const pr = d.oppDisp ? MX.primaries(d) : null;
+    let out = `<div class="eyebrow">Your Force Disposition</div>${chips('msdMy', rosterDisps(r), d.myDisp)}
+      <div class="eyebrow">Opponent's Force Disposition</div>${chips('msdOpp', MX.DISPS, d.oppDisp)}`;
+    if (pr && pr.mine) out += `<div class="panel pad mresult"><div class="eyebrow">Your Primary Mission</div><b class="mres-n">${esc(MX.P[pr.mine].name)}</b><div class="dim">${esc(MX.P[pr.mine].sum)}</div><div class="faint" style="margin-top:4px">Opponent: ${esc(MX.P[pr.theirs].name)}</div></div>`;
+    if (!d.event) {
+      out += `<div class="row">${tog('twistOn', 'Use a Twist')}<span class="faint" style="font-size:.85rem">Optional, both players agree</span></div>`;
+      if (d.twistOn) {
+        out += chips('msdTwist', MX.TWISTS.map(x => x.id), d.twist, id => MX.TWISTS.find(x => x.id === id).name);
+        if (d.twist === 'mirrored_world') out += `<div class="faint">Both players use:</div>` + chips('msdMirror', MX.MIRRORED, d.mirror, id => MX.P[id].name);
+        if (d.twist) out += `<div class="faint" style="font-size:.88rem">${esc(MX.TWISTS.find(x => x.id === d.twist).text)}</div>`;
+      }
+      out += `<div class="eyebrow">Deployment (optional)</div><div class="chips"><button class="chip" aria-pressed="${!d.deploy}" data-act="msdDeploy" data-id="">None</button>${MX.DEPLOYMENTS.map(x => `<button class="chip" aria-pressed="${d.deploy === x}" data-act="msdDeploy" data-id="${esc(x)}">${esc(x)}</button>`).join('')}<button class="chip" data-act="msdDeployDraw">${ICON.dice} Draw</button></div>`;
+    }
+    out += `<div class="eyebrow">Secondary Missions</div><div class="seg wide" role="group"><button aria-pressed="${d.secMode === 'tactical'}" data-act="msdSec" data-id="tactical">Tactical</button><button aria-pressed="${d.secMode === 'fixed'}" data-act="msdSec" data-id="fixed">Fixed</button></div>`;
+    if (d.secMode === 'tactical') out += `<div class="seg wide" role="group" aria-label="Secondary deck"><button aria-pressed="${d.deckMode !== 'real'}" data-act="msdDeck" data-id="app">App draws the cards</button><button aria-pressed="${d.deckMode === 'real'}" data-act="msdDeck" data-id="real">I draw real cards</button></div>`;
+    else out += `<div class="faint" style="font-size:.88rem">Pick two. Each Fixed card can give up to 20 VP.</div><div class="picklist">${MX.FIXED_IDS.map(id => `<button class="pickrow" aria-pressed="${d.fixed.includes(id)}" data-act="msdFixed" data-id="${id}"><b>${esc(MX.S[id].name)}</b><span class="dim">${esc(MX.S[id].sum)}</span></button>`).join('')}</div>`;
+    out += `<div class="chips">${tog('painted', 'Battle Ready army · +10 VP')}${tog('event', 'Event rules')}</div>`;
+    if (d.event) out += `<div class="faint" style="font-size:.85rem">Event Companion: no Deployment or Twist cards, max 1 extra CP per battle round (Core CP excluded).</div>`;
+    const ok = d.myDisp && d.oppDisp && (d.secMode === 'tactical' || d.fixed.length === 2) && !(d.twistOn && d.twist === 'mirrored_world' && !d.mirror);
+    out += `<div class="row sheet-btns"><button class="btn" data-act="closeSheet">Cancel</button><button class="btn primary" data-act="msStart" ${ok ? '' : 'disabled'}>${S.play && S.play.ms ? 'Restart missions' : 'Start'}</button></div>`;
+    return `<div class="stack msetup">${out}</div>`;
+  }
+  function msVpInner(p) {
+    const ms = p.ms, t = MX.tally(ms);
+    const rows = [1, 2, 3, 4, 5].map(rd => `<tr class="${rd === p.round ? 'cur' : ''}"><th>Round ${rd}</th><td class="num">${t.round.P[rd] || 0}<span class="faint">/15</span></td><td class="num">${t.round.S[rd] || 0}<span class="faint">/15</span></td></tr>`).join('');
+    const fixed = ms.secMode === 'fixed' ? `<div class="faint num">${ms.hand.map(h => `${esc(MX.S[h.id].name)} ${t.fixed[h.id] || 0}/20`).join(' · ')}</div>` : '';
+    const log = t.entries.slice().reverse().map(e => `<div class="mlog"><span class="grow">${e.eob ? 'End' : 'R' + e.round} · ${esc(msCard(e.src, e.card).name)}</span><span class="num">${e.applied < e.raw ? `<s class="faint">${e.raw}</s> ` : ''}+${e.applied}</span><button class="iconbtn sm" data-act="msUnscore" data-key="${esc(e.key)}" aria-label="Remove this score">${ICON.close}</button></div>`).join('');
+    return `<div class="stack"><table class="mvpt"><thead><tr><th></th><th>Primary</th><th>Secondary</th></tr></thead><tbody>${rows}
+      <tr><th>End of battle</th><td class="num">${t.eob}</td><td class="faint">—</td></tr></tbody>
+      <tfoot><tr><th>Total</th><td class="num">${t.P}<span class="faint">/45</span></td><td class="num">${t.S}<span class="faint">/45</span></td></tr></tfoot></table>${fixed}
+      <div class="row"><button class="chip" aria-pressed="${!!ms.painted}" data-act="msPainted">Battle Ready · +10</button><span class="grow"></span><b class="num" style="font-size:1.3rem">${t.total} VP</b></div>
+      <div class="faint" style="font-size:.85rem">VP above a limit are ignored: 15 per battle round for Primary and for Secondary, 45 for each in total${ms.secMode === 'fixed' ? ', 20 per Fixed card' : ''}. End of battle Primary VP do not count towards the round limit.</div>
+      ${log ? `<div class="eyebrow">Scores</div><div class="stack" style="gap:2px">${log}</div>` : ''}
+      <div class="row sheet-btns"><button class="btn" data-act="msSetup">Change set-up…</button><button class="btn danger" data-act="msOffAsk">Missions off</button></div></div>`;
+  }
+  function msInfoInner(sh) {
+    const c = msCard(sh.k, sh.id), ms = S.play && S.play.ms, mode = sh.k === 'S' && ms ? ms.secMode : null;
+    const ls = MX.linesOf(c, mode).map(ln => {
+      let v = '';
+      if (ln.k === 'bool') v = `${ln.vp} VP`;
+      else if (ln.k === 'or') v = ln.opts.map(o => `${o.l}: ${o.vp}`).join(' · ');
+      else v = `${ln.per} VP each`;
+      if (ln.x) v += ` · ${ln.x.l}`;
+      return `<div class="minfo-l"><div>${esc(ln.l)}</div><div class="faint">${esc(MX.timingLabel(ln))} · ${esc(v)}</div></div>`;
+    }).join('');
+    const wd = sh.k === 'S' && c.wd ? `<div class="mwd"><b class="eyebrow">When drawn</b><span>${esc(MX.wdText(sh.id))}</span></div>` : '';
+    return `<div class="stack"><div class="dim">${esc(c.sum)}</div>${c.start ? `<div class="faint">${esc(c.start)}</div>` : ''}${c.note ? `<div class="faint">${esc(c.note)}</div>` : ''}${wd}${ls}
+      ${sh.k === 'S' ? `<div class="faint" style="font-size:.85rem">${c.fixed ? 'Can be taken as Fixed or Tactical.' : 'Tactical only.'} Up to the limits on the card; a Tactical card is discarded once you score it.</div>` : ''}</div>`;
+  }
+  function msPickInner(p) {
+    const ms = p.ms, ids = ms.deck.slice().sort((a, b) => MX.S[a].name.localeCompare(MX.S[b].name));
+    return `<div class="faint">Tap the card you drew from your real deck.</div><div class="picklist">${ids.map(id => `<button class="pickrow" data-act="msPick" data-id="${id}"><b>${esc(MX.S[id].name)}</b><span class="dim">${esc(MX.S[id].sum)}</span></button>`).join('')}</div>`;
+  }
+  function msBeaconInner(r, p, i) {
+    const list = rosterOrder(r).filter(u => unitAlive(r, p, u.instanceId));
+    return `<div class="picklist">${list.map(u => `<button class="pickrow" data-act="msBeacon" data-i="${i}" data-id="${u.instanceId}"><b>${esc(dispName(r, u))}</b></button>`).join('') || '<div class="empty">No units left alive.</div>'}</div>`;
+  }
+  function msSwapInner(p) {
+    return `<div class="faint">Once per battle: spend 1CP, discard one active card and draw a new one.</div><div class="picklist">${p.ms.hand.map((h, i) => `<button class="pickrow" data-act="msSwap" data-i="${i}"><b>${esc(MX.S[h.id].name)}</b></button>`).join('')}</div>`;
+  }
+  /* a card leaves the hand (shuffled back into the deck, or discarded) and one replacement is drawn;
+     swap = the once-per-battle New card for 1CP */
+  function msReplace(i, how, swap) {
+    const r = cur(), real = playState(r).ms.deckMode === 'real'; let name = '';
+    playChange(r, p => {
+      const ms = p.ms, h = ms.hand[i]; if (!h) return false;
+      if (swap) { if (p.cp < 1) return false; p.cp -= 1; ms.swapUsed = true; }
+      ms.hand.splice(i, 1);
+      if (how === 'back') { if (real) ms.deck.push(h.id); else MX.shuffleBack(ms.deck, h.id); } else ms.discard.push(h.id);
+      if (real) { S.sheet = ms.deck.length ? { type: 'mpick', replace: true } : null; return; }
+      const id = ms.deck.shift(); if (id) { ms.hand.push({ id, wd: MX.wdPrompt(ms, id, p.round) }); name = MX.S[id].name; }
+    }, () => real ? (swap ? '1CP spent. Pick the new card you drew.' : 'Pick the new card you drew.') : name ? `${swap ? '1CP spent. ' : ''}New card: ${name}.` : 'The deck is empty.', 'confirm');
   }
   function turnRow(p) {
     return `<div class="seg wide" role="group" aria-label="Whose turn"><button aria-pressed="${p.turn !== 'opp'}" data-act="plTurn" data-id="mine">Your turn</button><button aria-pressed="${p.turn === 'opp'}" data-act="plTurn" data-id="opp">Opponent's turn</button></div>
@@ -1192,8 +1391,9 @@
     const p = playState(r);
     const units = rosterOrder(r).map(inst => woundCard(r, inst, p)).join('');
     const resetHTML = `<div class="row"><span class="grow eyebrow">Game tracker</span><button class="btn sm danger" data-act="resetGameAsk">Reset game</button></div>`;
-    return `<div class="stack">${resetHTML}<div class="playtop">${counterHTML('Command Points', 'cp', p.cp)}${counterHTML('Battle round', 'round', p.round)}${counterHTML('Your VP', 'vp0', p.vp[0])}${counterHTML('Opponent VP', 'vp1', p.vp[1])}</div>
+    return `<div class="stack">${resetHTML}<div class="playtop">${counterHTML('Command Points', 'cp', p.cp)}${counterHTML('Battle round', 'round', p.round)}${vpTile(p)}${counterHTML('Opponent VP', 'vp1', p.vp[1])}</div>
       ${overHTML(p)}${turnRow(p)}<div class="row"><button class="btn primary" data-act="nextPhase" ${p.over ? 'aria-disabled="true"' : ''}>${p.over ? 'Game over' : 'Next phase →'}</button></div>
+      ${missionsHTML(r, p)}
       <div class="faint" style="font-size:.85rem">Both players gain 1CP at the start of every Command phase. “Next phase” after Fight hands the turn over; a new battle round starts when it comes back to the player who went first.</div>
       ${blessHTML(r, p)}${factionPlayHTML(r, p)}
       <div class="row"><h3 class="grow">Units</h3><button class="btn sm" data-act="resetWounds">Reset wounds</button><button class="btn sm" data-act="rosterTab" data-id="strats">${ICON.bolt} Stratagems</button></div>
@@ -1459,8 +1659,8 @@
     const seg = `<div class="seg wide" role="group" aria-label="Play view"><button aria-pressed="${S.playSeg !== 'units'}" data-act="playSeg" data-id="turn">Turn</button><button aria-pressed="${S.playSeg === 'units'}" data-act="playSeg" data-id="units">Units</button></div>`;
     if (S.playSeg === 'units') return `<div class="stack">${seg}${playUnitsM(r, p)}</div>`;
     return `<div class="stack">${seg}${overHTML(p)}${turnRow(p)}
-      <div class="playtop m2">${counterHTML('Command Points', 'cp', p.cp)}${counterHTML('Battle round', 'round', p.round)}${counterHTML('Your VP', 'vp0', p.vp[0])}${counterHTML('Opponent VP', 'vp1', p.vp[1])}</div>
-      ${blessHTML(r, p)}${factionPlayHTML(r, p)}
+      <div class="playtop m2">${counterHTML('Command Points', 'cp', p.cp)}${counterHTML('Battle round', 'round', p.round)}${vpTile(p)}${counterHTML('Opponent VP', 'vp1', p.vp[1])}</div>
+      ${missionsHTML(r, p)}${blessHTML(r, p)}${factionPlayHTML(r, p)}
       <button class="btn danger ghost" data-act="resetGameAsk">Reset game…</button></div>
       <div class="mact"><button class="btn" data-act="pc" data-k="cp" data-d="-1" aria-label="Spend 1 CP">CP −</button><button class="btn" data-act="pc" data-k="cp" data-d="1" aria-label="Gain 1 CP">CP +</button><button class="btn primary grow" data-act="nextPhase" ${p.over ? 'aria-disabled="true"' : ''}>${p.over ? 'Game over' : p.phase === 'Fight' ? (p.round >= 5 && (p.turn === 'opp' ? 'mine' : 'opp') === (p.first || 'mine') ? 'End the game' : p.turn === 'opp' ? 'Your turn →' : 'Opponent turn →') : 'Next: ' + PHASES[PHASES.indexOf(p.phase) + 1] + ' →'}</button></div>`;
   }
@@ -1563,6 +1763,12 @@
     } else if (sh.type === 'confirm') {
       title = esc(sh.title);
       inner = `<p style="margin:0">${esc(sh.text)}</p><div class="row sheet-btns"><button class="btn" data-act="closeSheet">${esc(sh.no || 'Cancel')}</button><button class="btn danger solid" data-act="${sh.act}" data-id="${esc(sh.id || '')}">${esc(sh.yes)}</button></div>`;
+    } else if (sh.type === 'msetup' && r && S.msd) { title = 'Mission set-up'; inner = msSetupInner(r);
+    } else if (sh.type === 'mvp' && S.play && S.play.ms) { title = 'Your VP'; inner = msVpInner(S.play);
+    } else if (sh.type === 'minfo') { title = esc(msCard(sh.k, sh.id).name); inner = msInfoInner(sh);
+    } else if (sh.type === 'mpick' && S.play && S.play.ms) { title = sh.replace ? 'Which card did you draw?' : `Card ${Math.min(2, (S.play.ms.drawn[S.play.round] || 0) + 1)} of 2`; inner = msPickInner(S.play);
+    } else if (sh.type === 'mbeacon' && r && S.play) { title = 'Beacon unit'; inner = msBeaconInner(r, S.play, sh.i);
+    } else if (sh.type === 'mswap' && S.play && S.play.ms) { title = 'New card · 1CP'; inner = msSwapInner(S.play);
     } else if (sh.type === 'tip') {
       title = esc(sh.title || 'Rule');
       inner = `<p style="margin:0;font-size:1.05rem;line-height:1.5">${esc(sh.text)}</p>`;
@@ -1846,6 +2052,102 @@
       r.id = 'r' + uid(); delete r.isExample; r.name = r.name || defaultName(r.factionId, r.battleSize || 'strike'); r.updatedAt = Date.now(); r.createdAt = r.createdAt || Date.now(); r.detachmentIds = r.detachmentIds || [];
       rosters.push(r); Store.save(r); toast(r.dataVersion !== Engine.dataVersionFor(r.factionId, DATA) ? 'Imported. It was built on other data; check validation.' : 'Roster imported.'); go('roster', { rosterId: r.id, factionId: r.factionId, tab: 'build' });
     },
+    // missions
+    msSetup: () => {
+      const r = cur(), p = playState(r), ms = p.ms, ds = rosterDisps(r);
+      S.msd = ms ? { myDisp: ms.myDisp, oppDisp: ms.oppDisp, twistOn: !!ms.twist, twist: ms.twist, mirror: ms.mirror, deploy: ms.deploy, secMode: ms.secMode, deckMode: ms.deckMode, fixed: ms.secMode === 'fixed' ? ms.hand.map(h => h.id) : [], painted: ms.painted, event: ms.event }
+        : { myDisp: ds.includes(r.forceDisposition) ? r.forceDisposition : (ds.length === 1 ? ds[0] : null), oppDisp: null, twistOn: false, twist: null, mirror: null, deploy: null, secMode: 'tactical', deckMode: 'app', fixed: [], painted: false, event: false };
+      S.sheet = { type: 'msetup' }; render();
+    },
+    msSkip: () => { const r = cur(); playChange(r, p => { p.msSkip = true; }); },
+    msdMy: el => { S.msd.myDisp = el.dataset.id; render(); },
+    msdOpp: el => { S.msd.oppDisp = el.dataset.id; render(); },
+    msdTog: el => { const k = el.dataset.id; S.msd[k] = !S.msd[k]; if (k === 'twistOn' && !S.msd.twistOn) { S.msd.twist = null; S.msd.mirror = null; } if (k === 'event' && S.msd.event) { S.msd.twistOn = false; S.msd.twist = null; S.msd.mirror = null; S.msd.deploy = null; } render(); },
+    msdTwist: el => { S.msd.twist = S.msd.twist === el.dataset.id ? null : el.dataset.id; if (S.msd.twist !== 'mirrored_world') S.msd.mirror = null; render(); },
+    msdMirror: el => { S.msd.mirror = el.dataset.id; render(); },
+    msdDeploy: el => { S.msd.deploy = el.dataset.id || null; render(); },
+    msdDeployDraw: () => { S.msd.deploy = Missions.DEPLOYMENTS[Math.floor(Math.random() * Missions.DEPLOYMENTS.length)]; toast(`Deployment: ${S.msd.deploy}.`); render(); },
+    msdSec: el => { S.msd.secMode = el.dataset.id; render(); },
+    msdDeck: el => { S.msd.deckMode = el.dataset.id; render(); },
+    msdFixed: el => { const f = S.msd.fixed, id = el.dataset.id; if (f.includes(id)) f.splice(f.indexOf(id), 1); else { if (f.length >= 2) f.shift(); f.push(id); } render(); },
+    msStart: () => {
+      const r = cur(), d = S.msd; S.sheet = null; S.mpend = {};
+      playChange(r, p => {
+        const tac = d.secMode === 'tactical';
+        p.ms = { on: true, myDisp: d.myDisp, oppDisp: d.oppDisp, twist: d.twistOn ? d.twist : null, mirror: d.twistOn && d.twist === 'mirrored_world' ? d.mirror : null, deploy: d.deploy, secMode: d.secMode, deckMode: tac ? d.deckMode : null,
+          deck: tac ? (d.deckMode === 'real' ? Missions.SEC_IDS.slice() : Missions.newDeck()) : [], hand: tac ? [] : d.fixed.map(id => ({ id })), discard: [], drawn: {}, swapUsed: false, cpTurn: null, log: [], painted: !!d.painted, event: !!d.event };
+        delete p.msSkip; msSync(p);
+      }, () => { const pr = Missions.primaries(S.play.ms); return `Primary Mission: ${Missions.P[pr.mine].name}.`; }, 'confirm');
+    },
+    msOffAsk: () => { S.sheet = { type: 'confirm', title: 'Turn missions off?', text: 'Mission scores are cleared and VP go back to a plain counter. Your current VP total stays.', yes: 'Missions off', no: 'Keep missions', act: 'msOff' }; render(); },
+    msOff: () => { const r = cur(); S.sheet = null; playChange(r, p => { delete p.ms; p.msSkip = true; }, 'Missions off: VP are counted by hand.'); },
+    msCollapse: () => { S.msCollapsed = !S.msCollapsed; render(); },
+    msAllT: () => { S.msAll = !S.msAll; render(); },
+    msVp: () => { S.sheet = { type: 'mvp' }; render(); },
+    msInfo: el => { S.sheet = { type: 'minfo', k: el.dataset.k, id: el.dataset.id }; render(); },
+    msPainted: () => { const r = cur(); playChange(r, p => { p.ms.painted = !p.ms.painted; msSync(p); }); },
+    msPend: el => { const v = S.mpend[el.dataset.key]; if (!v) return; const f = el.dataset.f; v[f] = f === 'f' ? el.dataset.val === '1' : +el.dataset.val; render(); },
+    msScore: el => {
+      const r = cur(), src = el.dataset.src, card = el.dataset.card, w = el.dataset.w, c = msCard(src, card), ln = c.lines.find(l => l.id === el.dataset.line);
+      const v = el.dataset.pend ? S.mpend[el.dataset.pend] : JSON.parse(el.dataset.v || '{}');
+      const raw = Missions.lineVp(ln, v); if (!(raw > 0)) { PL.haptic('reject'); return; }
+      let applied = 0;
+      playChange(r, p => {
+        const ms = p.ms, key = msKey(src, card, ln.id, p.round, w);
+        if (ms.log.some(e => e.key === key)) return false;
+        const e = { key, src, card, line: ln.id, raw, round: p.round, w, eob: w === 'eob' };
+        if (src === 'S' && ms.secMode === 'tactical') { const i = ms.hand.findIndex(h => h.id === card); if (i >= 0) { e.disc = ms.hand[i]; ms.hand.splice(i, 1); ms.discard.push(card); } }
+        ms.log.push(e); if (el.dataset.pend) delete S.mpend[el.dataset.pend]; msSync(p);
+        applied = Missions.tally(ms).entries.find(x => x.key === key).applied;
+      }, () => `+${applied} VP · ${c.name}${applied < raw ? ` (${raw - applied} over the limit)` : ''}${src === 'S' && S.play.ms.secMode === 'tactical' ? ': achieved, discarded' : ''}.`, 'confirm');
+    },
+    msUnscore: el => {
+      const r = cur(), key = el.dataset.key;
+      playChange(r, p => {
+        const ms = p.ms, i = ms.log.findIndex(e => e.key === key); if (i < 0) return false;
+        const e = ms.log.splice(i, 1)[0];
+        if (e.disc && !ms.hand.some(h => h.id === e.card)) { ms.hand.push(e.disc); const di = ms.discard.lastIndexOf(e.card); if (di >= 0) ms.discard.splice(di, 1); }
+        msSync(p);
+      }, 'Score removed.');
+    },
+    msDraw: () => {
+      const r = cur(); let names = [];
+      playChange(r, p => {
+        const ms = p.ms, left = Math.min(2 - (ms.drawn[p.round] || 0), ms.deck.length); if (left <= 0) return false;
+        for (let k = 0; k < left; k++) { const id = ms.deck.shift(); ms.hand.push({ id, wd: Missions.wdPrompt(ms, id, p.round) }); names.push(Missions.S[id].name); }
+        ms.drawn[p.round] = (ms.drawn[p.round] || 0) + left;
+      }, () => `Drawn: ${names.join(', ')}.`, 'confirm');
+    },
+    msPickAsk: () => { S.sheet = { type: 'mpick' }; render(); },
+    msPick: el => {
+      const r = cur(), id = el.dataset.id, ctx = S.sheet && S.sheet.replace;
+      playChange(r, p => {
+        const ms = p.ms, i = ms.deck.indexOf(id); if (i < 0) return false;
+        ms.deck.splice(i, 1); ms.hand.push({ id, wd: Missions.wdPrompt(ms, id, p.round) });
+        if (!ctx) ms.drawn[p.round] = (ms.drawn[p.round] || 0) + 1;
+        S.sheet = !ctx && (ms.drawn[p.round] || 0) < 2 && ms.deck.length ? { type: 'mpick' } : null;
+      }, `Drawn: ${Missions.S[id].name}.`, 'confirm');
+    },
+    msWdKeep: el => { const r = cur(), i = +el.dataset.i; playChange(r, p => { const h = p.ms.hand[i]; if (!h) return false; h.wd = null; }); },
+    /* the card leaves the hand (back into the deck, or into the discard pile) and a replacement is drawn */
+    msWdBack: el => msReplace(+el.dataset.i, 'back'),
+    msWdDiscard: el => msReplace(+el.dataset.i, 'discard'),
+    msBeaconAsk: el => { S.sheet = { type: 'mbeacon', i: +el.dataset.i }; render(); },
+    msBeacon: el => { const r = cur(), i = +el.dataset.i, id = el.dataset.id; S.sheet = null; playChange(r, p => { const h = p.ms.hand[i]; if (!h) return false; h.beacon = id; h.wd = null; }, 'Beacon unit chosen. It cannot be replaced if it dies.'); },
+    msSwapAsk: () => { if (S.play.cp < 1) { toast('You need 1CP for a new card.'); PL.haptic('reject'); return; } S.sheet = { type: 'mswap' }; render(); },
+    msSwap: el => {
+      const i = +el.dataset.i; S.sheet = null;
+      if (S.play.cp < 1) { toast('You need 1CP for a new card.'); return; }
+      msReplace(i, 'discard', true);
+    },
+    msDiscard: el => {
+      const r = cur(), i = +el.dataset.i; let cp = false, name = '';
+      playChange(r, p => {
+        const ms = p.ms, h = ms.hand[i]; if (!h) return false;
+        name = Missions.S[h.id].name; ms.hand.splice(i, 1); ms.discard.push(h.id);
+        if (ms.cpTurn !== p.round) { ms.cpTurn = p.round; p.cp += 1; cp = true; }
+      }, () => `${name} discarded${cp ? ': +1 CP' : ''}.`);
+    },
     // play
     pc: el => { const r = cur(), d = +el.dataset.d, k = el.dataset.k; playChange(r, p => {
       if (k === 'cp') { if (p.cp + d < 0) return false; p.cp += d; }
@@ -1882,7 +2184,7 @@
           if (p.turn === (p.first || 'mine')) { p.round++; p.active = []; }
         }
         p.phase = PHASES[i];
-        if (p.phase === 'Command') { p.cp += 1; if (p.turn !== 'opp') p.hyperExtra = null; msg = `${p.turn === 'opp' ? "Opponent's" : 'Your'} Command phase, round ${p.round}: +1 CP.${roundHint(r, p)}`; }
+        if (p.phase === 'Command') { p.cp += 1; if (p.turn !== 'opp') p.hyperExtra = null; msg = `${p.turn === 'opp' ? "Opponent's" : 'Your'} Command phase, round ${p.round}: +1 CP.${roundHint(r, p)}${p.turn !== 'opp' && p.ms && p.ms.secMode === 'tactical' ? ' Draw 2 Secondary Missions.' : ''}`; }
         else msg = `${p.turn === 'opp' ? "Opponent's" : 'Your'} ${p.phase} phase.`
         if (p.phase === 'Shooting' && p.turn !== 'opp' && fdata(r.factionId).armyRules.some(a => a.rituals)) msg += ' Attempt Rituals first.';
       }, () => msg, 'confirm');
