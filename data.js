@@ -297,7 +297,9 @@ const DATA = {
    "abilityTips": {
     "Nurgle's Gift (Aura)": "Enemy units within Contagion Range (3\"/6\"/9\" by battle round, max 12\") are Afflicted: -1 T and your chosen Plague. See Army Rules.",
     "Pact of Decay": "PLAGUE LEGIONS join a Death Guard army only through Tallyband Summoners (points cap by battle size)."
-   }
+   },
+   "logo": "dg_logo",
+   "rosterIcon": "dg_roster"
   },
   {
    "id": "thousandSons",
