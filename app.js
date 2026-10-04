@@ -641,7 +641,7 @@
     return `${grants}${sizes}${opts ? `<div class="stack" style="gap:10px"><span class="eyebrow">Wargear</span>${opts}</div>` : ''}${enhHTML}${attHTML}
       ${leaders.length ? `<div class="dim">Led by: ${esc(leaders.map(l => dispName(r, l)).join(', '))}</div>` : ''}
       ${isChar ? `<label class="row toggle-row"><input type="checkbox" id="wl-${inst.instanceId}" data-chg="warlord" data-id="${inst.instanceId}" ${isWl ? 'checked' : ''} ${wlWhy && !isWl ? 'disabled' : ''}> Warlord</label>${wlWhy ? `<div class="faint" style="font-size:.85rem;margin-top:-6px">${esc(wlWhy)}</div>` : ''}` : ''}
-      ${mobile ? '' : `<div class="row"><button class="btn sm" data-act="dupUnit" data-id="${inst.instanceId}">Duplicate</button><button class="btn sm danger" data-act="removeUnit" data-id="${inst.instanceId}">Remove</button></div>`}`;
+`;
   }
   function unitBadges(r, inst, p, ctx) {
     const enh = inst.enhancementId ? ctx.allEnh[inst.enhancementId] : null;
@@ -670,6 +670,7 @@
       <div class="uhead"><button class="ptbtn" data-act="openInst" data-id="${inst.instanceId}" aria-label="Open datasheet">${portrait(def, r.factionId)}</button>
       <div class="grow"><button class="uname" data-act="openInst" data-id="${inst.instanceId}">${errUnits.has(inst.instanceId) ? '<span style="color:var(--err)" aria-label="Has errors">✕ </span>' : ''}${esc(dispName(r, inst))}</button><div class="umeta">${meta.join(' · ')} ${badges.join('')}</div></div>
       <span class="upts num">${p.total}</span>
+      <button class="iconbtn" data-act="dupUnit" data-id="${inst.instanceId}" aria-label="Duplicate ${esc(dispName(r, inst))}" title="Duplicate">${ICON.dup}</button><button class="iconbtn danger-ic" data-act="removeUnit" data-id="${inst.instanceId}" aria-label="Remove ${esc(dispName(r, inst))}" title="Remove">${ICON.trash}</button>
       <button class="iconbtn" data-act="toggleUnit" data-id="${inst.instanceId}" aria-expanded="${open}" aria-label="${open ? 'Collapse' : 'Edit'} ${esc(dispName(r, inst))}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="transform:rotate(${open ? 180 : 0}deg)"><path d="M6 9l6 6 6-6"/></svg></button></div>
       ${bodyHTML}</article>`;
   }
@@ -1411,7 +1412,7 @@
       const enh = u.enhancementId ? ctx.allEnh[u.enhancementId] : null;
       const ai = attachInfo(r, u);
       const meta = [u.size > 1 ? `${u.size} models` : '', ai.text ? `<span class="linktxt">${esc(ai.text)}</span>` : '', r.warlordUnitId === u.instanceId ? '<span class="gold">★ Warlord</span>' : '', enh ? `<span class="gold">${esc(enh.name)}</span>` : '', p.surcharge ? `<span class="warn">${ORD(p.copyNo)} copy +${p.surcharge}</span>` : ''].filter(Boolean).join(' · ');
-      return `<div class="mrow ${errUnits.has(u.instanceId) ? 'err' : ''} ${S.flash === u.instanceId ? 'flash' : ''}" id="u-${u.instanceId}"><button class="ptbtn" data-act="openInst" data-id="${u.instanceId}" aria-label="Datasheet: ${esc(dispName(r, u))}">${portrait(def, r.factionId)}</button><button class="mrow-main" data-act="openUnit" data-id="${u.instanceId}"><span class="mrow-name">${errUnits.has(u.instanceId) ? '<span class="bad">✕ </span>' : ''}${esc(dispName(r, u))}${kwBadges(r, def, u)}</span><span class="mrow-meta">${meta || '&nbsp;'}</span></button><span class="mrow-pts num">${p.total}</span></div>`;
+      return `<div class="mrow ${errUnits.has(u.instanceId) ? 'err' : ''} ${S.flash === u.instanceId ? 'flash' : ''}" id="u-${u.instanceId}"><button class="ptbtn" data-act="openInst" data-id="${u.instanceId}" aria-label="Datasheet: ${esc(dispName(r, u))}">${portrait(def, r.factionId)}</button><button class="mrow-main" data-act="openUnit" data-id="${u.instanceId}"><span class="mrow-name">${errUnits.has(u.instanceId) ? '<span class="bad">✕ </span>' : ''}${esc(dispName(r, u))}${kwBadges(r, def, u)}</span><span class="mrow-meta">${meta || '&nbsp;'}</span></button><span class="mrow-pts num">${p.total}</span><button class="iconbtn mrow-more" data-act="unitMenu" data-id="${u.instanceId}" aria-label="Actions for ${esc(dispName(r, u))}">${ICON.more}</button></div>`;
     };
     const rows = rosterGroups(r).map(g => groupHdr(r, g, errUnits) + (isColl(r, g.cat) ? '' : `<div class="mlist">${g.items.map(rowOf).join('')}</div>`)).join('');
     return `<div class="mdet"><span class="dim">${esc(bs.name)} · ${esc(r.detachmentIds.map(id => fd.detachments.find(d => d.id === id).name).join(' + '))}</span><span class="dim num">${r.units.length} units</span></div>
@@ -1523,6 +1524,10 @@
     } else if (sh.type === 'menu' && r) {
       title = esc(r.name);
       inner = `<div class="mmenu"><button data-act="openSummary">${ICON.list} Summary</button><button data-act="exportRoster" data-id="${r.id}">${ICON.share} Export / Share</button><button data-act="renameSheet" data-id="${r.id}">${ICON.edit} Rename</button><button data-act="editSetup">${ICON.gear} Battle size & detachments</button>${S.tab === 'play' ? `<button data-act="resetGameAsk" class="danger">${ICON.undo} Reset game</button>` : ''}<button data-act="goHomeArmies">${ICON.home} Home</button></div>`;
+    } else if (sh.type === 'umenu' && r) {
+      const u = r.units.find(x => x.instanceId === sh.id); if (!u) { S.sheet = null; return ''; }
+      title = `${esc(dispName(r, u))} <span class="dim num" style="font-weight:600">· ${(rosterPts(r).per[u.instanceId] || { total: 0 }).total} pts</span>`;
+      inner = `<div class="mmenu"><button data-act="openUnit" data-id="${u.instanceId}">${ICON.edit} Edit unit</button><button data-act="openInst" data-id="${u.instanceId}">${ICON.info} Datasheet</button><button data-act="dupUnit" data-id="${u.instanceId}">${ICON.dup} Duplicate</button><button class="danger" data-act="removeUnit" data-id="${u.instanceId}">${ICON.trash} Remove</button></div>`;
     } else if (sh.type === 'rmenu') {
       const x = rosters.find(q => q.id === sh.id); if (!x) { S.sheet = null; return ''; }
       title = esc(x.name);
@@ -1677,7 +1682,8 @@
     rosterMenu: () => { S.sheet = { type: 'menu' }; render(); },
     rosterMenu2: (el, ev) => { ev.stopPropagation(); S.sheet = { type: 'rmenu', id: el.dataset.id }; render(); },
     openCatalog: () => { S.sub = { type: 'catalog' }; render(); },
-    openUnit: el => { S.sub = { type: 'unit', id: el.dataset.id }; render(); },
+    openUnit: el => { S.sheet = null; S.sub = { type: 'unit', id: el.dataset.id }; render(); },
+    unitMenu: el => { S.sheet = { type: 'umenu', id: el.dataset.id }; render(); },
     openSummary: () => { S.sheet = null; S.sub = { type: 'summary' }; render(); },
     closeSub: () => { const wasCat = S.sub && S.sub.type === 'catalog', wasUnit = S.sub && S.sub.type === 'unit' ? S.sub.id : null; S.sub = null; S.flash = wasCat ? S.lastAdded : wasUnit; S.lastAdded = null; render(); },
     renameSheet: el => { S.sheet = { type: 'rename', id: el.dataset.id }; render(); },
@@ -1687,7 +1693,7 @@
       const r = cur(), id = el.dataset.id, u = inst(id); if (!u) return;
       const before = JSON.stringify({ units: r.units, wl: r.warlordUnitId }), name = dispName(r, u);
       r.units = r.units.filter(x => x.instanceId !== id); r.units.forEach(x => { if (x.attachedTo === id) x.attachedTo = null; }); if (r.warlordUnitId === id) r.warlordUnitId = null;
-      S.sub = null; touch(r); PL.haptic('confirm'); render();
+      S.sub = null; S.sheet = null; touch(r); PL.haptic('confirm'); render();
       toast(`${name} removed.`, [{ label: 'Undo', fn: () => { const b = JSON.parse(before); r.units = b.units; r.warlordUnitId = b.wl; touch(r); S.flash = id; render(); } }]);
     },
     togglePick: el => { S.openPick = S.openPick === el.dataset.k ? null : el.dataset.k; render(); },
@@ -1748,11 +1754,11 @@
     setSize: el => { const r = cur(), u = inst(el.dataset.id); u.size = +el.dataset.v; clampWargear(unitDef(r.factionId, u.datasheetId), u); touch(r); render(); },
     optInc: el => { const r = cur(), u = inst(el.dataset.id), def = unitDef(r.factionId, u.datasheetId), o = def.options.find(x => x.id === el.dataset.o); u.wargear = u.wargear || {}; if ((+u.wargear[o.id] || 0) >= Engine.optionMax(o, u, def)) { toast('No more models can take this option.'); return; } u.wargear[o.id] = (+u.wargear[o.id] || 0) + 1; touch(r); render(); },
     optDec: el => { const r = cur(), u = inst(el.dataset.id); u.wargear = u.wargear || {}; u.wargear[el.dataset.o] = Math.max(0, (+u.wargear[el.dataset.o] || 0) - 1); touch(r); render(); },
-    dupUnit: el => { const r = cur(), u = inst(el.dataset.id); const c = JSON.parse(JSON.stringify(u)); c.instanceId = uid(); c.enhancementId = null; c.attachedTo = null; r.units.splice(r.units.indexOf(u) + 1, 0, c); touch(r); PL.haptic('confirm'); if (S.m) toast('Duplicated (without enhancement or attachment).', [{ label: 'Open copy', fn: () => { S.sub = { type: 'unit', id: c.instanceId }; render(); } }]); else toast('Unit duplicated (without enhancement or attachment).'); render(); },
+    dupUnit: el => { const r = cur(), u = inst(el.dataset.id); const c = JSON.parse(JSON.stringify(u)); c.instanceId = uid(); c.enhancementId = null; c.attachedTo = null; r.units.splice(r.units.indexOf(u) + 1, 0, c); S.sheet = null; S.flash = c.instanceId; touch(r); PL.haptic('confirm'); if (S.m) toast('Duplicated (without enhancement or attachment).', [{ label: 'Open copy', fn: () => { S.sub = { type: 'unit', id: c.instanceId }; render(); } }]); else toast('Unit duplicated (without enhancement or attachment).'); render(); },
     openVal: () => { S.modal = { type: 'val' }; render(); },
     jumpUnit: el => { const id = el.dataset.id; S.modal = null; S.sheet = null; if (!id) { render(); return; } if (S.m) { S.tab = 'build'; S.sub = { type: 'unit', id }; render(); return; } S.tab = 'build'; S.expanded[id] = true; render(); const n = document.getElementById('u-' + id); if (n) { n.scrollIntoView({ block: 'center', behavior: 'smooth' }); n.querySelector('.uname').focus({ preventScroll: true }); } },
     openDs: el => { S.modal = { type: 'ds', unitId: el.dataset.id }; render(); },
-    openInst: el => { const r = cur(); const list = (S.tab === 'list' ? r.units : rosterOrder(r)).map(u => u.instanceId); S.modal = { type: 'ds', instId: el.dataset.id, list }; render(); },
+    openInst: el => { const r = cur(); const list = (S.tab === 'list' ? r.units : rosterOrder(r)).map(u => u.instanceId); S.sheet = null; S.modal = { type: 'ds', instId: el.dataset.id, list }; render(); },
     dsNav: el => { const m = S.modal; const i = m.list.indexOf(m.instId) + +el.dataset.d; if (i >= 0 && i < m.list.length) { m.instId = m.list[i]; m.combined = false; render(); } },
     dsBuff: el => { S.dsBuff = el.dataset.v === '1'; S.keepModalScroll = true; render(); },
     dsAll: () => { S.dsAll = !S.dsAll; render(); },

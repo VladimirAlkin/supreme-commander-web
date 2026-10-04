@@ -163,7 +163,7 @@ label.fld > input, label.fld > select { color: var(--fg); }
 
 .ucard { border-radius: var(--radius); border: 1px solid var(--line); background: var(--panel); }
 .ucard.flag-err { border-color: color-mix(in srgb, var(--err) 55%, transparent); }
-.ucard .uhead { display: grid; grid-template-columns: auto 1fr auto auto; gap: 10px; align-items: center; padding: 8px 8px 8px 8px; }
+.ucard .uhead { display: grid; grid-template-columns: auto 1fr auto auto auto auto; gap: 6px 10px; align-items: center; padding: 8px 8px 8px 8px; }
 .ucard .uname { font-weight: 700; font-size: 1.02rem; background: none; border: 0; padding: 0; text-align: left; overflow-wrap: anywhere; }
 .ucard .umeta { font-size: .85rem; color: var(--fg-dim); display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
 .ucard .upts { font-weight: 700; font-size: 1.05rem; text-align: right; }
@@ -466,7 +466,7 @@ html.m .faint { color: #9a9089; }
 /* roster list */
 .mdet { display: flex; justify-content: space-between; gap: 10px; font-size: .9rem; margin-bottom: 10px; }
 .mlist { display: flex; flex-direction: column; gap: 6px; }
-.mrow { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 10px; padding: 6px 12px 6px 6px; border-radius: 12px; border: 1px solid var(--line); background: var(--panel); min-height: 64px; box-sizing: border-box; }
+.mrow { display: grid; grid-template-columns: auto minmax(0, 1fr) auto auto; align-items: center; gap: 10px; padding: 6px 12px 6px 6px; border-radius: 12px; border: 1px solid var(--line); background: var(--panel); min-height: 64px; box-sizing: border-box; }
 .mrow.err { border-color: color-mix(in srgb, var(--err) 55%, transparent); }
 .mrow.flash { animation: flash 1.4s ease; }
 @keyframes flash { 0%, 30% { background: color-mix(in srgb, var(--accent) 30%, transparent); } 100% { background: var(--panel); } }
@@ -474,6 +474,9 @@ html.m .faint { color: #9a9089; }
 .mrow-name { font-weight: 700; font-size: 1.04rem; overflow-wrap: anywhere; }
 .mrow-meta { font-size: .86rem; color: var(--fg-dim); }
 .mrow-pts { font-weight: 800; font-size: 1.08rem; }
+.mrow { padding-right: 2px; }
+html.m .mrow-more { width: 40px; height: 52px; margin-left: -6px; color: var(--fg-dim); }
+.iconbtn.danger-ic { color: var(--err); }
 .fab { position: fixed; z-index: 25; right: 16px; bottom: calc(var(--tabbar-h) + 16px + env(safe-area-inset-bottom, 0px)); display: inline-flex; align-items: center; gap: 10px; height: 56px; padding: 0 20px 0 16px; border-radius: 16px; border: 0;
   background: var(--accent); color: var(--accent-ink); font-weight: 800; font-size: 1.02rem; box-shadow: 0 8px 24px rgba(0,0,0,.45); }
 .fab svg { width: 24px; height: 24px; }
