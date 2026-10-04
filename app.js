@@ -1039,6 +1039,39 @@
     card.appendChild(fx); setTimeout(() => fx.remove(), 2400);
     if (PL.android) setTimeout(() => PL.haptic('confirm'), 150);
   }
+  /* Grand Coven: Kindred Sorcery cards. The active one carries a slowly turning sigil behind the text. */
+  function kinHTML(p, d) {
+    const now = (p.imp || {})[p.round], usedIn = id => Object.entries(p.imp || {}).find(([rd, v]) => v === id && +rd !== p.round), cur = d.imperatives.find(i => i.id === now);
+    const cards = d.imperatives.map((k, i) => { const u = usedIn(k.id), on = now === k.id;
+      return `<button class="kin ${on ? 'on' : ''}" style="--d:-${(i * 1.7).toFixed(1)}s" data-act="tsKin" data-id="${k.id}" aria-pressed="${on}" ${u ? 'aria-disabled="true"' : ''}><span class="kin-sig" aria-hidden="true"></span>
+        <span class="kin-t"><b>${esc(k.name)}</b></span><span class="kin-s">${u ? `Used · R${u[0]}` : on ? 'Active' : 'Pick'}</span><span class="kin-e">${esc(k.effect)}</span></button>`; }).join('');
+    return `<div class="panel pad stack kindred"><div class="row"><h3 class="grow">${esc(d.impTitle)}</h3>${cur ? `<span class="badge gold">Round ${p.round}: ${esc(cur.name)}</span>` : `<span class="badge">Round ${p.round}: none</span>`}</div>
+      <div class="kin-list">${cards}</div><div class="faint" style="font-size:.85rem">${esc(d.impNote || '')}</div></div>`;
+  }
+  /* picking a Kindred Sorcery: a golden sigil draws itself over the card, flashes and dissolves into rising motes */
+  function sigilFx(card) {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const fx = document.createElement('span'); fx.className = 'sfx'; fx.setAttribute('aria-hidden', 'true');
+    const R = (a, b) => a + Math.random() * (b - a), rays = Array.from({ length: 8 }, (_, i) => { const a = i * Math.PI / 4, c = Math.cos(a), s = Math.sin(a); return `M${(50 + c * 17).toFixed(1)} ${(50 + s * 17).toFixed(1)}L${(50 + c * 40).toFixed(1)} ${(50 + s * 40).toFixed(1)}`; }).join('');
+    fx.innerHTML = `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" pathLength="1"/><circle cx="50" cy="50" r="11" pathLength="1"/><path d="${rays}" pathLength="1"/></svg>`
+      + Array.from({ length: 12 }, () => `<i style="left:${R(10, 90).toFixed(0)}%;--x:${R(-14, 14).toFixed(0)}px;--t:${R(1, 1.6).toFixed(2)}s;--dl:${R(.35, .8).toFixed(2)}s"></i>`).join('');
+    card.appendChild(fx); setTimeout(() => fx.remove(), 2600);
+    if (PL.android) setTimeout(() => PL.haptic('confirm'), 200);
+  }
+  /* install the newest build: the service worker swaps itself and reloads; if it does not, drop the offline cache and reload from the site */
+  async function doPwaUpdate() {
+    toast('Updating…');
+    try {
+      const r = window.__scSW || (navigator.serviceWorker && await navigator.serviceWorker.getRegistration());
+      if (r) await r.update();
+      await new Promise(res => setTimeout(res, 2500));
+      try { sessionStorage.setItem('scUpdated', '1'); } catch (e) { }
+      if (r && (r.installing || r.waiting)) return;
+      if (window.caches) { const ks = await caches.keys(); await Promise.all(ks.map(k => caches.delete(k))); }
+      if (r) await r.unregister();
+    } catch (e) { }
+    location.reload();
+  }
   function factionPlayHTML(r, p) {
     const fd = fdata(r.factionId), dets = r.detachmentIds.map(id => fd.detachments.find(d => d.id === id)).filter(Boolean);
     const out = [];
@@ -1082,6 +1115,7 @@
           ${cur ? `<div class="dim">${esc(cur.effect)} Active for your TYRANIDS units for the whole battle.</div>` : '<div class="dim">Choose one; it stays active for the rest of the battle.</div>'}
           ${cur ? `<div class="eyebrow" style="margin-top:4px">Predatory Imperative (extra, until your next Command phase)</div><div class="chips" role="group" aria-label="Extra Hyper-adaptation">${H.filter(h => h.id !== p.hyper).map(h => `<button class="chip" aria-pressed="${!!x && x.id === h.id}" data-act="tyrHyperX" data-id="${h.id}">${esc(h.name)}</button>`).join('')}</div>${x ? `<div class="dim">${esc(x.effect)} For the units you targeted with the Stratagem.</div>` : '<div class="faint" style="font-size:.85rem">Mark it after you use the Predatory Imperative Stratagem.</div>'}` : ''}`));
       }
+      if (d.imperatives && d.impTitle) { out.push(kinHTML(p, d)); return; }
       if (d.imperatives) {
         const now = (p.imp || {})[p.round], usedIn = id => Object.entries(p.imp || {}).find(([rd, v]) => v === id && +rd !== p.round);
         const curI = d.imperatives.find(i => i.id === now);
@@ -1692,17 +1726,12 @@
     rosterTab: el => { if (el.dataset.id === 'home') { S.homeTab = 'armies'; go('home'); return; } if (S.m && el.dataset.id === S.tab && !S.sub) { window.scrollTo({ top: 0, behavior: 'smooth' }); return; } S.tab = el.dataset.id; S.modal = null; S.sheet = null; S.sub = null; render(); },
     cat: el => { S.cat = el.dataset.id; render(); },
     /* web app on a phone: fetch the newest build now; if nothing new arrives, drop the offline cache and reload from the site */
+    /* web app: ask the site which build is live; same build -> say so, newer -> offer to update now */
     pwaUpdate: async () => {
-      toast('Checking for updates…');
-      try {
-        const r = window.__scSW || (navigator.serviceWorker && await navigator.serviceWorker.getRegistration());
-        if (r) await r.update();
-        await new Promise(res => setTimeout(res, 2500));
-        if (r && (r.installing || r.waiting)) return; // the new version reloads the page itself
-        if (window.caches) { const ks = await caches.keys(); await Promise.all(ks.map(k => caches.delete(k))); }
-        if (r) await r.unregister();
-      } catch (e) { }
-      location.reload();
+      let live = '';
+      try { live = ((await (await fetch('version.json?t=' + Date.now(), { cache: 'no-store' })).json()).build) || ''; } catch (e) { toast('No connection. The app keeps working offline.'); return; }
+      if (live === window.SC_BUILD) { toast(`You have the latest version (${live}).`); return; }
+      toast(`New version ${live} is available.`, [{ label: 'Update', fn: () => doPwaUpdate() }]);
     },
     toggleGrp: el => { const r = cur(); if (!r) return; const l = COLL[r.id] || []; COLL[r.id] = l.includes(el.dataset.id) ? l.filter(x => x !== el.dataset.id) : [...l, el.dataset.id]; lsSet(COLL_KEY, COLL); PL.haptic('tick'); render(); },
     addUnit: el => {
@@ -1805,6 +1834,12 @@
       savePlay(r); PL.haptic('confirm'); patchPlague(r, id);
     },
     dgPox: el => { if (el.getAttribute('aria-disabled') === 'true') { toast('That battle round has not started yet.'); PL.haptic('reject'); return; } const r = cur(), rd = +el.dataset.id; playChange(r, p => { p.pox = p.pox || {}; if (p.pox[rd]) delete p.pox[rd]; else p.pox[rd] = true; }, null, 'confirm'); },
+    tsKin: el => {
+      if (el.getAttribute('aria-disabled') === 'true') { toast('Each Kindred Sorcery only once per battle.'); PL.haptic('reject'); return; }
+      const r = cur(), id = el.dataset.id, on = (playState(r).imp || {})[playState(r).round] !== id;
+      playChange(r, p => { p.imp = p.imp || {}; if (p.imp[p.round] === id) delete p.imp[p.round]; else p.imp[p.round] = id; }, null, 'confirm');
+      if (on) { const c = document.querySelector(`.kin[data-id="${id}"]`); if (c) sigilFx(c); }
+    },
     tsRit: el => {
       const r = cur(), id = el.dataset.id, p = playState(r);
       if (((p.rit || {})[p.round] || {})[id]) { playChange(r, p => { delete p.rit[p.round][id]; }, 'Ritual result cleared.'); return; }
@@ -1941,4 +1976,5 @@
 
   render();
   Store.init();
+  try { if (sessionStorage.getItem('scUpdated')) { sessionStorage.removeItem('scUpdated'); toast(`Updated to version ${window.SC_BUILD || ''}.`); } } catch (e) { }
 })();

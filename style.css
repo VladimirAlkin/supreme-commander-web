@@ -688,10 +688,55 @@ html:not(.m) .seg.wide { max-width: 560px; }
   animation: wRune 1.6s ease-out forwards; will-change: transform, opacity; }
 .wfx .rune + .rune { border-style: dotted; border-color: rgba(230, 140, 255, .85); animation-delay: .15s; animation-direction: normal; }
 @keyframes wRune { 0% { opacity: 0; transform: scale(.4) rotate(0); } 25% { opacity: 1; } 100% { opacity: 0; transform: scale(2.3) rotate(200deg); } }
-.wfx i { position: absolute; bottom: -6px; width: 10px; height: 22px; border-radius: 50% 50% 40% 40% / 70% 70% 30% 30%; filter: blur(.4px);
+.wfx i { position: absolute; bottom: -8px; width: 9px; height: 28px; border-radius: 50% 50% 50% 50% / 85% 85% 15% 15%; filter: blur(1.2px); mix-blend-mode: screen;
   background: radial-gradient(circle at 50% 70%, #fff 0%, var(--c) 45%, transparent 75%); opacity: 0; animation: wFlame var(--t) ease-out var(--dl) forwards; will-change: transform, opacity; }
 @keyframes wFlame { 0% { opacity: 0; transform: translate(0, 0) scale(.6); } 15% { opacity: 1; } 100% { opacity: 0; transform: translate(var(--x), -110px) scale(1.4) rotate(var(--r)); } }
-@media (prefers-reduced-motion: reduce) { .wfx { display: none; } .rit::before { animation: none; } }
+/* idle: two faint rune rings turn around the Warp Charge seal; the chosen card's seal pulses gold; a manifested card keeps a low warp flicker */
+.rit-w { position: relative; }
+.rit-w::before, .rit-w::after { content: ''; position: absolute; inset: -5px; border-radius: 50%; border: 1px dashed rgba(111, 214, 230, .35); animation: ritSpin 26s linear infinite; animation-delay: var(--d, 0s); will-change: transform; pointer-events: none; }
+.rit-w::after { inset: -9px; border: 1px dotted rgba(216, 180, 90, .3); animation-duration: 38s; animation-direction: reverse; }
+@keyframes ritSpin { to { transform: rotate(360deg); } }
+.rit.open .rit-w { animation: ritSeal 1.8s ease-in-out infinite; }
+@keyframes ritSeal { 0%, 100% { box-shadow: 0 0 0 rgba(216, 180, 90, 0); } 50% { box-shadow: 0 0 14px rgba(216, 180, 90, .55); } }
+.rit.ok .rit-w { border-color: rgba(140, 230, 245, .85); color: #e9fbff; }
+.rit.ok .rit-w::before { border-color: rgba(140, 230, 245, .6); animation-duration: 9s; }
+.rit.ok .rit-w::after { border-color: rgba(228, 140, 255, .5); animation-duration: 13s; }
+.rit.ok::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 60%; z-index: 0; pointer-events: none;
+  background: radial-gradient(40% 70% at 20% 100%, rgba(95, 216, 238, .2), transparent 70%), radial-gradient(35% 60% at 70% 100%, rgba(228, 140, 255, .16), transparent 70%);
+  transform-origin: 50% 100%; animation: ritFlicker 3.2s ease-in-out infinite; will-change: transform, opacity; }
+@keyframes ritFlicker { 0%, 100% { opacity: .7; transform: scaleY(1); } 40% { opacity: 1; transform: scaleY(1.12); } 70% { opacity: .8; transform: scaleY(.94); } }
+@media (prefers-reduced-motion: reduce) { .wfx { display: none; } .rit::before, .rit::after, .rit-w, .rit-w::before, .rit-w::after { animation: none; } }
+
+/* ---- Thousand Sons: Kindred Sorcery cards; the active one holds a slowly turning golden sigil ---- */
+.kin-list { display: flex; flex-direction: column; gap: 8px; }
+.kin { position: relative; overflow: hidden; isolation: isolate; display: grid; grid-template-columns: 1fr auto; grid-template-areas: "t s" "e e"; gap: 2px 12px; align-items: center; width: 100%; text-align: left; padding: 11px 12px; border-radius: 12px; cursor: pointer; font: inherit; color: #e6eefc;
+  background: #08142a; border: 1px solid rgba(216, 180, 90, .28); transition: border-color .5s ease, box-shadow .7s ease, opacity .4s ease; -webkit-tap-highlight-color: transparent; }
+.kin > .kin-t, .kin > .kin-e, .kin > .kin-s { position: relative; z-index: 1; }
+.kin::before { content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background: linear-gradient(110deg, transparent 20%, rgba(63, 182, 201, .14) 45%, rgba(31, 79, 138, .2) 60%, transparent 85%); background-size: 220% 100%;
+  animation: kinDrift 9s ease-in-out infinite alternate; animation-delay: var(--d, 0s); }
+@keyframes kinDrift { from { background-position: 100% 0; } to { background-position: 0 0; } }
+.kin-t b { font-size: 1.02rem; color: #f5f8ff; } .kin-t { grid-area: t; }
+.kin-e { grid-area: e; font-size: .9rem; color: #c6d4ea; }
+.kin-s { grid-area: s; text-align: right; font-size: .8rem; font-weight: 800; letter-spacing: .04em; color: #e6c878; white-space: nowrap; }
+.kin-sig { position: absolute; right: -18px; top: 50%; width: 110px; height: 110px; margin-top: -55px; z-index: 0; pointer-events: none; opacity: 0; transition: opacity .8s ease;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='none' stroke='%23d8b45a' stroke-width='2.4' stroke-linecap='round'%3E%3Ccircle cx='50' cy='50' r='44'/%3E%3Ccircle cx='50' cy='50' r='11'/%3E%3Cpath d='M50 6v27M50 67v27M6 50h27M67 50h27M18.9 18.9l19.1 19.1M62 62l19.1 19.1M81.1 18.9L62 38M38 62L18.9 81.1'/%3E%3C/svg%3E") center / contain no-repeat; }
+.kin.on { border-color: rgba(216, 180, 90, .85); box-shadow: 0 0 14px rgba(216, 180, 90, .25), inset 0 0 20px rgba(216, 180, 90, .08); }
+.kin.on .kin-sig { opacity: .12; animation: ritSpin 40s linear infinite; }
+.kin.on .kin-s { color: #fff3cf; }
+.kin[aria-disabled="true"] { opacity: .5; cursor: default; }
+.kin[aria-disabled="true"]::before { animation: none; opacity: .4; }
+.sfx { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+.sfx svg { position: absolute; left: 50%; top: 50%; width: 120px; height: 120px; margin: -60px 0 0 -60px; fill: none; stroke: #f0d68e; stroke-width: 2.6; stroke-linecap: round;
+  filter: drop-shadow(0 0 4px rgba(216, 180, 90, .8)); animation: sfxOut 2s ease-in forwards; will-change: transform, opacity; }
+.sfx svg * { stroke-dasharray: 1; stroke-dashoffset: 1; animation: sfxDraw .75s ease-out forwards; }
+.sfx svg circle + circle { animation-delay: .15s; } .sfx svg path { animation-delay: .25s; }
+@keyframes sfxDraw { to { stroke-dashoffset: 0; } }
+@keyframes sfxOut { 0%, 45% { opacity: .6; transform: scale(1) rotate(0); } 100% { opacity: 0; transform: scale(1.9) rotate(60deg); } }
+.sfx i { position: absolute; bottom: 4px; width: 4px; height: 4px; border-radius: 50%; background: #ffe9a8; box-shadow: 0 0 6px 2px rgba(216, 180, 90, .7);
+  opacity: 0; animation: sfxMote var(--t) ease-out var(--dl) forwards; will-change: transform, opacity; }
+@keyframes sfxMote { 0% { opacity: 0; transform: translate(0, 0); } 20% { opacity: 1; } 100% { opacity: 0; transform: translate(var(--x), -70px); } }
+@media (prefers-reduced-motion: reduce) { .sfx { display: none; } .kin::before, .kin.on .kin-sig { animation: none; } }
 
 /* ---- Death Guard: Contagion Range plate with a slow miasma pulse ---- */
 .contag { border-color: rgba(150, 180, 60, .32); }
