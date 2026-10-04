@@ -654,3 +654,57 @@ html:not(.m) .seg.wide { max-width: 560px; }
   .kbl::before, .kbl.on .kbl-fire, .voidbtn, .voidbtn.scream, .quake { animation: none; }
   .kbl.flare::after, .voidfx { display: none; }
 }
+
+/* ---- faction highlight tones: Death Guard green (contagion), World Eaters blood (+1 die) ---- */
+.kwfx.tone-green { border-color: rgba(168, 204, 74, .5); color: #b8d65a;
+  background-image: linear-gradient(100deg, #a3c447 0%, #a3c447 30%, #ecf7c2 40%, #a3c447 50%, #c4dd73 62%, #a3c447 72%, #a3c447 100%);
+  animation-name: kwwave, kwglowG; }
+@keyframes kwglowG { 0%, 100% { box-shadow: 0 0 0 rgba(168, 204, 74, 0); } 50% { box-shadow: 0 0 6px rgba(168, 204, 74, .3); } }
+.kwfx.tone-blood { border-color: rgba(230, 70, 60, .55); color: #ff7a66;
+  background-image: linear-gradient(100deg, #f0574a 0%, #f0574a 30%, #ffd9a8 40%, #f0574a 50%, #ff8a70 62%, #f0574a 72%, #f0574a 100%);
+  animation-name: kwwave, kwglowB; }
+@keyframes kwglowB { 0%, 100% { box-shadow: 0 0 0 rgba(240, 80, 60, 0); } 50% { box-shadow: 0 0 6px rgba(240, 80, 60, .35); } }
+.hisum.tone-green { border-color: rgba(168, 204, 74, .25); background: rgba(168, 204, 74, .05); }
+.hisum.tone-blood { border-color: rgba(240, 87, 74, .25); background: rgba(240, 87, 74, .05); }
+@media (prefers-reduced-motion: reduce) { .kwfx.tone-green { -webkit-text-fill-color: #b8d65a; } .kwfx.tone-blood { -webkit-text-fill-color: #ff7a66; } }
+
+/* ---- Death Guard: Contagion Range plate with a slow miasma pulse ---- */
+.contag { border-color: rgba(150, 180, 60, .32); }
+.cring { position: relative; flex: none; width: 84px; height: 84px; display: grid; place-items: center; }
+.cring b { position: relative; z-index: 1; font-size: 1.55rem; font-weight: 800; color: #e3efb0; text-shadow: 0 0 10px rgba(160, 200, 60, .6); }
+.cring i { position: absolute; inset: 14px; border-radius: 50%; border: 2px solid rgba(168, 204, 74, .55);
+  background: radial-gradient(circle, rgba(140, 180, 50, .22), transparent 70%); opacity: 0; animation: cPulse 3.6s ease-out infinite; will-change: transform, opacity; }
+.cring i:nth-child(2) { animation-delay: 1.2s; } .cring i:nth-child(3) { animation-delay: 2.4s; }
+@keyframes cPulse { 0% { opacity: 0; transform: scale(.55); } 20% { opacity: .9; } 100% { opacity: 0; transform: scale(1.35); } }
+.csteps { display: flex; flex-wrap: wrap; gap: 6px; }
+.cstep { font-size: .8rem; font-weight: 700; padding: 1px 8px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted, #a9a58f); }
+.cstep.on { border-color: rgba(168, 204, 74, .7); color: #e3efb0; background: rgba(120, 160, 40, .18); }
+.cmod { font-size: .86rem; color: #cfd6a8; padding-left: 14px; position: relative; }
+.cmod::before { content: '+'; position: absolute; left: 2px; color: #a3c447; font-weight: 800; }
+.chip.pox.cur { border-color: rgba(168, 204, 74, .7); }
+
+/* ---- Death Guard: Plague cards; a sickly mist breathes, the chosen one glows and bubbles ---- */
+.plg-list { display: flex; flex-direction: column; gap: 8px; }
+.plg { position: relative; overflow: hidden; isolation: isolate; display: grid; grid-template-columns: 1fr auto; grid-template-areas: "t s" "e s"; gap: 2px 12px; align-items: center; width: 100%; text-align: left; padding: 11px 12px; border-radius: 12px; cursor: pointer; font: inherit; color: #e8ecd2;
+  background: #0d1106; border: 1px solid rgba(140, 170, 50, .32); transition: border-color .5s ease, box-shadow .7s ease, opacity .4s ease; -webkit-tap-highlight-color: transparent; }
+.plg > .plg-t, .plg > .plg-e, .plg > .plg-s { position: relative; z-index: 1; }
+.plg::before { content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background: radial-gradient(120% 70% at 50% 115%, rgba(130, 165, 40, .42), rgba(60, 80, 18, .2) 55%, transparent 80%);
+  opacity: .4; animation: kbIdle 5s ease-in-out infinite; animation-delay: var(--d, 0s); will-change: opacity; }
+.plg-mist { position: absolute; inset: -10% -2% 0; z-index: 0; pointer-events: none; transform-origin: 50% 100%;
+  background: radial-gradient(110% 85% at 50% 112%, rgba(200, 225, 110, .45), rgba(120, 155, 35, .5) 40%, rgba(40, 55, 10, .5) 72%, transparent 92%);
+  opacity: 0; transition: opacity .7s ease; will-change: opacity, transform; }
+.plg.on .plg-mist { opacity: 1; animation: plgBreathe 3.4s ease-in-out infinite; }
+.plg.on { border-color: rgba(190, 220, 90, .85); box-shadow: 0 0 14px rgba(150, 190, 50, .35); }
+.plg.on::before { opacity: 0; transition: opacity .6s ease; }
+.plg[aria-disabled="true"] { opacity: .5; cursor: default; }
+.plg-t b { font-size: 1.02rem; color: #f1f6d8; text-shadow: 0 1px 2px rgba(0, 0, 0, .6); }
+.plg-t { grid-area: t; } .plg-e { grid-area: e; font-size: .9rem; color: #d5dcb4; text-shadow: 0 1px 2px rgba(0, 0, 0, .55); }
+.plg-s { grid-area: s; min-width: 5em; text-align: right; font-size: .8rem; font-weight: 800; letter-spacing: .04em; color: #b8d65a; white-space: nowrap; }
+.plg.on .plg-s { color: #f4fbd8; }
+.plg.flare::after { content: ''; position: absolute; inset: -30% -10% -10%; z-index: 0; pointer-events: none;
+  background: radial-gradient(60% 45% at 50% 70%, rgba(225, 245, 140, .7), rgba(130, 170, 40, .45) 45%, transparent 100%);
+  animation: kbFlare 1.3s cubic-bezier(.22, .61, .36, 1) forwards; will-change: opacity, transform; }
+@keyframes plgBreathe { 0%, 100% { opacity: .82; transform: scaleY(1); } 50% { opacity: 1; transform: scaleY(1.06); } }
+@media (prefers-reduced-motion: reduce) { .plg::before, .plg.on .plg-mist, .cring i { animation: none; } .plg.flare::after { display: none; } .cring i { opacity: .5; } }
+.plg > svg.ooze { position: absolute; left: 0; top: 0; z-index: 0; pointer-events: none; overflow: visible; }

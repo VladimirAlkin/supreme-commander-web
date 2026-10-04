@@ -461,7 +461,7 @@
     const fd = fdata(r.factionId);
     const blAllowed = (fd.alliedFactions || []).filter(a => r.detachmentIds.includes(a.requiresDetachment)).map(a => a.faction);
     const present = new Set(fd.units.filter(u => u.faction === fd.armyFaction || blAllowed.includes(u.faction)).map(u => catOf(u, r)));
-    const hi = (faction(r.factionId).highlights || []).map(h => ['kw:' + h.keyword, h.label.charAt(0) + h.label.slice(1).toLowerCase()]);
+    const hi = (faction(r.factionId).highlights || []).map(h => [hiKey(h), h.label.charAt(0) + h.label.slice(1).toLowerCase()]);
     return { blAllowed, cats: CATS.filter(([c]) => c === 'all' || present.has(c)).concat(hi) };
   }
   function catalogList(r) {
@@ -471,7 +471,7 @@
     if (!cats.some(([c]) => c === S.cat)) S.cat = 'all';
     const q = S.search.trim().toLowerCase();
     const units = fd.units.filter(u => (u.faction === fd.armyFaction || blAllowed.includes(u.faction)))
-      .filter(u => S.cat === 'all' || (S.cat.startsWith('kw:') ? (faction(r.factionId).highlights || []).some(h => 'kw:' + h.keyword === S.cat && hiState(r, u, null, h)) : catOf(u, r) === S.cat))
+      .filter(u => S.cat === 'all' || (S.cat.startsWith('kw:') ? (faction(r.factionId).highlights || []).some(h => hiKey(h) === S.cat && hiState(r, u, null, h)) : catOf(u, r) === S.cat))
       .filter(u => !q || u.name.toLowerCase().includes(q) || [...Engine.keywordsOf(u, ctx)].join(' ').toLowerCase().includes(q));
     const pts = rosterPts(r);
     const grouped = {};
@@ -488,23 +488,40 @@
         ${nx.surcharge ? `<div class="sub" style="color:var(--warn)">Next copy: +${nx.surcharge} pts</div>` : ''}${blocked ? `<div class="why">${esc(blocked)}</div>` : overPts ? `<div class="why">${esc(overPts)}</div>` : ''}</div>
         <button class="addbtn" data-act="addUnit" data-id="${u.id}" ${blocked ? 'aria-disabled="true"' : ''} aria-label="Add ${esc(u.name)}${blocked ? ' (' + esc(blocked) + ')' : ''}">+</button></div>`;
     };
-    return (Object.keys(CAT_NAME).filter(c => grouped[c]).map(c => `<div class="grouphdr">${CAT_NAME[c]}${c === 'allies' ? ' · Blood Legions' : ''}</div>${grouped[c].map(addRow).join('')}`).join('') || '<div class="empty">No units match.</div>')
+    return (Object.keys(CAT_NAME).filter(c => grouped[c]).map(c => `<div class="grouphdr">${CAT_NAME[c]}${c === 'allies' ? ' · ' + esc(blAllowed.join(', ')) : ''}</div>${grouped[c].map(addRow).join('')}`).join('') || '<div class="empty">No units match.</div>')
       + (blAllowed.length ? '' : (fd.alliedFactions || []).map(a => `<div class="faint" style="font-size:.85rem;margin-top:8px">${esc(a.faction)} allies appear when ${esc((fd.detachments.find(d => d.id === a.requiresDetachment) || {}).name || '')} is in the roster.</div>`).join(''));
   }
   /* display order: each bodyguard followed by the leaders attached to it */
-  /* Faction keyword highlights (Tyranids: SYNAPSE). Returns '' when the unit has none. */
+  /* Faction highlights (Tyranids: SYNAPSE keyword; Death Guard: units with a bigger Contagion Range; World Eaters: Icon of Khorne).
+     Returns null when the unit has none; {on, cond, note, n} otherwise (n = number of sources, for ranged labels). */
+  const hiKey = h => 'kw:' + (h.id || h.keyword);
   function hiState(r, def, inst, h) {
     const ctx = Engine.ctxFor(r, DATA);
-    if (Engine.hasKw(def, ctx, h.keyword, inst)) return { on: true, note: (h.notes || {})[def.id] || '' };
+    if (h.wargear) {
+      const o = h.wargear[def.id]; if (!o) return null;
+      if (!inst) return { on: true, cond: true, note: h.condNote || '' };
+      return (+((inst.wargear || {})[o]) || 0) > 0 ? { on: true, note: h.title || '' } : null;
+    }
+    const notes = [];
+    if (h.keyword && Engine.hasKw(def, ctx, h.keyword, inst)) notes.push((h.notes || {})[def.id] || '');
+    if (h.unitIds && h.unitIds[def.id] != null) notes.push(h.unitIds[def.id]);
+    Object.entries(h.detachments || {}).forEach(([did, rule]) => {
+      if (!r.detachmentIds.includes(did)) return;
+      if ((rule.factionsAll || []).length && !rule.factionsAll.includes(def.faction)) return;
+      if ((rule.keywordsAll || []).some(k => !Engine.hasKw(def, ctx, k, inst))) return;
+      notes.push(rule.note || '');
+    });
+    if (notes.length) return { on: true, n: notes.length, note: notes.filter(Boolean).join(' ') };
     if ((h.conditional || {})[def.id]) return { on: true, cond: true, note: h.conditional[def.id] };
     return null;
   }
+  const hiLabel = (h, st) => h.rangeStep ? `${h.label} +${(st.n || 1) * h.rangeStep}″` : h.label;
   function kwBadges(r, def, inst) {
     const f = faction(r.factionId); if (!f || !f.highlights || !def) return '';
     return f.highlights.map(h => {
       const st = hiState(r, def, inst, h); if (!st) return '';
       const d = -(((inst ? inst.instanceId : def.id).split('').reduce((a, c) => a + c.charCodeAt(0), 0) % 37) / 10).toFixed(1);
-      return `<span class="kwfx ${st.cond ? 'cond' : ''}" style="--d:${d}s" title="${esc(st.note || h.title || '')}">${esc(h.label)}${st.cond ? '*' : ''}</span>`;
+      return `<span class="kwfx ${h.tone ? 'tone-' + h.tone : ''} ${st.cond ? 'cond' : ''}" style="--d:${d}s" title="${esc(st.note || h.title || '')}">${esc(hiLabel(h, st))}${st.cond ? '*' : ''}</span>`;
     }).join('');
   }
   function meleeBonus(r, def, inst) {
@@ -516,7 +533,7 @@
     const f = faction(r.factionId); if (!f || !f.highlights || !r.units.length) return '';
     return f.highlights.map(h => {
       const list = r.units.map(u => ({ u, st: hiState(r, unitDef(r.factionId, u.datasheetId), u, h) })).filter(x => x.st);
-      return `<div class="hisum"><span class="kwfx" style="--d:0s">${esc(h.label)}</span><span class="dim">${list.length ? esc(list.map(x => dispName(r, x.u) + (x.st.cond ? '*' : '')).join(', ')) : esc(h.none || 'No units')}</span></div>`;
+      return `<div class="hisum ${h.tone ? 'tone-' + h.tone : ''}"><span class="kwfx ${h.tone ? 'tone-' + h.tone : ''}" style="--d:0s">${esc(h.label)}</span><span class="dim">${list.length ? esc(list.map(x => dispName(r, x.u) + (x.st.cond ? '*' : '') + (h.rangeStep ? ` (+${(x.st.n || 1) * h.rangeStep}″)` : '')).join(', ')) : esc(h.none || 'No units')}</span></div>`;
     }).join('');
   }
   /* roster split into GW-app categories; every unit stays in its own category (an attached leader is labelled, not moved) */
@@ -598,7 +615,7 @@
   function attPickList(r, inst) {
     const { targets } = attTargets(r, inst);
     return pickCard('pickAtt', inst.instanceId, '', 'Not attached', '', '', !inst.attachedTo, null)
-      + targets.map(t => { const taken = r.units.find(u => u.attachedTo === t.instanceId && u.instanceId !== inst.instanceId); const on = inst.attachedTo === t.instanceId; const tdef = unitDef(r.factionId, t.datasheetId); return pickCard('pickAtt', inst.instanceId, t.instanceId, esc(dispName(r, t)), `<span class="pick-pts num">${t.size} models</span>`, '', on, taken ? `Leader slot taken by ${dispName(r, taken)}` : null, portrait(tdef, r.factionId, 'sm')); }).join('');
+      + targets.map(t => { const on = inst.attachedTo === t.instanceId; const why = on ? null : Engine.attachBlock(inst, t, r, DATA); const tdef = unitDef(r.factionId, t.datasheetId); return pickCard('pickAtt', inst.instanceId, t.instanceId, esc(dispName(r, t)), `<span class="pick-pts num">${t.size} models</span>`, '', on, why, portrait(tdef, r.factionId, 'sm')); }).join('');
   }
   function unitBody(r, inst, pts, mobile) {
     const def = unitDef(r.factionId, inst.datasheetId);
@@ -870,6 +887,122 @@
       <div class="kbl-list">${rows}</div>
       ${angron ? '<div class="faint" style="font-size:.85rem">Angron: a triple 6 can bring him back with Reborn in Blood instead of activating Blessings.</div>' : ''}</div>`;
   }
+  /* Death Guard: Contagion Range for the current battle round, with the sources that extend it */
+  function contagionHTML(r, p, gift, dets) {
+    const c = gift.contagion, base = c.byRound[Math.min(p.round, c.byRound.length) - 1];
+    const mods = [];
+    if (r.units.some(u => u.datasheetId === 'lord_of_poxes')) mods.push('Lord of Poxes: +3″ for himself (Gift of Poxes)');
+    if (dets.some(d => d.id === 'paragons_of_putrescence')) mods.push('DEATH GUARD CHARACTERS: +3″ (Hypervirulent Strains)');
+    if (dets.some(d => d.id === 'tallyband_summoners')) mods.push('Units within 7″ of your PLAGUE LEGIONS: +3″ (Reverberant Rancidity)');
+    if (dets.some(d => d.id === 'virulent_vectorium')) mods.push('Plaguesurge Stratagem: +3″ for the whole army until your next Command phase');
+    if (dets.some(d => d.id === 'death_lords_chosen')) mods.push('Blooming Pestilence Stratagem: +3″ for one TERMINATOR unit this phase');
+    const steps = c.byRound.map((v, i) => `<span class="cstep ${Math.min(p.round, c.byRound.length) === i + 1 ? 'on' : ''}">${i === c.byRound.length - 1 ? `R${i + 1}+` : `R${i + 1}`} · ${v}″</span>`).join('');
+    return `<div class="panel pad stack trk contag"><div class="row"><h3 class="grow">Contagion Range</h3><span class="badge">Round ${p.round}</span></div>
+      <div class="row nowrap"><div class="cring" aria-hidden="true"><i></i><i></i><i></i><b class="num">${base}″</b></div>
+      <div class="stack" style="gap:6px"><div class="csteps">${steps}</div><div class="dim" style="font-size:.9rem">Enemy units this close to your DEATH GUARD models are Afflicted: -1 Toughness and your Plague. Never more than ${c.max}″.</div></div></div>
+      ${mods.length ? `<div class="stack" style="gap:2px">${mods.map(m => `<div class="cmod">${esc(m)}</div>`).join('')}</div>` : ''}</div>`;
+  }
+  const plagueCanPick = (p, eachRound) => !p.plague || (p.phase === 'Command' && p.plagueAt === p.round) || (eachRound && (p.plagueAt || 0) < p.round);
+  function plagueHTML(r, p, gift, dets) {
+    const eachRound = dets.some(d => d.plagueEachRound), can = plagueCanPick(p, eachRound);
+    const cur = gift.plagues.find(x => x.id === p.plague);
+    const extra = ['cornucophagus', 'final_ingredient', 'host_of_the_hybridised_pox'].filter(e => r.units.some(u => Engine.enhIds(u).includes(e)));
+    const cards = gift.plagues.map((g, i) => `<button class="plg ${p.plague === g.id ? 'on' : ''}" style="--d:-${(i * 1.1).toFixed(1)}s" data-act="dgPlague" data-id="${g.id}" aria-pressed="${p.plague === g.id}" ${!can && p.plague !== g.id ? 'aria-disabled="true"' : ''}><span class="plg-mist" aria-hidden="true"></span>
+        <span class="plg-t"><b>${esc(g.name)}</b></span><span class="plg-e">${esc(g.effect)}</span><span class="plg-s">${p.plague === g.id ? 'Chosen' : can ? 'Choose' : 'Locked'}</span></button>`).join('');
+    const badge = cur ? `<span class="badge gold" id="plg-badge">${esc(cur.name)}</span>` : '<span class="badge" id="plg-badge">Pick before the battle</span>';
+    const note = eachRound ? 'Champions of Contagion: you can switch to another Plague at the start of every battle round.' : 'Pick in the Declare Battle Formations step. It lasts the whole battle.';
+    return `<div class="panel pad stack plague"><div class="row"><h3 class="grow">Plague</h3>${badge}</div>
+      <div class="dim" style="font-size:.9rem">${esc(note)} Afflicted enemy units always have -1 Toughness as well.</div>
+      <div class="plg-list">${cards}</div>
+      ${extra.length ? `<div class="faint" style="font-size:.85rem">Your roster also has ${esc(extra.map(id => ((DATA.factionData[r.factionId].detachments.flatMap(d => d.enhancements).find(e => e.id === id)) || {}).name).join(', '))}: those add a second Plague near the bearer.</div>` : ''}</div>`;
+  }
+  /* choosing a Plague: green slime wells up along the bottom of the card (gooey SVG, behind the text),
+     then translucent bubbles rise out of it, wobble and pop (canvas, glossy rims, no fill-blobs) */
+  function ensureRotGoo() {
+    if (document.getElementById('scRot')) return;
+    const d = document.createElement('div'); d.style.cssText = 'position:absolute;width:0;height:0;overflow:hidden';
+    d.innerHTML = '<svg width="0" height="0"><defs><filter id="scRot" x="-20%" y="-40%" width="140%" height="180%"><feGaussianBlur in="SourceGraphic" stdDeviation="3.2" result="b"/><feColorMatrix in="b" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -9" result="g"/><feComposite in="SourceGraphic" in2="g" operator="atop"/></filter><linearGradient id="scRotG" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#2f3d0c"/><stop offset=".6" stop-color="#5f7a1c"/><stop offset="1" stop-color="#8fae2c"/></linearGradient></defs></svg>';
+    document.body.appendChild(d);
+  }
+  function rotOoze(card) {
+    const w = card.clientWidth, h = card.clientHeight, ns = 'http://www.w3.org/2000/svg';
+    const svg = document.createElementNS(ns, 'svg'); svg.setAttribute('class', 'ooze'); svg.setAttribute('viewBox', `0 0 ${w} ${h}`); svg.setAttribute('width', w); svg.setAttribute('height', h);
+    const grp = document.createElementNS(ns, 'g'); grp.setAttribute('filter', 'url(#scRot)'); grp.setAttribute('fill', 'url(#scRotG)'); svg.appendChild(grp);
+    const pool = document.createElementNS(ns, 'rect'); pool.setAttribute('x', -10); pool.setAttribute('width', w + 20); grp.appendChild(pool);
+    const L = [];
+    for (let i = 0; i < 11; i++) {
+      const c = document.createElementNS(ns, 'circle'); c.setAttribute('cx', w * (.03 + i * .094 + (Math.random() - .5) * .04)); grp.appendChild(c);
+      L.push({ c, R: 7 + Math.random() * 9, d: Math.random() * 380, sp: .7 + Math.random() * .6 });
+    }
+    card.appendChild(svg);
+    const t0 = performance.now();
+    (function frame(now) {
+      const el = Math.max(0, now - t0), rise = Math.min(1, el / 650), fall = el > 1500 ? Math.min(1, (el - 1500) / 700) : 0;
+      const ph = Math.max(0, (8 + 6 * Math.sin(el / 260)) * rise * (1 - fall));
+      pool.setAttribute('y', h - ph); pool.setAttribute('height', ph + 10);
+      L.forEach(o => { const q = Math.max(0, Math.min(1, (el - o.d) / 520)); const r = o.R * q * (1 - fall) * (.85 + .15 * Math.sin(el / 140 * o.sp));
+        o.c.setAttribute('cy', h - ph + 2); o.c.setAttribute('r', Math.max(0, r)); });
+      svg.style.opacity = fall ? 1 - fall : 1;
+      if (el < 2250) requestAnimationFrame(frame); else svg.remove();
+    })(t0);
+  }
+  function rotBubbles(card) {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    ensureRotGoo(); rotOoze(card);
+    const rc = card.getBoundingClientRect(), padX = 16, padT = 90, dpr = Math.min(2, window.devicePixelRatio || 1);
+    const W = rc.width + padX * 2, H = rc.height + padT + 6;
+    const cv = document.createElement('canvas'); cv.width = W * dpr; cv.height = H * dpr;
+    cv.style.cssText = `position:fixed;left:${rc.left - padX}px;top:${rc.top - padT}px;width:${W}px;height:${H}px;pointer-events:none;z-index:96`;
+    document.body.appendChild(cv); const g = cv.getContext('2d'); g.scale(dpr, dpr);
+    const B = [];
+    for (let i = 0; i < 18; i++) {
+      const big = Math.random() < .25;
+      B.push({ x: padX + rc.width * (.05 + Math.random() * .9), y: padT + rc.height - 4, r0: big ? 6 + Math.random() * 4 : 2.5 + Math.random() * 3,
+        vy: -(55 + Math.random() * 85), wob: Math.random() * 6, t0: 260 + Math.random() * 900, life: 700 + Math.random() * 800, pop: 0 });
+    }
+    const pops = [], t0 = performance.now(); let last = t0;
+    (function frame(now) {
+      const el = Math.max(0, now - t0), dt = Math.min(.04, (now - last) / 1000); last = now;
+      g.clearRect(0, 0, W, H); let alive = el < 1400;
+      for (const b of B) {
+        if (el < b.t0) { alive = true; continue; }
+        const age = el - b.t0; if (b.pop) continue;
+        if (age > b.life) { b.pop = now; pops.push({ x: b.x, y: b.y, r: b.r, t: now }); continue; }
+        alive = true; const q = age / b.life;
+        b.r = b.r0 * (.35 + Math.min(1, q * 2) * .75); b.y += b.vy * dt; b.x += Math.sin(age / 170 + b.wob) * .4;
+        const sq = 1 + .08 * Math.sin(age / 90 + b.wob); // wobble: slightly squashed
+        g.save(); g.translate(b.x, b.y); g.scale(sq, 2 - sq);
+        const gr = g.createRadialGradient(0, 0, b.r * .2, 0, 0, b.r);
+        gr.addColorStop(0, 'rgba(170, 205, 70, .10)'); gr.addColorStop(.75, 'rgba(150, 190, 55, .28)'); gr.addColorStop(1, 'rgba(205, 235, 120, .55)');
+        g.fillStyle = gr; g.beginPath(); g.arc(0, 0, b.r, 0, 7); g.fill();
+        g.strokeStyle = 'rgba(214, 240, 140, .75)'; g.lineWidth = 1.1; g.stroke();
+        g.fillStyle = 'rgba(255, 255, 235, .85)'; g.beginPath(); g.ellipse(-b.r * .38, -b.r * .42, b.r * .22, b.r * .14, -.6, 0, 7); g.fill();
+        g.restore();
+      }
+      for (const s of pops) { // popped: a quick ring and a few droplets flung out
+        const a = 1 - (now - s.t) / 300; if (a <= 0) continue; alive = true;
+        const rr = s.r * (1 + (1 - a) * 1.6);
+        g.globalAlpha = a; g.strokeStyle = 'rgba(205, 235, 120, .8)'; g.lineWidth = 1; g.beginPath(); g.arc(s.x, s.y, rr, 0, 7); g.stroke();
+        g.fillStyle = '#a9c84a'; for (let k = 0; k < 4; k++) { const an = k * 1.7 + s.r; g.beginPath(); g.arc(s.x + Math.cos(an) * rr * 1.3, s.y + Math.sin(an) * rr * 1.3, 1.1, 0, 7); g.fill(); }
+        g.globalAlpha = 1;
+      }
+      if (alive && el < 3000) requestAnimationFrame(frame); else cv.remove();
+    })(t0);
+  }
+  function patchPlague(r, flareId) {
+    const p = playState(r), dets = r.detachmentIds.map(id => fdata(r.factionId).detachments.find(d => d.id === id)).filter(Boolean);
+    const gift = fdata(r.factionId).armyRules.find(a => a.contagion), can = plagueCanPick(p, dets.some(d => d.plagueEachRound));
+    document.querySelectorAll('.plg').forEach(c => {
+      const on = p.plague === c.dataset.id;
+      c.classList.toggle('on', on); c.setAttribute('aria-pressed', on);
+      if (!can && !on) c.setAttribute('aria-disabled', 'true'); else c.removeAttribute('aria-disabled');
+      c.querySelector('.plg-s').textContent = on ? 'Chosen' : can ? 'Choose' : 'Locked';
+      if (c.dataset.id === flareId) { rotBubbles(c); c.classList.remove('flare'); void c.offsetWidth; c.classList.add('flare'); setTimeout(() => c.classList.remove('flare'), 1400); }
+    });
+    const b = document.getElementById('plg-badge'), cur = gift.plagues.find(x => x.id === p.plague);
+    if (b) { b.textContent = cur ? cur.name : 'Pick before the battle'; b.classList.toggle('gold', !!cur); }
+    const g = document.querySelector('.mstatus.game'); if (g) g.outerHTML = gameLine(r);
+  }
   function factionPlayHTML(r, p) {
     const fd = fdata(r.factionId), dets = r.detachmentIds.map(id => fd.detachments.find(d => d.id === id)).filter(Boolean);
     const out = [];
@@ -882,7 +1015,28 @@
         <div class="voidwrap"><button class="voidbtn ${p.shadow ? 'used' : ''} ${S.shadowFx ? 'scream' : ''}" data-act="tyrShadow" ${p.shadow || !ready ? 'aria-disabled="true"' : ''}>${p.shadow ? `Unleashed in round ${p.shadow}` : 'Unleash the Shadow in the Warp'}</button></div>
         ${has ? (p.shadow || p.phase === 'Command' ? '' : '<div class="faint" style="font-size:.85rem">Available in a Command phase.</div>') : '<div class="faint" style="font-size:.85rem">No unit in this roster has Shadow in the Warp.</div>'}`));
     }
+    const gift = fd.armyRules.find(a => a.contagion);
+    if (gift) out.push(contagionHTML(r, p, gift, dets), plagueHTML(r, p, gift, dets));
     dets.forEach(d => {
+      if (d.numberlessHorde) {
+        const rounds = d.numberlessHorde[r.battleSize] || d.numberlessHorde.strike, done = p.pox || {};
+        const nowR = rounds.includes(p.round) && p.turn !== 'opp' && p.phase === 'Command' && !done[p.round];
+        out.push(panel('Numberless Horde', nowR ? '<span class="badge gold">Now</span>' : `<span class="badge">${Object.keys(done).length}/${rounds.length} added</span>`,
+          `<div class="dim">In your Command phase of these battle rounds, add a new POXWALKERS unit (10 models) to Strategic Reserves.</div>
+          <div class="chips" role="group" aria-label="Poxwalkers reinforcements by battle round">${rounds.map(rd => `<button class="chip pox ${rd === p.round ? 'cur' : ''}" aria-pressed="${!!done[rd]}" data-act="dgPox" data-id="${rd}" ${rd > p.round ? 'aria-disabled="true"' : ''}>Round ${rd}${done[rd] ? ' ✓' : ''}</button>`).join('')}</div>
+          <div class="faint" style="font-size:.85rem">Tap the round once the new unit is in Strategic Reserves.</div>`));
+      }
+      if (d.persistentPests) {
+        const has = r.units.some(u => u.datasheetId === 'nurglings');
+        out.push(panel('Persistent Pests', p.pests ? `<span class="badge">Used · round ${p.pests}</span>` : '<span class="badge gold">Ready</span>',
+          `<div class="dim">Once per battle (1CP): when a NURGLINGS unit is destroyed, add an identical new unit at full strength to Strategic Reserves.</div>
+          <div class="row"><button class="btn sm ${p.pests ? '' : 'primary'}" data-act="dgPests">${p.pests ? 'Undo' : 'Mark as used'}</button>${has ? '' : '<span class="faint" style="font-size:.85rem">No NURGLINGS in this roster.</span>'}</div>`));
+      }
+      if (d.deadlyVectors) {
+        const nowV = p.turn === 'opp' && p.phase === 'Command';
+        out.push(panel('Deadly Vectors', nowV ? '<span class="badge gold">Now</span>' : '<span class="badge">Opponent\'s Command phase</span>',
+          `<div class="dim">Roll 2D6 for each Afflicted enemy unit (-1 if it is Below Half-strength). On 6 or less it suffers D3 mortal wounds.</div>`));
+      }
       if (d.hyperAdaptations) {
         const H = d.hyperAdaptations, cur = H.find(h => h.id === p.hyper), x = p.hyperExtra && H.find(h => h.id === p.hyperExtra.id);
         out.push(panel('Hyper-adaptation', cur ? `<span class="badge gold">${esc(cur.name)}</span>` : '<span class="badge">Pick at the start of round 1</span>',
@@ -920,6 +1074,15 @@
     const startOfRound = p.turn === (p.first || 'mine');
     if (fd.armyRules.some(a => a.blessings)) return startOfRound && !(p.active || []).length ? ' Roll and pick Blessings of Khorne.' : '';
     const h = [];
+    if (fd.armyRules.some(a => a.contagion)) {
+      const c = fd.armyRules.find(a => a.contagion).contagion;
+      if (startOfRound && p.round <= c.byRound.length && p.round > 1) h.push(` Contagion Range is now ${c.byRound[p.round - 1]}″.`);
+      if (!p.plague) h.push(' Pick a Plague.');
+      else if (startOfRound && dets.some(d => d.plagueEachRound) && (p.plagueAt || 0) < p.round) h.push(' You can change the Plague.');
+      const nh = dets.find(d => d.numberlessHorde);
+      if (nh && p.turn !== 'opp' && (nh.numberlessHorde[r.battleSize] || []).includes(p.round) && !(p.pox || {})[p.round]) h.push(' Add 10 Poxwalkers to Strategic Reserves.');
+      if (p.turn === 'opp' && dets.some(d => d.deadlyVectors)) h.push(' Deadly Vectors: roll for Afflicted enemy units.');
+    }
     if (startOfRound && dets.some(d => d.imperatives) && !(p.imp || {})[p.round]) h.push(' Pick a Synaptic Imperative.');
     if (p.round === 1 && dets.some(d => d.hyperAdaptations) && !p.hyper) h.push(' Pick a Hyper-adaptation.');
     if (p.turn !== 'opp' && dets.some(d => d.harvesterReminder)) h.push(' Feed the Swarm.');
@@ -1597,6 +1760,15 @@
         else msg = `${p.turn === 'opp' ? "Opponent's" : 'Your'} ${p.phase} phase.`;
       }, () => msg, 'confirm');
     },
+    dgPlague: el => {
+      const r = cur(), id = el.dataset.id, p = playState(r);
+      if (el.getAttribute('aria-disabled') === 'true') { toast('The Plague is set for the battle.'); PL.haptic('reject'); return; }
+      if (p.plague === id) return;
+      p.plague = id; p.plagueAt = p.round; p.plagueLog = Object.assign(p.plagueLog || {}, { [p.round]: id });
+      savePlay(r); PL.haptic('confirm'); patchPlague(r, id);
+    },
+    dgPox: el => { if (el.getAttribute('aria-disabled') === 'true') { toast('That battle round has not started yet.'); PL.haptic('reject'); return; } const r = cur(), rd = +el.dataset.id; playChange(r, p => { p.pox = p.pox || {}; if (p.pox[rd]) delete p.pox[rd]; else p.pox[rd] = true; }, null, 'confirm'); },
+    dgPests: () => { const r = cur(); playChange(r, p => { p.pests = p.pests ? null : p.round; }, null, 'confirm'); },
     blessPick: el => {
       const r = cur(), id = el.dataset.id, p = playState(r);
       p.active = p.active || [];

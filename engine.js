@@ -253,6 +253,7 @@ const Engine = (function () {
     roster.units.forEach(inst => {
       const def = ctx.unitById[inst.datasheetId];
       if (def && def.warlordHint && roster.warlordUnitId !== inst.instanceId) W(def.warlordHint, inst.instanceId);
+      if (def && def.mustBeWarlord && roster.warlordUnitId !== inst.instanceId) E(def.mustBeWarlord, inst.instanceId);
     });
 
     // ---- Per-unit keyword grants (e.g. Subterranean Assault Trygons)
@@ -316,6 +317,7 @@ const Engine = (function () {
       if (totalEnh > 1) E(`${nameOf(inst)} and ${nameOf(target)} would form one attached unit with ${totalEnh} enhancements; an attached unit can have only one.`, inst.instanceId);
     });
     Object.entries(leadersOn).forEach(([key, list]) => {
+      if (list.length === 2 && key.endsWith(':leader') && coLeadOk(list[0], list[1], roster.units.find(u => u.instanceId === key.split(':')[0]), ctx)) return;
       if (list.length > 1) {
         const target = roster.units.find(u => u.instanceId === key.split(':')[0]);
         E(`${nameOf(target)} has ${list.length} ${key.endsWith('support') ? 'support' : 'leader'} units attached; only one is allowed.`, list[1].instanceId);
@@ -399,6 +401,23 @@ const Engine = (function () {
     return { bodyguard, attached };
   }
 
+  /* Two leaders on one bodyguard: allowed when they are different datasheets and at least one of them may join
+     a unit that already has a Leader (Death Guard champions: coLeaderOf). */
+  function coLeadOk(a, b, target, ctx) {
+    if (!target || a.datasheetId === b.datasheetId) return false;
+    const da = ctx.unitById[a.datasheetId] || {}, db = ctx.unitById[b.datasheetId] || {};
+    return (da.coLeaderOf || []).includes(target.datasheetId) || (db.coLeaderOf || []).includes(target.datasheetId);
+  }
+  /* Why can't inst be attached to target right now (leader slots)? null = OK */
+  function attachBlock(inst, target, roster, DATA) {
+    const ctx = ctxFor(roster, DATA), def = ctx.unitById[inst.datasheetId] || {};
+    const role = def.support ? 'support' : 'leader';
+    const others = roster.units.filter(u => u.attachedTo === target.instanceId && u.instanceId !== inst.instanceId && !!(ctx.unitById[u.datasheetId] || {}).support === (role === 'support'));
+    const nm = u => u.customName || (ctx.unitById[u.datasheetId] || {}).name || u.datasheetId;
+    if (!others.length) return null;
+    if (role === 'leader' && others.length === 1 && coLeadOk(inst, others[0], target, ctx)) return null;
+    return `Leader slot taken by ${others.map(nm).join(' and ')}`;
+  }
   function canLead(def, inst, roster, DATA) {
     const ctx = ctxFor(roster, DATA);
     const extra = (inst ? enhIds(inst) : []).flatMap(id => (ctx.allEnh[id] || {}).leaderOf || []);
@@ -406,6 +425,6 @@ const Engine = (function () {
   }
 
   function eligibleReason(e, inst, roster, DATA) { const ctx = ctxFor(roster, DATA); const def = ctx.unitById[inst.datasheetId]; return eligible(e, def, inst, ctx); }
-  return { warlordBlock, grantsFor, instGrants, dispositionsOf, dataVersionFor, eligibleReason, ctxFor, points, validate, copyLimit, nextCopyInfo, enhancementCount, enhancementBlock, optionMax, slotSize, slotUsed, ownCap, keywordsOf, hasKw, factionOf, buffed, attachedGroup, canLead, enhIds, addStat };
+  return { warlordBlock, grantsFor, instGrants, dispositionsOf, dataVersionFor, eligibleReason, ctxFor, points, validate, copyLimit, nextCopyInfo, enhancementCount, enhancementBlock, optionMax, slotSize, slotUsed, ownCap, keywordsOf, hasKw, factionOf, buffed, attachedGroup, canLead, attachBlock, enhIds, addStat };
 })();
 if (typeof module !== 'undefined') module.exports = Engine;
