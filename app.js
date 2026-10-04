@@ -758,13 +758,97 @@
   const counterHTML = (label, key, val) => `<div class="panel counter"><div class="eyebrow">${label}</div><div class="row nowrap"><button data-act="pc" data-k="${key}" data-d="-1" aria-label="Decrease ${label}">−</button><span class="val num">${val}</span><button data-act="pc" data-k="${key}" data-d="1" aria-label="Increase ${label}">+</button></div></div>`;
   /* Blessings of Khorne: dice are rolled at the table; the player just marks what is active this battle round.
      Two is the usual limit; more can be marked as extras (stratagems, enhancements). */
+  function ensureGoo() {
+    if (document.getElementById('scGoo')) return;
+    const d = document.createElement('div'); d.style.cssText = 'position:absolute;width:0;height:0;overflow:hidden';
+    d.innerHTML = '<svg width="0" height="0"><defs><filter id="scGoo" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur in="SourceGraphic" stdDeviation="2.4" result="b"/><feColorMatrix in="b" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -10" result="g"/><feComposite in="SourceGraphic" in2="g" operator="atop"/></filter><linearGradient id="scDripG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5a0004"/><stop offset=".6" stop-color="#8e050c"/><stop offset="1" stop-color="#b10a14"/></linearGradient></defs></svg>';
+    document.body.appendChild(d);
+  }
+  /* blood spray from the slash: canvas particles stretched along their velocity, merged into liquid by a gooey filter;
+     some land on the card and leave fading splats */
+  function bloodSpray(card) {
+    ensureGoo();
+    const r = card.getBoundingClientRect(), padX = 60, padT = 150, padB = 90, dpr = Math.min(2, window.devicePixelRatio || 1);
+    const W = r.width + padX * 2, H = r.height + padT + padB;
+    const cv = document.createElement('canvas'); cv.width = W * dpr; cv.height = H * dpr;
+    cv.style.cssText = `position:fixed;left:${r.left - padX}px;top:${r.top - padT}px;width:${W}px;height:${H}px;pointer-events:none;z-index:96;filter:url(#scGoo)`;
+    document.body.appendChild(cv); const g = cv.getContext('2d'); g.scale(dpr, dpr);
+    const ang = -11 * Math.PI / 180, cx0 = padX - r.width * .06, cy0 = padT + r.height * .5, len = r.width * 1.12;
+    const P = [];
+    for (let i = 0; i < 34; i++) {
+      const t = Math.random(), x = cx0 + Math.cos(ang) * len * t, y = cy0 + Math.sin(ang) * len * t;
+      const dir = ang - Math.PI / 2 + (Math.random() - .5) * 1.5 + (Math.random() < .25 ? Math.PI : 0); // mostly up-out, some down
+      const sp = 180 + Math.random() * 380, big = Math.random() < .2;
+      P.push({ x, y, vx: Math.cos(dir) * sp + (Math.random() - .5) * 60, vy: Math.sin(dir) * sp, r: big ? 3.4 + Math.random() * 2.2 : 1.2 + Math.random() * 2.2,
+        t0: 70 + t * 170, life: 700 + Math.random() * 500, land: !big && Math.random() < .3 ? padT + r.height * (.2 + Math.random() * .7) : null, splat: 0 });
+    }
+    const t0 = performance.now(); let last = t0;
+    (function frame(now) {
+      const dt = Math.min(.04, (now - last) / 1000); last = now; const el = Math.max(0, now - t0);
+      g.clearRect(0, 0, W, H); let alive = false;
+      for (const p of P) {
+        if (el < p.t0) { alive = true; continue; }
+        const age = el - p.t0;
+        if (p.splat) { // a stain on the card that slowly fades
+          const a = 1 - (now - p.splat) / 900; if (a <= 0) continue; alive = true;
+          g.globalAlpha = a * .9; g.fillStyle = '#7d040b';
+          g.beginPath(); g.ellipse(p.x, p.y, p.r * 1.9, p.r * 1.3, p.rot, 0, 7); g.fill();
+          p.sat.forEach(s => { g.beginPath(); g.arc(p.x + s[0], p.y + s[1], s[2], 0, 7); g.fill(); });
+          continue;
+        }
+        if (age > p.life) continue; alive = true;
+        p.vy += 1500 * dt; p.vx *= .985; p.x += p.vx * dt; p.y += p.vy * dt;
+        if (p.land != null && p.vy > 0 && p.y >= p.land) { p.splat = now; p.rot = Math.random() * 3; p.sat = Array.from({ length: 3 + (Math.random() * 3 | 0) }, () => [(Math.random() - .5) * p.r * 7, (Math.random() - .5) * p.r * 5, .6 + Math.random() * 1.2]); continue; }
+        const sp = Math.hypot(p.vx, p.vy), st = Math.min(4, 1 + sp / 160);
+        g.globalAlpha = age > p.life * .75 ? 1 - (age - p.life * .75) / (p.life * .25) : 1;
+        g.save(); g.translate(p.x, p.y); g.rotate(Math.atan2(p.vy, p.vx));
+        g.fillStyle = '#9a0610'; g.beginPath(); // teardrop: round head, tapered tail behind
+        g.moveTo(p.r, 0); g.arc(0, 0, p.r, 0, Math.PI * .5); g.quadraticCurveTo(-p.r * st, p.r * .35, -p.r * st * 1.6, 0); g.quadraticCurveTo(-p.r * st, -p.r * .35, 0, -p.r); g.arc(0, 0, p.r, -Math.PI * .5, 0); g.fill();
+        g.restore();
+      }
+      g.globalAlpha = 1;
+      if (alive && el < 2200) requestAnimationFrame(frame); else cv.remove();
+    })(t0);
+  }
+  /* eight drips running from the top edge along the title: one gooey SVG so they read as liquid */
+  function bloodDrips(card) {
+    ensureGoo();
+    const w = card.clientWidth, h = card.clientHeight, ns = 'http://www.w3.org/2000/svg';
+    const svg = document.createElementNS(ns, 'svg'); svg.setAttribute('class', 'drips'); svg.setAttribute('viewBox', `0 0 ${w} ${h}`); svg.setAttribute('width', w); svg.setAttribute('height', h);
+    const grp = document.createElementNS(ns, 'g'); grp.setAttribute('filter', 'url(#scGoo)'); grp.setAttribute('fill', 'url(#scDripG)'); svg.appendChild(grp);
+    const lip = document.createElementNS(ns, 'rect'); lip.setAttribute('x', 0); lip.setAttribute('y', -6); lip.setAttribute('width', w); lip.setAttribute('height', 0); grp.appendChild(lip);
+    const D = [];
+    for (let i = 0; i < 8; i++) {
+      const x = w * (.06 + i * .09 + (Math.random() - .5) * .04), wd = 3 + Math.random() * 3.5, L = h * (.32 + Math.random() * .42);
+      const rc = document.createElementNS(ns, 'rect'); rc.setAttribute('x', x - wd / 2); rc.setAttribute('width', wd); rc.setAttribute('y', -2);
+      const bl = document.createElementNS(ns, 'ellipse'); bl.setAttribute('cx', x);
+      grp.appendChild(rc); grp.appendChild(bl); D.push({ rc, bl, wd, L, d: 250 + i * 55 + Math.random() * 120, dur: 650 + Math.random() * 500 });
+    }
+    card.appendChild(svg);
+    const t0 = performance.now();
+    (function frame(now) {
+      const el = Math.max(0, now - t0);
+      lip.setAttribute('height', Math.max(0, Math.min(9, el / 40)));
+      D.forEach(o => { let q = Math.max(0, Math.min(1, (el - o.d) / o.dur)); q = 1 - Math.pow(1 - q, 2.2); const len = o.L * q;
+        o.rc.setAttribute('height', len + 2); const br = o.wd * (.75 + .35 * q); o.bl.setAttribute('cy', len); o.bl.setAttribute('rx', br * .95); o.bl.setAttribute('ry', br * 1.15); });
+      svg.style.opacity = el > 1500 ? Math.max(0, 1 - (el - 1500) / 700) : 1;
+      if (el < 2200) requestAnimationFrame(frame); else svg.remove();
+    })(t0);
+  }
+  /* activating a Blessing: blade slash, blood spray, eight drips along the title, then the fire flares */
+  function bloodStrike(c) {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const s = document.createElement('span'); s.className = 'slash'; c.appendChild(s); setTimeout(() => s.remove(), 600);
+    bloodSpray(c); bloodDrips(c);
+    if (PL.android) setTimeout(() => PL.haptic('reject'), 120);
+  }
   function patchBlessings(r, flareId) {
     const p = playState(r), act = p.active || [];
     document.querySelectorAll('.kbl').forEach(c => {
       const id = c.dataset.id, on = act.includes(id), extra = on ? act.indexOf(id) >= 2 : act.length >= 2;
       c.classList.toggle('on', on); c.classList.toggle('extra', extra); c.setAttribute('aria-pressed', on);
       c.querySelector('.kbl-s').textContent = on ? (extra ? 'Active · extra' : 'Active') : (extra ? '+ Extra (stratagem)' : 'Activate');
-      if (id === flareId) { c.classList.remove('flare'); void c.offsetWidth; c.classList.add('flare'); setTimeout(() => c.classList.remove('flare'), 1300); }
+      if (id === flareId) { bloodStrike(c); setTimeout(() => { c.classList.remove('flare'); void c.offsetWidth; c.classList.add('flare'); setTimeout(() => c.classList.remove('flare'), 1300); }, 280); }
     });
     const n = document.getElementById('kbl-count'); if (n) { n.textContent = `Round ${p.round} · ${act.length} active`; n.classList.toggle('gold', act.length > 0); }
     const g = document.querySelector('.mstatus.game'); if (g) g.outerHTML = gameLine(r);

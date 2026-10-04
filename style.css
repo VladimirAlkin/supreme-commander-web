@@ -591,7 +591,7 @@ html:not(.m) .seg.wide { max-width: 560px; }
 .kbl { position: relative; overflow: hidden; isolation: isolate; display: grid; grid-template-columns: 1fr auto; grid-template-areas: "t s" "e s"; gap: 2px 12px; align-items: center; width: 100%; text-align: left; padding: 11px 12px; border-radius: 12px; cursor: pointer; font: inherit; color: #f6e7dc;
   background: #140404; border: 1px solid rgba(214, 72, 26, .38); box-shadow: 0 0 0 rgba(255, 110, 40, 0);
   transition: border-color .5s ease, box-shadow .7s ease; -webkit-tap-highlight-color: transparent; }
-.kbl > span:not(.kbl-fire) { position: relative; z-index: 1; }
+.kbl > .kbl-t, .kbl > .kbl-e, .kbl > .kbl-s { position: relative; z-index: 1; }
 .kbl::before { content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
   background: radial-gradient(120% 70% at 50% 115%, rgba(232, 92, 32, .55), rgba(120, 22, 10, .25) 55%, transparent 80%);
   opacity: .45; animation: kbIdle 4.2s ease-in-out infinite; animation-delay: var(--d, 0s); will-change: opacity; }
@@ -609,12 +609,19 @@ html:not(.m) .seg.wide { max-width: 560px; }
 .kbl.extra { border-style: dashed; }
 .kbl.extra:not(.on) .kbl-s { color: #c99a83; font-weight: 700; }
 .kbl.on .kbl-s { color: #fff3e6; }
-.kbl.flare::after { content: ''; position: absolute; inset: -20% -5% -5%; z-index: 0; pointer-events: none;
-  background: radial-gradient(90% 70% at 50% 100%, rgba(255, 210, 120, .9), rgba(255, 110, 30, .55) 40%, transparent 75%);
+.kbl.flare::after { content: ''; position: absolute; inset: -30% -10% -10%; z-index: 0; pointer-events: none;
+  background: radial-gradient(60% 45% at 50% 62%, rgba(255, 210, 120, .85), rgba(255, 110, 30, .5) 45%, transparent 100%);
   animation: kbFlare 1.1s cubic-bezier(.22, .61, .36, 1) forwards; will-change: opacity, transform; }
 @keyframes kbIdle { 0%, 100% { opacity: .38; } 50% { opacity: .62; } }
 @keyframes kbBurn { 0%, 100% { opacity: .88; transform: scaleY(1); } 50% { opacity: 1; transform: scaleY(1.07); } }
 @keyframes kbFlare { 0% { opacity: 0; transform: translateY(45%) scaleY(.7); } 25% { opacity: 1; } 100% { opacity: 0; transform: translateY(-30%) scaleY(1.15); } }
+
+/* blood strike on activation: blade slash (CSS), spray (canvas) and drips (SVG), both through the gooey filter */
+.kbl > .slash { position: absolute; left: -12%; top: 50%; width: 124%; height: 3px; z-index: 2; pointer-events: none; transform-origin: 0 50%;
+  background: linear-gradient(90deg, transparent, #ffe6d6 18%, #ff3b2a 55%, #7a0505 85%, transparent);
+  box-shadow: 0 0 10px rgba(255, 60, 40, .9); transform: rotate(-11deg) scaleX(0); animation: kbSlash .42s cubic-bezier(.2, .8, .3, 1) forwards; }
+@keyframes kbSlash { 0% { transform: rotate(-11deg) scaleX(0); opacity: 1; height: 3px; } 45% { transform: rotate(-11deg) scaleX(1); opacity: 1; height: 4px; } 100% { transform: rotate(-11deg) scaleX(1); opacity: 0; height: 9px; filter: blur(2px); } }
+.kbl > svg.drips { position: absolute; left: 0; top: 0; z-index: 0; pointer-events: none; overflow: visible; }
 
 /* ---- Shadow in the Warp: a void button that screams once ---- */
 .voidwrap { position: relative; }
