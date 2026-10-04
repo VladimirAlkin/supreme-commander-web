@@ -275,6 +275,7 @@
 
   /* ---------------- common bits ---------------- */
   function topbar(title, opts = {}) {
+    if (opts.center) return `<header class="topbar"><div class="topbar-in center">${title}</div>${opts.below || ''}</header>`;
     return `<header class="topbar"><div class="topbar-in">
       ${opts.back ? `<button class="iconbtn" data-act="${opts.back}" aria-label="Back">${ICON.back}</button>` : '<span class="brand" aria-hidden="true">✠</span>'}
       <div class="grow">${title}</div>${opts.right || ''}</div>${opts.below || ''}</header>`;
@@ -317,7 +318,7 @@
       body = rosterListBlock(null);
     }
     const embers = Array.from({ length: 14 }, (_, i) => `<i style="--x:${(i * 37 + 11) % 100}%;--d:${14 + (i * 7) % 11}s;--delay:${-(i * 2.3).toFixed(1)}s;--s:${2 + (i % 3)}px"></i>`).join('');
-    return `<div class="homebg" aria-hidden="true"><div class="glow"></div><div class="embers">${embers}</div></div>` + topbar(`<span class="title">Supreme Commander</span> <span class="dim" style="font-size:.85rem">11th edition</span>`) +
+    return `<div class="homebg" aria-hidden="true"><div class="glow"></div><div class="embers">${embers}</div></div>` + topbar(`<div class="hometitle"><span class="brand" aria-hidden="true">✠</span><span class="title">Supreme Commander</span><span class="dim">11th edition</span></div>`, { center: true }) +
       `<main class="wrap">${body}<div style="margin-top:22px">${stamp()}${PL.android ? ` <span class="stamp">· App ${esc((() => { try { return AND.version(); } catch (e) { return ''; } })())}</span>` : ''}${window.SC_FLAVOUR === 'pwa' ? ` <span class="stamp">· Web ${esc(window.SC_BUILD || '')}</span> <button class="btn sm" data-act="pwaUpdate" style="margin-top:8px">Check for updates</button>` : ''}</div></main>` + tabbar(tabs, S.homeTab, 'homeTab') + modalHTML() + sheetHTML();
   }
   const glossItems = items => items.map(([k, v]) => `<div class="abil"><b>${esc(k)}</b>${esc(v)}</div>`).join('') || '<div class="empty">No terms match.</div>';
@@ -1175,6 +1176,13 @@
     const cards = document.querySelectorAll('main .panel, main .pcard, main .ucard'); cards.forEach(c => c.classList.add('quake')); setTimeout(() => cards.forEach(c => c.classList.remove('quake')), 1000);
     setTimeout(() => fx.remove(), 3300);
   }
+  function overHTML(p) {
+    if (!p.over) return '';
+    const [a, b] = p.vp, res = a > b ? 'Victory' : a < b ? 'Defeat' : 'Draw';
+    return `<div class="panel pad gameover stack" role="status"><div class="row"><span class="eyebrow grow">Game over · after battle round 5</span><b class="go-res ${res.toLowerCase()}">${res}</b></div>
+      <div class="go-vp num"><span>You <b>${a}</b></span><span class="dim">:</span><span><b>${b}</b> Opponent</span></div>
+      <div class="row"><button class="btn" data-act="resumeGame">${ICON.undo} Back to round 5</button><button class="btn danger" data-act="resetGameAsk">Reset game…</button></div></div>`;
+  }
   function turnRow(p) {
     return `<div class="seg wide" role="group" aria-label="Whose turn"><button aria-pressed="${p.turn !== 'opp'}" data-act="plTurn" data-id="mine">Your turn</button><button aria-pressed="${p.turn === 'opp'}" data-act="plTurn" data-id="opp">Opponent's turn</button></div>
       <div class="chips scroll phase-row" role="group" aria-label="Current phase">${PHASES.map(ph => `<button class="chip" aria-pressed="${p.phase === ph}" data-act="plPhase" data-id="${ph}" style="border-color:var(${PH_VAR[ph]})">${ph}</button>`).join('')}</div>
@@ -1185,7 +1193,7 @@
     const units = rosterOrder(r).map(inst => woundCard(r, inst, p)).join('');
     const resetHTML = `<div class="row"><span class="grow eyebrow">Game tracker</span><button class="btn sm danger" data-act="resetGameAsk">Reset game</button></div>`;
     return `<div class="stack">${resetHTML}<div class="playtop">${counterHTML('Command Points', 'cp', p.cp)}${counterHTML('Battle round', 'round', p.round)}${counterHTML('Your VP', 'vp0', p.vp[0])}${counterHTML('Opponent VP', 'vp1', p.vp[1])}</div>
-      ${turnRow(p)}<div class="row"><button class="btn primary" data-act="nextPhase">Next phase →</button></div>
+      ${overHTML(p)}${turnRow(p)}<div class="row"><button class="btn primary" data-act="nextPhase" ${p.over ? 'aria-disabled="true"' : ''}>${p.over ? 'Game over' : 'Next phase →'}</button></div>
       <div class="faint" style="font-size:.85rem">Both players gain 1CP at the start of every Command phase. “Next phase” after Fight hands the turn over; a new battle round starts when it comes back to the player who went first.</div>
       ${blessHTML(r, p)}${factionPlayHTML(r, p)}
       <div class="row"><h3 class="grow">Units</h3><button class="btn sm" data-act="resetWounds">Reset wounds</button><button class="btn sm" data-act="rosterTab" data-id="strats">${ICON.bolt} Stratagems</button></div>
@@ -1200,13 +1208,22 @@
     if (W === 1 && inst.size > 1) {
       body = `<div class="row"><div class="stepper"><button data-act="mAlive" data-id="${inst.instanceId}" data-d="-1" aria-label="Remove a model">−</button><output class="num" style="font-size:1.2rem;font-weight:800">${alive}/${inst.size}</output><button data-act="mAlive" data-id="${inst.instanceId}" data-d="1" aria-label="Return a model">+</button></div><span class="dim">models alive</span></div>`;
     } else {
-      body = `<div class="models">${wl.map((w, i) => { const dmg = def.damaged && w > 0 && w <= def.damaged.threshold; return `<div class="model ${w <= 0 ? 'dead' : ''} ${dmg ? 'dmg' : ''}"><span class="faint" style="font-size:.75rem">Model ${i + 1}</span><span class="w num">${w}/${maxW(def, i)}</span><div class="mb"><button data-act="mw" data-id="${inst.instanceId}" data-i="${i}" data-d="-1" aria-label="Model ${i + 1}: lose a wound">−</button><button data-act="mw" data-id="${inst.instanceId}" data-i="${i}" data-d="1" aria-label="Model ${i + 1}: heal a wound">+</button></div></div>`; }).join('')}</div>`;
+      body = `<div class="models">${wl.map((w, i) => { const dmg = def.damaged && w > 0 && w <= def.damaged.threshold; return `<div class="model ${w <= 0 ? 'dead' : ''} ${dmg ? 'dmg' : ''}"><span class="faint" style="font-size:.75rem">${i === 0 && mixedUnit(def, inst) ? esc(def.leadModel.name) : `Model ${i + 1}`}</span><span class="w num">${w}/${maxW(def, i)}</span><div class="mb"><button data-act="mw" data-id="${inst.instanceId}" data-i="${i}" data-d="-1" aria-label="Model ${i + 1}: lose a wound">−</button><button data-act="mw" data-id="${inst.instanceId}" data-i="${i}" data-d="1" aria-label="Model ${i + 1}: heal a wound">+</button></div></div>`; }).join('')}</div>`;
     }
     const dmgOn = def.damaged && inst.size === 1 && wl[0] > 0 && wl[0] <= def.damaged.threshold;
     return `<div class="ucard ${inst.attachedTo ? 'attached' : ''}" style="padding:10px"><div class="row nowrap"><button class="ptbtn" data-act="openInst" data-id="${inst.instanceId}" aria-label="Open datasheet">${portrait(def, r.factionId, 'sm')}</button><div class="grow"><b>${esc(dispName(r, inst))}</b>${kwBadges(r, def, inst)}<div class="dim" style="font-size:.85rem">T${def.profile.T} · Sv ${def.profile.Sv}${def.profile.InSv !== '—' ? ' · ' + def.profile.InSv + ' invuln' : ''} · OC ${def.profile.OC}${alive === 0 ? ' · <span style="color:var(--err)">Destroyed</span>' : ''}</div></div></div>
       ${dmgOn ? `<div class="badge red" style="margin:8px 0">DAMAGED · ${esc(def.damaged.text)}</div>` : ''}<div style="margin-top:8px">${body}</div></div>`;
   }
   const maxW = (def, i) => (def.leadModel && i === 0 ? parseInt(def.leadModel.W, 10) : parseInt(def.profile.W, 10) || 1);
+  /* a unit whose first model (Aspiring Sorcerer, Ravener Prime...) has its own wounds: the player picks who takes them */
+  const mixedUnit = (def, inst) => !!(def.leadModel && inst.size > 1 && parseInt(def.leadModel.W, 10) !== (parseInt(def.profile.W, 10) || 1));
+  function woundGroup(wl, def, inst, grp) { // indices of the chosen group: 'lead' = model 0, 'rest' = the others; whole unit otherwise
+    if (!mixedUnit(def, inst)) return wl.map((_, i) => i);
+    const lead = [0], rest = wl.map((_, i) => i).slice(1), alive = g => g.some(i => wl[i] > 0);
+    if (grp === 'lead') return alive(lead) || !alive(rest) ? lead : rest;
+    return alive(rest) || !alive(lead) ? rest : lead;
+  }
+  const wTarget = (def, inst, wl) => { const g = woundGroup(wl, def, inst, (S.wtgt || {})[inst.instanceId] || 'rest'); return g.length === 1 && def.leadModel && mixedUnit(def, inst) ? 'lead' : 'rest'; };
   function woundsOf(p, inst, W, def) {
     const wl = p.wounds[inst.instanceId] || (p.wounds[inst.instanceId] = Array.from({ length: inst.size }, (_, i) => def ? maxW(def, i) : W));
     while (wl.length < inst.size) wl.push(W);
@@ -1441,11 +1458,11 @@
     const p = playState(r);
     const seg = `<div class="seg wide" role="group" aria-label="Play view"><button aria-pressed="${S.playSeg !== 'units'}" data-act="playSeg" data-id="turn">Turn</button><button aria-pressed="${S.playSeg === 'units'}" data-act="playSeg" data-id="units">Units</button></div>`;
     if (S.playSeg === 'units') return `<div class="stack">${seg}${playUnitsM(r, p)}</div>`;
-    return `<div class="stack">${seg}${turnRow(p)}
+    return `<div class="stack">${seg}${overHTML(p)}${turnRow(p)}
       <div class="playtop m2">${counterHTML('Command Points', 'cp', p.cp)}${counterHTML('Battle round', 'round', p.round)}${counterHTML('Your VP', 'vp0', p.vp[0])}${counterHTML('Opponent VP', 'vp1', p.vp[1])}</div>
       ${blessHTML(r, p)}${factionPlayHTML(r, p)}
       <button class="btn danger ghost" data-act="resetGameAsk">Reset game…</button></div>
-      <div class="mact"><button class="btn" data-act="pc" data-k="cp" data-d="-1" aria-label="Spend 1 CP">CP −</button><button class="btn" data-act="pc" data-k="cp" data-d="1" aria-label="Gain 1 CP">CP +</button><button class="btn primary grow" data-act="nextPhase">${p.phase === 'Fight' ? (p.turn === 'opp' ? 'Your turn →' : 'Opponent turn →') : 'Next: ' + PHASES[PHASES.indexOf(p.phase) + 1] + ' →'}</button></div>`;
+      <div class="mact"><button class="btn" data-act="pc" data-k="cp" data-d="-1" aria-label="Spend 1 CP">CP −</button><button class="btn" data-act="pc" data-k="cp" data-d="1" aria-label="Gain 1 CP">CP +</button><button class="btn primary grow" data-act="nextPhase" ${p.over ? 'aria-disabled="true"' : ''}>${p.over ? 'Game over' : p.phase === 'Fight' ? (p.round >= 5 && (p.turn === 'opp' ? 'mine' : 'opp') === (p.first || 'mine') ? 'End the game' : p.turn === 'opp' ? 'Your turn →' : 'Opponent turn →') : 'Next: ' + PHASES[PHASES.indexOf(p.phase) + 1] + ' →'}</button></div>`;
   }
   function playUnitsM(r, p) {
     const order = rosterOrder(r);
@@ -1473,8 +1490,15 @@
       read = `<span class="wbig num">${alive}<small>/${inst.size}</small></span><span class="dim">models</span>`;
       btns = `<button class="wb minus" data-act="wnd" data-k="m" data-d="-1" data-id="${id}" aria-label="${name}: remove a model">−1 model</button><button class="wb plus" data-act="wnd" data-k="m" data-d="1" data-id="${id}" aria-label="${name}: return a model">+</button>`;
     } else {
-      read = `<span class="wbig num">${alive}<small>/${inst.size}</small></span><span class="dim">models${wi >= 0 ? ` · wounded model <b class="num">${wl[wi]}/${maxW(def, wi)}</b>` : ''}</span>`;
-      btns = `<button class="wb minus" data-act="wnd" data-k="w" data-d="-1" data-id="${id}" aria-label="${name}: lose a wound">−1 wound</button><button class="wb minus2" data-act="wnd" data-k="m" data-d="-1" data-id="${id}" aria-label="${name}: remove a model">−1 model</button><button class="wb plus" data-act="wnd" data-k="w" data-d="1" data-id="${id}" aria-label="${name}: heal or return">+</button>`;
+      const mixed = mixedUnit(def, inst), tg = mixed ? wTarget(def, inst, wl) : 'rest';
+      const restWl = mixed ? wl.slice(1) : wl, rwi = restWl.findIndex(w => w > 0 && w < W);
+      read = `<span class="wbig num">${alive}<small>/${inst.size}</small></span><span class="dim">models${!mixed && wi >= 0 ? ` · wounded model <b class="num">${wl[wi]}/${maxW(def, wi)}</b>` : mixed && rwi >= 0 ? ` · wounded <b class="num">${restWl[rwi]}/${W}</b>` : ''}</span>`;
+      const who = tg === 'lead' ? def.leadModel.name : 'model';
+      btns = `<button class="wb minus" data-act="wnd" data-k="w" data-d="-1" data-id="${id}" aria-label="${name}: ${esc(who)} loses a wound">−1 wound</button><button class="wb minus2" data-act="wnd" data-k="m" data-d="-1" data-id="${id}" aria-label="${name}: remove a ${esc(who)}">${tg === 'lead' ? 'Slay' : '−1 model'}</button><button class="wb plus" data-act="wnd" data-k="w" data-d="1" data-id="${id}" aria-label="${name}: heal or return a ${esc(who)}">+</button>`;
+      if (mixed) {
+        const lw = wl[0], LW = maxW(def, 0), restAlive = restWl.filter(w => w > 0).length;
+        btns = `<div class="wtgt" role="group" aria-label="${name}: who takes the wounds"><span class="wtgt-l">Wounds go to</span><div class="seg"><button aria-pressed="${tg === 'rest'}" data-act="wtgt" data-id="${id}" data-g="rest" ${restAlive ? '' : 'disabled'}>${esc(def.name)} <span class="num">${restAlive}/${inst.size - 1}</span></button><button aria-pressed="${tg === 'lead'}" data-act="wtgt" data-id="${id}" data-g="lead" ${lw > 0 ? '' : 'disabled'} class="${lw > 0 && lw < LW ? 'hurt' : ''}">${esc(def.leadModel.name)} <span class="num">${lw > 0 ? `${lw}/${LW}W` : 'slain'}</span></button></div></div><div class="wbtns-in">${btns}</div>`;
+      }
     }
     const dmgOn = def.damaged && inst.size === 1 && wl[0] > 0 && wl[0] <= def.damaged.threshold;
     return `<div class="pcard ${alive ? '' : 'dead'} ${inst.attachedTo ? 'att' : ''}"><div class="row nowrap"><button class="ptbtn" data-act="openInst" data-id="${id}" aria-label="Datasheet: ${name}">${portrait(def, r.factionId, 'sm')}</button><div class="grow"><b>${name}</b>${kwBadges(r, def, inst)}<div class="dim pstats">T${def.profile.T} · Sv ${def.profile.Sv}${def.profile.InSv !== '—' ? ' · ' + def.profile.InSv + ' inv' : ''} · OC ${def.profile.OC}</div></div><div class="wread">${read}</div></div>
@@ -1558,8 +1582,34 @@
     }
     if (S.view === 'wizard') { if (S.draft && S.draft.editing) go('roster'); else go('faction'); return true; }
     if (S.view === 'faction') { go('home'); return true; }
-    if (S.view === 'home' && S.homeTab === 'glossary') { S.homeTab = 'armies'; render(); return true; }
+    if (S.view === 'home' && S.homeTab !== 'armies') { S.homeTab = 'armies'; render(); return true; }
     return false;
+  }
+  const atRoot = () => S.view === 'home' && S.homeTab === 'armies' && !S.sheet && !S.modal && !document.getElementById('tip');
+  /* Web app (PWA, browser tab): system Back and the browser's swipe-back step back one screen instead of leaving.
+     One spare history entry is kept while there is somewhere to go back to; at the Armies home Back leaves as usual. */
+  const HIST = !NATIVE && window.top === window && !!(window.history && history.pushState);
+  let histArmed = false;
+  function armHistory() { if (!HIST || histArmed || atRoot()) return; try { history.pushState({ sc: 1 }, ''); histArmed = true; } catch (e) { } }
+  if (HIST) window.addEventListener('popstate', () => { histArmed = false; goBack(); armHistory(); });
+  /* iPhone home-screen app has no browser swipe-back, so a swipe from the left edge does Back here.
+     If iOS did its own history Back during the same swipe (popstate), ours is skipped. */
+  if (HIST && window.navigator.standalone === true) {
+    let sx = null, sy = 0, dx = 0, t0 = 0, lastPop = 0, hint = null;
+    window.addEventListener('popstate', () => { lastPop = Date.now(); });
+    const drop = () => { if (hint) hint.remove(); hint = null; sx = null; };
+    document.addEventListener('touchstart', e => {
+      const t = e.touches[0]; if (e.touches.length !== 1 || t.clientX > 22 || atRoot()) return;
+      sx = t.clientX; sy = t.clientY; dx = 0; t0 = Date.now();
+      hint = document.createElement('div'); hint.className = 'swipeback'; hint.innerHTML = ICON.back; document.body.appendChild(hint);
+    }, { passive: true });
+    document.addEventListener('touchmove', e => {
+      if (sx == null) return; const t = e.touches[0]; dx = t.clientX - sx; const dy = Math.abs(t.clientY - sy);
+      if (dy > 40 && dy > dx) { drop(); return; }
+      const k = Math.max(0, Math.min(1, dx / 90)); hint.style.opacity = k; hint.style.transform = `translateX(${-50 + 56 * k}px)`;
+    }, { passive: true });
+    document.addEventListener('touchend', () => { if (sx == null) return; const go = dx >= 90; drop(); if (go) setTimeout(() => { if (lastPop < t0) goBack(); }, 320); }, { passive: true });
+    document.addEventListener('touchcancel', drop, { passive: true });
   }
   function leaveRoster() {
     const from = S.rosterFrom;
@@ -1630,6 +1680,7 @@
     if (S.sheet) wireSheet();
     if (S.flash) { const n = document.getElementById('u-' + S.flash); const id = S.flash; if (n) n.scrollIntoView({ block: 'center' }); setTimeout(() => { if (S.flash === id) S.flash = null; }, 1600); }
     PL.keepAwake(S.view === 'roster' && S.tab === 'play');
+    armHistory();
   }
   /* sheets close with a downward drag on the grip or header */
   function wireSheet() {
@@ -1818,13 +1869,17 @@
     plTurn: el => { const r = cur(); playChange(r, p => { p.turn = el.dataset.id; }); },
     plFirst: el => { const r = cur(); playChange(r, p => { p.first = el.dataset.id; p.turn = el.dataset.id; }); },
     playSeg: el => { S.playSeg = el.dataset.id; render(); },
+    resumeGame: () => { const r = cur(); playChange(r, p => { if (!p.over) return false; p.over = false; }, 'Back in battle round 5. VP can still be corrected.'); },
     nextPhase: () => {
       const r = cur(); let msg = '';
+      if (playState(r).over) { toast('The game is over. Use “Back to round 5” or reset the game.'); PL.haptic('reject'); return; }
       playChange(r, p => {
         let i = PHASES.indexOf(p.phase) + 1;
         if (i >= PHASES.length) {
-          i = 0; p.turn = p.turn === 'opp' ? 'mine' : 'opp';
-          if (p.turn === (p.first || 'mine')) { if (p.round >= 5) { msg = 'Battle round 5 is over: the game ends.'; return; } p.round++; p.active = []; }
+          const nt = p.turn === 'opp' ? 'mine' : 'opp';
+          if (nt === (p.first || 'mine') && p.round >= 5) { p.over = true; msg = `Battle round 5 is over: the game ends. VP ${p.vp[0]} : ${p.vp[1]}.`; return; }
+          i = 0; p.turn = nt;
+          if (p.turn === (p.first || 'mine')) { p.round++; p.active = []; }
         }
         p.phase = PHASES[i];
         if (p.phase === 'Command') { p.cp += 1; if (p.turn !== 'opp') p.hyperExtra = null; msg = `${p.turn === 'opp' ? "Opponent's" : 'Your'} Command phase, round ${p.round}: +1 CP.${roundHint(r, p)}`; }
@@ -1882,17 +1937,20 @@
       const r = cur(), u = inst(el.dataset.id), def = unitDef(r.factionId, u.datasheetId), W = parseInt(def.profile.W, 10) || 1, d = +el.dataset.d, k = el.dataset.k;
       let msg = null;
       playChange(r, p => {
-        const wl = woundsOf(p, u, W, def);
-        const wi = wl.findIndex((w, i) => w > 0 && w < maxW(def, i)), ai = wl.findIndex(w => w > 0), di = wl.findIndex(w => w <= 0);
+        const wl = woundsOf(p, u, W, def), mixed = mixedUnit(def, u);
+        const g = mixed ? woundGroup(wl, def, u, wTarget(def, u, wl)) : wl.map((_, i) => i);
+        const wi = g.find(i => wl[i] > 0 && wl[i] < maxW(def, i)), ai = g.find(i => wl[i] > 0), di = g.find(i => wl[i] <= 0);
         if (d < 0) {
-          const i = wi >= 0 ? wi : ai; if (i < 0) return false;
+          const i = wi != null ? wi : ai; if (i == null) return false;
           if (k === 'm') wl[i] = 0; else wl[i] -= 1;
           if (!wl.some(w => w > 0)) msg = `${dispName(r, u)} destroyed.`;
+          else if (mixed && i === 0 && wl[0] <= 0) msg = `${def.leadModel.name} slain.`;
         } else {
-          if (k === 'w' && wi >= 0) wl[wi] += 1; else if (di >= 0) wl[di] = k === 'w' && u.size === 1 ? 1 : maxW(def, di); else return false;
+          if (k === 'w' && wi != null) wl[wi] += 1; else if (di != null) wl[di] = k === 'w' && u.size === 1 ? 1 : maxW(def, di); else return false;
         }
       }, () => msg, d < 0 ? 'tick' : 'confirm');
     },
+    wtgt: el => { S.wtgt = S.wtgt || {}; S.wtgt[el.dataset.id] = el.dataset.g; PL.haptic('tick'); render(); },
     resetWounds: () => { const r = cur(); playChange(r, p => { p.wounds = {}; }, 'Wounds reset.'); },
     stratMode: el => { S.stratMode = el.dataset.id; render(); },
     stratToggle: el => { S.stratOpen[el.dataset.id] = !S.stratOpen[el.dataset.id]; render(); },

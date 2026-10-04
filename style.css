@@ -781,3 +781,30 @@ html:not(.m) .seg.wide { max-width: 560px; }
 @keyframes plgBreathe { 0%, 100% { opacity: .82; transform: scaleY(1); } 50% { opacity: 1; transform: scaleY(1.06); } }
 @media (prefers-reduced-motion: reduce) { .plg.flare::after { display: none; } .cring i { opacity: .5; } }
 .plg > svg.ooze { position: absolute; left: 0; top: 0; z-index: 0; pointer-events: none; overflow: visible; }
+
+/* home title centred */
+.topbar-in.center { justify-content: center; }
+.hometitle { display: flex; align-items: baseline; justify-content: center; gap: 8px; flex-wrap: wrap; text-align: center; min-width: 0; }
+.hometitle .brand { align-self: center; }
+.hometitle .dim { font-size: .85rem; }
+/* who takes the wounds (Aspiring Sorcerer, Ravener Prime...) */
+.wtgt { display: flex; flex-direction: column; gap: 6px; width: 100%; }
+.wtgt-l { font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; color: var(--fg-dim); font-weight: 700; }
+.wtgt .seg { display: grid; grid-template-columns: 1fr 1fr; }
+.wtgt .seg button { min-height: 44px; font-weight: 700; line-height: 1.15; padding: 6px 8px; }
+.wtgt .seg button .num { opacity: .8; font-weight: 600; white-space: nowrap; }
+.wtgt .seg button.hurt .num { color: var(--warn, #e0a040); opacity: 1; }
+.wtgt .seg button:disabled { opacity: .45; text-decoration: line-through; }
+.wbtns-in { display: flex; gap: 8px; width: 100%; }
+.wbtns:has(.wtgt) { flex-direction: column; }
+/* game over */
+.gameover { border-color: color-mix(in srgb, var(--accent, #d8b45a) 60%, transparent); }
+.go-vp { display: flex; justify-content: center; align-items: baseline; gap: 14px; font-size: 1.1rem; }
+.go-vp b { font-size: 2rem; }
+.go-res { font-size: 1.05rem; letter-spacing: .06em; text-transform: uppercase; }
+.go-res.victory { color: var(--ok, #6fcf7f); } .go-res.defeat { color: var(--err); }
+/* iOS home-screen app: edge-swipe back hint */
+.swipeback { position: fixed; left: 6px; top: 50%; width: 44px; height: 44px; margin-top: -22px; border-radius: 50%; display: grid; place-items: center; background: var(--panel-2); border: 1px solid var(--line); color: var(--fg); z-index: 9999; pointer-events: none; opacity: 0; transform: translateX(-50px); }
+.swipeback svg { width: 22px; height: 22px; }
+.wtgt .seg button[aria-pressed=true] .num, .wtgt .seg button.hurt[aria-pressed=true] .num { color: inherit; opacity: .85; }
+[data-act=nextPhase][aria-disabled=true] { opacity: .5; filter: saturate(.4); }
