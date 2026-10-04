@@ -300,8 +300,7 @@ const Engine = (function () {
     roster.units.forEach(inst => {
       const def = ctx.unitById[inst.datasheetId];
       if (!def) return;
-      const extra = enhIds(inst).flatMap(id => (ctx.allEnh[id] || {}).leaderOf || []);
-      const can = [...new Set([...(def.leaderOf || []), ...extra])];
+      const can = canLead(def, inst, roster, DATA);
       if (def.support && !inst.attachedTo) E(`${nameOf(inst)} is a Support unit and must be attached to a bodyguard unit.`, inst.instanceId);
       if (!inst.attachedTo) return;
       const target = roster.units.find(u => u.instanceId === inst.attachedTo);
@@ -360,6 +359,28 @@ const Engine = (function () {
     return s;
   }
   function improveSkill(v, n) { const m = String(v).match(/^(\d)\+$/); return m ? Math.max(2, +m[1] - n) + '+' : v; }
+
+  /* Which weapons a unit actually carries, from its wargear picks. Weapons are matched to option and slot labels by name:
+     a weapon that some option names is shown only while one of those picks is active; a weapon no option names is always carried.
+     ponytail: name matching instead of a weapon->option map in the data; add explicit `weapons` lists to options if a label ever misleads. */
+  const wnorm = s => String(s).toLowerCase().replace(/\(.*?\)/g, '').replace(/^[^:]*:\s*/, '').replace(/\s+[-\u2013]\s+.*$/, '').replace(/^\d+\s+/, '')
+    .split(/\s+/).map(x => x.replace(/s$/, '')).join(' ').trim();
+  const wparts = label => { const whole = wnorm(label); return [whole, ...String(label).replace(/\(.*?\)/g, '').replace(/^[^:]*:\s*/, '').split(/,\s*|\s+and\s+/).map(wnorm)]; };
+  function carries(def, inst) {
+    if (!inst || !(def.options || []).length) return () => true;
+    const wg = inst.wargear || {}, on = new Map();
+    const add = (label, sel) => wparts(label).forEach(k => on.set(k, on.get(k) || sel));
+    def.options.forEach(o => {
+      // a champion's swap leaves the rest of the unit with the default weapon
+      if (o.type === 'choice') { const v = wg[o.id] != null ? wg[o.id] : o.choices[0].id, keep = /^champion/i.test(o.label) && inst.size > 1; o.choices.forEach((c, i) => add(c.label, c.id === v || (keep && i === 0))); }
+      else add(o.label, (+wg[o.id] || 0) > 0);
+    });
+    (def.slots || []).forEach(sl => add(sl.default, slotSize(sl, inst) - slotUsed(def, inst, sl.id) > 0));
+    // weapons in the base loadout that no choice swaps out and no slot tracks (e.g. a Rhino's own combi-bolter) are always carried
+    const swapped = new Set([...def.options.filter(o => o.type === 'choice').flatMap(o => wparts(o.choices[0].label)), ...(def.slots || []).flatMap(sl => wparts(sl.default))]);
+    String(def.composition || '').split(':').pop().split(/[,;.]|\s+and\s+/).map(wnorm).filter(k => k && !swapped.has(k)).forEach(k => on.set(k, true));
+    return w => { const k = wnorm(w.name); return !on.has(k) || on.get(k); };
+  }
 
   /* Returns {profile, ranged, melee, notes[]} with highlights: changed fields carry {src} */
   function buffed(def, inst, roster, DATA, opts) {
@@ -425,6 +446,6 @@ const Engine = (function () {
   }
 
   function eligibleReason(e, inst, roster, DATA) { const ctx = ctxFor(roster, DATA); const def = ctx.unitById[inst.datasheetId]; return eligible(e, def, inst, ctx); }
-  return { warlordBlock, grantsFor, instGrants, dispositionsOf, dataVersionFor, eligibleReason, ctxFor, points, validate, copyLimit, nextCopyInfo, enhancementCount, enhancementBlock, optionMax, slotSize, slotUsed, ownCap, keywordsOf, hasKw, factionOf, buffed, attachedGroup, canLead, attachBlock, enhIds, addStat };
+  return { warlordBlock, grantsFor, instGrants, dispositionsOf, dataVersionFor, eligibleReason, ctxFor, points, validate, copyLimit, nextCopyInfo, enhancementCount, enhancementBlock, optionMax, slotSize, slotUsed, ownCap, keywordsOf, hasKw, factionOf, buffed, attachedGroup, canLead, attachBlock, carries, enhIds, addStat, ORD };
 })();
 if (typeof module !== 'undefined') module.exports = Engine;

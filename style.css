@@ -163,7 +163,6 @@ label.fld > input, label.fld > select { color: var(--fg); }
 
 .ucard { border-radius: var(--radius); border: 1px solid var(--line); background: var(--panel); }
 .ucard.flag-err { border-color: color-mix(in srgb, var(--err) 55%, transparent); }
-.ucard.attached { margin-left: 22px; border-left: 3px solid var(--accent); }
 .ucard .uhead { display: grid; grid-template-columns: auto 1fr auto auto; gap: 10px; align-items: center; padding: 8px 8px 8px 8px; }
 .ucard .uname { font-weight: 700; font-size: 1.02rem; background: none; border: 0; padding: 0; text-align: left; overflow-wrap: anywhere; }
 .ucard .umeta { font-size: .85rem; color: var(--fg-dim); display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
@@ -256,10 +255,6 @@ button.kwchip { cursor: help; }
 .counter { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 10px 12px; }
 .counter .val { font-size: 2rem; font-weight: 800; font-variant-numeric: tabular-nums; min-width: 2ch; text-align: center; }
 .counter button { width: 48px; height: 48px; border-radius: 10px; border: 1px solid var(--line); background: var(--panel-2); font-size: 1.5rem; font-weight: 800; }
-.dice { display: flex; gap: 8px; flex-wrap: wrap; }
-.die { width: 46px; height: 46px; border-radius: 10px; display: grid; place-items: center; font-size: 1.3rem; font-weight: 800; background: #ece2d4; color: #3b0d10; border: 2px solid transparent; }
-.die.used { opacity: .35; }
-.die.sel { border-color: var(--accent2); }
 .models { display: flex; flex-wrap: wrap; gap: 8px; }
 .model { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 6px; border-radius: 10px; border: 1px solid var(--line); background: rgba(0,0,0,.2); min-width: 92px; }
 .model.dead { opacity: .4; }
@@ -288,7 +283,6 @@ pre.export { white-space: pre-wrap; word-break: break-word; font: .9rem/1.45 ui-
 .rgh .chev { width: 16px; height: 16px; flex: none; transition: transform .18s ease; }
 .rgh.closed .chev { transform: rotate(-90deg); }
 .rgh.closed { border: 1px dashed var(--line); }
-@media (prefers-reduced-motion: reduce) { .rgh .chev { transition: none; } }
 
 /* keyword highlight badge (Tyranids: SYNAPSE) - text with a slow, faint blue wave */
 .kwfx { display: inline-block; vertical-align: middle; margin-left: 8px; padding: 1px 7px; border-radius: 6px; font-size: .68rem; font-weight: 800; letter-spacing: .14em; line-height: 1.5;
@@ -353,7 +347,6 @@ select, select option { background-color: #120506; color: #fff; }
 .picktrig .chev { flex: none; width: 22px; height: 22px; color: var(--accent); transition: transform .15s ease; }
 .picktrig[aria-expanded="true"] .chev { transform: rotate(180deg); }
 .pickpop { padding: 6px; border-radius: 12px; background: #0b0304; border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent); }
-@media (prefers-reduced-motion: reduce) { .picktrig .chev { transition: none; } }
 
 /* v4: roster icon, clickable roster cards, portrait cropper */
 .ritem.clickable { cursor: pointer; }
@@ -403,11 +396,6 @@ body { font: 1rem/1.4 var(--font-body); }
 .have { font-size: .8rem; font-weight: 700; color: var(--accent); }
 .stat { font: inherit; color: inherit; }
 button.stat { cursor: pointer; }
-.dpad { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; }
-.dpad button { min-height: 48px; border-radius: 10px; border: 1px solid var(--line); background: #ece2d4; color: #3b0d10; font-size: 1.2rem; font-weight: 800; }
-.dpad button:last-child { background: var(--panel-2); color: var(--fg); }
-.sm-step { gap: 10px; }
-.sm-step button { width: 44px; height: 44px; }
 .seg.wide { display: flex; width: 100%; flex-wrap: nowrap; }
 .seg.wide button { flex: 1 1 0; min-height: 48px; padding: 0 8px; }
 .chips.scroll { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; padding-bottom: 2px; }
@@ -479,7 +467,6 @@ html.m .faint { color: #9a9089; }
 .mdet { display: flex; justify-content: space-between; gap: 10px; font-size: .9rem; margin-bottom: 10px; }
 .mlist { display: flex; flex-direction: column; gap: 6px; }
 .mrow { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 10px; padding: 6px 12px 6px 6px; border-radius: 12px; border: 1px solid var(--line); background: var(--panel); min-height: 64px; box-sizing: border-box; }
-.mrow.att { margin-left: 18px; border-left: 3px solid var(--accent); }
 .mrow.err { border-color: color-mix(in srgb, var(--err) 55%, transparent); }
 .mrow.flash { animation: flash 1.4s ease; }
 @keyframes flash { 0%, 30% { background: color-mix(in srgb, var(--accent) 30%, transparent); } 100% { background: var(--panel); } }
@@ -509,7 +496,7 @@ html.kb .tabbar, html.kb .fab, html.kb .mact, html.kb .mfoot, html.kb .errstrip 
 
 /* catalogue */
 html.m .addlist .additem { min-height: 64px; }
-html.m .catalog-chips, html.m .mwrap > .chips.scroll { margin: 10px -14px 4px; padding-inline: 14px; }
+html.m .mwrap > .chips.scroll { margin: 10px -14px 4px; padding-inline: 14px; }
 
 /* play */
 .playtop.m2 { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
@@ -582,7 +569,6 @@ html.m .ritem .acts { grid-column: auto; }
 html.m .section-title { flex-wrap: wrap; }
 .mdet > span:last-child { white-space: nowrap; }
 html.m .toast { left: 12px; right: 12px; transform: none; max-width: none; }
-html:not(.m) .dpad { max-width: 480px; }
 html:not(.m) .seg.wide { max-width: 560px; }
 
 /* ---- Blessings of Khorne: ember cards that flare when activated ----
@@ -650,10 +636,7 @@ html:not(.m) .seg.wide { max-width: 560px; }
   100% { box-shadow: inset 0 0 200px 80px rgba(10, 0, 22, 0), inset 0 0 50px 10px rgba(160, 90, 255, 0); } }
 .quake { animation: quake .9s cubic-bezier(.36, .07, .19, .97) both; }
 @keyframes quake { 10%, 90% { transform: translate(-1px, 0); } 20%, 80% { transform: translate(2px, 1px); } 30%, 50%, 70% { transform: translate(-3px, -1px); } 40%, 60% { transform: translate(3px, 1px); } }
-@media (prefers-reduced-motion: reduce) {
-  .kbl::before, .kbl.on .kbl-fire, .voidbtn, .voidbtn.scream, .quake { animation: none; }
-  .kbl.flare::after, .voidfx { display: none; }
-}
+@media (prefers-reduced-motion: reduce) { .kbl.flare::after, .voidfx { display: none; } }
 
 /* ---- faction highlight tones: Death Guard green (contagion), World Eaters blood (+1 die) ---- */
 .kwfx.tone-green { border-color: rgba(168, 204, 74, .5); color: #b8d65a;
@@ -706,5 +689,5 @@ html:not(.m) .seg.wide { max-width: 560px; }
   background: radial-gradient(60% 45% at 50% 70%, rgba(225, 245, 140, .7), rgba(130, 170, 40, .45) 45%, transparent 100%);
   animation: kbFlare 1.3s cubic-bezier(.22, .61, .36, 1) forwards; will-change: opacity, transform; }
 @keyframes plgBreathe { 0%, 100% { opacity: .82; transform: scaleY(1); } 50% { opacity: 1; transform: scaleY(1.06); } }
-@media (prefers-reduced-motion: reduce) { .plg::before, .plg.on .plg-mist, .cring i { animation: none; } .plg.flare::after { display: none; } .cring i { opacity: .5; } }
+@media (prefers-reduced-motion: reduce) { .plg.flare::after { display: none; } .cring i { opacity: .5; } }
 .plg > svg.ooze { position: absolute; left: 0; top: 0; z-index: 0; pointer-events: none; overflow: visible; }
