@@ -875,3 +875,6 @@ html:not(.m) .seg.wide { max-width: 560px; }
 .minfo-l { padding: 8px 0; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 2px; }
 .mline.done { flex-direction: row; align-items: center; justify-content: space-between; gap: 10px; }
 .mline > .chip { flex: none; }
+.sheet-back.still, .sheet-back.still .sheet { animation: none; }
+.minfo-l b { font-weight: 700; }
+.minfo-o { margin: 2px 0 0; padding-left: 18px; display: flex; flex-direction: column; gap: 2px; }

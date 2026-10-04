@@ -1202,6 +1202,8 @@
     return ds.length ? ds : MX.DISPS.slice();
   }
   const chipLbl = (ln, n) => `${n}${n === ln.max && ln.max * ln.per >= 15 ? '+' : ''}`;
+  /* "1 unit", "2 units", "3+ objectives" */
+  const nounLbl = (ln, n) => `${chipLbl(ln, n)}${ln.u ? ' ' + (n === 1 && chipLbl(ln, n) === '1' ? ln.u[0] : ln.u[1]) : ''}`;
   /* one scoring line: either "scored" (tap to undo) or its options in the card's own breakpoints */
   function msLine(src, card, ln, p, w, showTiming) {
     const ms = p.ms, key = msKey(src, card, ln.id, p.round, w), done = ms.log.find(e => e.key === key);
@@ -1213,21 +1215,21 @@
     }
     const now = (v, l) => `<button class="chip" data-act="msScore" ${base} data-v="${esc(JSON.stringify(v))}">${l}</button>`;
     let ctl = '';
-    if (ln.k === 'bool' && !ln.x) ctl = now({}, `+${ln.vp}`);
-    else if (ln.k === 'or') ctl = ln.opts.map((o, i) => now({ o: i }, `${esc(o.l)} · ${o.vp}`)).join('');
-    else if (ln.k === 'count' && !ln.x && !MX.isStepper(ln)) ctl = Array.from({ length: ln.max }, (_, i) => now({ n: i + 1 }, `${chipLbl(ln, i + 1)} · ${(i + 1) * ln.per}`)).join('');
+    if (ln.k === 'bool' && !ln.x) ctl = now({}, `+${ln.vp} VP`);
+    else if (ln.k === 'or') ctl = ln.opts.map((o, i) => now({ o: i }, `${esc(o.l)} · ${o.vp} VP`)).join('');
+    else if (ln.k === 'count' && !ln.x && !MX.isStepper(ln)) ctl = Array.from({ length: ln.max }, (_, i) => now({ n: i + 1 }, `${esc(nounLbl(ln, i + 1))} · ${(i + 1) * ln.per} VP`)).join('');
     else {
       const v = S.mpend[key] || (S.mpend[key] = { n: ln.k === 'count' ? 1 : 0, m: 0, f: false });
       const pend = (f, val, l, on) => `<button class="chip" aria-pressed="${!!on}" data-act="msPend" data-key="${esc(key)}" data-f="${f}" data-val="${val}">${l}</button>`;
-      if (ln.k === 'count') ctl += MX.isStepper(ln) ? `<span class="stepper sm"><button data-act="msPend" data-key="${esc(key)}" data-f="n" data-val="${Math.max(1, v.n - 1)}" aria-label="Fewer">−</button><output class="num">${v.n}</output><button data-act="msPend" data-key="${esc(key)}" data-f="n" data-val="${Math.min(ln.max, v.n + 1)}" aria-label="More">+</button></span>`
-        : Array.from({ length: ln.max }, (_, i) => pend('n', i + 1, chipLbl(ln, i + 1), v.n === i + 1)).join('');
+      if (ln.k === 'count') ctl += MX.isStepper(ln) ? `<span class="stepper sm"><button data-act="msPend" data-key="${esc(key)}" data-f="n" data-val="${Math.max(1, v.n - 1)}" aria-label="Fewer">−</button><output class="num">${v.n}</output><button data-act="msPend" data-key="${esc(key)}" data-f="n" data-val="${Math.min(ln.max, v.n + 1)}" aria-label="More">+</button></span><span class="dim">${esc(ln.u ? ln.u[v.n === 1 ? 0 : 1] : '')} · ${v.n * ln.per} VP</span>`
+        : Array.from({ length: ln.max }, (_, i) => pend('n', i + 1, esc(nounLbl(ln, i + 1)), v.n === i + 1)).join('');
       let xs = '';
       if (ln.x) {
         if (ln.x.k === 'bool') xs = pend('f', v.f ? 0 : 1, esc(ln.x.l), v.f);
         else { const mx = ln.x.max === 'n' ? v.n : ln.x.max; if (v.m > mx) v.m = mx; xs = `<span class="faint ml-x">${esc(ln.x.l)}</span>` + Array.from({ length: mx + 1 }, (_, i) => pend('m', i, i, v.m === i)).join(''); }
       }
       const vp = MX.lineVp(ln, v);
-      ctl += (xs ? `<span class="mline-x">${xs}</span>` : '') + `<button class="btn sm primary" data-act="msScore" ${base} data-pend="${esc(key)}">Score +${vp}</button>`;
+      ctl += (xs ? `<span class="mline-x">${xs}</span>` : '') + `<button class="btn sm primary" data-act="msScore" ${base} data-pend="${esc(key)}">Score +${vp} VP</button>`;
     }
     return `<div class="mline">${lbl}<div class="ml-c">${ctl}</div></div>`;
   }
@@ -1292,7 +1294,7 @@
     return `<div class="panel pad stack mpanel">${head}${winLine}
       ${tw ? `<button class="badge mtwist" data-act="tip" data-title="${esc(tw.name)}" data-tip="${esc(tw.name + ': ' + tw.text)}">Twist: ${esc(tw.name)}</button>` : ''}
       ${prim}${p.over ? '<div class="faint">The game is over: end of battle scoring is in the result panel above.</div>' : msSecHTML(r, p, win)}
-      <div class="row">${p.over ? '' : `<button class="chip" aria-pressed="${!!S.msAll}" data-act="msAllT">All timings this round</button>`}<span class="grow"></span><button class="btn sm ghost" data-act="msVp">VP details</button></div></div>`;
+      <div class="row">${p.over ? '' : `<button class="chip" aria-pressed="${!!S.msAll}" data-act="msAllT">Missed a scoring? Show all of this round</button>`}<span class="grow"></span><button class="btn sm ghost" data-act="msVp">VP details</button></div></div>`;
   }
   /* end-of-battle scoring inside the Game over banner */
   function msOverHTML(p) {
@@ -1347,12 +1349,12 @@
   function msInfoInner(sh) {
     const c = msCard(sh.k, sh.id), ms = S.play && S.play.ms, mode = sh.k === 'S' && ms ? ms.secMode : null;
     const ls = MX.linesOf(c, mode).map(ln => {
-      let v = '';
-      if (ln.k === 'bool') v = `${ln.vp} VP`;
-      else if (ln.k === 'or') v = ln.opts.map(o => `${o.l}: ${o.vp}`).join(' · ');
-      else v = `${ln.per} VP each`;
-      if (ln.x) v += ` · ${ln.x.l}`;
-      return `<div class="minfo-l"><div>${esc(ln.l)}</div><div class="faint">${esc(MX.timingLabel(ln))} · ${esc(v)}</div></div>`;
+      let v = [];
+      if (ln.k === 'bool') v = [`${ln.vp} VP`];
+      else if (ln.k === 'or') v = ln.opts.map(o => `${o.l} – ${o.vp} VP`);
+      else v = [`${ln.per} VP per ${ln.u ? ln.u[0] : 'one'}`];
+      if (ln.x) v.push(`plus: ${ln.x.l}`);
+      return `<div class="minfo-l"><b>${esc(ln.l)}</b><div class="faint">${esc(MX.timingLabel(ln))}</div><ul class="minfo-o">${v.map(x => `<li>${esc(x)}</li>`).join('')}</ul></div>`;
     }).join('');
     const wd = sh.k === 'S' && c.wd ? `<div class="mwd"><b class="eyebrow">When drawn</b><span>${esc(MX.wdText(sh.id))}</span></div>` : '';
     return `<div class="stack"><div class="dim">${esc(c.sum)}</div>${c.start ? `<div class="faint">${esc(c.start)}</div>` : ''}${c.note ? `<div class="faint">${esc(c.note)}</div>` : ''}${wd}${ls}
@@ -1773,7 +1775,7 @@
       title = esc(sh.title || 'Rule');
       inner = `<p style="margin:0;font-size:1.05rem;line-height:1.5">${esc(sh.text)}</p>`;
     }
-    return `<div class="sheet-back" data-act="sheetBack"><div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sh-t"><div class="sheet-grip" aria-hidden="true"><i></i></div><div class="sheet-head"><h2 id="sh-t">${title}</h2><button class="iconbtn" data-act="closeSheet" aria-label="Close">${ICON.close}</button></div><div class="sheet-body">${inner}</div></div></div>`;
+    return `<div class="sheet-back" data-act="sheetBack" data-type="${esc(sh.type)}"><div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sh-t"><div class="sheet-grip" aria-hidden="true"><i></i></div><div class="sheet-head"><h2 id="sh-t">${title}</h2><button class="iconbtn" data-act="closeSheet" aria-label="Close">${ICON.close}</button></div><div class="sheet-body">${inner}</div></div></div>`;
   }
   /* one Back for everything: Android system Back, Escape, and the ← buttons */
   function goBack() {
@@ -1866,12 +1868,16 @@
     const focusId = document.activeElement && document.activeElement.id;
     const selStart = document.activeElement && document.activeElement.selectionStart;
     const modalScroll = document.querySelector('.modal') ? document.querySelector('.modal').scrollTop : 0;
+    const shPrev = document.querySelector('.sheet-back'), shType = shPrev && shPrev.dataset.type, shBody = shPrev && shPrev.querySelector('.sheet-body'), shScroll = shBody ? shBody.scrollTop : 0;
     let html = '';
     if (S.view === 'home') html = viewHome();
     else if (S.view === 'faction') html = viewFaction();
     else if (S.view === 'wizard') html = viewWizard();
     else html = viewRoster();
     $app.innerHTML = html;
+    /* the same sheet re-rendered after a tap inside it: no slide-in again, same scroll position */
+    const shNow = document.querySelector('.sheet-back');
+    if (shNow && shType && shNow.dataset.type === shType) { shNow.classList.add('still'); const b = shNow.querySelector('.sheet-body'); if (b) b.scrollTop = shScroll; }
     if (key !== lastKey || S.modal || S.sheet) { const t = document.querySelector('.toast'); if (t && !t.hidden) { t.hidden = true; clearTimeout(toastT); } }
     root.classList.toggle('has-fab', !!document.querySelector('.fab'));
     root.classList.toggle('has-mact', !!document.querySelector('.mact, .mfoot'));
