@@ -240,8 +240,8 @@ const DATA = {
    "highlights": [
     {
      "id": "bloodshed",
-     "label": "+1 DIE",
-     "tone": "blood",
+     "label": "ICON OF KHORNE",
+     "tone": "gore",
      "title": "Icon of Khorne: each enemy unit this unit destroys = 1 extra die at your next Blessings of Khorne roll.",
      "none": "No Icon of Khorne in this roster",
      "wargear": {

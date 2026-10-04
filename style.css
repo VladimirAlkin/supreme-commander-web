@@ -808,3 +808,23 @@ html:not(.m) .seg.wide { max-width: 560px; }
 .swipeback svg { width: 22px; height: 22px; }
 .wtgt .seg button[aria-pressed=true] .num, .wtgt .seg button.hurt[aria-pressed=true] .num { color: inherit; opacity: .85; }
 [data-act=nextPhase][aria-disabled=true] { opacity: .5; filter: saturate(.4); }
+
+/* World Eaters: Icon of Khorne badge - clotted crimson plate, a slow heartbeat glow and a drop of blood that gathers and falls */
+.kwfx.tone-gore { position: relative; overflow: visible; letter-spacing: .1em; padding: 1px 8px 2px;
+  border: 1px solid #c3261c; border-radius: 5px 5px 6px 6px;
+  background: linear-gradient(180deg, #a3140f 0%, #7a0a08 55%, #4a0405 100%); -webkit-background-clip: border-box; background-clip: border-box;
+  color: #ffe6d8; -webkit-text-fill-color: #ffe6d8; text-shadow: 0 1px 0 rgba(30, 0, 0, .7);
+  box-shadow: inset 0 1px 0 rgba(255, 140, 120, .35), inset 0 -2px 3px rgba(20, 0, 0, .55), 0 1px 4px rgba(120, 0, 0, .45);
+  animation: none; }
+.kwfx.tone-gore::after { content: ''; position: absolute; inset: -3px; border-radius: 8px; pointer-events: none;
+  box-shadow: 0 0 9px 1px rgba(230, 30, 20, .6); opacity: 0; animation: goreBeat 2.8s ease-in-out infinite; animation-delay: var(--d, 0s); }
+.kwfx.tone-gore::before { content: ''; position: absolute; left: 24%; top: 100%; width: 5px; height: 7px; margin-top: -2px; pointer-events: none;
+  background: radial-gradient(circle at 40% 35%, #e0362a 0%, #9a0d0a 55%, #5a0405 100%); border-radius: 50% 50% 50% 50% / 30% 30% 70% 70%;
+  transform-origin: 50% 0; opacity: 0; animation: goreDrip 4.6s ease-in infinite; animation-delay: var(--d, 0s); }
+@keyframes goreBeat { 0%, 100% { opacity: 0; } 8% { opacity: .9; } 16% { opacity: .25; } 24% { opacity: .75; } 40% { opacity: 0; } }
+@keyframes goreDrip { 0% { opacity: 0; transform: translateY(-3px) scale(.4, .2); } 18% { opacity: 1; transform: translateY(0) scale(.7, .6); }
+  58% { opacity: 1; transform: translateY(1px) scale(1, 1.05); } 80% { opacity: .9; transform: translateY(10px) scale(.85, 1.2); } 100% { opacity: 0; transform: translateY(18px) scale(.7, .9); } }
+.kwfx.tone-gore.cond { opacity: .7; border-style: dashed; }
+.kwfx.tone-gore.cond::before { display: none; }
+.hisum.tone-gore { border-color: rgba(195, 38, 28, .35); background: linear-gradient(90deg, rgba(150, 12, 10, .14), rgba(150, 12, 10, .03)); }
+@media (prefers-reduced-motion: reduce) { .kwfx.tone-gore::after, .kwfx.tone-gore::before { animation: none; opacity: 0; } }
