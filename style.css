@@ -584,3 +584,43 @@ html.m .section-title { flex-wrap: wrap; }
 html.m .toast { left: 12px; right: 12px; transform: none; max-width: none; }
 html:not(.m) .dpad { max-width: 480px; }
 html:not(.m) .seg.wide { max-width: 560px; }
+
+/* ---- Blessings of Khorne: ember cards that flare when activated ---- */
+.kbl-list { display: flex; flex-direction: column; gap: 8px; }
+.kbl { position: relative; overflow: hidden; display: grid; grid-template-columns: 1fr auto; grid-template-areas: "t s" "e s"; gap: 2px 12px; align-items: center; width: 100%; text-align: left; padding: 11px 12px; border-radius: 12px; cursor: pointer; font: inherit; color: #f6e7dc;
+  background: linear-gradient(180deg, #1d0706, #110203); border: 1px solid rgba(214, 72, 26, .38);
+  box-shadow: inset 0 -10px 18px -14px rgba(214, 72, 26, .55); animation: kbIdle 4.2s ease-in-out infinite; animation-delay: var(--d, 0s); }
+.kbl-t { grid-area: t; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; }
+.kbl-t b { font-size: 1.02rem; color: #ffeadf; }
+.kbl-req { font-size: .74rem; font-weight: 700; letter-spacing: .06em; color: #f0b27a; border: 1px solid rgba(240, 160, 90, .4); border-radius: 6px; padding: 0 6px; }
+.kbl-e { grid-area: e; font-size: .9rem; color: #e6c8b6; }
+.kbl-s { grid-area: s; font-size: .8rem; font-weight: 800; letter-spacing: .04em; color: #ffb27a; white-space: nowrap; }
+.kbl.extra { border-style: dashed; }
+.kbl.extra:not(.on) .kbl-s { color: #c99a83; font-weight: 700; }
+.kbl.on { border-color: rgba(255, 150, 70, .9); background: linear-gradient(0deg, rgba(160, 32, 12, .6), rgba(46, 7, 5, .92) 72%); animation: kbBurn 1.7s ease-in-out infinite alternate; }
+.kbl.on .kbl-s { color: #fff1e0; }
+.kbl.flare::after { content: ''; position: absolute; inset: -4px; pointer-events: none; border-radius: inherit;
+  background: radial-gradient(130% 100% at 50% 125%, rgba(255, 190, 90, .85), rgba(255, 90, 20, .4) 45%, transparent 72%); animation: kbFlare .8s ease-out forwards; }
+@keyframes kbIdle { 50% { box-shadow: inset 0 -12px 22px -12px rgba(232, 92, 32, .7), 0 0 8px rgba(214, 72, 26, .14); } }
+@keyframes kbBurn { from { box-shadow: inset 0 -16px 26px -12px rgba(255, 120, 40, .75), 0 0 10px rgba(255, 90, 30, .35); } to { box-shadow: inset 0 -24px 30px -10px rgba(255, 160, 70, .9), 0 0 18px rgba(255, 110, 40, .55); } }
+@keyframes kbFlare { 0% { opacity: 0; transform: translateY(35%); } 30% { opacity: 1; } 100% { opacity: 0; transform: translateY(-25%); } }
+
+/* ---- Shadow in the Warp: a void button that screams once ---- */
+.voidwrap { position: relative; }
+.voidbtn { position: relative; z-index: 1; width: 100%; min-height: 54px; border-radius: 12px; cursor: pointer; font: inherit; font-weight: 800; letter-spacing: .05em; color: #eadfff;
+  border: 1px solid rgba(150, 90, 230, .5); background: radial-gradient(120% 150% at 50% 0%, #2c0f40, #07020b 70%); animation: voidIdle 3.6s ease-in-out infinite; }
+.voidbtn[aria-disabled="true"]:not(.used) { opacity: .7; }
+.voidbtn.used { opacity: .5; animation: none; cursor: default; font-weight: 700; }
+.voidbtn.scream { opacity: 1; animation: voidShake .6s cubic-bezier(.36, .07, .19, .97) both; box-shadow: 0 0 26px rgba(150, 70, 240, .7); }
+@keyframes voidIdle { 50% { box-shadow: 0 0 14px rgba(140, 70, 230, .38), inset 0 0 18px rgba(120, 50, 210, .38); } }
+@keyframes voidShake { 10%, 90% { transform: translateX(-1px); } 20%, 80% { transform: translateX(3px); } 30%, 50%, 70% { transform: translateX(-5px) rotate(-.6deg); } 40%, 60% { transform: translateX(5px) rotate(.6deg); } }
+.voidring { position: absolute; left: 50%; top: 50%; width: 64px; height: 64px; margin: -32px 0 0 -32px; border-radius: 50%; border: 3px solid rgba(160, 90, 255, .75); pointer-events: none; z-index: 2; animation: voidRing 1.25s ease-out forwards; }
+.voidring:nth-of-type(2) { animation-delay: .18s; }
+.voidring:nth-of-type(3) { animation-delay: .36s; }
+@keyframes voidRing { from { transform: scale(.4); opacity: .9; } to { transform: scale(8); opacity: 0; border-width: 1px; } }
+.voidpulse { position: fixed; inset: 0; z-index: 95; pointer-events: none; animation: voidEdge 1.2s ease-out forwards; }
+@keyframes voidEdge { 0% { box-shadow: inset 0 0 0 0 rgba(10, 0, 22, 0), inset 0 0 0 0 rgba(160, 90, 255, 0); } 25% { box-shadow: inset 0 0 110px 36px rgba(10, 0, 22, .88), inset 0 0 26px 4px rgba(160, 90, 255, .45); } 100% { box-shadow: inset 0 0 170px 70px rgba(10, 0, 22, 0), inset 0 0 40px 8px rgba(160, 90, 255, 0); } }
+@media (prefers-reduced-motion: reduce) {
+  .kbl, .kbl.on, .voidbtn, .voidbtn.scream { animation: none; }
+  .kbl.flare::after, .voidring, .voidpulse { display: none; }
+}

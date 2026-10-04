@@ -754,42 +754,37 @@
     const text = typeof msg === 'function' ? msg() : msg;
     if (text) toast(text, [{ label: 'Undo', fn: () => { S.play = JSON.parse(before); savePlay(r); PL.haptic('tick'); render(); } }]);
   }
-  function canActivate(b, dice, used) {
-    for (const q of b.req) {
-      const counts = {};
-      dice.forEach((d, i) => { if (!used.includes(i)) counts[d] = (counts[d] || 0) + 1; });
-      const vals = Object.keys(counts).map(Number).filter(v => v >= q.min && counts[v] >= q.n).sort((a, b) => a - b);
-      if (vals.length) { const v = vals[0]; const idx = []; dice.forEach((d, i) => { if (idx.length < q.n && d === v && !used.includes(i)) idx.push(i); }); return idx; }
-    }
-    return null;
-  }
+
   const counterHTML = (label, key, val) => `<div class="panel counter"><div class="eyebrow">${label}</div><div class="row nowrap"><button data-act="pc" data-k="${key}" data-d="-1" aria-label="Decrease ${label}">−</button><span class="val num">${val}</span><button data-act="pc" data-k="${key}" data-d="1" aria-label="Increase ${label}">+</button></div></div>`;
+  /* Blessings of Khorne: dice are rolled at the table; the player just marks what is active this battle round.
+     Two is the usual limit; more can be marked as extras (stratagems, enhancements). */
   function blessHTML(r, p) {
     const bless = fdata(r.factionId).armyRules.find(a => a.blessings);
     if (!bless) return '';
-    const triple6 = p.dice.filter((d, i) => d === 6 && !p.used.includes(i)).length >= 3;
-    const sorted = bless.blessings.map(b => { const act = p.active.includes(b.id); const idx = !act && p.active.length < 2 ? canActivate(b, p.dice, p.used) : null; return { b, act, idx }; });
-    if (S.m) sorted.sort((x, y) => (y.act - x.act) || (!!y.idx - !!x.idx));
-    return `<div class="panel pad stack bless"><div class="row"><h3 class="grow">Blessings of Khorne</h3><span class="dim">Round ${p.round}</span></div>
-      <div class="row"><div class="stepper sm-step" role="group" aria-label="Extra dice"><span class="dim">Extra dice</span><button data-act="plExtra" data-d="-1" aria-label="Fewer extra dice">−</button><output class="num">${p.extra || 0}</output><button data-act="plExtra" data-d="1" aria-label="More extra dice">+</button></div></div>
-      <div class="row"><button class="btn primary grow" data-act="rollBless">${ICON.dice} Roll ${8 + (+p.extra || 0)}D6</button>${p.sel.length ? `<button class="btn" data-act="rerollSel">Re-roll ${p.sel.length}</button>` : ''}${p.dice.length ? '<button class="btn ghost" data-act="clearBless">Clear</button>' : ''}</div>
-      <div class="dice">${p.dice.map((d, i) => `<button class="die ${p.used.includes(i) ? 'used' : ''} ${p.sel.includes(i) ? 'sel' : ''}" data-act="selDie" data-id="${i}" aria-label="Die ${d}${p.used.includes(i) ? ', used' : ''}${p.sel.includes(i) ? ', selected for re-roll' : ''}">${d}</button>`).join('') || '<span class="dim">Roll at the start of the battle round, or enter your real dice below. Tap a die to pick it for a re-roll; tap again to unpick.</span>'}</div>
-      <div class="stack" style="gap:6px"><span class="eyebrow">Enter real dice</span><div class="dpad" role="group" aria-label="Add a die">${[1, 2, 3, 4, 5, 6].map(n => `<button data-act="addDie" data-v="${n}" aria-label="Add a ${n}">${n}</button>`).join('')}<button data-act="popDie" aria-label="Remove the last die">⌫</button></div></div>
-      ${triple6 ? '<div class="badge gold">Triple 6 available: Angron can use Reborn in Blood instead of Blessings.</div>' : ''}
-      <div class="stack" style="gap:6px">${sorted.map(({ b, act, idx }) => `<div class="blessing ${act ? 'active' : idx ? 'can' : ''}"><div><b>${esc(b.name)}</b> <span class="badge">${esc(b.reqText)}</span><div class="dim">${esc(b.effect)}</div></div>${act ? '<button class="btn sm" data-act="unbless" data-id="' + b.id + '">Active ✓</button>' : `<button class="btn sm ${idx ? 'primary' : ''}" data-act="bless" data-id="${b.id}" ${idx ? '' : 'aria-disabled="true"'}>Activate</button>`}</div>`).join('')}</div>
-      <div class="faint" style="font-size:.85rem">Up to two Blessings per battle round. Activating one spends the lowest dice that meet its requirement.</div></div>`;
+    const act = p.active || [];
+    const angron = r.units.some(u => u.datasheetId === 'angron');
+    const rows = bless.blessings.map((b, i) => {
+      const on = act.includes(b.id), idx = act.indexOf(b.id), extra = on ? idx >= 2 : act.length >= 2;
+      return `<button class="kbl ${on ? 'on' : ''} ${extra ? 'extra' : ''} ${S.blFlare === b.id ? 'flare' : ''}" style="--d:-${(i * 0.7).toFixed(1)}s" data-act="blessPick" data-id="${b.id}" aria-pressed="${on}">
+        <span class="kbl-t"><b>${esc(b.name)}</b><span class="kbl-req">${esc(b.reqText)}</span></span>
+        <span class="kbl-e">${esc(b.effect)}</span>
+        <span class="kbl-s">${on ? (extra ? 'Active · extra' : 'Active') : (extra ? '+ Extra (stratagem)' : 'Activate')}</span></button>`;
+    }).join('');
+    return `<div class="panel pad stack bless"><div class="row"><h3 class="grow">Blessings of Khorne</h3><span class="badge ${act.length ? 'gold' : ''}">Round ${p.round} · ${act.length} active</span></div>
+      <div class="dim" style="font-size:.9rem">Roll 8D6 at the table, then tap the Blessings you activate. Up to two per battle round; mark more only if a rule gives an extra one. They end with the battle round.</div>
+      <div class="kbl-list">${rows}</div>
+      ${angron ? '<div class="faint" style="font-size:.85rem">Angron: a triple 6 can bring him back with Reborn in Blood instead of activating Blessings.</div>' : ''}</div>`;
   }
-  /* Faction / detachment trackers for the game screen (Tyranids: Shadow in the Warp, Hyper-adaptations,
-     Synaptic Imperatives, Tunnel Markers, Protean Purpose, Feed the Swarm reminder). */
   function factionPlayHTML(r, p) {
     const fd = fdata(r.factionId), dets = r.detachmentIds.map(id => fd.detachments.find(d => d.id === id)).filter(Boolean);
     const out = [];
     const panel = (title, badge, body) => `<div class="panel pad stack trk"><div class="row"><h3 class="grow">${esc(title)}</h3>${badge || ''}</div>${body}</div>`;
     if (fd.armyRules.some(a => a.shadow)) {
       const has = r.units.some(u => (unitDef(r.factionId, u.datasheetId).factionAbilities || []).some(a => a.startsWith('Shadow in the Warp')));
-      out.push(panel('Shadow in the Warp', p.shadow ? `<span class="badge">Used · round ${p.shadow}</span>` : '<span class="badge gold">Ready</span>',
+      const ready = has && !p.shadow && p.phase === 'Command';
+      out.push(panel('Shadow in the Warp', p.shadow ? `<span class="badge">Unleashed · round ${p.shadow}</span>` : '<span class="badge gold">Ready</span>',
         `<div class="dim">Once per battle, in either player's Command phase: every enemy unit takes a battle-shock test, at -1 within 6" of your SYNAPSE units.</div>
-        ${p.shadow ? '' : `<button class="btn ${p.phase === 'Command' && has ? 'primary' : ''}" data-act="tyrShadow" ${has && p.phase === 'Command' ? '' : 'aria-disabled="true"'}>Unleash the Shadow in the Warp</button>`}
+        <div class="voidwrap"><button class="voidbtn ${p.shadow ? 'used' : ''} ${S.shadowFx ? 'scream' : ''}" data-act="tyrShadow" ${p.shadow || !ready ? 'aria-disabled="true"' : ''}>${p.shadow ? `Unleashed in round ${p.shadow}` : 'Unleash the Shadow in the Warp'}</button>${S.shadowFx ? '<span class="voidring"></span><span class="voidring"></span><span class="voidring"></span>' : ''}</div>
         ${has ? (p.shadow || p.phase === 'Command' ? '' : '<div class="faint" style="font-size:.85rem">Available in a Command phase.</div>') : '<div class="faint" style="font-size:.85rem">No unit in this roster has Shadow in the Warp.</div>'}`));
     }
     dets.forEach(d => {
@@ -828,7 +823,7 @@
   function roundHint(r, p) {
     const fd = fdata(r.factionId), dets = r.detachmentIds.map(id => fd.detachments.find(d => d.id === id)).filter(Boolean);
     const startOfRound = p.turn === (p.first || 'mine');
-    if (fd.armyRules.some(a => a.blessings)) return startOfRound && !p.dice.length ? ' Roll Blessings of Khorne.' : '';
+    if (fd.armyRules.some(a => a.blessings)) return startOfRound && !(p.active || []).length ? ' Roll and pick Blessings of Khorne.' : '';
     const h = [];
     if (startOfRound && dets.some(d => d.imperatives) && !(p.imp || {})[p.round]) h.push(' Pick a Synaptic Imperative.');
     if (p.round === 1 && dets.some(d => d.hyperAdaptations) && !p.hyper) h.push(' Pick a Hyper-adaptation.');
@@ -1466,7 +1461,15 @@
       if (k === 'vp0' || k === 'vp1') { const i = k === 'vp0' ? 0 : 1; if (p.vp[i] + d < 0) return false; p.vp[i] += d; }
       if (k === 'tunnels') { const n = Math.max(0, Math.min(20, (p.tunnels || 0) + d)); if (n === (p.tunnels || 0)) return false; p.tunnels = n; }
     }); },
-    tyrShadow: el => { if (el.getAttribute('aria-disabled') === 'true') { toast(S.play && S.play.phase !== 'Command' ? 'Unleash it in a Command phase (either player).' : 'No unit in this roster has Shadow in the Warp.'); PL.haptic('reject'); return; } const r = cur(); playChange(r, p => { if (p.shadow) return false; p.shadow = p.round; }, 'Shadow in the Warp unleashed: every enemy unit takes a battle-shock test.', 'confirm'); },
+    tyrShadow: el => {
+      if (el.getAttribute('aria-disabled') === 'true') { if (S.play && S.play.shadow) return; toast(S.play && S.play.phase !== 'Command' ? 'Unleash it in a Command phase (either player).' : 'No unit in this roster has Shadow in the Warp.'); PL.haptic('reject'); return; }
+      const r = cur(); S.shadowFx = true;
+      playChange(r, p => { if (p.shadow) return false; p.shadow = p.round; }, 'Shadow in the Warp unleashed: every enemy unit takes a battle-shock test.', 'reject');
+      // the scream: a dark pulse along the screen edges and a haptic roar
+      if (!matchMedia('(prefers-reduced-motion: reduce)').matches) { const v = document.createElement('div'); v.className = 'voidpulse'; document.body.appendChild(v); setTimeout(() => v.remove(), 1300); }
+      if (PL.android) { [140, 320].forEach(t => setTimeout(() => PL.haptic('reject'), t)); } else { try { navigator.vibrate && navigator.vibrate([70, 50, 110, 50, 160]); } catch (e) { } }
+      setTimeout(() => { S.shadowFx = false; document.querySelectorAll('.voidbtn.scream').forEach(b => b.classList.remove('scream')); document.querySelectorAll('.voidring').forEach(x => x.remove()); }, 1500);
+    },
     tyrHyper: el => { if (el.getAttribute('aria-disabled') === 'true') { toast('The Hyper-adaptation was picked at the start of round 1.'); PL.haptic('reject'); return; } const r = cur(); playChange(r, p => { p.hyper = p.hyper === el.dataset.id ? null : el.dataset.id; if (p.hyperExtra && p.hyperExtra.id === p.hyper) p.hyperExtra = null; }); },
     tyrHyperX: el => { const r = cur(); playChange(r, p => { p.hyperExtra = p.hyperExtra && p.hyperExtra.id === el.dataset.id ? null : { id: el.dataset.id, round: p.round }; }); },
     tyrImp: el => { const r = cur(); playChange(r, p => { p.imp = p.imp || {}; if (p.imp[p.round] === el.dataset.id) delete p.imp[p.round]; else p.imp[p.round] = el.dataset.id; }, null, 'confirm'); },
@@ -1488,15 +1491,11 @@
         else msg = `${p.turn === 'opp' ? "Opponent's" : 'Your'} ${p.phase} phase.`;
       }, () => msg, 'confirm');
     },
-    rollBless: () => { const r = cur(); playChange(r, p => { const n = 8 + (+p.extra || 0); p.dice = Array.from({ length: n }, () => 1 + Math.floor(Math.random() * 6)).sort((a, b) => a - b); p.used = []; p.sel = []; p.active = []; }, null, 'confirm'); },
-    addDie: el => { const r = cur(); playChange(r, p => { if (p.dice.length >= 20) return false; p.dice.push(+el.dataset.v); p.dice.sort((a, b) => a - b); p.used = []; p.active = []; p.sel = []; }); },
-    popDie: () => { const r = cur(); playChange(r, p => { if (!p.dice.length) return false; p.dice.pop(); p.used = []; p.active = []; p.sel = []; }); },
-    plExtra: el => { const r = cur(); playChange(r, p => { const n = Math.max(0, Math.min(10, (+p.extra || 0) + +el.dataset.d)); if (n === (+p.extra || 0)) return false; p.extra = n; }); },
-    selDie: el => { const r = cur(), i = +el.dataset.id; playChange(r, p => { if (p.used.includes(i)) return false; p.sel = p.sel.includes(i) ? p.sel.filter(x => x !== i) : [...p.sel, i]; }); },
-    rerollSel: () => { const r = cur(); playChange(r, p => { p.sel.forEach(i => (p.dice[i] = 1 + Math.floor(Math.random() * 6))); p.sel = []; }, 'Dice re-rolled.', 'confirm'); },
-    clearBless: () => { const r = cur(); playChange(r, p => { Object.assign(p, { dice: [], used: [], active: [], sel: [] }); }, 'Dice cleared.'); },
-    bless: el => { if (el.getAttribute('aria-disabled') === 'true') { toast(S.play && S.play.active.length >= 2 ? 'Two Blessings are already active this round.' : 'Your dice do not meet this requirement.'); PL.haptic('reject'); return; } const r = cur(); playChange(r, p => { const b = fdata(r.factionId).armyRules.find(a => a.blessings).blessings.find(x => x.id === el.dataset.id); const idx = canActivate(b, p.dice, p.used); if (!idx || p.active.length >= 2) return false; p.used.push(...idx); p.active.push(b.id); p.sel = p.sel.filter(i => !idx.includes(i)); }, null, 'confirm'); },
-    unbless: el => { const r = cur(); playChange(r, p => { p.active = p.active.filter(x => x !== el.dataset.id); p.used = []; const bl = fdata(r.factionId).armyRules.find(a => a.blessings).blessings; p.active.forEach(id => { const idx = canActivate(bl.find(x => x.id === id), p.dice, p.used); if (idx) p.used.push(...idx); }); }); },
+    blessPick: el => {
+      const r = cur(), id = el.dataset.id; let on = false;
+      playChange(r, p => { p.active = p.active || []; if (p.active.includes(id)) p.active = p.active.filter(x => x !== id); else { p.active.push(id); on = true; } }, null, 'confirm');
+      if (on) { S.blFlare = id; render(); setTimeout(() => { if (S.blFlare === id) S.blFlare = null; }, 900); }
+    },
     mw: el => { const r = cur(), u = inst(el.dataset.id), def = unitDef(r.factionId, u.datasheetId); const W = parseInt(def.profile.W, 10) || 1; const i = +el.dataset.i; playChange(r, p => { const wl = woundsOf(p, u, W, def); const n = Math.min(maxW(def, i), Math.max(0, wl[i] + +el.dataset.d)); if (n === wl[i]) return false; wl[i] = n; }); },
     mAlive: el => { const r = cur(), u = inst(el.dataset.id); playChange(r, p => { const wl = woundsOf(p, u, 1); if (+el.dataset.d < 0) { const i = wl.findIndex(w => w > 0); if (i < 0) return false; wl[i] = 0; } else { const i = wl.findIndex(w => w <= 0); if (i < 0) return false; wl[i] = 1; } }); },
     /* phone wound buttons: −1 wound goes to the already wounded model first, then the next model;
