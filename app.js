@@ -1190,7 +1190,7 @@
     const startTurn = p.phase === 'Command';
     out.push(panel('Miracle dice', `<span class="badge ${pool.length ? 'gold' : ''}" id="as-mcount">${pool.length} in pool</span>`,
       `<div class="dim" style="font-size:.9rem">Gain 1 at the start of every turn (yours and your opponent's) and each time one of your ADEPTA SORORITAS units is destroyed: roll a D6 at the table and tap its value. Tap a die in the pool when a unit uses it for an Act of Faith.${faith ? ' ' + esc(faith.faithNote) : ''}</div>
-      <div class="mpool" role="group" aria-label="Miracle dice pool">${pool.map((v, i) => `<button class="mdie ${S.mNew === i ? 'new' : ''}" data-act="asSpend" data-i="${i}" aria-label="Use the Miracle dice showing ${v}">${v}</button>`).join('') || '<span class="faint">The pool is empty.</span>'}</div>
+      <div class="mpool" role="group" aria-label="Miracle dice pool">${pool.map((v, i) => `<button class="mdie ${S.mNew === i ? 'new' : ''}" style="--i:${i}" data-act="asSpend" data-i="${i}" aria-label="Use the Miracle dice showing ${v}">${v}</button>`).join('') || '<span class="faint">The pool is empty.</span>'}</div>
       <div class="row nowrap mgain"><span class="eyebrow">${startTurn ? 'New die' : 'Add a die'}</span>${[1, 2, 3, 4, 5, 6].map(v => `<button class="chip num" data-act="asGain" data-v="${v}" aria-label="Add a Miracle dice showing ${v}">${v}</button>`).join('')}</div>
       ${tri ? `<div class="faint" style="font-size:.85rem">Solemn Procession: while the Triumph of Saint Katherine is on the battlefield, the die from the start of the first turn of each battle round is a 6. The app adds it when that turn starts; don't roll for it.</div>` : ''}`, 'miracle'));
     const rd = dets.find(d => d.righteous);
@@ -1215,7 +1215,7 @@
       const max = dmg ? 1 : 2, sel = (p.relics || {})[p.round] || [];
       out.push(panel('Relics of the Matriarchs', unitDead(p, tu) ? '<span class="badge">Destroyed</span>' : `<span class="badge ${sel.length ? 'gold' : ''}">Round ${p.round} · ${sel.length}/${max}</span>`,
         `<div class="dim" style="font-size:.9rem">Start of each battle round: pick up to ${max} for the Triumph until the next battle round${dmg ? ' (one while Damaged)' : ''}.</div>
-        <div class="stack" style="gap:6px">${fd.relics.map(x => `<div class="blessing ${sel.includes(x.id) ? 'active' : ''}"><div><b>${esc(x.name)}</b><div class="dim">${esc(x.effect)}</div></div><button class="btn sm ${sel.includes(x.id) ? '' : 'primary'}" data-act="asRelic" data-id="${x.id}" ${!sel.includes(x.id) && sel.length >= max ? 'aria-disabled="true"' : ''}>${sel.includes(x.id) ? 'Active ✓' : 'Pick'}</button></div>`).join('')}</div>`));
+        <div class="relic-list">${fd.relics.map((x, i) => { const on = sel.includes(x.id), off = !on && sel.length >= max; return `<button class="relic ${on ? 'on' : ''}" style="--d:-${(i * 1.3).toFixed(1)}s" data-act="asRelic" data-id="${x.id}" aria-pressed="${on}" ${off ? 'aria-disabled="true"' : ''}><span class="relic-aur" aria-hidden="true"></span><span class="relic-t"><b>${esc(x.name)}</b></span><span class="relic-s">${on ? 'Active' : off ? '' : 'Pick'}</span><span class="relic-e">${esc(x.effect)}</span></button>`; }).join('')}</div>`));
     }
     const once = r.units.flatMap(u => (unitDef(r.factionId, u.datasheetId).once || []).map(o => ({ u, o, key: u.instanceId + ':' + o.id })));
     if (once.length) out.push(panel('Once per battle', '', `<div class="stack" style="gap:6px">${once.map(({ u, o, key }) => {
@@ -1223,6 +1223,20 @@
       return `<div class="blessing ${left ? 'can' : ''}"><div><b>${esc(o.name)}</b> <span class="faint">· ${esc(dispName(r, u))}</span><div class="dim">${esc(o.text)}</div></div><button class="btn sm ${left ? 'primary' : ''}" data-act="asOnce" data-id="${key}">${left ? `Use${o.n > 1 ? ` (${left} left)` : ''}` : `Used · round ${used[used.length - 1]}`}</button></div>`;
     }).join('')}</div>`));
     return out.join('');
+  }
+
+  /* Holy light (Adepta Sororitas): a shaft of light falls on the target, a turning aureole of rays opens behind it,
+     a four-point glint flashes and a few gilded motes rise like candle sparks. Fixed overlay, transform/opacity only. */
+  function holyFx(el, kind) {
+    if (!el || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const b = el.getBoundingClientRect(), fx = document.createElement('div'); fx.className = 'holyfx hf-' + kind; fx.setAttribute('aria-hidden', 'true');
+    const cx = kind === 'relic' ? b.right - Math.min(60, b.width * .15) : b.left + b.width / 2, cy = b.top + b.height / 2;
+    fx.style.left = cx + 'px'; fx.style.top = cy + 'px'; fx.style.setProperty('--s', kind === 'relic' ? Math.max(b.height, 60) * 1.9 + 'px' : '120px');
+    const R = (a, c) => a + Math.random() * (c - a);
+    fx.innerHTML = '<i class="hf-beam"></i><i class="hf-glow"></i><i class="hf-aur"></i><i class="hf-ring"></i><i class="hf-star"></i><i class="hf-star v"></i>'
+      + Array.from({ length: kind === 'relic' ? 14 : 9 }, () => `<i class="hf-mote" style="--x:${R(-1, 1).toFixed(2)};--h:${R(.5, 1.1).toFixed(2)};--dl:${R(.15, .7).toFixed(2)}s;--t:${R(1.1, 1.8).toFixed(2)}s"></i>`).join('');
+    document.body.appendChild(fx); setTimeout(() => fx.remove(), 2400);
+    if (PL.android) setTimeout(() => PL.haptic('confirm'), 180);
   }
   /* a halo opens around a new die; a used one rises and fades with a few rose petals (transform/opacity only) */
   function petalFx(el) {
@@ -2290,6 +2304,7 @@
         else msg = `${p.turn === 'opp' ? "Opponent's" : 'Your'} ${p.phase} phase.`
         if (p.phase === 'Shooting' && p.turn !== 'opp' && fdata(r.factionId).armyRules.some(a => a.rituals)) msg += ' Attempt Rituals first.';
       }, () => msg, 'confirm');
+      { const d = document.querySelector('.mdie.new'); if (d && d.getBoundingClientRect().top < innerHeight) holyFx(d, 'die'); }
       setTimeout(() => { S.mNew = null; }, 50);
     },
     dgPlague: el => {
@@ -2325,7 +2340,7 @@
       playChange(r, p => { p.rit = p.rit || {}; (p.rit[p.round] = p.rit[p.round] || {})[id] = { by, ok }; }, msg, ok ? 'confirm' : 'tick');
       if (ok) { const c = document.querySelector(`.rit[data-id="${id}"]`); if (c) warpfire(c); }
     },
-    asGain: el => { const r = cur(), v = +el.dataset.v; playChange(r, p => { p.miracle = (p.miracle || []).concat(v); S.mNew = p.miracle.length - 1; }, `Miracle dice ${v} added.`, 'confirm'); setTimeout(() => { S.mNew = null; }, 50); },
+    asGain: el => { const r = cur(), v = +el.dataset.v; playChange(r, p => { p.miracle = (p.miracle || []).concat(v); S.mNew = p.miracle.length - 1; }, `Miracle dice ${v} added.`, 'confirm'); holyFx(document.querySelector('.mdie.new'), 'die'); setTimeout(() => { S.mNew = null; }, 50); },
     asSpend: el => {
       const r = cur(), i = +el.dataset.i, v = (playState(r).miracle || [])[i]; if (v == null) return;
       petalFx(el);
@@ -2341,7 +2356,9 @@
     asRelic: el => {
       if (el.getAttribute('aria-disabled') === 'true') { toast('No more Relics this battle round. Tap an active one to swap it.'); PL.haptic('reject'); return; }
       const r = cur(), id = el.dataset.id;
+      const on = !((playState(r).relics || {})[playState(r).round] || []).includes(id);
       playChange(r, p => { p.relics = p.relics || {}; const s = p.relics[p.round] || []; p.relics[p.round] = s.includes(id) ? s.filter(x => x !== id) : s.concat(id); }, null, 'confirm');
+      if (on) { const c = document.querySelector(`.relic[data-id="${id}"]`); if (c) holyFx(c, 'relic'); }
     },
     asOnce: el => {
       const r = cur(), key = el.dataset.id, [iid, oid] = key.split(':'), u = inst(iid), o = (unitDef(r.factionId, u.datasheetId).once || []).find(x => x.id === oid);
