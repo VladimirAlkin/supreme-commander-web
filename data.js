@@ -5944,6 +5944,16 @@ const DATA = {
      "slots": [],
      "optionGroups": []
     }
+   ],
+   "terms": [
+    "Blessings of Khorne",
+    "Blessings?",
+    "Blood Tithe",
+    "BTP",
+    "Daemonic Rage",
+    "Boon of Blood",
+    "Might of Khorne",
+    "Brazen Fury"
    ]
   },
   "tyranids": {
@@ -12542,6 +12552,14 @@ const DATA = {
      "slots": [],
      "optionGroups": []
     }
+   ],
+   "terms": [
+    "Synapse Range",
+    "Shadow in the Warp",
+    "Synaptic Imperatives?",
+    "Hyper-adaptations?",
+    "Tunnel Markers?",
+    "Singular Purpose"
    ]
   },
   "deathGuard": {
@@ -18837,6 +18855,12 @@ const DATA = {
      "slots": [],
      "optionGroups": []
     }
+   ],
+   "terms": [
+    "Nurgle's Gift",
+    "Contagion Range",
+    "Afflicted",
+    "Plagues?(?! Wind)"
    ]
   },
   "thousandSons": {
@@ -24875,6 +24899,16 @@ const DATA = {
      "slots": [],
      "optionGroups": []
     }
+   ],
+   "terms": [
+    "Cabal of Sorcerers",
+    "Rituals?",
+    "Psychic tests?",
+    "Channel(?:s|led)? the Warp",
+    "Warp Charge",
+    "Flow of Magic",
+    "Kindred Sorcery",
+    "Warpmeld Sacrifice"
    ]
   },
   "adeptaSororitas": {
@@ -35607,6 +35641,11 @@ const DATA = {
      "transport": "Carries 13 INQUISITOR INFANTRY and INQUISITORIAL AGENTS models (not TERMINATOR). Must start the battle with a unit embarked.",
      "cannotBeWarlord": "Agents of the Imperium cannot be your Warlord in an Adepta Sororitas army."
     }
+   ],
+   "terms": [
+    "Acts? of Faith",
+    "Miracle dice",
+    "Vows? of Atonement"
    ]
   }
  }

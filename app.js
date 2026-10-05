@@ -177,7 +177,38 @@
 
   /* ---------------- theme ---------------- */
   const DEF_THEME = { bg: '#121012', bg2: '#1c1719', bgDeep: '#0b0a0b', accent: '#c99a4b', accent2: '#d94a3c' };
+  /* rule texts (army rules, detachments, enhancements, stratagems): army terms in the army colour, KEYWORDS, dice and phases in bold.
+     Army terms come from fd.terms (web/tools/build_terms.py); the rest is found automatically. Text is escaped here. */
+  let HLF = null; const HL_RE = {};
+  const HL_STOP = new Set(['OC', 'AP', 'BS', 'WS', 'CP', 'VP', 'DP', 'HP']);
+  function hlRe(fid) {
+    if (HL_RE[fid]) return HL_RE[fid];
+    const fd = fid && DATA.factionData[fid];
+    const terms = ((fd && fd.terms) || []).slice().sort((a, b) => b.length - a.length);
+    const kws = fd ? [...new Set(fd.units.flatMap(u => u.keywords || []))].filter(k => /^[A-Z][a-z]/.test(k) && k.length > 3).sort((a, b) => b.length - a.length).map(k => k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')) : [];
+    const src = [
+      terms.length ? `(\\b(?:${terms.join('|')})\\b)` : '(?!)',
+      "(\\b(?:Command|Movement|Shooting|Charge|Fight) phases?\\b)",
+      '(\\b\\d*D(?:3|6)(?:\\+\\d+)?\\b)',
+      kws.length ? `(\\b(?:${kws.join('|')})(?= (?:units?|squads?|models?)\\b))` : '(?!)',
+      "(\\b[A-Z](?:[A-Z'’]|-(?=[A-Z]))+(?: [A-Z](?:[A-Z'’]|-(?=[A-Z]))+)*\\b)",
+    ].join('|');
+    return (HL_RE[fid] = new RegExp(src, 'g'));
+  }
+  function hl(text, fid) {
+    const t = String(text == null ? '' : text), re = hlRe(fid === undefined ? HLF : fid);
+    let out = '', i = 0, m; re.lastIndex = 0;
+    while ((m = re.exec(t))) {
+      if (!m[0]) { re.lastIndex++; continue; }
+      let cls = m[1] ? 'hl-t' : m[2] ? 'hl-ph' : m[3] ? 'hl-d' : 'hl-kw', style = '';
+      if (m[5] && HL_STOP.has(m[5])) continue;
+      if (m[2]) style = ` style="color:var(${PH_VAR[m[2].split(' ')[0]]})"`;
+      out += esc(t.slice(i, m.index)) + `<span class="hl ${cls}"${style}>${esc(m[0])}</span>`; i = m.index + m[0].length;
+    }
+    return out + esc(t.slice(i));
+  }
   function applyTheme(fid) {
+    HLF = fid || null;
     const t = (fid && faction(fid) && faction(fid).theme) || DEF_THEME;
     const s = document.documentElement.style;
     s.setProperty('--bg', t.bg); s.setProperty('--bg-glow', t.bg2); s.setProperty('--bg-deep', t.bgDeep || t.bg); s.setProperty('--accent', t.accent); s.setProperty('--accent2', t.accent2);
@@ -347,10 +378,16 @@
         `<div class="empty">No rosters yet. Pick an army and tap <b>New Roster</b>.${fid ? '' : ' <button class="btn sm primary" data-act="homeTab" data-id="armies">Choose an army</button>'}</div>`;
   }
   function rosterListBlock(fid) {
-    const n = rosters.filter(r => !fid || r.factionId === fid).length;
-    return `<div class="section-title"><h2>My Rosters</h2><span class="dim num">${n}</span><span class="spacer"></span>${rosters.length ? '<button class="btn sm" data-act="openBackup">Back up</button>' : ''}<button class="btn sm" data-act="openImport">Import</button></div>
-      <input class="search" type="search" id="home-search" data-inp="homeSearch" placeholder="Search rosters by name" value="${esc(S.homeSearch)}" aria-label="Search rosters">
+    const n = rosters.filter(r => (!fid || r.factionId === fid) && !r.isExample).length, all = rosters.filter(r => !fid || r.factionId === fid).length;
+    const dl = n ? `<button class="btn sm" data-act="openBackup" data-id="${fid || ''}">${ICON.save} Download roster${n === 1 ? '' : 's'}</button>` : '';
+    const list = `<input class="search" type="search" id="home-search" data-inp="homeSearch" placeholder="Search rosters by name" value="${esc(S.homeSearch)}" aria-label="Search rosters">
       <div class="stack" id="roster-list" style="margin-top:12px">${rosterListInner(fid)}</div>`;
+    if (!fid) return `<div class="section-title"><h2>My Rosters</h2><span class="dim num">${all}</span><span class="spacer"></span>${dl}</div>${list}`;
+    /* army page: one collapsed line "My Rosters · N"; the list opens in place */
+    if (!all) return '';
+    const open = S.rostersOpen === fid;
+    return `<button class="rfold ${open ? 'open' : ''}" data-act="toggleRosters" data-id="${fid}" aria-expanded="${open}"><span class="rfold-t">My Rosters</span><span class="rfold-n num">${all}</span><span class="spacer"></span>${CHEV}</button>
+      ${open ? `<div class="rfold-body">${list}${dl ? `<div class="row" style="margin-top:10px">${dl}</div>` : ''}</div>` : ''}`;
   }
 
   /* ---------------- FACTION ---------------- */
@@ -369,7 +406,7 @@
           <div class="grow"><button class="nm" data-act="openDs" data-id="${u.id}">${esc(u.name)}</button><div class="sub">${u.faction !== fd.armyFaction ? esc(u.faction) + ' · ' : ''}${u.sizes.map(s => `${s.models} model${s.models === 1 ? '' : 's'} ${s.pts}`).join(' / ')} pts</div></div><button class="btn sm" data-act="editPortrait" data-id="${u.id}" aria-label="Change portrait of ${esc(u.name)}">${ICON.camera}<span class="hide-sm">Portrait</span></button></div>`).join('')}</div>`;
     }
     return topbar(`<span class="title">${esc(f.name)}</span>`, { back: 'goHome' }) +
-      `<main class="wrap"><div class="hero">${logoOf(f.id) ? `<img src="${logoOf(f.id)}" alt="">` : f.emblemSvg}<div><div class="eyebrow">Army</div><h1 class="h-display">${esc(f.name)}</h1></div></div>
+      `<main class="wrap"><div class="hero">${logoOf(f.id) ? `<img src="${logoOf(f.id)}" alt="">` : f.emblemSvg}<h1 class="h-display">${esc(f.name)}</h1></div>
       <div class="row" style="margin:8px 0 6px"><button class="btn primary" data-act="newRoster">${ICON.plus} New Roster</button><button class="btn" data-act="openImport">Import roster</button></div>
       ${rosterListBlock(S.factionId)}
       <div class="section-title" style="margin-top:28px"><h2>Rules browser</h2></div>
@@ -378,17 +415,17 @@
   }
 
   function armyRulesHTML(fd) {
-    return `<div class="stack">${fd.armyRules.map(r => `<div class="panel pad stack"><h3>${esc(r.name)}</h3>${r.text.map(t => `<p style="margin:0">${esc(t)}</p>`).join('')}
-      ${r.blessings ? `<div class="stack" style="gap:6px">${r.blessings.map(b => `<div class="blessing"><div><b>${esc(b.name)}</b><div class="dim">${esc(b.effect)}</div></div><span class="badge gold">${esc(b.reqText)}</span></div>`).join('')}</div>` : ''}</div>`).join('')}</div>`;
+    return `<div class="stack">${fd.armyRules.map(r => `<div class="panel pad stack"><h3>${esc(r.name)}</h3>${r.text.map(t => `<p style="margin:0">${hl(t)}</p>`).join('')}
+      ${r.blessings ? `<div class="stack" style="gap:6px">${r.blessings.map(b => `<div class="blessing"><div><b>${esc(b.name)}</b><div class="dim">${hl(b.effect)}</div></div><span class="badge gold">${esc(b.reqText)}</span></div>`).join('')}</div>` : ''}</div>`).join('')}</div>`;
   }
   function enhLine(e, carriers) {
-    return `<div class="abil"><div class="row nowrap"><b class="grow">${esc(e.name)}${e.upgrade ? ' <span class="badge gold">Upgrade</span>' : ''}</b><span class="num" style="font-weight:700">${e.pts} pts</span></div><div>${esc(e.text)}</div>${carriers ? `<div class="dim" style="margin-top:4px">Carried by: ${esc(carriers)}</div>` : ''}</div>`;
+    return `<div class="abil"><div class="row nowrap"><b class="grow">${esc(e.name)}${e.upgrade ? ' <span class="badge gold">Upgrade</span>' : ''}</b><span class="num" style="font-weight:700">${e.pts} pts</span></div><div>${hl(e.text)}</div>${carriers ? `<div class="dim" style="margin-top:4px">Carried by: ${esc(carriers)}</div>` : ''}</div>`;
   }
   function detachmentHTML(d, r) {
     const carriers = e => r ? r.units.filter(u => Engine.enhIds(u).includes(e.id)).map(u => dispName(r, u)).join(', ') : '';
     const enhs = r ? d.enhancements.filter(e => carriers(e)) : d.enhancements;
-    return `<details class="panel pad" ${r ? 'open' : ''}><summary style="cursor:pointer;list-style:none"><div class="row"><h3 class="grow">${esc(d.name)}</h3><span class="badge gold">${d.dp} DP</span>${Engine.dispositionsOf(d).map(x => `<span class="badge">${esc(x)}</span>`).join('')}${(d.tags || []).map(t => `<span class="badge red">${esc(t)}</span>`).join('')}</div><div class="dim" style="margin-top:4px">${esc(d.summary || '')}</div></summary>
-      <div class="stack" style="margin-top:12px"><div class="abil"><b>${esc(d.rule.name)}</b>${esc(d.rule.text)}</div>
+    return `<details class="panel pad" ${r ? 'open' : ''}><summary style="cursor:pointer;list-style:none"><div class="row"><h3 class="grow">${esc(d.name)}</h3><span class="badge gold">${d.dp} DP</span>${Engine.dispositionsOf(d).map(x => `<span class="badge">${esc(x)}</span>`).join('')}${(d.tags || []).map(t => `<span class="badge red">${esc(t)}</span>`).join('')}</div><div class="dim" style="margin-top:4px">${hl(d.summary || '')}</div></summary>
+      <div class="stack" style="margin-top:12px"><div class="abil"><b>${esc(d.rule.name)}</b>${hl(d.rule.text)}</div>
       <div class="eyebrow">${r ? 'Enhancements in this roster' : 'Enhancements'}</div>${enhs.length ? enhs.map(e => enhLine(e, r && carriers(e))).join('') : '<div class="dim">None taken.</div>'}
       ${r ? '' : `<div class="eyebrow">Stratagems</div><div class="sgrid">${d.stratagems.map(s => stratCard(s, d.name)).join('')}</div>`}</div></details>`;
   }
@@ -426,7 +463,7 @@
       <section class="stack"><div class="eyebrow">Roster name</div><input type="text" id="wiz-name" data-inp="draftName" value="${esc(dr.name)}" aria-label="Roster name" style="max-width:520px"></section>
       <section class="stack"><div class="eyebrow">Battle size</div><div class="cards3">${GR.battleSizes.map(b => `<button class="choice" aria-pressed="${dr.battleSize === b.id}" data-act="draftSize" data-id="${b.id}"><span class="big">${b.name}</span><dl><dt>Points</dt><dd>${b.points}</dd><dt>DP budget</dt><dd>${b.dp}</dd><dt>Enhancements</dt><dd>${b.enhancements}</dd><dt>Copies per datasheet</dt><dd>${b.copyLimit} (Battleline / Transport ${b.copyLimit * 2})</dd></dl>${b.loneThreeDp ? '<span class="dim" style="font-size:.85rem">A single 3 DP detachment may be taken on its own.</span>' : ''}</button>`).join('')}</div></section>
       <section class="stack"><div class="row"><div class="eyebrow grow">Detachments</div><b class="num">${used} / ${bs.dp} DP</b></div><div class="bar ${used > bs.dp ? 'over' : ''}"><i style="width:${Math.min(100, used / bs.dp * 100)}%"></i></div>
-        <div class="stack" style="gap:8px">${fd.detachments.map(d => { const why = detBlock(d, dr); const on = dr.detachmentIds.includes(d.id); return `<button class="choice detrow" role="checkbox" aria-checked="${on}" ${why ? 'aria-disabled="true"' : ''} data-act="draftDet" data-id="${d.id}"><span class="check">${on ? '✓' : ''}</span><span class="stack" style="gap:4px"><span class="row"><span class="big">${esc(d.name)}</span><span class="badge gold">${d.dp} DP</span>${Engine.dispositionsOf(d).map(x => `<span class="badge">${esc(x)}</span>`).join('')}${(d.tags || []).map(t => `<span class="badge red">${esc(t)}</span>`).join('')}</span><span class="dim">${esc(d.summary)}</span>${why ? `<span class="why">⚠ ${esc(why)}</span>` : ''}</span></button>`; }).join('')}</div></section>
+        <div class="stack" style="gap:8px">${fd.detachments.map(d => { const why = detBlock(d, dr); const on = dr.detachmentIds.includes(d.id); return `<button class="choice detrow" role="checkbox" aria-checked="${on}" ${why ? 'aria-disabled="true"' : ''} data-act="draftDet" data-id="${d.id}"><span class="check">${on ? '✓' : ''}</span><span class="stack" style="gap:4px"><span class="row"><span class="big">${esc(d.name)}</span><span class="badge gold">${d.dp} DP</span>${Engine.dispositionsOf(d).map(x => `<span class="badge">${esc(x)}</span>`).join('')}${(d.tags || []).map(t => `<span class="badge red">${esc(t)}</span>`).join('')}</span><span class="dim">${hl(d.summary)}</span>${why ? `<span class="why">⚠ ${esc(why)}</span>` : ''}</span></button>`; }).join('')}</div></section>
       <section class="stack"><div class="eyebrow">Force Disposition</div>${disps.length ? `<div class="row">${disps.map(x => `<button class="chip" aria-pressed="${dr.forceDisposition === x}" data-act="draftDisp" data-id="${esc(x)}">${esc(x)}</button>`).join('')}</div>${disps.length === 1 ? '<span class="dim">Set automatically: only one disposition is available.</span>' : '<span class="dim">Pick one of your detachments\' dispositions.</span>'}` : '<span class="dim">Choose a detachment first.</span>'}</section>
       <div class="row"><button class="btn primary" data-act="wizDone" ${ok ? '' : 'disabled'}>${dr.editing ? 'Save setup' : 'Create roster'}</button>${ok ? '' : '<span class="dim">Pick a detachment and a disposition to continue.</span>'}</div>
       </main>`;
@@ -558,6 +595,16 @@
     const by = r.units.filter(a => a.attachedTo === u.instanceId);
     return { to, by, text: [to ? 'Attached to ' + dispName(r, to) : '', by.length ? 'Led by ' + by.map(a => dispName(r, a)).join(', ') : ''].filter(Boolean).join(' · ') };
   }
+  /* separate lines instead of one run of text: "Leads X" / "Led by Y, Z" and the enhancement (or upgrade) as its own chip */
+  function relLines(r, u, ctx, hero) {
+    const ai = attachInfo(r, u), enh = u.enhancementId ? ctx.allEnh[u.enhancementId] : null, out = [];
+    const nm = x => `<b>${esc(dispName(r, x))}</b>`;
+    if (ai.to) out.push(`<span class="rl"><span class="rl-k">${ICON_LINK}Leads</span><span class="rl-v">${nm(ai.to)}</span></span>`);
+    if (ai.by.length) out.push(`<span class="rl"><span class="rl-k">${ICON_LINK}Led by</span><span class="rl-v">${ai.by.map(nm).join(', ')}</span></span>`);
+    if (enh) out.push(`<span class="rl"><span class="enhchip ${enh.upgrade ? 'up' : ''}"><span class="enh-k">${enh.upgrade ? 'Upgrade' : 'Enhancement'}</span><b>${esc(enh.name)}</b>${hero && enh.pts ? `<span class="num">+${enh.pts}</span>` : ''}</span></span>`);
+    return out.length ? `<span class="rlines">${out.join('')}</span>` : '';
+  }
+  const ICON_LINK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg>';
   const groupHdr = (r, g, errUnits) => { const c = isColl(r, g.cat), bad = errUnits && g.items.some(u => errUnits.has(u.instanceId));
     return `<button class="grouphdr rgh ${c ? 'closed' : ''}" data-act="toggleGrp" data-id="${g.cat}" aria-expanded="${!c}"><span class="rgh-l">${CHEV}${esc(g.label)}${bad && c ? ' <span class="bad">✕</span>' : ''}</span><span class="num">${g.items.length} · ${g.pts} pts</span></button>`; };
   function rosterOrder(r) {
@@ -608,7 +655,7 @@
   function enhPickList(r, inst) {
     const { relevant } = enhChoices(r, inst);
     return pickCard('pickEnh', inst.instanceId, '', 'None', '', '', !inst.enhancementId, null)
-      + relevant.map(e => { const on = e.id === inst.enhancementId; const why = on ? null : Engine.enhancementBlock(e, inst, r, DATA); return pickCard('pickEnh', inst.instanceId, e.id, esc(e.name), `<span class="pick-pts num">+${e.pts} pts</span><span class="badge">${esc(e.det)}</span>${e.upgrade ? '<span class="badge gold">Upgrade</span>' : ''}`, esc(e.text), on, why); }).join('');
+      + relevant.map(e => { const on = e.id === inst.enhancementId; const why = on ? null : Engine.enhancementBlock(e, inst, r, DATA); return pickCard('pickEnh', inst.instanceId, e.id, esc(e.name), `<span class="pick-pts num">+${e.pts} pts</span><span class="badge">${esc(e.det)}</span>${e.upgrade ? '<span class="badge gold">Upgrade</span>' : ''}`, hl(e.text), on, why); }).join('');
   }
   function attTargets(r, inst) {
     const def = unitDef(r.factionId, inst.datasheetId);
@@ -650,15 +697,16 @@
       ${isChar ? `<label class="row toggle-row"><input type="checkbox" id="wl-${inst.instanceId}" data-chg="warlord" data-id="${inst.instanceId}" ${isWl ? 'checked' : ''} ${wlWhy && !isWl ? 'disabled' : ''}> Warlord</label>${wlWhy ? `<div class="faint" style="font-size:.85rem;margin-top:-6px">${esc(wlWhy)}</div>` : ''}` : ''}
 `;
   }
-  function unitBadges(r, inst, p, ctx) {
+  function unitBadges(r, inst, p, ctx, noRel) {
     const enh = inst.enhancementId ? ctx.allEnh[inst.enhancementId] : null;
     const att = inst.attachedTo ? r.units.find(u => u.instanceId === inst.attachedTo) : null;
     const badges = [];
     if (r.warlordUnitId === inst.instanceId) badges.push('<span class="badge gold">Warlord</span>');
     { const k = kwBadges(r, unitDef(r.factionId, inst.datasheetId), inst); if (k) badges.unshift(k); }
     Engine.instGrants(unitDef(r.factionId, inst.datasheetId), ctx, inst).forEach(g => badges.push(`<span class="badge">${esc(g.keyword)}</span>`));
-    if (enh) badges.push(`<span class="badge gold">${esc(enh.name)}</span>`);
+    if (enh && !noRel) badges.push(`<span class="badge gold">${esc(enh.name)}</span>`);
     if (p.surcharge) badges.push(`<span class="badge red">${ORD(p.copyNo)} copy +${p.surcharge}</span>`);
+    if (noRel) return badges;
     if (att) badges.push(`<span class="badge link">Attached to ${esc(dispName(r, att))}</span>`);
     r.units.filter(a => a.attachedTo === inst.instanceId).forEach(a => badges.push(`<span class="badge link">Led by ${esc(dispName(r, a))}</span>`));
     return badges;
@@ -671,11 +719,11 @@
     const p = pts.per[inst.instanceId] || { total: 0 };
     const open = !!S.expanded[inst.instanceId];
     const meta = [`${inst.size} model${inst.size > 1 ? 's' : ''}`];
-    const badges = unitBadges(r, inst, p, ctx);
+    const badges = unitBadges(r, inst, p, ctx, true);
     const bodyHTML = open ? `<div class="ubody">${unitBody(r, inst, pts, false)}</div>` : '';
     return `<article class="ucard ${errUnits.has(inst.instanceId) ? 'flag-err' : ''}" id="u-${inst.instanceId}">
       <div class="uhead"><button class="ptbtn" data-act="openInst" data-id="${inst.instanceId}" aria-label="Open datasheet">${portrait(def, r.factionId)}</button>
-      <div class="grow"><button class="uname" data-act="openInst" data-id="${inst.instanceId}">${errUnits.has(inst.instanceId) ? '<span style="color:var(--err)" aria-label="Has errors">✕ </span>' : ''}${esc(dispName(r, inst))}</button><div class="umeta">${meta.join(' · ')} ${badges.join('')}</div></div>
+      <div class="grow"><button class="uname" data-act="openInst" data-id="${inst.instanceId}">${errUnits.has(inst.instanceId) ? '<span style="color:var(--err)" aria-label="Has errors">✕ </span>' : ''}${esc(dispName(r, inst))}</button><div class="umeta">${meta.join(' · ')} ${badges.join('')}</div>${relLines(r, inst, ctx)}</div>
       <span class="upts num">${p.total}</span>
       <button class="iconbtn" data-act="dupUnit" data-id="${inst.instanceId}" aria-label="Duplicate ${esc(dispName(r, inst))}" title="Duplicate">${ICON.dup}</button><button class="iconbtn danger-ic" data-act="removeUnit" data-id="${inst.instanceId}" aria-label="Remove ${esc(dispName(r, inst))}" title="Remove">${ICON.trash}</button>
       <button class="iconbtn" data-act="toggleUnit" data-id="${inst.instanceId}" aria-expanded="${open}" aria-label="${open ? 'Collapse' : 'Edit'} ${esc(dispName(r, inst))}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="transform:rotate(${open ? 180 : 0}deg)"><path d="M6 9l6 6 6-6"/></svg></button></div>
@@ -1776,8 +1824,8 @@
     if (m.type === 'import') return wrap('Import roster', `<div class="row"><button class="btn" data-act="pasteImport">${ICON.paste} Paste</button><label class="btn">${ICON.file} Open file<input type="file" id="imp-file" accept=".json,.txt,application/json,text/plain" data-chg="importFile" class="sr"></label></div>
       <label class="fld">Share code (MR1:…), roster JSON or a backup file<textarea id="imp-text" style="min-height:180px">${esc(m.text || '')}</textarea></label>${m.error ? `<div class="vmsg error"><span class="ic">✕</span><span>${esc(m.error)}</span></div>` : ''}<div class="row"><button class="btn primary" data-act="doImport">Import</button><span class="faint" style="font-size:.85rem">Text exports from the GW app can't be imported yet.</span></div>`);
     if (m.type === 'backup') {
-      const json = backupJSON();
-      return wrap('Back up all rosters', `<p class="dim" style="margin:0">One file with all ${rosters.length} rosters and your custom portraits. Keep it somewhere safe (cloud drive, e-mail to yourself). Import restores it on any device.</p>
+      const json = backupJSON(m.fid), n = JSON.parse(json).rosters.length, what = m.fid ? `your ${n} ${esc(faction(m.fid).name)} roster${n === 1 ? '' : 's'}` : `all your ${n} roster${n === 1 ? '' : 's'}`;
+      return wrap(`Download roster${n === 1 ? '' : 's'}`, `<p class="dim" style="margin:0">One file with ${what} and your unit portraits. Send it to a friend or keep it as a copy: on any device open an army, tap <b>Import roster</b> → <b>Open file</b> and pick this file.</p>
         <div class="row">${PL.canShare() ? `<button class="btn primary" data-act="shareBackup">${ICON.share} Share</button>` : ''}${Store.downloads || window.mrSaveFile || PL.android ? `<button class="btn ${PL.canShare() ? '' : 'primary'}" data-act="saveBackup">${ICON.save} Save to file</button>` : ''}<button class="btn" data-act="copyBackup">${ICON.copy} Copy</button></div>
         <div class="faint" style="font-size:.85rem">${(json.length / 1024).toFixed(0)} KB</div>`);
     }
@@ -1824,8 +1872,9 @@
       const p = pts.per[u.instanceId] || { total: 0 };
       const enh = u.enhancementId ? ctx.allEnh[u.enhancementId] : null;
       const ai = attachInfo(r, u);
-      const meta = [u.size > 1 ? `${u.size} models` : '', ai.text ? `<span class="linktxt">${esc(ai.text)}</span>` : '', r.warlordUnitId === u.instanceId ? '<span class="gold">★ Warlord</span>' : '', enh ? `<span class="gold">${esc(enh.name)}</span>` : '', p.surcharge ? `<span class="warn">${ORD(p.copyNo)} copy +${p.surcharge}</span>` : ''].filter(Boolean).join(' · ');
-      return `<div class="mrow ${errUnits.has(u.instanceId) ? 'err' : ''} ${S.flash === u.instanceId ? 'flash' : ''}" id="u-${u.instanceId}"><button class="ptbtn" data-act="openInst" data-id="${u.instanceId}" aria-label="Datasheet: ${esc(dispName(r, u))}">${portrait(def, r.factionId)}</button><button class="mrow-main" data-act="openUnit" data-id="${u.instanceId}"><span class="mrow-name">${errUnits.has(u.instanceId) ? '<span class="bad">✕ </span>' : ''}${esc(dispName(r, u))}${kwBadges(r, def, u)}</span><span class="mrow-meta">${meta || '&nbsp;'}</span></button><span class="mrow-pts num">${p.total}</span><button class="iconbtn mrow-more" data-act="unitMenu" data-id="${u.instanceId}" aria-label="Actions for ${esc(dispName(r, u))}">${ICON.more}</button></div>`;
+      const meta = [r.warlordUnitId === u.instanceId ? '<span class="gold">★ Warlord</span>' : '', u.size > 1 ? `${u.size} models` : '', p.surcharge ? `<span class="warn">${ORD(p.copyNo)} copy +${p.surcharge}</span>` : ''].filter(Boolean).join(' · ');
+      const rel = relLines(r, u, ctx);
+      return `<div class="mrow ${errUnits.has(u.instanceId) ? 'err' : ''} ${S.flash === u.instanceId ? 'flash' : ''}" id="u-${u.instanceId}"><button class="ptbtn" data-act="openInst" data-id="${u.instanceId}" aria-label="Datasheet: ${esc(dispName(r, u))}">${portrait(def, r.factionId)}</button><button class="mrow-main" data-act="openUnit" data-id="${u.instanceId}"><span class="mrow-name">${errUnits.has(u.instanceId) ? '<span class="bad">✕ </span>' : ''}${esc(dispName(r, u))}${kwBadges(r, def, u)}</span>${meta ? `<span class="mrow-meta">${meta}</span>` : ''}${rel}</button><span class="mrow-pts num">${p.total}</span><button class="iconbtn mrow-more" data-act="unitMenu" data-id="${u.instanceId}" aria-label="Actions for ${esc(dispName(r, u))}">${ICON.more}</button></div>`;
     };
     const rows = rosterGroups(r).map(g => groupHdr(r, g, errUnits) + (isColl(r, g.cat) ? '' : `<div class="mlist">${g.items.map(rowOf).join('')}</div>`)).join('');
     return `<div class="mdet"><span class="dim">${esc(bs.name)} · ${esc(r.detachmentIds.map(id => fd.detachments.find(d => d.id === id).name).join(' + '))}</span><span class="dim num">${r.units.length} units</span></div>
@@ -1844,9 +1893,9 @@
   function unitScreenM(r, inst) {
     const def = unitDef(r.factionId, inst.datasheetId), pts = rosterPts(r), ctx = Engine.ctxFor(r, DATA);
     const p = pts.per[inst.instanceId] || { total: 0 };
-    const badges = unitBadges(r, inst, p, ctx);
+    const badges = unitBadges(r, inst, p, ctx, true), rel = relLines(r, inst, ctx, true);
     return mHeader(esc(dispName(r, inst)), { back: 'closeSub', sub: statusLine(r), right: `<button class="iconbtn" data-act="openInst" data-id="${inst.instanceId}" aria-label="Datasheet">${ICON.info}</button>` })
-      + `<main class="wrap mwrap unitscreen"><button class="uhero" data-act="openInst" data-id="${inst.instanceId}">${portrait(def, r.factionId, 'lg')}<span class="stack" style="gap:6px;min-width:0"><span class="row" style="gap:6px">${badges.join('') || `<span class="dim">${esc(CAT_NAME[catOf(def, r)] || '')}</span>`}</span><span class="link">Open datasheet ›</span></span></button>
+      + `<main class="wrap mwrap unitscreen"><button class="uhero" data-act="openInst" data-id="${inst.instanceId}">${portrait(def, r.factionId, 'lg')}<span class="stack" style="gap:6px;min-width:0">${badges.length ? `<span class="row" style="gap:6px">${badges.join('')}</span>` : ''}${rel || (badges.length ? '' : `<span class="dim">${esc(CAT_NAME[catOf(def, r)] || '')}</span>`)}<span class="link">Open datasheet ›</span></span></button>
       <div class="stack ubody-m">${unitBody(r, inst, pts, true)}</div></main>
       <div class="mfoot"><span class="num mfoot-pts"><b>${p.total}</b> pts</span><button class="btn" data-act="dupUnit" data-id="${inst.instanceId}">${ICON.dup} Duplicate</button><button class="btn danger" data-act="removeUnit" data-id="${inst.instanceId}">${ICON.trash} Remove</button></div>` + modalHTML() + sheetHTML();
   }
@@ -1902,7 +1951,7 @@
   }
   /* stratagems: whose turn a stratagem is used in, read from its timing text */
   const stratTurn = s => /opponent's/i.test(s.when) ? 'opp' : /\byour\b/i.test(s.when) ? 'mine' : 'both';
-  const stratDL = s => `<dl><dt>When</dt><dd>${esc(s.when)}</dd><dt>Target</dt><dd>${esc(s.target)}</dd><dt>Effect</dt><dd>${esc(s.effect)}</dd>${s.restrictions ? `<dt>Limit</dt><dd>${esc(s.restrictions)}</dd>` : ''}</dl>`;
+  const stratDL = s => `<dl><dt>When</dt><dd>${hl(s.when)}</dd><dt>Target</dt><dd>${hl(s.target)}</dd><dt>Effect</dt><dd>${hl(s.effect)}</dd>${s.restrictions ? `<dt>Limit</dt><dd>${hl(s.restrictions)}</dd>` : ''}</dl>`;
   function allStrats(r) {
     const fd = fdata(r.factionId);
     const dets = r.detachmentIds.map(id => fd.detachments.find(d => d.id === id));
@@ -2114,7 +2163,14 @@
   function go(view, patch = {}) { Object.assign(S, { view }, patch); S.modal = null; S.sheet = null; S.sub = null; S.scrollMem[screenKey()] = 0; render(); }
 
   /* ---------------- backup & files ---------------- */
-  function backupJSON() { return JSON.stringify({ scBackup: 1, app: 'Supreme Commander', savedAt: new Date().toISOString(), rosters: rosters.filter(r => !r.isExample), portraits: CUSTOM }); }
+  /* all rosters (Home → My Rosters) or one army's rosters (army page), with the user's portraits of those units */
+  const bkFid = () => (S.modal && S.modal.fid) || null;
+  function backupJSON(fid) {
+    const rs = rosters.filter(r => !r.isExample && (!fid || r.factionId === fid));
+    let pts = CUSTOM;
+    if (fid) { const ids = new Set(rs.flatMap(r => r.units.map(u => u.datasheetId))); pts = {}; Object.keys(CUSTOM).forEach(k => { if (ids.has(k)) pts[k] = CUSTOM[k]; }); }
+    return JSON.stringify({ scBackup: 1, app: 'Supreme Commander', savedAt: new Date().toISOString(), rosters: rs, portraits: pts });
+  }
   /* enhancement / attachment pickers: a disabled choice explains why, otherwise set the field and close */
   function pickInto(el, field) {
     if (el.getAttribute('aria-disabled') === 'true') { const w = el.querySelector('.pick-why'); if (w) toast(w.textContent.replace('⚠ ', '')); PL.haptic('reject'); return; }
@@ -2241,10 +2297,11 @@
     expFmt: el => { S.modal.fmt = el.dataset.id; render(); },
     copyExport: () => { const ta = document.getElementById('exp-text'); const t = ta.value; const fb = () => { ta.focus(); ta.select(); toast(S.m ? 'Selected. Long-press and choose Copy.' : 'Selected. Press Ctrl/Cmd+C to copy.'); }; PL.copy(t).then(ok => { if (!ok) return fb(); PL.haptic('confirm'); if (!(PL.android && PL.sdk >= 33)) toast('Copied.'); }); },
     shareExport: () => { const m = S.modal, r = rosters.find(x => x.id === m.rosterId); PL.share(r.name, document.getElementById('exp-text').value); },
-    openBackup: () => { S.modal = { type: 'backup' }; render(); },
-    shareBackup: () => PL.share('Supreme Commander backup', backupJSON()),
-    copyBackup: () => PL.copy(backupJSON()).then(ok => { if (ok && !(PL.android && PL.sdk >= 33)) toast('Copied.'); if (!ok) toast('Copy is not available here. Use Save or Share.'); }),
-    saveBackup: () => saveText('supreme-commander-backup-' + new Date().toISOString().slice(0, 10) + '.json', backupJSON()),
+    openBackup: el => { S.modal = { type: 'backup', fid: (el && el.dataset.id) || null }; render(); },
+    toggleRosters: el => { S.rostersOpen = S.rostersOpen === el.dataset.id ? null : el.dataset.id; render(); },
+    shareBackup: () => PL.share('Supreme Commander rosters', backupJSON(bkFid())),
+    copyBackup: () => PL.copy(backupJSON(bkFid())).then(ok => { if (ok && !(PL.android && PL.sdk >= 33)) toast('Copied.'); if (!ok) toast('Copy is not available here. Use Save or Share.'); }),
+    saveBackup: () => saveText('supreme-commander-' + (bkFid() ? faction(bkFid()).name.toLowerCase().replace(/[^a-z0-9]+/g, '-') + '-' : '') + 'rosters-' + new Date().toISOString().slice(0, 10) + '.json', backupJSON(bkFid())),
     pasteImport: () => PL.paste().then(t => { if (!t) { toast('The clipboard is empty or not readable. Long-press the box and choose Paste.'); return; } S.modal = { type: 'import', text: t }; render(); }),
     downloadExport: () => { const m = S.modal, r = rosters.find(x => x.id === m.rosterId); const json = m.fmt === 'json'; saveText(r.name.replace(/[^\w\- ]+/g, '').trim().replace(/\s+/g, '_') + (json ? '.json' : '.txt'), json ? JSON.stringify(r, null, 1) : document.getElementById('exp-text').value); },
     openImport: () => { S.modal = { type: 'import' }; render(); },
