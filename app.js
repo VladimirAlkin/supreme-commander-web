@@ -1257,17 +1257,17 @@
   function roundPickHTML(r, p, u, def) {
     const rp = def.roundPick, cur = ((p.rpick || {})[u.instanceId] || {})[p.round], dead = unitDead(p, u), opt = rp.options.find(o => o.id === cur);
     const badge = dead ? '<span class="badge">Dead</span>' : opt ? `<span class="badge gold">Round ${p.round}: ${esc(opt.name)}</span>` : `<span class="badge ${p.turn === (p.first || 'mine') ? 'gold' : ''}">Round ${p.round}: pick one</span>`;
-    const cards = rp.options.map((o, i) => `<button class="rpk rpk-${rp.style} ${cur === o.id ? 'on' : ''}" style="--d:-${(i * 1.4).toFixed(1)}s" data-act="rpPick" data-u="${u.instanceId}" data-id="${o.id}" aria-pressed="${cur === o.id}" ${dead ? 'aria-disabled="true"' : ''}><span class="rpk-mark" aria-hidden="true"></span><span class="rpk-t"><b>${esc(o.name)}</b></span><span class="rpk-s">${cur === o.id ? 'Active' : dead ? '' : 'Pick'}</span><span class="rpk-e">${esc(o.effect)}</span></button>`).join('');
+    const cards = rp.options.map((o, i) => `<button class="rpk rpk-${rp.style} ${cur === o.id ? 'on' : ''}" style="--d:-${(i * 1.4).toFixed(1)}s" data-act="rpPick" data-u="${u.instanceId}" data-id="${o.id}" aria-pressed="${cur === o.id}" ${dead ? 'aria-disabled="true"' : ''}><span class="rpk-mark" aria-hidden="true" ${rp.style === 'wrath' && IMG.we_rune ? `style="--rune:url('${IMG.we_rune}')"` : ''}></span><span class="rpk-t"><b>${esc(o.name)}</b></span><span class="rpk-s">${cur === o.id ? 'Active' : dead ? '' : 'Pick'}</span><span class="rpk-e">${esc(o.effect)}</span></button>`).join('');
     return `<div class="panel pad stack trk rpanel rpanel-${rp.style} ${dead ? 'dead' : ''}"><div class="row"><h3 class="grow">${esc(rp.title)}</h3>${badge}</div>
       <div class="dim" style="font-size:.9rem">${esc(dead ? rp.deadNote : rp.note)}</div><div class="rpk-list">${cards}</div></div>`;
   }
-  /* Angron's wrath: the screen edges pulse with blood twice like a heartbeat, a burning skull slams in and fades,
+  /* Angron's wrath: the screen edges pulse with blood twice like a heartbeat, the rune of the Blood God slams in, glowing like molten metal, then cools,
      the cards shudder, blood sprays from the card and drips from its top edge, embers rise. transform/opacity only. */
   function wrathFx(card) {
     if (matchMedia('(prefers-reduced-motion: reduce)').matches || !card) return;
     const b = card.getBoundingClientRect(), R = (a, c) => a + Math.random() * (c - a);
     const fx = document.createElement('div'); fx.className = 'wrathfx'; fx.setAttribute('aria-hidden', 'true');
-    fx.innerHTML = `<div class="wr-vig"></div><svg class="wr-rune" viewBox="0 0 100 100"><path d="M20 40 Q20 10 50 10 Q80 10 80 40 L80 58 L70 64 L70 82 L30 82 L30 64 L20 58 Z M38 70 V82 M46 70 V82 M54 70 V82 M62 70 V82"/><path class="wr-eyes" d="M29 39 L45 44 L40 55 L27 50 Z M71 39 L55 44 L60 55 L73 50 Z M50 57 L45 66 L55 66 Z"/></svg>
+    fx.innerHTML = `<div class="wr-vig"></div><div class="wr-rune"><div class="wr-metal" style="--rune:url('${IMG.we_rune}')"><i class="wr-heat"></i></div></div>
       <div class="wr-hit" style="left:${b.left + b.width / 2}px;top:${b.top + b.height / 2}px">${Array.from({ length: 16 }, () => { const a = R(0, Math.PI * 2), d = R(40, 150); return `<i style="--x:${(Math.cos(a) * d).toFixed(0)}px;--y:${(Math.sin(a) * d * .7).toFixed(0)}px;--z:${R(.6, 1.6).toFixed(2)};--dl:${R(0, .12).toFixed(2)}s"></i>`; }).join('')}</div>
       ${Array.from({ length: 5 }, () => `<b class="wr-drip" style="left:${(b.left + R(.1, .9) * b.width).toFixed(0)}px;top:${b.top}px;--h:${R(20, 60).toFixed(0)}px;--dl:${R(.15, .5).toFixed(2)}s"></b>`).join('')}
       ${Array.from({ length: 14 }, () => `<u style="left:${(b.left + R(0, 1) * b.width).toFixed(0)}px;top:${(b.top + b.height).toFixed(0)}px;--x:${R(-30, 30).toFixed(0)}px;--t:${R(1.2, 2).toFixed(2)}s;--dl:${R(.2, .7).toFixed(2)}s"></u>`).join('')}`;
