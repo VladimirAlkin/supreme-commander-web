@@ -1097,6 +1097,7 @@
     const cabal = fd.armyRules.find(a => a.rituals);
     if (cabal) out.push(ritualHTML(r, p, cabal, dets));
     if (fd.armyRules.some(a => a.miracle)) out.push(sororitasHTML(r, p, dets));
+    r.units.forEach(u => { const def = unitDef(r.factionId, u.datasheetId); if (def && def.roundPick) out.unshift(roundPickHTML(r, p, u, def)); });
     dets.forEach(d => {
       if (d.numberlessHorde) {
         const rounds = d.numberlessHorde[r.battleSize] || d.numberlessHorde.strike, done = p.pox || {};
@@ -1157,7 +1158,10 @@
   const triumph = (r, p) => r.units.find(u => u.datasheetId === 'triumph_of_saint_katherine' && !unitDead(p, u));
   /* start of a turn (and of the game): Solemn Procession adds a 6 on the first turn of each battle round; Righteous picks end at your Command phase */
   function turnStart(r, p) {
-    const fd = fdata(r.factionId); if (!fd || !fd.armyRules.some(a => a.miracle)) return;
+    const fd = fdata(r.factionId); if (!fd) return;
+    // +1CP units (Swarmlord): your Command phase, while alive
+    if (p.turn !== 'opp' && r.units.some(u => (unitDef(r.factionId, u.datasheetId) || {}).cpEachCommand && !unitDead(p, u)) && !(p.hc || {})[p.round]) { p.cp += 1; p.hc = Object.assign(p.hc || {}, { [p.round]: 1 }); }
+    if (!fd.armyRules.some(a => a.miracle)) return;
     if (p.turn !== 'opp') p.righteous = [];
     if (p.turn === (p.first || 'mine') && triumph(r, p) && !(p.proc || {})[p.round]) {
       p.miracle = (p.miracle || []).concat(6); p.proc = Object.assign(p.proc || {}, { [p.round]: p.turn }); S.mNew = p.miracle.length - 1;
@@ -1247,11 +1251,48 @@
     fx.innerHTML = `<b>${esc(el.textContent)}</b>` + Array.from({ length: 6 }, () => `<i style="--x:${R(-34, 34).toFixed(0)}px;--y:${R(26, 60).toFixed(0)}px;--r:${R(-160, 160).toFixed(0)}deg;--dl:${R(0, .25).toFixed(2)}s"></i>`).join('');
     document.body.appendChild(fx); setTimeout(() => fx.remove(), 1700);
   }
+
+  /* A unit that takes one ability each battle round (Angron's Wrathful Presence, Magnus' Crimson King).
+     State p.rpick[instanceId][round] = option id. Cards in the unit's own style: 'wrath' (blood) or 'eye' (warp). */
+  function roundPickHTML(r, p, u, def) {
+    const rp = def.roundPick, cur = ((p.rpick || {})[u.instanceId] || {})[p.round], dead = unitDead(p, u), opt = rp.options.find(o => o.id === cur);
+    const badge = dead ? '<span class="badge">Dead</span>' : opt ? `<span class="badge gold">Round ${p.round}: ${esc(opt.name)}</span>` : `<span class="badge ${p.turn === (p.first || 'mine') ? 'gold' : ''}">Round ${p.round}: pick one</span>`;
+    const cards = rp.options.map((o, i) => `<button class="rpk rpk-${rp.style} ${cur === o.id ? 'on' : ''}" style="--d:-${(i * 1.4).toFixed(1)}s" data-act="rpPick" data-u="${u.instanceId}" data-id="${o.id}" aria-pressed="${cur === o.id}" ${dead ? 'aria-disabled="true"' : ''}><span class="rpk-mark" aria-hidden="true"></span><span class="rpk-t"><b>${esc(o.name)}</b></span><span class="rpk-s">${cur === o.id ? 'Active' : dead ? '' : 'Pick'}</span><span class="rpk-e">${esc(o.effect)}</span></button>`).join('');
+    return `<div class="panel pad stack trk rpanel rpanel-${rp.style} ${dead ? 'dead' : ''}"><div class="row"><h3 class="grow">${esc(rp.title)}</h3>${badge}</div>
+      <div class="dim" style="font-size:.9rem">${esc(dead ? rp.deadNote : rp.note)}</div><div class="rpk-list">${cards}</div></div>`;
+  }
+  /* Angron's wrath: the screen edges pulse with blood twice like a heartbeat, a burning skull slams in and fades,
+     the cards shudder, blood sprays from the card and drips from its top edge, embers rise. transform/opacity only. */
+  function wrathFx(card) {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches || !card) return;
+    const b = card.getBoundingClientRect(), R = (a, c) => a + Math.random() * (c - a);
+    const fx = document.createElement('div'); fx.className = 'wrathfx'; fx.setAttribute('aria-hidden', 'true');
+    fx.innerHTML = `<div class="wr-vig"></div><svg class="wr-rune" viewBox="0 0 100 100"><path d="M20 40 Q20 10 50 10 Q80 10 80 40 L80 58 L70 64 L70 82 L30 82 L30 64 L20 58 Z M38 70 V82 M46 70 V82 M54 70 V82 M62 70 V82"/><path class="wr-eyes" d="M29 39 L45 44 L40 55 L27 50 Z M71 39 L55 44 L60 55 L73 50 Z M50 57 L45 66 L55 66 Z"/></svg>
+      <div class="wr-hit" style="left:${b.left + b.width / 2}px;top:${b.top + b.height / 2}px">${Array.from({ length: 16 }, () => { const a = R(0, Math.PI * 2), d = R(40, 150); return `<i style="--x:${(Math.cos(a) * d).toFixed(0)}px;--y:${(Math.sin(a) * d * .7).toFixed(0)}px;--z:${R(.6, 1.6).toFixed(2)};--dl:${R(0, .12).toFixed(2)}s"></i>`; }).join('')}</div>
+      ${Array.from({ length: 5 }, () => `<b class="wr-drip" style="left:${(b.left + R(.1, .9) * b.width).toFixed(0)}px;top:${b.top}px;--h:${R(20, 60).toFixed(0)}px;--dl:${R(.15, .5).toFixed(2)}s"></b>`).join('')}
+      ${Array.from({ length: 14 }, () => `<u style="left:${(b.left + R(0, 1) * b.width).toFixed(0)}px;top:${(b.top + b.height).toFixed(0)}px;--x:${R(-30, 30).toFixed(0)}px;--t:${R(1.2, 2).toFixed(2)}s;--dl:${R(.2, .7).toFixed(2)}s"></u>`).join('')}`;
+    document.body.appendChild(fx);
+    const cards = document.querySelectorAll('main .panel, main .pcard, main .ucard'); cards.forEach(c => c.classList.add('quake')); setTimeout(() => cards.forEach(c => c.classList.remove('quake')), 900);
+    setTimeout(() => fx.remove(), 2600);
+    if (PL.android) { PL.haptic('confirm'); setTimeout(() => PL.haptic('confirm'), 260); }
+  }
+  /* The Crimson King: a great eye opens over the card, a ring of crimson and turquoise warpfire spreads, motes drift up. */
+  function eyeFx(card) {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches || !card) return;
+    const R = (a, c) => a + Math.random() * (c - a);
+    const fx = document.createElement('span'); fx.className = 'eyefx'; fx.setAttribute('aria-hidden', 'true');
+    fx.innerHTML = `<i class="ey-ring"></i><svg class="ey-eye" viewBox="0 0 120 60"><path class="ey-lid" d="M6 30 Q60 -14 114 30 Q60 74 6 30 Z"/><circle class="ey-iris" cx="60" cy="30" r="15"/><path class="ey-pupil" d="M60 18 Q65 30 60 42 Q55 30 60 18 Z"/></svg>`
+      + Array.from({ length: 12 }, () => `<i class="ey-mote" style="left:${R(30, 70).toFixed(0)}%;--x:${R(-20, 20).toFixed(0)}px;--t:${R(1, 1.7).toFixed(2)}s;--dl:${R(.3, .8).toFixed(2)}s"></i>`).join('');
+    card.appendChild(fx); setTimeout(() => fx.remove(), 2400);
+    if (PL.android) setTimeout(() => PL.haptic('confirm'), 220);
+  }
   function roundHint(r, p) {
     const fd = fdata(r.factionId), dets = r.detachmentIds.map(id => fd.detachments.find(d => d.id === id)).filter(Boolean);
     const startOfRound = p.turn === (p.first || 'mine');
-    if (fd.armyRules.some(a => a.blessings)) return startOfRound && !(p.active || []).length ? ' Roll and pick Blessings of Khorne.' : '';
     const h = [];
+    if (p.turn !== 'opp' && (p.hc || {})[p.round] && p.phase === 'Command') { const u = r.units.find(x => (unitDef(r.factionId, x.datasheetId) || {}).cpEachCommand); if (u) h.push(` ${unitDef(r.factionId, u.datasheetId).cpEachCommand.name}: +1 CP.`); }
+    if (startOfRound) r.units.forEach(u => { const rp = (unitDef(r.factionId, u.datasheetId) || {}).roundPick; if (rp && !unitDead(p, u) && !((p.rpick || {})[u.instanceId] || {})[p.round]) h.push(` Pick ${rp.who}'s ${rp.title}.`); });
+    if (fd.armyRules.some(a => a.blessings)) return (startOfRound && !(p.active || []).length ? ' Roll and pick Blessings of Khorne.' : '') + h.join('');
     if (fd.armyRules.some(a => a.contagion)) {
       const c = fd.armyRules.find(a => a.contagion).contagion;
       if (startOfRound && p.round <= c.byRound.length && p.round > 1) h.push(` Contagion Range is now ${c.byRound[p.round - 1]}″.`);
@@ -2339,6 +2380,13 @@
       S.ritOpen = S.ritBy = null;
       playChange(r, p => { p.rit = p.rit || {}; (p.rit[p.round] = p.rit[p.round] || {})[id] = { by, ok }; }, msg, ok ? 'confirm' : 'tick');
       if (ok) { const c = document.querySelector(`.rit[data-id="${id}"]`); if (c) warpfire(c); }
+    },
+    rpPick: el => {
+      if (el.getAttribute('aria-disabled') === 'true') { toast('Dead. Bring the model back first.'); PL.haptic('reject'); return; }
+      const r = cur(), iid = el.dataset.u, id = el.dataset.id, u = inst(iid), def = unitDef(r.factionId, u.datasheetId);
+      const on = ((playState(r).rpick || {})[iid] || {})[playState(r).round] !== id;
+      playChange(r, p => { p.rpick = p.rpick || {}; const m = p.rpick[iid] = p.rpick[iid] || {}; if (m[p.round] === id) delete m[p.round]; else m[p.round] = id; }, null, 'confirm');
+      if (on) { const c = document.querySelector(`.rpk[data-u="${iid}"][data-id="${id}"]`); if (def.roundPick.style === 'wrath') wrathFx(c); else eyeFx(c); }
     },
     asGain: el => { const r = cur(), v = +el.dataset.v; playChange(r, p => { p.miracle = (p.miracle || []).concat(v); S.mNew = p.miracle.length - 1; }, `Miracle dice ${v} added.`, 'confirm'); holyFx(document.querySelector('.mdie.new'), 'die'); setTimeout(() => { S.mNew = null; }, 50); },
     asSpend: el => {

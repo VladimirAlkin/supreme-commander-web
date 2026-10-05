@@ -1843,7 +1843,31 @@ const DATA = {
      "options": [],
      "optionRules": [],
      "slots": [],
-     "optionGroups": []
+     "optionGroups": [],
+     "roundPick": {
+      "title": "Wrathful Presence",
+      "style": "wrath",
+      "who": "Angron",
+      "note": "Start of each battle round: Angron takes one of these until the next battle round.",
+      "deadNote": "Angron is dead. Reborn in Blood: at the start of a battle round a triple 6 from the Blessings roll can bring him back (instead of activating Blessings).",
+      "options": [
+       {
+        "id": "favour",
+        "name": "The Blood God's Favour",
+        "effect": "While Angron is on the battlefield, re-roll up to 6 dice of each Blessings of Khorne roll."
+       },
+       {
+        "id": "rage",
+        "name": "Driven by Ultimate Rage",
+        "effect": "Aura 6\": friendly WORLD EATERS units re-roll hit and wound rolls of 1 with melee attacks."
+       },
+       {
+        "id": "wrath",
+        "name": "Overwhelming Wrath",
+        "effect": "Aura 6\": an enemy unit selected to fall back must pass a Leadership test or stay where it is."
+       }
+      ]
+     }
     },
     {
      "id": "kharn_the_betrayer",
@@ -7438,7 +7462,11 @@ const DATA = {
      "options": [],
      "optionRules": [],
      "slots": [],
-     "optionGroups": []
+     "optionGroups": [],
+     "cpEachCommand": {
+      "name": "Hive Commander",
+      "who": "the Swarmlord"
+     }
     },
     {
      "id": "old_one_eye",
@@ -20175,7 +20203,31 @@ const DATA = {
      "optionGroups": [],
      "ritualsPerTurn": 2,
      "ritualBonus": 2,
-     "mustBeWarlord": "Supreme Commander: Magnus the Red must be your Warlord."
+     "mustBeWarlord": "Supreme Commander: Magnus the Red must be your Warlord.",
+     "roundPick": {
+      "title": "The Crimson King",
+      "style": "eye",
+      "who": "Magnus",
+      "note": "Start of each battle round: Magnus gains one of these until the next battle round.",
+      "deadNote": "Magnus is dead.",
+      "options": [
+       {
+        "id": "form",
+        "name": "Impossible Form",
+        "effect": "-1 Damage to attacks against Magnus that are not Psychic."
+       },
+       {
+        "id": "treason",
+        "name": "Treason of Tzeentch",
+        "effect": "Start of your opponent's Shooting phase: one enemy unit within 24\" has [HAZARDOUS] ranged weapons that phase."
+       },
+       {
+        "id": "flux",
+        "name": "Time Flux",
+        "effect": "Aura 6\": friendly THOUSAND SONS units get +2\" Move."
+       }
+      ]
+     }
     },
     {
      "id": "ahriman",
