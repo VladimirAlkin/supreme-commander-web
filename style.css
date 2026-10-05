@@ -32,6 +32,9 @@
   color-scheme: dark;
 }
 html { min-height: 100%; background: var(--bg-deep); }
+/* top inset for headers; on the iPhone home-screen app iOS blurs a band below the status bar, so headers start below it */
+:root { --sat: env(safe-area-inset-top, 0px); }
+html.ios-app { --sat: calc(env(safe-area-inset-top, 0px) + 36px); }
 body {
   margin: 0;
   min-height: 100vh;
@@ -72,7 +75,7 @@ h3 { font-size: 1.1rem; font-weight: 700; }
 
 /* Top bar */
 .topbar {
-  position: sticky; top: 0; padding-top: env(safe-area-inset-top, 0px); z-index: 20;
+  position: sticky; top: 0; padding-top: var(--sat); z-index: 20;
   background: color-mix(in srgb, var(--bg) 86%, transparent);
   backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--line);
@@ -431,7 +434,7 @@ button.stat { cursor: pointer; }
 @keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
 
 /* phone header */
-.mbar { position: sticky; top: 0; z-index: 20; display: flex; align-items: center; gap: 4px; min-height: calc(60px + env(safe-area-inset-top, 0px)); padding: calc(4px + env(safe-area-inset-top, 0px)) 6px 4px 4px; box-sizing: border-box;
+.mbar { position: sticky; top: 0; z-index: 20; display: flex; align-items: center; gap: 4px; min-height: calc(60px + var(--sat)); padding: calc(4px + var(--sat)) 6px 4px 4px; box-sizing: border-box;
   background: color-mix(in srgb, var(--bg) 92%, black); border-bottom: 1px solid var(--line); }
 .mbar .iconbtn { width: 48px; height: 48px; flex: none; }
 .mbar-t { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
@@ -443,7 +446,7 @@ button.stat { cursor: pointer; }
 
 /* phones: solid top bar like .mbar (no see-through blur under the status bar), and inputs stop below it when iOS scrolls to them */
 html.m .topbar { background: color-mix(in srgb, var(--bg) 92%, black); backdrop-filter: none; -webkit-backdrop-filter: none; }
-html.m input, html.m textarea, html.m select { scroll-margin-top: calc(84px + env(safe-area-inset-top, 0px)); }
+html.m input, html.m textarea, html.m select { scroll-margin-top: calc(84px + var(--sat)); }
 html.m .wrap { padding-inline: 14px; }
 html.m .mwrap { padding-top: 12px; padding-bottom: calc(var(--tabbar-h) + 24px + env(safe-area-inset-bottom, 0px)); }
 html.m.has-fab .mwrap { padding-bottom: calc(var(--tabbar-h) + 96px); }
@@ -554,7 +557,7 @@ html.m .phase-row { margin-inline: -14px; padding-inline: 14px; }
 /* datasheet full screen */
 html.m .modal-back { align-items: stretch; padding: 0; }
 html.m .modal { max-height: none; height: 100%; border-radius: 0; border: 0; display: flex; flex-direction: column; overflow: auto; }
-html.m .modal-head { padding: calc(8px + env(safe-area-inset-top, 0px)) 6px 8px 12px; gap: 10px; }
+html.m .modal-head { padding: calc(8px + var(--sat)) 6px 8px 12px; gap: 10px; }
 html.m .modal-head > .iconbtn { width: 52px; height: 52px; }
 html.m .modal-head h2 { font-size: 1.2rem; }
 html.m .modal-head .pt.lg { width: 77px; height: 77px; }

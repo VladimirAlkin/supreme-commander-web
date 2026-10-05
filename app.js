@@ -1990,19 +1990,21 @@
   const atRoot = () => S.view === 'home' && S.homeTab === 'armies' && !S.sheet && !S.modal && !document.getElementById('tip');
   /* Web app (PWA, browser tab): system Back and the browser's swipe-back step back one screen instead of leaving.
      One spare history entry is kept while there is somewhere to go back to; at the Armies home Back leaves as usual. */
-  const HIST = !NATIVE && window.top === window && !!(window.history && history.pushState);
-  let histArmed = false, swipeBackAt = 0, lastPop = 0;
+  /* iPhone home-screen app: iOS turns a history entry into its own swipe-back that lands on the start page (seen on a tester's
+     iPhone), so no history entries there at all; the left-edge swipe below is the only Back gesture. */
+  const IOS_APP = window.navigator.standalone === true;
+  const HIST = !NATIVE && !IOS_APP && window.top === window && !!(window.history && history.pushState);
+  let histArmed = false;
   function armHistory() { if (!HIST || histArmed || atRoot()) return; try { history.pushState({ sc: 1 }, ''); histArmed = true; } catch (e) { } }
-  /* a popstate that arrives right after our own edge-swipe Back is the same gesture (iOS finished its animation late): re-arm only */
-  if (HIST) window.addEventListener('popstate', () => { lastPop = Date.now(); histArmed = false; if (lastPop - swipeBackAt > 1500) goBack(); swipeBackAt = 0; armHistory(); });
-  /* iPhone home-screen app: a swipe from the left edge does Back here. Some iOS versions also do their own history Back
-     for the same swipe; whichever comes first wins, so one swipe is always exactly one step back. */
-  if (HIST && window.navigator.standalone === true) {
-    let sx = null, sy = 0, dx = 0, t0 = 0, hint = null;
+  if (HIST) window.addEventListener('popstate', () => { histArmed = false; goBack(); armHistory(); });
+  /* iPhone home-screen app: a swipe from the left edge does Back here (there is no history for iOS to go back through). */
+  if (IOS_APP && window.top === window) {
+    document.documentElement.classList.add('ios-app');
+    let sx = null, sy = 0, dx = 0, hint = null;
     const drop = () => { if (hint) hint.remove(); hint = null; sx = null; };
     document.addEventListener('touchstart', e => {
       const t = e.touches[0]; if (e.touches.length !== 1 || t.clientX > 22 || atRoot()) return;
-      sx = t.clientX; sy = t.clientY; dx = 0; t0 = Date.now();
+      sx = t.clientX; sy = t.clientY; dx = 0;
       hint = document.createElement('div'); hint.className = 'swipeback'; hint.innerHTML = ICON.back; document.body.appendChild(hint);
     }, { passive: true });
     document.addEventListener('touchmove', e => {
@@ -2010,7 +2012,7 @@
       if (dy > 40 && dy > dx) { drop(); return; }
       const k = Math.max(0, Math.min(1, dx / 90)); hint.style.opacity = k; hint.style.transform = `translateX(${-50 + 56 * k}px)`;
     }, { passive: true });
-    document.addEventListener('touchend', () => { if (sx == null) return; const go = dx >= 90; drop(); if (go) setTimeout(() => { if (lastPop < t0) { swipeBackAt = Date.now(); goBack(); } }, 320); }, { passive: true });
+    document.addEventListener('touchend', () => { if (sx == null) return; const go = dx >= 90; drop(); if (go) goBack(); }, { passive: true });
     document.addEventListener('touchcancel', drop, { passive: true });
   }
   function leaveRoster() {
