@@ -81,7 +81,7 @@ const Engine = (function () {
           const v = (inst.wargear || {})[o.id];
           const c = o.choices.find(c => c.id === v);
           if (c && c.pts) wargear += c.pts;
-        }
+        } else if (o.pts) wargear += (+(inst.wargear || {})[o.id] || 0) * o.pts;
       });
       let enh = 0;
       enhIds(inst).forEach(id => { const e = ctx.allEnh[id]; if (e) enh += e.pts; });
@@ -108,7 +108,7 @@ const Engine = (function () {
     let n = 0;
     roster.units.forEach(inst => enhIds(inst).forEach(id => {
       const e = ctx.allEnh[id];
-      if (!e) return;
+      if (!e || e.noCount) return;
       if (e.upgrade) { if (!counted.has(id)) { counted.add(id); n++; } } else n++;
     }));
     return n;
@@ -134,8 +134,8 @@ const Engine = (function () {
     const def = ctx.unitById[inst.datasheetId];
     if (!ctx.enhById[e.id]) return 'Its detachment is not in this roster.';
     const isChar = hasKw(def, ctx, 'Character', inst);
-    if (!e.upgrade && !isChar) return 'Only CHARACTER units can take this enhancement.';
-    if (e.upgrade && isChar) return 'Upgrades go on non-CHARACTER units.';
+    if ((!e.upgrade || e.onCharacter) && !isChar) return 'Only CHARACTER units can take this enhancement.';
+    if (e.upgrade && isChar && !e.onCharacter) return 'Upgrades go on non-CHARACTER units.';
     if (hasKw(def, ctx, 'Epic Hero')) return 'Epic Heroes cannot take enhancements.';
     const why = eligible(e, def, inst, ctx);
     if (why) return why;
@@ -173,6 +173,26 @@ const Engine = (function () {
       if (o.group) { const g = (def.optionGroups || []).find(x => x.id === o.group); if (g) { const cap = Math.floor(inst.size / g.per) * g.n; const used = (def.options || []).filter(x => x.group === o.group && x.id !== o.id).reduce((s, x) => s + (+(inst.wargear || {})[x.id] || 0), 0); mx = Math.min(mx, cap - used); } }
     }
     return Math.max(0, mx);
+  }
+
+  /* Allies limited by unit counts per battle size instead of a detachment (Assigned Agents): [{faction, keyword, n, used, units}] */
+  function alliedCaps(roster, DATA) {
+    const ctx = ctxFor(roster, DATA), out = [];
+    if (!ctx.bs) return out;
+    (ctx.fd.alliedFactions || []).filter(a => a.caps).forEach(a => {
+      const units = roster.units.filter(inst => { const def = ctx.unitById[inst.datasheetId]; return def && factionOf(inst, def, ctx) === a.faction; });
+      const has = (inst, k) => hasKw(ctx.unitById[inst.datasheetId], ctx, k, inst);
+      const exempt = new Set();
+      (a.free || []).forEach(f => {
+        let allowance = units.filter(u => f.perKeywords.every(k => has(u, k))).length;
+        units.filter(u => f.unitIds.includes(u.datasheetId)).forEach(u => { if (allowance > 0) { exempt.add(u.instanceId + ':' + f.from); allowance--; } });
+      });
+      a.caps.forEach(c => {
+        const list = units.filter(u => has(u, c.keyword) && !exempt.has(u.instanceId + ':' + c.keyword));
+        out.push({ faction: a.faction, keyword: c.keyword, n: c.n[ctx.bs.id] != null ? c.n[ctx.bs.id] : 0, used: list.length, units: list });
+      });
+    });
+    return out;
   }
 
   function validate(roster, DATA) {
@@ -215,6 +235,9 @@ const Engine = (function () {
     (fd.alliedFactions || []).forEach(a => {
       const units = roster.units.filter(inst => { const def = ctx.unitById[inst.datasheetId]; return def && factionOf(inst, def, ctx) === a.faction; });
       if (!units.length) return;
+      alliedCaps(roster, DATA).filter(c => c.faction === a.faction && c.used > c.n).forEach(c =>
+        E(`${a.rule || a.faction}: ${c.used} ${c.keyword.toUpperCase()} units; ${bs.name} allows ${c.n}.`, c.units[c.units.length - 1].instanceId));
+      if (!a.requiresDetachment) return;
       const hasDet = (roster.detachmentIds || []).includes(a.requiresDetachment);
       if (!hasDet) units.forEach(inst => E(`${nameOf(inst)} is ${a.faction.toUpperCase()} and needs the ${(fd.detachments.find(d => d.id === a.requiresDetachment) || {}).name} detachment.`, inst.instanceId));
       const cap = bs[a.capKey];
@@ -277,15 +300,15 @@ const Engine = (function () {
       const def = ctx.unitById[inst.datasheetId];
       if (!def) return;
       const ids = enhIds(inst);
-      if (ids.length > 1) E(`${nameOf(inst)} has ${ids.length} enhancements; a unit can have only one.`, inst.instanceId);
+      if (ids.filter(id => !(ctx.allEnh[id] || {}).noCount).length > 1) E(`${nameOf(inst)} has ${ids.length} enhancements; a unit can have only one.`, inst.instanceId);
       ids.forEach(id => {
         const e = ctx.allEnh[id];
         if (!e) { E(`Unknown enhancement on ${nameOf(inst)}.`, inst.instanceId); return; }
         if (!ctx.enhById[id]) E(`${e.name} comes from ${(fd.detachments.find(d => d.id === e.detachmentId) || {}).name}, which is not in this roster.`, inst.instanceId);
         const isChar = hasKw(def, ctx, 'Character', inst);
         if (hasKw(def, ctx, 'Epic Hero')) E(`${def.name} is an Epic Hero and cannot take enhancements.`, inst.instanceId);
-        else if (e.upgrade && isChar) E(`${e.name} is an Upgrade; give it to a non-CHARACTER unit.`, inst.instanceId);
-        else if (!e.upgrade && !isChar) E(`${e.name} can only go on a CHARACTER.`, inst.instanceId);
+        else if (e.upgrade && isChar && !e.onCharacter) E(`${e.name} is an Upgrade; give it to a non-CHARACTER unit.`, inst.instanceId);
+        else if ((!e.upgrade || e.onCharacter) && !isChar) E(`${e.name} can only go on a CHARACTER.`, inst.instanceId);
         const why = eligible(e, def, inst, ctx);
         if (why) E(why, inst.instanceId);
         taken[id] = (taken[id] || []).concat(inst);
@@ -314,7 +337,8 @@ const Engine = (function () {
       const role = def.support ? 'support' : 'leader';
       const key = target.instanceId + ':' + role;
       leadersOn[key] = (leadersOn[key] || []).concat(inst);
-      const totalEnh = enhIds(inst).length + enhIds(target).length;
+      const counts = u => enhIds(u).filter(id => !(ctx.allEnh[id] || {}).noCount).length;
+      const totalEnh = counts(inst) + counts(target);
       if (totalEnh > 1) E(`${nameOf(inst)} and ${nameOf(target)} would form one attached unit with ${totalEnh} enhancements; an attached unit can have only one.`, inst.instanceId);
     });
     Object.entries(leadersOn).forEach(([key, list]) => {
@@ -341,10 +365,12 @@ const Engine = (function () {
       });
       (def.slots || []).forEach(sl => { const size = slotSize(sl, inst), used = slotUsed(def, inst, sl.id); if (used > size) E(`${def.name}: ${used} ${sl.label.toLowerCase()} swaps but only ${size} model${size === 1 ? '' : 's'} can take them. Reduce the options.`, inst.instanceId); });
       (def.optionGroups || []).forEach(g => { const cap = Math.floor(inst.size / g.per) * g.n; const used = (def.options || []).filter(x => x.group === g.id).reduce((s, x) => s + (+wg[x.id] || 0), 0); if (used > cap) E(`${def.name}: ${g.label} ${used}/${cap} (${g.n} per ${g.per} models).`, inst.instanceId); });
+      // unset picks count as their default: the first choice, or 0 for counts and toggles
+      const val = k => { const o = (def.options || []).find(x => x.id === k) || {}; return wg[k] != null ? wg[k] : o.type === 'choice' ? o.choices[0].id : 0; };
       (def.optionRules || []).forEach(r => {
-        if (r.forbidAllOf) { if (r.forbidAllOf.every(([k, v]) => (wg[k] || ((def.options.find(o => o.id === k) || {}).choices || [{}])[0].id) === v)) E(`${def.name}: ${r.message}`, inst.instanceId); return; }
-        if ((wg[r.if] || 'none') === r.notValue) return;
-        const ok = r.requireAnyOf ? r.requireAnyOf.some(([k, v]) => wg[k] === v) : r.requireAllOf.every(([k, v]) => wg[k] === v);
+        if (r.forbidAllOf) { if (r.forbidAllOf.every(([k, v]) => val(k) === v)) E(`${def.name}: ${r.message}`, inst.instanceId); return; }
+        if (String(val(r.if)) === String(r.notValue)) return;
+        const ok = r.requireAnyOf ? r.requireAnyOf.some(([k, v]) => val(k) === v) : r.requireAllOf.every(([k, v]) => val(k) === v);
         if (!ok) E(`${def.name}: ${r.message}`, inst.instanceId);
       });
     });
@@ -448,6 +474,6 @@ const Engine = (function () {
   }
 
   function eligibleReason(e, inst, roster, DATA) { const ctx = ctxFor(roster, DATA); const def = ctx.unitById[inst.datasheetId]; return eligible(e, def, inst, ctx); }
-  return { warlordBlock, grantsFor, instGrants, dispositionsOf, dataVersionFor, eligibleReason, ctxFor, points, validate, copyLimit, nextCopyInfo, enhancementCount, enhancementBlock, optionMax, slotSize, slotUsed, ownCap, keywordsOf, hasKw, factionOf, buffed, attachedGroup, canLead, attachBlock, carries, enhIds, addStat, ORD };
+  return { alliedCaps, warlordBlock, grantsFor, instGrants, dispositionsOf, dataVersionFor, eligibleReason, ctxFor, points, validate, copyLimit, nextCopyInfo, enhancementCount, enhancementBlock, optionMax, slotSize, slotUsed, ownCap, keywordsOf, hasKw, factionOf, buffed, attachedGroup, canLead, attachBlock, carries, enhIds, addStat, ORD };
 })();
 if (typeof module !== 'undefined') module.exports = Engine;

@@ -455,9 +455,9 @@
   /* catalogue of addable units (desktop left column, phone "Add units" screen) */
   function catalogCats(r) {
     const fd = fdata(r.factionId);
-    const blAllowed = (fd.alliedFactions || []).filter(a => r.detachmentIds.includes(a.requiresDetachment)).map(a => a.faction);
+    const blAllowed = (fd.alliedFactions || []).filter(a => !a.requiresDetachment || r.detachmentIds.includes(a.requiresDetachment)).map(a => a.faction);
     const present = new Set(fd.units.filter(u => u.faction === fd.armyFaction || blAllowed.includes(u.faction)).map(u => catOf(u, r)));
-    const hi = (faction(r.factionId).highlights || []).map(h => [hiKey(h), h.label.charAt(0) + h.label.slice(1).toLowerCase()]);
+    const hi = (faction(r.factionId).highlights || []).filter(h => hiLive(r, h)).map(h => [hiKey(h), h.label.charAt(0) + h.label.slice(1).toLowerCase()]);
     return { blAllowed, cats: CATS.filter(([c]) => c === 'all' || present.has(c)).concat(hi) };
   }
   function catalogList(r) {
@@ -473,10 +473,12 @@
     const grouped = {};
     units.forEach(u => (grouped[catOf(u, r)] = grouped[catOf(u, r)] || []).push(u));
     const have = id => r.units.filter(x => x.datasheetId === id).length;
+    const caps = Engine.alliedCaps(r, DATA);
     const addRow = u => {
       const nx = Engine.nextCopyInfo(u, r, DATA, u.sizes[0].models);
       const blocked = nx.copyNo > nx.limit ? `Limit ${nx.limit} reached in ${bs.name}` : null;
-      const overPts = !blocked && pts.total + nx.pts > bs.points ? `Over points by ${pts.total + nx.pts - bs.points}` : null;
+      const full = caps.find(c => c.faction === u.faction && c.used >= c.n && Engine.hasKw(u, ctx, c.keyword));
+      const overPts = !blocked && full ? `${full.keyword.toUpperCase()} allies: ${full.used}/${full.n} in ${bs.name}` : !blocked && pts.total + nx.pts > bs.points ? `Over points by ${pts.total + nx.pts - bs.points}` : null;
       const n = have(u.id);
       return `<div class="panel additem"><button class="ptbtn" data-act="openDs" data-id="${u.id}" aria-label="Open ${esc(u.name)} datasheet">${portrait(u, r.factionId)}</button>
         <div class="grow"><button class="nm" data-act="openDs" data-id="${u.id}">${esc(u.name)}${n ? ` <span class="have">×${n}</span>` : ''}${kwBadges(r, u, null)}</button>
@@ -484,13 +486,14 @@
         ${nx.surcharge ? `<div class="sub" style="color:var(--warn)">Next copy: +${nx.surcharge} pts</div>` : ''}${blocked ? `<div class="why">${esc(blocked)}</div>` : overPts ? `<div class="why">${esc(overPts)}</div>` : ''}</div>
         <button class="addbtn" data-act="addUnit" data-id="${u.id}" ${blocked ? 'aria-disabled="true"' : ''} aria-label="Add ${esc(u.name)}${blocked ? ' (' + esc(blocked) + ')' : ''}">+</button></div>`;
     };
-    return (Object.keys(CAT_NAME).filter(c => grouped[c]).map(c => `<div class="grouphdr">${CAT_NAME[c]}${c === 'allies' ? ' · ' + esc(blAllowed.join(', ')) : ''}</div>${grouped[c].map(addRow).join('')}`).join('') || '<div class="empty">No units match.</div>')
-      + (blAllowed.length ? '' : (fd.alliedFactions || []).map(a => `<div class="faint" style="font-size:.85rem;margin-top:8px">${esc(a.faction)} allies appear when ${esc((fd.detachments.find(d => d.id === a.requiresDetachment) || {}).name || '')} is in the roster.</div>`).join(''));
+    return (Object.keys(CAT_NAME).filter(c => grouped[c]).map(c => `<div class="grouphdr">${CAT_NAME[c]}${c === 'allies' ? ' · ' + esc(blAllowed.join(', ')) : ''}</div>${c === 'allies' && caps.length ? `<div class="faint allycaps">${caps.map(x => `<span class="${x.used > x.n ? 'bad' : ''}">${esc(x.keyword.toUpperCase())} <b class="num">${x.used}/${x.n}</b></span>`).join('')}</div>` : ''}${grouped[c].map(addRow).join('')}`).join('') || '<div class="empty">No units match.</div>')
+      + (blAllowed.length ? '' : (fd.alliedFactions || []).filter(a => a.requiresDetachment).map(a => `<div class="faint" style="font-size:.85rem;margin-top:8px">${esc(a.faction)} allies appear when ${esc((fd.detachments.find(d => d.id === a.requiresDetachment) || {}).name || '')} is in the roster.</div>`).join(''));
   }
   /* display order: each bodyguard followed by the leaders attached to it */
   /* Faction highlights (Tyranids: SYNAPSE keyword; Death Guard: units with a bigger Contagion Range; World Eaters: Icon of Khorne).
      Returns null when the unit has none; {on, cond, note, n} otherwise (n = number of sources, for ranged labels). */
   const hiKey = h => 'kw:' + (h.id || h.keyword);
+  const hiLive = (r, h) => !h.detachments || h.keyword || h.unitIds || h.wargear || Object.keys(h.detachments).some(d => r.detachmentIds.includes(d));
   function hiState(r, def, inst, h) {
     const ctx = Engine.ctxFor(r, DATA);
     if (h.wargear) {
@@ -501,8 +504,10 @@
     const notes = [], conds = [];
     if (h.keyword && Engine.hasKw(def, ctx, h.keyword, inst)) notes.push((h.notes || {})[def.id] || '');
     if (h.unitIds && h.unitIds[def.id] != null) notes.push(h.unitIds[def.id]);
+    if (inst && h.enhancements) Engine.enhIds(inst).forEach(id => { if (h.enhancements[id]) notes.push(h.enhancements[id]); });
     Object.entries(h.detachments || {}).forEach(([did, rule]) => {
       if (!r.detachmentIds.includes(did)) return;
+      if (rule.unitIds && !rule.unitIds.includes(def.id)) return;
       if ((rule.factionsAll || []).length && !rule.factionsAll.includes(def.faction)) return;
       if ((rule.keywordsAll || []).some(k => !Engine.hasKw(def, ctx, k, inst))) return;
       (rule.cond ? conds : notes).push(rule.note || '');
@@ -513,10 +518,11 @@
     return null;
   }
   const hiLabel = (h, st) => h.rangeStep ? `${h.label} +${(st.n || 1) * h.rangeStep}″` : h.label;
-  function kwBadges(r, def, inst) {
+  function kwBadges(r, def, inst, p) {
     const f = faction(r.factionId); if (!f || !f.highlights || !def) return '';
     return f.highlights.map(h => {
-      const st = hiState(r, def, inst, h); if (!st) return '';
+      // in Play a pick-based highlight (Righteous) shows only on the units picked this turn
+      const st = p && h.playSel && inst ? ((p[h.playSel] || []).includes(inst.attachedTo || inst.instanceId) ? { on: true, note: h.title } : null) : hiState(r, def, inst, h); if (!st) return '';
       const d = -(((inst ? inst.instanceId : def.id).split('').reduce((a, c) => a + c.charCodeAt(0), 0) % 37) / 10).toFixed(1);
       return `<span class="kwfx ${h.tone ? 'tone-' + h.tone : ''} ${st.cond ? 'cond' : ''}" style="--d:${d}s" title="${esc(st.note || h.title || '')}">${esc(hiLabel(h, st))}${st.cond ? '*' : ''}</span>`;
     }).join('');
@@ -528,7 +534,7 @@
   }
   function hiSummary(r) {
     const f = faction(r.factionId); if (!f || !f.highlights || !r.units.length) return '';
-    return f.highlights.map(h => {
+    return f.highlights.filter(h => hiLive(r, h)).map(h => {
       const list = r.units.map(u => ({ u, st: hiState(r, unitDef(r.factionId, u.datasheetId), u, h) })).filter(x => x.st);
       return `<div class="hisum ${h.tone ? 'tone-' + h.tone : ''}"><span class="kwfx ${h.tone ? 'tone-' + h.tone : ''}" style="--d:0s">${esc(h.label)}</span><span class="dim">${list.length ? esc(list.map(x => dispName(r, x.u) + (x.st.cond ? '*' : '') + (h.rangeStep ? ` (+${(x.st.n || 1) * h.rangeStep}″)` : '')).join(', ')) : esc(h.none || 'No units')}</span></div>`;
     }).join('');
@@ -751,7 +757,7 @@
     if (S.play && S.playFor === r.id) return S.play;
     let p = lsGet(playKey(r.id));
     S.playFor = r.id;
-    if (!p) p = { cp: 1, round: 1, phase: 'Command', turn: 'mine', first: 'mine', vp: [0, 0], wounds: {}, active: [], usedStrats: {} };
+    if (!p) { p = { cp: 1, round: 1, phase: 'Command', turn: 'mine', first: 'mine', vp: [0, 0], wounds: {}, active: [], usedStrats: {} }; turnStart(r, p); }
     if (!p.turn) p.turn = 'mine';
     if (!p.first) p.first = 'mine';
     if (!p.usedStrats) p.usedStrats = {};
@@ -1090,6 +1096,7 @@
     if (gift) out.push(contagionHTML(r, p, gift, dets), plagueHTML(r, p, gift, dets));
     const cabal = fd.armyRules.find(a => a.rituals);
     if (cabal) out.push(ritualHTML(r, p, cabal, dets));
+    if (fd.armyRules.some(a => a.miracle)) out.push(sororitasHTML(r, p, dets));
     dets.forEach(d => {
       if (d.numberlessHorde) {
         const rounds = d.numberlessHorde[r.battleSize] || d.numberlessHorde.strike, done = p.pox || {};
@@ -1143,6 +1150,89 @@
     });
     return out.join('');
   }
+
+  /* ---------------- Adepta Sororitas: Miracle dice pool, Righteous, Vows, Relics, once-per-battle abilities ----------------
+     Dice are rolled at the table; the app keeps the pool and reminds when dice come in. */
+  const unitDead = (p, inst) => { const w = (p.wounds || {})[inst.instanceId]; return !!w && w.length > 0 && !w.some(x => x > 0); };
+  const triumph = (r, p) => r.units.find(u => u.datasheetId === 'triumph_of_saint_katherine' && !unitDead(p, u));
+  /* start of a turn (and of the game): Solemn Procession adds a 6 on the first turn of each battle round; Righteous picks end at your Command phase */
+  function turnStart(r, p) {
+    const fd = fdata(r.factionId); if (!fd || !fd.armyRules.some(a => a.miracle)) return;
+    if (p.turn !== 'opp') p.righteous = [];
+    if (p.turn === (p.first || 'mine') && triumph(r, p) && !(p.proc || {})[p.round]) {
+      p.miracle = (p.miracle || []).concat(6); p.proc = Object.assign(p.proc || {}, { [p.round]: p.turn }); S.mNew = p.miracle.length - 1;
+    }
+  }
+  /* what a destroyed unit brings: a Miracle dice, plus extras from Saintly Example */
+  function deathExtra(r, u) {
+    const fd = fdata(r.factionId), def = unitDef(r.factionId, u.datasheetId);
+    if (!fd.armyRules.some(a => a.miracle) || def.faction !== fd.armyFaction) return '';
+    let t = ' Gain 1 Miracle dice: roll a D6 and tap its value.';
+    const group = [u, ...r.units.filter(x => x.attachedTo === u.instanceId)];
+    if (group.some(x => Engine.enhIds(x).includes('saintly_example'))) t += ' Saintly Example: D3 more (re-roll with an Imagifier within 12″).';
+    if (def.id === 'aestred_thurga_and_agathae_dolan') t += ' Agathae Dolan: D3 more.';
+    return t;
+  }
+  function martyrBadge(r, def, inst, p) {
+    const fd = fdata(r.factionId);
+    if (!p || def.faction !== fd.armyFaction || !r.detachmentIds.some(id => (fd.detachments.find(d => d.id === id) || {}).martyrs)) return '';
+    const wl = (p.wounds || {})[inst.instanceId]; if (!wl || !wl.length) return '';
+    const W = parseInt(def.profile.W, 10) || 1, alive = wl.filter(w => w > 0).length;
+    if (!alive) return '';
+    const below = inst.size > 1 ? alive < inst.size : wl[0] < W, half = inst.size > 1 ? alive * 2 < inst.size : wl[0] * 2 < W;
+    if (!below) return '';
+    return `<span class="kwfx tone-blood" style="--d:0s" title="The Blood of Martyrs">${half ? '+1 HIT · +1 WOUND' : '+1 HIT'}</span>`;
+  }
+  function sororitasHTML(r, p, dets) {
+    const fd = fdata(r.factionId), out = [];
+    const panel = (title, badge, body, cls) => `<div class="panel pad stack trk ${cls || ''}"><div class="row"><h3 class="grow">${esc(title)}</h3>${badge || ''}</div>${body}</div>`;
+    const pool = p.miracle || [], faith = dets.find(d => d.faithNote), tri = r.units.some(u => u.datasheetId === 'triumph_of_saint_katherine');
+    const startTurn = p.phase === 'Command';
+    out.push(panel('Miracle dice', `<span class="badge ${pool.length ? 'gold' : ''}" id="as-mcount">${pool.length} in pool</span>`,
+      `<div class="dim" style="font-size:.9rem">Gain 1 at the start of every turn (yours and your opponent's) and each time one of your ADEPTA SORORITAS units is destroyed: roll a D6 at the table and tap its value. Tap a die in the pool when a unit uses it for an Act of Faith.${faith ? ' ' + esc(faith.faithNote) : ''}</div>
+      <div class="mpool" role="group" aria-label="Miracle dice pool">${pool.map((v, i) => `<button class="mdie ${S.mNew === i ? 'new' : ''}" data-act="asSpend" data-i="${i}" aria-label="Use the Miracle dice showing ${v}">${v}</button>`).join('') || '<span class="faint">The pool is empty.</span>'}</div>
+      <div class="row nowrap mgain"><span class="eyebrow">${startTurn ? 'New die' : 'Add a die'}</span>${[1, 2, 3, 4, 5, 6].map(v => `<button class="chip num" data-act="asGain" data-v="${v}" aria-label="Add a Miracle dice showing ${v}">${v}</button>`).join('')}</div>
+      ${tri ? `<div class="faint" style="font-size:.85rem">Solemn Procession: while the Triumph of Saint Katherine is on the battlefield, the die from the start of the first turn of each battle round is a 6. The app adds it when that turn starts; don't roll for it.</div>` : ''}`, 'miracle'));
+    const rd = dets.find(d => d.righteous);
+    if (rd) {
+      const sel = p.righteous || [], max = rd.righteous.max, nowR = p.turn !== 'opp' && p.phase === 'Command';
+      const list = r.units.filter(u => !u.attachedTo && unitDef(r.factionId, u.datasheetId).faction === fd.armyFaction && !unitDead(p, u));
+      const lbl = u => [u, ...r.units.filter(x => x.attachedTo === u.instanceId)].map(x => dispName(r, x)).join(' + ');
+      out.push(panel('Righteous Purpose', nowR ? `<span class="badge gold">Now · ${sel.length}/${max}</span>` : `<span class="badge">${sel.length}/${max}</span>`,
+        `<div class="dim" style="font-size:.9rem">In your Command phase pick up to ${max} units: until your next Command phase they get +1″ Move and +1 Leadership; Battle Sisters, Celestians and Paragons also +1 BS/WS, unshocked Sacresants +1 OC.</div>
+        <div class="chips" role="group" aria-label="Righteous units">${list.map(u => `<button class="chip" aria-pressed="${sel.includes(u.instanceId)}" data-act="asRight" data-id="${u.instanceId}">${esc(lbl(u))}</button>`).join('')}</div>`));
+    }
+    const vd = dets.find(d => d.vows);
+    if (vd) {
+      const now = (p.vow || {})[p.round], usedIn = id => Object.entries(p.vow || {}).find(([x, v]) => v === id && +x !== p.round), cv = vd.vows.find(v => v.id === now);
+      out.push(panel('Vows of Atonement', cv ? `<span class="badge gold">Round ${p.round}: ${esc(cv.name)}</span>` : `<span class="badge">Round ${p.round}: none</span>`,
+        `<div class="dim" style="font-size:.9rem">At the start of each battle round pick one for your PENITENT units, until the next battle round. Each Vow once per battle.</div>
+        <div class="stack" style="gap:6px">${vd.vows.map(v => { const u = usedIn(v.id); return `<div class="blessing ${now === v.id ? 'active' : u ? '' : 'can'}"><div><b>${esc(v.name)}</b><div class="dim">${esc(v.effect)}</div></div>${u ? `<span class="badge">Used · round ${u[0]}</span>` : `<button class="btn sm ${now === v.id ? '' : 'primary'}" data-act="asVow" data-id="${v.id}">${now === v.id ? 'Active ✓' : 'Pick'}</button>`}</div>`; }).join('')}</div>`));
+    }
+    const tu = r.units.find(u => u.datasheetId === 'triumph_of_saint_katherine');
+    if (tu && fd.relics) {
+      const def = unitDef(r.factionId, tu.datasheetId), wl = (p.wounds || {})[tu.instanceId], dmg = wl && wl[0] > 0 && wl[0] <= def.damaged.threshold;
+      const max = dmg ? 1 : 2, sel = (p.relics || {})[p.round] || [];
+      out.push(panel('Relics of the Matriarchs', unitDead(p, tu) ? '<span class="badge">Destroyed</span>' : `<span class="badge ${sel.length ? 'gold' : ''}">Round ${p.round} · ${sel.length}/${max}</span>`,
+        `<div class="dim" style="font-size:.9rem">Start of each battle round: pick up to ${max} for the Triumph until the next battle round${dmg ? ' (one while Damaged)' : ''}.</div>
+        <div class="stack" style="gap:6px">${fd.relics.map(x => `<div class="blessing ${sel.includes(x.id) ? 'active' : ''}"><div><b>${esc(x.name)}</b><div class="dim">${esc(x.effect)}</div></div><button class="btn sm ${sel.includes(x.id) ? '' : 'primary'}" data-act="asRelic" data-id="${x.id}" ${!sel.includes(x.id) && sel.length >= max ? 'aria-disabled="true"' : ''}>${sel.includes(x.id) ? 'Active ✓' : 'Pick'}</button></div>`).join('')}</div>`));
+    }
+    const once = r.units.flatMap(u => (unitDef(r.factionId, u.datasheetId).once || []).map(o => ({ u, o, key: u.instanceId + ':' + o.id })));
+    if (once.length) out.push(panel('Once per battle', '', `<div class="stack" style="gap:6px">${once.map(({ u, o, key }) => {
+      const used = (p.once || {})[key] || [], left = o.n - used.length;
+      return `<div class="blessing ${left ? 'can' : ''}"><div><b>${esc(o.name)}</b> <span class="faint">· ${esc(dispName(r, u))}</span><div class="dim">${esc(o.text)}</div></div><button class="btn sm ${left ? 'primary' : ''}" data-act="asOnce" data-id="${key}">${left ? `Use${o.n > 1 ? ` (${left} left)` : ''}` : `Used · round ${used[used.length - 1]}`}</button></div>`;
+    }).join('')}</div>`));
+    return out.join('');
+  }
+  /* a halo opens around a new die; a used one rises and fades with a few rose petals (transform/opacity only) */
+  function petalFx(el) {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches || !el) return;
+    const b = el.getBoundingClientRect(), fx = document.createElement('div'); fx.className = 'petalfx'; fx.setAttribute('aria-hidden', 'true');
+    fx.style.left = (b.left + b.width / 2) + 'px'; fx.style.top = (b.top + b.height / 2) + 'px';
+    const R = (a, c) => a + Math.random() * (c - a);
+    fx.innerHTML = `<b>${esc(el.textContent)}</b>` + Array.from({ length: 6 }, () => `<i style="--x:${R(-34, 34).toFixed(0)}px;--y:${R(26, 60).toFixed(0)}px;--r:${R(-160, 160).toFixed(0)}deg;--dl:${R(0, .25).toFixed(2)}s"></i>`).join('');
+    document.body.appendChild(fx); setTimeout(() => fx.remove(), 1700);
+  }
   function roundHint(r, p) {
     const fd = fdata(r.factionId), dets = r.detachmentIds.map(id => fd.detachments.find(d => d.id === id)).filter(Boolean);
     const startOfRound = p.turn === (p.first || 'mine');
@@ -1162,6 +1252,12 @@
     if (p.round === 1 && dets.some(d => d.hyperAdaptations) && !p.hyper) h.push(' Pick a Hyper-adaptation.');
     if (p.turn !== 'opp' && dets.some(d => d.harvesterReminder)) h.push(' Feed the Swarm.');
     if (!p.shadow && fd.armyRules.some(a => a.shadow)) h.push(' Shadow in the Warp is ready.');
+    if (fd.armyRules.some(a => a.miracle)) {
+      h.push((p.proc || {})[p.round] === p.turn ? ' Solemn Procession: a 6 was added to your Miracle dice.' : ' Gain 1 Miracle dice: roll a D6 and tap its value.');
+      if (startOfRound && dets.some(d => d.vows) && !(p.vow || {})[p.round]) h.push(' Pick a Vow of Atonement.');
+      if (startOfRound && triumph(r, p) && !(p.relics || {})[p.round]) h.push(' Pick Relics of the Matriarchs.');
+      if (p.turn !== 'opp' && dets.some(d => d.righteous)) h.push(' Pick up to 3 Righteous units.');
+    }
     return h.join('');
   }
   /* The scream of the Shadow in the Warp: wavy psychic rings spread over the whole screen from the button,
@@ -1413,7 +1509,7 @@
       body = `<div class="models">${wl.map((w, i) => { const dmg = def.damaged && w > 0 && w <= def.damaged.threshold; return `<div class="model ${w <= 0 ? 'dead' : ''} ${dmg ? 'dmg' : ''}"><span class="faint" style="font-size:.75rem">${i === 0 && mixedUnit(def, inst) ? esc(def.leadModel.name) : `Model ${i + 1}`}</span><span class="w num">${w}/${maxW(def, i)}</span><div class="mb"><button data-act="mw" data-id="${inst.instanceId}" data-i="${i}" data-d="-1" aria-label="Model ${i + 1}: lose a wound">−</button><button data-act="mw" data-id="${inst.instanceId}" data-i="${i}" data-d="1" aria-label="Model ${i + 1}: heal a wound">+</button></div></div>`; }).join('')}</div>`;
     }
     const dmgOn = def.damaged && inst.size === 1 && wl[0] > 0 && wl[0] <= def.damaged.threshold;
-    return `<div class="ucard ${inst.attachedTo ? 'attached' : ''}" style="padding:10px"><div class="row nowrap"><button class="ptbtn" data-act="openInst" data-id="${inst.instanceId}" aria-label="Open datasheet">${portrait(def, r.factionId, 'sm')}</button><div class="grow"><b>${esc(dispName(r, inst))}</b>${kwBadges(r, def, inst)}<div class="dim" style="font-size:.85rem">T${def.profile.T} · Sv ${def.profile.Sv}${def.profile.InSv !== '—' ? ' · ' + def.profile.InSv + ' invuln' : ''} · OC ${def.profile.OC}${alive === 0 ? ' · <span style="color:var(--err)">Destroyed</span>' : ''}</div></div></div>
+    return `<div class="ucard ${inst.attachedTo ? 'attached' : ''}" style="padding:10px"><div class="row nowrap"><button class="ptbtn" data-act="openInst" data-id="${inst.instanceId}" aria-label="Open datasheet">${portrait(def, r.factionId, 'sm')}</button><div class="grow"><b>${esc(dispName(r, inst))}</b>${kwBadges(r, def, inst, p)}${martyrBadge(r, def, inst, p)}<div class="dim" style="font-size:.85rem">T${def.profile.T} · Sv ${def.profile.Sv}${def.profile.InSv !== '—' ? ' · ' + def.profile.InSv + ' invuln' : ''} · OC ${def.profile.OC}${alive === 0 ? ' · <span style="color:var(--err)">Destroyed</span>' : ''}</div></div></div>
       ${dmgOn ? `<div class="badge red" style="margin:8px 0">DAMAGED · ${esc(def.damaged.text)}</div>` : ''}<div style="margin-top:8px">${body}</div></div>`;
   }
   const maxW = (def, i) => (def.leadModel && i === 0 ? parseInt(def.leadModel.W, 10) : parseInt(def.profile.W, 10) || 1);
@@ -1489,7 +1585,7 @@
       <div class="modal-body">
         ${r ? `<div class="row"><div class="seg" role="group" aria-label="Show values"><button aria-pressed="${!S.dsBuff}" data-act="dsBuff" data-v="0">Base</button><button aria-pressed="${S.dsBuff}" data-act="dsBuff" data-v="1">With detachment buffs</button></div>${group ? `<button class="btn sm" data-act="dsCombined">${m.combined ? 'Single view' : 'Combined view'}</button>` : ''}</div>${useBuff && B.notes.length ? `<div class="dim" style="font-size:.9rem">Highlighted values include: ${esc(B.notes.join(', '))}. Conditional effects (charges, Blessings, stratagems) are not applied.</div>` : ''}` : ''}
         ${combined}
-        ${m.combined ? '' : `${statlineHTML(prof, pm)}${def.leadModel ? `<div class="dim" style="font-size:.9rem">${esc(def.leadModel.name)}: W ${esc(def.leadModel.W)}, Ld ${esc(def.leadModel.Ld)}. The other models use the line above.</div>` : ''}
+        ${m.combined ? '' : `${statlineHTML(prof, pm)}${def.leadModel ? `<div class="dim" style="font-size:.9rem">${esc(def.leadModel.name)}: ${['M', 'T', 'Sv', 'InSv', 'W', 'Ld', 'OC'].filter(k => def.leadModel[k] != null).map(k => `${k === 'InSv' ? 'invuln' : k} ${esc(def.leadModel[k])}`).join(', ')}. The other models use the line above.</div>` : ''}
         ${def.damaged ? `<div class="abil"><b>Damaged profile</b>${esc(def.damaged.text)}</div>` : ''}
         ${weaponTable(W.ranged, 'Ranged')}${weaponTable(W.melee, 'Melee', meleeBonus(roster, def, inst))}${wToggle ? `<div class="row">${wToggle}</div>` : ''}
         <div class="stack" style="gap:8px"><span class="eyebrow">Abilities</span>
@@ -1703,7 +1799,7 @@
       }
     }
     const dmgOn = def.damaged && inst.size === 1 && wl[0] > 0 && wl[0] <= def.damaged.threshold;
-    return `<div class="pcard ${alive ? '' : 'dead'} ${inst.attachedTo ? 'att' : ''}"><div class="row nowrap"><button class="ptbtn" data-act="openInst" data-id="${id}" aria-label="Datasheet: ${name}">${portrait(def, r.factionId, 'sm')}</button><div class="grow"><b>${name}</b>${kwBadges(r, def, inst)}<div class="dim pstats">T${def.profile.T} · Sv ${def.profile.Sv}${def.profile.InSv !== '—' ? ' · ' + def.profile.InSv + ' inv' : ''} · OC ${def.profile.OC}</div></div><div class="wread">${read}</div></div>
+    return `<div class="pcard ${alive ? '' : 'dead'} ${inst.attachedTo ? 'att' : ''}"><div class="row nowrap"><button class="ptbtn" data-act="openInst" data-id="${id}" aria-label="Datasheet: ${name}">${portrait(def, r.factionId, 'sm')}</button><div class="grow"><b>${name}</b>${kwBadges(r, def, inst, p)}${martyrBadge(r, def, inst, p)}<div class="dim pstats">T${def.profile.T} · Sv ${def.profile.Sv}${def.profile.InSv !== '—' ? ' · ' + def.profile.InSv + ' inv' : ''} · OC ${def.profile.OC}</div></div><div class="wread">${read}</div></div>
       ${dmgOn ? `<div class="badge red dmgbadge">DAMAGED · ${esc(def.damaged.text)}</div>` : ''}${alive === 0 ? '<div class="bad" style="font-weight:700">Destroyed</div>' : ''}<div class="wbtns">${btns}</div></div>`;
   }
   /* stratagems: whose turn a stratagem is used in, read from its timing text */
@@ -2190,10 +2286,11 @@
           if (p.turn === (p.first || 'mine')) { p.round++; p.active = []; }
         }
         p.phase = PHASES[i];
-        if (p.phase === 'Command') { p.cp += 1; if (p.turn !== 'opp') p.hyperExtra = null; msg = `${p.turn === 'opp' ? "Opponent's" : 'Your'} Command phase, round ${p.round}: +1 CP.${roundHint(r, p)}${p.turn !== 'opp' && p.ms && p.ms.secMode === 'tactical' ? ' Draw 2 Secondary Missions.' : ''}`; }
+        if (p.phase === 'Command') { p.cp += 1; if (p.turn !== 'opp') p.hyperExtra = null; turnStart(r, p); msg = `${p.turn === 'opp' ? "Opponent's" : 'Your'} Command phase, round ${p.round}: +1 CP.${roundHint(r, p)}${p.turn !== 'opp' && p.ms && p.ms.secMode === 'tactical' ? ' Draw 2 Secondary Missions.' : ''}`; }
         else msg = `${p.turn === 'opp' ? "Opponent's" : 'Your'} ${p.phase} phase.`
         if (p.phase === 'Shooting' && p.turn !== 'opp' && fdata(r.factionId).armyRules.some(a => a.rituals)) msg += ' Attempt Rituals first.';
       }, () => msg, 'confirm');
+      setTimeout(() => { S.mNew = null; }, 50);
     },
     dgPlague: el => {
       const r = cur(), id = el.dataset.id, p = playState(r);
@@ -2228,6 +2325,33 @@
       playChange(r, p => { p.rit = p.rit || {}; (p.rit[p.round] = p.rit[p.round] || {})[id] = { by, ok }; }, msg, ok ? 'confirm' : 'tick');
       if (ok) { const c = document.querySelector(`.rit[data-id="${id}"]`); if (c) warpfire(c); }
     },
+    asGain: el => { const r = cur(), v = +el.dataset.v; playChange(r, p => { p.miracle = (p.miracle || []).concat(v); S.mNew = p.miracle.length - 1; }, `Miracle dice ${v} added.`, 'confirm'); setTimeout(() => { S.mNew = null; }, 50); },
+    asSpend: el => {
+      const r = cur(), i = +el.dataset.i, v = (playState(r).miracle || [])[i]; if (v == null) return;
+      petalFx(el);
+      playChange(r, p => { p.miracle.splice(i, 1); S.mNew = null; }, `Miracle dice ${v} used for an Act of Faith.`);
+    },
+    asRight: el => {
+      const r = cur(), id = el.dataset.id, fd = fdata(r.factionId), max = (r.detachmentIds.map(x => fd.detachments.find(d => d.id === x)).find(d => d && d.righteous) || { righteous: { max: 3 } }).righteous.max;
+      const sel = playState(r).righteous || [];
+      if (!sel.includes(id) && sel.length >= max) { toast(`Up to ${max} Righteous units. Tap a picked one to swap it.`); PL.haptic('reject'); return; }
+      playChange(r, p => { p.righteous = sel.includes(id) ? sel.filter(x => x !== id) : sel.concat(id); }, null, 'confirm');
+    },
+    asVow: el => { const r = cur(); playChange(r, p => { p.vow = p.vow || {}; if (p.vow[p.round] === el.dataset.id) delete p.vow[p.round]; else p.vow[p.round] = el.dataset.id; }, null, 'confirm'); },
+    asRelic: el => {
+      if (el.getAttribute('aria-disabled') === 'true') { toast('No more Relics this battle round. Tap an active one to swap it.'); PL.haptic('reject'); return; }
+      const r = cur(), id = el.dataset.id;
+      playChange(r, p => { p.relics = p.relics || {}; const s = p.relics[p.round] || []; p.relics[p.round] = s.includes(id) ? s.filter(x => x !== id) : s.concat(id); }, null, 'confirm');
+    },
+    asOnce: el => {
+      const r = cur(), key = el.dataset.id, [iid, oid] = key.split(':'), u = inst(iid), o = (unitDef(r.factionId, u.datasheetId).once || []).find(x => x.id === oid);
+      let msg = null;
+      playChange(r, p => {
+        p.once = p.once || {}; const used = p.once[key] || [];
+        if (used.length >= o.n) { delete p.once[key]; msg = `${o.name}: marked as unused.`; return; }
+        p.once[key] = used.concat(p.round); msg = o.gain ? `${o.name}: gain 1 Miracle dice. Roll a D6 and tap its value.` : `${o.name} used.`;
+      }, () => msg, 'confirm');
+    },
     dgPests: () => { const r = cur(); playChange(r, p => { p.pests = p.pests ? null : p.round; }, null, 'confirm'); },
     blessPick: el => {
       const r = cur(), id = el.dataset.id, p = playState(r);
@@ -2237,8 +2361,8 @@
       savePlay(r); PL.haptic(on ? 'confirm' : 'tick');
       patchBlessings(r, on ? id : null);
     },
-    mw: el => { const r = cur(), u = inst(el.dataset.id), def = unitDef(r.factionId, u.datasheetId); const W = parseInt(def.profile.W, 10) || 1; const i = +el.dataset.i; playChange(r, p => { const wl = woundsOf(p, u, W, def); const n = Math.min(maxW(def, i), Math.max(0, wl[i] + +el.dataset.d)); if (n === wl[i]) return false; wl[i] = n; }); },
-    mAlive: el => { const r = cur(), u = inst(el.dataset.id); playChange(r, p => { const wl = woundsOf(p, u, 1); if (+el.dataset.d < 0) { const i = wl.findIndex(w => w > 0); if (i < 0) return false; wl[i] = 0; } else { const i = wl.findIndex(w => w <= 0); if (i < 0) return false; wl[i] = 1; } }); },
+    mw: el => { const r = cur(), u = inst(el.dataset.id), def = unitDef(r.factionId, u.datasheetId); const W = parseInt(def.profile.W, 10) || 1; const i = +el.dataset.i; let msg = null; playChange(r, p => { const wl = woundsOf(p, u, W, def); const n = Math.min(maxW(def, i), Math.max(0, wl[i] + +el.dataset.d)); if (n === wl[i]) return false; wl[i] = n; if (!wl.some(w => w > 0)) msg = `${dispName(r, u)} destroyed.${deathExtra(r, u)}`; }, () => msg); },
+    mAlive: el => { const r = cur(), u = inst(el.dataset.id); let msg = null; playChange(r, p => { const wl = woundsOf(p, u, 1); if (+el.dataset.d < 0) { const i = wl.findIndex(w => w > 0); if (i < 0) return false; wl[i] = 0; if (!wl.some(w => w > 0)) msg = `${dispName(r, u)} destroyed.${deathExtra(r, u)}`; } else { const i = wl.findIndex(w => w <= 0); if (i < 0) return false; wl[i] = 1; } }, () => msg); },
     /* phone wound buttons: −1 wound goes to the already wounded model first, then the next model;
        −1 model removes the wounded model first; + heals the wounded model or returns a model at full wounds */
     wnd: el => {
@@ -2251,7 +2375,7 @@
         if (d < 0) {
           const i = wi != null ? wi : ai; if (i == null) return false;
           if (k === 'm') wl[i] = 0; else wl[i] -= 1;
-          if (!wl.some(w => w > 0)) msg = `${dispName(r, u)} destroyed.`;
+          if (!wl.some(w => w > 0)) msg = `${dispName(r, u)} destroyed.${deathExtra(r, u)}`;
           else if (mixed && i === 0 && wl[0] <= 0) msg = `${def.leadModel.name} slain.`;
         } else {
           if (k === 'w' && wi != null) wl[wi] += 1; else if (di != null) wl[di] = k === 'w' && u.size === 1 ? 1 : maxW(def, di); else return false;

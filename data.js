@@ -5,10 +5,11 @@ const DATA = {
    "worldEaters": "2026-10-02-mfm15-fp13",
    "tyranids": "2026-10-03-mfm15-fp12",
    "deathGuard": "2026-10-04-mfm15-fp13",
-   "thousandSons": "2026-10-04-mfm15-fp13"
+   "thousandSons": "2026-10-04-mfm15-fp13",
+   "adeptaSororitas": "2026-10-05-mfm15-fp12"
   },
-  "stamp": "Data as of: MFM v1.5 (30/09/2026), Faction Packs World Eaters v1.3, Tyranids v1.2, Death Guard v1.3 and Thousand Sons v1.3, GDM data v972 (02/10/2026). Checked 04.10.2026",
-  "checked": "2026-10-04"
+  "stamp": "Data as of: MFM v1.5 (30/09/2026), Faction Packs World Eaters v1.3, Tyranids v1.2, Death Guard v1.3, Thousand Sons v1.3, Adepta Sororitas v1.2 and Imperial Agents v1.1, GDM data v972 (02/10/2026). Checked 05.10.2026",
+  "checked": "2026-10-05"
  },
  "gameRules": {
   "battleSizes": [
@@ -211,7 +212,10 @@ const DATA = {
    "Reverberating Summons": "Each time this weapon destroys a model, you can return 1 destroyed Plaguebearer to a friendly PLAGUEBEARERS unit within 12\" of the bearer.",
    "Cabal of Sorcerers": "Thousand Sons army rule. At the start of your Shooting phase each model with it can attempt one Ritual (each Ritual once per turn): roll 2D6 (optionally a third D6 to Channel the Warp) and beat the Warp Charge. See Army Rules.",
    "Pact of Sorcery": "SCINTILLATING LEGIONS cannot be your Army Faction. Thousand Sons can field them with the Changehost of Deceit detachment.",
-   "Psychic Test": "Roll 2D6 (plus one more D6 if you Channel the Warp). If you Channelled and rolled any double or triple, the model's unit suffers D3 mortal wounds. The total must equal or beat the Ritual's Warp Charge."
+   "Psychic Test": "Roll 2D6 (plus one more D6 if you Channel the Warp). If you Channelled and rolled any double or triple, the model's unit suffers D3 mortal wounds. The total must equal or beat the Ritual's Warp Charge.",
+   "Acts of Faith": "Adepta Sororitas army rule. Each unit with it can replace one dice roll per phase (Advance, Battle-shock, Charge, Damage, Hit, Save or Wound) with a Miracle dice from your pool. See Army Rules.",
+   "Miracle dice": "Gained at the start of each turn and each time one of your ADEPTA SORORITAS units is destroyed: roll a D6, that is its fixed value. Spent by Acts of Faith; it counts as an unmodified roll of that value.",
+   "Assigned Agents": "An army whose models all have IMPERIUM can include AGENTS OF THE IMPERIUM units without a detachment: Incursion 1 RETINUE, 1 CHARACTER, 1 REQUISITIONED; Strike Force 2/2/1; Onslaught 3/3/2."
   }
  },
  "factions": [
@@ -393,6 +397,109 @@ const DATA = {
    "id": "chaosKnights",
    "name": "Chaos Knights",
    "enabled": false
+  },
+  {
+   "id": "adeptaSororitas",
+   "name": "Adepta Sororitas",
+   "enabled": true,
+   "theme": {
+    "bg": "#18202b",
+    "bg2": "#3c5a78",
+    "bgDeep": "#090c11",
+    "accent": "#d4af5a",
+    "accent2": "#b02a35",
+    "panel": "rgba(9,12,17,.82)",
+    "card1": "#26364a",
+    "card2": "#090c11",
+    "icon1": "#26364a",
+    "icon2": "#090c11"
+   },
+   "emblemSvg": "<svg viewBox=\"0 0 64 64\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\"><circle cx=\"32\" cy=\"32\" r=\"30\" fill=\"#18202b\"/><path d=\"M32 9c5 6 7 12 4 19 6-5 13-4 15 1-6-1-10 2-11 7h-16c-1-5-5-8-11-7 2-5 9-6 15-1-3-7-1-13 4-19z\" fill=\"#d4af5a\"/><rect x=\"20\" y=\"37\" width=\"24\" height=\"4\" rx=\"2\" fill=\"#d4af5a\"/><path d=\"M28 41h8l-4 12z\" fill=\"#d4af5a\"/></svg>",
+   "logo": "as_logo",
+   "rosterIcon": "as_roster",
+   "highlights": [
+    {
+     "id": "miracle",
+     "label": "MIRACLE",
+     "tone": "gold",
+     "title": "Brings extra Miracle dice into your pool.",
+     "none": "No unit brings extra Miracle dice",
+     "unitIds": {
+      "battle_sisters_squad": "Cherub: once per battle +1 die after an Act of Faith. Simulacrum Imperialis (if taken): end of your Command phase, D6 per objective you control with it, 4+ is a die of that value.",
+      "dominion_squad": "Cherub: once per battle +1 die after an Act of Faith. Simulacrum Imperialis (if taken) on objectives.",
+      "retributor_squad": "Cherubs: twice per battle +1 die after an Act of Faith.",
+      "sanctifiers": "Cherub: once per battle +1 die after an Act of Faith. Simulacrum Imperialis (if taken) on objectives.",
+      "aestred_thurga_and_agathae_dolan": "Agathae Dolan: +1 die each time the unit she leads destroys an enemy unit, D3 dice when she dies.",
+      "morvenn_vahl": "+1 die each time she destroys an enemy unit.",
+      "triumph_of_saint_katherine": "Solemn Procession: the die of the first turn of each battle round is a 6."
+     },
+     "conditional": {
+      "sisters_novitiate_squad": "Simulacrum Imperialis (if taken): D6 per objective you control with it, 4+ is a die of that value.",
+      "celestian_insidiants": "Simulacrum Imperialis (if taken): D6 per objective you control with it, 4+ is a die of that value."
+     },
+     "enhancements": {
+      "saintly_example": "Saintly Example: +D3 dice when the bearer dies.",
+      "litanies_of_faith": "Litanies of Faith: Leadership test each Command phase, +1 die if passed.",
+      "blade_of_saint_ellynor": "Blade of Saint Ellynor: +1 die when the bearer kills a model in a fight.",
+      "psalm_of_righteous_judgement": "Psalm: swap a die for a 6 when a PENITENT unit destroys an enemy unit.",
+      "divine_aspect": "Divine Aspect: +1 die if the enemy fails the Battle-shock test."
+     }
+    },
+    {
+     "id": "righteous",
+     "label": "RIGHTEOUS",
+     "tone": "blood",
+     "playSel": "righteous",
+     "title": "Champions of Faith: pick up to 3 units in your Command phase.",
+     "none": "No unit gets the BS/WS bonus",
+     "detachments": {
+      "champions_of_faith": {
+       "unitIds": [
+        "battle_sisters_squad",
+        "celestian_insidiants",
+        "celestian_sacresants",
+        "paragon_warsuits"
+       ],
+       "cond": true,
+       "note": "If picked as Righteous: +1\" Move, +1 Ld and +1 BS/WS."
+      }
+     }
+    },
+    {
+     "id": "penitent",
+     "label": "PENITENT",
+     "tone": "gore",
+     "title": "Penitent Host: Vows of Atonement and Stratagems work on PENITENT units.",
+     "none": "No PENITENT units",
+     "detachments": {
+      "penitent_host": {
+       "keywordsAll": [
+        "Penitent"
+       ],
+       "note": "Gets the Vow of Atonement active this battle round."
+      }
+     }
+    },
+    {
+     "id": "celestian",
+     "label": "HOLY QUEST",
+     "tone": "steel",
+     "title": "Sacred Champions: CELESTIAN attacks get +1 BS and WS.",
+     "none": "No CELESTIAN units",
+     "detachments": {
+      "sacred_champions": {
+       "keywordsAll": [
+        "Celestian"
+       ],
+       "note": "Holy Quest: +1 BS and WS."
+      }
+     }
+    }
+   ],
+   "abilityTips": {
+    "Acts of Faith": "Once per phase this unit can replace one Advance, Battle-shock, Charge, Damage, Hit, Save or Wound roll with a Miracle dice from your pool. See Army Rules.",
+    "Assigned Agents": "AGENTS OF THE IMPERIUM ally: no detachment needed, limited by battle size (RETINUE / CHARACTER / REQUISITIONED). Cannot be your Warlord."
+   }
   },
   {
    "id": "spaceMarines",
@@ -24704,6 +24811,10738 @@ const DATA = {
      "optionRules": [],
      "slots": [],
      "optionGroups": []
+    }
+   ]
+  },
+  "adeptaSororitas": {
+   "armyFaction": "Adepta Sororitas",
+   "alliedFactions": [
+    {
+     "faction": "Agents of the Imperium",
+     "rule": "Assigned Agents",
+     "cannotBeWarlord": true,
+     "caps": [
+      {
+       "keyword": "Retinue",
+       "n": {
+        "incursion": 1,
+        "strike": 2,
+        "onslaught": 3
+       }
+      },
+      {
+       "keyword": "Character",
+       "n": {
+        "incursion": 1,
+        "strike": 2,
+        "onslaught": 3
+       }
+      },
+      {
+       "keyword": "Requisitioned",
+       "n": {
+        "incursion": 1,
+        "strike": 1,
+        "onslaught": 2
+       }
+      }
+     ],
+     "free": [
+      {
+       "unitIds": [
+        "inquisitorial_agents"
+       ],
+       "perKeywords": [
+        "Inquisitor"
+       ],
+       "from": "Retinue",
+       "label": "Inquisitorial Henchmen"
+      },
+      {
+       "unitIds": [
+        "voidsmen_at_arms"
+       ],
+       "perKeywords": [
+        "Voidfarers",
+        "Character"
+       ],
+       "from": "Retinue",
+       "label": "Navy Bodyguards"
+      }
+     ],
+     "transportsNote": "Agents DEDICATED TRANSPORTS must start the battle with a unit embarked."
+    }
+   ],
+   "relics": [
+    {
+     "id": "fiery_heart",
+     "name": "The Fiery Heart",
+     "effect": "Aura 6\": +2\" Move and +1 to Advance and Charge rolls."
+    },
+    {
+     "id": "censer",
+     "name": "Censer of the Sacred Rose",
+     "effect": "Aura 6\": re-roll Battle-shock tests."
+    },
+    {
+     "id": "ebon_chalice",
+     "name": "Simulacrum of the Ebon Chalice",
+     "effect": "Aura 6\": up to two Acts of Faith per phase (never two dice in one roll)."
+    },
+    {
+     "id": "argent_shroud",
+     "name": "Simulacrum of the Argent Shroud",
+     "effect": "Aura 6\": ranged attacks re-roll wound rolls of 1."
+    },
+    {
+     "id": "valorous_heart",
+     "name": "Icon of the Valorous Heart",
+     "effect": "Aura 6\": Feel No Pain 6+."
+    },
+    {
+     "id": "bloody_rose",
+     "name": "Petals of the Bloody Rose",
+     "effect": "Aura 6\": +1 AP on melee weapons."
+    }
+   ],
+   "armyRules": [
+    {
+     "id": "acts_of_faith",
+     "name": "Acts of Faith",
+     "miracle": {
+      "gainTurn": true,
+      "gainDestroyed": true
+     },
+     "text": [
+      "If your Army Faction is ADEPTA SORORITAS, each unit with this ability can perform one Act of Faith per phase, using Miracle dice.",
+      "You gain 1 Miracle dice at the start of each turn (yours and your opponent's) and each time an ADEPTA SORORITAS unit from your army is destroyed. Roll one D6 when you gain it: that is its value, and it cannot be changed or re-rolled unless a rule says so. Keep them aside as your Miracle dice pool.",
+      "Before a roll for a unit with this ability, it can perform an Act of Faith: pick a die from your pool to stand in for one dice of that roll (only one dice of a Charge roll or Battle-shock test). It counts as an unmodified roll of that value. Each Miracle dice is used once. Allowed rolls: Advance, Battle-shock, Charge, Damage, Hit, Saving throw, Wound.",
+      "FAQ: a Miracle dice can be part of a re-roll; if you re-roll a roll that used one, that die is lost (the Act of Faith still counts). In the attack sequence you substitute before rolling a group of hit, wound or save rolls, or a single damage roll."
+     ]
+    },
+    {
+     "id": "assigned_agents",
+     "name": "Assigned Agents (allies)",
+     "text": [
+      "Every model in your army has the IMPERIUM keyword, so you can include AGENTS OF THE IMPERIUM units without taking one of their detachments.",
+      "Limits: Incursion 1 RETINUE, 1 CHARACTER and 1 REQUISITIONED unit; Strike Force 2 / 2 / 1; Onslaught 3 / 3 / 2. Each INQUISITOR unit lets you take one INQUISITORIAL AGENTS unit and each VOIDFARERS CHARACTER one VOIDSMEN-AT-ARMS unit that do not count as RETINUE.",
+      "Their DEDICATED TRANSPORTS can be included; each must start the battle with a unit embarked, or it is destroyed at the start of the first battle round. Agents use the \"Imperium\" price list of the Munitorum Field Manual and cannot be your WARLORD."
+     ]
+    }
+   ],
+   "detachments": [
+    {
+     "id": "hallowed_martyrs",
+     "name": "Hallowed Martyrs",
+     "dp": 3,
+     "dispositions": [
+      "Take and Hold",
+      "Priority Assets"
+     ],
+     "tags": [],
+     "summary": "Wounded units hit harder: +1 to hit below Starting Strength, +1 to wound as well below Half-strength.",
+     "rule": {
+      "name": "The Blood of Martyrs",
+      "text": "Each time an ADEPTA SORORITAS model from your army attacks: +1 to the hit roll if its unit is below its Starting Strength, and +1 to the wound roll as well if its unit is Below Half-strength."
+     },
+     "martyrs": true,
+     "enhancements": [
+      {
+       "id": "saintly_example",
+       "name": "Saintly Example",
+       "pts": 10,
+       "upgrade": false,
+       "text": "ADEPTA SORORITAS model only. When the bearer is destroyed, you gain D3 extra Miracle dice (an Imagifier within 12\" can re-roll them).",
+       "eligible": {
+        "factionsAll": [
+         "Adepta Sororitas"
+        ]
+       }
+      },
+      {
+       "id": "through_suffering_strength",
+       "name": "Through Suffering, Strength",
+       "pts": 25,
+       "upgrade": false,
+       "text": "ADEPTA SORORITAS model only. +1 A, S and D for the bearer's melee weapons; +2 instead while it has lost wounds.",
+       "eligible": {
+        "factionsAll": [
+         "Adepta Sororitas"
+        ]
+       }
+      },
+      {
+       "id": "chaplet_of_sacrifice",
+       "name": "Chaplet of Sacrifice",
+       "pts": 25,
+       "upgrade": false,
+       "text": "ADEPTA SORORITAS model only. End of your Command phase, if on the battlefield: re-roll 1 Miracle dice in your pool (up to 3 if the bearer's unit is below its Starting Strength).",
+       "eligible": {
+        "factionsAll": [
+         "Adepta Sororitas"
+        ]
+       }
+      },
+      {
+       "id": "mantle_of_ophelia",
+       "name": "Mantle of Ophelia",
+       "pts": 20,
+       "upgrade": false,
+       "text": "CANONESS or PALATINE only. Each attack allocated to the bearer has Damage 1.",
+       "eligible": {
+        "factionsAll": [
+         "Adepta Sororitas"
+        ],
+        "keywordsAny": [
+         "Canoness",
+         "Palatine"
+        ]
+       }
+      }
+     ],
+     "stratagems": [
+      {
+       "id": "divine_intervention",
+       "name": "Divine Intervention",
+       "cp": 1,
+       "type": "Epic Deed",
+       "phases": [
+        "Any"
+       ],
+       "when": "Any phase.",
+       "target": "One ADEPTA SORORITAS CHARACTER model that was just destroyed (not Saint Celestine).",
+       "effect": "Discard 1-3 Miracle dice. At the end of the phase set the model back up unengaged as close as possible, on its own (Starting Strength 1), with D3 wounds +1 per die discarded.",
+       "restrictions": "Each CHARACTER only once per battle."
+      },
+      {
+       "id": "suffering_and_sacrifice",
+       "name": "Suffering and Sacrifice",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Start of the Fight phase.",
+       "target": "One ADEPTA SORORITAS INFANTRY or WALKER unit.",
+       "effect": "Until the end of the phase, enemy models in Engagement Range of it must target it."
+      },
+      {
+       "id": "righteous_vengeance",
+       "name": "Righteous Vengeance",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Fight phase.",
+       "target": "One ADEPTA SORORITAS unit that has not fought this phase.",
+       "effect": "Until the end of the phase, re-roll melee hit rolls; also wound rolls if the unit is Below Half-strength."
+      },
+      {
+       "id": "sanctified_immolation",
+       "name": "Sanctified Immolation",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Any"
+       ],
+       "when": "Any phase.",
+       "target": "One ADEPTA SORORITAS VEHICLE with Deadly Demise that was just destroyed.",
+       "effect": "Its Deadly Demise mortal wounds are inflicted automatically, without the D6 roll."
+      },
+      {
+       "id": "spirit_of_the_martyr",
+       "name": "Spirit of the Martyr",
+       "cp": 2,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Fight phase, right after an enemy unit selects its targets.",
+       "target": "One ADEPTA SORORITAS unit targeted by those attacks.",
+       "effect": "Until the end of the phase, its models destroyed before they fought fight after the attacker, then are removed."
+      },
+      {
+       "id": "praise_the_fallen",
+       "name": "Praise the Fallen",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Your opponent's Shooting phase, right after an enemy unit has shot.",
+       "target": "One ADEPTA SORORITAS unit that lost models to those attacks.",
+       "effect": "It shoots as if it were your Shooting phase, only at that enemy unit."
+      }
+     ]
+    },
+    {
+     "id": "penitent_host",
+     "name": "Penitent Host",
+     "dp": 2,
+     "dispositions": [
+      "Purge the Foe"
+     ],
+     "tags": [],
+     "summary": "Each battle round pick a Vow of Atonement for your PENITENT units; each Vow once per battle.",
+     "rule": {
+      "name": "Desperate for Redemption",
+      "text": "At the start of the battle round you can pick one Vow of Atonement, active for your army until the next battle round; each Vow only once per battle. The Path of the Penitent: +3\" Move for your PENITENT models. Absolution in Battle: A unit that charged this turn: its PENITENT models get +1 A and +1 S on melee weapons when it fights. Death Before Disgrace: A PENITENT model killed by a melee attack before it fought: on a 2+ it fights after the attacker, then is removed."
+     },
+     "vows": [
+      {
+       "id": "path",
+       "name": "The Path of the Penitent",
+       "effect": "+3\" Move for your PENITENT models."
+      },
+      {
+       "id": "absolution",
+       "name": "Absolution in Battle",
+       "effect": "A unit that charged this turn: its PENITENT models get +1 A and +1 S on melee weapons when it fights."
+      },
+      {
+       "id": "death",
+       "name": "Death Before Disgrace",
+       "effect": "A PENITENT model killed by a melee attack before it fought: on a 2+ it fights after the attacker, then is removed."
+      }
+     ],
+     "enhancements": [
+      {
+       "id": "psalm_of_righteous_judgement",
+       "name": "Psalm of Righteous Judgement",
+       "pts": 20,
+       "upgrade": false,
+       "text": "ADEPTA SORORITAS model only. While it is on the battlefield, each time a PENITENT unit of yours destroys an enemy unit you can discard 1 Miracle dice to gain one showing 6.",
+       "eligible": {
+        "factionsAll": [
+         "Adepta Sororitas"
+        ]
+       }
+      },
+      {
+       "id": "verse_of_holy_piety",
+       "name": "Verse of Holy Piety",
+       "pts": 15,
+       "upgrade": false,
+       "text": "PENITENT model only. Once per battle, at the start of the battle round, pick a Vow (even one already used): it is also active for the bearer's unit until the next battle round.",
+       "eligible": {
+        "factionsAll": [
+         "Adepta Sororitas"
+        ],
+        "keywordsAll": [
+         "Penitent"
+        ]
+       }
+      },
+      {
+       "id": "refrain_of_enduring_faith",
+       "name": "Refrain of Enduring Faith",
+       "pts": 15,
+       "upgrade": false,
+       "text": "PENITENT model only. While it leads a unit, its models have a 5+ invulnerable save.",
+       "eligible": {
+        "factionsAll": [
+         "Adepta Sororitas"
+        ],
+        "keywordsAll": [
+         "Penitent"
+        ]
+       }
+      },
+      {
+       "id": "catechism_of_divine_penitence",
+       "name": "Catechism of Divine Penitence",
+       "pts": 15,
+       "upgrade": false,
+       "text": "CANONESS, PALATINE or MINISTORUM PRIEST only. The bearer gains PENITENT and can lead a REPENTIA SQUAD.",
+       "eligible": {
+        "factionsAll": [
+         "Adepta Sororitas"
+        ],
+        "keywordsAny": [
+         "Canoness",
+         "Palatine",
+         "Ministorum Priest"
+        ]
+       },
+       "addKeywords": [
+        "Penitent"
+       ],
+       "leaderOf": [
+        "repentia_squad"
+       ]
+      }
+     ],
+     "stratagems": [
+      {
+       "id": "final_redemption",
+       "name": "Final Redemption",
+       "cp": 1,
+       "type": "Epic Deed",
+       "phases": [
+        "Any"
+       ],
+       "when": "Any phase.",
+       "target": "One PENITENT unit just destroyed while in range of an objective you controlled.",
+       "effect": "That objective stays yours until your opponent controls it at the start or end of a turn."
+      },
+      {
+       "id": "purity_of_suffering",
+       "name": "Purity of Suffering",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Shooting",
+        "Fight"
+       ],
+       "when": "Your opponent's Shooting phase or the Fight phase, right after an enemy unit selects its targets.",
+       "target": "One PENITENT unit targeted by those attacks.",
+       "effect": "Until the end of the phase its PENITENT models have Feel No Pain 4+."
+      },
+      {
+       "id": "passion_of_the_penitent",
+       "name": "Passion of the Penitent",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Fight phase.",
+       "target": "One PENITENT unit that has not fought this phase.",
+       "effect": "Until the end of the phase, melee attacks by its PENITENT models score Critical Hits on unmodified 5+."
+      },
+      {
+       "id": "lash_of_guilt",
+       "name": "Lash of Guilt",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Movement"
+       ],
+       "when": "Your Movement phase, just before a PENITENT unit advances.",
+       "target": "That unit.",
+       "effect": "It can charge this turn after advancing. PENITENT ENGINES do not roll: they add 6\" to Move until the end of the phase instead."
+      },
+      {
+       "id": "boundless_zeal",
+       "name": "Boundless Zeal",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Movement"
+       ],
+       "when": "Your Movement phase, right after an ADEPTA SORORITAS unit falls back.",
+       "target": "That unit.",
+       "effect": "It can shoot or charge this turn; a PENITENT unit can do both."
+      },
+      {
+       "id": "devout_fanaticism",
+       "name": "Devout Fanaticism",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Your opponent's Shooting phase, right after an enemy unit has shot.",
+       "target": "One PENITENT unit targeted by those attacks.",
+       "effect": "It can make a surge move of up to D6\"."
+      }
+     ]
+    },
+    {
+     "id": "bringers_of_flame",
+     "name": "Bringers of Flame",
+     "dp": 2,
+     "dispositions": [
+      "Priority Assets"
+     ],
+     "tags": [],
+     "summary": "Every ranged weapon has [ASSAULT] and +1 S against units within 6\".",
+     "rule": {
+      "name": "Fervent Purgation",
+      "text": "Ranged weapons of your ADEPTA SORORITAS models have [ASSAULT], and attacks made with them against a unit within 6\" get +1 S."
+     },
+     "enhancements": [
+      {
+       "id": "righteous_rage",
+       "name": "Righteous Rage",
+       "pts": 15,
+       "upgrade": false,
+       "text": "ADEPTA SORORITAS model only. When the bearer is selected to fight, discard up to 3 Miracle dice: +1 A and +1 S on its melee weapons per die until the end of the phase.",
+       "eligible": {
+        "factionsAll": [
+         "Adepta Sororitas"
+        ]
+       }
+      },
+      {
+       "id": "manual_of_saint_griselda",
+       "name": "Manual of Saint Griselda",
+       "pts": 20,
+       "upgrade": false,
+       "text": "ADEPTA SORORITAS model only. Start of your Command phase: discard up to 2 Miracle dice and gain one whose value is their sum (max 6).",
+       "eligible": {
+        "factionsAll": [
+         "Adepta Sororitas"
+        ]
+       }
+      },
+      {
+       "id": "fire_and_fury",
+       "name": "Fire and Fury",
+       "pts": 30,
+       "upgrade": false,
+       "text": "ADEPTA SORORITAS model only. While it leads a unit: +1 A for its Torrent weapons, and its other ranged weapons have [SUSTAINED HITS 1].",
+       "eligible": {
+        "factionsAll": [
+         "Adepta Sororitas"
+        ]
+       }
+      },
+      {
+       "id": "iron_surplice_of_saint_istalela",
+       "name": "Iron Surplice of Saint Istalela",
+       "pts": 10,
+       "upgrade": false,
+       "text": "CANONESS or PALATINE only. Save 2+ and Feel No Pain 5+.",
+       "eligible": {
+        "factionsAll": [
+         "Adepta Sororitas"
+        ],
+        "keywordsAny": [
+         "Canoness",
+         "Palatine"
+        ]
+       },
+       "mods": [
+        {
+         "target": "profile",
+         "stat": "Sv",
+         "set": "2+"
+        }
+       ]
+      }
+     ],
+     "stratagems": [
+      {
+       "id": "shield_of_aversion",
+       "name": "Shield of Aversion",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Shooting",
+        "Fight"
+       ],
+       "when": "Your opponent's Shooting phase or the Fight phase, right after an enemy unit selects its targets.",
+       "target": "One ADEPTA SORORITAS unit targeted by those attacks.",
+       "effect": "Until the attacker finishes, attacks against it get -1 AP (worse)."
+      },
+      {
+       "id": "righteous_blows",
+       "name": "Righteous Blows",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Fight phase.",
+       "target": "One ADEPTA SORORITAS unit that has not fought this phase.",
+       "effect": "Until the end of the phase its melee weapons have [LETHAL HITS]; if they kill a model, that model's unit takes a Battle-shock test."
+      },
+      {
+       "id": "carry_forth_the_faithful",
+       "name": "Carry Forth the Faithful",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Movement"
+       ],
+       "when": "Your Movement phase, just before an ADEPTA SORORITAS TRANSPORT advances.",
+       "target": "That TRANSPORT.",
+       "effect": "Re-roll its Advance rolls this turn; units can still disembark after it advanced, making a shock disembark move."
+      },
+      {
+       "id": "cleansing_flames",
+       "name": "Cleansing Flames",
+       "cp": 2,
+       "type": "Battle Tactic",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Your Shooting phase.",
+       "target": "One ADEPTA SORORITAS unit that has not shot this phase.",
+       "effect": "Until the end of the phase its Torrent weapons have [DEVASTATING WOUNDS]."
+      },
+      {
+       "id": "rites_of_fire",
+       "name": "Rites of Fire",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Your Shooting phase.",
+       "target": "One ADEPTA SORORITAS unit that disembarked this turn and has not shot.",
+       "effect": "Ranged attacks against an enemy unit within 6\" that is in range of an objective get +1 to wound; if they kill a model, its unit takes a Battle-shock test."
+      },
+      {
+       "id": "blazing_ire",
+       "name": "Blazing Ire",
+       "cp": 2,
+       "type": "Battle Tactic",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Your opponent's Shooting phase, right after an enemy unit has shot.",
+       "target": "One ADEPTA SORORITAS TRANSPORT targeted by those attacks.",
+       "effect": "One unit inside can disembark as if it were your Movement phase, then shoot as if it were your Shooting phase, only at that enemy unit."
+      }
+     ]
+    },
+    {
+     "id": "army_of_faith",
+     "name": "Army of Faith",
+     "dp": 2,
+     "dispositions": [
+      "Take and Hold"
+     ],
+     "tags": [],
+     "summary": "Every unit can perform up to two Acts of Faith per phase.",
+     "rule": {
+      "name": "Sacred Rites",
+      "text": "Each ADEPTA SORORITAS unit from your army can perform up to two Acts of Faith per phase instead of one."
+     },
+     "faithNote": "Sacred Rites: each unit can perform up to two Acts of Faith per phase.",
+     "enhancements": [
+      {
+       "id": "litanies_of_faith",
+       "name": "Litanies of Faith",
+       "pts": 10,
+       "upgrade": false,
+       "text": "CANONESS or PALATINE only. Start of your Command phase, if on the battlefield: take a Leadership test; if passed, gain 1 Miracle dice.",
+       "eligible": {
+        "factionsAll": [
+         "Adepta Sororitas"
+        ],
+        "keywordsAny": [
+         "Canoness",
+         "Palatine"
+        ]
+       }
+      },
+      {
+       "id": "blade_of_saint_ellynor",
+       "name": "Blade of Saint Ellynor",
+       "pts": 15,
+       "upgrade": false,
+       "text": "ADEPTA SORORITAS model only. +1 S and +1 AP on the bearer's melee weapons, which have [PRECISION]; each time it fights and kills one or more models, gain 1 Miracle dice.",
+       "eligible": {
+        "factionsAll": [
+         "Adepta Sororitas"
+        ]
+       }
+      },
+      {
+       "id": "divine_aspect",
+       "name": "Divine Aspect",
+       "pts": 5,
+       "upgrade": false,
+       "text": "ADEPTA SORORITAS model only. Your Movement phase: one enemy unit within 12\" takes a Battle-shock test; if it fails, gain 1 Miracle dice.",
+       "eligible": {
+        "factionsAll": [
+         "Adepta Sororitas"
+        ]
+       }
+      },
+      {
+       "id": "triptych_of_the_macharian_crusade",
+       "name": "Triptych of the Macharian Crusade",
+       "pts": 20,
+       "upgrade": false,
+       "text": "ADEPTA SORORITAS model only. A saving throw the bearer replaces with a Miracle dice always succeeds, whatever its value.",
+       "eligible": {
+        "factionsAll": [
+         "Adepta Sororitas"
+        ]
+       }
+      }
+     ],
+     "stratagems": [
+      {
+       "id": "shield_of_faith",
+       "name": "Shield of Faith",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Any"
+       ],
+       "when": "Any phase, right after an ADEPTA SORORITAS unit suffers a mortal wound.",
+       "target": "That unit, or a friendly JUMP PACK unit within 3\" of it.",
+       "effect": "Feel No Pain 5+ against mortal wounds until the end of the phase. On a JUMP PACK unit, friendly ADEPTA SORORITAS units within 3\" of it get it too."
+      },
+      {
+       "id": "light_of_the_emperor",
+       "name": "Light of the Emperor",
+       "cp": 2,
+       "type": "Battle Tactic",
+       "phases": [
+        "Command"
+       ],
+       "when": "Command phase.",
+       "target": "One ADEPTA SORORITAS unit.",
+       "effect": "Until the end of the turn it is blessed: it ignores modifiers to its characteristics, BS/WS and rolls and tests (not saving throws). On a JUMP PACK unit, friendly units within 3\" are blessed too."
+      },
+      {
+       "id": "faith_and_fury",
+       "name": "Faith and Fury",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Fight phase.",
+       "target": "One ADEPTA SORORITAS unit that has not fought this phase.",
+       "effect": "Its melee weapons have [LANCE] until the end of the phase; if it kills any enemy model, gain 1 Miracle dice."
+      },
+      {
+       "id": "blinding_radiance",
+       "name": "Blinding Radiance",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Shooting",
+        "Fight"
+       ],
+       "when": "Your opponent's Shooting phase or the Fight phase, right after an enemy unit selects its targets.",
+       "target": "One ADEPTA SORORITAS INFANTRY unit targeted by those attacks, or a friendly JUMP PACK unit within 3\" of it.",
+       "effect": "Until the end of the phase attacks against it get -1 to hit. On a JUMP PACK unit, friendly INFANTRY within 3\" of it get it too."
+      },
+      {
+       "id": "divine_guidance",
+       "name": "Divine Guidance",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Shooting",
+        "Fight"
+       ],
+       "when": "Your Shooting phase or the Fight phase.",
+       "target": "One ADEPTA SORORITAS unit that has not shot or fought this phase.",
+       "effect": "+1 AP for its attacks until the end of the phase; if they kill any enemy model, gain 1 Miracle dice."
+      },
+      {
+       "id": "angelic_descent",
+       "name": "Angelic Descent",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Fight"
+       ],
+       "when": "End of your opponent's Fight phase.",
+       "target": "One unengaged ADEPTA SORORITAS JUMP PACK unit.",
+       "effect": "Place it into Strategic Reserves."
+      }
+     ]
+    },
+    {
+     "id": "champions_of_faith",
+     "name": "Champions of Faith",
+     "dp": 2,
+     "dispositions": [
+      "Disruption"
+     ],
+     "tags": [
+      "REVEREND"
+     ],
+     "summary": "Each Command phase pick up to 3 units to be Righteous: faster, braver and, for some, more accurate.",
+     "rule": {
+      "name": "Righteous Purpose",
+      "text": "In your Command phase pick up to 3 ADEPTA SORORITAS units (embarked ones too): until your next Command phase they are Righteous: +1\" Move and +1 Leadership, and BATTLE SISTERS SQUAD, CELESTIAN INSIDIANTS, CELESTIAN SACRESANTS and PARAGON WARSUITS models in them also get +1 BS and WS. CELESTIAN SACRESANTS that are not battle-shocked get +1 OC."
+     },
+     "righteous": {
+      "max": 3
+     },
+     "enhancements": [
+      {
+       "id": "triptych_of_judgement",
+       "name": "Triptych of Judgement",
+       "pts": 15,
+       "upgrade": false,
+       "text": "ADEPTA SORORITAS model only. Attacks by the bearer's unit ignore modifiers to BS/WS and to the hit roll.",
+       "eligible": {
+        "factionsAll": [
+         "Adepta Sororitas"
+        ]
+       }
+      },
+      {
+       "id": "mark_of_devotion",
+       "name": "Mark of Devotion",
+       "pts": 30,
+       "upgrade": false,
+       "text": "ADEPTA SORORITAS model only. +1 A on the bearer's melee weapons; while its unit is Righteous, +2 A and +1 D instead.",
+       "eligible": {
+        "factionsAll": [
+         "Adepta Sororitas"
+        ]
+       }
+      },
+      {
+       "id": "eyes_of_the_oracle",
+       "name": "Eyes of the Oracle",
+       "pts": 10,
+       "upgrade": false,
+       "text": "ADEPTA SORORITAS model only. The bearer's weapons have [PRECISION]; each time its unit destroys an enemy CHARACTER model, gain 1CP.",
+       "eligible": {
+        "factionsAll": [
+         "Adepta Sororitas"
+        ]
+       }
+      },
+      {
+       "id": "sanctified_amulet",
+       "name": "Sanctified Amulet",
+       "pts": 25,
+       "upgrade": false,
+       "text": "ADEPTA SORORITAS model only. Enemy units arriving from Reserves cannot be set up within 12\" of the bearer.",
+       "eligible": {
+        "factionsAll": [
+         "Adepta Sororitas"
+        ]
+       }
+      }
+     ],
+     "stratagems": [
+      {
+       "id": "shield_of_denial",
+       "name": "Shield of Denial",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Any"
+       ],
+       "when": "Any phase, right after a mortal wound is allocated to an ADEPTA SORORITAS unit.",
+       "target": "That unit.",
+       "effect": "Feel No Pain 6+ against mortal wounds until the end of the phase (5+ if Righteous)."
+      },
+      {
+       "id": "suffer_not_the_unfaithful",
+       "name": "Suffer Not the Unfaithful",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Shooting",
+        "Fight"
+       ],
+       "when": "Your Shooting phase or the Fight phase.",
+       "target": "One Righteous ADEPTA SORORITAS unit that has not shot or fought this phase.",
+       "effect": "Its weapons gain [LETHAL HITS] or [SUSTAINED HITS 1] (your pick) until the end of the phase."
+      },
+      {
+       "id": "to_the_heart_of_heresy",
+       "name": "To the Heart of Heresy",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Fight phase.",
+       "target": "One ADEPTA SORORITAS unit that has not fought this phase.",
+       "effect": "+1 S on its melee weapons until the end of the turn; if Righteous, +1 AP as well until the end of the phase."
+      },
+      {
+       "id": "path_of_the_righteous",
+       "name": "Path of the Righteous",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Fight phase.",
+       "target": "One ADEPTA SORORITAS unit that has not fought this phase.",
+       "effect": "It piles in and consolidates up to 6\" this turn; if Righteous, it only has to end as close as possible to the closest enemy unit."
+      },
+      {
+       "id": "bastion_of_faith",
+       "name": "Bastion of Faith",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Fight phase, right after an enemy unit selects its targets.",
+       "target": "One CELESTIAN SACRESANTS unit targeted by those attacks.",
+       "effect": "Attacks against it get -1 to hit; if Righteous, another unshocked CELESTIAN SACRESANTS unit within 6\" gets it too."
+      },
+      {
+       "id": "indefatigable_dedication",
+       "name": "Indefatigable Dedication",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Movement"
+       ],
+       "when": "Your Movement phase, right after an ADEPTA SORORITAS unit falls back.",
+       "target": "That unit.",
+       "effect": "It can shoot this turn; if Righteous, it can shoot and declare a charge."
+      }
+     ]
+    },
+    {
+     "id": "chorus_of_condemnation",
+     "name": "Chorus of Condemnation",
+     "dp": 1,
+     "dispositions": [
+      "Reconnaissance"
+     ],
+     "tags": [],
+     "summary": "Flying infantry condemn enemy units and guide Exorcist strikes.",
+     "rule": {
+      "name": "Angelic Judgement",
+      "text": "Your ADEPTA SORORITAS INFANTRY FLY units have Condemnatory Psalms: in your Shooting phase they can pick one visible enemy unit within 12\"; it is condemned (+3\" detection range)."
+     },
+     "enhancements": [
+      {
+       "id": "clarion_of_urgency",
+       "name": "Clarion of Urgency",
+       "pts": 15,
+       "upgrade": false,
+       "text": "CANONESS WITH JUMP PACK only. End of your opponent's Fight phase, if unengaged: place its unit into Strategic Reserves.",
+       "eligible": {
+        "unitIds": [
+         "canoness_with_jump_pack"
+        ]
+       }
+      },
+      {
+       "id": "symphonic_payload",
+       "name": "Symphonic Payload",
+       "pts": 10,
+       "upgrade": true,
+       "text": "EXORCIST unit only. It can re-roll rolls for the number of attacks of its weapons.",
+       "eligible": {
+        "unitIds": [
+         "exorcist"
+        ]
+       }
+      }
+     ],
+     "stratagems": [
+      {
+       "id": "inspirational_battle_canticles",
+       "name": "Inspirational Battle Canticles",
+       "cp": 1,
+       "type": "Chorus of Condemnation",
+       "phases": [
+        "Command"
+       ],
+       "when": "Start of the Command phase.",
+       "target": "One ADEPTA SORORITAS INFANTRY FLY unit or one EXORCIST unit.",
+       "effect": "One battle-shocked ADEPTA SORORITAS unit within 6\" of it is no longer battle-shocked."
+      },
+      {
+       "id": "harmonised_exorcism",
+       "name": "Harmonised Exorcism",
+       "cp": 1,
+       "type": "Chorus of Condemnation",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Your Shooting phase, when an EXORCIST unit is selected to shoot.",
+       "target": "That EXORCIST unit.",
+       "effect": "Pick one unit visible to and within 9\" of a friendly ADEPTA SORORITAS INFANTRY FLY unit: the Exorcist's ranged attacks against it get +1 to hit."
+      },
+      {
+       "id": "devastating_reprise",
+       "name": "Devastating Reprise",
+       "cp": 1,
+       "type": "Chorus of Condemnation",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Your Shooting phase, after an EXORCIST unit has shot.",
+       "target": "One ADEPTA SORORITAS INFANTRY FLY unit.",
+       "effect": "Pick one enemy unit (not MONSTER or VEHICLE) hit by the Exorcist: your unit's ranged attacks against it have [DEVASTATING WOUNDS]."
+      }
+     ]
+    },
+    {
+     "id": "sacred_champions",
+     "name": "Sacred Champions",
+     "dp": 1,
+     "dispositions": [
+      "Take and Hold"
+     ],
+     "tags": [
+      "REVEREND"
+     ],
+     "summary": "Celestian veterans on a holy quest: +1 BS and WS.",
+     "rule": {
+      "name": "Holy Quest",
+      "text": "Attacks by your CELESTIAN units get +1 BS and WS. Cannot be taken with another REVEREND detachment."
+     },
+     "buffs": [
+      {
+       "target": "ranged",
+       "stat": "WS",
+       "improve": 1,
+       "scope": {
+        "unitIds": [
+         "celestian_sacresants",
+         "celestian_insidiants"
+        ]
+       },
+       "source": "Holy Quest"
+      },
+      {
+       "target": "melee",
+       "stat": "WS",
+       "improve": 1,
+       "scope": {
+        "unitIds": [
+         "celestian_sacresants",
+         "celestian_insidiants"
+        ]
+       },
+       "source": "Holy Quest"
+      }
+     ],
+     "enhancements": [
+      {
+       "id": "writ_of_compunction",
+       "name": "Writ of Compunction",
+       "pts": 20,
+       "upgrade": true,
+       "text": "CELESTIAN SACRESANTS unit only. +1 OC.",
+       "eligible": {
+        "unitIds": [
+         "celestian_sacresants"
+        ]
+       },
+       "mods": [
+        {
+         "target": "profile",
+         "stat": "OC",
+         "add": 1
+        }
+       ]
+      },
+      {
+       "id": "perfervid_haste",
+       "name": "Perfervid Haste",
+       "pts": 10,
+       "upgrade": false,
+       "text": "ADEPTA SORORITAS model only. The bearer's unit has +1\" Move.",
+       "eligible": {
+        "factionsAll": [
+         "Adepta Sororitas"
+        ]
+       }
+      }
+     ],
+     "stratagems": [
+      {
+       "id": "sanctified_blows",
+       "name": "Sanctified Blows",
+       "cp": 1,
+       "type": "Sacred Champions",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Fight phase, when a CELESTIAN SACRESANTS unit is selected to fight.",
+       "target": "That unit.",
+       "effect": "+1 A and +1 S on its melee attacks."
+      },
+      {
+       "id": "faithful_fortitude",
+       "name": "Faithful Fortitude",
+       "cp": 1,
+       "type": "Sacred Champions",
+       "phases": [
+        "Any"
+       ],
+       "when": "Any phase, when a CELESTIAN SACRESANTS unit suffers a mortal wound.",
+       "target": "That unit.",
+       "effect": "Feel No Pain 5+ against mortal wounds until the end of the phase."
+      },
+      {
+       "id": "unflinching_determination",
+       "name": "Unflinching Determination",
+       "cp": 1,
+       "type": "Sacred Champions",
+       "phases": [
+        "Movement"
+       ],
+       "when": "Your Movement phase, when a CELESTIAN SACRESANTS unit advances or falls back.",
+       "target": "That unit.",
+       "effect": "Its ranged attacks have [ASSAULT] this turn, and that move does not stop it shooting or charging."
+      }
+     ]
+    },
+    {
+     "id": "sanctified_orators",
+     "name": "Sanctified Orators",
+     "dp": 1,
+     "dispositions": [
+      "Disruption"
+     ],
+     "tags": [],
+     "summary": "Commanders preach to their units; Hagiomnifex does not count toward your enhancement limit.",
+     "rule": {
+      "name": "Hymns of Battle",
+      "text": "Enhancements from this detachment do not count toward the number of enhancements in your army. Your ADEPTA SORORITAS CHARACTER units have +1 Leadership."
+     },
+     "enhancements": [
+      {
+       "id": "hagiomnifex",
+       "name": "Hagiomnifex",
+       "pts": 25,
+       "upgrade": true,
+       "text": "ADEPTA SORORITAS CHARACTER only (not PENITENT). Once per turn, at the start of a phase, pick one for the bearer's unit until the end of the phase: enemy units have +6\" detection range while it shoots; it passes Battle-shock automatically; +1\" Move; +1 S on its attacks; or attacks with S above its T get -1 to wound.",
+       "eligible": {
+        "factionsAll": [
+         "Adepta Sororitas"
+        ],
+        "keywordsAll": [
+         "Character"
+        ],
+        "keywordsNone": [
+         "Penitent"
+        ]
+       },
+       "onCharacter": true,
+       "noCount": true
+      }
+     ],
+     "stratagems": []
+    }
+   ],
+   "units": [
+    {
+     "id": "aestred_thurga_and_agathae_dolan",
+     "name": "Aestred Thurga and Agathae Dolan",
+     "role": "unit",
+     "faction": "Adepta Sororitas",
+     "keywords": [
+      "Epic Hero",
+      "Aestred Thurga and Agathae Dolan",
+      "Character",
+      "Imperium",
+      "Grenades",
+      "Infantry"
+     ],
+     "image": "as_aestred_thurga_and_agathae_dolan",
+     "baseSize": "32mm / 25mm",
+     "profile": {
+      "M": "6\"",
+      "T": "3",
+      "Sv": "2+",
+      "InSv": "4+",
+      "W": "4",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Bolt pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Blade of Vigil",
+       "range": "Melee",
+       "A": "4",
+       "skill": "2+",
+       "S": "5",
+       "AP": "-2",
+       "D": "2",
+       "kw": []
+      },
+      {
+       "name": "Scribe's staff",
+       "range": "Melee",
+       "A": "3",
+       "skill": "4+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Leader"
+     ],
+     "factionAbilities": [
+      "Acts of Faith"
+     ],
+     "abilities": [
+      {
+       "name": "Auto-Tapestry of the Emperor's Judgement",
+       "text": "While this unit leads a unit and Aestred Thurga is alive, weapons in that unit have [DEVASTATING WOUNDS].",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Recount the Deeds of the Saints",
+       "text": "While this unit leads a unit and Agathae Dolan is alive, gain 1 Miracle dice each time that unit destroys an enemy unit. When Agathae Dolan dies, gain D3 Miracle dice.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 2,
+       "pts": 80
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "battle_sisters_squad",
+      "celestian_insidiants",
+      "celestian_sacresants",
+      "dominion_squad",
+      "retributor_squad",
+      "sisters_novitiate_squad"
+     ],
+     "composition": "1 Aestred Thurga (Epic Hero: bolt pistol, Blade of Vigil) and 1 Agathae Dolan (Epic Hero: bolt pistol, scribe's staff).",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "leadModel": {
+      "name": "Agathae Dolan",
+      "W": "3",
+      "Ld": "7+",
+      "Sv": "6+"
+     }
+    },
+    {
+     "id": "arco_flagellants",
+     "name": "Arco-flagellants",
+     "role": "unit",
+     "faction": "Adepta Sororitas",
+     "keywords": [
+      "Infantry",
+      "Imperium",
+      "Penitent",
+      "Arco-flagellants"
+     ],
+     "image": "as_arco_flagellants",
+     "baseSize": "25mm",
+     "profile": {
+      "M": "7\"",
+      "T": "3",
+      "Sv": "7+",
+      "InSv": "6+",
+      "W": "2",
+      "OC": "1",
+      "Ld": "8+"
+     },
+     "damaged": null,
+     "ranged": [],
+     "melee": [
+      {
+       "name": "Arco-flails",
+       "range": "Melee",
+       "A": "4",
+       "skill": "4+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Sustained Hits 1"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Feel No Pain 5+"
+     ],
+     "factionAbilities": [
+      "Acts of Faith"
+     ],
+     "abilities": [
+      {
+       "name": "Extremis Trigger Word",
+       "text": "When selected to fight, you can invoke it: until the end of the phase arco-flails are A 6 with [HAZARDOUS].",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 3,
+       "pts": 50
+      },
+      {
+       "models": 10,
+       "pts": 140
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "3-10 Arco-flagellants: arco-flails.",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "battle_sisters_squad",
+     "name": "Battle Sisters Squad",
+     "role": "unit",
+     "faction": "Adepta Sororitas",
+     "keywords": [
+      "Infantry",
+      "Battleline",
+      "Grenades",
+      "Battle Sisters Squad",
+      "Imperium"
+     ],
+     "image": "as_battle_sisters_squad",
+     "baseSize": "32mm",
+     "profile": {
+      "M": "6\"",
+      "T": "3",
+      "Sv": "3+",
+      "InSv": "6+",
+      "W": "1",
+      "OC": "2",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Condemnor boltgun",
+       "range": "24\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Anti-psyker 2+",
+        "Devastating Wounds",
+        "Precision",
+        "Rapid Fire 1"
+       ]
+      },
+      {
+       "name": "Combi-weapon",
+       "range": "24\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Anti-infantry 4+",
+        "Devastating Wounds",
+        "Rapid Fire 1"
+       ]
+      },
+      {
+       "name": "Boltgun",
+       "range": "24\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Rapid Fire 1"
+       ]
+      },
+      {
+       "name": "Bolt pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Inferno pistol",
+       "range": "6\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-4",
+       "D": "D3",
+       "kw": [
+        "Melta 2",
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Ministorum hand flamer",
+       "range": "12\"",
+       "A": "D6",
+       "skill": "—",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Ignores Cover",
+        "Pistol",
+        "Torrent"
+       ]
+      },
+      {
+       "name": "Plasma pistol - supercharge",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-3",
+       "D": "2",
+       "kw": [
+        "Hazardous",
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Plasma pistol - standard",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "7",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Meltagun",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "9",
+       "AP": "-4",
+       "D": "D6",
+       "kw": [
+        "Melta 2"
+       ]
+      },
+      {
+       "name": "Artificer-crafted storm bolter",
+       "range": "24\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "4",
+       "AP": "0",
+       "D": "2",
+       "kw": [
+        "Rapid Fire 2"
+       ]
+      },
+      {
+       "name": "Ministorum flamer",
+       "range": "12\"",
+       "A": "D6",
+       "skill": "—",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Ignores Cover",
+        "Torrent"
+       ]
+      },
+      {
+       "name": "Heavy bolter",
+       "range": "36\"",
+       "A": "3",
+       "skill": "4+",
+       "S": "5",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Heavy",
+        "Sustained Hits 1"
+       ]
+      },
+      {
+       "name": "Ministorum heavy flamer",
+       "range": "12\"",
+       "A": "D6",
+       "skill": "—",
+       "S": "6",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Ignores Cover",
+        "Torrent"
+       ]
+      },
+      {
+       "name": "Multi-melta",
+       "range": "18\"",
+       "A": "2",
+       "skill": "4+",
+       "S": "9",
+       "AP": "-4",
+       "D": "D6",
+       "kw": [
+        "Heavy",
+        "Melta 2"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Chainsword",
+       "range": "Melee",
+       "A": "3",
+       "skill": "4+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Power weapon",
+       "range": "Melee",
+       "A": "2",
+       "skill": "4+",
+       "S": "4",
+       "AP": "-2",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Close combat weapon",
+       "range": "Melee",
+       "A": "1",
+       "skill": "4+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [],
+     "factionAbilities": [
+      "Acts of Faith"
+     ],
+     "abilities": [
+      {
+       "name": "Defenders of the Faith",
+       "text": "End of your Command phase: an objective you control that this unit is in range of stays yours with no models nearby, until your opponent controls it at the start or end of a turn.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Cherub",
+       "text": "Once per battle, after this unit performs an Act of Faith, gain 1 Miracle dice.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Simulacrum Imperialis",
+       "text": "End of your Command phase: for each objective you control with one or more of your units with this ability in range, roll D6; on a 4+ gain a Miracle dice of that value.",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 10,
+       "pts": 100
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 Sister Superior and 9 Battle Sisters: bolt pistol, boltgun, close combat weapon.",
+     "options": [
+      {
+       "id": "sup_gun",
+       "type": "choice",
+       "label": "Sister Superior: gun",
+       "choices": [
+        {
+         "id": "boltgun",
+         "label": "Boltgun",
+         "pts": 0
+        },
+        {
+         "id": "bp",
+         "label": "Bolt pistol",
+         "pts": 0
+        },
+        {
+         "id": "combi",
+         "label": "Combi-weapon",
+         "pts": 0
+        },
+        {
+         "id": "cond",
+         "label": "Condemnor boltgun",
+         "pts": 0
+        },
+        {
+         "id": "inferno",
+         "label": "Inferno pistol",
+         "pts": 0
+        },
+        {
+         "id": "hflamer",
+         "label": "Ministorum hand flamer",
+         "pts": 0
+        },
+        {
+         "id": "plasma",
+         "label": "Plasma pistol",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "sup_melee",
+       "type": "choice",
+       "label": "Sister Superior: melee",
+       "choices": [
+        {
+         "id": "ccw",
+         "label": "Close combat weapon",
+         "pts": 0
+        },
+        {
+         "id": "chain",
+         "label": "Chainsword",
+         "pts": 0
+        },
+        {
+         "id": "power",
+         "label": "Power weapon",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "special",
+       "type": "choice",
+       "label": "Battle Sister: special weapon",
+       "choices": [
+        {
+         "id": "boltgun",
+         "label": "Boltgun",
+         "pts": 0
+        },
+        {
+         "id": "storm",
+         "label": "Artificer-crafted storm bolter",
+         "pts": 0
+        },
+        {
+         "id": "melta",
+         "label": "Meltagun",
+         "pts": 0
+        },
+        {
+         "id": "flamer",
+         "label": "Ministorum flamer",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "heavy",
+       "type": "choice",
+       "label": "Battle Sister: special or heavy weapon",
+       "choices": [
+        {
+         "id": "boltgun",
+         "label": "Boltgun",
+         "pts": 0
+        },
+        {
+         "id": "storm",
+         "label": "Artificer-crafted storm bolter",
+         "pts": 0
+        },
+        {
+         "id": "hb",
+         "label": "Heavy bolter",
+         "pts": 0
+        },
+        {
+         "id": "melta",
+         "label": "Meltagun",
+         "pts": 0
+        },
+        {
+         "id": "flamer",
+         "label": "Ministorum flamer",
+         "pts": 0
+        },
+        {
+         "id": "hflamer",
+         "label": "Ministorum heavy flamer",
+         "pts": 0
+        },
+        {
+         "id": "mm",
+         "label": "Multi-melta",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "simulacrum",
+       "type": "toggle",
+       "label": "Simulacrum imperialis"
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "once": [
+      {
+       "id": "cherub",
+       "name": "Cherub",
+       "n": 1,
+       "gain": true,
+       "text": "After this unit performs an Act of Faith: gain 1 Miracle dice."
+      }
+     ]
+    },
+    {
+     "id": "canoness",
+     "name": "Canoness",
+     "role": "unit",
+     "faction": "Adepta Sororitas",
+     "keywords": [
+      "Character",
+      "Infantry",
+      "Grenades",
+      "Canoness"
+     ],
+     "image": "as_canoness",
+     "baseSize": "32mm",
+     "profile": {
+      "M": "6\"",
+      "T": "3",
+      "Sv": "3+",
+      "InSv": "4+",
+      "W": "4",
+      "OC": "1",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Brazier of Holy Fire",
+       "range": "12\"",
+       "A": "D6",
+       "skill": "—",
+       "S": "6",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Ignores Cover",
+        "One Shot",
+        "Torrent"
+       ]
+      },
+      {
+       "name": "Bolt Pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "2+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Condemnor boltgun",
+       "range": "24\"",
+       "A": "1",
+       "skill": "2+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Anti-psyker 2+",
+        "Devastating Wounds",
+        "Precision",
+        "Rapid Fire 1"
+       ]
+      },
+      {
+       "name": "Inferno Pistol",
+       "range": "6\"",
+       "A": "1",
+       "skill": "2+",
+       "S": "8",
+       "AP": "-4",
+       "D": "D3",
+       "kw": [
+        "Melta 2",
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Plasma pistol - standard",
+       "range": "12\"",
+       "A": "1",
+       "skill": "2+",
+       "S": "7",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Plasma pistol - supercharge",
+       "range": "12\"",
+       "A": "1",
+       "skill": "2+",
+       "S": "8",
+       "AP": "-3",
+       "D": "2",
+       "kw": [
+        "Hazardous",
+        "Pistol"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Blessed blade",
+       "range": "Melee",
+       "A": "4",
+       "skill": "2+",
+       "S": "6",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Lethal Hits"
+       ]
+      },
+      {
+       "name": "Power weapon",
+       "range": "Melee",
+       "A": "4",
+       "skill": "2+",
+       "S": "4",
+       "AP": "-2",
+       "D": "2",
+       "kw": []
+      },
+      {
+       "name": "Hallowed Chainsword",
+       "range": "Melee",
+       "A": "5",
+       "skill": "2+",
+       "S": "3",
+       "AP": "-1",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Leader"
+     ],
+     "factionAbilities": [
+      "Acts of Faith"
+     ],
+     "abilities": [
+      {
+       "name": "The Emperor's Grace",
+       "text": "Once per battle, at the start of any phase: 2+ invulnerable save until the end of the phase.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Sacred Command",
+       "text": "Once per battle round, one unit with this ability can use it when its unit is targeted with a Stratagem: that use costs 1CP less.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Null Rod",
+       "text": "Models in the bearer's unit have Feel No Pain 4+ against mortal wounds and Psychic Attacks.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Rod of Office",
+       "text": "Attacks by models in the bearer's unit re-roll hit rolls of 1.",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 60
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "battle_sisters_squad",
+      "celestian_insidiants",
+      "celestian_sacresants",
+      "dominion_squad",
+      "retributor_squad",
+      "sisters_novitiate_squad"
+     ],
+     "composition": "1 Canoness: bolt pistol, hallowed chainsword.",
+     "options": [
+      {
+       "id": "pistol",
+       "type": "choice",
+       "label": "Pistol",
+       "choices": [
+        {
+         "id": "bp",
+         "label": "Bolt pistol",
+         "pts": 0
+        },
+        {
+         "id": "cond",
+         "label": "Condemnor boltgun",
+         "pts": 0
+        },
+        {
+         "id": "inferno",
+         "label": "Inferno pistol",
+         "pts": 0
+        },
+        {
+         "id": "plasma",
+         "label": "Plasma pistol",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "melee",
+       "type": "choice",
+       "label": "Melee weapon",
+       "choices": [
+        {
+         "id": "chain",
+         "label": "Hallowed chainsword",
+         "pts": 0
+        },
+        {
+         "id": "blade",
+         "label": "Blessed blade",
+         "pts": 0
+        },
+        {
+         "id": "power",
+         "label": "Power weapon",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "relic",
+       "type": "choice",
+       "label": "Extra (needs the hallowed chainsword)",
+       "choices": [
+        {
+         "id": "none",
+         "label": "None",
+         "pts": 0
+        },
+        {
+         "id": "brazier",
+         "label": "Brazier of holy fire",
+         "pts": 0
+        },
+        {
+         "id": "nullrod",
+         "label": "Null rod",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "rod",
+       "type": "toggle",
+       "label": "Rod of office (needs plasma pistol and power weapon)"
+      }
+     ],
+     "optionRules": [
+      {
+       "if": "relic",
+       "notValue": "none",
+       "requireAllOf": [
+        [
+         "melee",
+         "chain"
+        ]
+       ],
+       "message": "The brazier or null rod needs the hallowed chainsword."
+      },
+      {
+       "if": "rod",
+       "notValue": 0,
+       "requireAllOf": [
+        [
+         "pistol",
+         "plasma"
+        ],
+        [
+         "melee",
+         "power"
+        ]
+       ],
+       "message": "The rod of office needs a plasma pistol and a power weapon."
+      }
+     ],
+     "slots": [],
+     "optionGroups": [],
+     "once": [
+      {
+       "id": "grace",
+       "name": "The Emperor's Grace",
+       "n": 1,
+       "text": "Start of any phase: 2+ invulnerable save until the end of the phase."
+      }
+     ]
+    },
+    {
+     "id": "canoness_with_jump_pack",
+     "name": "Canoness with Jump Pack",
+     "role": "unit",
+     "faction": "Adepta Sororitas",
+     "keywords": [
+      "Character",
+      "Infantry",
+      "Grenades",
+      "Canoness",
+      "Jump Pack",
+      "Fly",
+      "Imperium"
+     ],
+     "image": "as_canoness_with_jump_pack",
+     "baseSize": "32mm",
+     "profile": {
+      "M": "12\"",
+      "T": "3",
+      "Sv": "3+",
+      "InSv": "4+",
+      "W": "3",
+      "OC": "1",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Ministorum hand flamer",
+       "range": "12\"",
+       "A": "D6",
+       "skill": "—",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Ignores Cover",
+        "Pistol",
+        "Torrent"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Blessed Halberd",
+       "range": "Melee",
+       "A": "5",
+       "skill": "2+",
+       "S": "5",
+       "AP": "-2",
+       "D": "2",
+       "kw": []
+      },
+      {
+       "name": "Power weapon",
+       "range": "Melee",
+       "A": "4",
+       "skill": "2+",
+       "S": "4",
+       "AP": "-2",
+       "D": "2",
+       "kw": []
+      },
+      {
+       "name": "Holy Eviscerator",
+       "range": "Melee",
+       "A": "3",
+       "skill": "2+",
+       "S": "6",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Sustained Hits 1"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Deep Strike",
+      "Leader"
+     ],
+     "factionAbilities": [
+      "Acts of Faith"
+     ],
+     "abilities": [
+      {
+       "name": "Divine Deliverance",
+       "text": "Once per battle, start of the Fight phase: +3 A and [DEVASTATING WOUNDS] on her melee weapons until the end of the phase.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Sacred Command",
+       "text": "Once per battle round, one unit with this ability can use it when its unit is targeted with a Stratagem: that use costs 1CP less.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Condemnatory Psalms",
+       "text": "Your Shooting phase: pick one visible enemy unit within 12\"; it is condemned and has +3\" detection range.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 75
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "seraphim_squad",
+      "zephyrim_squad"
+     ],
+     "composition": "1 Canoness with Jump Pack: blessed halberd.",
+     "options": [
+      {
+       "id": "melee",
+       "type": "choice",
+       "label": "Weapon",
+       "choices": [
+        {
+         "id": "halberd",
+         "label": "Blessed halberd",
+         "pts": 0
+        },
+        {
+         "id": "evisc",
+         "label": "Holy eviscerator",
+         "pts": 0
+        },
+        {
+         "id": "flamer",
+         "label": "Ministorum hand flamer and power weapon",
+         "pts": 0
+        }
+       ]
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "once": [
+      {
+       "id": "deliverance",
+       "name": "Divine Deliverance",
+       "n": 1,
+       "text": "Start of the Fight phase: +3 A and [DEVASTATING WOUNDS] on her melee weapons."
+      }
+     ]
+    },
+    {
+     "id": "castigator",
+     "name": "Castigator",
+     "role": "unit",
+     "faction": "Adepta Sororitas",
+     "keywords": [
+      "Vehicle",
+      "Smoke",
+      "Imperium",
+      "Castigator",
+      "Frame"
+     ],
+     "image": "as_castigator",
+     "baseSize": "Use model",
+     "profile": {
+      "M": "10\"",
+      "T": "10",
+      "Sv": "3+",
+      "InSv": "6+",
+      "W": "11",
+      "OC": "3",
+      "Ld": "7+"
+     },
+     "damaged": {
+      "threshold": 4,
+      "text": "While it has 1-4 wounds left: -1 to hit rolls."
+     },
+     "ranged": [
+      {
+       "name": "Heavy bolter",
+       "range": "36\"",
+       "A": "3",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Sustained Hits 1"
+       ]
+      },
+      {
+       "name": "Castigator autocannons",
+       "range": "48\"",
+       "A": "4",
+       "skill": "3+",
+       "S": "9",
+       "AP": "-1",
+       "D": "3",
+       "kw": [
+        "Twin-Linked",
+        "Rapid Fire 4"
+       ]
+      },
+      {
+       "name": "Castigator battle cannon",
+       "range": "48\"",
+       "A": "D6+3",
+       "skill": "3+",
+       "S": "10",
+       "AP": "-1",
+       "D": "3",
+       "kw": [
+        "Blast",
+        "Ignores Cover"
+       ]
+      },
+      {
+       "name": "Storm bolter",
+       "range": "24\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Rapid Fire 2"
+       ]
+      },
+      {
+       "name": "Hunter-killer missile",
+       "range": "48\"",
+       "A": "1",
+       "skill": "2+",
+       "S": "14",
+       "AP": "-3",
+       "D": "D6",
+       "kw": [
+        "One Shot"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Armoured tracks",
+       "range": "Melee",
+       "A": "3",
+       "skill": "4+",
+       "S": "6",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D3"
+     ],
+     "factionAbilities": [
+      "Acts of Faith"
+     ],
+     "abilities": [
+      {
+       "name": "Rites of Castigation",
+       "text": "Your Shooting phase, after it shoots: one enemy unit it hit gets -1 AP (worse for them: +1 AP for your attacks) against your ADEPTA SORORITAS ranged attacks until the end of the turn; once per enemy unit per turn.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 165,
+       "ptsLater": 185
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [],
+     "composition": "1 Castigator: Castigator autocannons, 3 heavy bolters, armoured tracks.",
+     "options": [
+      {
+       "id": "gun",
+       "type": "choice",
+       "label": "Main gun",
+       "choices": [
+        {
+         "id": "ac",
+         "label": "Castigator autocannons",
+         "pts": 0
+        },
+        {
+         "id": "bc",
+         "label": "Castigator battle cannon",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "hk",
+       "type": "toggle",
+       "label": "Hunter-killer missile"
+      },
+      {
+       "id": "storm",
+       "type": "toggle",
+       "label": "Storm bolter"
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "celestian_insidiants",
+     "name": "Celestian Insidiants",
+     "role": "unit",
+     "faction": "Adepta Sororitas",
+     "keywords": [
+      "Infantry",
+      "Grenades",
+      "Imperium",
+      "Celestian Insidiants",
+      "Celestian"
+     ],
+     "image": "as_celestian_insidiants",
+     "baseSize": "32mm",
+     "profile": {
+      "M": "6\"",
+      "T": "3",
+      "Sv": "3+",
+      "InSv": "5+",
+      "W": "1",
+      "OC": "1",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Inferno pistol",
+       "range": "6\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-4",
+       "D": "D3",
+       "kw": [
+        "Melta 2",
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Condemnor bolt pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Anti-psyker 4+",
+        "Devastating Wounds",
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Ministorum hand flamer",
+       "range": "12\"",
+       "A": "D6",
+       "skill": "—",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Ignores Cover",
+        "Pistol",
+        "Torrent"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Null mace",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Anti-psyker 4+",
+        "Devastating Wounds"
+       ]
+      },
+      {
+       "name": "Blessed sword",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Lethal Hits"
+       ]
+      },
+      {
+       "name": "Virge of Admonition",
+       "range": "Melee",
+       "A": "3",
+       "skill": "4+",
+       "S": "6",
+       "AP": "-2",
+       "D": "3",
+       "kw": [
+        "Anti-psyker 4+",
+        "Devastating Wounds"
+       ]
+      }
+     ],
+     "coreAbilities": [],
+     "factionAbilities": [
+      "Acts of Faith"
+     ],
+     "abilities": [
+      {
+       "name": "Rituale Nullificatus",
+       "text": "Feel No Pain 4+ against Psychic Attacks and mortal wounds.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Virtue of Intolerance",
+       "text": "Start of the battle: pick one enemy unit as the quarry. Attacks against it have [PRECISION] and re-roll the hit roll (also while embarked).",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Attached Unit",
+       "text": "A character that can join a listed bodyguard can join this unit instead (see the Leader lists).",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Denuncia Oratory",
+       "text": "When the quarry is destroyed, pick a new quarry.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Simulacrum Imperialis",
+       "text": "End of your Command phase: for each objective you control with one or more of your units with this ability in range, roll D6; on a 4+ gain a Miracle dice of that value.",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 10,
+       "pts": 115
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 Celestian Insidiant Superior and 9 Celestian Insidiants: condemnor bolt pistol, null mace.",
+     "options": [
+      {
+       "id": "sup_pistol",
+       "type": "choice",
+       "label": "Insidiant Superior: pistol",
+       "choices": [
+        {
+         "id": "cond",
+         "label": "Condemnor bolt pistol",
+         "pts": 0
+        },
+        {
+         "id": "inferno",
+         "label": "Inferno pistol",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "hflamer",
+       "type": "count",
+       "label": "Ministorum hand flamer",
+       "max": 2
+      },
+      {
+       "id": "sword",
+       "type": "count",
+       "label": "Blessed sword",
+       "max": 2
+      },
+      {
+       "id": "virge",
+       "type": "toggle",
+       "label": "Virge of admonition"
+      },
+      {
+       "id": "denuncia",
+       "type": "toggle",
+       "label": "Denuncia oratory"
+      },
+      {
+       "id": "simulacrum",
+       "type": "toggle",
+       "label": "Simulacrum imperialis"
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "celestian_sacresants",
+     "name": "Celestian Sacresants",
+     "role": "unit",
+     "faction": "Adepta Sororitas",
+     "keywords": [
+      "Infantry",
+      "Grenades",
+      "Imperium",
+      "Celestian Sacresants",
+      "Celestian"
+     ],
+     "image": "as_celestian_sacresants",
+     "baseSize": "32mm",
+     "profile": {
+      "M": "6\"",
+      "T": "3",
+      "Sv": "3+",
+      "InSv": "4+",
+      "W": "1",
+      "OC": "1",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Bolt pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Plasma pistol - supercharge",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-3",
+       "D": "2",
+       "kw": [
+        "Hazardous",
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Plasma pistol - standard",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "7",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Inferno pistol",
+       "range": "6\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-4",
+       "D": "D3",
+       "kw": [
+        "Melta 2",
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Ministorum hand flamer",
+       "range": "12\"",
+       "A": "D6",
+       "skill": "—",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Ignores Cover",
+        "Pistol",
+        "Torrent"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Spear of the Faithful",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-2",
+       "D": "2",
+       "kw": []
+      },
+      {
+       "name": "Anointed Halberd",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Sustained Hits 1"
+       ]
+      },
+      {
+       "name": "Hallowed Mace",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Lethal Hits"
+       ]
+      }
+     ],
+     "coreAbilities": [],
+     "factionAbilities": [
+      "Acts of Faith"
+     ],
+     "abilities": [
+      {
+       "name": "Sworn Protectors",
+       "text": "While an ADEPTA SORORITAS CHARACTER leads this unit, attacks against it get -1 to wound.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 5,
+       "pts": 75,
+       "ptsLater": 85
+      },
+      {
+       "models": 10,
+       "pts": 150,
+       "ptsLater": 160
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [],
+     "composition": "1 Sacresant Superior and 4-9 Celestian Sacresants: bolt pistol, hallowed mace.",
+     "options": [
+      {
+       "id": "halberd",
+       "type": "count",
+       "label": "Anointed halberd",
+       "slots": [
+        "sm"
+       ],
+       "max": "slot"
+      },
+      {
+       "id": "sup_pistol",
+       "type": "choice",
+       "label": "Sacresant Superior: pistol",
+       "choices": [
+        {
+         "id": "bp",
+         "label": "Bolt pistol",
+         "pts": 0
+        },
+        {
+         "id": "inferno",
+         "label": "Inferno pistol",
+         "pts": 0
+        },
+        {
+         "id": "hflamer",
+         "label": "Ministorum hand flamer",
+         "pts": 0
+        },
+        {
+         "id": "plasma",
+         "label": "Plasma pistol",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "sup_melee",
+       "type": "choice",
+       "label": "Sacresant Superior: melee",
+       "choices": [
+        {
+         "id": "mace",
+         "label": "Hallowed mace",
+         "pts": 0
+        },
+        {
+         "id": "spear",
+         "label": "Spear of the Faithful",
+         "pts": 0
+        }
+       ]
+      }
+     ],
+     "optionRules": [],
+     "slots": [
+      {
+       "id": "sm",
+       "label": "Sacresant melee weapon",
+       "default": "Hallowed mace",
+       "size": {
+        "models": 1,
+        "minus": 1
+       }
+      }
+     ],
+     "optionGroups": []
+    },
+    {
+     "id": "daemonifuge",
+     "name": "Daemonifuge",
+     "role": "unit",
+     "faction": "Adepta Sororitas",
+     "keywords": [
+      "Epic Hero",
+      "Infantry",
+      "Grenades",
+      "Character",
+      "Imperium",
+      "Daemonifuge"
+     ],
+     "image": "as_daemonifuge",
+     "baseSize": "32mm",
+     "profile": {
+      "M": "8\"",
+      "T": "3",
+      "Sv": "3+",
+      "InSv": "4+",
+      "W": "5",
+      "OC": "1",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Bolt pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Sanctity",
+       "range": "Melee",
+       "A": "4",
+       "skill": "2+",
+       "S": "6",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Anti-chaos 2+",
+        "Precision"
+       ]
+      },
+      {
+       "name": "The Outcast's Blades",
+       "range": "Melee",
+       "A": "6",
+       "skill": "2+",
+       "S": "4",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Precision"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Deep Strike",
+      "Fights First",
+      "Lone Operative"
+     ],
+     "factionAbilities": [
+      "Acts of Faith"
+     ],
+     "abilities": [
+      {
+       "name": "Holy Judgement",
+       "text": "Start of your Shooting phase: one enemy unit within 12\" of Ephrael Stern takes a Battle-shock test (-2 if CHAOS); if failed it suffers 3 mortal wounds.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Mysterious Saviours",
+       "text": "Heroic Intervention on this unit costs 1CP less and ignores other uses this phase.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 2,
+       "pts": 85
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 Ephrael Stern (Epic Hero: bolt pistol, Sanctity) and 1 Kyganil of the Bloody Tears (Epic Hero: the Outcast's Blades).",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "leadModel": {
+      "name": "Kyganil of the Bloody Tears",
+      "W": "3",
+      "Ld": "7+",
+      "Sv": "6+"
+     }
+    },
+    {
+     "id": "dialogus",
+     "name": "Dialogus",
+     "role": "unit",
+     "faction": "Adepta Sororitas",
+     "keywords": [
+      "Infantry",
+      "Character",
+      "Imperium",
+      "Dialogus"
+     ],
+     "image": "as_dialogus",
+     "baseSize": "40mm",
+     "profile": {
+      "M": "6\"",
+      "T": "3",
+      "Sv": "3+",
+      "InSv": "4+",
+      "W": "3",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Bolt pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Dialogus staff",
+       "range": "Melee",
+       "A": "3",
+       "skill": "4+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Support"
+     ],
+     "factionAbilities": [
+      "Acts of Faith"
+     ],
+     "abilities": [
+      {
+       "name": "Laud Hailer",
+       "text": "Once per battle, at the start of any phase: one battle-shocked ADEPTA SORORITAS unit within 12\" is no longer battle-shocked.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Stirring Rhetoric",
+       "text": "While leading a unit, each time that unit performs an Act of Faith, one Miracle dice used is first changed to a 6.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 40
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "battle_sisters_squad",
+      "celestian_insidiants",
+      "celestian_sacresants",
+      "dominion_squad",
+      "retributor_squad",
+      "sisters_novitiate_squad"
+     ],
+     "composition": "1 Dialogus: bolt pistol, Dialogus staff.",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "support": true,
+     "once": [
+      {
+       "id": "laud",
+       "name": "Laud Hailer",
+       "n": 1,
+       "text": "Start of any phase: one battle-shocked ADEPTA SORORITAS unit within 12\" is no longer battle-shocked."
+      }
+     ]
+    },
+    {
+     "id": "dogmata",
+     "name": "Dogmata",
+     "role": "unit",
+     "faction": "Adepta Sororitas",
+     "keywords": [
+      "Infantry",
+      "Character",
+      "Grenades",
+      "Imperium",
+      "Dogmata"
+     ],
+     "image": "as_dogmata",
+     "baseSize": "32mm",
+     "profile": {
+      "M": "6\"",
+      "T": "3",
+      "Sv": "3+",
+      "InSv": "6+",
+      "W": "3",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Bolt pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Mace of the Righteous",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-2",
+       "D": "2",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Support"
+     ],
+     "factionAbilities": [
+      "Acts of Faith"
+     ],
+     "abilities": [
+      {
+       "name": "Executioner of Heretics (Aura)",
+       "text": "Enemy units within 6\" get -1 Leadership (worse).",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Unflinching Determination",
+       "text": "While leading a unit, its models get +1 OC.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 45
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "battle_sisters_squad",
+      "celestian_insidiants",
+      "celestian_sacresants",
+      "dominion_squad",
+      "retributor_squad"
+     ],
+     "composition": "1 Dogmata: bolt pistol, mace of the righteous.",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "support": true
+    },
+    {
+     "id": "dominion_squad",
+     "name": "Dominion Squad",
+     "role": "unit",
+     "faction": "Adepta Sororitas",
+     "keywords": [
+      "Infantry",
+      "Grenades",
+      "Imperium",
+      "Dominion Squad"
+     ],
+     "image": "as_dominion_squad",
+     "baseSize": "32mm",
+     "profile": {
+      "M": "6\"",
+      "T": "3",
+      "Sv": "3+",
+      "InSv": "6+",
+      "W": "1",
+      "OC": "1",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Condemnor boltgun",
+       "range": "24\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Anti-psyker 2+",
+        "Devastating Wounds",
+        "Precision",
+        "Rapid Fire 1"
+       ]
+      },
+      {
+       "name": "Combi-weapon",
+       "range": "24\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Anti-infantry 4+",
+        "Devastating Wounds",
+        "Rapid Fire 1"
+       ]
+      },
+      {
+       "name": "Boltgun",
+       "range": "24\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Rapid Fire 1"
+       ]
+      },
+      {
+       "name": "Bolt pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Inferno pistol",
+       "range": "6\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-4",
+       "D": "D3",
+       "kw": [
+        "Melta 2",
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Ministorum hand flamer",
+       "range": "12\"",
+       "A": "D6",
+       "skill": "—",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Ignores Cover",
+        "Pistol",
+        "Torrent"
+       ]
+      },
+      {
+       "name": "Plasma pistol - supercharge",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-3",
+       "D": "2",
+       "kw": [
+        "Hazardous",
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Plasma pistol - standard",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "7",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Artificer-crafted storm bolter",
+       "range": "24\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "4",
+       "AP": "0",
+       "D": "2",
+       "kw": [
+        "Rapid Fire 2",
+        "Assault"
+       ]
+      },
+      {
+       "name": "Meltagun",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "9",
+       "AP": "-4",
+       "D": "D6",
+       "kw": [
+        "Melta 2",
+        "Assault"
+       ]
+      },
+      {
+       "name": "Ministorum flamer",
+       "range": "12\"",
+       "A": "D6",
+       "skill": "—",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Assault",
+        "Ignores Cover",
+        "Torrent"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Chainsword",
+       "range": "Melee",
+       "A": "3",
+       "skill": "4+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Power weapon",
+       "range": "Melee",
+       "A": "2",
+       "skill": "4+",
+       "S": "4",
+       "AP": "-2",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Close combat weapon",
+       "range": "Melee",
+       "A": "1",
+       "skill": "4+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Scouts 6\""
+     ],
+     "factionAbilities": [
+      "Acts of Faith"
+     ],
+     "abilities": [
+      {
+       "name": "Holy Vanguard",
+       "text": "If a Leader is attached at Declare Battle Formations and the unit starts inside a TRANSPORT, that Leader gains Scouts 6\".",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Righteous Awareness",
+       "text": "Your opponent's Movement phase: when an enemy unit ends a move within 8\", this unit can make a Normal move of up to D6\" if unengaged.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Cherub",
+       "text": "Once per battle, after this unit performs an Act of Faith, gain 1 Miracle dice.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Simulacrum Imperialis",
+       "text": "End of your Command phase: for each objective you control with one or more of your units with this ability in range, roll D6; on a 4+ gain a Miracle dice of that value.",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 10,
+       "pts": 90,
+       "ptsLater": 100
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [],
+     "composition": "1 Dominion Superior and 9 Dominions: bolt pistol, boltgun, close combat weapon.",
+     "options": [
+      {
+       "id": "sup_gun",
+       "type": "choice",
+       "label": "Dominion Superior: gun",
+       "choices": [
+        {
+         "id": "boltgun",
+         "label": "Boltgun",
+         "pts": 0
+        },
+        {
+         "id": "bp",
+         "label": "Bolt pistol",
+         "pts": 0
+        },
+        {
+         "id": "combi",
+         "label": "Combi-weapon",
+         "pts": 0
+        },
+        {
+         "id": "cond",
+         "label": "Condemnor boltgun",
+         "pts": 0
+        },
+        {
+         "id": "inferno",
+         "label": "Inferno pistol",
+         "pts": 0
+        },
+        {
+         "id": "hflamer",
+         "label": "Ministorum hand flamer",
+         "pts": 0
+        },
+        {
+         "id": "plasma",
+         "label": "Plasma pistol",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "sup_melee",
+       "type": "choice",
+       "label": "Dominion Superior: melee",
+       "choices": [
+        {
+         "id": "ccw",
+         "label": "Close combat weapon",
+         "pts": 0
+        },
+        {
+         "id": "chain",
+         "label": "Chainsword",
+         "pts": 0
+        },
+        {
+         "id": "power",
+         "label": "Power weapon",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "storm",
+       "type": "count",
+       "label": "Artificer-crafted storm bolter",
+       "group": "spec",
+       "max": 4
+      },
+      {
+       "id": "melta",
+       "type": "count",
+       "label": "Meltagun (+5 pts each)",
+       "group": "spec",
+       "max": 4,
+       "pts": 5
+      },
+      {
+       "id": "flamer",
+       "type": "count",
+       "label": "Ministorum flamer",
+       "group": "spec",
+       "max": 4
+      },
+      {
+       "id": "simulacrum",
+       "type": "toggle",
+       "label": "Simulacrum imperialis"
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [
+      {
+       "id": "spec",
+       "per": 10,
+       "n": 4,
+       "label": "Special weapons"
+      }
+     ],
+     "once": [
+      {
+       "id": "cherub",
+       "name": "Cherub",
+       "n": 1,
+       "gain": true,
+       "text": "After this unit performs an Act of Faith: gain 1 Miracle dice."
+      }
+     ]
+    },
+    {
+     "id": "exorcist",
+     "name": "Exorcist",
+     "role": "unit",
+     "faction": "Adepta Sororitas",
+     "keywords": [
+      "Vehicle",
+      "Smoke",
+      "Imperium",
+      "Exorcist",
+      "Frame"
+     ],
+     "image": "as_exorcist",
+     "baseSize": "Use model",
+     "profile": {
+      "M": "10\"",
+      "T": "10",
+      "Sv": "3+",
+      "InSv": "6+",
+      "W": "11",
+      "OC": "3",
+      "Ld": "7+"
+     },
+     "damaged": {
+      "threshold": 4,
+      "text": "While it has 1-4 wounds left: -1 to hit rolls."
+     },
+     "ranged": [
+      {
+       "name": "Heavy Bolter",
+       "range": "36\"",
+       "A": "3",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Sustained Hits 1"
+       ]
+      },
+      {
+       "name": "Exorcist Missile Launcher",
+       "range": "36\"",
+       "A": "D6+2",
+       "skill": "3+",
+       "S": "10",
+       "AP": "-3",
+       "D": "D6",
+       "kw": [
+        "Indirect Fire"
+       ]
+      },
+      {
+       "name": "Exorcist Conflagration Rockets",
+       "range": "36\"",
+       "A": "3D6",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Blast",
+        "Ignores Cover",
+        "Indirect Fire"
+       ]
+      },
+      {
+       "name": "Hunter-killer missile",
+       "range": "48\"",
+       "A": "1",
+       "skill": "2+",
+       "S": "14",
+       "AP": "-3",
+       "D": "D6",
+       "kw": [
+        "One Shot"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Armoured tracks",
+       "range": "Melee",
+       "A": "3",
+       "skill": "4+",
+       "S": "6",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D3"
+     ],
+     "factionAbilities": [
+      "Acts of Faith"
+     ],
+     "abilities": [
+      {
+       "name": "Devastating Refrain",
+       "text": "After it shoots: an enemy unit hit by an Indirect Fire weapon takes a Battle-shock test; models with Deadly Demise killed by those attacks explode on a 5+.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 180,
+       "ptsLater": 220
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [],
+     "composition": "1 Exorcist: Exorcist missile launcher, heavy bolter, armoured tracks.",
+     "options": [
+      {
+       "id": "launcher",
+       "type": "choice",
+       "label": "Launcher",
+       "choices": [
+        {
+         "id": "ml",
+         "label": "Exorcist missile launcher",
+         "pts": 0
+        },
+        {
+         "id": "rockets",
+         "label": "Exorcist conflagration rockets",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "hk",
+       "type": "toggle",
+       "label": "Hunter-killer missile"
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "hospitaller",
+     "name": "Hospitaller",
+     "role": "unit",
+     "faction": "Adepta Sororitas",
+     "keywords": [
+      "Infantry",
+      "Character",
+      "Imperium",
+      "Hospitaller"
+     ],
+     "image": "as_hospitaller",
+     "baseSize": "50mm",
+     "profile": {
+      "M": "6\"",
+      "T": "3",
+      "Sv": "3+",
+      "InSv": "6+",
+      "W": "3",
+      "OC": "1",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Bolt pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Chirugeon's tools",
+       "range": "Melee",
+       "A": "3",
+       "skill": "4+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Support"
+     ],
+     "factionAbilities": [
+      "Acts of Faith"
+     ],
+     "abilities": [
+      {
+       "name": "Medicus Ministorum",
+       "text": "While leading a unit, its models have Feel No Pain 5+.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Sacred Healing",
+       "text": "While leading a unit, in your Command phase return 1 destroyed non-CHARACTER model to it; or discard 1 Miracle dice to return up to D3+1.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 65,
+       "ptsLater": 75
+      }
+     ],
+     "stepFrom": 2,
+     "leaderOf": [
+      "battle_sisters_squad",
+      "celestian_insidiants",
+      "celestian_sacresants",
+      "dominion_squad",
+      "retributor_squad",
+      "sisters_novitiate_squad"
+     ],
+     "composition": "1 Hospitaller: bolt pistol, chirurgeon's tools.",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "support": true
+    },
+    {
+     "id": "imagifier",
+     "name": "Imagifier",
+     "role": "unit",
+     "faction": "Adepta Sororitas",
+     "keywords": [
+      "Infantry",
+      "Character",
+      "Grenades",
+      "Imperium",
+      "Imagifier"
+     ],
+     "image": "as_imagifier",
+     "baseSize": "32mm",
+     "profile": {
+      "M": "6\"",
+      "T": "3",
+      "Sv": "3+",
+      "InSv": "4+",
+      "W": "3",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Bolt pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Boltgun",
+       "range": "24\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Rapid Fire 1"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Close combat weapon",
+       "range": "Melee",
+       "A": "3",
+       "skill": "4+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Support"
+     ],
+     "factionAbilities": [
+      "Acts of Faith"
+     ],
+     "abilities": [
+      {
+       "name": "Litany of Deeds",
+       "text": "When you gain a Miracle dice because a friendly ADEPTA SORORITAS unit or model was destroyed within 12\" of this model, you can re-roll that die before adding it.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Stanchion of Holy Martyrs",
+       "text": "While leading a unit, its models have Save 2+ and a 4+ invulnerable save.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 55
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "battle_sisters_squad",
+      "celestian_insidiants",
+      "celestian_sacresants",
+      "dominion_squad",
+      "retributor_squad"
+     ],
+     "composition": "1 Imagifier: bolt pistol, boltgun, close combat weapon.",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "support": true
+    },
+    {
+     "id": "immolator",
+     "name": "Immolator",
+     "role": "unit",
+     "faction": "Adepta Sororitas",
+     "keywords": [
+      "Dedicated Transport",
+      "Vehicle",
+      "Smoke",
+      "Transport",
+      "Imperium",
+      "Immolator",
+      "Frame"
+     ],
+     "image": "as_immolator",
+     "baseSize": "Use model",
+     "profile": {
+      "M": "12\"",
+      "T": "10",
+      "Sv": "3+",
+      "InSv": "6+",
+      "W": "11",
+      "OC": "2",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Heavy Bolter",
+       "range": "36\"",
+       "A": "3",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Sustained Hits 1"
+       ]
+      },
+      {
+       "name": "Immolation Flamers",
+       "range": "18\"",
+       "A": "2D6",
+       "skill": "—",
+       "S": "6",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Ignores Cover",
+        "Torrent"
+       ]
+      },
+      {
+       "name": "Twin Heavy Bolter",
+       "range": "36\"",
+       "A": "3",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Sustained Hits 2",
+        "Twin-Linked"
+       ]
+      },
+      {
+       "name": "Twin Multi-melta",
+       "range": "18\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "9",
+       "AP": "-4",
+       "D": "D6",
+       "kw": [
+        "Melta 2",
+        "Twin-Linked"
+       ]
+      },
+      {
+       "name": "Hunter-killer missile",
+       "range": "48\"",
+       "A": "1",
+       "skill": "2+",
+       "S": "14",
+       "AP": "-3",
+       "D": "D6",
+       "kw": [
+        "One Shot"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Armoured tracks",
+       "range": "Melee",
+       "A": "3",
+       "skill": "4+",
+       "S": "6",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D3"
+     ],
+     "factionAbilities": [
+      "Acts of Faith"
+     ],
+     "abilities": [
+      {
+       "name": "Purge and Cleanse",
+       "text": "After it shoots: one enemy unit it hit cannot have the Benefit of Cover until the end of the phase.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 100,
+       "ptsLater": 115
+      }
+     ],
+     "stepFrom": 4,
+     "leaderOf": [],
+     "composition": "1 Immolator: heavy bolter, immolation flamers, armoured tracks.",
+     "options": [
+      {
+       "id": "gun",
+       "type": "choice",
+       "label": "Main gun",
+       "choices": [
+        {
+         "id": "flamers",
+         "label": "Immolation flamers",
+         "pts": 0
+        },
+        {
+         "id": "thb",
+         "label": "Twin heavy bolter",
+         "pts": 0
+        },
+        {
+         "id": "tmm",
+         "label": "Twin multi-melta",
+         "pts": 15
+        }
+       ]
+      },
+      {
+       "id": "hk",
+       "type": "toggle",
+       "label": "Hunter-killer missile"
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "transport": "Carries 6 ADEPTA SORORITAS INFANTRY models (not JUMP PACK models or the Triumph of Saint Katherine). At Declare Battle Formations you can split one BATTLE SISTERS SQUAD, DOMINION SQUAD or SISTERS NOVITIATE SQUAD in two (only one half keeps the Cherub); one half must start inside this transport."
+    },
+    {
+     "id": "intranzia_fraye",
+     "name": "Intranzia Fraye",
+     "role": "unit",
+     "faction": "Adepta Sororitas",
+     "keywords": [
+      "Vehicle",
+      "Walker",
+      "Imperium",
+      "Character",
+      "Penitent",
+      "Epic Hero",
+      "Intranzia Fraye"
+     ],
+     "image": "as_intranzia_fraye",
+     "baseSize": "60mm",
+     "profile": {
+      "M": "8\"",
+      "T": "7",
+      "Sv": "3+",
+      "InSv": "4+",
+      "W": "8",
+      "OC": "3",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Heavy bolter",
+       "range": "36\"",
+       "A": "3",
+       "skill": "2+",
+       "S": "5",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Sustained Hits 1"
+       ]
+      },
+      {
+       "name": "Melta missile array",
+       "range": "24\"",
+       "A": "2",
+       "skill": "2+",
+       "S": "9",
+       "AP": "-2",
+       "D": "D3",
+       "kw": [
+        "Melta 2"
+       ]
+      },
+      {
+       "name": "Ministorum heavy flamer",
+       "range": "12\"",
+       "A": "D6",
+       "skill": "—",
+       "S": "6",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Ignores Cover",
+        "Torrent"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Mace of Saint Praxedes",
+       "range": "Melee",
+       "A": "4",
+       "skill": "2+",
+       "S": "6",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Sustained Hits 1"
+       ]
+      },
+      {
+       "name": "Throne of Blame",
+       "range": "Melee",
+       "A": "4",
+       "skill": "4+",
+       "S": "6",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Extra Attacks"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise 1",
+      "Feel No Pain 5+"
+     ],
+     "factionAbilities": [
+      "Acts of Faith"
+     ],
+     "abilities": [
+      {
+       "name": "Righteous Denunciation",
+       "text": "Start of the Fight phase: each enemy unit within 6\" takes a Battle-shock test at -1.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Judged for Execution",
+       "text": "End of your Movement phase: one visible enemy unit within 18\": until your next Command phase, your ADEPTA SORORITAS attacks against it have [LETHAL HITS].",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 135
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 Intranzia Fraye (Epic Hero): 2 heavy bolters, 2 Ministorum heavy flamers, melta missile array, Mace of Saint Praxedes, Throne of Blame.",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "junith_eruita",
+     "name": "Junith Eruita",
+     "role": "unit",
+     "faction": "Adepta Sororitas",
+     "keywords": [
+      "Epic Hero",
+      "Character",
+      "Fly",
+      "Imperium",
+      "Junith Eruita",
+      "Mounted"
+     ],
+     "image": "as_junith_eruita",
+     "baseSize": "50mm",
+     "profile": {
+      "M": "8\"",
+      "T": "5",
+      "Sv": "2+",
+      "InSv": "4+",
+      "W": "8",
+      "OC": "2",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Twin Ministorum Heavy Flamer",
+       "range": "12\"",
+       "A": "D6",
+       "skill": "—",
+       "S": "6",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Ignores Cover",
+        "Torrent",
+        "Twin-Linked"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Mace of Castigation",
+       "range": "Melee",
+       "A": "4",
+       "skill": "2+",
+       "S": "6",
+       "AP": "-2",
+       "D": "2",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise 1",
+      "Leader"
+     ],
+     "factionAbilities": [
+      "Acts of Faith"
+     ],
+     "abilities": [
+      {
+       "name": "The Pulpit of Saint Holline’s Basilica",
+       "text": "This unit has Stealth, and melee attacks against it get -1 to hit.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Fiery Conviction",
+       "text": "Start of your Command phase, if on the battlefield: discard 1 Miracle dice to gain 1CP, or take a Leadership test and gain 1CP if passed.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 105
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "battle_sisters_squad",
+      "celestian_insidiants",
+      "celestian_sacresants",
+      "dominion_squad",
+      "retributor_squad",
+      "sisters_novitiate_squad"
+     ],
+     "composition": "1 Junith Eruita (Epic Hero): twin Ministorum heavy flamer, Mace of Castigation.",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "ministorum_priest",
+     "name": "Ministorum Priest",
+     "role": "unit",
+     "faction": "Adepta Sororitas",
+     "keywords": [
+      "Infantry",
+      "Character",
+      "Imperium",
+      "Ministorum Priest",
+      "Penitent"
+     ],
+     "image": "as_ministorum_priest",
+     "baseSize": "32mm",
+     "profile": {
+      "M": "6\"",
+      "T": "3",
+      "Sv": "6+",
+      "InSv": "4+",
+      "W": "3",
+      "OC": "1",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Holy Pistol",
+       "range": "12\"",
+       "A": "3",
+       "skill": "4+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Zealot's vindictor",
+       "range": "12\"",
+       "A": "D6",
+       "skill": "—",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Ignores Cover",
+        "Torrent"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Power weapon",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-2",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Zealot's vindictor",
+       "range": "Melee",
+       "A": "3",
+       "skill": "4+",
+       "S": "5",
+       "AP": "-1",
+       "D": "2",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Leader"
+     ],
+     "factionAbilities": [
+      "Acts of Faith"
+     ],
+     "abilities": [
+      {
+       "name": "Righteous Smiting",
+       "text": "While leading a unit, melee attacks by its models get +1 to wound.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Zealot",
+       "text": "Once per battle, in the Fight phase: +3 S and +3 A on his melee weapons until the end of the phase.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Holy Mission",
+       "text": "Attached to a DOMINION SQUAD at Declare Battle Formations: Scouts 6\". Attached to a SISTERS NOVITIATE SQUAD: Infiltrators.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 50
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "arco_flagellants",
+      "battle_sisters_squad",
+      "celestian_insidiants",
+      "dominion_squad",
+      "sanctifiers",
+      "sisters_novitiate_squad"
+     ],
+     "composition": "1 Ministorum Priest: zealot's vindictor.",
+     "options": [
+      {
+       "id": "gun",
+       "type": "choice",
+       "label": "Weapons",
+       "choices": [
+        {
+         "id": "vindictor",
+         "label": "Zealot's vindictor",
+         "pts": 0
+        },
+        {
+         "id": "pistol",
+         "label": "Holy pistol and power weapon",
+         "pts": 0
+        }
+       ]
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "once": [
+      {
+       "id": "zealot",
+       "name": "Zealot",
+       "n": 1,
+       "text": "Fight phase: +3 S and +3 A on his melee weapons until the end of the phase."
+      }
+     ]
+    },
+    {
+     "id": "mortifiers",
+     "name": "Mortifiers",
+     "role": "unit",
+     "faction": "Adepta Sororitas",
+     "keywords": [
+      "Vehicle",
+      "Walker",
+      "Imperium",
+      "Mortifiers",
+      "Penitent"
+     ],
+     "image": "as_mortifiers",
+     "baseSize": "50mm",
+     "profile": {
+      "M": "8\"",
+      "T": "6",
+      "Sv": "4+",
+      "InSv": "6+",
+      "W": "5",
+      "OC": "2",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Heavy Bolter",
+       "range": "36\"",
+       "A": "3",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Sustained Hits 1"
+       ]
+      },
+      {
+       "name": "Mortifier flamer",
+       "range": "12\"",
+       "A": "D6",
+       "skill": "n/a",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Ignores Cover",
+        "Torrent",
+        "Twin-Linked"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Twin Penitent Buzz-Blades",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "10",
+       "AP": "-3",
+       "D": "2",
+       "kw": [
+        "Sustained Hits 1",
+        "Twin-Linked"
+       ]
+      },
+      {
+       "name": "Twin Penitent Flails",
+       "range": "Melee",
+       "A": "8",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Sustained Hits 1",
+        "Twin-Linked"
+       ]
+      },
+      {
+       "name": "Penitent Buzz-Blade",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "10",
+       "AP": "-3",
+       "D": "2",
+       "kw": [
+        "Sustained Hits 1"
+       ]
+      },
+      {
+       "name": "Penitent Flail",
+       "range": "Melee",
+       "A": "8",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Sustained Hits 1"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise 1",
+      "Feel No Pain 5+"
+     ],
+     "factionAbilities": [
+      "Acts of Faith"
+     ],
+     "abilities": [
+      {
+       "name": "Anguish of the Unredeemed",
+       "text": "A model killed by a melee attack before it fought: on a 2+ it fights after the attacker, then is removed.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Anchorite Sarcophagus",
+       "text": "The bearer has Move 7\" and Save 3+.",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 70
+      },
+      {
+       "models": 2,
+       "pts": 130
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1-2 Mortifiers: 2 heavy bolters, twin penitent buzz-blades.",
+     "options": [
+      {
+       "id": "sarco",
+       "type": "toggle",
+       "label": "Anchorite sarcophagus"
+      },
+      {
+       "id": "hbf",
+       "type": "count",
+       "label": "Heavy bolter and Mortifier flamer",
+       "slots": [
+        "mg"
+       ],
+       "max": "slot"
+      },
+      {
+       "id": "mf",
+       "type": "count",
+       "label": "2 Mortifier flamers",
+       "slots": [
+        "mg"
+       ],
+       "max": "slot"
+      },
+      {
+       "id": "blade_flail",
+       "type": "count",
+       "label": "Penitent buzz-blade and penitent flail",
+       "slots": [
+        "pm"
+       ],
+       "max": "slot"
+      },
+      {
+       "id": "flails",
+       "type": "count",
+       "label": "Twin penitent flails",
+       "slots": [
+        "pm"
+       ],
+       "max": "slot"
+      }
+     ],
+     "optionRules": [],
+     "slots": [
+      {
+       "id": "mg",
+       "label": "Mortifier guns",
+       "default": "2 heavy bolters",
+       "size": {
+        "models": 1
+       }
+      },
+      {
+       "id": "pm",
+       "label": "Mortifier melee weapons",
+       "default": "Twin penitent buzz-blades",
+       "size": {
+        "models": 1
+       }
+      }
+     ],
+     "optionGroups": []
+    },
+    {
+     "id": "morvenn_vahl",
+     "name": "Morvenn Vahl",
+     "role": "unit",
+     "faction": "Adepta Sororitas",
+     "keywords": [
+      "Vehicle",
+      "Walker",
+      "Character",
+      "Epic Hero",
+      "Imperium",
+      "Morvenn Vahl"
+     ],
+     "image": "as_morvenn_vahl",
+     "baseSize": "60mm",
+     "profile": {
+      "M": "8\"",
+      "T": "7",
+      "Sv": "2+",
+      "InSv": "4+",
+      "W": "8",
+      "OC": "3",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Fidelis",
+       "range": "36\"",
+       "A": "3",
+       "skill": "2+",
+       "S": "6",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Sustained Hits 1"
+       ]
+      },
+      {
+       "name": "Paragon missile launcher - prioris",
+       "range": "36\"",
+       "A": "2",
+       "skill": "2+",
+       "S": "9",
+       "AP": "-2",
+       "D": "D6",
+       "kw": []
+      },
+      {
+       "name": "Paragon missile launcher - sanctorum",
+       "range": "36\"",
+       "A": "2D6",
+       "skill": "2+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Blast"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Lance of Illumination - strike",
+       "range": "Melee",
+       "A": "5",
+       "skill": "2+",
+       "S": "8",
+       "AP": "-2",
+       "D": "3",
+       "kw": [
+        "Devastating Wounds"
+       ]
+      },
+      {
+       "name": "Lance of Illumination - sweep",
+       "range": "Melee",
+       "A": "10",
+       "skill": "2+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Devastating Wounds"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise 1",
+      "Leader"
+     ],
+     "factionAbilities": [
+      "Acts of Faith"
+     ],
+     "abilities": [
+      {
+       "name": "Abbess Sanctorum",
+       "text": "While leading a unit, attacks by its models re-roll hit and wound rolls.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Righteous Repugnance",
+       "text": "When her unit shoots or fights, discard 1 Miracle dice for +3 A on Fidelis and the Lance of Illumination until the end of the phase. Gain 1 Miracle dice each time she destroys an enemy unit.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 215
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "paragon_warsuits"
+     ],
+     "composition": "1 Morvenn Vahl (Epic Hero): Fidelis, Paragon missile launcher, Lance of Illumination.",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "palatine",
+     "name": "Palatine",
+     "role": "unit",
+     "faction": "Adepta Sororitas",
+     "keywords": [
+      "Infantry",
+      "Character",
+      "Grenades",
+      "Imperium",
+      "Palatine"
+     ],
+     "image": "as_palatine",
+     "baseSize": "32mm",
+     "profile": {
+      "M": "6\"",
+      "T": "3",
+      "Sv": "3+",
+      "InSv": "4+",
+      "W": "4",
+      "OC": "1",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Bolt pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Plasma pistol - supercharge",
+       "range": "12\"",
+       "A": "1",
+       "skill": "2+",
+       "S": "8",
+       "AP": "-3",
+       "D": "2",
+       "kw": [
+        "Hazardous",
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Plasma pistol - standard",
+       "range": "12\"",
+       "A": "1",
+       "skill": "2+",
+       "S": "7",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Palatine blade",
+       "range": "Melee",
+       "A": "4",
+       "skill": "2+",
+       "S": "4",
+       "AP": "-2",
+       "D": "2",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Leader"
+     ],
+     "factionAbilities": [
+      "Acts of Faith"
+     ],
+     "abilities": [
+      {
+       "name": "Fury of the Righteous",
+       "text": "While leading a unit, weapons in that unit have [LETHAL HITS].",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Rapturous Blows",
+       "text": "When her unit fights, discard 1 Miracle dice: until the end of the phase each wound from her melee attacks also inflicts 1 mortal wound.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 50
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "battle_sisters_squad",
+      "celestian_insidiants",
+      "celestian_sacresants",
+      "dominion_squad",
+      "retributor_squad",
+      "sisters_novitiate_squad"
+     ],
+     "composition": "1 Palatine: bolt pistol, Palatine blade.",
+     "options": [
+      {
+       "id": "pistol",
+       "type": "choice",
+       "label": "Pistol",
+       "choices": [
+        {
+         "id": "bp",
+         "label": "Bolt pistol",
+         "pts": 0
+        },
+        {
+         "id": "plasma",
+         "label": "Plasma pistol",
+         "pts": 0
+        }
+       ]
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "paragon_warsuits",
+     "name": "Paragon Warsuits",
+     "role": "unit",
+     "faction": "Adepta Sororitas",
+     "keywords": [
+      "Vehicle",
+      "Walker",
+      "Grenades",
+      "Imperium",
+      "Paragon Warsuits"
+     ],
+     "image": "as_paragon_warsuits",
+     "baseSize": "50mm",
+     "profile": {
+      "M": "8\"",
+      "T": "7",
+      "Sv": "2+",
+      "InSv": "4+",
+      "W": "4",
+      "OC": "2",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Paragon Storm Bolters",
+       "range": "24\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Rapid Fire 2",
+        "Twin-Linked"
+       ]
+      },
+      {
+       "name": "Paragon Grenade Launchers",
+       "range": "24\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "9",
+       "AP": "-2",
+       "D": "D3",
+       "kw": [
+        "Twin-Linked"
+       ]
+      },
+      {
+       "name": "Heavy Bolter",
+       "range": "36\"",
+       "A": "3",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Sustained Hits 1"
+       ]
+      },
+      {
+       "name": "Multi-melta",
+       "range": "18\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "9",
+       "AP": "-4",
+       "D": "D6",
+       "kw": [
+        "Melta 2"
+       ]
+      },
+      {
+       "name": "Ministorum heavy flamer",
+       "range": "12\"",
+       "A": "D6",
+       "skill": "—",
+       "S": "6",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Ignores Cover",
+        "Torrent"
+       ]
+      },
+      {
+       "name": "Bolt pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Paragon War Blade",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-2",
+       "D": "2",
+       "kw": []
+      },
+      {
+       "name": "Paragon War Mace",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "12",
+       "AP": "-1",
+       "D": "3",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [],
+     "factionAbilities": [
+      "Acts of Faith"
+     ],
+     "abilities": [
+      {
+       "name": "Righteous Paragons",
+       "text": "Attacks against MONSTER or VEHICLE units get +1 to hit and +1 to wound.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 3,
+       "pts": 165,
+       "ptsLater": 175
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [],
+     "composition": "1 Paragon Superior and 2 Paragons: bolt pistol, heavy bolter, Paragon storm bolters, Paragon war blade.",
+     "options": [
+      {
+       "id": "gl",
+       "type": "count",
+       "label": "Paragon grenade launchers",
+       "slots": [
+        "pg"
+       ],
+       "max": "slot"
+      },
+      {
+       "id": "mace",
+       "type": "count",
+       "label": "Paragon war mace",
+       "slots": [
+        "pw"
+       ],
+       "max": "slot"
+      },
+      {
+       "id": "hflamer",
+       "type": "count",
+       "label": "Ministorum heavy flamer",
+       "slots": [
+        "ph"
+       ],
+       "max": "slot"
+      },
+      {
+       "id": "mm",
+       "type": "count",
+       "label": "Multi-melta (+10 pts each)",
+       "slots": [
+        "ph"
+       ],
+       "max": "slot",
+       "pts": 10
+      }
+     ],
+     "optionRules": [],
+     "slots": [
+      {
+       "id": "pg",
+       "label": "Paragon storm bolters",
+       "default": "Paragon storm bolters",
+       "size": {
+        "models": 1
+       }
+      },
+      {
+       "id": "pw",
+       "label": "Paragon melee weapon",
+       "default": "Paragon war blade",
+       "size": {
+        "models": 1
+       }
+      },
+      {
+       "id": "ph",
+       "label": "Paragon heavy weapon",
+       "default": "Heavy bolter",
+       "size": {
+        "models": 1
+       }
+      }
+     ],
+     "optionGroups": []
+    },
+    {
+     "id": "penitent_engines",
+     "name": "Penitent Engines",
+     "role": "unit",
+     "faction": "Adepta Sororitas",
+     "keywords": [
+      "Vehicle",
+      "Walker",
+      "Imperium",
+      "Penitent Engines",
+      "Penitent"
+     ],
+     "image": "as_penitent_engines",
+     "baseSize": "50mm",
+     "profile": {
+      "M": "8\"",
+      "T": "6",
+      "Sv": "4+",
+      "InSv": "6+",
+      "W": "5",
+      "OC": "2",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Penitent Flamers",
+       "range": "12\"",
+       "A": "2D6",
+       "skill": "—",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Assault",
+        "Ignores Cover",
+        "Torrent",
+        "Twin-Linked"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Twin Penitent Buzz-Blades",
+       "range": "Melee",
+       "A": "4",
+       "skill": "4+",
+       "S": "10",
+       "AP": "-3",
+       "D": "2",
+       "kw": [
+        "Sustained Hits 1",
+        "Twin-Linked"
+       ]
+      },
+      {
+       "name": "Twin Penitent Flails",
+       "range": "Melee",
+       "A": "8",
+       "skill": "4+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Sustained Hits 1",
+        "Twin-Linked"
+       ]
+      },
+      {
+       "name": "Penitent Buzz-Blade",
+       "range": "Melee",
+       "A": "4",
+       "skill": "4+",
+       "S": "10",
+       "AP": "-3",
+       "D": "2",
+       "kw": [
+        "Sustained Hits 1"
+       ]
+      },
+      {
+       "name": "Penitent Flail",
+       "range": "Melee",
+       "A": "8",
+       "skill": "4+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Sustained Hits 1"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise 1",
+      "Feel No Pain 5+"
+     ],
+     "factionAbilities": [
+      "Acts of Faith"
+     ],
+     "abilities": [
+      {
+       "name": "Endless Suffering",
+       "text": "This unit can charge in a turn in which it advanced.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 70
+      },
+      {
+       "models": 2,
+       "pts": 140
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1-2 Penitent Engines: penitent flamers, twin penitent buzz-blades.",
+     "options": [
+      {
+       "id": "blade_flail",
+       "type": "count",
+       "label": "Penitent buzz-blade and penitent flail",
+       "slots": [
+        "pm"
+       ],
+       "max": "slot"
+      },
+      {
+       "id": "flails",
+       "type": "count",
+       "label": "Twin penitent flails",
+       "slots": [
+        "pm"
+       ],
+       "max": "slot"
+      }
+     ],
+     "optionRules": [],
+     "slots": [
+      {
+       "id": "pm",
+       "label": "Penitent melee weapons",
+       "default": "Twin penitent buzz-blades",
+       "size": {
+        "models": 1
+       }
+      }
+     ],
+     "optionGroups": []
+    },
+    {
+     "id": "repentia_squad",
+     "name": "Repentia Squad",
+     "role": "unit",
+     "faction": "Adepta Sororitas",
+     "keywords": [
+      "Infantry",
+      "Grenades",
+      "Imperium",
+      "Repentia Squad",
+      "Penitent"
+     ],
+     "image": "as_repentia_squad",
+     "baseSize": "32mm (Repentia 28.5mm)",
+     "profile": {
+      "M": "7\"",
+      "T": "3",
+      "Sv": "7+",
+      "InSv": "6+",
+      "W": "1",
+      "OC": "1",
+      "Ld": "8+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Bolt pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Penitent Eviscerator",
+       "range": "Melee",
+       "A": "2",
+       "skill": "4+",
+       "S": "6",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Sustained Hits 1"
+       ]
+      },
+      {
+       "name": "Neural Whips",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "3",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Anti-infantry 4+"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Feel No Pain 5+"
+     ],
+     "factionAbilities": [
+      "Acts of Faith"
+     ],
+     "abilities": [
+      {
+       "name": "Overseer of Redemption",
+       "text": "While the Repentia Superior is alive, melee attacks by Sisters Repentia re-roll hit and wound rolls.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 5,
+       "pts": 70
+      },
+      {
+       "models": 10,
+       "pts": 140
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 Repentia Superior (bolt pistol, neural whips) and 4-9 Sisters Repentia (penitent eviscerator).",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "leadModel": {
+      "name": "Repentia Superior",
+      "W": "1",
+      "Ld": "7+",
+      "Sv": "3+"
+     }
+    },
+    {
+     "id": "retributor_squad",
+     "name": "Retributor Squad",
+     "role": "unit",
+     "faction": "Adepta Sororitas",
+     "keywords": [
+      "Infantry",
+      "Grenades",
+      "Imperium",
+      "Retributor Squad"
+     ],
+     "image": "as_retributor_squad",
+     "baseSize": "32mm",
+     "profile": {
+      "M": "6\"",
+      "T": "3",
+      "Sv": "3+",
+      "InSv": "6+",
+      "W": "1",
+      "OC": "1",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Condemnor boltgun",
+       "range": "24\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Anti-psyker 2+",
+        "Devastating Wounds",
+        "Precision",
+        "Rapid Fire 1"
+       ]
+      },
+      {
+       "name": "Combi-weapon",
+       "range": "24\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Anti-infantry 4+",
+        "Devastating Wounds",
+        "Rapid Fire 1"
+       ]
+      },
+      {
+       "name": "Boltgun",
+       "range": "24\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Rapid Fire 1"
+       ]
+      },
+      {
+       "name": "Bolt pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Inferno pistol",
+       "range": "6\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-4",
+       "D": "D3",
+       "kw": [
+        "Melta 2",
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Ministorum hand flamer",
+       "range": "12\"",
+       "A": "D6",
+       "skill": "—",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Ignores Cover",
+        "Pistol",
+        "Torrent"
+       ]
+      },
+      {
+       "name": "Plasma pistol - supercharge",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-3",
+       "D": "2",
+       "kw": [
+        "Hazardous",
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Plasma pistol - standard",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "7",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Ministorum heavy flamer",
+       "range": "12\"",
+       "A": "D6",
+       "skill": "—",
+       "S": "6",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Ignores Cover",
+        "Torrent"
+       ]
+      },
+      {
+       "name": "Multi-melta",
+       "range": "18\"",
+       "A": "2",
+       "skill": "4+",
+       "S": "9",
+       "AP": "-4",
+       "D": "D6",
+       "kw": [
+        "Heavy",
+        "Melta 2"
+       ]
+      },
+      {
+       "name": "Heavy bolter",
+       "range": "36\"",
+       "A": "3",
+       "skill": "4+",
+       "S": "5",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Heavy",
+        "Sustained Hits 1"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Close combat weapon",
+       "range": "Melee",
+       "A": "1",
+       "skill": "4+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Chainsword",
+       "range": "Melee",
+       "A": "3",
+       "skill": "4+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Power weapon",
+       "range": "Melee",
+       "A": "2",
+       "skill": "4+",
+       "S": "4",
+       "AP": "-2",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [],
+     "factionAbilities": [
+      "Acts of Faith"
+     ],
+     "abilities": [
+      {
+       "name": "Cherubs",
+       "text": "Twice per battle, after this unit performs an Act of Faith, gain 1 Miracle dice.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Storm of Retribution",
+       "text": "Ranged attacks re-roll hit and wound rolls of 1; against an enemy unit that has destroyed one of your ADEPTA SORORITAS units this battle, also +1 to hit and +1 to wound.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 5,
+       "pts": 105,
+       "ptsLater": 115
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [],
+     "composition": "1 Retributor Superior (bolt pistol, boltgun, close combat weapon) and 4 Retributors (bolt pistol, heavy bolter, close combat weapon).",
+     "options": [
+      {
+       "id": "sup_gun",
+       "type": "choice",
+       "label": "Retributor Superior: gun",
+       "choices": [
+        {
+         "id": "boltgun",
+         "label": "Boltgun",
+         "pts": 0
+        },
+        {
+         "id": "bp",
+         "label": "Bolt pistol",
+         "pts": 0
+        },
+        {
+         "id": "combi",
+         "label": "Combi-weapon",
+         "pts": 0
+        },
+        {
+         "id": "cond",
+         "label": "Condemnor boltgun",
+         "pts": 0
+        },
+        {
+         "id": "inferno",
+         "label": "Inferno pistol",
+         "pts": 0
+        },
+        {
+         "id": "hflamer",
+         "label": "Ministorum hand flamer",
+         "pts": 0
+        },
+        {
+         "id": "plasma",
+         "label": "Plasma pistol",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "sup_melee",
+       "type": "choice",
+       "label": "Retributor Superior: melee",
+       "choices": [
+        {
+         "id": "ccw",
+         "label": "Close combat weapon",
+         "pts": 0
+        },
+        {
+         "id": "chain",
+         "label": "Chainsword",
+         "pts": 0
+        },
+        {
+         "id": "power",
+         "label": "Power weapon",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "hflamer",
+       "type": "count",
+       "label": "Ministorum heavy flamer",
+       "slots": [
+        "rh"
+       ],
+       "max": "slot"
+      },
+      {
+       "id": "mm",
+       "type": "count",
+       "label": "Multi-melta (+5 pts each)",
+       "slots": [
+        "rh"
+       ],
+       "max": "slot",
+       "pts": 5
+      }
+     ],
+     "optionRules": [],
+     "slots": [
+      {
+       "id": "rh",
+       "label": "Retributor heavy weapon",
+       "default": "Heavy bolter",
+       "size": {
+        "models": 1,
+        "minus": 1
+       }
+      }
+     ],
+     "optionGroups": [],
+     "once": [
+      {
+       "id": "cherubs",
+       "name": "Cherubs",
+       "n": 2,
+       "gain": true,
+       "text": "After this unit performs an Act of Faith: gain 1 Miracle dice. Twice per battle."
+      }
+     ]
+    },
+    {
+     "id": "saint_celestine",
+     "name": "Saint Celestine",
+     "role": "unit",
+     "faction": "Adepta Sororitas",
+     "keywords": [
+      "Infantry",
+      "Fly",
+      "Grenades",
+      "Imperium",
+      "Epic Hero",
+      "Jump Pack",
+      "Character",
+      "Saint Celestine"
+     ],
+     "image": "as_saint_celestine",
+     "baseSize": "40mm (Geminae 32mm)",
+     "profile": {
+      "M": "12\"",
+      "T": "3",
+      "Sv": "2+",
+      "InSv": "4+",
+      "W": "2",
+      "OC": "1",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "The Ardent Blade",
+       "range": "12\"",
+       "A": "D6",
+       "skill": "—",
+       "S": "6",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Ignores Cover",
+        "Torrent"
+       ]
+      },
+      {
+       "name": "Bolt Pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "The Ardent Blade",
+       "range": "Melee",
+       "A": "5",
+       "skill": "2+",
+       "S": "6",
+       "AP": "-3",
+       "D": "2",
+       "kw": [
+        "Devastating Wounds"
+       ]
+      },
+      {
+       "name": "Power Weapon",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-2",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deep Strike",
+      "Leader"
+     ],
+     "factionAbilities": [
+      "Acts of Faith"
+     ],
+     "abilities": [
+      {
+       "name": "Healing Tears",
+       "text": "While Celestine is alive, in your Command phase return 1 destroyed Geminae Superia.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Lifewards",
+       "text": "While a Geminae Superia is alive, Celestine has Feel No Pain 4+.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Miraculous Intervention",
+       "text": "The first time Celestine dies, roll D6 at the end of the phase: on a 2+ she is set back up as close as possible, unengaged, with full wounds.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 3,
+       "pts": 135
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "seraphim_squad",
+      "zephyrim_squad"
+     ],
+     "composition": "1 Celestine (Epic Hero: the Ardent Blade) and 2 Geminae Superia (bolt pistol, power weapon).",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "leadModel": {
+      "name": "Saint Celestine",
+      "W": "5",
+      "Ld": "6+"
+     },
+     "once": [
+      {
+       "id": "miraculous",
+       "name": "Miraculous Intervention",
+       "n": 1,
+       "text": "The first time Celestine dies: roll D6 at the end of the phase, on a 2+ she returns with full wounds."
+      }
+     ]
+    },
+    {
+     "id": "sanctifiers",
+     "name": "Sanctifiers",
+     "role": "unit",
+     "faction": "Adepta Sororitas",
+     "keywords": [
+      "Infantry",
+      "Grenades",
+      "Imperium",
+      "Sanctifiers"
+     ],
+     "image": "as_sanctifiers",
+     "baseSize": "25mm",
+     "profile": {
+      "M": "6\"",
+      "T": "3",
+      "Sv": "6+",
+      "InSv": "5+",
+      "W": "1",
+      "OC": "1",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Ministorum hand flamer",
+       "range": "12\"",
+       "A": "D6",
+       "skill": "—",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Ignores Cover",
+        "Pistol",
+        "Torrent"
+       ]
+      },
+      {
+       "name": "Holy fire",
+       "range": "12\"",
+       "A": "D6",
+       "skill": "—",
+       "S": "6",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Ignores Cover",
+        "One Shot",
+        "Torrent"
+       ]
+      },
+      {
+       "name": "Plasma gun - standard",
+       "range": "24\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "7",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Rapid Fire 1"
+       ]
+      },
+      {
+       "name": "Plasma gun - supercharge",
+       "range": "24\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-3",
+       "D": "2",
+       "kw": [
+        "Hazardous",
+        "Rapid Fire 1"
+       ]
+      },
+      {
+       "name": "Meltagun",
+       "range": "12\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "9",
+       "AP": "-4",
+       "D": "D6",
+       "kw": [
+        "Melta 2"
+       ]
+      },
+      {
+       "name": "Ministorum flamer",
+       "range": "12\"",
+       "A": "D6",
+       "skill": "—",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Ignores Cover",
+        "Torrent"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Close combat weapon",
+       "range": "Melee",
+       "A": "2",
+       "skill": "3+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Sanctifier melee weapon",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Burning hands",
+       "range": "Melee",
+       "A": "1",
+       "skill": "2+",
+       "S": "6",
+       "AP": "-2",
+       "D": "3",
+       "kw": [
+        "Devastating Wounds"
+       ]
+      },
+      {
+       "name": "Death Cult blades",
+       "range": "Melee",
+       "A": "4",
+       "skill": "2+",
+       "S": "4",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Precision"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Scouts 6\""
+     ],
+     "factionAbilities": [
+      "Acts of Faith"
+     ],
+     "abilities": [
+      {
+       "name": "Ministorum Sermon",
+       "text": "While a MINISTORUM PRIEST is in this unit, its melee weapons have [SUSTAINED HITS 1].",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Cherub",
+       "text": "Once per battle, after this unit performs an Act of Faith, gain 1 Miracle dice.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Attached Unit",
+       "text": "A character that can join a listed bodyguard can join this unit instead (see the Leader lists).",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Simulacrum Imperialis",
+       "text": "End of your Command phase: for each objective you control with one or more of your units with this ability in range, roll D6; on a 4+ gain a Miracle dice of that value.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Salvationist Medikit",
+       "text": "Your Command phase, if the bearer is on the battlefield: return up to D3 destroyed non-CHARACTER models.",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 9,
+       "pts": 110
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 Miraculist (holy fire, burning hands), 1 Salvationist (close combat weapon, Salvationist medikit), 1 Death Cult Assassin (Death Cult blades), 2 Missionaries (one with plasma gun, one with Ministorum flamer; Sanctifier melee weapons) and 4 Sanctifiers (Ministorum hand flamer, Sanctifier melee weapon).",
+     "options": [
+      {
+       "id": "missionary",
+       "type": "choice",
+       "label": "Missionary: gun",
+       "choices": [
+        {
+         "id": "plasma",
+         "label": "Plasma gun",
+         "pts": 0
+        },
+        {
+         "id": "melta",
+         "label": "Meltagun",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "holyfire",
+       "type": "toggle",
+       "label": "Holy fire (Missionary with plasma gun)"
+      },
+      {
+       "id": "hf2",
+       "type": "toggle",
+       "label": "Second Ministorum hand flamer (1 Sanctifier)"
+      }
+     ],
+     "optionRules": [
+      {
+       "if": "holyfire",
+       "notValue": 0,
+       "requireAllOf": [
+        [
+         "missionary",
+         "plasma"
+        ]
+       ],
+       "message": "Holy fire needs the Missionary with a plasma gun."
+      }
+     ],
+     "slots": [],
+     "optionGroups": [],
+     "once": [
+      {
+       "id": "cherub",
+       "name": "Cherub",
+       "n": 1,
+       "gain": true,
+       "text": "After this unit performs an Act of Faith: gain 1 Miracle dice."
+      }
+     ]
+    },
+    {
+     "id": "seraphim_squad",
+     "name": "Seraphim Squad",
+     "role": "unit",
+     "faction": "Adepta Sororitas",
+     "keywords": [
+      "Infantry",
+      "Fly",
+      "Grenades",
+      "Imperium",
+      "Seraphim Squad",
+      "Jump Pack"
+     ],
+     "image": "as_seraphim_squad",
+     "baseSize": "32mm",
+     "profile": {
+      "M": "12\"",
+      "T": "3",
+      "Sv": "3+",
+      "InSv": "5+",
+      "W": "1",
+      "OC": "1",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Bolt pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Plasma pistol - supercharge",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-3",
+       "D": "2",
+       "kw": [
+        "Hazardous",
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Plasma pistol - standard",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "7",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Ministorum hand flamer",
+       "range": "12\"",
+       "A": "D6",
+       "skill": "—",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Ignores Cover",
+        "Pistol",
+        "Torrent"
+       ]
+      },
+      {
+       "name": "Inferno Pistol",
+       "range": "6\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-4",
+       "D": "D3",
+       "kw": [
+        "Melta 2",
+        "Pistol"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Power Weapon",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-2",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Chainsword",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Close combat weapon",
+       "range": "Melee",
+       "A": "2",
+       "skill": "3+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deep Strike"
+     ],
+     "factionAbilities": [
+      "Acts of Faith"
+     ],
+     "abilities": [
+      {
+       "name": "Angelic Ascent",
+       "text": "Your Shooting phase, after it shoots, if unengaged: Normal move up to 6\"; it cannot charge this turn.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Condemnatory Psalms",
+       "text": "Your Shooting phase: pick one visible enemy unit within 12\"; it is condemned and has +3\" detection range.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 5,
+       "pts": 75,
+       "ptsLater": 85
+      },
+      {
+       "models": 10,
+       "pts": 150,
+       "ptsLater": 160
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [],
+     "composition": "1 Seraphim Superior and 4-9 Seraphim: 2 bolt pistols, close combat weapon.",
+     "options": [
+      {
+       "id": "inferno",
+       "type": "count",
+       "label": "2 inferno pistols",
+       "group": "sp",
+       "per": 5,
+       "n": 2
+      },
+      {
+       "id": "hflamers",
+       "type": "count",
+       "label": "2 Ministorum hand flamers",
+       "group": "sp",
+       "per": 5,
+       "n": 2
+      },
+      {
+       "id": "sup",
+       "type": "choice",
+       "label": "Seraphim Superior: weapons",
+       "choices": [
+        {
+         "id": "bp",
+         "label": "2 bolt pistols",
+         "pts": 0
+        },
+        {
+         "id": "bpc",
+         "label": "Bolt pistol and chainsword",
+         "pts": 0
+        },
+        {
+         "id": "bpp",
+         "label": "Bolt pistol and plasma pistol",
+         "pts": 0
+        },
+        {
+         "id": "bpw",
+         "label": "Bolt pistol and power weapon",
+         "pts": 0
+        },
+        {
+         "id": "ppc",
+         "label": "Plasma pistol and chainsword",
+         "pts": 0
+        },
+        {
+         "id": "ppw",
+         "label": "Plasma pistol and power weapon",
+         "pts": 0
+        }
+       ]
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [
+      {
+       "id": "sp",
+       "per": 5,
+       "n": 2,
+       "label": "Special pistols"
+      }
+     ]
+    },
+    {
+     "id": "sisters_novitiate_squad",
+     "name": "Sisters Novitiate Squad",
+     "role": "unit",
+     "faction": "Adepta Sororitas",
+     "keywords": [
+      "Infantry",
+      "Grenades",
+      "Imperium",
+      "Sisters Novitiate Squad"
+     ],
+     "image": "as_sisters_novitiate_squad",
+     "baseSize": "32mm (Novitiates 28.5mm)",
+     "profile": {
+      "M": "6\"",
+      "T": "3",
+      "Sv": "4+",
+      "InSv": "6+",
+      "W": "1",
+      "OC": "2",
+      "Ld": "8+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Bolt pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Boltgun",
+       "range": "24\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Rapid Fire 1"
+       ]
+      },
+      {
+       "name": "Plasma pistol - supercharge",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-3",
+       "D": "2",
+       "kw": [
+        "Hazardous",
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Plasma pistol - standard",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "7",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Novitiate autopistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Ministorum flamer",
+       "range": "12\"",
+       "A": "D6",
+       "skill": "—",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Ignores Cover",
+        "Torrent"
+       ]
+      },
+      {
+       "name": "Novitiate autogun",
+       "range": "24\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Rapid Fire 1"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Power weapon",
+       "range": "Melee",
+       "A": "2",
+       "skill": "4+",
+       "S": "4",
+       "AP": "-2",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Close combat weapon",
+       "range": "Melee",
+       "A": "1",
+       "skill": "4+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Novitiate melee weapon",
+       "range": "Melee",
+       "A": "2",
+       "skill": "4+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Infiltrators"
+     ],
+     "factionAbilities": [
+      "Acts of Faith"
+     ],
+     "abilities": [
+      {
+       "name": "Impetuous Fervour",
+       "text": "Attacks re-roll hit rolls of 1, or the whole hit roll against an enemy unit in range of an objective.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Sacred Banner",
+       "text": "Re-roll Advance and Charge rolls for the bearer's unit.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Simulacrum Imperialis",
+       "text": "End of your Command phase: for each objective you control with one or more of your units with this ability in range, roll D6; on a 4+ gain a Miracle dice of that value.",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 10,
+       "pts": 90
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 Novitiate Superior (bolt pistol, boltgun, close combat weapon) and 9 Sisters Novitiate (Novitiate autopistol, Novitiate autogun, close combat weapon).",
+     "options": [
+      {
+       "id": "sup",
+       "type": "choice",
+       "label": "Novitiate Superior: weapons",
+       "choices": [
+        {
+         "id": "gun",
+         "label": "Bolt pistol and boltgun",
+         "pts": 0
+        },
+        {
+         "id": "bpw",
+         "label": "Bolt pistol and power weapon",
+         "pts": 0
+        },
+        {
+         "id": "ppw",
+         "label": "Plasma pistol and power weapon",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "banner",
+       "type": "toggle",
+       "label": "Sacred banner"
+      },
+      {
+       "id": "simulacrum",
+       "type": "toggle",
+       "label": "Simulacrum imperialis"
+      },
+      {
+       "id": "flamer",
+       "type": "count",
+       "label": "Ministorum flamer",
+       "max": 2
+      },
+      {
+       "id": "melee",
+       "type": "count",
+       "label": "Novitiate melee weapons",
+       "slots": [
+        "nv"
+       ],
+       "max": "slot"
+      }
+     ],
+     "optionRules": [],
+     "slots": [
+      {
+       "id": "nv",
+       "label": "Novitiate weapons",
+       "default": "Novitiate autogun",
+       "size": {
+        "models": 1,
+        "minus": 1
+       },
+       "fixedNote": "All also have a Novitiate autopistol."
+      }
+     ],
+     "optionGroups": [],
+     "leadModel": {
+      "name": "Novitiate Superior",
+      "W": "1",
+      "Ld": "7+",
+      "Sv": "3+"
+     }
+    },
+    {
+     "id": "sororitas_rhino",
+     "name": "Sororitas Rhino",
+     "role": "unit",
+     "faction": "Adepta Sororitas",
+     "keywords": [
+      "Dedicated Transport",
+      "Vehicle",
+      "Transport",
+      "Smoke",
+      "Imperium",
+      "Sororitas Rhino",
+      "Frame"
+     ],
+     "image": "as_sororitas_rhino",
+     "baseSize": "Use model",
+     "profile": {
+      "M": "12\"",
+      "T": "9",
+      "Sv": "3+",
+      "InSv": "6+",
+      "W": "10",
+      "OC": "2",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Hunter-killer missile",
+       "range": "48\"",
+       "A": "1",
+       "skill": "2+",
+       "S": "14",
+       "AP": "-3",
+       "D": "D6",
+       "kw": [
+        "One Shot"
+       ]
+      },
+      {
+       "name": "Storm bolter",
+       "range": "24\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Rapid Fire 2"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Armoured tracks",
+       "range": "Melee",
+       "A": "3",
+       "skill": "4+",
+       "S": "6",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D3",
+      "Firing Deck 2"
+     ],
+     "factionAbilities": [
+      "Acts of Faith"
+     ],
+     "abilities": [
+      {
+       "name": "Self Repair",
+       "text": "Start of your Command phase: this model regains 1 lost wound.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 65,
+       "ptsLater": 75
+      }
+     ],
+     "stepFrom": 4,
+     "leaderOf": [],
+     "composition": "1 Sororitas Rhino: storm bolter, armoured tracks.",
+     "options": [
+      {
+       "id": "hk",
+       "type": "toggle",
+       "label": "Hunter-killer missile"
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "transport": "Carries 12 ADEPTA SORORITAS INFANTRY models (not JUMP PACK models or the Triumph of Saint Katherine)."
+    },
+    {
+     "id": "triumph_of_saint_katherine",
+     "name": "Triumph of Saint Katherine",
+     "role": "unit",
+     "faction": "Adepta Sororitas",
+     "keywords": [
+      "Infantry",
+      "Grenades",
+      "Character",
+      "Epic Hero",
+      "Imperium",
+      "Triumph of Saint Katherine"
+     ],
+     "image": "as_triumph_of_saint_katherine",
+     "baseSize": "120x92mm",
+     "profile": {
+      "M": "6\"",
+      "T": "3",
+      "Sv": "3+",
+      "InSv": "4+",
+      "W": "18",
+      "OC": "6",
+      "Ld": "6+"
+     },
+     "damaged": {
+      "threshold": 6,
+      "text": "While it has 1-6 wounds left: the Attacks of all its weapons are halved, and Relics of the Matriarchs picks only one ability."
+     },
+     "ranged": [
+      {
+       "name": "Bolt Pistols",
+       "range": "12\"",
+       "A": "6",
+       "skill": "2+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Relic Weapons",
+       "range": "Melee",
+       "A": "18",
+       "skill": "2+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Leader"
+     ],
+     "factionAbilities": [
+      "Acts of Faith"
+     ],
+     "abilities": [
+      {
+       "name": "Relics of the Matriarchs",
+       "text": "Start of each battle round: pick up to two Relics (one while Damaged); it has them until the next battle round. The Fiery Heart: Aura 6\": +2\" Move and +1 to Advance and Charge rolls. Censer of the Sacred Rose: Aura 6\": re-roll Battle-shock tests. Simulacrum of the Ebon Chalice: Aura 6\": up to two Acts of Faith per phase (never two dice in one roll). Simulacrum of the Argent Shroud: Aura 6\": ranged attacks re-roll wound rolls of 1. Icon of the Valorous Heart: Aura 6\": Feel No Pain 6+. Petals of the Bloody Rose: Aura 6\": +1 AP on melee weapons.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Solemn Procession",
+       "text": "While it is on the battlefield, the Miracle dice you gain at the start of the battle round is a 6 instead of being rolled.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 245
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "battle_sisters_squad"
+     ],
+     "composition": "1 Triumph of Saint Katherine (Epic Hero): bolt pistols, relic weapons.",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "zephyrim_squad",
+     "name": "Zephyrim Squad",
+     "role": "unit",
+     "faction": "Adepta Sororitas",
+     "keywords": [
+      "Infantry",
+      "Fly",
+      "Grenades",
+      "Imperium",
+      "Zephyrim Squad",
+      "Jump Pack"
+     ],
+     "image": "as_zephyrim_squad",
+     "baseSize": "32mm",
+     "profile": {
+      "M": "12\"",
+      "T": "3",
+      "Sv": "3+",
+      "InSv": "5+",
+      "W": "1",
+      "OC": "1",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Bolt pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Plasma pistol - supercharge",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-3",
+       "D": "2",
+       "kw": [
+        "Hazardous",
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Plasma pistol - standard",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "7",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Power weapon",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-2",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deep Strike"
+     ],
+     "factionAbilities": [
+      "Acts of Faith"
+     ],
+     "abilities": [
+      {
+       "name": "Embodied Prophecy",
+       "text": "When it fights, its melee weapons gain [SUSTAINED HITS 1] or [LETHAL HITS] until the end of the phase; both if it charged this turn.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Condemnatory Psalms",
+       "text": "Your Shooting phase: pick one visible enemy unit within 12\"; it is condemned and has +3\" detection range.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Sacred Banner",
+       "text": "Re-roll Advance and Charge rolls for the bearer's unit.",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 5,
+       "pts": 75,
+       "ptsLater": 85
+      },
+      {
+       "models": 10,
+       "pts": 150,
+       "ptsLater": 160
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [],
+     "composition": "1 Zephyrim Superior and 4-9 Zephyrim: bolt pistol, power weapon.",
+     "options": [
+      {
+       "id": "banner",
+       "type": "toggle",
+       "label": "Sacred banner"
+      },
+      {
+       "id": "sup_pistol",
+       "type": "choice",
+       "label": "Zephyrim Superior: pistol",
+       "choices": [
+        {
+         "id": "bp",
+         "label": "Bolt pistol",
+         "pts": 0
+        },
+        {
+         "id": "plasma",
+         "label": "Plasma pistol",
+         "pts": 0
+        }
+       ]
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "aquila_kill_team",
+     "name": "Aquila Kill Team",
+     "role": "allies",
+     "faction": "Agents of the Imperium",
+     "keywords": [
+      "Infantry",
+      "Battleline",
+      "Grenades",
+      "Imperium",
+      "Deathwatch",
+      "Aquila Kill Team",
+      "Retinue",
+      "Ordo Xenos",
+      "Tacticus",
+      "Gravis"
+     ],
+     "image": "ag_aquila_kill_team",
+     "baseSize": "32mm (Gravis 40mm)",
+     "profile": {
+      "M": "6\"",
+      "T": "4",
+      "Sv": "3+",
+      "InSv": "—",
+      "W": "2",
+      "OC": "2",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Plasma pistol - Standard",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "7",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Plasma pistol - Supercharge",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-3",
+       "D": "2",
+       "kw": [
+        "Hazardous",
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Stalker bolt rifle",
+       "range": "30\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Heavy",
+        "Lethal Hits",
+        "Precision"
+       ]
+      },
+      {
+       "name": "Plasma incinerator - Standard",
+       "range": "24\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "7",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Assault",
+        "Heavy"
+       ]
+      },
+      {
+       "name": "Plasma incinerator - Supercharge",
+       "range": "24\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-3",
+       "D": "2",
+       "kw": [
+        "Assault",
+        "Hazardous",
+        "Heavy"
+       ]
+      },
+      {
+       "name": "Bolt pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Pistol",
+        "Lethal Hits"
+       ]
+      },
+      {
+       "name": "Deathwatch marksman bolt carbine",
+       "range": "24\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Heavy",
+        "Lethal Hits"
+       ]
+      },
+      {
+       "name": "Special-issue bolt pistol",
+       "range": "18\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Pistol",
+        "Precision",
+        "Lethal Hits"
+       ]
+      },
+      {
+       "name": "Frag cannon",
+       "range": "18\"",
+       "A": "D3",
+       "skill": "3+",
+       "S": "7",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Blast",
+        "Heavy",
+        "Lethal Hits",
+        "Rapid Fire D3"
+       ]
+      },
+      {
+       "name": "Hellstorm bolt rifle",
+       "range": "30\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Assault",
+        "Heavy",
+        "Lethal Hits"
+       ]
+      },
+      {
+       "name": "Astartes grenade launcher - frag",
+       "range": "24\"",
+       "A": "D3",
+       "skill": "3+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Blast"
+       ]
+      },
+      {
+       "name": "Astartes grenade launcher - krak",
+       "range": "24\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "9",
+       "AP": "-2",
+       "D": "D3",
+       "kw": []
+      },
+      {
+       "name": "Infernus heavy bolter - heavy bolter",
+       "range": "36\"",
+       "A": "3",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Sustained Hits 1"
+       ]
+      },
+      {
+       "name": "Infernus heavy bolter - heavy flamer",
+       "range": "12\"",
+       "A": "D6",
+       "skill": "—",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Ignores cover",
+        "Torrent"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Power weapon",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Sustained Hits 1"
+       ]
+      },
+      {
+       "name": "Close combat weapon",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Heavy thunder hammer",
+       "range": "Melee",
+       "A": "3",
+       "skill": "4+",
+       "S": "10",
+       "AP": "-2",
+       "D": "3",
+       "kw": [
+        "Devastating Wounds"
+       ]
+      },
+      {
+       "name": "Combat knife",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Precision"
+       ]
+      },
+      {
+       "name": "Xenophase blade",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Devastating Wounds"
+       ]
+      }
+     ],
+     "coreAbilities": [],
+     "factionAbilities": [
+      "Assigned Agents"
+     ],
+     "abilities": [
+      {
+       "name": "Death to the Alien",
+       "text": "Attacks re-roll hit rolls of 1, or the whole hit roll against a unit without IMPERIUM or CHAOS.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Attached Unit",
+       "text": "A character that can join a DEATHWATCH KILL TEAM can join this unit instead.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Astartes shield",
+       "text": "The bearer has a 4+ invulnerable save.",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 5,
+       "pts": 110
+      },
+      {
+       "models": 10,
+       "pts": 210
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 Kill Team Sergeant (plasma pistol, power weapon), 1-2 Gravis Veterans (infernus heavy bolter, bolt pistol, close combat weapon) and Deathwatch Veterans with stalker bolt rifle, heavy thunder hammer and Deathwatch marksman bolt carbine.",
+     "options": [
+      {
+       "id": "frag",
+       "type": "count",
+       "label": "Frag cannon",
+       "per": 5,
+       "n": 1
+      },
+      {
+       "id": "hellstorm",
+       "type": "count",
+       "label": "Hellstorm bolt rifle and Astartes grenade launcher",
+       "per": 5,
+       "n": 1
+      },
+      {
+       "id": "shield",
+       "type": "count",
+       "label": "Power weapon and Astartes shield",
+       "per": 5,
+       "n": 1
+      },
+      {
+       "id": "incin",
+       "type": "count",
+       "label": "Plasma incinerator",
+       "per": 5,
+       "n": 1
+      },
+      {
+       "id": "knife",
+       "type": "count",
+       "label": "Combat knife",
+       "per": 5,
+       "n": 1
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "cannotBeWarlord": "Agents of the Imperium cannot be your Warlord in an Adepta Sororitas army."
+    },
+    {
+     "id": "callidus_assassin",
+     "name": "Callidus Assassin",
+     "role": "allies",
+     "faction": "Agents of the Imperium",
+     "keywords": [
+      "Infantry",
+      "Character",
+      "Epic Hero",
+      "Imperium",
+      "Callidus Assassin",
+      "Officio Assassinorum"
+     ],
+     "image": "ag_callidus_assassin",
+     "baseSize": "32mm",
+     "profile": {
+      "M": "7\"",
+      "T": "4",
+      "Sv": "6+",
+      "InSv": "4+",
+      "W": "4",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Neural shredder",
+       "range": "12\"",
+       "A": "D6",
+       "skill": "—",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Anti-infantry 2+",
+        "Precision",
+        "Torrent"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Phase sword and poison blades",
+       "range": "Melee",
+       "A": "5",
+       "skill": "2+",
+       "S": "5",
+       "AP": "-4",
+       "D": "2",
+       "kw": [
+        "Lethal Hits",
+        "Precision"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Deep Strike",
+      "Fights First",
+      "Infiltrators",
+      "Lone Operative"
+     ],
+     "factionAbilities": [
+      "Assigned Agents"
+     ],
+     "abilities": [
+      {
+       "name": "Reign of Confusion",
+       "text": "Once per turn, when your opponent targets one of their units within 12\" with a Stratagem, that use costs 1CP more.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Acrobatic Escape",
+       "text": "End of the Fight phase, if engaged: fall back up to D6\". End of your opponent's turn, if more than 3\" from enemies: go into Strategic Reserves and arrive in your next Movement phase.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Shadow Assignment",
+       "text": "This model cannot be your WARLORD.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Decoy Targets",
+       "text": "Twice per battle (not in the same round), your Movement phase: destroy another friendly unengaged INFANTRY model and put this model in its place.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 100
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 Callidus Assassin (Epic Hero): neural shredder, phase sword and poison blades.",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "cannotBeWarlord": "Agents of the Imperium cannot be your Warlord in an Adepta Sororitas army."
+    },
+    {
+     "id": "corvus_blackstar",
+     "name": "Corvus Blackstar",
+     "role": "allies",
+     "faction": "Agents of the Imperium",
+     "keywords": [
+      "Fly",
+      "Vehicle",
+      "Imperium",
+      "Transport",
+      "Retinue",
+      "Corvus Blackstar",
+      "Ordo Xenos",
+      "Deathwatch",
+      "Frame",
+      "Smoke"
+     ],
+     "image": "ag_corvus_blackstar",
+     "baseSize": "120x92mm (flying base)",
+     "profile": {
+      "M": "14\"",
+      "T": "10",
+      "Sv": "3+",
+      "InSv": "—",
+      "W": "14",
+      "OC": "0",
+      "Ld": "6+"
+     },
+     "damaged": {
+      "threshold": 5,
+      "text": "While it has 1-5 wounds left: -1 to hit rolls."
+     },
+     "ranged": [
+      {
+       "name": "Hurricane bolter",
+       "range": "24\"",
+       "A": "6",
+       "skill": "3+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Rapid Fire 6",
+        "Twin-Linked"
+       ]
+      },
+      {
+       "name": "Twin assault cannon",
+       "range": "24\"",
+       "A": "6",
+       "skill": "3+",
+       "S": "6",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Devastating Wounds",
+        "Twin-Linked"
+       ]
+      },
+      {
+       "name": "Twin lascannon",
+       "range": "48\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "12",
+       "AP": "-3",
+       "D": "D6+1",
+       "kw": [
+        "Twin-Linked"
+       ]
+      },
+      {
+       "name": "Blackstar rocket launcher",
+       "range": "30\"",
+       "A": "D6+1",
+       "skill": "3+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Blast"
+       ]
+      },
+      {
+       "name": "Stormstrike missile launcher",
+       "range": "48\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "10",
+       "AP": "-2",
+       "D": "3",
+       "kw": []
+      }
+     ],
+     "melee": [
+      {
+       "name": "Armoured hull",
+       "range": "Melee",
+       "A": "3",
+       "skill": "4+",
+       "S": "6",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D6",
+      "Hover",
+      "Stealth"
+     ],
+     "factionAbilities": [
+      "Assigned Agents"
+     ],
+     "abilities": [
+      {
+       "name": "Blackstar Cluster Launcher",
+       "text": "After a Normal move: one enemy unit it moved over, roll six D6, each 5+ is 1 mortal wound.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Auspex Array",
+       "text": "The bearer's ranged weapons have [IGNORES COVER].",
+       "kind": "wargear"
+      },
+      {
+       "name": "Infernum Halo-launcher",
+       "text": "The bearer has the SMOKE keyword.",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 180
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 Corvus Blackstar: 2 Blackstar rocket launchers, twin assault cannon, armoured hull.",
+     "options": [
+      {
+       "id": "cannon",
+       "type": "choice",
+       "label": "Nose gun",
+       "choices": [
+        {
+         "id": "ac",
+         "label": "Twin assault cannon",
+         "pts": 0
+        },
+        {
+         "id": "las",
+         "label": "Twin lascannon",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "rockets",
+       "type": "choice",
+       "label": "Missiles",
+       "choices": [
+        {
+         "id": "bs",
+         "label": "2 Blackstar rocket launchers",
+         "pts": 0
+        },
+        {
+         "id": "ss",
+         "label": "2 stormstrike missile launchers",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "hurricane",
+       "type": "toggle",
+       "label": "Hurricane bolter"
+      },
+      {
+       "id": "system",
+       "type": "choice",
+       "label": "System",
+       "choices": [
+        {
+         "id": "none",
+         "label": "None",
+         "pts": 0
+        },
+        {
+         "id": "auspex",
+         "label": "Auspex array",
+         "pts": 0
+        },
+        {
+         "id": "halo",
+         "label": "Infernum halo-launcher",
+         "pts": 0
+        }
+       ]
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "transport": "Carries 12 DEATHWATCH INFANTRY models.",
+     "cannotBeWarlord": "Agents of the Imperium cannot be your Warlord in an Adepta Sororitas army."
+    },
+    {
+     "id": "culexus_assassin",
+     "name": "Culexus Assassin",
+     "role": "allies",
+     "faction": "Agents of the Imperium",
+     "keywords": [
+      "Infantry",
+      "Character",
+      "Epic Hero",
+      "Grenades",
+      "Imperium",
+      "Culexus Assassin",
+      "Officio Assassinorum"
+     ],
+     "image": "ag_culexus_assassin",
+     "baseSize": "32mm",
+     "profile": {
+      "M": "7\"",
+      "T": "4",
+      "Sv": "6+",
+      "InSv": "4+",
+      "W": "4",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Animus speculum",
+       "range": "24\"",
+       "A": "3",
+       "skill": "2+",
+       "S": "5",
+       "AP": "-2",
+       "D": "D3",
+       "kw": [
+        "Anti-psyker 2+",
+        "Assault",
+        "Precision",
+        "Psychic Assassin"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Life-draining touch",
+       "range": "Melee",
+       "A": "4",
+       "skill": "2+",
+       "S": "4",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Anti-psyker 2+",
+        "Devastating Wounds",
+        "Precision"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Deep Strike",
+      "Lone Operative",
+      "Stealth"
+     ],
+     "factionAbilities": [
+      "Assigned Agents"
+     ],
+     "abilities": [
+      {
+       "name": "Abomination",
+       "text": "Feel No Pain 2+ against Psychic Attacks.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Soulless Horror",
+       "text": "Once per battle, start of any Command phase: each enemy unit within 9\" takes a Battle-shock test at -1 (-2 if PSYKER).",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Etheric Emergence",
+       "text": "When it arrives by Deep Strike it can be set up anywhere more than 6\" from enemy units, but cannot charge that turn.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Shadow Assignment",
+       "text": "This model cannot be your WARLORD.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Esoteric Explosives",
+       "text": "When targeted with the Grenades Stratagem, mortal wounds are inflicted on 3+ instead of 4+.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 85
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 Culexus Assassin (Epic Hero): animus speculum, life-draining touch.",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "cannotBeWarlord": "Agents of the Imperium cannot be your Warlord in an Adepta Sororitas army."
+    },
+    {
+     "id": "deathwatch_kill_team",
+     "name": "Deathwatch Kill Team",
+     "role": "allies",
+     "faction": "Agents of the Imperium",
+     "keywords": [
+      "Infantry",
+      "Battleline",
+      "Grenades",
+      "Imperium",
+      "Retinue",
+      "Ordo Xenos",
+      "Deathwatch",
+      "Kill Team"
+     ],
+     "image": "ag_deathwatch_kill_team",
+     "baseSize": "32mm",
+     "profile": {
+      "M": "6\"",
+      "T": "4",
+      "Sv": "3+",
+      "InSv": "—",
+      "W": "2",
+      "OC": "2",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Boltgun",
+       "range": "24\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Frag cannon",
+       "range": "18\"",
+       "A": "D3",
+       "skill": "4+",
+       "S": "7",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Blast",
+        "Heavy",
+        "Rapid Fire D3"
+       ]
+      },
+      {
+       "name": "Infernus heavy bolter - heavy bolter",
+       "range": "36\"",
+       "A": "3",
+       "skill": "4+",
+       "S": "5",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Heavy",
+        "Sustained Hits 1"
+       ]
+      },
+      {
+       "name": "Infernus heavy bolter - heavy flamer",
+       "range": "12\"",
+       "A": "D6",
+       "skill": "—",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Ignores cover",
+        "Torrent"
+       ]
+      },
+      {
+       "name": "Stalker-pattern boltgun",
+       "range": "24\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Heavy",
+        "Precision"
+       ]
+      },
+      {
+       "name": "Deathwatch shotgun",
+       "range": "18\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "4",
+       "AP": "0",
+       "D": "2",
+       "kw": [
+        "Assault"
+       ]
+      },
+      {
+       "name": "Combi-weapon",
+       "range": "24\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Anti-infantry 4+",
+        "Devastating Wounds",
+        "Rapid Fire 1"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Power weapon",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Deathwatch thunder hammer",
+       "range": "Melee",
+       "A": "3",
+       "skill": "4+",
+       "S": "10",
+       "AP": "-2",
+       "D": "3",
+       "kw": [
+        "Devastating Wounds"
+       ]
+      },
+      {
+       "name": "Close combat weapon",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Black Shield blades",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Twin-linked"
+       ]
+      },
+      {
+       "name": "Xenophase blade",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Devastating Wounds"
+       ]
+      }
+     ],
+     "coreAbilities": [],
+     "factionAbilities": [
+      "Assigned Agents"
+     ],
+     "abilities": [
+      {
+       "name": "Death to the Alien",
+       "text": "Attacks re-roll hit rolls of 1, or the whole hit roll against a unit without IMPERIUM or CHAOS.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Astartes shield",
+       "text": "The bearer has a 4+ invulnerable save.",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 5,
+       "pts": 115
+      },
+      {
+       "models": 10,
+       "pts": 220
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 Watch Sergeant and 4-9 Deathwatch Veterans: boltgun, power weapon.",
+     "options": [
+      {
+       "id": "shield",
+       "type": "count",
+       "label": "Astartes shield",
+       "per": 5,
+       "n": 2
+      },
+      {
+       "id": "hammer",
+       "type": "count",
+       "label": "Deathwatch thunder hammer",
+       "per": 5,
+       "n": 2
+      },
+      {
+       "id": "stalker",
+       "type": "count",
+       "label": "Stalker-pattern boltgun",
+       "per": 5,
+       "n": 1
+      },
+      {
+       "id": "shotgun",
+       "type": "count",
+       "label": "Deathwatch shotgun",
+       "per": 5,
+       "n": 2
+      },
+      {
+       "id": "frag",
+       "type": "count",
+       "label": "Frag cannon",
+       "per": 5,
+       "n": 1
+      },
+      {
+       "id": "infernus",
+       "type": "count",
+       "label": "Infernus heavy bolter",
+       "per": 5,
+       "n": 1
+      },
+      {
+       "id": "blades",
+       "type": "toggle",
+       "label": "Black Shield blades"
+      },
+      {
+       "id": "sgt_melee",
+       "type": "choice",
+       "label": "Watch Sergeant: melee",
+       "choices": [
+        {
+         "id": "power",
+         "label": "Power weapon",
+         "pts": 0
+        },
+        {
+         "id": "xeno",
+         "label": "Xenophase blade",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "sgt_gun",
+       "type": "choice",
+       "label": "Watch Sergeant: gun",
+       "choices": [
+        {
+         "id": "bolt",
+         "label": "Boltgun",
+         "pts": 0
+        },
+        {
+         "id": "combi",
+         "label": "Combi-weapon",
+         "pts": 0
+        }
+       ]
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "cannotBeWarlord": "Agents of the Imperium cannot be your Warlord in an Adepta Sororitas army."
+    },
+    {
+     "id": "eversor_assassin",
+     "name": "Eversor Assassin",
+     "role": "allies",
+     "faction": "Agents of the Imperium",
+     "keywords": [
+      "Infantry",
+      "Character",
+      "Epic Hero",
+      "Grenades",
+      "Imperium",
+      "Eversor Assassin",
+      "Officio Assassinorum"
+     ],
+     "image": "ag_eversor_assassin",
+     "baseSize": "32mm",
+     "profile": {
+      "M": "9\"",
+      "T": "4",
+      "Sv": "6+",
+      "InSv": "4+",
+      "W": "4",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Executioner pistol",
+       "range": "12\"",
+       "A": "4",
+       "skill": "2+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Anti-infantry 3+",
+        "Pistol",
+        "Precision",
+        "Sustained Hits 3"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Power sword and neuro gauntlet",
+       "range": "Melee",
+       "A": "6",
+       "skill": "2+",
+       "S": "5",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Anti-infantry 3+",
+        "Precision",
+        "Sustained Hits 3"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D3",
+      "Lone Operative",
+      "Scouts 9\""
+     ],
+     "factionAbilities": [
+      "Assigned Agents"
+     ],
+     "abilities": [
+      {
+       "name": "Frenzon",
+       "text": "It can shoot and charge in a turn in which it advanced.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Overkill",
+       "text": "Once per battle, your Movement phase before a Normal move: +6\" Move and +3 A on its melee weapons until the end of the turn.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Shadow Assignment",
+       "text": "This model cannot be your WARLORD.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Intra-neural Biotech",
+       "text": "Heroic Intervention on this unit costs 1CP less and ignores other uses this phase.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 110
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 Eversor Assassin (Epic Hero): executioner pistol, power sword and neuro gauntlet.",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "cannotBeWarlord": "Agents of the Imperium cannot be your Warlord in an Adepta Sororitas army."
+    },
+    {
+     "id": "exaction_squad",
+     "name": "Exaction Squad",
+     "role": "allies",
+     "faction": "Agents of the Imperium",
+     "keywords": [
+      "Infantry",
+      "Grenades",
+      "Imperium",
+      "Retinue",
+      "Exaction Squad",
+      "Adeptus Arbites"
+     ],
+     "image": "ag_exaction_squad",
+     "baseSize": "28.5mm (Cyber-mastiff 25mm)",
+     "profile": {
+      "M": "6\"",
+      "T": "3",
+      "Sv": "4+",
+      "InSv": "—",
+      "W": "1",
+      "OC": "1",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Arbites combat shotgun",
+       "range": "18\"",
+       "A": "2",
+       "skill": "4+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Assault"
+       ]
+      },
+      {
+       "name": "Arbites shotpistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Arbites grenade launcher - frag",
+       "range": "24\"",
+       "A": "D3",
+       "skill": "4+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Blast"
+       ]
+      },
+      {
+       "name": "Arbites grenade launcher - krak",
+       "range": "24\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "9",
+       "AP": "-2",
+       "D": "D3",
+       "kw": []
+      },
+      {
+       "name": "Executioner shotgun",
+       "range": "24\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Ignores Cover",
+        "Precision"
+       ]
+      },
+      {
+       "name": "Heavy stubber",
+       "range": "36\"",
+       "A": "3",
+       "skill": "4+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Rapid Fire 3"
+       ]
+      },
+      {
+       "name": "Webber",
+       "range": "12\"",
+       "A": "D6",
+       "skill": "—",
+       "S": "2",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Assault",
+        "Devastating Wounds",
+        "Torrent"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Close combat weapon",
+       "range": "Melee",
+       "A": "2",
+       "skill": "4+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Excruciator maul",
+       "range": "Melee",
+       "A": "2",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-1",
+       "D": "2",
+       "kw": []
+      },
+      {
+       "name": "Mechanical bite",
+       "range": "Melee",
+       "A": "3",
+       "skill": "4+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [],
+     "factionAbilities": [
+      "Assigned Agents"
+     ],
+     "abilities": [
+      {
+       "name": "Imperial Law",
+       "text": "Start of the battle: pick one enemy unit; this unit's attacks against it have [LETHAL HITS] and [PRECISION].",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Nuncio-aquila",
+       "text": "Once per battle, start of any Command phase: enemy units (not MONSTER or VEHICLE) in range of an objective within 6\" take a Battle-shock test.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Arbites medi-kit",
+       "text": "Start of your Command phase, if below Starting Strength: return up to D3 destroyed Exaction Vigilants.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Soulguilt scanner",
+       "text": "Ranged weapons of the bearer's unit have [IGNORES COVER].",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 11,
+       "pts": 85
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 Proctor-Exactant and 9 Exaction Vigilants (Arbites combat shotgun, Arbites shotpistol, close combat weapon) and 1 Cyber-mastiff (mechanical bite).",
+     "options": [
+      {
+       "id": "gl",
+       "type": "toggle",
+       "label": "Arbites grenade launcher"
+      },
+      {
+       "id": "exec",
+       "type": "toggle",
+       "label": "Executioner shotgun"
+      },
+      {
+       "id": "stubber",
+       "type": "toggle",
+       "label": "Heavy stubber"
+      },
+      {
+       "id": "webber",
+       "type": "toggle",
+       "label": "Webber"
+      },
+      {
+       "id": "maul",
+       "type": "toggle",
+       "label": "Excruciator maul"
+      },
+      {
+       "id": "medi",
+       "type": "toggle",
+       "label": "Arbites medi-kit"
+      },
+      {
+       "id": "scanner",
+       "type": "toggle",
+       "label": "Soulguilt scanner"
+      },
+      {
+       "id": "nuncio",
+       "type": "toggle",
+       "label": "Nuncio-aquila"
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "cannotBeWarlord": "Agents of the Imperium cannot be your Warlord in an Adepta Sororitas army."
+    },
+    {
+     "id": "grey_knights_terminator_squad",
+     "name": "Grey Knights Terminator Squad",
+     "role": "allies",
+     "faction": "Agents of the Imperium",
+     "keywords": [
+      "Infantry",
+      "Psyker",
+      "Terminator",
+      "Grenades",
+      "Imperium",
+      "Ordo Malleus",
+      "Requisitioned",
+      "Grey Knights Terminator Squad",
+      "Psychic Weapon"
+     ],
+     "image": "ag_grey_knights_terminator_squad",
+     "baseSize": "40mm",
+     "profile": {
+      "M": "5\"",
+      "T": "6",
+      "Sv": "2+",
+      "InSv": "4+",
+      "W": "3",
+      "OC": "2",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Storm bolter",
+       "range": "24\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Rapid Fire 2"
+       ]
+      },
+      {
+       "name": "Incinerator",
+       "range": "12\"",
+       "A": "D6",
+       "skill": "—",
+       "S": "6",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Ignores Cover",
+        "Torrent"
+       ]
+      },
+      {
+       "name": "Psilencer",
+       "range": "24\"",
+       "A": "6",
+       "skill": "3+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Psychic",
+        "Sustained Hits 1"
+       ]
+      },
+      {
+       "name": "Psycannon",
+       "range": "24\"",
+       "A": "3",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Psychic"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Nemesis force weapon",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Psychic"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Deep Strike"
+     ],
+     "factionAbilities": [
+      "Assigned Agents"
+     ],
+     "abilities": [
+      {
+       "name": "Rites of Teleportation",
+       "text": "INQUISITOR units attached at Declare Battle Formations get Deep Strike.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Hammerhand (Psychic)",
+       "text": "After it makes a Charge move, its melee weapons have [LETHAL HITS] until the end of the turn.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Narthecium",
+       "text": "Your Command phase: return 1 destroyed non-CHARACTER model to the bearer's unit.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Ancient's Banner",
+       "text": "+1 OC for models in the bearer's unit.",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 5,
+       "pts": 190
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 Terminator Justicar and 4 Grey Knights Terminators: storm bolter, Nemesis force weapon.",
+     "options": [
+      {
+       "id": "incin",
+       "type": "count",
+       "label": "Incinerator",
+       "group": "gk",
+       "per": 5,
+       "n": 1
+      },
+      {
+       "id": "psil",
+       "type": "count",
+       "label": "Psilencer",
+       "group": "gk",
+       "per": 5,
+       "n": 1
+      },
+      {
+       "id": "psyc",
+       "type": "count",
+       "label": "Psycannon (+5 pts each)",
+       "group": "gk",
+       "per": 5,
+       "n": 1,
+       "pts": 5
+      },
+      {
+       "id": "banner",
+       "type": "toggle",
+       "label": "Ancient's banner"
+      },
+      {
+       "id": "nar",
+       "type": "toggle",
+       "label": "Narthecium"
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [
+      {
+       "id": "gk",
+       "per": 5,
+       "n": 1,
+       "label": "Special weapon"
+      }
+     ],
+     "cannotBeWarlord": "Agents of the Imperium cannot be your Warlord in an Adepta Sororitas army."
+    },
+    {
+     "id": "imperial_navy_breachers",
+     "name": "Imperial Navy Breachers",
+     "role": "allies",
+     "faction": "Agents of the Imperium",
+     "keywords": [
+      "Infantry",
+      "Grenades",
+      "Imperium",
+      "Retinue",
+      "Imperial Navy Breachers",
+      "Battleline",
+      "Smoke",
+      "Voidfarers"
+     ],
+     "image": "ag_imperial_navy_breachers",
+     "baseSize": "25mm (melta/plasma Armsman 28mm)",
+     "profile": {
+      "M": "6\"",
+      "T": "3",
+      "Sv": "4+",
+      "InSv": "—",
+      "W": "1",
+      "OC": "2",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Navis shotgun",
+       "range": "12\"",
+       "A": "2",
+       "skill": "4+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Assault"
+       ]
+      },
+      {
+       "name": "Autopistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Bolt pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Demolition charge",
+       "range": "6\"",
+       "A": "D6",
+       "skill": "5+",
+       "S": "9",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Assault",
+        "Blast",
+        "Hazardous",
+        "One Shot"
+       ]
+      },
+      {
+       "name": "Navis heavy shotgun",
+       "range": "12\"",
+       "A": "4",
+       "skill": "4+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Assault"
+       ]
+      },
+      {
+       "name": "Navis las-volley",
+       "range": "18\"",
+       "A": "4",
+       "skill": "4+",
+       "S": "6",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Plasma gun - standard",
+       "range": "24\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "7",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Rapid Fire 1"
+       ]
+      },
+      {
+       "name": "Plasma gun - supercharge",
+       "range": "24\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "8",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Hazardous",
+        "Rapid Fire 1"
+       ]
+      },
+      {
+       "name": "Meltagun",
+       "range": "12\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "9",
+       "AP": "-4",
+       "D": "D6",
+       "kw": [
+        "Melta 2"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Chainsword",
+       "range": "Melee",
+       "A": "3",
+       "skill": "4+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Power weapon",
+       "range": "Melee",
+       "A": "2",
+       "skill": "4+",
+       "S": "4",
+       "AP": "-2",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Close combat weapon",
+       "range": "Melee",
+       "A": "1",
+       "skill": "4+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Chainfist",
+       "range": "Melee",
+       "A": "1",
+       "skill": "5+",
+       "S": "6",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Anti-vehicle 3+"
+       ]
+      }
+     ],
+     "coreAbilities": [],
+     "factionAbilities": [
+      "Assigned Agents"
+     ],
+     "abilities": [
+      {
+       "name": "Breaching Team",
+       "text": "Attacks re-roll wound rolls of 1, or the whole wound roll against a unit in range of an objective.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Gheistskull",
+       "text": "Once per battle, Grenades on this unit can target an enemy unit within 18\" that is not engaged with your army.",
+       "kind": "wargear"
+      },
+      {
+       "name": "CAT Unit",
+       "text": "Once per battle, when it shoots: its ranged weapons gain [IGNORES COVER] until the end of the phase.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Endurant shield",
+       "text": "The bearer has a 4+ invulnerable save.",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 10,
+       "pts": 90
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 Navis Sergeant-at-Arms (Navis shotgun), 1 Armsman with Navis las-volley, 1 with Navis heavy shotgun and endurant shield, 7 with Navis shotgun; all have a close combat weapon.",
+     "options": [
+      {
+       "id": "sgt",
+       "type": "choice",
+       "label": "Sergeant-at-Arms: weapons",
+       "choices": [
+        {
+         "id": "shot",
+         "label": "Navis shotgun",
+         "pts": 0
+        },
+        {
+         "id": "chain",
+         "label": "Autopistol and chainsword",
+         "pts": 0
+        },
+        {
+         "id": "power",
+         "label": "Bolt pistol and power weapon",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "volley",
+       "type": "choice",
+       "label": "Armsman: Navis las-volley",
+       "choices": [
+        {
+         "id": "volley",
+         "label": "Navis las-volley",
+         "pts": 0
+        },
+        {
+         "id": "melta",
+         "label": "Meltagun",
+         "pts": 0
+        },
+        {
+         "id": "plasma",
+         "label": "Plasma gun",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "apw",
+       "type": "toggle",
+       "label": "Autopistol and power weapon (1 Armsman)"
+      },
+      {
+       "id": "chainfist",
+       "type": "toggle",
+       "label": "Autopistol and chainfist (1 Armsman)"
+      },
+      {
+       "id": "demo",
+       "type": "toggle",
+       "label": "Demolition charge"
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "cannotBeWarlord": "Agents of the Imperium cannot be your Warlord in an Adepta Sororitas army."
+    },
+    {
+     "id": "imperial_rhino",
+     "name": "Imperial Rhino",
+     "role": "allies",
+     "faction": "Agents of the Imperium",
+     "keywords": [
+      "Dedicated Transport",
+      "Vehicle",
+      "Smoke",
+      "Transport",
+      "Imperium",
+      "Imperial Rhino",
+      "Frame"
+     ],
+     "image": "ag_imperial_rhino",
+     "baseSize": "Use model",
+     "profile": {
+      "M": "12\"",
+      "T": "9",
+      "Sv": "3+",
+      "InSv": "—",
+      "W": "10",
+      "OC": "2",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Storm bolter",
+       "range": "24\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Rapid Fire 2"
+       ]
+      },
+      {
+       "name": "Hunter-killer missile",
+       "range": "48\"",
+       "A": "1",
+       "skill": "2+",
+       "S": "14",
+       "AP": "-3",
+       "D": "D6",
+       "kw": [
+        "One Shot"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Armoured tracks",
+       "range": "Melee",
+       "A": "3",
+       "skill": "4+",
+       "S": "6",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D3",
+      "Firing Deck 2"
+     ],
+     "factionAbilities": [
+      "Assigned Agents"
+     ],
+     "abilities": [
+      {
+       "name": "Self-repair",
+       "text": "Start of your Command phase: this model regains 1 lost wound.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 65,
+       "ptsLater": 75
+      }
+     ],
+     "stepFrom": 4,
+     "leaderOf": [],
+     "composition": "1 Imperial Rhino: storm bolter, armoured tracks.",
+     "options": [
+      {
+       "id": "hk",
+       "type": "toggle",
+       "label": "Hunter-killer missile"
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "transport": "Carries 12 AGENTS OF THE IMPERIUM INFANTRY models (not TERMINATOR or OFFICIO ASSASSINORUM). Must start the battle with a unit embarked.",
+     "cannotBeWarlord": "Agents of the Imperium cannot be your Warlord in an Adepta Sororitas army."
+    },
+    {
+     "id": "inquisitor",
+     "name": "Inquisitor",
+     "role": "allies",
+     "faction": "Agents of the Imperium",
+     "keywords": [
+      "Infantry",
+      "Character",
+      "Grenades",
+      "Imperium",
+      "Inquisitor",
+      "Psychic Weapon"
+     ],
+     "image": "ag_inquisitor",
+     "baseSize": "32mm",
+     "profile": {
+      "M": "6\"",
+      "T": "3",
+      "Sv": "4+",
+      "InSv": "5+",
+      "W": "4",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Bolt pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Combi-weapon",
+       "range": "24\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Anti-infantry 4+",
+        "Devastating Wounds",
+        "Rapid Fire 1"
+       ]
+      },
+      {
+       "name": "Psychic Shock Wave",
+       "range": "18\"",
+       "A": "2D6",
+       "skill": "—",
+       "S": "3",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Devastating Wounds",
+        "Psychic",
+        "Torrent"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Inquisitorial melee weapon",
+       "range": "Melee",
+       "A": "5",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-2",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Force weapon",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-2",
+       "D": "D3",
+       "kw": [
+        "Psychic"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Leader"
+     ],
+     "factionAbilities": [
+      "Assigned Agents"
+     ],
+     "abilities": [
+      {
+       "name": "Authority of the Inquisition",
+       "text": "While leading a unit, it can embark in any TRANSPORT its bodyguard can.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Power of the Rosette",
+       "text": "Each time you target his unit with a Stratagem, roll D6: on a 3+ you gain 1CP.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Blessed Wardings",
+       "text": "While leading a unit, its models have a 6+ invulnerable save.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Psychic gifts",
+       "text": "The bearer has the PSYKER keyword.",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 65
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "aquila_kill_team",
+      "battle_sisters_squad",
+      "deathwatch_kill_team",
+      "exaction_squad",
+      "grey_knights_terminator_squad",
+      "imperial_navy_breachers",
+      "inquisitorial_agents",
+      "sanctifiers",
+      "subductor_squad",
+      "vigilant_squad"
+     ],
+     "composition": "1 Inquisitor: bolt pistol, Inquisitorial melee weapon, blessed wardings.",
+     "options": [
+      {
+       "id": "pistol",
+       "type": "choice",
+       "label": "Pistol",
+       "choices": [
+        {
+         "id": "bp",
+         "label": "Bolt pistol",
+         "pts": 0
+        },
+        {
+         "id": "combi",
+         "label": "Combi-weapon",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "gifts",
+       "type": "choice",
+       "label": "Wardings",
+       "choices": [
+        {
+         "id": "ward",
+         "label": "Blessed wardings",
+         "pts": 0
+        },
+        {
+         "id": "gifts",
+         "label": "Psychic gifts and Psychic Shock Wave",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "melee",
+       "type": "choice",
+       "label": "Melee weapon",
+       "choices": [
+        {
+         "id": "inq",
+         "label": "Inquisitorial melee weapon",
+         "pts": 0
+        },
+        {
+         "id": "force",
+         "label": "Force weapon (needs psychic gifts)",
+         "pts": 0
+        }
+       ]
+      }
+     ],
+     "optionRules": [
+      {
+       "if": "melee",
+       "notValue": "inq",
+       "requireAllOf": [
+        [
+         "gifts",
+         "gifts"
+        ]
+       ],
+       "message": "The force weapon needs psychic gifts."
+      }
+     ],
+     "slots": [],
+     "optionGroups": [],
+     "cannotBeWarlord": "Agents of the Imperium cannot be your Warlord in an Adepta Sororitas army."
+    },
+    {
+     "id": "inquisitor_coteaz",
+     "name": "Inquisitor Coteaz",
+     "role": "allies",
+     "faction": "Agents of the Imperium",
+     "keywords": [
+      "Infantry",
+      "Character",
+      "Epic Hero",
+      "Psyker",
+      "Imperium",
+      "Inquisitor",
+      "Coteaz",
+      "Ordo Malleus"
+     ],
+     "image": "ag_inquisitor_coteaz",
+     "baseSize": "40mm",
+     "profile": {
+      "M": "6\"",
+      "T": "3",
+      "Sv": "2+",
+      "InSv": "4+",
+      "W": "4",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Bolt pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Psychic Blast",
+       "range": "18\"",
+       "A": "D6",
+       "skill": "3+",
+       "S": "3",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Anti-daemon 4+",
+        "Anti-infantry 5+",
+        "Devastating Wounds",
+        "Psychic"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Nemesis daemon hammer",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "9",
+       "AP": "-3",
+       "D": "3",
+       "kw": [
+        "Psychic"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Leader"
+     ],
+     "factionAbilities": [
+      "Assigned Agents"
+     ],
+     "abilities": [
+      {
+       "name": "Malefic Wardings (Psychic)",
+       "text": "While leading a unit, its models have a 6+ invulnerable save (4+ against Psychic Attacks and DAEMON attacks).",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Spy Network",
+       "text": "Each time your opponent gains CP from an ability, roll D6: on a 2+ you gain 1CP.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Authority of the Inquisition",
+       "text": "While leading a unit, it can embark in any TRANSPORT its bodyguard can.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Glovodan Psyber-eagle",
+       "text": "Your Command phase: one enemy unit within 18\" cannot have the Benefit of Cover until your next Command phase.",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 95
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "aquila_kill_team",
+      "battle_sisters_squad",
+      "deathwatch_kill_team",
+      "exaction_squad",
+      "grey_knights_terminator_squad",
+      "imperial_navy_breachers",
+      "inquisitorial_agents",
+      "subductor_squad",
+      "vigilant_squad"
+     ],
+     "composition": "1 Inquisitor Coteaz (Epic Hero): bolt pistol, Psychic Blast, Nemesis daemon hammer, Glovodan psyber-eagle.",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "cannotBeWarlord": "Agents of the Imperium cannot be your Warlord in an Adepta Sororitas army."
+    },
+    {
+     "id": "inquisitor_draxus",
+     "name": "Inquisitor Draxus",
+     "role": "allies",
+     "faction": "Agents of the Imperium",
+     "keywords": [
+      "Infantry",
+      "Character",
+      "Epic Hero",
+      "Psyker",
+      "Grenades",
+      "Imperium",
+      "Inquisitor",
+      "Draxus",
+      "Ordo Xenos"
+     ],
+     "image": "ag_inquisitor_draxus",
+     "baseSize": "32mm",
+     "profile": {
+      "M": "6\"",
+      "T": "3",
+      "Sv": "3+",
+      "InSv": "5+",
+      "W": "4",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Dirgesinger",
+       "range": "18\"",
+       "A": "4",
+       "skill": "3+",
+       "S": "4",
+       "AP": "0",
+       "D": "2",
+       "kw": [
+        "Anti-infantry 4+",
+        "Assault",
+        "Devastating Wounds"
+       ]
+      },
+      {
+       "name": "Psychic Tempest",
+       "range": "18\"",
+       "A": "6",
+       "skill": "3+",
+       "S": "6",
+       "AP": "0",
+       "D": "2",
+       "kw": [
+        "Psychic",
+        "Sustained Hits 2"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Power fist",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-2",
+       "D": "2",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Leader"
+     ],
+     "factionAbilities": [
+      "Assigned Agents"
+     ],
+     "abilities": [
+      {
+       "name": "Xenos Hunter",
+       "text": "While leading a unit, attacks against a unit without IMPERIUM or CHAOS get +1 to hit.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Psychic Veil (Psychic)",
+       "text": "Your Command phase: roll D6. On a 1 its unit suffers D3 mortal wounds; on a 2+ it can only be shot from within 18\" until your next Command phase.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Authority of the Inquisition",
+       "text": "While leading a unit, it can embark in any TRANSPORT its bodyguard can.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 110
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "aquila_kill_team",
+      "battle_sisters_squad",
+      "deathwatch_kill_team",
+      "exaction_squad",
+      "imperial_navy_breachers",
+      "inquisitorial_agents",
+      "subductor_squad",
+      "vigilant_squad"
+     ],
+     "composition": "1 Inquisitor Draxus (Epic Hero): Dirgesinger, Psychic Tempest, power fist.",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "cannotBeWarlord": "Agents of the Imperium cannot be your Warlord in an Adepta Sororitas army."
+    },
+    {
+     "id": "inquisitor_greyfax",
+     "name": "Inquisitor Greyfax",
+     "role": "allies",
+     "faction": "Agents of the Imperium",
+     "keywords": [
+      "Infantry",
+      "Character",
+      "Epic Hero",
+      "Psyker",
+      "Grenades",
+      "Imperium",
+      "Inquisitor",
+      "Greyfax",
+      "Ordo Hereticus"
+     ],
+     "image": "ag_inquisitor_greyfax",
+     "baseSize": "32mm",
+     "profile": {
+      "M": "6\"",
+      "T": "3",
+      "Sv": "3+",
+      "InSv": "5+",
+      "W": "4",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Castigation",
+       "range": "18\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-2",
+       "D": "3",
+       "kw": [
+        "Anti-character 4+",
+        "Devastating Wounds",
+        "Precision",
+        "Psychic"
+       ]
+      },
+      {
+       "name": "Condemnor stake",
+       "range": "24\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Anti-psyker 2+",
+        "Devastating Wounds",
+        "Precision",
+        "Rapid Fire 1"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Master-crafted power sword",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-2",
+       "D": "2",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Leader"
+     ],
+     "factionAbilities": [
+      "Assigned Agents"
+     ],
+     "abilities": [
+      {
+       "name": "Psyoculum",
+       "text": "While leading a unit, its ranged weapons have [ANTI-PSYKER 4+].",
+       "kind": "datasheet"
+      },
+      {
+       "name": "No Mercy",
+       "text": "While leading a unit, attacks against a Below Half-strength unit get +1 to hit.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Authority of the Inquisition",
+       "text": "While leading a unit, it can embark in any TRANSPORT its bodyguard can.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 65
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "aquila_kill_team",
+      "battle_sisters_squad",
+      "deathwatch_kill_team",
+      "exaction_squad",
+      "imperial_navy_breachers",
+      "inquisitorial_agents",
+      "sanctifiers",
+      "subductor_squad",
+      "vigilant_squad"
+     ],
+     "composition": "1 Inquisitor Greyfax (Epic Hero): Castigation, condemnor stake, master-crafted power sword.",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "cannotBeWarlord": "Agents of the Imperium cannot be your Warlord in an Adepta Sororitas army."
+    },
+    {
+     "id": "inquisitor_kroyle",
+     "name": "Inquisitor Kroyle",
+     "role": "allies",
+     "faction": "Agents of the Imperium",
+     "keywords": [
+      "Mounted",
+      "Character",
+      "Epic Hero",
+      "Imperium",
+      "Grenades",
+      "Ordo Xenos",
+      "Inquisitor",
+      "Kroyle"
+     ],
+     "image": "ag_inquisitor_kroyle",
+     "baseSize": "60mm",
+     "profile": {
+      "M": "12\"",
+      "T": "4",
+      "Sv": "3+",
+      "InSv": "4+",
+      "W": "6",
+      "OC": "2",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Jindarii tox-cycler",
+       "range": "36\"",
+       "A": "1",
+       "skill": "2+",
+       "S": "6",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Anti-monster 2+",
+        "Heavy",
+        "Precision"
+       ]
+      },
+      {
+       "name": "Stubcarbine",
+       "range": "12\"",
+       "A": "2",
+       "skill": "2+",
+       "S": "5",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Pistol"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Butcher blade",
+       "range": "Melee",
+       "A": "5",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-2",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Garralisk's claws and teeth",
+       "range": "Melee",
+       "A": "4",
+       "skill": "4+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Extra Attacks"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Lone Operative",
+      "Scouts 6\""
+     ],
+     "factionAbilities": [
+      "Assigned Agents"
+     ],
+     "abilities": [
+      {
+       "name": "On My Signal, Fire!",
+       "text": "After it shoots: one enemy unit it hit; until the end of the phase AGENTS OF THE IMPERIUM and IMPERIUM BATTLELINE INFANTRY attacks against it re-roll the hit roll.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Tox‑cycler",
+       "text": "After a hit with the Jindarii tox-cycler: +2 S and +2 D on it for the rest of the battle (max D6).",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 100
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 Inquisitor Kroyle (Epic Hero): Jindarii tox-cycler, stubcarbine, butcher blade, Garralisk's claws and teeth.",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "cannotBeWarlord": "Agents of the Imperium cannot be your Warlord in an Adepta Sororitas army."
+    },
+    {
+     "id": "inquisitorial_agents",
+     "name": "Inquisitorial Agents",
+     "role": "allies",
+     "faction": "Agents of the Imperium",
+     "keywords": [
+      "Infantry",
+      "Grenades",
+      "Imperium",
+      "Retinue",
+      "Inquisitorial Agents",
+      "Psychic Weapon"
+     ],
+     "image": "ag_inquisitorial_agents",
+     "baseSize": "25mm (Gun Servitors 32mm)",
+     "profile": {
+      "M": "6\"",
+      "T": "3",
+      "Sv": "5+",
+      "InSv": "—",
+      "W": "1",
+      "OC": "1",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Agent firearm",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Plasma pistol - standard",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "7",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Plasma pistol - supercharge",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Hazardous",
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Heavy bolter",
+       "range": "36\"",
+       "A": "3",
+       "skill": "4+",
+       "S": "5",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Heavy",
+        "Sustained Hits 1"
+       ]
+      },
+      {
+       "name": "Multi-melta",
+       "range": "18\"",
+       "A": "2",
+       "skill": "4+",
+       "S": "9",
+       "AP": "-4",
+       "D": "D6",
+       "kw": [
+        "Heavy",
+        "Melta 2"
+       ]
+      },
+      {
+       "name": "Plasma cannon - standard",
+       "range": "36\"",
+       "A": "D3",
+       "skill": "4+",
+       "S": "7",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Blast",
+        "Heavy"
+       ]
+      },
+      {
+       "name": "Plasma cannon - supercharge",
+       "range": "36\"",
+       "A": "D3",
+       "skill": "4+",
+       "S": "8",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Blast",
+        "Hazardous",
+        "Heavy"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Agent melee weapon",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Eviscerator",
+       "range": "Melee",
+       "A": "2",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Devastating Wounds"
+       ]
+      },
+      {
+       "name": "Mystic stave",
+       "range": "Melee",
+       "A": "2",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "D3",
+       "kw": [
+        "Anti-infantry 4+",
+        "Psychic"
+       ]
+      }
+     ],
+     "coreAbilities": [],
+     "factionAbilities": [
+      "Assigned Agents"
+     ],
+     "abilities": [
+      {
+       "name": "Loyal Henchmen",
+       "text": "While an INQUISITOR leads this unit, attacks against it get -1 to wound.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Inquisitorial Henchmen",
+       "text": "In another faction's army, each INQUISITOR unit lets you take one INQUISITORIAL AGENTS unit that does not count as RETINUE.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Tome-skull",
+       "text": "Once per battle per Tome-skull, start of any phase: one battle-shocked friendly AGENTS OF THE IMPERIUM unit within 6\" recovers, or one enemy unit within 6\" takes a Battle-shock test.",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 6,
+       "pts": 60
+      },
+      {
+       "models": 12,
+       "pts": 120
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "5-10 Inquisitorial Agents (agent firearm, agent melee weapon) and 1-2 Gun Servitors (heavy bolter, agent melee weapon); 2 Servitors only with 10 Agents.",
+     "options": [
+      {
+       "id": "skull",
+       "type": "count",
+       "label": "Tome-skull",
+       "per": 5,
+       "n": 1
+      },
+      {
+       "id": "plasma",
+       "type": "count",
+       "label": "Plasma pistol",
+       "group": "ia",
+       "per": 5,
+       "n": 1
+      },
+      {
+       "id": "evisc",
+       "type": "count",
+       "label": "Eviscerator",
+       "group": "ia",
+       "per": 5,
+       "n": 1
+      },
+      {
+       "id": "stave",
+       "type": "count",
+       "label": "Mystic stave",
+       "group": "ia",
+       "per": 5,
+       "n": 1
+      },
+      {
+       "id": "servitor",
+       "type": "choice",
+       "label": "Gun Servitor weapon",
+       "choices": [
+        {
+         "id": "hb",
+         "label": "Heavy bolter",
+         "pts": 0
+        },
+        {
+         "id": "mm",
+         "label": "Multi-melta",
+         "pts": 0
+        },
+        {
+         "id": "pc",
+         "label": "Plasma cannon",
+         "pts": 0
+        }
+       ]
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [
+      {
+       "id": "ia",
+       "per": 5,
+       "n": 2,
+       "label": "Agent wargear"
+      }
+     ],
+     "cannotBeWarlord": "Agents of the Imperium cannot be your Warlord in an Adepta Sororitas army."
+    },
+    {
+     "id": "navigator",
+     "name": "Navigator",
+     "role": "allies",
+     "faction": "Agents of the Imperium",
+     "keywords": [
+      "Infantry",
+      "Character",
+      "Psyker",
+      "Imperium",
+      "Voidfarers",
+      "Navigator",
+      "Psychic Weapon"
+     ],
+     "image": "ag_navigator",
+     "baseSize": "32mm",
+     "profile": {
+      "M": "6\"",
+      "T": "3",
+      "Sv": "5+",
+      "InSv": "4+",
+      "W": "3",
+      "OC": "1",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Laspistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Force-orb cane",
+       "range": "Melee",
+       "A": "3",
+       "skill": "4+",
+       "S": "6",
+       "AP": "-1",
+       "D": "D3",
+       "kw": [
+        "Psychic"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Leader"
+     ],
+     "factionAbilities": [
+      "Assigned Agents"
+     ],
+     "abilities": [
+      {
+       "name": "Third Eye (Psychic)",
+       "text": "Start of your Shooting phase: one visible enemy unit within 12\" takes a Battle-shock test (-2 if INFANTRY); if failed it suffers 3 mortal wounds.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Gaze into the Empyrean (Psychic)",
+       "text": "Enemy reinforcements cannot be set up within 12\" of this model.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 75
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "imperial_navy_breachers",
+      "voidsmen_at_arms"
+     ],
+     "composition": "1 Navigator: laspistol, force-orb cane.",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "cannotBeWarlord": "Agents of the Imperium cannot be your Warlord in an Adepta Sororitas army."
+    },
+    {
+     "id": "rogue_trader_entourage",
+     "name": "Rogue Trader Entourage",
+     "role": "allies",
+     "faction": "Agents of the Imperium",
+     "keywords": [
+      "Infantry",
+      "Character",
+      "Grenades",
+      "Imperium",
+      "Rogue Trader Entourage",
+      "Voidfarers"
+     ],
+     "image": "ag_rogue_trader_entourage",
+     "baseSize": "25mm",
+     "profile": {
+      "M": "6\"",
+      "T": "3",
+      "Sv": "4+",
+      "InSv": "4+",
+      "W": "2",
+      "OC": "1",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Household pistol",
+       "range": "12\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Pistol",
+        "Devastating Wounds"
+       ]
+      },
+      {
+       "name": "Dartmask",
+       "range": "12\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "2",
+       "AP": "-1",
+       "D": "D3",
+       "kw": [
+        "Anti-infantry 2+",
+        "Pistol",
+        "Precision"
+       ]
+      },
+      {
+       "name": "Voltaic pistol",
+       "range": "12\"",
+       "A": "3",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Pistol",
+        "Sustained Hits 2"
+       ]
+      },
+      {
+       "name": "Laspistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Monomolecular cane-rapier",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-1",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Death Cult power blade",
+       "range": "Melee",
+       "A": "5",
+       "skill": "2+",
+       "S": "4",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Precision"
+       ]
+      },
+      {
+       "name": "Close combat weapon",
+       "range": "Melee",
+       "A": "1",
+       "skill": "4+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Leader"
+     ],
+     "factionAbilities": [
+      "Assigned Agents"
+     ],
+     "abilities": [
+      {
+       "name": "Backroom Deals",
+       "text": "At Declare Battle Formations pick one unit with this ability: while it leads a unit, those models have Infiltrators.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Warrant of Trade",
+       "text": "After deployment, redeploy up to D3 IMPERIUM BATTLELINE units (they can go into Strategic Reserves regardless of the limit).",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Healing Serum",
+       "text": "Start of your Command phase, if the unit is below Starting Strength: return up to D3 destroyed non-CHARACTER models.",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 4,
+       "pts": 105
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "imperial_navy_breachers",
+      "voidsmen_at_arms"
+     ],
+     "composition": "1 Rogue Trader (household pistol, monomolecular cane-rapier), 1 Death Cult Assassin (dartmask, Death Cult power blade), 1 Lectro-maester (voltaic pistol, close combat weapon), 1 Rejuvenant Adept (laspistol, close combat weapon, healing serum).",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "leadModel": {
+      "name": "Rogue Trader",
+      "W": "4",
+      "Ld": "6+"
+     },
+     "cannotBeWarlord": "Agents of the Imperium cannot be your Warlord in an Adepta Sororitas army."
+    },
+    {
+     "id": "subductor_squad",
+     "name": "Subductor Squad",
+     "role": "allies",
+     "faction": "Agents of the Imperium",
+     "keywords": [
+      "Infantry",
+      "Grenades",
+      "Imperium",
+      "Retinue",
+      "Subductor Squad",
+      "Adeptus Arbites"
+     ],
+     "image": "ag_subductor_squad",
+     "baseSize": "28.5mm (Cyber-mastiff 25mm)",
+     "profile": {
+      "M": "6\"",
+      "T": "3",
+      "Sv": "3+",
+      "InSv": "4+",
+      "W": "1",
+      "OC": "1",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Arbites shotpistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Shock maul",
+       "range": "Melee",
+       "A": "2",
+       "skill": "4+",
+       "S": "4",
+       "AP": "-1",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Mechanical bite",
+       "range": "Melee",
+       "A": "3",
+       "skill": "4+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [],
+     "factionAbilities": [
+      "Assigned Agents"
+     ],
+     "abilities": [
+      {
+       "name": "Dedication to Duty",
+       "text": "A model killed in melee before it fought: on a 4+ it fights after the attacker, then is removed.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Nuncio-aquila",
+       "text": "Once per battle, start of any Command phase: enemy units (not MONSTER or VEHICLE) in range of an objective within 6\" take a Battle-shock test.",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 11,
+       "pts": 100
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 Proctor-Subductor and 9 Subductors (Arbites shotpistol, shock maul) and 1 Cyber-mastiff (mechanical bite).",
+     "options": [
+      {
+       "id": "nuncio",
+       "type": "toggle",
+       "label": "Nuncio-aquila"
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "cannotBeWarlord": "Agents of the Imperium cannot be your Warlord in an Adepta Sororitas army."
+    },
+    {
+     "id": "vigilant_squad",
+     "name": "Vigilant Squad",
+     "role": "allies",
+     "faction": "Agents of the Imperium",
+     "keywords": [
+      "Infantry",
+      "Battleline",
+      "Grenades",
+      "Imperium",
+      "Retinue",
+      "Vigilant Squad",
+      "Adeptus Arbites"
+     ],
+     "image": "ag_vigilant_squad",
+     "baseSize": "28.5mm (Cyber-mastiff 25mm)",
+     "profile": {
+      "M": "6\"",
+      "T": "3",
+      "Sv": "4+",
+      "InSv": "—",
+      "W": "1",
+      "OC": "2",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Arbites combat shotgun",
+       "range": "18\"",
+       "A": "2",
+       "skill": "4+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Assault"
+       ]
+      },
+      {
+       "name": "Arbites shotpistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Arbites grenade launcher - frag",
+       "range": "24\"",
+       "A": "D3",
+       "skill": "4+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Blast"
+       ]
+      },
+      {
+       "name": "Arbites grenade launcher - krak",
+       "range": "24\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "9",
+       "AP": "-2",
+       "D": "D3",
+       "kw": []
+      },
+      {
+       "name": "Executioner shotgun",
+       "range": "24\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Ignores Cover",
+        "Precision"
+       ]
+      },
+      {
+       "name": "Heavy stubber",
+       "range": "36\"",
+       "A": "3",
+       "skill": "4+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Rapid Fire 3"
+       ]
+      },
+      {
+       "name": "Webber",
+       "range": "12\"",
+       "A": "D6",
+       "skill": "—",
+       "S": "2",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Assault",
+        "Devastating Wounds",
+        "Torrent"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Close combat weapon",
+       "range": "Melee",
+       "A": "2",
+       "skill": "4+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Mechanical bite",
+       "range": "Melee",
+       "A": "3",
+       "skill": "4+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [],
+     "factionAbilities": [
+      "Assigned Agents"
+     ],
+     "abilities": [
+      {
+       "name": "Merciless Judgement",
+       "text": "Ranged attacks against a Below Half-strength unit get +1 to wound.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Nuncio-aquila",
+       "text": "Once per battle, start of any Command phase: enemy units (not MONSTER or VEHICLE) in range of an objective within 6\" take a Battle-shock test.",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 11,
+       "pts": 85
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 Proctor-Vigilant and 9 Vigilants (Arbites combat shotgun, Arbites shotpistol, close combat weapon) and 1 Cyber-mastiff (mechanical bite).",
+     "options": [
+      {
+       "id": "gl",
+       "type": "toggle",
+       "label": "Arbites grenade launcher"
+      },
+      {
+       "id": "exec",
+       "type": "toggle",
+       "label": "Executioner shotgun"
+      },
+      {
+       "id": "stubber",
+       "type": "toggle",
+       "label": "Heavy stubber"
+      },
+      {
+       "id": "webber",
+       "type": "toggle",
+       "label": "Webber"
+      },
+      {
+       "id": "nuncio",
+       "type": "toggle",
+       "label": "Nuncio-aquila"
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "cannotBeWarlord": "Agents of the Imperium cannot be your Warlord in an Adepta Sororitas army."
+    },
+    {
+     "id": "vindicare_assassin",
+     "name": "Vindicare Assassin",
+     "role": "allies",
+     "faction": "Agents of the Imperium",
+     "keywords": [
+      "Infantry",
+      "Character",
+      "Epic Hero",
+      "Smoke",
+      "Imperium",
+      "Vindicare Assassin",
+      "Officio Assassinorum"
+     ],
+     "image": "ag_vindicare_assassin",
+     "baseSize": "32mm",
+     "profile": {
+      "M": "7\"",
+      "T": "4",
+      "Sv": "6+",
+      "InSv": "4+",
+      "W": "4",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Exitus pistol",
+       "range": "12\"",
+       "A": "3",
+       "skill": "2+",
+       "S": "6",
+       "AP": "-2",
+       "D": "3",
+       "kw": [
+        "Devastating Wounds",
+        "Ignores Cover",
+        "Pistol",
+        "Precision"
+       ]
+      },
+      {
+       "name": "Exitus rifle",
+       "range": "48\"",
+       "A": "1",
+       "skill": "2+",
+       "S": "8",
+       "AP": "-3",
+       "D": "D3+3",
+       "kw": [
+        "Devastating Wounds",
+        "Heavy",
+        "Ignores Cover",
+        "Precision"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Vindicare combat knife",
+       "range": "Melee",
+       "A": "4",
+       "skill": "2+",
+       "S": "4",
+       "AP": "-1",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Infiltrators",
+      "Lone Operative",
+      "Stealth"
+     ],
+     "factionAbilities": [
+      "Assigned Agents"
+     ],
+     "abilities": [
+      {
+       "name": "Shieldbreaker",
+       "text": "Once per battle, with the exitus rifle: +1 to wound and every successful wound roll is a Critical Wound until the end of the phase.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Dead-shot",
+       "text": "While it shoots, enemy units lose Lone Operative and hidden enemy units have +15\" detection range.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Shadow Assignment",
+       "text": "This model cannot be your WARLORD.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Micromelta Rounds",
+       "text": "Its exitus rifle has [ANTI-MONSTER 4+] and [ANTI-VEHICLE 4+].",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 125
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 Vindicare Assassin (Epic Hero): exitus pistol, exitus rifle, Vindicare combat knife.",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "cannotBeWarlord": "Agents of the Imperium cannot be your Warlord in an Adepta Sororitas army."
+    },
+    {
+     "id": "voidsmen_at_arms",
+     "name": "Voidsmen-at-Arms",
+     "role": "allies",
+     "faction": "Agents of the Imperium",
+     "keywords": [
+      "Infantry",
+      "Grenades",
+      "Imperium",
+      "Retinue",
+      "Voidsmen-at-Arms",
+      "Voidfarers"
+     ],
+     "image": "ag_voidsmen_at_arms",
+     "baseSize": "25mm",
+     "profile": {
+      "M": "6\"",
+      "T": "3",
+      "Sv": "4+",
+      "InSv": "—",
+      "W": "1",
+      "OC": "2",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Artificer shotgun",
+       "range": "12\"",
+       "A": "2",
+       "skill": "4+",
+       "S": "4",
+       "AP": "0",
+       "D": "2",
+       "kw": [
+        "Assault"
+       ]
+      },
+      {
+       "name": "Laspistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Lasgun",
+       "range": "24\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Rapid Fire 1"
+       ]
+      },
+      {
+       "name": "Voidsman rotor cannon",
+       "range": "24\"",
+       "A": "6",
+       "skill": "5+",
+       "S": "6",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Heavy",
+        "Sustained Hits 1"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Close combat weapon",
+       "range": "Melee",
+       "A": "1",
+       "skill": "4+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Vicious bite",
+       "range": "Melee",
+       "A": "3",
+       "skill": "4+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [],
+     "factionAbilities": [
+      "Assigned Agents"
+     ],
+     "abilities": [
+      {
+       "name": "Masters of Close Confines",
+       "text": "Ranged attacks against the closest eligible target have [LETHAL HITS].",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Navy Bodyguards",
+       "text": "In another faction's army, each VOIDFARERS CHARACTER lets you take one VOIDSMEN-AT-ARMS unit that does not count as RETINUE.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 6,
+       "pts": 70
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 Voidmaster (artificer shotgun, laspistol, close combat weapon), 4 Voidsmen (lasgun or Voidsman rotor cannon, laspistol, close combat weapon) and 1 Canid (vicious bite).",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "cannotBeWarlord": "Agents of the Imperium cannot be your Warlord in an Adepta Sororitas army."
+    },
+    {
+     "id": "watch_captain_artemis",
+     "name": "Watch Captain Artemis",
+     "role": "allies",
+     "faction": "Agents of the Imperium",
+     "keywords": [
+      "Epic Hero",
+      "Character",
+      "Infantry",
+      "Grenades",
+      "Imperium",
+      "Deathwatch",
+      "Watch Captain Artemis",
+      "Ordo Xenos"
+     ],
+     "image": "ag_watch_captain_artemis",
+     "baseSize": "32mm",
+     "profile": {
+      "M": "6\"",
+      "T": "4",
+      "Sv": "3+",
+      "InSv": "4+",
+      "W": "4",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Hellfire Extremis",
+       "range": "12\"",
+       "A": "D6",
+       "skill": "—",
+       "S": "4",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Anti-infantry 4+",
+        "Devastating Wounds",
+        "Ignores Cover",
+        "Torrent"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Master-crafted power weapon",
+       "range": "Melee",
+       "A": "6",
+       "skill": "2+",
+       "S": "5",
+       "AP": "-2",
+       "D": "2",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Feel No Pain 6+",
+      "Leader"
+     ],
+     "factionAbilities": [
+      "Assigned Agents"
+     ],
+     "abilities": [
+      {
+       "name": "Tactical Instinct",
+       "text": "While leading a unit, weapons in that unit have [LETHAL HITS].",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Unstoppable Champion",
+       "text": "The first time he dies, roll D6 at the end of the phase: on a 2+ he returns with 1 wound.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 75
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "aquila_kill_team",
+      "deathwatch_kill_team"
+     ],
+     "composition": "1 Watch Captain Artemis (Epic Hero): Hellfire Extremis, master-crafted power weapon.",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "cannotBeWarlord": "Agents of the Imperium cannot be your Warlord in an Adepta Sororitas army."
+    },
+    {
+     "id": "watch_master",
+     "name": "Watch Master",
+     "role": "allies",
+     "faction": "Agents of the Imperium",
+     "keywords": [
+      "Character",
+      "Infantry",
+      "Captain",
+      "Grenades",
+      "Imperium",
+      "Watch Master",
+      "Deathwatch",
+      "Ordo Xenos"
+     ],
+     "image": "ag_watch_master",
+     "baseSize": "32mm",
+     "profile": {
+      "M": "6\"",
+      "T": "4",
+      "Sv": "2+",
+      "InSv": "4+",
+      "W": "5",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Vigil spear",
+       "range": "24\"",
+       "A": "2",
+       "skill": "2+",
+       "S": "4",
+       "AP": "-1",
+       "D": "2",
+       "kw": []
+      }
+     ],
+     "melee": [
+      {
+       "name": "Vigil spear",
+       "range": "Melee",
+       "A": "6",
+       "skill": "2+",
+       "S": "6",
+       "AP": "-2",
+       "D": "D3",
+       "kw": [
+        "Lance"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Leader"
+     ],
+     "factionAbilities": [
+      "Assigned Agents"
+     ],
+     "abilities": [
+      {
+       "name": "Strategic Knowledge",
+       "text": "While leading a unit, it can shoot and charge in a turn in which it advanced or fell back.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Rites of Battle",
+       "text": "Once per battle round, one unit with this ability can use it when its unit is targeted with a Stratagem: that use costs 1CP less.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 105
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "aquila_kill_team",
+      "deathwatch_kill_team"
+     ],
+     "composition": "1 Watch Master: vigil spear.",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "cannotBeWarlord": "Agents of the Imperium cannot be your Warlord in an Adepta Sororitas army."
+    },
+    {
+     "id": "inquisitorial_chimera",
+     "name": "Inquisitorial Chimera",
+     "role": "allies",
+     "faction": "Agents of the Imperium",
+     "keywords": [
+      "Dedicated Transport",
+      "Vehicle",
+      "Smoke",
+      "Transport",
+      "Imperium",
+      "Inquisitorial Chimera",
+      "Frame"
+     ],
+     "image": "ag_inquisitorial_chimera",
+     "baseSize": "Use model",
+     "profile": {
+      "M": "10\"",
+      "T": "9",
+      "Sv": "3+",
+      "InSv": "—",
+      "W": "11",
+      "OC": "2",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Lasgun array",
+       "range": "24\"",
+       "A": "6",
+       "skill": "4+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Rapid Fire 6"
+       ]
+      },
+      {
+       "name": "Heavy bolter",
+       "range": "36\"",
+       "A": "3",
+       "skill": "4+",
+       "S": "5",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Sustained Hits 1"
+       ]
+      },
+      {
+       "name": "Heavy flamer",
+       "range": "12\"",
+       "A": "D6",
+       "skill": "—",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Ignores Cover",
+        "Torrent"
+       ]
+      },
+      {
+       "name": "Storm bolter",
+       "range": "24\"",
+       "A": "2",
+       "skill": "4+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Rapid Fire 2"
+       ]
+      },
+      {
+       "name": "Heavy stubber",
+       "range": "36\"",
+       "A": "3",
+       "skill": "4+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Rapid Fire 3"
+       ]
+      },
+      {
+       "name": "Multi-laser",
+       "range": "36\"",
+       "A": "4",
+       "skill": "4+",
+       "S": "6",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Hunter-killer missile",
+       "range": "48\"",
+       "A": "1",
+       "skill": "2+",
+       "S": "14",
+       "AP": "-3",
+       "D": "D6",
+       "kw": [
+        "One Shot"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Armoured tracks",
+       "range": "Melee",
+       "A": "3",
+       "skill": "4+",
+       "S": "6",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D3",
+      "Firing Deck 2"
+     ],
+     "factionAbilities": [
+      "Assigned Agents"
+     ],
+     "abilities": [
+      {
+       "name": "Rapid Deployment",
+       "text": "Units can disembark after it advanced; they count as having made a Normal move and cannot charge that turn.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 60,
+       "ptsLater": 70
+      }
+     ],
+     "stepFrom": 4,
+     "leaderOf": [],
+     "composition": "1 Inquisitorial Chimera: multi-laser, heavy bolter, lasgun array, armoured tracks.",
+     "options": [
+      {
+       "id": "hb",
+       "type": "choice",
+       "label": "Hull gun",
+       "choices": [
+        {
+         "id": "hb",
+         "label": "Heavy bolter",
+         "pts": 0
+        },
+        {
+         "id": "hf",
+         "label": "Heavy flamer",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "ml",
+       "type": "choice",
+       "label": "Turret",
+       "choices": [
+        {
+         "id": "ml",
+         "label": "Multi-laser",
+         "pts": 0
+        },
+        {
+         "id": "hb",
+         "label": "Heavy bolter",
+         "pts": 0
+        },
+        {
+         "id": "hf",
+         "label": "Heavy flamer",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "pintle",
+       "type": "choice",
+       "label": "Pintle weapon",
+       "choices": [
+        {
+         "id": "none",
+         "label": "None",
+         "pts": 0
+        },
+        {
+         "id": "stubber",
+         "label": "Heavy stubber",
+         "pts": 0
+        },
+        {
+         "id": "storm",
+         "label": "Storm bolter",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "hk",
+       "type": "toggle",
+       "label": "Hunter-killer missile"
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "transport": "Carries 13 INQUISITOR INFANTRY and INQUISITORIAL AGENTS models (not TERMINATOR). Must start the battle with a unit embarked.",
+     "cannotBeWarlord": "Agents of the Imperium cannot be your Warlord in an Adepta Sororitas army."
     }
    ]
   }
