@@ -1097,7 +1097,7 @@
     const cabal = fd.armyRules.find(a => a.rituals);
     if (cabal) out.push(ritualHTML(r, p, cabal, dets));
     if (fd.armyRules.some(a => a.miracle)) out.push(sororitasHTML(r, p, dets));
-    r.units.forEach(u => { const def = unitDef(r.factionId, u.datasheetId); if (def && def.roundPick) out.unshift(roundPickHTML(r, p, u, def)); });
+    r.units.forEach(u => { const def = unitDef(r.factionId, u.datasheetId); if (def && def.roundPick) out.unshift(roundPickHTML(r, p, u, def)); if (def && def.phaseTrigger) out.unshift(phaseTriggerHTML(r, p, u, def)); });
     dets.forEach(d => {
       if (d.numberlessHorde) {
         const rounds = d.numberlessHorde[r.battleSize] || d.numberlessHorde.strike, done = p.pox || {};
@@ -1285,6 +1285,31 @@
       + Array.from({ length: 12 }, () => `<i class="ey-mote" style="left:${R(30, 70).toFixed(0)}%;--x:${R(-20, 20).toFixed(0)}px;--t:${R(1, 1.7).toFixed(2)}s;--dl:${R(.3, .8).toFixed(2)}s"></i>`).join('');
     card.appendChild(fx); setTimeout(() => fx.remove(), 2400);
     if (PL.android) setTimeout(() => PL.haptic('confirm'), 220);
+  }
+
+  /* A roll a unit makes in one of your phases every turn (Mortarion's Host of Plagues). Dice stay at the table:
+     the card lights up in that phase and the player marks it done. State p.trig[instanceId][round] = true. */
+  function phaseTriggerHTML(r, p, u, def) {
+    const t = def.phaseTrigger, done = ((p.trig || {})[u.instanceId] || {})[p.round], dead = unitDead(p, u);
+    const now = !dead && !done && p.phase === t.phase && (t.turn !== 'mine' || p.turn !== 'opp');
+    const badge = dead ? '<span class="badge">Dead</span>' : done ? `<span class="badge">Round ${p.round}: done</span>` : now ? '<span class="badge gold">Now</span>' : `<span class="badge">${esc(t.when)}</span>`;
+    return `<div class="panel pad stack trk"><div class="row"><h3 class="grow">${esc(t.title)}</h3>${badge}</div>
+      <button class="hop hop-${t.style} ${done ? 'done' : ''} ${now ? 'now' : ''}" data-act="trigDone" data-u="${u.instanceId}" aria-pressed="${!!done}" ${dead ? 'aria-disabled="true"' : ''}>
+        <span class="hop-stain" aria-hidden="true"></span><span class="hop-t"><b>${esc(t.when)}</b></span><span class="hop-s">${dead ? '' : done ? esc(t.done) + ' ✓' : esc(t.button)}</span><span class="hop-e">${esc(t.text)}</span></button>
+      <div class="faint" style="font-size:.85rem">${dead ? `${esc(t.who)} is dead.` : 'Roll at the table, then tap to mark this battle round as done.'}</div></div>`;
+  }
+  /* Rot and decay: a sickly vignette closes in, clouds of miasma roll out from the card, the three-circle mark of the
+     Plague God festers and drips, spores drift up and stains spread over the card. No flies (user decision). */
+  function rotFx(card) {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches || !card) return;
+    const b = card.getBoundingClientRect(), cx = b.left + b.width / 2, cy = b.top + b.height / 2, R = (a, c) => a + Math.random() * (c - a);
+    const fx = document.createElement('div'); fx.className = 'rotfx'; fx.setAttribute('aria-hidden', 'true');
+    fx.innerHTML = '<div class="rx-vig"></div>'
+      + Array.from({ length: 7 }, (_, i) => { const a = i / 7 * Math.PI * 2 + R(-.3, .3), d = R(90, 220); return `<i class="rx-cloud" style="left:${cx}px;top:${cy}px;--x:${(Math.cos(a) * d).toFixed(0)}px;--y:${(Math.sin(a) * d * .6 - 40).toFixed(0)}px;--z:${R(1.6, 2.6).toFixed(2)};--dl:${R(0, .25).toFixed(2)}s"></i>`; }).join('')
+      + `<div class="rx-mark" style="left:${cx}px;top:${Math.max(110, cy - 150)}px"><svg viewBox="0 0 100 100"><circle cx="50" cy="31" r="17"/><circle cx="31" cy="63" r="17"/><circle cx="69" cy="63" r="17"/><circle class="rx-core" cx="50" cy="52" r="7"/></svg>${Array.from({ length: 4 }, (_, i) => `<b style="left:${[30, 44, 58, 70][i]}%;--h:${R(26, 60).toFixed(0)}px;--dl:${R(.4, .8).toFixed(2)}s"></b>`).join('')}</div>`
+      + Array.from({ length: 22 }, () => `<u style="left:${(b.left + R(0, 1) * b.width).toFixed(0)}px;top:${(b.top + R(.3, 1) * b.height).toFixed(0)}px;--x:${R(-40, 40).toFixed(0)}px;--h:${R(80, 200).toFixed(0)}px;--t:${R(1.8, 2.8).toFixed(2)}s;--dl:${R(0, .8).toFixed(2)}s;--s:${R(3, 7).toFixed(0)}px"></u>`).join('');
+    document.body.appendChild(fx); setTimeout(() => fx.remove(), 3300);
+    if (PL.android) setTimeout(() => PL.haptic('confirm'), 150);
   }
   function roundHint(r, p) {
     const fd = fdata(r.factionId), dets = r.detachmentIds.map(id => fd.detachments.find(d => d.id === id)).filter(Boolean);
@@ -2342,7 +2367,7 @@
         }
         p.phase = PHASES[i];
         if (p.phase === 'Command') { p.cp += 1; if (p.turn !== 'opp') p.hyperExtra = null; turnStart(r, p); msg = `${p.turn === 'opp' ? "Opponent's" : 'Your'} Command phase, round ${p.round}: +1 CP.${roundHint(r, p)}${p.turn !== 'opp' && p.ms && p.ms.secMode === 'tactical' ? ' Draw 2 Secondary Missions.' : ''}`; }
-        else msg = `${p.turn === 'opp' ? "Opponent's" : 'Your'} ${p.phase} phase.`
+        else msg = `${p.turn === 'opp' ? "Opponent's" : 'Your'} ${p.phase} phase.` + r.units.map(u => { const t = (unitDef(r.factionId, u.datasheetId) || {}).phaseTrigger; return t && t.phase === p.phase && (t.turn !== 'mine' || p.turn !== 'opp') && !unitDead(p, u) ? ` ${t.when}: ${t.who}'s ${t.title}.` : ''; }).join('');
         if (p.phase === 'Shooting' && p.turn !== 'opp' && fdata(r.factionId).armyRules.some(a => a.rituals)) msg += ' Attempt Rituals first.';
       }, () => msg, 'confirm');
       { const d = document.querySelector('.mdie.new'); if (d && d.getBoundingClientRect().top < innerHeight) holyFx(d, 'die'); }
@@ -2380,6 +2405,12 @@
       S.ritOpen = S.ritBy = null;
       playChange(r, p => { p.rit = p.rit || {}; (p.rit[p.round] = p.rit[p.round] || {})[id] = { by, ok }; }, msg, ok ? 'confirm' : 'tick');
       if (ok) { const c = document.querySelector(`.rit[data-id="${id}"]`); if (c) warpfire(c); }
+    },
+    trigDone: el => {
+      if (el.getAttribute('aria-disabled') === 'true') { toast('Dead. Bring the model back first.'); PL.haptic('reject'); return; }
+      const r = cur(), iid = el.dataset.u, on = !((playState(r).trig || {})[iid] || {})[playState(r).round];
+      playChange(r, p => { p.trig = p.trig || {}; const m = p.trig[iid] = p.trig[iid] || {}; if (m[p.round]) delete m[p.round]; else m[p.round] = true; }, on ? null : 'Marked as not done.', 'confirm');
+      if (on) rotFx(document.querySelector(`.hop[data-u="${iid}"]`));
     },
     rpPick: el => {
       if (el.getAttribute('aria-disabled') === 'true') { toast('Dead. Bring the model back first.'); PL.haptic('reject'); return; }

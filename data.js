@@ -13918,7 +13918,18 @@ const DATA = {
      "optionRules": [],
      "slots": [],
      "optionGroups": [],
-     "mustBeWarlord": "Supreme Commander: Mortarion must be your Warlord."
+     "mustBeWarlord": "Supreme Commander: Mortarion must be your Warlord.",
+     "phaseTrigger": {
+      "title": "Host of Plagues",
+      "style": "rot",
+      "who": "Mortarion",
+      "phase": "Movement",
+      "turn": "mine",
+      "when": "End of your Movement phase",
+      "text": "Roll a D6 for each enemy unit within 6\" of Mortarion (+1 if it is Afflicted). On a 3+ that unit suffers D3 mortal wounds.",
+      "button": "Unleash the plagues",
+      "done": "Plagues spread"
+     }
     },
     {
      "id": "typhus",
