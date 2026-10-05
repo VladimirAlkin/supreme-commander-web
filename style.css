@@ -177,6 +177,10 @@ label.fld > input, label.fld > select { color: var(--fg); }
 .stepper button { width: 40px; height: 40px; border-radius: 8px; border: 1px solid var(--line); background: var(--panel-2); font-size: 1.2rem; font-weight: 700; }
 .stepper output { min-width: 54px; text-align: center; font-variant-numeric: tabular-nums; }
 .opt .cap { font-size: .8rem; color: var(--fg-dim); }
+.optdesc { font-size: .84rem; line-height: 1.4; color: var(--fg-dim); margin-top: 3px; max-width: 62ch; }
+.optdesc b { color: var(--fg); font-weight: 600; }
+.optt .optdesc { margin: -4px 0 4px 32px; }
+.opt > .optdesc { grid-column: 1 / -1; margin-top: -4px; }
 .confirm { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; padding: 8px; border-radius: 8px; background: color-mix(in srgb, var(--err) 12%, transparent); }
 
 /* Validation */
@@ -437,6 +441,9 @@ button.stat { cursor: pointer; }
 .mstatus .ok { color: var(--ok); }
 .donebtn { min-width: 76px; }
 
+/* phones: solid top bar like .mbar (no see-through blur under the status bar), and inputs stop below it when iOS scrolls to them */
+html.m .topbar { background: color-mix(in srgb, var(--bg) 92%, black); backdrop-filter: none; -webkit-backdrop-filter: none; }
+html.m input, html.m textarea, html.m select { scroll-margin-top: calc(84px + env(safe-area-inset-top, 0px)); }
 html.m .wrap { padding-inline: 14px; }
 html.m .mwrap { padding-top: 12px; padding-bottom: calc(var(--tabbar-h) + 24px + env(safe-area-inset-bottom, 0px)); }
 html.m.has-fab .mwrap { padding-bottom: calc(var(--tabbar-h) + 96px); }

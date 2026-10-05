@@ -423,11 +423,11 @@
     const ok = dr.name.trim() && dr.detachmentIds.length && dr.forceDisposition;
     return topbar(`<span class="title">${dr.editing ? 'Edit setup' : 'New ' + esc(f.name) + ' roster'}</span>`, { back: dr.editing ? 'wizCancel' : 'goFaction' }) +
       `<main class="wrap stack" style="gap:22px">
-      <section class="stack"><div class="eyebrow">1 · Roster name</div><input type="text" id="wiz-name" data-inp="draftName" value="${esc(dr.name)}" aria-label="Roster name" style="max-width:520px"></section>
-      <section class="stack"><div class="eyebrow">2 · Battle size</div><div class="cards3">${GR.battleSizes.map(b => `<button class="choice" aria-pressed="${dr.battleSize === b.id}" data-act="draftSize" data-id="${b.id}"><span class="big">${b.name}</span><dl><dt>Points</dt><dd>${b.points}</dd><dt>DP budget</dt><dd>${b.dp}</dd><dt>Enhancements</dt><dd>${b.enhancements}</dd><dt>Copies per datasheet</dt><dd>${b.copyLimit} (Battleline / Transport ${b.copyLimit * 2})</dd></dl>${b.loneThreeDp ? '<span class="dim" style="font-size:.85rem">A single 3 DP detachment may be taken on its own.</span>' : ''}</button>`).join('')}</div></section>
-      <section class="stack"><div class="row"><div class="eyebrow grow">3 · Detachments</div><b class="num">${used} / ${bs.dp} DP</b></div><div class="bar ${used > bs.dp ? 'over' : ''}"><i style="width:${Math.min(100, used / bs.dp * 100)}%"></i></div>
+      <section class="stack"><div class="eyebrow">Roster name</div><input type="text" id="wiz-name" data-inp="draftName" value="${esc(dr.name)}" aria-label="Roster name" style="max-width:520px"></section>
+      <section class="stack"><div class="eyebrow">Battle size</div><div class="cards3">${GR.battleSizes.map(b => `<button class="choice" aria-pressed="${dr.battleSize === b.id}" data-act="draftSize" data-id="${b.id}"><span class="big">${b.name}</span><dl><dt>Points</dt><dd>${b.points}</dd><dt>DP budget</dt><dd>${b.dp}</dd><dt>Enhancements</dt><dd>${b.enhancements}</dd><dt>Copies per datasheet</dt><dd>${b.copyLimit} (Battleline / Transport ${b.copyLimit * 2})</dd></dl>${b.loneThreeDp ? '<span class="dim" style="font-size:.85rem">A single 3 DP detachment may be taken on its own.</span>' : ''}</button>`).join('')}</div></section>
+      <section class="stack"><div class="row"><div class="eyebrow grow">Detachments</div><b class="num">${used} / ${bs.dp} DP</b></div><div class="bar ${used > bs.dp ? 'over' : ''}"><i style="width:${Math.min(100, used / bs.dp * 100)}%"></i></div>
         <div class="stack" style="gap:8px">${fd.detachments.map(d => { const why = detBlock(d, dr); const on = dr.detachmentIds.includes(d.id); return `<button class="choice detrow" role="checkbox" aria-checked="${on}" ${why ? 'aria-disabled="true"' : ''} data-act="draftDet" data-id="${d.id}"><span class="check">${on ? '✓' : ''}</span><span class="stack" style="gap:4px"><span class="row"><span class="big">${esc(d.name)}</span><span class="badge gold">${d.dp} DP</span>${Engine.dispositionsOf(d).map(x => `<span class="badge">${esc(x)}</span>`).join('')}${(d.tags || []).map(t => `<span class="badge red">${esc(t)}</span>`).join('')}</span><span class="dim">${esc(d.summary)}</span>${why ? `<span class="why">⚠ ${esc(why)}</span>` : ''}</span></button>`; }).join('')}</div></section>
-      <section class="stack"><div class="eyebrow">4 · Force Disposition</div>${disps.length ? `<div class="row">${disps.map(x => `<button class="chip" aria-pressed="${dr.forceDisposition === x}" data-act="draftDisp" data-id="${esc(x)}">${esc(x)}</button>`).join('')}</div>${disps.length === 1 ? '<span class="dim">Set automatically: only one disposition is available.</span>' : '<span class="dim">Pick one of your detachments\' dispositions.</span>'}` : '<span class="dim">Choose a detachment first.</span>'}</section>
+      <section class="stack"><div class="eyebrow">Force Disposition</div>${disps.length ? `<div class="row">${disps.map(x => `<button class="chip" aria-pressed="${dr.forceDisposition === x}" data-act="draftDisp" data-id="${esc(x)}">${esc(x)}</button>`).join('')}</div>${disps.length === 1 ? '<span class="dim">Set automatically: only one disposition is available.</span>' : '<span class="dim">Pick one of your detachments\' dispositions.</span>'}` : '<span class="dim">Choose a detachment first.</span>'}</section>
       <div class="row"><button class="btn primary" data-act="wizDone" ${ok ? '' : 'disabled'}>${dr.editing ? 'Save setup' : 'Create roster'}</button>${ok ? '' : '<span class="dim">Pick a detachment and a disposition to continue.</span>'}</div>
       </main>`;
   }
@@ -703,18 +703,36 @@
     (def.slots || []).forEach(sl => { const size = Engine.slotSize(sl, inst); const opts = (def.options || []).filter(o => (o.slots || []).includes(sl.id)).reverse(); let over = Engine.slotUsed(def, inst, sl.id) - size; for (const o of opts) { if (over <= 0) break; const v = +wg[o.id] || 0, cut = Math.min(v, over); wg[o.id] = v - cut; over -= cut; } });
     (def.optionGroups || []).forEach(g => { const cap = Math.floor(inst.size / g.per) * g.n; const opts = (def.options || []).filter(o => o.group === g.id).reverse(); let over = opts.reduce((a, o) => a + (+wg[o.id] || 0), 0) - cap; for (const o of opts) { if (over <= 0) break; const v = +wg[o.id] || 0, cut = Math.min(v, over); wg[o.id] = v - cut; over -= cut; } });
   }
+  /* what a wargear option does, shown under it: the wargear rule (Icon of Khorne…) or the weapon profile(s) (Havoc launcher…) */
+  const wgNorm = s => String(s || '').toLowerCase().replace(/’/g, "'").replace(/\([^)]*\)/g, ' ').replace(/^[a-z' ]{3,24}:\s*/, '').replace(/^(second|extra)\s+/, '').replace(/\s+/g, ' ').trim();
+  const stat = (k, v) => k + (/^\d|^[-+]/.test(String(v)) ? '' : ' ') + v;
+  function optDesc(def, label) {
+    const n = wgNorm(label); if (!def || !n || n === 'none') return '';
+    const ab = (def.abilities || []).find(a => wgNorm(a.name) === n);
+    if (ab) return `<div class="optdesc">${esc(ab.text)}</div>`;
+    const ws = [...(def.ranged || []), ...(def.melee || [])], seen = new Set(), lines = [];
+    const parts = ws.some(w => wgNorm(w.name).startsWith(n)) ? [n] : n.split(/\s*(?:,|\band\b)\s*/).filter(Boolean);
+    parts.forEach(part => {
+      const p = part.replace(/^\d+\s+/, '');
+      const find = q => ws.filter(w => { const x = wgNorm(w.name); return x === q || x.startsWith(q + ' - ') || x.startsWith(q + ' – '); });
+      let hit = find(p); if (!hit.length && /s$/.test(p)) hit = find(p.replace(/s$/, ''));
+      hit.forEach(w => { if (seen.has(w.name)) return; seen.add(w.name); const mel = /melee/i.test(w.range);
+        lines.push(`<b>${esc(w.name)}</b> ${esc([mel ? 'Melee' : w.range, stat('A', w.A), (mel ? 'WS ' : 'BS ') + w.skill, stat('S', w.S), stat('AP', w.AP), stat('D', w.D)].concat(w.kw || []).join(' · '))}`); });
+    });
+    return lines.length ? `<div class="optdesc">${lines.join('<br>')}</div>` : '';
+  }
   function optionHTML(inst, o, def) {
     const wg = inst.wargear || {};
     if (o.type === 'choice') {
-      const v = wg[o.id] || o.choices[0].id;
-      return `<div class="stack" style="gap:6px"><span>${esc(o.label)}</span><div class="choicechips" role="radiogroup" aria-label="${esc(o.label)}">${o.choices.map(c => `<button class="cchip" role="radio" aria-checked="${c.id === v}" data-act="pickOpt" data-id="${inst.instanceId}" data-o="${o.id}" data-v="${c.id}">${esc(c.label)}${c.pts ? ` <span class="num">+${c.pts}</span>` : ''}</button>`).join('')}</div></div>`;
+      const v = wg[o.id] || o.choices[0].id, sel = o.choices.find(c => c.id === v);
+      return `<div class="stack" style="gap:6px"><span>${esc(o.label)}</span><div class="choicechips" role="radiogroup" aria-label="${esc(o.label)}">${o.choices.map(c => `<button class="cchip" role="radio" aria-checked="${c.id === v}" data-act="pickOpt" data-id="${inst.instanceId}" data-o="${o.id}" data-v="${c.id}">${esc(c.label)}${c.pts ? ` <span class="num">+${c.pts}</span>` : ''}</button>`).join('')}</div>${sel ? optDesc(def, sel.label) : ''}</div>`;
     }
     const mx = Engine.optionMax(o, inst, def), val = +wg[o.id] || 0, cap = Engine.ownCap(o, inst, def);
-    if (o.type === 'toggle') return `<label class="row" style="min-height:44px"><input type="checkbox" id="opt-${inst.instanceId}-${o.id}" data-chg="optToggle" data-id="${inst.instanceId}" data-o="${o.id}" ${val ? 'checked' : ''} ${!val && mx < 1 ? 'disabled' : ''} style="width:22px;height:22px"> ${esc(o.label)}</label>`;
+    if (o.type === 'toggle') return `<div class="optt"><label class="row" style="min-height:44px"><input type="checkbox" id="opt-${inst.instanceId}-${o.id}" data-chg="optToggle" data-id="${inst.instanceId}" data-o="${o.id}" ${val ? 'checked' : ''} ${!val && mx < 1 ? 'disabled' : ''} style="width:22px;height:22px"> ${esc(o.label)}</label>${optDesc(def, o.label)}</div>`;
     const grp = o.group && def ? (def.optionGroups || []).find(g => g.id === o.group) : null;
     const capTxt = grp ? `${grp.n} ${grp.label.toLowerCase()} per ${grp.per} models` : o.per ? `${o.n || 1} per ${o.per} models` : o.max === 'models' ? 'any number' : o.max === 'slot' ? 'any of them' : `max ${cap}`;
     return `<div class="opt"><div><div>${esc(o.label)}${o.note ? ` <span class="faint">(${esc(o.note)})</span>` : ''}</div><div class="cap num" ${val > cap ? 'style="color:var(--err)"' : ''}>${val}/${cap} · ${capTxt}</div></div>
-      <div class="stepper"><button data-act="optDec" data-id="${inst.instanceId}" data-o="${o.id}" aria-label="Fewer">−</button><output class="num">${val}</output><button data-act="optInc" data-id="${inst.instanceId}" data-o="${o.id}" aria-label="More" ${val >= mx ? 'disabled' : ''}>+</button></div></div>`;
+      <div class="stepper"><button data-act="optDec" data-id="${inst.instanceId}" data-o="${o.id}" aria-label="Fewer">−</button><output class="num">${val}</output><button data-act="optInc" data-id="${inst.instanceId}" data-o="${o.id}" aria-label="More" ${val >= mx ? 'disabled' : ''}>+</button></div>${optDesc(def, o.label)}</div>`;
   }
 
   function rosterViewHTML(r) {
@@ -1973,14 +1991,14 @@
   /* Web app (PWA, browser tab): system Back and the browser's swipe-back step back one screen instead of leaving.
      One spare history entry is kept while there is somewhere to go back to; at the Armies home Back leaves as usual. */
   const HIST = !NATIVE && window.top === window && !!(window.history && history.pushState);
-  let histArmed = false;
+  let histArmed = false, swipeBackAt = 0, lastPop = 0;
   function armHistory() { if (!HIST || histArmed || atRoot()) return; try { history.pushState({ sc: 1 }, ''); histArmed = true; } catch (e) { } }
-  if (HIST) window.addEventListener('popstate', () => { histArmed = false; goBack(); armHistory(); });
-  /* iPhone home-screen app has no browser swipe-back, so a swipe from the left edge does Back here.
-     If iOS did its own history Back during the same swipe (popstate), ours is skipped. */
+  /* a popstate that arrives right after our own edge-swipe Back is the same gesture (iOS finished its animation late): re-arm only */
+  if (HIST) window.addEventListener('popstate', () => { lastPop = Date.now(); histArmed = false; if (lastPop - swipeBackAt > 1500) goBack(); swipeBackAt = 0; armHistory(); });
+  /* iPhone home-screen app: a swipe from the left edge does Back here. Some iOS versions also do their own history Back
+     for the same swipe; whichever comes first wins, so one swipe is always exactly one step back. */
   if (HIST && window.navigator.standalone === true) {
-    let sx = null, sy = 0, dx = 0, t0 = 0, lastPop = 0, hint = null;
-    window.addEventListener('popstate', () => { lastPop = Date.now(); });
+    let sx = null, sy = 0, dx = 0, t0 = 0, hint = null;
     const drop = () => { if (hint) hint.remove(); hint = null; sx = null; };
     document.addEventListener('touchstart', e => {
       const t = e.touches[0]; if (e.touches.length !== 1 || t.clientX > 22 || atRoot()) return;
@@ -1992,7 +2010,7 @@
       if (dy > 40 && dy > dx) { drop(); return; }
       const k = Math.max(0, Math.min(1, dx / 90)); hint.style.opacity = k; hint.style.transform = `translateX(${-50 + 56 * k}px)`;
     }, { passive: true });
-    document.addEventListener('touchend', () => { if (sx == null) return; const go = dx >= 90; drop(); if (go) setTimeout(() => { if (lastPop < t0) goBack(); }, 320); }, { passive: true });
+    document.addEventListener('touchend', () => { if (sx == null) return; const go = dx >= 90; drop(); if (go) setTimeout(() => { if (lastPop < t0) { swipeBackAt = Date.now(); goBack(); } }, 320); }, { passive: true });
     document.addEventListener('touchcancel', drop, { passive: true });
   }
   function leaveRoster() {
@@ -2033,6 +2051,7 @@
   const MQL = matchMedia('(max-width: 759.98px)'), MQ = () => MQL.matches;
   let lastKey = null;
   function screenKey() { return [S.view, S.rosterId, S.view === 'roster' ? S.tab : '', S.sub ? S.sub.type + (S.sub.id || '') : '', S.view === 'home' ? S.homeTab : '', S.view === 'faction' ? S.factionId : ''].join('|'); }
+  const chipMem = {};
   function render() {
     S.m = MQ();
     const root = document.documentElement;
@@ -2045,6 +2064,8 @@
     const selStart = document.activeElement && document.activeElement.selectionStart;
     const modalScroll = document.querySelector('.modal') ? document.querySelector('.modal').scrollTop : 0;
     const shPrev = document.querySelector('.sheet-back'), shType = shPrev && shPrev.dataset.type, shBody = shPrev && shPrev.querySelector('.sheet-body'), shScroll = shBody ? shBody.scrollTop : 0;
+    /* horizontal chip strips (catalogue categories, phases, sources) keep where they were scrolled to */
+    document.querySelectorAll('.chips.scroll').forEach((el, i) => { chipMem[lastKey + '|' + (el.getAttribute('aria-label') || i)] = el.scrollLeft; });
     let html = '';
     if (S.view === 'home') html = viewHome();
     else if (S.view === 'faction') html = viewFaction();
@@ -2062,6 +2083,12 @@
     document.body.style.overflow = S.modal || S.sheet ? 'hidden' : '';
     if (key !== lastKey) window.scrollTo(0, S.scrollMem[key] || 0); else window.scrollTo(0, y);
     lastKey = key;
+    document.querySelectorAll('.chips.scroll').forEach((el, i) => {
+      const v = chipMem[key + '|' + (el.getAttribute('aria-label') || i)]; if (v) el.scrollLeft = v;
+      const on = el.querySelector('[aria-pressed="true"]'); if (!on) return;
+      const er = el.getBoundingClientRect(), cr = on.getBoundingClientRect();
+      if (cr.left < er.left) el.scrollLeft += cr.left - er.left - 12; else if (cr.right > er.right) el.scrollLeft += cr.right - er.right + 12;
+    });
     const md = document.querySelector('.modal'); if (md && S.keepModalScroll) md.scrollTop = modalScroll; S.keepModalScroll = false;
     if (focusId) { const el = document.getElementById(focusId); if (el) { el.focus({ preventScroll: true }); try { if (selStart != null && el.setSelectionRange) el.setSelectionRange(selStart, selStart); } catch (e) { } } }
     if (S.modal && S.modal.type === 'portrait') wireCrop();
@@ -2548,7 +2575,16 @@
   });
 
   /* keyboard open: hide the bottom bars so the field stays visible */
-  document.addEventListener('focusin', ev => { if (ev.target.matches && ev.target.matches('input[type=text], input[type=search], textarea')) document.documentElement.classList.add('kb'); });
+  document.addEventListener('focusin', ev => {
+    const el = ev.target; if (!(el.matches && el.matches('input[type=text], input[type=search], textarea'))) return;
+    document.documentElement.classList.add('kb');
+    /* iPhone: after the keyboard opens iOS may leave the field under the sticky top bar; bring it back below the bar */
+    if (S.m && !el.closest('.sheet, .modal, .topbar, .mbar')) setTimeout(() => {
+      if (document.activeElement !== el) return;
+      const bar = document.querySelector('.topbar, .mbar'), hb = bar ? bar.getBoundingClientRect().bottom : 0;
+      if (el.getBoundingClientRect().top < hb + 8) el.scrollIntoView({ block: 'center' });
+    }, 350);
+  });
   document.addEventListener('focusout', () => setTimeout(() => { const a = document.activeElement; if (!(a && a.matches && a.matches('input[type=text], input[type=search], textarea'))) document.documentElement.classList.remove('kb'); }, 50));
   MQL.onchange = () => render();
 
