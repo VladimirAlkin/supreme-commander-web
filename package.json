@@ -1,0 +1,14 @@
+{
+  "name": "supreme-commander-web",
+  "private": true,
+  "description": "Army builder for Warhammer 40,000. data.js is generated — see docs/TEXT-PIPELINE.md",
+  "scripts": {
+    "slots": "node tools/gen-slots.js",
+    "merge": "node tools/merge-text.js",
+    "merge:dry": "node tools/merge-text.js --dry",
+    "validate": "node tools/validate-data.js",
+    "release": "node tools/release.js",
+    "release:check": "node tools/release.js --check",
+    "ship": "node tools/merge-text.js && node tools/validate-data.js && node tools/release.js"
+  }
+}
