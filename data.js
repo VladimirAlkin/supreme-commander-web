@@ -13740,7 +13740,7 @@ const DATA = {
      "summary": "Death Guard Characters spread their Contagion 3\" further.",
      "rule": {
       "name": "Hypervirulent Strains",
-      "text": "Friendly DEATH GUARD CHARACTER units get +3\" Contagion Range (max 12\")."
+      "text": "Add 3\" to the Contagion Range of friendly DEATH GUARD CHARACTER units from your army (to a maximum of 12\")."
      },
      "enhancements": [
       {
