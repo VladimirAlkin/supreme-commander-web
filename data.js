@@ -621,7 +621,8 @@ const DATA = {
         }
        ],
        "reqText": "Double 3+",
-       "effect": "When a model is destroyed by a melee attack before it has fought, roll D6: on a 4+ it stays, fights after the attacking unit, then is removed."
+       "effect": "Each time a model in this unit is destroyed by a melee attack, if it has not fought this phase, roll one D6: on a 4+, do not remove it from play. The destroyed model can fight after the attacking model's unit has finished making its attacks, and is then removed from play.",
+       "text": "Each time a model in this unit is destroyed by a melee attack, if it has not fought this phase, roll one D6: on a 4+, do not remove it from play. The destroyed model can fight after the attacking model's unit has finished making its attacks, and is then removed from play."
       },
       {
        "id": "b4",
@@ -1495,7 +1496,7 @@ const DATA = {
      "summary": "Daemon engines break enemy nerve in melee.",
      "rule": {
       "name": "Rampaging Terrors",
-      "text": "Friendly DAEMON VEHICLE units gain Terror of Khorne: at the start of the Fight phase, pick one enemy unit engaged with this unit; it makes a battle-shock roll at -1 (each enemy unit only once per phase)."
+      "text": "Friendly DAEMON VEHICLE units from your army have the following ability: Terror of Khorne: At the start of the Fight phase, you can select one enemy unit engaged with this unit. That enemy unit must take a Battle-shock test, subtracting 1 from the result."
      },
      "enhancements": [
       {
@@ -12702,8 +12703,8 @@ const DATA = {
        "phases": [
         "Any"
        ],
-       "when": "Any phase, when a DEATH GUARD VEHICLE or MONSTER model with Deadly Demise is destroyed.",
-       "target": "That model (even though it was just destroyed).",
+       "when": "Any phase.",
+       "target": "One DEATH GUARD VEHICLE or DEATH GUARD MONSTER model from your army with the Deadly Demise ability that was just destroyed.",
        "effect": "Its Deadly Demise mortal wounds are inflicted automatically (no D6 roll), and every enemy unit that suffers them is Afflicted until the start of your next turn."
       },
       {
@@ -13151,8 +13152,8 @@ const DATA = {
        "phases": [
         "Any"
        ],
-       "when": "Any phase, when a NURGLINGS unit is destroyed.",
-       "target": "That NURGLINGS unit (even though it was just destroyed).",
+       "when": "Any phase.",
+       "target": "One NURGLINGS unit from your army that was just destroyed.",
        "effect": "Add an identical new unit at Starting Strength and full wounds to your Strategic Reserves.",
        "restrictions": "Once per battle."
       },
@@ -13334,8 +13335,8 @@ const DATA = {
        "phases": [
         "Fight"
        ],
-       "when": "Fight phase, when a POXWALKERS unit is destroyed.",
-       "target": "That POXWALKERS unit (even though it was just destroyed).",
+       "when": "Fight phase.",
+       "target": "One POXWALKERS unit from your army that was just destroyed.",
        "effect": "Pick one enemy unit that attacked it this phase: it is Afflicted for the rest of the battle."
       },
       {
@@ -15634,7 +15635,7 @@ const DATA = {
      "ranged": [],
      "melee": [
       {
-       "name": "Improvised weapons",
+       "name": "Improvised weapon",
        "range": "Melee",
        "A": "2",
        "skill": "5+",
@@ -15816,7 +15817,7 @@ const DATA = {
      "abilities": [
       {
        "name": "Blistering Fusillade",
-       "text": "If this unit has a Starting Strength of 5+ or is led by a CHARACTER, its ranged attacks against Afflicted units get +1 S and +1 AP.",
+       "text": "Each time a model in this unit makes a ranged attack, improve the Strength and Armour Penetration characteristics of that attack by 1.",
        "kind": "datasheet"
       }
      ],
@@ -19510,7 +19511,7 @@ const DATA = {
        ],
        "when": "Your Shooting phase.",
        "target": "One THOUSAND SONS PSYKER unit that has not shot this phase.",
-       "effect": "Until the end of the phase its inferno bolt pistols, boltguns, combi-bolters and combi-weapons have [PSYCHIC] and S 5."
+       "effect": "Until the end of the phase, all inferno bolt pistols, inferno boltguns, inferno combi-bolters and inferno combi-weapons equipped by models in your unit have the [LETHAL HITS] ability and improve the Armour Penetration characteristic of their attacks by 1."
       },
       {
        "id": "revenge_of_the_rubricae",
@@ -19522,7 +19523,7 @@ const DATA = {
        ],
        "when": "Your opponent's Shooting phase, right after a THOUSAND SONS PSYKER model is destroyed.",
        "target": "One RUBRICAE unit that was within 6\" of it.",
-       "effect": "After the attacker has shot, your unit shoots as if it were your Shooting phase, only at that enemy unit."
+       "effect": "After the attacker has shot, your unit shoots as if it were your Shooting phase, only at that enemy unit (and only if it is an eligible target)."
       },
       {
        "id": "implacable_guardians",
@@ -24599,6 +24600,10 @@ const DATA = {
        "name": "Instrument of Chaos",
        "text": "+1 to charge rolls for the bearer's unit.",
        "kind": "wargear"
+      },
+      {
+       "name": "Horrors are Pink. Horrors are Blue. Whereonce there was one, now there are two.",
+       "text": "If, at any point, this unit contains no PINK HORROR models, use the BLUE HORRORS datasheet for this unit. While this unit contains one or more PINK HORROR models, the Sullen Malevolence and Exploding Horrors abilities from the BLUE HORRORS datasheet do not apply to this unit."
       }
      ],
      "sizes": [
