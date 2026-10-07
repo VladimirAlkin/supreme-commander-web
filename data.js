@@ -783,9 +783,9 @@ const DATA = {
        "phases": [
         "Any"
        ],
-       "when": "Any phase, when a friendly WORLD EATERS unit is destroyed while within range of an objective you control.",
-       "target": "That WORLD EATERS unit.",
-       "effect": "That objective stays under your control until your opponent's Level of Control over it is higher than yours at the end of a phase."
+       "when": "Any phase.",
+       "target": "One WORLD EATERS unit from your army that was just destroyed while it was within range of one or more objective markers you controlled at the end of the previous phase.",
+       "effect": "Select one of those objective markers. That objective marker remains under your control until your opponent’s Level of Control over that objective marker is greater than yours at the end of a phase."
       },
       {
        "id": "hack_and_slash",
@@ -1002,7 +1002,7 @@ const DATA = {
        ],
        "when": "Fight phase.",
        "target": "One JAKHALS or GOREMONGERS unit.",
-       "effect": "Re-roll hit rolls of 1; re-roll all hit rolls instead while within 6\" of a friendly MONSTER or 9\" of a TITANIC unit."
+       "effect": "Until the end of the phase, each time a model in your unit makes a melee attack, you can re-roll a Hit roll of 1. If your unit is within 6\" of one or more friendly WORLD EATERS MONSTER units, or within 9\" of one or more friendly WORLD EATERS TITANIC units, you can re-roll the Hit roll instead."
       },
       {
        "id": "brazen_idol",
@@ -1153,7 +1153,7 @@ const DATA = {
        ],
        "when": "Your Movement or Charge phase.",
        "target": "One WORLD EATERS POSSESSED unit that has not moved or charged yet.",
-       "effect": "During Normal, Advance, Fall Back or Charge moves its models can move through enemy models (not MONSTER/VEHICLE), but cannot end within Engagement Range unless charging."
+       "effect": "Until the end of the phase, each time a model in your unit makes a Normal, Advance, Fall Back or Charge move, it can move through enemy models (excluding MONSTER and VEHICLE models). When doing so, it can move within Engagement Range of such models but cannot end that move within Engagement Range of them, and any Desperate Escape test is automatically passed."
       },
       {
        "id": "horrifying_violence",
@@ -1437,7 +1437,7 @@ const DATA = {
        ],
        "when": "Your Movement phase.",
        "target": "One WORLD EATERS RHINO that has not moved yet.",
-       "effect": "One embarked unit disembarks within 6\" and can be set up within Engagement Range of enemy units."
+       "effect": "One WORLD EATERS unit embarked within your RHINO can disembark. When that unit disembarks, set it up anywhere on the battlefield wholly within 6\" of your RHINO and not within Engagement Range of any enemy units (or within Engagement Range if the stratagem allows)."
       },
       {
        "id": "full_throttle_assault",
@@ -1498,7 +1498,7 @@ const DATA = {
        "name": "Murder-forged Entity",
        "pts": 15,
        "upgrade": true,
-       "text": "WORLD EATERS VEHICLE (not Maulerfiend). This unit has the DAEMON keyword.",
+       "text": "WORLD EATERS VEHICLE unit only. This unit has the DAEMON keyword.",
        "eligible": {
         "factionsAll": [
          "World Eaters"
@@ -1536,7 +1536,7 @@ const DATA = {
        ],
        "when": "Your Shooting phase or the Fight phase, when a friendly DAEMON VEHICLE unit is selected to attack.",
        "target": "That unit.",
-       "effect": "Its attacks ignore all modifiers to BS/WS, hit rolls and wound rolls."
+       "effect": "Until the end of the phase, your unit's attacks can ignore any or all modifiers to Ballistic Skill characteristic, Weapon Skill characteristic, Hit rolls and Wound rolls."
       },
       {
        "id": "trail_of_destruction",
@@ -6607,7 +6607,7 @@ const DATA = {
        ],
        "when": "Fight phase.",
        "target": "One TYRANIDS unit that has not fought this phase.",
-       "effect": "Its melee weapons have [LETHAL HITS]; a HARVESTER unit also scores critical hits on unmodified hit rolls of 5+ in melee."
+       "effect": "Until the end of the phase, melee weapons equipped by models in your unit have the [LETHAL HITS] ability. If your unit is a HARVESTER unit, each time a model in your unit makes a melee attack, an unmodified Hit roll of 5+ scores a Critical Hit as well."
       },
       {
        "id": "rapacious_hunger",
@@ -6765,7 +6765,7 @@ const DATA = {
        ],
        "when": "Your Shooting phase.",
        "target": "One TYRANIDS MONSTER unit that has not shot this phase.",
-       "effect": "Until the end of the phase its ranged weapons have [IGNORES COVER] and its attacks ignore modifiers to BS and to hit rolls."
+       "effect": "Until the end of the phase, each time a model in your unit makes a ranged attack, you can ignore any or all modifiers to that model's Ballistic Skill characteristic and any or all modifiers to the Hit roll."
       },
       {
        "id": "massive_impact",
@@ -8036,7 +8036,7 @@ const DATA = {
      "abilities": [
       {
        "name": "Paroxysm (Psychic)",
-       "text": "Start of the Fight phase: pick one visible enemy unit within 12\" and roll D6. On a 1 this model takes D3 mortal wounds; on a 2+ that unit's weapons get -1 A until the end of the phase.",
+       "text": "At the start of the Fight phase, you can select one enemy unit within 12\" of and visible to this model and roll one D6: on a 1, this PSYKER suffers D3 mortal wounds; on a 2-5, until the end of the phase, that enemy unit is not eligible to fight this phase; on a 6, until the end of the phase, that enemy unit is not eligible to fight this phase and subtract 1 from the Attacks characteristic of weapons equipped by models in that unit.",
        "kind": "datasheet"
       },
       {
@@ -9450,7 +9450,7 @@ const DATA = {
      "abilities": [
       {
        "name": "Seed Spore Mines",
-       "text": "Once per turn, when selected to shoot, one unit with this ability can skip its ranged attacks to add a new SPORE MINES unit (1 model per Biovore) wholly within 48\" and more than 8\" horizontally from all enemy units.",
+       "text": "Once per turn, in your Shooting phase, when selected to shoot, one unit with this ability can skip its ranged attacks to add a new SPORE MINES unit (1 model per Biovore) wholly within 48\" and more than 8\" horizontally from all enemy units.",
        "kind": "datasheet"
       }
      ],
@@ -11775,7 +11775,7 @@ const DATA = {
       },
       {
        "name": "Feeding Frenzy",
-       "text": "Melee attacks against a unit below its Starting Strength get +1 to hit; also +1 to wound if it is below half strength.",
+       "text": "Each time this model makes a melee attack that targets a unit that is below its Starting Strength, add 1 to the Hit roll. If that unit is also Below Half-strength, add 1 to the Wound roll as well.",
        "kind": "datasheet"
       }
      ],
@@ -11925,7 +11925,7 @@ const DATA = {
      "abilities": [
       {
        "name": "Seed Mucolids",
-       "text": "Once per turn, when selected to shoot, one unit with this ability can skip its ranged attacks to add a new 1-model MUCOLID SPORES unit wholly within 18\" and more than 8\" horizontally from all enemy units.",
+       "text": "Once per turn, in your Shooting phase, when selected to shoot, one unit with this ability can skip its ranged attacks to add a new 1-model MUCOLID SPORES unit wholly within 18\" and more than 8\" horizontally from all enemy units.",
        "kind": "datasheet"
       },
       {
@@ -12974,7 +12974,7 @@ const DATA = {
        "name": "Cornucophagus",
        "pts": 35,
        "upgrade": false,
-       "text": "LORD OF POXES only. In Declare Battle Formations pick one Plague: enemy units within the bearer's Contagion Range also suffer it for the whole battle.",
+       "text": "Until the end of the battle, while an enemy unit is within Contagion Range of the bearer, that enemy unit has the effect of that Plague in addition to any other.",
        "eligible": {
         "factionsAll": [
          "Death Guard"
@@ -13046,7 +13046,7 @@ const DATA = {
         "Movement"
        ],
        "when": "Your Movement phase, before the Reinforcements step.",
-       "target": "One DEATH GUARD CHARACTER unit that is not leading a unit.",
+       "target": "One other friendly DEATH GUARD unit (excluding Battle-shocked units and Attached units that already have two Leader units or one of your CHARACTER units leading it).",
        "effect": "Attach it as a Leader to another friendly DEATH GUARD unit within 2\" horizontally and 5\" vertically that it could lead (not battle-shocked, and with room for another Leader). Adjust that unit's Starting Strength."
       },
       {
@@ -13285,7 +13285,7 @@ const DATA = {
        "name": "Sorrowsyphon",
        "pts": 10,
        "upgrade": false,
-       "text": "MALIGNANT PLAGUECASTER only. While it leads POXWALKERS its Plague Wind gets +1 Damage; after each use, D3 Poxwalkers in its unit are destroyed.",
+       "text": "While the bearer is leading a unit, after the bearer's unit has resolved its attacks, D3 Bodyguard models from the bearer's unit are destroyed. (Also grants Plague Wind +1 Damage while leading Poxwalkers if that clause exists.)",
        "eligible": {
         "factionsAll": [
          "Death Guard"
@@ -13379,7 +13379,7 @@ const DATA = {
        ],
        "when": "Your opponent's Shooting phase, right after an enemy unit selects its targets.",
        "target": "One DEATH GUARD unit targeted by those attacks, and one friendly POXWALKERS unit within 3\" that both it and the attacker can see.",
-       "effect": "Until the end of the phase, attacks that would be allocated to your unit can instead destroy Poxwalkers (as many as the attack's Damage) with no saving throw, if the Poxwalkers are a visible, eligible target."
+       "effect": "Until the end of the phase, each time you would allocate an attack to a model in your DEATH GUARD unit, if your POXWALKERS unit is visible to the attacking model and is an eligible target for that attack, no saving throw is made for that attack; instead a number of POXWALKERS models from that unit equal to the Damage characteristic of that attack are destroyed."
       }
      ]
     },
@@ -14010,7 +14010,7 @@ const DATA = {
       },
       {
        "name": "Eater Plague (Psychic)",
-       "text": "Your Shooting phase: pick one visible enemy unit within 18\" (a Lone Operative unit not in an Attached unit only within 12\") and roll D6. 1: this unit suffers D3 mortal wounds. 2-5: that unit suffers D6 mortal wounds. 6: D3+3 mortal wounds.",
+       "text": "In your Shooting phase, you can select one enemy unit within 18\" of and visible to this model and roll one D6: on a 1, this model's unit suffers D3 mortal wounds; on a 2-5, that enemy unit suffers D3 mortal wounds; on a 6, that enemy unit suffers D6 mortal wounds.",
        "kind": "datasheet"
       }
      ],
@@ -15101,7 +15101,7 @@ const DATA = {
       },
       {
        "name": "Inflamed Infections",
-       "text": "Start of the Fight phase: pick one enemy unit engaged with this model. This model's attacks against it score critical hits on unmodified hit rolls of 5+ (4+ if that unit is Below Half-strength).",
+       "text": "Until the end of the phase, each time this model makes an attack that targets that unit, an unmodified Hit roll of 5+ scores a Critical Hit.",
        "kind": "datasheet"
       }
      ],
@@ -19087,10 +19087,10 @@ const DATA = {
       "Reconnaissance"
      ],
      "tags": [],
-     "summary": "Field the daemons of Tzeentch (SCINTILLATING LEGIONS); psykers shield them and they cast Rituals near your Thousand Sons.",
+     "summary": "Field the daemons of Tzeentch (SCINTILLATING LEGIONS); they grant nearby THOUSAND SONS PSYKER units a 4+ invulnerable save against ranged attacks.",
      "rule": {
       "name": "Infernal Pacts",
-      "text": "SCINTILLATING LEGIONS units get Daemonic Illusions (Aura): while a friendly THOUSAND SONS PSYKER unit is within 6\" and visible, they have a 4+ invulnerable save against ranged attacks. THOUSAND SONS units get Mortal Sorcery (Aura): a friendly SCINTILLATING LEGIONS PSYKER unit within 6\" and visible has Cabal of Sorcerers. You can include SCINTILLATING LEGIONS units up to 500 pts (Incursion), 1000 pts (Strike Force) or 1500 pts (Onslaught); none of them can be your WARLORD."
+      "text": "SCINTILLATING LEGIONS units from your army have the following ability: Daemonic Illusions (Aura): While a friendly THOUSAND SONS PSYKER unit is within 6\" of and visible to this unit, models in that unit have a 4+ invulnerable save against ranged attacks."
      },
      "enhancements": [
       {
@@ -19401,7 +19401,8 @@ const DATA = {
        "target": "One TZEENTCH MUTANT unit arriving from Strategic Reserves.",
        "effect": "Set it up more than 6\" horizontally from all enemy units (more than 8\" for a MONSTER); it cannot charge this turn."
       }
-     ]
+     ],
+     "restrictions": " This detachment has the MUTANT tag and cannot be taken with another MUTANT detachment."
     },
     {
      "id": "rubricae_phalanx",
@@ -19541,7 +19542,7 @@ const DATA = {
        ],
        "when": "Your opponent's Charge phase, right after an enemy unit ends a Charge move.",
        "target": "One RUBRIC MARINES unit engaged with that enemy unit.",
-       "effect": "Until the end of the turn, attacks against it with S higher than its T get -1 to wound."
+       "effect": "Until the end of the turn, each time an attack targets your unit, subtract 1 from the Wound roll."
       }
      ]
     },
@@ -20454,7 +20455,7 @@ const DATA = {
       },
       {
        "name": "Rebind Rubricae (Psychic)",
-       "text": "Your Command phase, while leading a unit: roll D6. 1: the unit suffers D3 mortal wounds; 2-5: return 1 destroyed Bodyguard model; 6: return up to 2.",
+       "text": "In your Command phase, if this model is leading a unit, you can roll one D6: on a 1, that unit suffers D3 mortal wounds; on a 2-5, you can return up to D3 destroyed Bodyguard models to that unit; on a 6, you can return up to 3 destroyed Bodyguard models to that unit.",
        "kind": "datasheet"
       }
      ],
