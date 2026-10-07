@@ -1139,7 +1139,7 @@ const DATA = {
        ],
        "when": "Your Movement phase, when an EXALTED EIGHTBOUND unit arrives by Deep Strike.",
        "target": "That EXALTED EIGHTBOUND unit.",
-       "effect": "It can be set up more than 6\" horizontally from all enemy units.",
+       "effect": "It can be set up more than 6\" horizontally from all enemy units. Your unit is not eligible to declare a charge this turn.",
        "restrictions": "It cannot declare a charge this turn."
       },
       {
@@ -1220,8 +1220,13 @@ const DATA = {
        "name": "Blood-Forged Armour",
        "pts": 20,
        "upgrade": false,
-       "text": "The bearer has a 2+ Save. If the bearer is destroyed, gain 1 BTP.",
-       "eligible": {},
+       "text": "BLOOD LEGIONS or WORLD EATERS model only. The bearer has a 2+ Save. If the bearer is destroyed, gain 1 BTP.",
+       "eligible": {
+        "keywordsAny": [
+         "BLOOD LEGIONS",
+         "WORLD EATERS"
+        ]
+       },
        "mods": [
         {
          "target": "profile",
@@ -1295,7 +1300,7 @@ const DATA = {
        "phases": [
         "Fight"
        ],
-       "when": "Fight phase, right after a unit destroys an enemy CHARACTER or MONSTER.",
+       "when": "Fight phase, just after a BLOOD LEGIONS or WORLD EATERS unit from your army has fought, and one or more enemy CHARACTER or MONSTER models were destroyed as a result of those attacks.",
        "target": "That BLOOD LEGIONS or WORLD EATERS unit.",
        "effect": "Gain D3 Blood Tithe points; you can then activate one Blood Tithe ability."
       },
@@ -1473,7 +1478,7 @@ const DATA = {
         "Shooting"
        ],
        "when": "Your opponent's Shooting phase, right after an enemy unit has shot.",
-       "target": "One WORLD EATERS RHINO hit by those attacks.",
+       "target": "One WORLD EATERS RHINO model from your army that has one or more wounds remaining and was hit by one or more of those attacks.",
        "effect": "One KHORNE BERZERKERS unit embarked in it can disembark and make a surge move of up to D6+2\".",
        "restrictions": "Not in the same phase as Unrelenting Advance."
       }
@@ -5980,7 +5985,7 @@ const DATA = {
       "Priority Assets"
      ],
      "tags": [],
-     "summary": "Pick one Hyper-adaptation for the whole army at the start of the battle.",
+     "summary": "Pick one Hyper-adaptation for the whole army at the start of the first battle round.",
      "rule": {
       "name": "Hyper-adaptations",
       "text": "At the start of the first battle round pick one Hyper-adaptation; it is active for your TYRANIDS units for the rest of the battle. Swarming Instincts: Attacks against INFANTRY or SWARM units have [SUSTAINED HITS 1]. Hyper-aggression: Attacks against MONSTER or VEHICLE units have [LETHAL HITS]. Hive Predators: Attacks against CHARACTER units have [PRECISION] on a critical hit."
@@ -7083,7 +7088,7 @@ const DATA = {
      "summary": "Lictors and Deathleaper strike from Deep Strike and hunt characters.",
      "rule": {
       "name": "Mindhunger",
-      "text": "Friendly DEATHLEAPER, LICTOR and NEUROLICTOR units have Deep Strike. Attacks by LICTOR and NEUROLICTOR units against CHARACTER units re-roll hit rolls of 1."
+      "text": "Friendly DEATHLEAPER, LICTOR and NEUROLICTOR units have Deep Strike. Attacks by LICTOR and NEUROLICTOR units against CHARACTER units can re-roll hit rolls of 1."
      },
      "enhancements": [
       {
@@ -8797,7 +8802,7 @@ const DATA = {
        ]
       },
       {
-       "name": "Termagant spinefist",
+       "name": "Termagant spinefists",
        "range": "12\"",
        "A": "2",
        "skill": "4+",
@@ -11063,7 +11068,7 @@ const DATA = {
      "abilities": [
       {
        "name": "Spore Mine Cysts",
-       "text": "End of your opponent's Fight phase, choose one: roll six D6 against one visible enemy unit within 24\" (not Lone Operative), each 3+ inflicting 1 mortal wound; or add a new SPORE MINES unit of D3 models within 6\" of this model and more than 8\" horizontally from all enemies (only one model per turn can choose this).",
+       "text": "At the end of your opponent's Fight phase, you can do one of the following: End of your opponent's Fight phase, choose one: roll six D6 against one visible enemy unit within 24\" (not Lone Operative), each 3+ inflicting 1 mortal wound; or add a new SPORE MINES unit of D3 models within 6\" of this model and more than 8\" horizontally from all enemies (only one model per turn can choose this).",
        "kind": "datasheet"
       }
      ],
@@ -11770,7 +11775,7 @@ const DATA = {
      "abilities": [
       {
        "name": "Bio-stimulus",
-       "text": "Your Shooting phase, after this model shoots: pick one enemy unit it hit. Until the end of the turn, melee attacks by friendly TYRANIDS units against it get +1 AP (each enemy unit once per turn).",
+       "text": "Your Shooting phase, after this model shoots: pick one enemy unit it hit. Until the end of the turn, melee attacks by friendly TYRANIDS units against it get improve the Armour Penetration characteristic of that attack by 1 (each enemy unit once per turn).",
        "kind": "datasheet"
       },
       {
@@ -11894,7 +11899,7 @@ const DATA = {
      "damaged": null,
      "ranged": [
       {
-       "name": "Sporocyst bio-weapon",
+       "name": "Sporocyst bio-weapons",
        "range": "24\"",
        "A": "10",
        "skill": "4+",
@@ -12476,7 +12481,7 @@ const DATA = {
      "damaged": null,
      "ranged": [
       {
-       "name": "Spinemaw",
+       "name": "Spinemaws",
        "range": "6\"",
        "A": "4",
        "skill": "5+",
@@ -15010,7 +15015,7 @@ const DATA = {
        "kind": "datasheet"
       },
       {
-       "name": "Seven-fold Chant",
+       "name": "Sevenfold Chant",
        "text": "Your Command phase: if this model is on the battlefield, roll 2D6. On 7+ you gain 1CP.",
        "kind": "datasheet"
       }
@@ -16873,7 +16878,6 @@ const DATA = {
       "Chaos",
       "Nurgle",
       "Daemon",
-      "Foetid Bloat-drone",
       "Foetid Bloat-drone with Heavy Blight Launcher"
      ],
      "image": "dg_foetid_bloat_drone_hbl",
@@ -17799,7 +17803,7 @@ const DATA = {
        ]
       },
       {
-       "name": "Magma cutter",
+       "name": "Magma cutters",
        "range": "12\"",
        "A": "2",
        "skill": "3+",
@@ -18984,7 +18988,7 @@ const DATA = {
        "name": "Umbralefic Crystal",
        "pts": 30,
        "upgrade": false,
-       "text": "THOUSAND SONS model only. Once per battle (per army), in your Command phase, if unengaged: place the unit in Strategic Reserves; it has Deep Strike until your next Shooting phase and must arrive in your next Movement phase.",
+       "text": "THOUSAND SONS model only. Once per battle (per army), in your Command phase, if unengaged: place the unit in Strategic Reserves; it has Deep Strike until your next Shooting phase and must make an ingress move in your next Movement phase (including in your first turn).",
        "eligible": {
         "factionsAll": [
          "Thousand Sons"
@@ -19178,7 +19182,7 @@ const DATA = {
        ],
        "when": "Start of the Fight phase.",
        "target": "One THOUSAND SONS unit.",
-       "effect": "Until the end of the phase, engaged enemy models can only target it if no SCINTILLATING LEGIONS unit is an eligible target."
+       "effect": "Until the end of the phase, each time an enemy model within Engagement Range of your unit selects targets, that model can only target your unit with its attacks."
       },
       {
        "id": "ethereal_phantasm",
@@ -19190,7 +19194,7 @@ const DATA = {
        ],
        "when": "Your opponent's Movement phase, right after an enemy unit ends a Normal, Advance or Fall Back move.",
        "target": "One unengaged SCINTILLATING LEGIONS unit within 8\" of that enemy unit.",
-       "effect": "It makes a Normal move of up to D6\", or up to 6\" if it is wholly within 6\" of a friendly THOUSAND SONS unit."
+       "effect": "Your unit can make a Normal move of up to D6\", or up to 6\" if it is wholly within 6\" of a friendly THOUSAND SONS unit."
       },
       {
        "id": "fractal_disjunction",
@@ -19565,7 +19569,7 @@ const DATA = {
        "name": "Warp Syphon",
        "pts": 5,
        "upgrade": false,
-       "text": "THOUSAND SONS model only. Within 6\" of a friendly THOUSAND SONS VEHICLE, when it Channels the Warp: one of those vehicles suffers 1 mortal wound and you re-roll the extra D6 (before checking for doubles).",
+       "text": "Each time the bearer Channels the Warp, the bearer can use this Enhancement. If it does, select one friendly THOUSAND SONS VEHICLE unit within 6\"; that VEHICLE unit suffers 1 mortal wound and you can re-roll that additional D6.",
        "eligible": {
         "factionsAll": [
          "Thousand Sons"
@@ -19708,7 +19712,7 @@ const DATA = {
        "name": "Eruption of Vitality",
        "pts": 35,
        "upgrade": false,
-       "text": "INFANTRY/MOUNTED THOUSAND SONS PSYKER only. Once per battle (per army), when it is destroyed, roll D6 at the end of the phase: on a 2+ set it back up unengaged as close as possible, on its own, with 3 wounds.",
+       "text": "INFANTRY/MOUNTED THOUSAND SONS PSYKER only. Once per battle (per army), when it is destroyed, roll D6 at the end of the phase: on a 2+ set it back up unengaged as close as possible, on its own, with 3 wounds. This model is not part of an attached unit and its unit has a starting strength of 1.",
        "eligible": {
         "factionsAll": [
          "Thousand Sons"
@@ -20074,7 +20078,8 @@ const DATA = {
        ],
        "when": "Start of the Reinforcements step of your Movement phase.",
        "target": "One RUBRIC MARINES or SCARAB OCCULT TERMINATORS unit in Strategic Reserves.",
-       "effect": "Rubric Marines gain Deep Strike this phase. Scarab Occult Terminators arriving by Deep Strike can be set up wholly within your Flow of Magic more than 6\" from enemy models, but cannot charge this turn."
+       "effect": "Rubric Marines gain Deep Strike this phase. Scarab Occult Terminators arriving by Deep Strike can be set up wholly within your Flow of Magic more than 6\" from enemy models, but cannot charge this turn.",
+       "restrictions": "If a SCARAB OCCULT TERMINATORS unit is targeted with this Stratagem, it is not eligible to declare a charge in the same turn."
       },
       {
        "id": "scouring_warpflame",
