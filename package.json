@@ -3,12 +3,16 @@
   "private": true,
   "description": "Army builder for Warhammer 40,000. data.js is generated — see docs/TEXT-PIPELINE.md",
   "scripts": {
+    "scope": "node tools/check-agent-scope.js",
+    "ingest": "node tools/ingest-inbox.js",
+    "ingest:dry": "node tools/ingest-inbox.js --dry",
     "slots": "node tools/gen-slots.js",
     "merge": "node tools/merge-text.js",
     "merge:dry": "node tools/merge-text.js --dry",
     "validate": "node tools/validate-data.js",
+    "mech": "node tools/mechanics-diff.js",
     "release": "node tools/release.js",
     "release:check": "node tools/release.js --check",
-    "ship": "node tools/merge-text.js && node tools/validate-data.js && node tools/release.js"
+    "check": "node tools/validate-data.js && node tools/mechanics-diff.js main"
   }
 }

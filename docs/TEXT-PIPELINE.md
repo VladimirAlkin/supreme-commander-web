@@ -5,7 +5,14 @@ Two roles work on this app and they must not edit the same file.
 | Role | Owns | Touches |
 |---|---|---|
 | **Structure** | ids, points, CP, keywords, profiles, eligibility, mechanics flags, images, UI, build, deploy | `data.js` (via tools), `app.js`, `engine.js`, `sw.js`, `index.html`, `docs/` |
-| **Text** | the wording of rules, stratagems, enhancements, abilities | `text/*.slots.json` **only** |
+| **Text** | the wording of rules, stratagems, enhancements, abilities | `text/inbox/` **only** |
+
+The text role writes plain text into `text/inbox/`, headed by each entry's
+name, and never sees an id, a slot file or `data.js`. The structure role
+runs `ingest-inbox.js`, which resolves those names against `data.js` and
+fills the slot files. See `docs/AGENT-BRIEF.md` and `text/inbox/README.md`.
+The slot files below are therefore a structure-role working format, not
+something the text role edits by hand.
 
 **`data.js` is generated output. Never hand-edit it.** Parse → write is
 byte-identical, which is what makes the tooling safe; editing it by hand
@@ -20,14 +27,22 @@ what shape it must be in.
 ## Loop
 
 ```
-node tools/gen-slots.js            # data.js -> text/*.slots.json
-#   text role edits text/*.slots.json
-node tools/merge-text.js --dry     # show what would change, write nothing
-node tools/merge-text.js           # apply into data.js
-node tools/validate-data.js        # gate: errors block the deploy
-node tools/release.js              # bump the four cache markers
+#   text role writes text/inbox/<faction>.<category>.md and nothing else
+
+node tools/check-agent-scope.js <base>..<head>   # refuse anything outside inbox
+node tools/gen-slots.js                          # data.js -> slot files
+node tools/ingest-inbox.js                       # inbox text -> slot files
+node tools/merge-text.js --dry                   # show what would change
+node tools/merge-text.js                         # apply into data.js
+node tools/validate-data.js                      # gate: errors block the deploy
+node tools/mechanics-diff.js main                # prove only wording changed
+node tools/release.js                            # bump the four cache markers
 git commit && git push
 ```
+
+`check-agent-scope` and `mechanics-diff` are the two that catch the damage
+the others miss: a pass advertised as text-only that edited `data.js`,
+`engine.js` or a mechanics field. Run both every time.
 
 One faction at a time: `node tools/gen-slots.js deathGuard`.
 
