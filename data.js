@@ -729,7 +729,7 @@ const DATA = {
        "name": "Berzerker Glaive",
        "pts": 35,
        "upgrade": false,
-       "text": "+1 A and +1 D to the bearer's melee weapons (not Extra Attacks weapons).",
+       "text": "WORLD EATERS model only. Add 1 to the Attacks characteristic and add 1 to the Damage characteristic of melee weapons equipped by the bearer (excluding weapons with the [EXTRA ATTACKS] ability).",
        "eligible": {
         "factionsAll": [
          "World Eaters"
@@ -1670,7 +1670,7 @@ const DATA = {
        "name": "Gore-stained Veterans",
        "pts": 20,
        "upgrade": true,
-       "text": "TERMINATOR SQUAD only. Melee attacks get +1 WS.",
+       "text": "TERMINATOR SQUAD only. Improve the Weapon Skill characteristic of melee weapons equipped by models in the bearer's unit by 1.",
        "eligible": {
         "keywordsAll": [
          "Terminator Squad"
@@ -1689,7 +1689,7 @@ const DATA = {
        "name": "Sanctified in Slaughter",
        "pts": 15,
        "upgrade": true,
-       "text": "TERMINATOR SQUAD only. +1 OC.",
+       "text": "TERMINATOR SQUAD only. Add 1 to the Objective Control characteristic of models in the bearer's unit.",
        "eligible": {
         "keywordsAll": [
          "Terminator Squad"
@@ -6706,7 +6706,7 @@ const DATA = {
        "name": "Ominous Presence",
        "pts": 15,
        "upgrade": false,
-       "text": "TYRANIDS MONSTER only. +3 OC for the bearer.",
+       "text": "TYRANIDS MONSTER model only. Add 3 to the Objective Control characteristic of the bearer.",
        "eligible": {
         "factionsAll": [
          "Tyranids"
@@ -7005,7 +7005,7 @@ const DATA = {
        "name": "Relentless Hunger",
        "pts": 20,
        "upgrade": false,
-       "text": "+2\" Move for models in the bearer's unit.",
+       "text": "Add 2\" to the Move characteristic of models in the bearer's unit.",
        "eligible": {
         "factionsAll": [
          "Tyranids"
@@ -19329,7 +19329,7 @@ const DATA = {
        "name": "Flowing Flesh",
        "pts": 10,
        "upgrade": false,
-       "text": "TZAANGOR SHAMAN only. Feel No Pain 4+ and W 5.",
+       "text": "TZAANGOR SHAMAN only. The bearer has the Feel No Pain 4+ ability and a Wounds characteristic of 5.",
        "eligible": {
         "factionsAll": [
          "Thousand Sons"
@@ -25937,7 +25937,7 @@ const DATA = {
        "name": "Writ of Compunction",
        "pts": 20,
        "upgrade": true,
-       "text": "CELESTIAN SACRESANTS unit only. +1 OC.",
+       "text": "CELESTIAN SACRESANTS unit only. Add 1 to the Objective Control characteristic of models in the bearer's unit.",
        "eligible": {
         "unitIds": [
          "celestian_sacresants"
