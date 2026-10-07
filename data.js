@@ -821,7 +821,7 @@ const DATA = {
        ],
        "when": "Fight phase, right after a WORLD EATERS unit destroys an enemy CHARACTER or MONSTER.",
        "target": "That WORLD EATERS unit.",
-       "effect": "Make a Blessings of Khorne roll and use it to activate one Blessing (in addition to those active)."
+       "effect": "Make a Blessings of Khorne roll. You can use the result of that roll to activate one Blessing of Khorne. Until the end of the battle round, that Blessing of Khorne is active in addition to any other Blessings of Khorne that are active for your army."
       },
       {
        "id": "apoplectic_frenzy",
@@ -1127,7 +1127,7 @@ const DATA = {
        ],
        "when": "Fight phase, right after an enemy unit selects its targets.",
        "target": "One WORLD EATERS POSSESSED unit targeted.",
-       "effect": "Models destroyed before they fought can fight after the attacking unit finishes, then are removed."
+       "effect": "Until the end of the phase, each time a model in your unit is destroyed, if that model has not fought this phase, do not remove it from play. The destroyed model can fight after the attacking model's unit has finished making its attacks, and is then removed from play."
       },
       {
        "id": "rapid_manifestation",
@@ -1285,7 +1285,7 @@ const DATA = {
        ],
        "when": "Start of your Fight phase.",
        "target": "One BLOOD LEGIONS unit and one WORLD EATERS unit near it.",
-       "effect": "Their melee weapons gain [LANCE]; if Daemonic Rage is active they also gain [TWIN-LINKED]."
+       "effect": "Select one friendly WORLD EATERS unit within 6\" of your unit. Until the end of the turn, melee weapons equipped by models in both units have the [LANCE] ability. If the Daemonic Rage Blood Tithe ability is active for your army, until the end of the phase those weapons also have the [TWIN-LINKED] ability."
       },
       {
        "id": "a_worthy_skull",
@@ -1309,7 +1309,7 @@ const DATA = {
         "Fight"
        ],
        "when": "Your opponent's Shooting or Fight phase, right after an enemy unit selects its targets.",
-       "target": "One targeted WORLD EATERS unit within 6\" of a friendly BLOOD LEGIONS unit.",
+       "target": "One BLOOD LEGIONS unit from your army that is within 6\" of a friendly WORLD EATERS unit that was selected as the target of one or more attacks.",
        "effect": "Until the end of the phase it has a 5+ invulnerable save (4+ if Boon of Blood is active)."
       },
       {
@@ -1321,8 +1321,8 @@ const DATA = {
         "Command"
        ],
        "when": "Your Command phase.",
-       "target": "One BLOOD LEGIONS unit near a WORLD EATERS unit.",
-       "effect": "Return destroyed models: 1 MOUNTED, D3 BEAST or D6 INFANTRY models, at full wounds.",
+       "target": "One WORLD EATERS unit from your army.",
+       "effect": "Select one friendly BLOOD LEGIONS unit within 6\" of your unit. Return one destroyed MOUNTED model, up to D3 destroyed BEAST models, or up to D6 destroyed INFANTRY models to that BLOOD LEGIONS unit.",
        "restrictions": "Cannot return CHARACTER models."
       },
       {
@@ -6088,7 +6088,7 @@ const DATA = {
        ],
        "when": "Fight phase, right after an enemy unit selects its targets.",
        "target": "One TYRANIDS unit targeted by those attacks.",
-       "effect": "Until the end of the phase, when a model in it is destroyed before it has fought, roll D6: on a 4+ it fights after the attacking unit finishes, then is removed."
+       "effect": "Until the end of the phase, when a model in it is destroyed before it has fought, roll D6: on a 4+ it can fight after the attacking unit finishes, then is removed."
       },
       {
        "id": "overrun",
@@ -6642,7 +6642,7 @@ const DATA = {
        "name": "Enraged Reserves",
        "pts": 20,
        "upgrade": false,
-       "text": "TYRANIDS MONSTER only. If the bearer is destroyed by a melee attack before it has fought this phase, roll D6: on a 3+ it fights after the attacking unit finishes, then is removed.",
+       "text": "TYRANIDS MONSTER only. If the bearer is destroyed by a melee attack before it has fought this phase, roll D6: on a 3+ it can fight after the attacking unit finishes, then is removed.",
        "eligible": {
         "factionsAll": [
          "Tyranids"
@@ -7005,7 +7005,7 @@ const DATA = {
        ],
        "when": "Any phase, just before an ENDLESS MULTITUDE unit within Synapse Range makes a surge move.",
        "target": "That unit.",
-       "effect": "You can re-roll the surge distance, and the unit can end as close as possible to the closest objective marker instead of the closest enemy unit."
+       "effect": "You can re-roll the surge distance, and the unit can end as close as possible to the closest objective marker instead of the closest enemy unit. All other rules for making surge moves still apply."
       },
       {
        "id": "unending_waves",
@@ -9502,7 +9502,7 @@ const DATA = {
      "ranged": [],
      "melee": [
       {
-       "name": "Genestealers claws and talons",
+       "name": "Genestealer claws and talons",
        "range": "Melee",
        "A": "4",
        "skill": "2+",
@@ -10077,7 +10077,7 @@ const DATA = {
      "abilities": [
       {
        "name": "Adaptive Instincts",
-       "text": "(Once per turn) In the Fight phase, when this unit is selected to fight or is targeted by an enemy unit, choose one: its melee attacks get +1 S, or the unit gets +1 T.",
+       "text": "Once per turn, per unit: you can select one of the following: add 1 to the Strength characteristic of melee weapons equipped by models in this unit, or add 1 to the Toughness characteristic of models in this unit.",
        "kind": "datasheet"
       }
      ],
@@ -11430,7 +11430,7 @@ const DATA = {
      "ranged": [],
      "melee": [
       {
-       "name": "Distendible jaw",
+       "name": "Distensible jaw",
        "range": "Melee",
        "A": "1",
        "skill": "3+",
@@ -11510,7 +11510,7 @@ const DATA = {
      },
      "ranged": [
       {
-       "name": "Toxinjecter Harpoon",
+       "name": "Toxinjector Harpoon",
        "range": "12\"",
        "A": "2",
        "skill": "2+",
@@ -11534,7 +11534,7 @@ const DATA = {
        "kw": []
       },
       {
-       "name": "Toxinjecter Harpoon",
+       "name": "Toxinjector Harpoon",
        "range": "Melee",
        "A": "4",
        "skill": "2+",
@@ -13747,7 +13747,7 @@ const DATA = {
        "name": "Host of the Hybridised Pox",
        "pts": 40,
        "upgrade": false,
-       "text": "DEATH GUARD INFANTRY model only. Once per battle (per army), in your Command phase, pick a Plague: enemy units within the bearer's Contagion Range also suffer it for the rest of the battle.",
+       "text": "Enemy units within Contagion Range of this unit also have the effect of that Plague in addition to any other.",
        "eligible": {
         "factionsAll": [
          "Death Guard"
@@ -16042,7 +16042,7 @@ const DATA = {
       "Beast",
       "Chaos",
       "Nurgle",
-      "Spawn"
+      "Chaos Spawn"
      ],
      "image": "dg_chaos_spawn",
      "baseSize": "50mm",
@@ -17061,7 +17061,7 @@ const DATA = {
      "abilities": [
       {
        "name": "Spore-laced Shock Waves",
-       "text": "Your Shooting phase, when it targets a unit with its Plagueburst mortar: roll D6 for that unit and each other enemy unit within 3\" of it (+1 if Afflicted). On a 6+ that unit suffers D3 mortal wounds after the mortar attacks are resolved.",
+       "text": "After resolving all of this model's attacks against the target unit, each unit struck by spores suffers D3 mortal wounds.",
        "kind": "datasheet"
       }
      ],
@@ -18824,8 +18824,8 @@ const DATA = {
      ],
      "abilities": [
       {
-       "name": "Mischief Makers (Aura)",
-       "text": "Each time an enemy unit (not TITAN) engaged with this unit is selected to fight, its melee attacks get -1 to hit until the end of the phase.",
+       "name": "Mischief Makers",
+       "text": "Each time an enemy unit (excluding TITANIC units) within Engagement Range of one or more units with this ability is selected to fight, until the end of the phase, each time a model in that enemy unit makes an attack, subtract 1 from the Hit roll.",
        "kind": "datasheet"
       }
      ],
@@ -19243,7 +19243,7 @@ const DATA = {
      "summary": "Mutants trade wounds for power with Warpmeld Sacrifice; Tzaangors are Battleline with +1 OC.",
      "rule": {
       "name": "Warpmeld Sacrifice",
-      "text": "When an enemy unit shoots or fights and targets your TZEENTCH MUTANT INFANTRY or MOUNTED units, each of them can make a Warpmeld Sacrifice: attacks against it get -1 to wound until the end of the phase, then it suffers D3 mortal wounds. When such a unit of yours shoots or fights, it can instead sacrifice before picking targets: +1 to wound until the end of the phase, then D3 mortal wounds. TZAANGORS units are BATTLELINE and, while not battle-shocked, their Tzaangor models get +1 OC."
+      "text": "Each time an enemy unit is selected to shoot or fight and one or more of the targets of those attacks are TZEENTCH MUTANT units from your army, one of those TZEENTCH MUTANT units can make a Warpmeld Sacrifice. Each time a TZEENTCH MUTANT unit from your army is selected to shoot or fight, before selecting its targets, that unit can make a Warpmeld Sacrifice."
      },
      "grantKeywords": [
       {
@@ -22183,7 +22183,7 @@ const DATA = {
       "Beast",
       "Chaos",
       "Tzeentch",
-      "Spawn",
+      "Chaos Spawn",
       "Mutant"
      ],
      "image": "ts_chaos_spawn",
@@ -24109,7 +24109,8 @@ const DATA = {
       "Fly",
       "Chaos",
       "Tzeentch",
-      "Heldrake"
+      "Heldrake",
+      "Daemon"
      ],
      "image": "ts_heldrake",
      "baseSize": "120x92mm (flying base)",
@@ -25066,7 +25067,7 @@ const DATA = {
        "name": "Chaplet of Sacrifice",
        "pts": 25,
        "upgrade": false,
-       "text": "ADEPTA SORORITAS model only. End of your Command phase, if on the battlefield: re-roll 1 Miracle dice in your pool (up to 3 if the bearer's unit is below its Starting Strength).",
+       "text": "ADEPTA SORORITAS model only. At the end of your Command phase, if the bearer is on the battlefield, you can discard 1 Miracle dice and then roll one D6: you can return it to the pool showing the new result.",
        "eligible": {
         "factionsAll": [
          "Adepta Sororitas"
@@ -25078,7 +25079,7 @@ const DATA = {
        "name": "Mantle of Ophelia",
        "pts": 20,
        "upgrade": false,
-       "text": "CANONESS or PALATINE only. Each attack allocated to the bearer has Damage 1.",
+       "text": "CANONESS or PALATINE only. Each time an attack is allocated to the bearer, change the Damage characteristic of that attack to 1.",
        "eligible": {
         "factionsAll": [
          "Adepta Sororitas"
@@ -25449,7 +25450,7 @@ const DATA = {
        ],
        "when": "Your Movement phase, just before an ADEPTA SORORITAS TRANSPORT advances.",
        "target": "That TRANSPORT.",
-       "effect": "Re-roll its Advance rolls this turn; units can still disembark after it advanced, making a shock disembark move."
+       "effect": "Until the end of the turn, you can re-roll Advance rolls made for your unit. Each time a unit disembarks from your unit this turn after it has Advanced, that unit counts as having made a Normal move and cannot declare a charge this turn."
       },
       {
        "id": "cleansing_flames",
@@ -25580,7 +25581,7 @@ const DATA = {
        ],
        "when": "Command phase.",
        "target": "One ADEPTA SORORITAS unit.",
-       "effect": "Until the end of the turn it is blessed: it ignores modifiers to its characteristics, BS/WS and rolls and tests (not saving throws). On a JUMP PACK unit, friendly units within 3\" are blessed too."
+       "effect": "Until the end of the turn, you can ignore any or all modifiers to any of the following for your unit: any of its characteristics; the Weapon Skill and Ballistic Skill characteristics of any of its weapons; any roll or test made for it (excluding saving throws)."
       },
       {
        "id": "faith_and_fury",
@@ -26083,7 +26084,7 @@ const DATA = {
       },
       {
        "name": "Recount the Deeds of the Saints",
-       "text": "While this unit leads a unit and Agathae Dolan is alive, gain 1 Miracle dice each time that unit destroys an enemy unit. When Agathae Dolan dies, gain D3 Miracle dice.",
+       "text": "While this model is leading a unit, each time a model in that unit destroys an enemy unit, you gain 1 Miracle dice.",
        "kind": "datasheet"
       }
      ],
@@ -27711,7 +27712,7 @@ const DATA = {
       },
       {
        "name": "Mysterious Saviours",
-       "text": "Heroic Intervention on this unit costs 1CP less and ignores other uses this phase.",
+       "text": "You can target this unit with the Heroic Intervention Stratagem for 0CP, and can do so even if you have already targeted a different unit with that Stratagem this phase.",
        "kind": "datasheet"
       }
      ],
