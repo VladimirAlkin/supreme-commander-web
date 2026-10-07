@@ -169,7 +169,7 @@
     view: 'home', homeTab: 'armies', factionId: null, factionTab: 'army', rosterId: null, tab: 'build',
     search: '', cat: 'all', expanded: {}, renaming: false, modal: null, draft: null,
     stratPhase: 'All', stratSrc: 'All', rulesSeg: 'army', dsBuff: true, homeSearch: '',
-    m: false, sub: null, sheet: null, playSeg: 'turn', stratMode: 'now', stratOpen: {}, scrollMem: {}, rosterFrom: 'faction', flash: null, mpend: {}, msd: null, msAll: false, msCollapsed: false,
+    m: false, sub: null, sheet: null, playSeg: 'turn', stratMode: 'all', stratOpen: {}, scrollMem: {}, rosterFrom: 'faction', flash: null, mpend: {}, msd: null, msAll: false, msCollapsed: false,
   };
   const cur = () => rosters.find(r => r.id === S.rosterId);
   const unitDef = (fid, id) => fdata(fid).units.find(u => u.id === id);
@@ -1963,11 +1963,10 @@
     const dets = r.detachmentIds.map(id => fd.detachments.find(d => d.id === id));
     let list = allStrats(r);
     const mode = S.stratMode;
-    if (mode === 'now') list = list.filter(x => (x.s.phases.includes(p.phase) || x.s.phases.includes('Any')) && (x.turn === 'both' || x.turn === p.turn));
-    else if (mode !== 'all') list = list.filter(x => x.s.phases.includes(mode) || x.s.phases.includes('Any'));
+    if (mode !== 'all') list = list.filter(x => x.s.phases.includes(mode) || x.s.phases.includes('Any'));
     if (S.stratSrc !== 'All') list = list.filter(x => x.src === S.stratSrc);
     const stamp = `${p.round}-${p.turn}-${p.phase}`;
-    const modes = [['now', `Now · ${p.phase}`], ['all', 'All'], ...PHASES.map(ph => [ph, ph])];
+    const modes = [['all', 'All'], ...PHASES.map(ph => [ph, ph])];
     const row = x => {
       const open = !!S.stratOpen[x.key], used = p.usedStrats[x.key] === stamp, ph = x.s.phases[0];
       return `<article class="srow ${used ? 'used' : ''}" style="--ph:var(${PH_VAR[ph] || '--ph-any'})"><button class="srow-h" data-act="stratToggle" data-id="${esc(x.key)}" aria-expanded="${open}"><span class="srow-t"><span class="ph">${esc(x.s.phases.join(' / '))}${x.turn === 'opp' ? ' · opponent' : x.turn === 'mine' ? ' · your turn' : ''}</span><b>${esc(x.s.name)}</b></span><span class="cp num">${x.s.cp} CP</span>${CHEV}</button>
@@ -1976,7 +1975,7 @@
     };
     return `<div class="stack"><div class="chips scroll" role="group" aria-label="When">${modes.map(([id, l]) => `<button class="chip" aria-pressed="${mode === id}" data-act="stratMode" data-id="${id}" ${PH_VAR[id] ? `style="border-color:var(${PH_VAR[id]})"` : ''}>${esc(l)}</button>`).join('')}</div>
       <div class="chips scroll" role="group" aria-label="Source">${['All', 'Core', ...dets.map(d => d.name)].map(x => `<button class="chip" aria-pressed="${S.stratSrc === x}" data-act="stratSrc" data-id="${esc(x)}">${esc(x)}</button>`).join('')}</div>
-      ${mode === 'now' ? `<div class="faint" style="font-size:.85rem">${p.turn === 'opp' ? "Opponent's" : 'Your'} ${p.phase} phase, from the Play tab. Stratagems usable in any phase are included.</div>` : ''}
+      ${mode !== 'all' ? '<div class="faint" style="font-size:.85rem">Stratagems usable in any phase are included.</div>' : ''}
       <div class="slist">${list.map(row).join('') || '<div class="empty">No stratagems for this moment.</div>'}</div></div>`;
   }
   /* bottom sheets (phones) */

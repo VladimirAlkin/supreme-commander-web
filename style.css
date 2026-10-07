@@ -55,6 +55,11 @@ body::before {
 #app { position: relative; z-index: 1; min-height: 100%; }
 button, input, select, textarea { font: inherit; color: inherit; }
 button { cursor: pointer; }
+/* Phones: a tap landing on an <img> or a label inside a button selects it
+   instead of pressing the button, and the stuck selection then eats the
+   next tap. Make the button the only hit target. */
+button { -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; }
+button img, button svg, button .pt { pointer-events: none; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
 
