@@ -1807,7 +1807,7 @@ const DATA = {
      "abilities": [
       {
        "name": "Reborn in Blood",
-       "text": "If Angron is destroyed, at the start of a battle round you can spend a triple 6 from the Blessings of Khorne roll (instead of activating Blessings) to bring him back: in the Reinforcements step of your next Movement phase set him up anywhere using Deep Strike, with 8 wounds.",
+       "text": "At the start of the battle round, when you make a Blessings of Khorne roll, if this model is destroyed, you can use a triple 6 from that roll to use this ability instead of activating any Blessings of Khorne at the start of that battle round. If you do, this model is no longer destroyed and in the Reinforcements step of your next Movement phase, it is set up anywhere on the battlefield using its Deep Strike ability, with 8 wounds remaining.",
        "kind": "datasheet"
       },
       {
@@ -1822,13 +1822,17 @@ const DATA = {
       },
       {
        "name": "Driven by Ultimate Rage (Aura)",
-       "text": "Wrathful Presence (Aura). Friendly WORLD EATERS units within 6\" can re-roll hit rolls of 1 and wound rolls of 1 with melee attacks.",
+       "text": "Wrathful Presence (Aura). While a friendly WORLD EATERS unit is within 6\" of this model, you can ignore any or all modifiers to that unit’s Move characteristic and to Advance and Charge rolls made for it, and each time a model in that unit makes a melee attack, you can ignore any or all modifiers to that attack’s Weapon Skill characteristic and/or any or all modifiers to the Hit roll.",
        "kind": "datasheet"
       },
       {
        "name": "Overwhelming Wrath (Aura)",
        "text": "Wrathful Presence (Aura). An enemy unit within 6\" that is selected to fall back must pass a Leadership test or remain stationary instead.",
        "kind": "datasheet"
+      },
+      {
+       "name": "Supreme Commander",
+       "text": "If this model is in your army, it must be your WARLORD."
       }
      ],
      "sizes": [
@@ -1859,7 +1863,8 @@ const DATA = {
        {
         "id": "rage",
         "name": "Driven by Ultimate Rage",
-        "effect": "Aura 6\": friendly WORLD EATERS units re-roll hit and wound rolls of 1 with melee attacks."
+        "effect": "Aura 6\": friendly WORLD EATERS units re-roll hit and wound rolls of 1 with melee attacks.",
+        "text": "While a friendly WORLD EATERS unit is within 6\" of this model, you can ignore any or all modifiers to that unit’s Move characteristic and to Advance and Charge rolls made for it, and each time a model in that unit makes a melee attack, you can ignore any or all modifiers to that attack’s Weapon Skill characteristic and/or any or all modifiers to the Hit roll."
        },
        {
         "id": "wrath",
@@ -2355,7 +2360,7 @@ const DATA = {
      "abilities": [
       {
        "name": "Aggressive Advance",
-       "text": "While leading a unit, models in it have Move 10\" and can move through terrain on Normal, Advance, Fall Back and Charge moves.",
+       "text": "While leading a unit, models in it have Move 10\" and can move horizontally through terrain on Normal, Advance, Fall Back and Charge moves.",
        "kind": "datasheet"
       },
       {
@@ -2510,9 +2515,7 @@ const DATA = {
      ],
      "coreAbilities": [
       "Deadly Demise D3",
-      "Deep Strike",
-      "Leader",
-      "Scouts 6\" (when attached to Possessed)"
+      "Leader"
      ],
      "factionAbilities": [
       "Blessings of Khorne"
@@ -2530,7 +2533,7 @@ const DATA = {
       },
       {
        "name": "Lord of the Eightbound",
-       "text": "If attached to a WORLD EATERS POSSESSED unit when you declare battle formations, this model has Deep Strike and Scouts 6\".",
+       "text": "If this model is attached to a WORLD EATERS POSSESSED unit during the Declare Battle Formations step, until the end of the battle, this model has the Deep Strike and Scouts 6\" abilities.",
        "kind": "datasheet"
       }
      ],
@@ -2637,9 +2640,7 @@ const DATA = {
        "kw": []
       }
      ],
-     "coreAbilities": [
-      "Deep Strike"
-     ],
+     "coreAbilities": [],
      "factionAbilities": [
       "Blessings of Khorne"
      ],
@@ -2647,11 +2648,6 @@ const DATA = {
       {
        "name": "Blood Surge",
        "text": "In your opponent's Shooting phase, after an enemy unit shoots: if a model in this unit was destroyed by those attacks, the unit can surge up to D6+2\".",
-       "kind": "datasheet"
-      },
-      {
-       "name": "Murderous Charge",
-       "text": "In a turn in which this unit made a charge move, its melee attacks get +1 S.",
        "kind": "datasheet"
       },
       {
@@ -3312,7 +3308,6 @@ const DATA = {
       }
      ],
      "coreAbilities": [
-      "Deep Strike",
       "Scouts 6\""
      ],
      "factionAbilities": [
@@ -3322,11 +3317,6 @@ const DATA = {
       {
        "name": "Beacons of Rage (Aura)",
        "text": "Friendly WORLD EATERS units within 6\" get +1 to hit with melee attacks against non-MONSTER/VEHICLE units, and also +1 to wound if the target is below half strength.",
-       "kind": "datasheet"
-      },
-      {
-       "name": "Brazen Fury",
-       "text": "In your opponent's Shooting phase, after an enemy unit shoots: if a model in this unit was destroyed by those attacks, it can surge up to D6\" (a Brazen Fury move).",
        "kind": "datasheet"
       }
      ],
@@ -3401,11 +3391,6 @@ const DATA = {
       {
        "name": "Rend and Tear",
        "text": "Melee attacks against MONSTER or VEHICLE units get +1 Damage.",
-       "kind": "datasheet"
-      },
-      {
-       "name": "Brazen Fury",
-       "text": "In your opponent's Shooting phase, after an enemy unit shoots: if a model in this unit was destroyed by those attacks, it can surge up to D6\" (a Brazen Fury move).",
        "kind": "datasheet"
       }
      ],
@@ -3545,7 +3530,7 @@ const DATA = {
      "abilities": [
       {
        "name": "Assault Ramp",
-       "text": "Units that disembark after this model made a Normal move can still declare a charge this turn.",
+       "text": "Each time a unit disembarks from this model after it has made a Normal move, that unit makes an assault disembark move (Core Rules, 18.06) for that disembarkation.",
        "kind": "datasheet"
       }
      ],
@@ -3717,6 +3702,10 @@ const DATA = {
        "name": "Blood-hungry Annihilator",
        "text": "Ranged attacks against the closest eligible MONSTER or VEHICLE within 18\" can re-roll the wound roll and the damage roll.",
        "kind": "datasheet"
+      },
+      {
+       "name": "Damaged: 1-4 wounds remaining",
+       "text": "While this model has 1-4 wounds remaining, each time this model makes an attack, subtract 1 from the Hit roll."
       }
      ],
      "sizes": [
@@ -3907,6 +3896,10 @@ const DATA = {
        "name": "Punishing Suppression",
        "text": "After this model shoots in your Shooting phase, one enemy unit it hit (not MONSTER/VEHICLE) is suppressed until your next turn: -1 to hit for its attacks.",
        "kind": "datasheet"
+      },
+      {
+       "name": "Damaged: 1-4 wounds remaining",
+       "text": "While this model has 1-4 wounds remaining, each time this model makes an attack, subtract 1 from the Hit roll."
       }
      ],
      "sizes": [
@@ -4169,9 +4162,8 @@ const DATA = {
        "kind": "datasheet"
       },
       {
-       "name": "Terror of Khorne",
-       "text": "Start of the Fight phase: pick one enemy unit engaged with this unit; it makes a battle-shock roll at -1 (each enemy unit once per phase).",
-       "kind": "datasheet"
+       "name": "Damaged: 1-6 wounds remaining",
+       "text": "While this model has 1-6 wounds remaining, each time this model makes an attack, subtract 1 from the Hit roll."
       }
      ],
      "sizes": [
@@ -4365,9 +4357,8 @@ const DATA = {
        "kind": "datasheet"
       },
       {
-       "name": "Terror of Khorne",
-       "text": "Start of the Fight phase: pick one enemy unit engaged with this unit; it makes a battle-shock roll at -1 (each enemy unit once per phase).",
-       "kind": "datasheet"
+       "name": "Damaged: 1-4 wounds remaining",
+       "text": "While this model has 1-4 wounds remaining, each time this model makes an attack, subtract 1 from the Hit roll."
       }
      ],
      "sizes": [
@@ -4858,9 +4849,8 @@ const DATA = {
        "kind": "datasheet"
       },
       {
-       "name": "Terror of Khorne",
-       "text": "Start of the Fight phase: pick one enemy unit engaged with this unit; it makes a battle-shock roll at -1 (each enemy unit once per phase).",
-       "kind": "datasheet"
+       "name": "Damaged: 1-4 wounds remaining",
+       "text": "While this model has 1-4 wounds remaining, each time this model makes an attack, subtract 1 from the Hit roll."
       }
      ],
      "sizes": [
@@ -4977,9 +4967,8 @@ const DATA = {
        "kind": "datasheet"
       },
       {
-       "name": "Terror of Khorne",
-       "text": "Start of the Fight phase: pick one enemy unit engaged with this unit; it makes a battle-shock roll at -1 (each enemy unit once per phase).",
-       "kind": "datasheet"
+       "name": "Damaged: 1-4 wounds remaining",
+       "text": "While this model has 1-4 wounds remaining, each time this model makes an attack, subtract 1 from the Hit roll."
       }
      ],
      "sizes": [
@@ -5336,8 +5325,7 @@ const DATA = {
       }
      ],
      "coreAbilities": [
-      "Deadly Demise D6+2",
-      "Super-Heavy Walker"
+      "Deadly Demise D6+2"
      ],
      "factionAbilities": [
       "Blessings of Khorne"
@@ -5349,9 +5337,8 @@ const DATA = {
        "kind": "datasheet"
       },
       {
-       "name": "Terror of Khorne",
-       "text": "Start of the Fight phase: pick one enemy unit engaged with this unit; it makes a battle-shock roll at -1 (each enemy unit once per phase).",
-       "kind": "datasheet"
+       "name": "Super-heavy War Engine",
+       "text": "Each time this model makes a Normal, Advance or Fall Back move, it can move through models (excluding TITANIC models) and sections of terrain features that are 4\" or less in height as if they were not there. When doing so, it can move within Engagement Range of enemy models, but cannot end that move within Engagement Range of them. Each time this model makes a Normal, Advance or Fall Back move, if it moves over any sections of terrain features that are more than 4\" in height, after it has finished that move, roll one D6: on a roll of 1, this model is Battle-shocked."
       }
      ],
      "sizes": [
@@ -5421,7 +5408,8 @@ const DATA = {
       "Chaos",
       "Daemon",
       "Khorne",
-      "Skarbrand"
+      "Skarbrand",
+      "Summoned"
      ],
      "image": "skarbrand",
      "baseSize": "100mm",
@@ -5681,7 +5669,8 @@ const DATA = {
       "Chaos",
       "Daemon",
       "Khorne",
-      "Summoned"
+      "Summoned",
+      "Bloodletters"
      ],
      "image": "bloodletters",
      "baseSize": "32mm",
