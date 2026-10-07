@@ -834,7 +834,7 @@ const DATA = {
        ],
        "when": "Your Movement phase, right after a KHORNE BERZERKERS unit is selected to advance.",
        "target": "That KHORNE BERZERKERS unit.",
-       "effect": "The unit can still declare a charge this turn."
+       "effect": "Your unit is still eligible to declare a charge this turn."
       },
       {
        "id": "berzerkers_wrath",
@@ -1554,7 +1554,7 @@ const DATA = {
        ],
        "when": "Your Movement phase, when a friendly DAEMON VEHICLE unit is selected to move.",
        "target": "That unit.",
-       "effect": "It has the MOBILE keyword."
+       "effect": "Until the end of the turn, your unit has the MOBILE ability (it can shoot and charge in a turn in which it Fell Back)."
       },
       {
        "id": "goaded_to_fury",
@@ -1566,7 +1566,7 @@ const DATA = {
        ],
        "when": "Your opponent's Shooting phase, right after an enemy unit shoots a friendly unengaged DAEMON VEHICLE unit (not TITANIC).",
        "target": "That unit.",
-       "effect": "It can make a surge move of up to D6\"."
+       "effect": "Your unit can make a surge move of up to D6\"."
       }
      ],
      "dispositions": [
@@ -1635,7 +1635,7 @@ const DATA = {
        ],
        "when": "Fight phase, when a friendly WORLD EATERS CHARACTER unit (not EPIC HERO) is selected to fight.",
        "target": "That unit.",
-       "effect": "Its CHARACTER models' melee attacks get +1 A and +2 S."
+       "effect": "Until the end of the phase, add 1 to the Attacks characteristic and add 2 to the Strength characteristic of melee weapons equipped by CHARACTER models in your unit."
       },
       {
        "id": "punish_the_craven",
@@ -6144,7 +6144,7 @@ const DATA = {
        ],
        "when": "Your Command phase.",
        "target": "Up to two ENDLESS MULTITUDE units within Synapse Range, or one other ENDLESS MULTITUDE unit.",
-       "effect": "Return up to D3+3 destroyed models to each of them."
+       "effect": "Return up to D3+3 destroyed models to each of those units."
       }
      ]
     },
@@ -6326,7 +6326,7 @@ const DATA = {
        ],
        "when": "End of your opponent's Fight phase.",
        "target": "One TYRANIDS unit, or up to two BURROWER units, that are not engaged.",
-       "effect": "Remove them and place them into Strategic Reserves."
+       "effect": "Remove those units from the battlefield and place them into Strategic Reserves."
       }
      ]
     },
@@ -6495,7 +6495,7 @@ const DATA = {
        ],
        "when": "Your Movement phase.",
        "target": "One TYRANIDS unit within Synapse Range that fell back this phase.",
-       "effect": "It can shoot and declare a charge this turn."
+       "effect": "Until the end of the turn, your unit can shoot and is eligible to declare a charge this turn."
       }
      ]
     },
@@ -6920,7 +6920,7 @@ const DATA = {
        ],
        "when": "Your opponent's Movement phase, right after an enemy unit ends a Normal, Advance or Fall Back move.",
        "target": "Up to two VANGUARD INVADER units within 8\" of that enemy unit, or one other TYRANIDS INFANTRY unit within 8\".",
-       "effect": "Each of them can make a Normal move of up to 6\".",
+       "effect": "Each of those units can make a Normal move of up to 6\".",
        "restrictions": "Not units that are engaged."
       },
       {
@@ -6945,7 +6945,7 @@ const DATA = {
        ],
        "when": "End of your opponent's Fight phase.",
        "target": "Up to two VANGUARD INVADER units, or one TYRANIDS INFANTRY unit.",
-       "effect": "Remove them and place them into Strategic Reserves.",
+       "effect": "Remove those units from the battlefield and place them into Strategic Reserves.",
        "restrictions": "They must be more than 3\" from all enemy units."
       }
      ]
@@ -7143,7 +7143,7 @@ const DATA = {
        ],
        "when": "Fight phase, when a friendly DEATHLEAPER, LICTOR, NEUROLICTOR or VON RYAN'S LEAPERS unit is selected to fight.",
        "target": "That unit.",
-       "effect": "Its attacks against a hidden unit get +1 S and +1 AP."
+       "effect": "Until the end of the phase, each time a model in your unit makes an attack that targets a unit that is not visible to it, add 1 to the Strength characteristic and improve the Armour Penetration characteristic of that attack by 1."
       },
       {
        "id": "hypersensory_adaptations",
@@ -7167,7 +7167,7 @@ const DATA = {
        ],
        "when": "End of your opponent's Fight phase.",
        "target": "One unengaged DEATHLEAPER, LICTOR or NEUROLICTOR unit.",
-       "effect": "Place it into Strategic Reserves."
+       "effect": "Remove your unit from the battlefield and place it into Strategic Reserves."
       }
      ]
     },
@@ -7232,7 +7232,7 @@ const DATA = {
        ],
        "when": "Any phase, when a friendly NORN ASSIMILATOR unit suffers a mortal wound.",
        "target": "That unit.",
-       "effect": "It has Feel No Pain 4+ against mortal wounds."
+       "effect": "Until the end of the phase, models in your unit have the Feel No Pain 4+ ability against mortal wounds."
       },
       {
        "id": "lesser_prey",
@@ -7244,7 +7244,7 @@ const DATA = {
        ],
        "when": "Fight phase, when a NORN ASSIMILATOR or NORN EMISSARY unit is selected to fight.",
        "target": "That unit.",
-       "effect": "Its melee attacks get +2 S."
+       "effect": "Until the end of the phase, add 2 to the Strength characteristic of melee weapons equipped by models in your unit."
       },
       {
        "id": "tanglestrike_rounds",
@@ -7382,7 +7382,7 @@ const DATA = {
        ],
        "when": "Your Shooting phase, when a TYRANID WARRIORS unit is selected to shoot.",
        "target": "That unit.",
-       "effect": "Its ranged attacks have [IGNORES COVER]."
+       "effect": "Until the end of the phase, ranged weapons equipped by models in your unit have the [IGNORES COVER] ability."
       }
      ]
     }
@@ -12445,7 +12445,7 @@ const DATA = {
      "abilities": [
       {
        "name": "Apex-beast",
-       "text": "+1 to hit against battle-shocked units.",
+       "text": "Each time this model makes an attack that targets a Battle-shocked unit, add 1 to the Hit roll.",
        "kind": "datasheet"
       },
       {
@@ -13054,7 +13054,7 @@ const DATA = {
        ],
        "when": "Start of the Fight phase.",
        "target": "One DEATH GUARD unit from your army that contains two CHARACTER models.",
-       "effect": "Until the end of the phase it has Fights First."
+       "effect": "Until the end of the phase, your unit has the Fights First ability."
       },
       {
        "id": "mobile_vector",
@@ -13621,7 +13621,7 @@ const DATA = {
        ],
        "when": "Your Shooting phase or the Fight phase, when a CONTAGION ENGINE unit is selected to attack.",
        "target": "That unit.",
-       "effect": "Its attacks can re-roll wound rolls of 1."
+       "effect": "Until the end of the phase, each time a model in your unit makes an attack, you can re-roll a Wound roll of 1."
       },
       {
        "id": "bloodrust_deluge",
@@ -13725,7 +13725,7 @@ const DATA = {
        ],
        "when": "Your Shooting phase, when a PLAGUE MARINES unit is selected to shoot.",
        "target": "That unit.",
-       "effect": "Its ranged attacks have [CLOSE-QUARTERS]."
+       "effect": "Until the end of the phase, ranged weapons equipped by models in your unit have the [CLOSE-QUARTERS] ability."
       }
      ]
     },
@@ -13788,7 +13788,7 @@ const DATA = {
        ],
        "when": "Start of the Command phase.",
        "target": "One DEATH GUARD CHARACTER unit from your army.",
-       "effect": "It gets +1 OC until the end of the turn."
+       "effect": "Until the end of the turn, add 1 to the Objective Control characteristic of models in your unit."
       },
       {
        "id": "aggravus_spasms",
@@ -13812,7 +13812,7 @@ const DATA = {
        ],
        "when": "Your Shooting phase, when a DEATH GUARD CHARACTER unit starts an action.",
        "target": "That unit.",
-       "effect": "The action does not stop it from shooting."
+       "effect": "Your unit can shoot this phase even though it is performing an action (the action is not interrupted)."
       }
      ]
     }
@@ -19772,7 +19772,7 @@ const DATA = {
        ],
        "when": "Any phase, when a friendly INFANTRY/MOUNTED THOUSAND SONS PSYKER unit suffers a mortal wound.",
        "target": "That unit.",
-       "effect": "It has Feel No Pain 5+ against mortal wounds."
+       "effect": "Until the end of the phase, models in your unit have the Feel No Pain 5+ ability against mortal wounds."
       },
       {
        "id": "mutagenic_magicks",
@@ -19796,7 +19796,7 @@ const DATA = {
        ],
        "when": "Your Movement phase, when a friendly INFANTRY/MOUNTED THOUSAND SONS PSYKER unit advances or falls back.",
        "target": "That unit.",
-       "effect": "That move does not stop it from starting an action."
+       "effect": "That move does not prevent your unit from starting an action this phase."
       }
      ]
     },
@@ -19858,7 +19858,7 @@ const DATA = {
        ],
        "when": "End of your Movement phase.",
        "target": "One SEKHETAR ROBOTS unit.",
-       "effect": "One objective it controls becomes secured."
+       "effect": "Select one objective marker your unit is controlling. Until the start of your next Command phase, that objective marker is secured by your unit."
       },
       {
        "id": "ectoplasmic_extrusion",
@@ -19870,7 +19870,7 @@ const DATA = {
        ],
        "when": "Your Shooting phase, when a SEKHETAR ROBOTS unit within 12\" of a friendly THOUSAND SONS PSYKER unit starts an action.",
        "target": "That unit.",
-       "effect": "The action does not stop it from shooting."
+       "effect": "Your unit can shoot this phase even though it is performing an action (the action is not interrupted)."
       },
       {
        "id": "warp_fields",
@@ -19968,7 +19968,7 @@ const DATA = {
        ],
        "when": "Your Movement phase, when a friendly INFANTRY/MOUNTED MUTANT unit advances or falls back.",
        "target": "That unit.",
-       "effect": "That move does not stop it from starting an action."
+       "effect": "That move does not prevent your unit from starting an action this phase."
       },
       {
        "id": "the_land_writhes",
@@ -29280,7 +29280,7 @@ const DATA = {
       },
       {
        "name": "Anchorite Sarcophagus",
-       "text": "The bearer has Move 7\" and Save 3+.",
+       "text": "The bearer has a Move characteristic of 7\" and a Save characteristic of 3+.",
        "kind": "wargear"
       }
      ],
@@ -33099,7 +33099,7 @@ const DATA = {
       },
       {
        "name": "Ancient's Banner",
-       "text": "+1 OC for models in the bearer's unit.",
+       "text": "Add 1 to the Objective Control characteristic of models in the bearer's unit.",
        "kind": "wargear"
       }
      ],
