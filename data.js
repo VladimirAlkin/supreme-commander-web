@@ -4275,7 +4275,14 @@ const DATA = {
        ]
       }
      ],
-     "optionRules": [],
+     "optionRules": [
+      {
+       "type": "maxCount",
+       "optionId": "electroscourge",
+       "max": 1,
+       "note": "A model cannot be equipped with more than one electroscourge."
+      }
+     ],
      "slots": [],
      "optionGroups": []
     },
@@ -5142,7 +5149,8 @@ const DATA = {
       {
        "id": "havoc",
        "type": "toggle",
-       "label": "Havoc launcher"
+       "label": "Havoc launcher",
+       "note": "This model can be equipped with 1 havoc launcher or can replace 1 combi-bolter with 1 havoc launcher."
       }
      ],
      "optionRules": [],
@@ -17944,7 +17952,8 @@ const DATA = {
          "label": "Electroscourge",
          "pts": 0
         }
-       ]
+       ],
+       "note": " A model cannot be equipped with more than one electroscourge."
       },
       {
        "id": "hml",
@@ -17971,7 +17980,8 @@ const DATA = {
          "label": "Electroscourge",
          "pts": 0
         }
-       ]
+       ],
+       "note": " A model cannot be equipped with more than one electroscourge."
       }
      ],
      "optionRules": [
@@ -18122,7 +18132,8 @@ const DATA = {
       {
        "id": "havoc",
        "type": "toggle",
-       "label": "Havoc launcher"
+       "label": "Havoc launcher",
+       "note": "This model can be equipped with 1 havoc launcher or can replace 1 combi-bolter with 1 havoc launcher."
       }
      ],
      "optionRules": [],
@@ -21187,7 +21198,7 @@ const DATA = {
      "abilities": [
       {
        "name": "Aetherstride (Psychic)",
-       "text": "When it arrives by Deep Strike in your Movement phase it can aetherstride: set up more than 6\" from enemy units, its Dark Blessing gains [SUSTAINED HITS D3] this turn, and it cannot charge this turn.",
+       "text": "When it arrives by Deep Strike in your Movement phase it can aetherstride: set up more than 6\" horizontally away from enemy units, its Dark Blessing gains [SUSTAINED HITS D3] this turn, and it cannot charge this turn.",
        "kind": "datasheet"
       },
       {
@@ -21278,7 +21289,7 @@ const DATA = {
      "abilities": [
       {
        "name": "Sacrificial Blessing",
-       "text": "While leading a unit, when that unit shoots or fights: destroy one Bodyguard model to give this model's Psychic weapons +D3 A and +D3 S until the end of the phase.",
+       "text": "In your Shooting phase and the Fight phase, each time that unit is selected to shoot or fight, this model can use this ability. If it does, destroy one Bodyguard model in that unit; until the end of the phase, add D3 to the Attacks and Strength characteristics of weapons equipped by models in that unit.",
        "kind": "datasheet"
       },
       {
@@ -21521,7 +21532,10 @@ const DATA = {
      "leadModel": {
       "name": "Aspiring Sorcerer",
       "W": "3",
-      "Ld": "6+"
+      "Ld": "6+",
+      "keywords": [
+       "Psyker"
+      ]
      }
     },
     {
@@ -21736,7 +21750,10 @@ const DATA = {
      "leadModel": {
       "name": "Scarab Occult Sorcerer",
       "W": "4",
-      "Ld": "6+"
+      "Ld": "6+",
+      "keywords": [
+       "Psyker"
+      ]
      }
     },
     {
@@ -22517,7 +22534,8 @@ const DATA = {
       {
        "id": "havoc",
        "type": "toggle",
-       "label": "Havoc launcher"
+       "label": "Havoc launcher",
+       "note": "This model can be equipped with 1 havoc launcher or can replace 1 inferno combi-bolter with 1 havoc launcher."
       }
      ],
      "optionRules": [],
@@ -23942,7 +23960,7 @@ const DATA = {
      "abilities": [
       {
        "name": "Terrifying Assault",
-       "text": "After this model shoots or fights, one enemy unit it hit takes a battle-shock test (-1 if within 9\" of one of your THOUSAND SONS PSYKER units).",
+       "text": "In your Shooting phase and the Fight phase, after this model has shot or fought, select one enemy unit hit by one or more of those attacks; that enemy unit must take a Battle-shock test.",
        "kind": "datasheet"
       },
       {
@@ -24327,7 +24345,7 @@ const DATA = {
        "kind": "datasheet"
       },
       {
-       "name": "Master of Magicks (Aura)",
+       "name": "Master of Magicks (Psychic)",
        "text": "Your Shooting phase: its Bolt of Change gains [IGNORES COVER], [LETHAL HITS] or [SUSTAINED HITS D3] (your pick) until the end of the phase.",
        "kind": "datasheet"
       }
@@ -24722,12 +24740,12 @@ const DATA = {
       },
       {
        "name": "Sullen Malevolence (Aura)",
-       "text": "While this unit has a Blue Horror, enemy units within 6\" get -1 Leadership.",
+       "text": "While an enemy unit is within 6\" of this unit, worsen the Leadership characteristic of models in that enemy unit by 1.",
        "kind": "datasheet"
       },
       {
        "name": "Exploding Horrors",
-       "text": "When this unit fights, pick an engaged enemy unit and any of its Brimstone Horrors: roll D6 for each, on a 4+ that Brimstone Horror is destroyed and the enemy unit suffers 1 mortal wound.",
+       "text": "Each time a BRIMSTONE HORROR model in this unit is destroyed, you can select one enemy unit within Engagement Range of it, then select one or more BRIMSTONE HORROR models in this unit that were destroyed this phase; for each model selected, roll one D6: on a 4+, that enemy unit suffers 1 mortal wound.",
        "kind": "datasheet"
       }
      ],
