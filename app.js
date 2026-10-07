@@ -207,6 +207,45 @@
     }
     return out + esc(t.slice(i));
   }
+  /* Long rule bodies arrive as one unbroken block — the worst is 2500
+     characters and 18 sentences. Split for reading only: no word is changed,
+     and nothing is ever broken mid-sentence. A new paragraph starts before
+     an inline ALL-CAPS heading ("CONTAGION RANGE:"), which is a real
+     boundary in the source, and otherwise once a paragraph has grown past
+     `max`. Done at render time so it also applies to text added later. */
+  function paras(t, max = 260) {
+    const s = String(t == null ? '' : t).trim();
+    if (!s) return [];
+    if (s.length <= max) return [s];
+    /* Every paragraph is a literal slice of the source, so the wording can
+       only be split, never rewritten. A sentence ends at .!? followed by
+       space and a capital; "e.g." is skipped because a single letter before
+       the dot, or a lower-case word after it, is not a sentence end. */
+    const cuts = [];
+    for (let i = 0; i < s.length; i++) {
+      if ('.!?'.indexOf(s[i]) < 0) continue;
+      let j = i + 1;
+      while (j < s.length && '"”\')]'.indexOf(s[j]) >= 0) j++;
+      if (j >= s.length || !/\s/.test(s[j])) continue;
+      let k = j;
+      while (k < s.length && /\s/.test(s[k])) k++;
+      if (k >= s.length || !/[A-Z"“(]/.test(s[k])) continue;
+      if (/(^|\s)[A-Za-z]$/.test(s.slice(Math.max(0, i - 2), i))) continue;
+      cuts.push([j, k]);
+    }
+    const isHeading = i => /^[A-Z][A-Z’'\- ]{2,40}:/.test(s.slice(i, i + 44));
+    const out = [];
+    let start = 0;
+    for (let c = 0; c < cuts.length; c++) {
+      const [end, next] = cuts[c];
+      /* break here if the next sentence would push this paragraph over the
+         limit, rather than after it already has */
+      const nextEnd = c + 1 < cuts.length ? cuts[c + 1][0] : s.length;
+      if (isHeading(next) || (end - start) + (nextEnd - next) > max) { out.push(s.slice(start, end)); start = next; }
+    }
+    if (start < s.length) out.push(s.slice(start));
+    return out.filter(Boolean);
+  }
   function applyTheme(fid) {
     HLF = fid || null;
     const t = (fid && faction(fid) && faction(fid).theme) || DEF_THEME;
@@ -415,7 +454,7 @@
   }
 
   function armyRulesHTML(fd) {
-    return `<div class="stack">${fd.armyRules.map(r => `<div class="panel pad stack"><h3>${esc(r.name)}</h3>${[].concat(r.text || []).map(t => `<p style="margin:0">${hl(t)}</p>`).join('')}
+    return `<div class="stack">${fd.armyRules.map(r => `<div class="panel pad stack"><h3>${esc(r.name)}</h3>${[].concat(r.text || []).reduce((a, t) => a.concat(paras(t)), []).map(t => `<p style="margin:0">${hl(t)}</p>`).join('')}
       ${r.blessings ? `<div class="stack" style="gap:6px">${r.blessings.map(b => `<div class="blessing"><div><b>${esc(b.name)}</b><div class="dim">${hl(b.effect)}</div></div><span class="badge gold">${esc(b.reqText)}</span></div>`).join('')}</div>` : ''}</div>`).join('')}</div>`;
   }
   function enhLine(e, carriers) {
@@ -425,7 +464,7 @@
     const carriers = e => r ? r.units.filter(u => Engine.enhIds(u).includes(e.id)).map(u => dispName(r, u)).join(', ') : '';
     const enhs = r ? d.enhancements.filter(e => carriers(e)) : d.enhancements;
     return `<details class="panel pad" ${r ? 'open' : ''}><summary style="cursor:pointer;list-style:none"><div class="row"><h3 class="grow">${esc(d.name)}</h3><span class="badge gold">${d.dp} DP</span>${Engine.dispositionsOf(d).map(x => `<span class="badge">${esc(x)}</span>`).join('')}${(d.tags || []).map(t => `<span class="badge red">${esc(t)}</span>`).join('')}</div><div class="dim" style="margin-top:4px">${hl(d.summary || '')}</div></summary>
-      <div class="stack" style="margin-top:12px"><div class="abil"><b>${esc(d.rule.name)}</b>${hl(d.rule.text)}</div>
+      <div class="stack" style="margin-top:12px"><div class="abil"><b>${esc(d.rule.name)}</b>${paras(d.rule.text).map((p, i) => i ? `<p style="margin:8px 0 0">${hl(p)}</p>` : hl(p)).join('')}</div>
       <div class="eyebrow">${r ? 'Enhancements in this roster' : 'Enhancements'}</div>${enhs.length ? enhs.map(e => enhLine(e, r && carriers(e))).join('') : '<div class="dim">None taken.</div>'}
       ${r ? '' : `<div class="eyebrow">Stratagems</div><div class="sgrid">${d.stratagems.map(s => stratCard(s, d.name)).join('')}</div>`}</div></details>`;
   }
