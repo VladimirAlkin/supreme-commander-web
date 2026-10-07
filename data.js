@@ -597,7 +597,7 @@ const DATA = {
         }
        ],
        "reqText": "Any double",
-       "effect": "+1 to charge rolls."
+       "effect": "Add 1 to Charge rolls made for this unit."
       },
       {
        "id": "b2",
@@ -609,7 +609,7 @@ const DATA = {
         }
        ],
        "reqText": "Double 2+",
-       "effect": "Pile-in and consolidation moves can be up to 6\" instead of 3\"."
+       "effect": "Each time a model in this unit makes a Pile-in or Consolidation move, it can move up to 6\" instead of up to 3\"."
       },
       {
        "id": "b3",
@@ -638,7 +638,7 @@ const DATA = {
         }
        ],
        "reqText": "Double 4+ or triple 1+",
-       "effect": "Melee weapons have [SUSTAINED HITS 1]."
+       "effect": "Melee weapons equipped by models in this unit have the [SUSTAINED HITS 1] ability."
       },
       {
        "id": "b5",
@@ -654,7 +654,7 @@ const DATA = {
         }
        ],
        "reqText": "Double 5+ or triple 2+",
-       "effect": "Melee weapons have [LETHAL HITS]."
+       "effect": "Melee weapons equipped by models in this unit have the [LETHAL HITS] ability."
       },
       {
        "id": "b6",
@@ -670,7 +670,7 @@ const DATA = {
         }
        ],
        "reqText": "Double 6+ or triple 3+",
-       "effect": "Melee attacks against INFANTRY units have [DEVASTATING WOUNDS]."
+       "effect": "Each time a model in this unit makes a melee attack that targets an INFANTRY unit, that attack has the [DEVASTATING WOUNDS] ability."
       }
      ]
     },
