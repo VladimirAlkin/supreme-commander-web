@@ -5967,19 +5967,13 @@ const DATA = {
     {
      "id": "synapse",
      "name": "Synapse",
-     "text": [
-      "If your Army Faction is TYRANIDS: a TYRANIDS unit from your army within 6\" of one or more friendly SYNAPSE models is within Synapse Range of your army.",
-      "While a unit is within Synapse Range, it takes battle-shock tests on 3D6 instead of 2D6, and its melee attacks get +1 S."
-     ]
+     "text": "If your Army Faction is TYRANIDS, while a TYRANIDS unit from your army is within 6\" of one or more friendly SYNAPSE models, that TYRANIDS unit is said to be within Synapse Range of that model and of your army. While a TYRANIDS unit from your army is within Synapse Range of your army: Each time that unit takes a Battle-shock test, take that test on 3D6 instead of 2D6. Each time a model in that unit makes a melee attack, add 1 to the Strength characteristic of that attack."
     },
     {
      "id": "shadow",
      "name": "Shadow in the Warp",
      "shadow": true,
-     "text": [
-      "If your Army Faction is TYRANIDS: once per battle, in either player's Command phase, while a unit with this ability is on the battlefield, you can unleash the Shadow in the Warp.",
-      "Every enemy unit on the battlefield then takes a battle-shock test, at -1 if it is within 6\" of one or more of your SYNAPSE units."
-     ]
+     "text": "If your Army Faction is TYRANIDS, once per battle, in either player’s Command phase, if one or more units from your army with this ability are on the battlefield, you can unleash the Shadow in the Warp. When you do, each enemy unit on the battlefield must take a Battle-shock test. Each time an enemy unit takes such a Battle-shock test, if it is within 6\" of one or more SYNAPSE units from your army, subtract 1 from that test."
     }
    ],
    "detachments": [
@@ -5995,7 +5989,7 @@ const DATA = {
      "summary": "Pick one Hyper-adaptation for the whole army at the start of the first battle round.",
      "rule": {
       "name": "Hyper-adaptations",
-      "text": "At the start of the first battle round , select one of the following Hyper-adaptations to be active for TYRANIDS units from your army until the end of the battle: Swarming Instincts Each time a TYRANIDS model with this Hyper-adaptation makes an attack that targets an INFANTRY or SWARM unit, that attack has the [SUSTAINED HITS 1] ability."
+      "text": "At the start of the first battle round, select one of the following Hyper-adaptations to be active for TYRANIDS units from your army until the end of the battle: Swarming Instincts – Each time a TYRANIDS model with this Hyper-adaptation makes an attack that targets an INFANTRY or SWARM unit, that attack has the [SUSTAINED HITS 1] ability. Hyper-aggression – Each time a TYRANIDS model with this Hyper-adaptation makes an attack that targets a MONSTER or VEHICLE unit, that attack has the [LETHAL HITS] ability. Hive Predators – Each time a TYRANIDS model with this Hyper-adaptation makes an attack that targets a CHARACTER unit, on a Critical Hit, that attack has the [PRECISION] ability."
      },
      "hyperAdaptations": [
       {
@@ -18906,22 +18900,12 @@ const DATA = {
        "boost": "12+: +2 AP instead."
       }
      ],
-     "text": [
-      "If your Army Faction is THOUSAND SONS: at the start of your Shooting phase, models with this ability can attempt Rituals one at a time. Pick a model that has not attempted a Ritual this turn and a Ritual no model has attempted this turn, then take a Psychic test.",
-      "Psychic test: roll 2D6. You can then Channel the Warp and roll one more D6; if you did and any double or triple was rolled, the model's unit suffers D3 mortal wounds. If the model survives, the total of all dice is the result: equal to or above the Warp Charge, the Ritual is manifested.",
-      "Destiny's Ruin (Warp Charge 5): One enemy unit within 24\" and visible: until the end of the phase your THOUSAND SONS and SCINTILLATING LEGIONS attacks against it re-roll hit rolls of 1. 10+: re-roll the whole hit roll instead.",
-      "Temporal Surge (Warp Charge 6): One unengaged friendly THOUSAND SONS or SCINTILLATING LEGIONS unit within 24\" and visible makes a Normal move of up to D6\"; it cannot charge this turn. 10+: move up to 6\" instead.",
-      "Doombolt (Warp Charge 7): One enemy unit within 24\" and visible (a lone Lone Operative only within 12\") suffers D3 mortal wounds. 11+: D3+3 mortal wounds instead.",
-      "Twist of Fate (Warp Charge 9): One enemy unit within 24\" and visible: until the end of the phase your THOUSAND SONS and SCINTILLATING LEGIONS attacks against it get +1 AP. 12+: +2 AP instead."
-     ]
+     "text": "If your Army Faction is THOUSAND SONS, at the start of your Shooting phase, one or more models from your army with this ability can attempt Rituals from those listed below. To do so, select one model from your army with this ability that has not yet attempted a Ritual this turn and select one Ritual no model from your army has attempted to manifest this turn, then take a Psychic test for that model. PSYCHIC TEST SEQUENCE: Roll 2D6. Channel the Warp (Optional): Then, if one or more doubles or triples were rolled during this test, that model’s unit suffers D3 mortal wounds. If that model is not destroyed, the combined total of all the dice rolled during this test is the Psychic test result. If this equals or exceeds the Warp Charge value of the Ritual being attempted, that model manifests that Ritual and you resolve its effects. DESTINY’S RUIN (PSYCHIC) WARP CHARGE 5: Select one enemy unit within 24\" of and visible to the manifesting model. Until the end of the phase, each time a THOUSAND SONS or SCINTILLATING LEGIONS model from your army makes an attack that targets that unit, re-roll a Hit roll of 1. If the Psychic test result for this Ritual was 10+, you can re-roll the Hit roll instead. TEMPORAL SURGE (PSYCHIC) WARP CHARGE 6: Select one friendly THOUSAND SONS or SCINTILLATING LEGIONS unit that is not within Engagement Range of one or more enemy units and is within 24\" of and visible to the manifesting model. That unit can make a Normal move of up to D6\". If the Psychic test result for this Ritual was 10+, that unit can make a Normal move of up to 6\" instead. In either case, until the end of the turn, that unit is not eligible to declare a charge. DOOMBOLT (PSYCHIC) WARP CHARGE 7: Select one enemy unit within 24\" of and visible to the manifesting model (excluding units with the Lone Operative ability that are not part of an Attached unit and are not within 12\" of the manifesting model); that unit suffers D3 mortal wounds. If the Psychic test result for this Ritual was 11+, that unit suffers D3+3 mortal wounds instead. TWIST OF FATE (PSYCHIC) WARP CHARGE 9: Select one enemy unit within 24\" of and visible to the manifesting model. Until the end of the phase, each time a THOUSAND SONS or SCINTILLATING LEGIONS model from your army makes an attack that targets that unit, improve the Armour Penetration characteristic of that attack by 1. If the Psychic test result for this Ritual was 12+, improve the Armour Penetration characteristic of that attack by 2 instead."
     },
     {
      "id": "pact_of_sorcery",
      "name": "Pact of Sorcery",
-     "text": [
-      "SCINTILLATING LEGIONS units cannot be your Army Faction unless a rule says otherwise.",
-      "A Thousand Sons army can include them with the Changehost of Deceit detachment (up to 500/1000/1500 pts by battle size); none of them can be your WARLORD."
-     ]
+     "text": "When mustering your army, unless specifically stated otherwise, you cannot select SCINTILLATING LEGIONS as your Army Faction."
     }
    ],
    "detachments": [
@@ -18937,7 +18921,7 @@ const DATA = {
      "summary": "Each Command phase pick one Kindred Sorcery boost for your psychic weapons; each only once per battle.",
      "rule": {
       "name": "Kindred Sorcery",
-      "text": "In your Command phase you can pick one of these, active until the start of your next Command phase; each only once per battle. Imbued Manifestation: +6\" Range for ranged Psychic weapons of your THOUSAND SONS models. Psychic Maelstrom: +1 to wound for attacks with Psychic weapons by your THOUSAND SONS models. Wrath of the Immaterium: Psychic weapons of your THOUSAND SONS models have [DEVASTATING WOUNDS]."
+      "text": "In your Command phase, you can select one of the abilities listed below to take effect until the start of your next Command phase. You can only select each of these abilities once per battle. Imbued Manifestation: Add 6\" to the Range characteristic of ranged Psychic weapons equipped by THOUSAND SONS models from your army. Psychic Maelstrom: Each time a THOUSAND SONS model from your army makes an attack with a Psychic weapon, add 1 to the Wound roll. Wrath of the Immaterium: Psychic weapons equipped by THOUSAND SONS models from your army have the [DEVASTATING WOUNDS] ability."
      },
      "imperatives": [
       {
