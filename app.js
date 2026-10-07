@@ -804,12 +804,11 @@
   }
 
   /* Source filter: every detachment's stratagems sit together under
-     "Stratagems"; Core goes last because players know those by heart.
+     "Detachments"; Core goes last because players know those by heart.
      Shared by both layouts so S.stratSrc means the same thing in each. */
-  const SRC_CHIPS = ['All', 'Stratagems', 'Core'];
   const bySrc = x => S.stratSrc === 'All' || (S.stratSrc === 'Core' ? x.src === 'Core' : x.src !== 'Core');
   const chipRow = (label, inner, cls = '') => `<div class="stack" style="gap:4px"><div class="eyebrow">${label}</div><div class="chips ${cls}" role="group" aria-label="${label}">${inner}</div></div>`;
-  const srcChips = () => SRC_CHIPS.map(s => `<button class="chip" aria-pressed="${S.stratSrc === s}" data-act="stratSrc" data-id="${s}">${s}</button>`).join('');
+  const srcChips = () => ['All', 'Detachments', 'Core'].map(s => `<button class="chip" aria-pressed="${S.stratSrc === s}" data-act="stratSrc" data-id="${s}">${s}</button>`).join('');
 
   function stratsTabHTML(r) {
     let list = allStrats(r).filter(bySrc);
