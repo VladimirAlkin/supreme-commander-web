@@ -693,7 +693,7 @@ const DATA = {
      "summary": "Each time a WORLD EATERS unit makes a Charge move, until the end of the turn its melee weapons get +1 Attacks and +2 Strength.",
      "rule": {
       "name": "Relentless Rage",
-      "text": "Each time a WORLD EATERS unit from your army makes a Charge move, until the end of the turn, add 1 to the Attacks characteristic and add 2 to the Strength characteristic of melee weapons equipped by models in that unit."
+      "text": "Each time a WORLD EATERS unit from your army makes a Charge move , until the end of the turn, add 1 to the Attacks characteristic and add 2 to the Strength characteristic of melee weapons equipped by models in that unit."
      },
      "buffs": [
       {
@@ -785,7 +785,7 @@ const DATA = {
         "Any"
        ],
        "when": "Any phase.",
-       "target": "One WORLD EATERS unit from your army that was just destroyed while it was within range of one or more objective markers you controlled at the end of the previous phase.",
+       "target": "One World Eaters unit from your army that was just destroyed while it was within range of one or more objective markers you controlled at the end of the previous phase. You can use this Stratagem on that unit even though it was just destroyed.",
        "effect": "Select one of those objective markers. That objective marker remains under your control until your opponent’s Level of Control over that objective marker is greater than yours at the end of a phase."
       },
       {
@@ -797,8 +797,8 @@ const DATA = {
         "Fight"
        ],
        "when": "Fight phase.",
-       "target": "One WORLD EATERS unit that made a charge move this turn and has not fought yet.",
-       "effect": "Until the end of the phase, its melee weapons get +1 AP."
+       "target": "One World Eaters unit from your army that has not been selected to fight this phase and that made a charge move this turn.",
+       "effect": "Until the end of the phase, improve the Armour Penetration characteristic of melee weapons equipped by models in your unit by 1."
       },
       {
        "id": "frenzied_resilience",
@@ -808,9 +808,9 @@ const DATA = {
        "phases": [
         "Fight"
        ],
-       "when": "Fight phase, right after an enemy unit has selected its targets.",
-       "target": "One WORLD EATERS unit targeted by those attacks.",
-       "effect": "Until the end of the phase, attacks allocated to your unit get -1 Damage."
+       "when": "Fight phase, just after an enemy unit has selected its targets.",
+       "target": "One World Eaters unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+       "effect": "Until the end of the phase, each time an attack is allocated to a model in your unit, subtract 1 from the Damage characteristic of that attack."
       },
       {
        "id": "skulls_for_the_skull_throne",
@@ -820,9 +820,9 @@ const DATA = {
        "phases": [
         "Fight"
        ],
-       "when": "Fight phase, right after a WORLD EATERS unit destroys an enemy CHARACTER or MONSTER.",
-       "target": "That WORLD EATERS unit.",
-       "effect": "Make a Blessings of Khorne roll. You can use the result of that roll to activate one Blessing of Khorne. Until the end of the battle round, that Blessing of Khorne is active in addition to any other Blessings of Khorne that are active for your army."
+       "when": "Fight phase, just after a WORLD EATERS unit from your army destroys a CHARACTER or MONSTER model.",
+       "target": "That World Eaters unit.",
+       "effect": "Make a Blessings of Khorne roll and use the results to activate one Blessing of Khorne. Until the end of the battle round, that Blessing of Khorne is active in addition to any other Blessings of Khorne that are currently active."
       },
       {
        "id": "apoplectic_frenzy",
@@ -832,9 +832,9 @@ const DATA = {
        "phases": [
         "Movement"
        ],
-       "when": "Your Movement phase, right after a KHORNE BERZERKERS unit is selected to advance.",
-       "target": "That KHORNE BERZERKERS unit.",
-       "effect": "Your unit is still eligible to declare a charge this turn."
+       "when": "Your Movement phase, just after a KHORNE BERZERKERS unit from your army is selected to Advance.",
+       "target": "That Khorne Berzerkers unit.",
+       "effect": "Until the end of the turn, your unit is eligible to declare a charge in a turn in which it Advanced."
       },
       {
        "id": "berzerkers_wrath",
@@ -951,9 +951,9 @@ const DATA = {
        "phases": [
         "Any"
        ],
-       "when": "Any phase, right after a friendly WORLD EATERS MONSTER or TITANIC unit is destroyed.",
-       "target": "That destroyed unit.",
-       "effect": "Until the end of the battle, JAKHALS and GOREMONGERS models can re-roll hit rolls against the unit that destroyed it."
+       "when": "Any phase.",
+       "target": "One World Eaters Monster or World Eaters Titanic unit from your army that was just destroyed by an enemy unit. You can use this Stratagem on that unit even though it was just destroyed.",
+       "effect": "Until the end of the battle, each time a model in a Jakhals or Goremongers unit from your army makes an attack that targets the enemy unit that just destroyed your unit, you can re-roll the Hit roll."
       },
       {
        "id": "drawn_to_the_slaughter",
@@ -963,10 +963,10 @@ const DATA = {
        "phases": [
         "Any"
        ],
-       "when": "Any phase, right after a friendly JAKHALS unit is destroyed.",
-       "target": "That JAKHALS unit.",
-       "effect": "Add a new identical unit at Starting Strength to your Strategic Reserves (no CHARACTER units come back).",
-       "restrictions": "Once per battle."
+       "when": "Any phase.",
+       "target": "One Jakhals unit from your army that was just destroyed. You can use this Stratagem on that unit even though it was just destroyed.",
+       "effect": "Add a new unit to your army identical to your destroyed unit, in Strategic Reserves, at its Starting Strength.",
+       "restrictions": "This Stratagem cannot be used to return destroyed Character units to Attached units. You can only use this Stratagem once per battle."
       },
       {
        "id": "in_the_shadow_of_brass_idols",
@@ -977,9 +977,9 @@ const DATA = {
         "Shooting",
         "Fight"
        ],
-       "when": "Your opponent's Shooting or Fight phase, right after an enemy unit selects its targets.",
-       "target": "One JAKHALS or GOREMONGERS unit targeted.",
-       "effect": "Until the end of the phase it has Feel No Pain 6+, or 5+ while within 6\" of a friendly WORLD EATERS MONSTER or 9\" of a TITANIC unit."
+       "when": "Your opponent’s Shooting phase or the Fight phase, just after an enemy unit has selected its targets.",
+       "target": "One Jakhals or Goremongers unit from your army that was selected as the target as one or more of the attacking unit’s attacks.",
+       "effect": "Until the end of the phase, models in your unit have the Feel No Pain 6+ ability. If your unit is within 6\" of one or more friendly World Eaters Monster units, or within 9\" of one or more friendly World Eaters Titanic units, your unit has the Feel No Pain 5+ ability instead."
       },
       {
        "id": "bloodthirsty_horde",
@@ -990,8 +990,8 @@ const DATA = {
         "Fight"
        ],
        "when": "Fight phase.",
-       "target": "One JAKHALS or GOREMONGERS unit that is engaged and has not fought yet.",
-       "effect": "Models within 3\" of an enemy are eligible to fight and can target enemy units within 3\" of them that are engaged with their unit."
+       "target": "One Jakhals or Goremongers unit from your army that has not been selected to fight this phase and is within Engagement Range of one or more enemy units.",
+       "effect": "Until the end of the phase, each time your unit is selected to fight, when determining which models in it are eligible to fight, any models in your unit that are within 3\" of one or more enemy models are eligible to fight. When resolving those attacks, such models can target one of those enemy units that is within 3\" of them and within Engagement Range of their unit."
       },
       {
        "id": "fail_not_the_blood_god",
@@ -1002,8 +1002,8 @@ const DATA = {
         "Fight"
        ],
        "when": "Fight phase.",
-       "target": "One JAKHALS or GOREMONGERS unit.",
-       "effect": "Until the end of the phase, each time a model in your unit makes a melee attack, you can re-roll a Hit roll of 1. If your unit is within 6\" of one or more friendly WORLD EATERS MONSTER units, or within 9\" of one or more friendly WORLD EATERS TITANIC units, you can re-roll the Hit roll instead."
+       "target": "One Jakhals or Goremongers unit from your army.",
+       "effect": "Until the end of the phase, each time a model in your unit makes an attack, re-roll a Hit roll of 1. If that model’s unit is within 6\" of one or more friendly World Eaters Monster units, or within 9\" of one or more friendly World Eaters Titanic units, you can re-roll the Hit roll instead."
       },
       {
        "id": "brazen_idol",
@@ -1014,9 +1014,9 @@ const DATA = {
         "Command"
        ],
        "when": "Your Command phase.",
-       "target": "One WORLD EATERS MONSTER or TITANIC unit.",
-       "effect": "Select one Idols of Khorne ability. Until the start of your next Command phase, that Idols of Khorne ability is active for your unit instead of any other Idols of Khorne ability that is active for your army, even if you have already selected that ability this battle.",
-       "restrictions": "Once per battle."
+       "target": "One World Eaters Monster or World Eaters Titanic unit from your army.",
+       "effect": "Select the Idol of Infinite Rage, Idol of Burning Wrath or Idol of Blessed Blood. Until the start of your next Command phase, that Idols of Khorne ability is active for your unit instead of any other Idols of Khorne ability that is active for your army, even if you have already selected that ability this battle.",
+       "restrictions": "You can only use this Stratagem once per battle."
       }
      ],
      "dispositions": [
@@ -1031,7 +1031,7 @@ const DATA = {
      "summary": "Eightbound-focused list; Possessed surge forward when shot.",
      "rule": {
       "name": "Brazen Fury",
-      "text": "WORLD EATERS POSSESSED units gain Brazen Fury: in your opponent's Shooting phase, after an enemy unit shoots, if a model in this unit was destroyed by those attacks it can make a surge move of up to D6\" (a Brazen Fury move)."
+      "text": "WORLD EATERS POSSESSED units from your army have the following ability: Brazen Fury: In your opponent’s Shooting phase , when an enemy unit has shot , if a model in this unit was destroyed as a result of those attacks, this unit can make a surge move of up to D6\"."
      },
      "enhancements": [
       {
@@ -1102,9 +1102,9 @@ const DATA = {
         "Shooting",
         "Fight"
        ],
-       "when": "Your opponent's Shooting phase or the Fight phase.",
-       "target": "One WORLD EATERS POSSESSED unit targeted.",
-       "effect": "Until the end of the phase, -1 to wound rolls against your unit."
+       "when": "Your opponent’s Shooting phase or the Fight phase, just after an enemy unit has selected its targets.",
+       "target": "One World Eaters Possessed unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+       "effect": "Until the end of the phase, each time an attack targets your unit, subtract 1 from the Wound roll."
       },
       {
        "id": "daemonic_strength",
@@ -1115,8 +1115,8 @@ const DATA = {
         "Fight"
        ],
        "when": "Fight phase.",
-       "target": "One WORLD EATERS POSSESSED unit that has not fought yet.",
-       "effect": "Until the end of the phase: EIGHTBOUND get +1 D against non-MONSTER/VEHICLE targets; EXALTED EIGHTBOUND get +1 D against MONSTER/VEHICLE targets."
+       "target": "One World Eaters Possessed unit from your army that has not been selected to fight this phase.",
+       "effect": "Until the end of the phase, each time an attack made by a model in your unit is allocated to an enemy model, if your unit has the Eightbound keyword and that enemy model is not a MONSTER or VEHICLE, add 1 to the Damage characteristic of that attack. If your unit has the Exalted Eightbound keyword and that enemy model is a MONSTER or VEHICLE, add 1 to the Damage characteristic of that attack instead."
       },
       {
        "id": "immortal_fury",
@@ -1126,9 +1126,9 @@ const DATA = {
        "phases": [
         "Fight"
        ],
-       "when": "Fight phase, right after an enemy unit selects its targets.",
-       "target": "One WORLD EATERS POSSESSED unit targeted.",
-       "effect": "Until the end of the phase, each time a model in your unit is destroyed, if that model has not fought this phase, do not remove it from play. The destroyed model can fight after the attacking model's unit has finished making its attacks, and is then removed from play."
+       "when": "Fight phase, just after an enemy unit has selected its targets.",
+       "target": "One World Eaters Possessed unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+       "effect": "Until the end of the phase, each time a model in your unit is destroyed, if that model has not fought this phase, do not remove it from play. The destroyed model can fight after the attacking model’s unit has finished making its attacks, and is then removed from play."
       },
       {
        "id": "rapid_manifestation",
@@ -1138,10 +1138,10 @@ const DATA = {
        "phases": [
         "Movement"
        ],
-       "when": "Your Movement phase, when an EXALTED EIGHTBOUND unit arrives by Deep Strike.",
-       "target": "That EXALTED EIGHTBOUND unit.",
-       "effect": "It can be set up more than 6\" horizontally from all enemy units. Your unit is not eligible to declare a charge this turn.",
-       "restrictions": "It cannot declare a charge this turn."
+       "when": "Your Movement phase.",
+       "target": "One Exalted Eightbound unit from your army that is arriving using the Deep Strike ability this phase.",
+       "effect": "Your unit can be set up anywhere on the battlefield that is more than 6\" horizontally away from all enemy units.",
+       "restrictions": "A unit targeted with this Stratagem is not eligible to declare a charge in the same turn."
       },
       {
        "id": "warp_stalkers",
@@ -1152,9 +1152,9 @@ const DATA = {
         "Movement",
         "Charge"
        ],
-       "when": "Your Movement or Charge phase.",
-       "target": "One WORLD EATERS POSSESSED unit that has not moved or charged yet.",
-       "effect": "Until the end of the phase, each time a model in your unit makes a Normal, Advance, Fall Back or Charge move, it can move through enemy models (excluding MONSTER and VEHICLE models). When doing so, it can move within Engagement Range of such models but cannot end that move within Engagement Range of them, and any Desperate Escape test is automatically passed."
+       "when": "Your Movement phase or your Charge phase.",
+       "target": "One World Eaters Possessed unit from your army that has not been selected to move or declare a charge this phase.",
+       "effect": "Until the end of the phase, each time a model in your unit makes a Normal, Advance, Fall Back or Charge move, it can move through enemy models (excluding MONSTERS and VEHICLES). When doing so, it can move within Engagement Range of such models but, unless that move was a Charge move, it cannot end that move within Engagement Range of them, and any Desperate Escape test is automatically passed."
       },
       {
        "id": "horrifying_violence",
@@ -1164,9 +1164,9 @@ const DATA = {
        "phases": [
         "Command"
        ],
-       "when": "Your opponent's Command phase.",
-       "target": "One WORLD EATERS POSSESSED unit.",
-       "effect": "Each enemy unit engaged with it takes a battle-shock test at -1."
+       "when": "Your opponent’s Command phase.",
+       "target": "One World Eaters Possessed unit from your army.",
+       "effect": "Each enemy unit within Engagement Range of your unit must take a Battle-shock test, subtracting 1 from that test."
       }
      ],
      "dispositions": [
@@ -1276,10 +1276,10 @@ const DATA = {
        "phases": [
         "Any"
        ],
-       "when": "Any phase, when the last model in a unit is destroyed, before removing it from play. (If that unit is a TRANSPORT, any units embarked within it must disembark first.)",
-       "target": "One BLOODLETTERS unit from your army that is in Strategic Reserves.",
+       "when": "Any phase, when the last model in a unit is destroyed, before removing it from play. (If that unit is a Transport, any units embarked within that TRANSPORT model must disembark first.)",
+       "target": "One Bloodletters unit from your army that is in Reserves.",
        "effect": "Set your unit up anywhere on the battlefield wholly within 9\" of that destroyed model and more than 6\" horizontally away from all enemy units, then remove the destroyed model from play.",
-       "restrictions": "Once per battle round."
+       "restrictions": "You cannot use this Stratagem more than once per battle round."
       },
       {
        "id": "daemonic_fury",
@@ -1290,8 +1290,8 @@ const DATA = {
         "Fight"
        ],
        "when": "Start of your Fight phase.",
-       "target": "One BLOOD LEGIONS unit and one WORLD EATERS unit near it.",
-       "effect": "Select one friendly WORLD EATERS unit within 6\" of your unit. Until the end of the turn, melee weapons equipped by models in both units have the [LANCE] ability. If the Daemonic Rage Blood Tithe ability is active for your army, until the end of the phase those weapons also have the [TWIN-LINKED] ability."
+       "target": "One Blood Legions unit from your army.",
+       "effect": "Select one friendly World Eaters unit within 6\" of your unit. Until the end of the turn, melee weapons equipped by models in your WORLD EATERS unit have the [LANCE] ability. If the Daemonic Rage ability is active for your army, then until the end of the phase those melee weapons also have the [TWIN-LINKED] ability."
       },
       {
        "id": "a_worthy_skull",
@@ -1301,9 +1301,9 @@ const DATA = {
        "phases": [
         "Fight"
        ],
-       "when": "Fight phase, just after a BLOOD LEGIONS or WORLD EATERS unit from your army has fought, and one or more enemy CHARACTER or MONSTER models were destroyed as a result of those attacks.",
+       "when": "Fight phase, just after a Blood Legions or World Eaters unit from your army has fought, and one or more enemy CHARACTER or MONSTER models were destroyed as a result of those attacks.",
        "target": "That BLOOD LEGIONS or WORLD EATERS unit.",
-       "effect": "Gain D3 Blood Tithe points; you can then activate one Blood Tithe ability."
+       "effect": "You gain D3BTP and you can then spend one or more BTP you have to activate one of the Blood Tithe abilities."
       },
       {
        "id": "blessing_of_burning_blood",
@@ -1314,9 +1314,9 @@ const DATA = {
         "Shooting",
         "Fight"
        ],
-       "when": "Your opponent's Shooting or Fight phase, right after an enemy unit selects its targets.",
-       "target": "One BLOOD LEGIONS unit from your army that is within 6\" of a friendly WORLD EATERS unit that was selected as the target of one or more attacks.",
-       "effect": "Until the end of the phase it has a 5+ invulnerable save (4+ if Boon of Blood is active)."
+       "when": "Your opponent’s Shooting phase or the Fight phase, just after an enemy unit has selected its targets.",
+       "target": "One Blood Legions unit from your army that is within 6\" of a friendly World Eaters unit that was selected as the target as one or more of the attacking unit’s attacks.",
+       "effect": "Until the end of the phase, models in your WORLD EATERS unit have a 5+ invulnerable save. If the Boon of Blood ability is active for your army, then until the end of the phase, models in your WORLD EATERS unit have a 4+ invulnerable save."
       },
       {
        "id": "daemontide",
@@ -1327,9 +1327,9 @@ const DATA = {
         "Command"
        ],
        "when": "Your Command phase.",
-       "target": "One WORLD EATERS unit from your army.",
-       "effect": "Select one friendly BLOOD LEGIONS unit within 6\" of your unit. Return one destroyed MOUNTED model, up to D3 destroyed BEAST models, or up to D6 destroyed INFANTRY models to that BLOOD LEGIONS unit.",
-       "restrictions": "Cannot return CHARACTER models."
+       "target": "One World Eaters unit from your army.",
+       "effect": "Select one friendly Blood Legions unit within 6\" of your unit. One destroyed Mounted model, up to D3 destroyed Beast models, or up to D6 destroyed Infantry models are returned to that BLOOD LEGIONS unit with their full wounds remaining.",
+       "restrictions": "This Stratagem cannot be used to return destroyed Character models to Attached units."
       },
       {
        "id": "murder_call",
@@ -1339,9 +1339,9 @@ const DATA = {
        "phases": [
         "Fight"
        ],
-       "when": "End of your opponent's Fight phase.",
-       "target": "One BLOOD LEGIONS unit that is not engaged.",
-       "effect": "Remove it from the battlefield and place it into Strategic Reserves."
+       "when": "End of your opponent’s Fight phase.",
+       "target": "One Blood Legions unit from your army that is on the battlefield and not within Engagement Range of one or more enemy units.",
+       "effect": "Remove your unit from the battlefield and place it into Strategic Reserves."
       }
      ],
      "dispositions": [
@@ -1356,7 +1356,7 @@ const DATA = {
      "summary": "Transport assault: units charging out of Rhinos and Land Raiders hit harder.",
      "rule": {
       "name": "Rush to the Fray",
-      "text": "Each time a WORLD EATERS unit disembarks from a TRANSPORT, until the end of the turn it gets +1 to charge rolls and its melee weapons have [LANCE]."
+      "text": "Each time a WORLD EATERS unit from your army disembarks from a TRANSPORT , until the end of the turn, add 1 to Charge rolls made for that unit and that unit’s melee weapons have the [lance] ability."
      },
      "enhancements": [
       {
@@ -1418,8 +1418,8 @@ const DATA = {
         "Fight"
        ],
        "when": "End of the Fight phase.",
-       "target": "One WORLD EATERS INFANTRY unit and one friendly TRANSPORT.",
-       "effect": "If the unit is wholly within 6\" of the TRANSPORT, it can embark."
+       "target": "One World Eaters Infantry unit from your army and one friendly Transport that it is able to embark within.",
+       "effect": "If your WORLD EATERS INFANTRY unit is wholly within 6\" of that TRANSPORT, it can embark within it."
       },
       {
        "id": "smash_through",
@@ -1430,8 +1430,8 @@ const DATA = {
         "Movement"
        ],
        "when": "Your Movement phase.",
-       "target": "One WORLD EATERS VEHICLE that has not moved yet.",
-       "effect": "During Normal or Advance moves it can move horizontally through terrain features."
+       "target": "One World Eaters Vehicle model from your army that has not been selected to move this phase.",
+       "effect": "Until the end of the phase, each time your unit makes a Normal or Advance move, it can move horizontally through terrain features."
       },
       {
        "id": "aggressive_disembarkation",
@@ -1442,8 +1442,8 @@ const DATA = {
         "Movement"
        ],
        "when": "Your Movement phase.",
-       "target": "One WORLD EATERS RHINO that has not moved yet.",
-       "effect": "One WORLD EATERS unit embarked within your RHINO can disembark. When that unit disembarks, set it up anywhere on the battlefield wholly within 6\" of your RHINO and not within Engagement Range of any enemy units (or within Engagement Range if the stratagem allows)."
+       "target": "One World Eaters Rhino model from your army that has not been selected to move this phase.",
+       "effect": "One WORLD EATERS unit embarked within your RHINO can disembark. When doing so, models in that unit can be set up anywhere on the battlefield wholly within 6\" of your RHINO and can be set up within Engagement Range of one or more enemy units."
       },
       {
        "id": "full_throttle_assault",
@@ -1454,8 +1454,8 @@ const DATA = {
         "Movement"
        ],
        "when": "Your Movement phase.",
-       "target": "One WORLD EATERS RHINO that has not moved yet.",
-       "effect": "Units that disembark from it after it made a Normal move make assault disembark moves."
+       "target": "One World Eaters Rhino model from your army that has not been selected to move this phase.",
+       "effect": "Until the end of the phase, each time a WORLD EATERS unit disembarks from that model after it has made a Normal move, that unit is still eligible to declare a charge this turn."
       },
       {
        "id": "unrelenting_advance",
@@ -1465,10 +1465,10 @@ const DATA = {
        "phases": [
         "Shooting"
        ],
-       "when": "Your opponent's Shooting phase, right after an enemy unit has shot.",
-       "target": "One WORLD EATERS VEHICLE hit by those attacks.",
-       "effect": "Your unit can make a Normal move of up to 6\".",
-       "restrictions": "Not in the same phase as Fury Unleashed."
+       "when": "Your opponent’s Shooting phase, just after an enemy unit has shot.",
+       "target": "One World Eaters Vehicle model from your army that was hit by one or more of the attacking unit’s attacks.",
+       "effect": "Your model can make a Normal move of up to 6\".",
+       "restrictions": "A unit cannot be targeted by this Stratagem and the Fury Unleashed Stratagem in the same phase."
       },
       {
        "id": "fury_unleashed",
@@ -1478,10 +1478,10 @@ const DATA = {
        "phases": [
         "Shooting"
        ],
-       "when": "Your opponent's Shooting phase, right after an enemy unit has shot.",
-       "target": "One WORLD EATERS RHINO model from your army that has one or more wounds remaining and was hit by one or more of those attacks.",
-       "effect": "One KHORNE BERZERKERS unit embarked in it can disembark and make a surge move of up to D6+2\".",
-       "restrictions": "Not in the same phase as Unrelenting Advance."
+       "when": "Your opponent’s Shooting phase, just after an enemy unit has shot.",
+       "target": "One World Eaters Rhino model from your army that has one or more wounds remaining and was hit by one or more of the attacking unit’s attacks.",
+       "effect": "One Khorne Berzerkers unit embarked within your model can disembark and make a Blood Surge move.",
+       "restrictions": "A unit cannot be targeted by this Stratagem and the Unrelenting Advance Stratagem in the same phase."
       }
      ],
      "dispositions": [
@@ -1540,9 +1540,9 @@ const DATA = {
         "Shooting",
         "Fight"
        ],
-       "when": "Your Shooting phase or the Fight phase, when a friendly DAEMON VEHICLE unit is selected to attack.",
-       "target": "That unit.",
-       "effect": "Until the end of the phase, your unit's attacks can ignore any or all modifiers to Ballistic Skill characteristic, Weapon Skill characteristic, Hit rolls and Wound rolls."
+       "when": "Your Shooting phase or the Fight phase , when a friendly DAEMON VEHICLE unit is selected to attack .",
+       "target": "That DAEMON VEHICLE unit.",
+       "effect": "Your unit’s attacks can ignore modifiers to: BS . WS . Hit rolls and wound rolls ."
       },
       {
        "id": "trail_of_destruction",
@@ -1552,9 +1552,9 @@ const DATA = {
        "phases": [
         "Movement"
        ],
-       "when": "Your Movement phase, when a friendly DAEMON VEHICLE unit is selected to move.",
-       "target": "That unit.",
-       "effect": "Until the end of the turn, your unit has the MOBILE ability (it can shoot and charge in a turn in which it Fell Back)."
+       "when": "Your Movement phase , when a friendly DAEMON VEHICLE unit is selected to move .",
+       "target": "That DAEMON VEHICLE unit.",
+       "effect": "Your unit has MOBILE ."
       },
       {
        "id": "goaded_to_fury",
@@ -1564,8 +1564,8 @@ const DATA = {
        "phases": [
         "Shooting"
        ],
-       "when": "Your opponent's Shooting phase, right after an enemy unit shoots a friendly unengaged DAEMON VEHICLE unit (not TITANIC).",
-       "target": "That unit.",
+       "when": "Your opponent’s Shooting phase , when an enemy unit that targeted a friendly unengaged DAEMON VEHICLE unit (excluding TITANIC units) has shot .",
+       "target": "That DAEMON VEHICLE unit.",
        "effect": "Your unit can make a surge move of up to D6\"."
       }
      ],
@@ -1581,7 +1581,7 @@ const DATA = {
      "summary": "Characters choose Cleave or extra AP when they fight.",
      "rule": {
       "name": "Wrath of Khorne",
-      "text": "When a friendly WORLD EATERS CHARACTER unit (not EPIC HERO) is selected to fight, its CHARACTER models' melee attacks gain either [CLEAVE 1] or +1 AP."
+      "text": "When a friendly WORLD EATERS CHARACTER unit (excluding EPIC HERO units) is selected to fight , that unit’s CHARACTER models’ melee attacks can have: [CLEAVE 1] ."
      },
      "enhancements": [
       {
@@ -1621,9 +1621,9 @@ const DATA = {
        "phases": [
         "Any"
        ],
-       "when": "Any phase, when a friendly WORLD EATERS CHARACTER unit (not EPIC HERO) would suffer a mortal wound.",
-       "target": "That unit.",
-       "effect": "Until the end of the phase, models in your unit have the Feel No Pain 4+ ability against mortal wounds."
+       "when": "Any phase, when a friendly WORLD EATERS CHARACTER unit (excluding EPIC HERO units) suffers a mortal wound .",
+       "target": "That WORLD EATERS CHARACTER unit.",
+       "effect": "Your unit has Feel No Pain 4+ against mortal wounds ."
       },
       {
        "id": "aspire_to_infamy",
@@ -1633,9 +1633,9 @@ const DATA = {
        "phases": [
         "Fight"
        ],
-       "when": "Fight phase, when a friendly WORLD EATERS CHARACTER unit (not EPIC HERO) is selected to fight.",
-       "target": "That unit.",
-       "effect": "Until the end of the phase, add 1 to the Attacks characteristic and add 2 to the Strength characteristic of melee weapons equipped by CHARACTER models in your unit."
+       "when": "Fight phase.",
+       "target": "One Khorne Berzerkers or Jakhals unit from your army that has not been selected to fight this phase and is within 8\" of one or more friendly World Eaters Character models.",
+       "effect": "Until the end of the phase, improve the Strength and Armour Penetration characteristics of melee weapons equipped by non-CHARACTER models in your unit by 1."
       },
       {
        "id": "punish_the_craven",
@@ -1645,9 +1645,9 @@ const DATA = {
        "phases": [
         "Movement"
        ],
-       "when": "Your opponent's Movement phase, when an enemy unit engaged with a friendly WORLD EATERS CHARACTER unit is selected to fall back.",
-       "target": "That WORLD EATERS CHARACTER unit.",
-       "effect": "The enemy unit must use Desperate Escape; if it is battle-shocked, -1 to those hazard rolls."
+       "when": "Your opponent’s Movement phase, just after an enemy unit (excluding MONSTERS and VEHICLES) is selected to Fall Back.",
+       "target": "One World Eaters Infantry or World Eaters Daemon Prince unit from your army within Engagement Range of that enemy unit.",
+       "effect": "When that enemy unit Falls Back, all models in that enemy unit must take a Desperate Escape test. When doing so, if your unit is a VESSEL OF WRATH  unit, subtract 1 from each of those tests."
       }
      ],
      "dispositions": [
@@ -1725,9 +1725,9 @@ const DATA = {
        "phases": [
         "Fight"
        ],
-       "when": "Fight phase, when a friendly TERMINATOR SQUAD unit is selected to fight.",
-       "target": "That unit.",
-       "effect": "Its attacks against MONSTER or VEHICLE units get +1 to wound."
+       "when": "Fight phase , when a friendly TERMINATOR SQUAD unit is selected to fight .",
+       "target": "That TERMINATOR SQUAD unit.",
+       "effect": "Your unit’s attacks that target a MONSTER/VEHICLE unit have +1 to wound rolls ."
       },
       {
        "id": "wrath_beyond_reason",
@@ -1737,9 +1737,9 @@ const DATA = {
        "phases": [
         "Shooting"
        ],
-       "when": "Your opponent's Shooting phase, when an enemy unit targets a friendly TERMINATOR SQUAD unit.",
-       "target": "That unit.",
-       "effect": "Ranged attacks from that enemy unit get -1 Damage against it."
+       "when": "Your opponent’s Shooting Phase , when an enemy unit targets a friendly TERMINATOR SQUAD unit.",
+       "target": "That TERMINATOR SQUAD unit.",
+       "effect": "Ranged attacks that target your unit have -1 D until that enemy unit has attacked ."
       }
      ],
      "dispositions": [
@@ -6002,7 +6002,7 @@ const DATA = {
      "summary": "Pick one Hyper-adaptation for the whole army at the start of the first battle round.",
      "rule": {
       "name": "Hyper-adaptations",
-      "text": "At the start of the first battle round pick one Hyper-adaptation; it is active for your TYRANIDS units for the rest of the battle. Swarming Instincts: Attacks against INFANTRY or SWARM units have [SUSTAINED HITS 1]. Hyper-aggression: Attacks against MONSTER or VEHICLE units have [LETHAL HITS]. Hive Predators: Attacks against CHARACTER units have [PRECISION] on a critical hit."
+      "text": "At the start of the first battle round , select one of the following Hyper-adaptations to be active for TYRANIDS units from your army until the end of the battle: Swarming Instincts Each time a TYRANIDS model with this Hyper-adaptation makes an attack that targets an INFANTRY or SWARM unit, that attack has the [SUSTAINED HITS 1] ability."
      },
      "hyperAdaptations": [
       {
@@ -6081,9 +6081,9 @@ const DATA = {
         "Shooting",
         "Fight"
        ],
-       "when": "Your opponent's Shooting phase or the Fight phase, right after an enemy unit selects its targets.",
-       "target": "One TYRANIDS unit from your army that was targeted by those attacks.",
-       "effect": "Until the end of the phase it has Feel No Pain 6+, or 5+ while within Synapse Range."
+       "when": "Your opponent’s Shooting phase or the Fight phase, just after an enemy unit has selected its targets.",
+       "target": "One TYRANIDS unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+       "effect": "Until the end of the phase, models in your unit have the Feel No Pain 6+ ability. If your unit is within Synapse Range of your army, models in your unit have the Feel No Pain 5+ ability instead."
       },
       {
        "id": "adrenal_surge",
@@ -6094,8 +6094,8 @@ const DATA = {
         "Fight"
        ],
        "when": "Fight phase.",
-       "target": "Up to two TYRANIDS units within Synapse Range that are eligible to fight, or one other eligible TYRANIDS unit.",
-       "effect": "Until the end of the phase, their unmodified hit rolls of 5+ are critical hits."
+       "target": "Up to two TYRANIDS units from your army that are within Synapse Range of your army and are eligible to fight, or one other TYRANIDS unit from your army that is eligible to fight.",
+       "effect": "Until the end of the phase, each time a model in any of those selected units makes an attack, an unmodified Hit roll of 5+ scores a Critical Hit."
       },
       {
        "id": "death_frenzy",
@@ -6105,9 +6105,9 @@ const DATA = {
        "phases": [
         "Fight"
        ],
-       "when": "Fight phase, right after an enemy unit selects its targets.",
-       "target": "One TYRANIDS unit from your army that was targeted by those attacks.",
-       "effect": "Until the end of the phase, when a model in it is destroyed before it has fought, roll D6: on a 4+ it can fight after the attacking unit finishes, then is removed."
+       "when": "Fight phase, just after an enemy unit has selected its targets.",
+       "target": "One TYRANIDS unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+       "effect": "Until the end of the phase, each time a model in your unit is destroyed, if that model has not fought this phase, roll one D6: on a 4+, do not remove it from play. The destroyed model can fight after the attacking model’s unit has finished making its attacks, and is then removed from play."
       },
       {
        "id": "overrun",
@@ -6117,9 +6117,9 @@ const DATA = {
        "phases": [
         "Fight"
        ],
-       "when": "Fight phase, just before a TYRANIDS unit consolidates.",
-       "target": "That unit.",
-       "effect": "Its models can consolidate 3\" further as long as the unit ends engaged. If it is within Synapse Range and not engaged, it can make a Normal move of up to 6\" instead of consolidating."
+       "when": "Fight phase, just before a TYRANIDS unit from your army Consolidates.",
+       "target": "That TYRANIDS unit.",
+       "effect": "Until the end of the phase, each time your unit Consolidates, models in it can move an additional 3\" as long as your unit can end that move within Engagement Range of one or more enemy units. If your unit is within Synapse Range of your army and not within Engagement Range of any enemy units, instead of making that Consolidation move, it can make a Normal move of up to 6\"."
       },
       {
        "id": "predatory_imperative",
@@ -6130,9 +6130,9 @@ const DATA = {
         "Command"
        ],
        "when": "Your Command phase.",
-       "target": "Up to two TYRANIDS units within Synapse Range, or one other TYRANIDS unit.",
-       "effect": "Pick a second Hyper-adaptation; it is also active for those units until your next Command phase.",
-       "restrictions": "Not the Hyper-adaptation picked at the start of the first battle round."
+       "target": "Up to two TYRANIDS units from your army that are within Synapse Range of your army, or one other TYRANIDS unit from your army.",
+       "effect": "Select one Hyper-adaptation. Until the start of your next Command phase, that Hyper-adaptation is active for those selected units in addition to any other that may be active for your army.",
+       "restrictions": "You cannot select the same Hyper-adaptation you selected at the start of the first battle round."
       },
       {
        "id": "endless_swarm",
@@ -6143,8 +6143,8 @@ const DATA = {
         "Command"
        ],
        "when": "Your Command phase.",
-       "target": "Up to two ENDLESS MULTITUDE units within Synapse Range, or one other ENDLESS MULTITUDE unit.",
-       "effect": "Return up to D3+3 destroyed models to each of those units."
+       "target": "Up to two Endless Multitude units from your army that are within Synapse Range of your army, or one other ENDLESS MULTITUDE unit from your army.",
+       "effect": "You can return up to D3+3 destroyed models to each of the selected units."
       }
      ]
     },
@@ -6265,8 +6265,8 @@ const DATA = {
         "Command"
        ],
        "when": "Command phase.",
-       "target": "One MAWLOC or TRYGON unit.",
-       "effect": "It has the SYNAPSE keyword until the start of your next Command phase."
+       "target": "One Mawloc or Trygon unit from your army.",
+       "effect": "Until the start of your next Command phase, your unit has the Synapse keyword."
       },
       {
        "id": "replenishing_swarms",
@@ -6277,8 +6277,8 @@ const DATA = {
         "Movement"
        ],
        "when": "Your Movement phase.",
-       "target": "One TYRANIDS unit wholly within 9\" of one of your Tunnel Markers.",
-       "effect": "One model regains up to D3+1 lost wounds, or return up to D3+1 destroyed 1-wound models with full wounds instead."
+       "target": "One Tyranids unit from your army, wholly within 9\" of one or more Tunnel Markers you placed.",
+       "effect": "One model in your unit regains up to D3+1 lost wounds, or you can return up to D3+1 destroyed models with a Wounds characteristic of 1 to your unit, with their full wounds remaining, instead."
       },
       {
        "id": "enfilading_emergence",
@@ -6289,8 +6289,8 @@ const DATA = {
         "Movement"
        ],
        "when": "End of your Movement phase.",
-       "target": "One TYRANIDS unit from your army that was set up as Reinforcements this turn.",
-       "effect": "Until the end of your next Fight phase its weapons have [SUSTAINED HITS 1] and [IGNORES COVER]."
+       "target": "One Tyranids unit from your army that was set up as Reinforcements this turn.",
+       "effect": "Until the end of your next Fight phase, weapons equipped by models in your unit have the [SUSTAINED HITS 1] and [IGNORES COVER] abilities."
       },
       {
        "id": "tunnel_network",
@@ -6301,8 +6301,8 @@ const DATA = {
         "Movement"
        ],
        "when": "End of your Movement phase.",
-       "target": "One unengaged TYRANIDS unit wholly within 9\" of one of your Tunnel Markers.",
-       "effect": "Remove it and set it up again wholly within 9\" of another of your Tunnel Markers, more than 6\" horizontally from all enemy units."
+       "target": "One Tyranids unit from your army that is wholly within 9\" of one or more of your Tunnel Markers and not within Engagement Range of one or more enemy units.",
+       "effect": "Remove your unit from the battlefield and set it up again, wholly within 9\" of another Tunnel Marker you placed, and more than 6\" horizontally away from all enemy units."
       },
       {
        "id": "swarming_assault",
@@ -6313,8 +6313,8 @@ const DATA = {
         "Charge"
        ],
        "when": "Your Charge phase.",
-       "target": "One TYRANIDS MONSTER unit set up as Reinforcements this turn.",
-       "effect": "Until the end of the phase, friendly TYRANIDS units within 6\" of it can re-roll charge rolls."
+       "target": "One Tyranids Monster unit from your army that was set up as Reinforcements this turn.",
+       "effect": "Until the end of the phase, friendly Tyranids units within 6\" of your unit can re-roll Charge rolls."
       },
       {
        "id": "retreat_below",
@@ -6324,9 +6324,9 @@ const DATA = {
        "phases": [
         "Fight"
        ],
-       "when": "End of your opponent's Fight phase.",
-       "target": "One TYRANIDS unit, or up to two BURROWER units, that are not engaged.",
-       "effect": "Remove those units from the battlefield and place them into Strategic Reserves."
+       "when": "End of your opponent’s Fight phase.",
+       "target": "One Tyranids unit or up to two Burrower units from your army that are not within Engagement Range of one or more enemy units.",
+       "effect": "Remove your unit from the battlefield and place it into Strategic Reserves."
       }
      ]
     },
@@ -6341,7 +6341,7 @@ const DATA = {
      "summary": "Each battle round, pick a Synaptic Imperative for units within Synapse Range.",
      "rule": {
       "name": "Synaptic Imperatives",
-      "text": "At the start of each battle round you can pick one Synaptic Imperative (each one only once per battle). Until the end of the round your TYRANIDS units benefit from it while within Synapse Range. Synaptic Augmentation: 5+ invulnerable save. Surging Vitality: +1 to Advance and Charge rolls. Goaded to Slaughter: +1 to hit with melee attacks."
+      "text": "At the start of the battle round , you can select one of the Synaptic Imperatives shown below. Until the end of the battle round, that Synaptic Imperative is active for your army and while a TYRANIDS unit from your army is within Synapse Range of your army, it will benefit from it."
      },
      "imperatives": [
       {
@@ -6431,9 +6431,9 @@ const DATA = {
        "phases": [
         "Any"
        ],
-       "when": "Any phase, right after an enemy unit fails a battle-shock test.",
-       "target": "One SYNAPSE unit within 12\" of that enemy unit.",
-       "effect": "Roll six D6: each 3+ inflicts 1 mortal wound on that enemy unit."
+       "when": "Any phase, just after an enemy unit fails a Battle-shock test.",
+       "target": "One Synapse unit from your army within 12\" of that enemy unit.",
+       "effect": "Roll six D6: for each 3+, that enemy unit suffers 1 mortal wound."
       },
       {
        "id": "synaptic_channelling",
@@ -6444,8 +6444,8 @@ const DATA = {
         "Command"
        ],
        "when": "Command phase.",
-       "target": "One SYNAPSE unit.",
-       "effect": "Until the end of the turn, friendly TYRANIDS units within 9\" of it are within Synapse Range."
+       "target": "One Synapse unit from your army.",
+       "effect": "Until the end of the turn, while a friendly TYRANIDS unit is within 9\" of the selected unit, that unit is within Synapse Range of your army."
       },
       {
        "id": "irresistible_will",
@@ -6457,8 +6457,8 @@ const DATA = {
         "Fight"
        ],
        "when": "Your Shooting phase or the Fight phase.",
-       "target": "One SYNAPSE unit that has not shot or fought this phase, and one visible enemy unit within 24\" of it.",
-       "effect": "Until the end of the phase, attacks by friendly TYRANIDS units within 6\" of your SYNAPSE unit against that enemy re-roll hit rolls of 1 and wound rolls of 1."
+       "target": "One Synapse unit from your army that has not been selected to shoot or fight this phase, and one enemy unit within 24\" of and visible to the SYNAPSE unit.",
+       "effect": "Until the end of the phase, each time a friendly TYRANIDS model makes an attack that targets that enemy unit, if the attacking model’s unit is within 6\" of your SYNAPSE unit, re-roll a Hit roll of 1 and re-roll a Wound roll of 1."
       },
       {
        "id": "reinforced_hive_node",
@@ -6469,9 +6469,9 @@ const DATA = {
         "Shooting",
         "Fight"
        ],
-       "when": "Your opponent's Shooting phase or the Fight phase, right after an enemy unit selects its targets.",
-       "target": "One SYNAPSE unit targeted by those attacks.",
-       "effect": "Until that enemy unit finishes its attacks, attacks against your unit have their AP worsened by 1."
+       "when": "Your opponent’s Shooting phase or the Fight phase, just after an enemy unit has selected its targets.",
+       "target": "One Synapse unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+       "effect": "Until the attacking unit has finished making its attacks, each time an attack targets your unit, worsen the Armour Penetration characteristic of that attack by 1."
       },
       {
        "id": "imperative_dominance",
@@ -6482,8 +6482,8 @@ const DATA = {
         "Command"
        ],
        "when": "Your Command phase.",
-       "target": "One TYRANIDS unit from your army that is within Synapse Range.",
-       "effect": "Pick any Synaptic Imperative, even one already used. Until your next Command phase it applies to this unit instead of the army's current one."
+       "target": "One TYRANIDS unit from your army that is within Synapse Range of your army.",
+       "effect": "Select one Synaptic Imperative, even if you have already selected that imperative this battle. Until the start of your next Command phase, that Synaptic Imperative is active for your unit instead of any other Synaptic Imperative that is active for your army."
       },
       {
        "id": "override_instincts",
@@ -6494,8 +6494,8 @@ const DATA = {
         "Movement"
        ],
        "when": "Your Movement phase.",
-       "target": "One TYRANIDS unit within Synapse Range that fell back this phase.",
-       "effect": "Until the end of the turn, your unit can shoot and is eligible to declare a charge this turn."
+       "target": "One TYRANIDS unit from your army that is within Synapse Range of your army and made a Fall Back move this phase.",
+       "effect": "Your unit is eligible to shoot and declare a charge this turn."
       }
      ]
     },
@@ -6575,9 +6575,9 @@ const DATA = {
        "phases": [
         "Any"
        ],
-       "when": "Any phase, right after a friendly HARVESTER unit is destroyed.",
-       "target": "That HARVESTER unit.",
-       "effect": "For the rest of the battle, friendly TYRANIDS attacks against the enemy unit that destroyed it get +1 to wound."
+       "when": "Any phase.",
+       "target": "One Harvester unit from your army that was just destroyed. You can use this Stratagem on that unit even though it was just destroyed.",
+       "effect": "Until the end of the battle, each time a friendly TYRANIDS model makes an attack that targets the enemy unit that just destroyed your HARVESTER unit, add 1 to the Wound roll."
       },
       {
        "id": "reclaim_biomass",
@@ -6587,9 +6587,9 @@ const DATA = {
        "phases": [
         "Any"
        ],
-       "when": "Any phase, when a TYRANIDS unit is destroyed, before its last model is removed.",
-       "target": "One HARVESTER unit within 6\" of that unit.",
-       "effect": "Regenerate one friendly TYRANIDS unit within 6\" of your HARVESTER unit (see Feed the Swarm); not the unit that was just destroyed."
+       "when": "Any phase, when a TYRANIDS unit from your army is destroyed, before the last model in it is removed from play.",
+       "target": "One Harvester unit from your army that is within 6\" of that destroyed unit.",
+       "effect": "Regenerate one friendly TYRANIDS unit within 6\" of your HARVESTER unit (See Feed the Swarm)."
       },
       {
        "id": "tyrannoformed",
@@ -6600,8 +6600,8 @@ const DATA = {
         "Command"
        ],
        "when": "Command phase.",
-       "target": "One HARVESTER unit within range of an objective you control.",
-       "effect": "That objective stays yours even with no models near it, until your opponent controls it at the start or end of a turn."
+       "target": "One Harvester unit from your army that is within range of an objective marker you control.",
+       "effect": "That objective marker remains under your control, even if you have no models within range of it, until your opponent controls it at the start or end of any turn."
       },
       {
        "id": "ablative_carapace",
@@ -6612,9 +6612,9 @@ const DATA = {
         "Shooting",
         "Fight"
        ],
-       "when": "Your opponent's Shooting phase or the Fight phase, right after an enemy unit selects its targets.",
-       "target": "One HARVESTER unit targeted by those attacks.",
-       "effect": "Until the end of the phase it has Feel No Pain 5+, or 4+ while within range of an objective you control."
+       "when": "Your opponent’s Shooting phase or the Fight phase, just after an enemy unit has selected its targets.",
+       "target": "One Harvester unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+       "effect": "Until the end of the phase, models in your unit have the Feel No Pain 5+ ability. If your unit is within range of an objective marker you control, until the end of the phase models in your unit have the Feel No Pain 4+ ability instead."
       },
       {
        "id": "secure_biomass",
@@ -6625,8 +6625,8 @@ const DATA = {
         "Fight"
        ],
        "when": "Fight phase.",
-       "target": "One TYRANIDS unit that has not fought this phase.",
-       "effect": "Until the end of the phase, melee weapons equipped by models in your unit have the [LETHAL HITS] ability. If your unit is a HARVESTER unit, each time a model in your unit makes a melee attack, an unmodified Hit roll of 5+ scores a Critical Hit as well."
+       "target": "One TYRANIDS unit from your army that has not been selected to fight this phase.",
+       "effect": "Until the end of the phase, melee weapons equipped by models in your unit have the [LETHAL HITS] ability. If your unit is a Harvester unit, each time a model in that unit makes a melee attack, a successful unmodified Hit roll of 5+ scores a Critical Hit as well."
       },
       {
        "id": "rapacious_hunger",
@@ -6637,8 +6637,8 @@ const DATA = {
         "Fight"
        ],
        "when": "Your Fight phase.",
-       "target": "One TYRANIDS unit that just destroyed an enemy unit.",
-       "effect": "It Regenerates at once. If it is a HARVESTER unit and you heal one model, that model regains up to 3 wounds instead of rolling."
+       "target": "One TYRANIDS unit from your army that just destroyed an enemy unit.",
+       "effect": "Your unit immediately Regenerates (See Feed the Swarm). When doing so, if your unit is a Harvester unit and you choose for one model to regain up to D3 lost wounds, that model regains up to 3 lost wounds instead."
       }
      ]
     },
@@ -6653,7 +6653,7 @@ const DATA = {
      "summary": "Monsters hit harder as they take losses and hold objectives better at full strength.",
      "rule": {
       "name": "Enraged Behemoths",
-      "text": "TYRANIDS MONSTER models get +1 to hit while their unit is below Starting Strength, and also +1 to wound while it is below half strength. While a TYRANIDS MONSTER unit is at Starting Strength and not battle-shocked, its models get +2 OC."
+      "text": "Each time a TYRANIDS MONSTER model from your army makes an attack, add 1 to the Hit roll if that model’s unit is below its Starting Strength , and add 1 to the Wound roll as well if that model’s unit is Below Half-strength ."
      },
      "enhancements": [
       {
@@ -6734,9 +6734,9 @@ const DATA = {
         "Shooting",
         "Fight"
        ],
-       "when": "Your opponent's Shooting phase or the Fight phase, right after a TYRANIDS MONSTER model with Deadly Demise that cannot FLY is destroyed.",
-       "target": "That model.",
-       "effect": "Its Deadly Demise mortal wounds are inflicted automatically (no D6 roll)."
+       "when": "Your opponent’s Shooting phase or the Fight phase, just after a Tyranids Monster model from your army with the Deadly Demise ability that cannot FLY is destroyed.",
+       "target": "That TYRANIDS MONSTER model. You can use this Stratagem on that model even though it was just destroyed.",
+       "effect": "Do not roll one D6 to determine whether mortal wounds are inflicted by your model’s Deadly Demise ability. Instead, mortal wounds are automatically inflicted."
       },
       {
        "id": "rampaging_monstrosities",
@@ -6747,8 +6747,8 @@ const DATA = {
         "Fight"
        ],
        "when": "Fight phase.",
-       "target": "One TYRANIDS MONSTER unit that has not fought this phase.",
-       "effect": "Until the end of the phase its models can re-roll hit rolls."
+       "target": "One Tyranids Monster unit from your army that has not been selected to fight this phase.",
+       "effect": "Until the end of the phase, each time a model in your unit makes an attack, you can re-roll the Hit roll."
       },
       {
        "id": "savage_roar",
@@ -6758,9 +6758,9 @@ const DATA = {
        "phases": [
         "Fight"
        ],
-       "when": "Fight phase, right after an enemy unit selects its targets.",
-       "target": "One TYRANIDS MONSTER unit from your army that was targeted by those attacks.",
-       "effect": "The enemy unit takes a battle-shock test and gets -1 to hit against your unit until the end of the phase; also -1 to wound if it failed the test."
+       "when": "Fight phase, just after an enemy unit has selected its targets.",
+       "target": "One Tyranids Monster unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+       "effect": "That enemy unit must take a Battle-shock test and, until the end of the phase, each time a model in that enemy unit makes an attack that targets your unit, subtract 1 from the Hit roll. If that Battle-shock test was failed, subtract 1 from the Wound roll as well."
       },
       {
        "id": "untrammelled_ferocity",
@@ -6771,8 +6771,8 @@ const DATA = {
         "Movement"
        ],
        "when": "Your Movement phase.",
-       "target": "One TYRANIDS MONSTER unit that has not moved this phase.",
-       "effect": "On Normal, Advance and Fall Back moves it can move through models (not TITANIC) and terrain up to 4\" tall, crossing Engagement Range without ending there. It can also cross taller terrain, but then roll D6 after the move: on a 1 it is battle-shocked."
+       "target": "One Tyranids Monster unit from your army that has not been selected to move this phase.",
+       "effect": "Until the end of the phase, each time a model in your unit makes a Normal, Advance or Fall Back move, it can move through models (excluding TITANIC models) and sections of terrain features that are 4\" or less in height. When doing so: \nIt can move within Engagement Range of enemy models, but cannot end that move within Engagement Range of them. It can also move through sections of terrain features that are more than 4\" in height, but if it does, after its unit has moved, roll one D6: on a 1, your unit is Battle-shocked."
       },
       {
        "id": "swarm_guided_salvoes",
@@ -6783,8 +6783,8 @@ const DATA = {
         "Shooting"
        ],
        "when": "Your Shooting phase.",
-       "target": "One TYRANIDS MONSTER unit that has not shot this phase.",
-       "effect": "Until the end of the phase, each time a model in your unit makes a ranged attack, you can ignore any or all modifiers to that model's Ballistic Skill characteristic and any or all modifiers to the Hit roll."
+       "target": "One Tyranids Monster unit from your army that has not been selected to shoot this phase.",
+       "effect": "Until the end of the phase, ranged weapons equipped by models in your unit have the [IGNORES COVER] ability, and until the end of the phase each time a model in your unit makes an attack, you can ignore any or all modifiers to that model’s Ballistic Skill characteristic and any or all modifiers to the Hit roll."
       },
       {
        "id": "massive_impact",
@@ -6794,9 +6794,9 @@ const DATA = {
        "phases": [
         "Charge"
        ],
-       "when": "Your Charge phase, right after a TYRANIDS MONSTER model ends a charge move.",
-       "target": "That model.",
-       "effect": "Pick one engaged enemy unit and roll six D6: each 4+ inflicts 1 mortal wound."
+       "when": "Your Charge phase, just after a Tyranids Monster model from your army ends a Charge move.",
+       "target": "That TYRANIDS MONSTER model.",
+       "effect": "Select one enemy unit within Engagement Range of your model and roll six D6: for each 4+, that enemy unit suffers 1 mortal wound."
       }
      ]
     },
@@ -6882,9 +6882,9 @@ const DATA = {
         "Shooting",
         "Fight"
        ],
-       "when": "Your Shooting phase or the Fight phase, right after a VANGUARD INVADER unit selects its targets.",
-       "target": "That unit.",
-       "effect": "Pick one enemy unit it targeted: that unit takes a battle-shock test. Until the end of the phase your unit gets +1 to hit against it, and +1 to wound as well if the test was failed."
+       "when": "Your Shooting phase or the Fight phase, just after a Vanguard Invader unit from your army has selected its targets.",
+       "target": "That VANGUARD INVADER unit.",
+       "effect": "Select one enemy unit that was selected as the target of one or more of your unit’s attacks. That enemy unit must take a Battle-shock test. Until the end of the phase, each time a model in your unit makes an attack that targets that enemy unit, add 1 to the Hit roll. If the Battle-shock test was failed, add 1 to the Wound roll as well."
       },
       {
        "id": "assassin_beasts",
@@ -6895,8 +6895,8 @@ const DATA = {
         "Fight"
        ],
        "when": "Fight phase.",
-       "target": "One VANGUARD INVADER INFANTRY unit that has not fought this phase.",
-       "effect": "Until the end of the phase its melee weapons have [PRECISION]."
+       "target": "One Vanguard Invader Infantry unit from your army that has not been selected to fight this phase.",
+       "effect": "Until the end of the phase, melee weapons equipped by models in your unit have the [PRECISION] ability."
       },
       {
        "id": "seeded_broods",
@@ -6907,8 +6907,8 @@ const DATA = {
         "Movement"
        ],
        "when": "Your Movement phase.",
-       "target": "One TYRANIDS unit in Reserves, or up to two VANGUARD INVADER units in Reserves.",
-       "effect": "For setting them up this phase, treat the battle round as one higher than it is."
+       "target": "One TYRANIDS unit from your army that is in Reserves, or up to two Vanguard Invader units from your army that are in Reserves.",
+       "effect": "Until the end of the phase, for the purposes of setting up those selected units on the battlefield, treat the current battle round number as being one higher than it actually is."
       },
       {
        "id": "hypersensory_scillia",
@@ -6918,10 +6918,10 @@ const DATA = {
        "phases": [
         "Movement"
        ],
-       "when": "Your opponent's Movement phase, right after an enemy unit ends a Normal, Advance or Fall Back move.",
-       "target": "Up to two VANGUARD INVADER units within 8\" of that enemy unit, or one other TYRANIDS INFANTRY unit within 8\".",
-       "effect": "Each of those units can make a Normal move of up to 6\".",
-       "restrictions": "Not units that are engaged."
+       "when": "Your opponent’s Movement phase, just after an enemy unit ends a Normal, Advance or Fall Back move.",
+       "target": "Up to two Vanguard Invader units from your army that are within 9\" of that enemy unit, or one other Tyranids Infantry unit from your army that is within 9\" of that enemy unit.",
+       "effect": "Those selected units can each make a Normal move of up to 6\".",
+       "restrictions": "You cannot target units that are within Engagement Range of one or more enemy units."
       },
       {
        "id": "unseen_lurkers",
@@ -6931,9 +6931,9 @@ const DATA = {
        "phases": [
         "Shooting"
        ],
-       "when": "Your opponent's Shooting phase, right after an enemy unit selects its targets.",
-       "target": "One VANGUARD INVADER unit targeted by those attacks.",
-       "effect": "Until the end of the phase it can only be targeted by ranged attacks from models within 18\" (6\" if it has Lone Operative). Your opponent can pick new targets."
+       "when": "Your opponent’s Shooting phase, just after an enemy unit has selected its targets.",
+       "target": "One Vanguard Invader unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+       "effect": "Until the end of the phase, your unit can only be selected as the target of a ranged attack if the attacking model is within 18\" or, if your unit has the Lone Operative ability, if the attacking model is within 6\". Your opponent can select new targets for the attacking unit’s attacks."
       },
       {
        "id": "invisible_hunter",
@@ -6943,10 +6943,10 @@ const DATA = {
        "phases": [
         "Fight"
        ],
-       "when": "End of your opponent's Fight phase.",
-       "target": "Up to two VANGUARD INVADER units, or one TYRANIDS INFANTRY unit.",
-       "effect": "Remove those units from the battlefield and place them into Strategic Reserves.",
-       "restrictions": "They must be more than 3\" from all enemy units."
+       "when": "End of your opponent’s Fight phase.",
+       "target": "Up to two Vanguard Invader units from your army, or one Tyranids Infantry unit from your army.",
+       "effect": "Remove the targeted units from the battlefield and place them into Strategic Reserves.",
+       "restrictions": "The targeted units must be more than 3\" away from all enemy units."
       }
      ]
     },
@@ -6961,7 +6961,7 @@ const DATA = {
      "summary": "Endless Multitude units surge forward when shot and keep coming back.",
      "rule": {
       "name": "Insurmountable Odds",
-      "text": "In your opponent's Shooting phase, after an enemy unit shoots: if a model of a friendly ENDLESS MULTITUDE unit was destroyed by those attacks, that unit can surge up to D6\"."
+      "text": "In your opponent’s Shooting phase , when an enemy unit has shot , if a model from a friendly ENDLESS MULTITUDE unit was destroyed as a result of those attacks, that friendly unit can make a surge move of up to D6\"."
      },
      "enhancements": [
       {
@@ -7022,9 +7022,9 @@ const DATA = {
        "phases": [
         "Any"
        ],
-       "when": "Any phase, just before an ENDLESS MULTITUDE unit within Synapse Range makes a surge move.",
-       "target": "That unit.",
-       "effect": "You can re-roll the surge distance, and the unit can end as close as possible to the closest objective marker instead of the closest enemy unit. All other rules for making surge moves still apply."
+       "when": "Any phase, just before an Endless Multitude unit from your army that is within Synapse Range of your army makes a Surge move.",
+       "target": "That ENDLESS MULTITUDE unit.",
+       "effect": "When making that Surge move, you can re-roll the D6 to determine how far your unit moves, and your unit can end that move as close as possible to the closest objective marker (instead of as close as possible to the closest enemy unit]. All other rules for making Surge moves still apply."
       },
       {
        "id": "unending_waves",
@@ -7034,10 +7034,10 @@ const DATA = {
        "phases": [
         "Any"
        ],
-       "when": "Any phase, right after a friendly ENDLESS MULTITUDE unit is destroyed.",
-       "target": "That unit.",
-       "effect": "Add an identical new unit at Starting Strength to your Strategic Reserves.",
-       "restrictions": "Attached CHARACTER units do not come back. Once per battle."
+       "when": "Any phase.",
+       "target": "One Endless Multitude unit from your army that was just destroyed. You can use this Stratagem on that unit even though it was just destroyed.",
+       "effect": "Add a new unit to your army identical to your destroyed unit, in Strategic Reserves, at its Starting Strength.",
+       "restrictions": "Any destroyed Character units that were attached to your unit are not returned. You can only use this Stratagem once per battle."
       },
       {
        "id": "teeming_masses",
@@ -7048,9 +7048,9 @@ const DATA = {
         "Shooting",
         "Fight"
        ],
-       "when": "Your opponent's Shooting phase or the Fight phase, right after an enemy unit selects its targets.",
-       "target": "One ENDLESS MULTITUDE unit targeted by those attacks.",
-       "effect": "Until the end of the phase, attacks against it get -1 to hit."
+       "when": "Your opponent’s Shooting phase or the Fight phase, just after an enemy unit has selected its targets.",
+       "target": "One Endless Multitude unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+       "effect": "Until the end of the phase, each time an attack targets your unit, subtract 1 from the Hit roll."
       },
       {
        "id": "swarming_masses",
@@ -7062,8 +7062,8 @@ const DATA = {
         "Fight"
        ],
        "when": "Your Shooting phase or the Fight phase.",
-       "target": "One ENDLESS MULTITUDE unit that has not shot or fought this phase.",
-       "effect": "Until the end of the phase its weapons have [SUSTAINED HITS 1]; with 15 or more models, its unmodified hit rolls of 5+ are also critical hits."
+       "target": "One Endless Multitude unit from your army that has not been selected to shoot or fight this phase.",
+       "effect": "Until the end of the phase, weapons equipped by models in your unit have the [SUSTAINED HITS 1] ability, and If your unit contains 15 or more models, each time a model in your unit makes an attack, an unmodified Hit roll of 5+ scores a Critical Hit."
       },
       {
        "id": "bounding_advance",
@@ -7074,8 +7074,8 @@ const DATA = {
         "Movement"
        ],
        "when": "Your Movement phase.",
-       "target": "One ENDLESS MULTITUDE unit.",
-       "effect": "When it advances this phase, do not roll: add 6\" to its Move instead."
+       "target": "One Endless Multitude unit from your army.",
+       "effect": "Until the end of the phase, each time your unit Advances, do not make an Advance roll. Instead, until the end of the phase, add 6\" to the Move characteristic of models in your unit."
       },
       {
        "id": "preservation_imperative",
@@ -7085,9 +7085,9 @@ const DATA = {
        "phases": [
         "Shooting"
        ],
-       "when": "Your opponent's Shooting phase, right after an enemy unit selects its targets.",
-       "target": "One ENDLESS MULTITUDE unit targeted by those attacks.",
-       "effect": "Until the end of the phase it counts as having fewer than five models for [BLAST]."
+       "when": "Your opponent’s Shooting phase, just after an enemy unit has selected its targets.",
+       "target": "One Endless Multitude unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+       "effect": "Until the end of the phase, your unit is treated as containing fewer than five models for the purpose of the [BLAST] ability."
       }
      ]
     },
@@ -7102,7 +7102,7 @@ const DATA = {
      "summary": "Lictors and Deathleaper strike from Deep Strike and hunt characters.",
      "rule": {
       "name": "Mindhunger",
-      "text": "Friendly DEATHLEAPER, LICTOR and NEUROLICTOR units have Deep Strike. Attacks by LICTOR and NEUROLICTOR units against CHARACTER units can re-roll hit rolls of 1."
+      "text": "Friendly DEATHLEAPER / LICTOR / NEUROLICTOR units have Deep Strike . Friendly LICTOR/NEUROLICTOR units’ attacks that target a CHARACTER unit can re-roll hit rolls of 1."
      },
      "enhancements": [
       {
@@ -7141,9 +7141,9 @@ const DATA = {
        "phases": [
         "Fight"
        ],
-       "when": "Fight phase, when a friendly DEATHLEAPER, LICTOR, NEUROLICTOR or VON RYAN'S LEAPERS unit is selected to fight.",
-       "target": "That unit.",
-       "effect": "Until the end of the phase, each time a model in your unit makes an attack that targets a unit that is not visible to it, add 1 to the Strength characteristic and improve the Armour Penetration characteristic of that attack by 1."
+       "when": "Fight phase , when a friendly DEATHLEAPER / LICTOR / NEUROLICTOR / VON RYAN’S LEAPERS unit is selected to fight .",
+       "target": "That DEATHLEAPER/LICTOR/NEUROLICTOR/VON RYAN’S LEAPERS unit.",
+       "effect": "Your unit’s attacks that target a hidden unit have +1 S and AP ."
       },
       {
        "id": "hypersensory_adaptations",
@@ -7153,9 +7153,9 @@ const DATA = {
        "phases": [
         "Shooting"
        ],
-       "when": "Start of your Shooting phase.",
-       "target": "One DEATHLEAPER, LICTOR, NEUROLICTOR or VON RYAN'S LEAPERS unit.",
-       "effect": "Pick one visible enemy unit within 12\" of it: that enemy unit has +6\" detection range."
+       "when": "Start of your Shooting phase .",
+       "target": "One friendly DEATHLEAPER / LICTOR / NEUROLICTOR / VON RYAN’S LEAPERS unit.",
+       "effect": "Select one visible enemy unit within 12\" of your unit. That enemy unit has +6\" detection range ."
       },
       {
        "id": "scanner_gheist",
@@ -7165,9 +7165,9 @@ const DATA = {
        "phases": [
         "Fight"
        ],
-       "when": "End of your opponent's Fight phase.",
-       "target": "One unengaged DEATHLEAPER, LICTOR or NEUROLICTOR unit.",
-       "effect": "Remove your unit from the battlefield and place it into Strategic Reserves."
+       "when": "End of your opponent’s Fight phase .",
+       "target": "One friendly unengaged DEATHLEAPER / LICTOR / NEUROLICTOR unit.",
+       "effect": "Place your unit in strategic reserves ."
       }
      ]
     },
@@ -7182,7 +7182,7 @@ const DATA = {
      "summary": "Norns can change their Singular Purpose once per battle.",
      "rule": {
       "name": "Higher Imperatives",
-      "text": "NORN EMISSARY and NORN ASSIMILATOR units gain Protean Purpose: once per battle per unit, in your Command phase, make a new Singular Purpose selection (it replaces the previous one)."
+      "text": "Friendly NORN EMISSARY / NORN ASSIMILATOR units have the following ability: Protean Purpose: (Once per battle, per unit) In your Command phase , you can use this ability."
      },
      "protean": [
       "norn_emissary",
@@ -7230,9 +7230,9 @@ const DATA = {
        "phases": [
         "Any"
        ],
-       "when": "Any phase, when a friendly NORN ASSIMILATOR unit suffers a mortal wound.",
-       "target": "That unit.",
-       "effect": "Until the end of the phase, models in your unit have the Feel No Pain 4+ ability against mortal wounds."
+       "when": "Any phase, when a friendly NORN ASSIMILATOR unit suffers a mortal wound .",
+       "target": "That NORN ASSIMILATOR unit.",
+       "effect": "Your unit has Feel No Pain 4+ against mortal wounds ."
       },
       {
        "id": "lesser_prey",
@@ -7242,9 +7242,9 @@ const DATA = {
        "phases": [
         "Fight"
        ],
-       "when": "Fight phase, when a NORN ASSIMILATOR or NORN EMISSARY unit is selected to fight.",
-       "target": "That unit.",
-       "effect": "Until the end of the phase, add 2 to the Strength characteristic of melee weapons equipped by models in your unit."
+       "when": "Fight phase , when a friendly NORN ASSIMILATOR / NORN EMISSARY unit is selected to fight .",
+       "target": "That NORN ASSIMILATOR/NORN EMISSARY unit.",
+       "effect": "Your unit’s melee attacks have +2 S ."
       },
       {
        "id": "tanglestrike_rounds",
@@ -7254,9 +7254,9 @@ const DATA = {
        "phases": [
         "Shooting"
        ],
-       "when": "Your Shooting phase, after a NORN ASSIMILATOR unit has shot.",
-       "target": "That unit.",
-       "effect": "Pick one enemy unit it hit: that unit is tethered (-2\" Move) until the start of your next Command phase."
+       "when": "Your Shooting phase , when a friendly NORN ASSIMILATOR unit has shot .",
+       "target": "That NORN ASSIMILATOR unit.",
+       "effect": "Select one enemy unit hit by those attacks. That enemy unit is tethered until the start of your next Command phase : While a unit is tethered , that unit has -2\" M ."
       }
      ]
     },
@@ -7271,7 +7271,7 @@ const DATA = {
      "summary": "Tyranid Warriors become Battleline; Warriors and Primes get a 5+ invulnerable save.",
      "rule": {
       "name": "Leader-beasts",
-      "text": "Both Tyranid Warriors units gain the TYRANID WARRIORS and BATTLELINE keywords. TYRANID WARRIORS, TYRANID PRIME WITH LASH WHIP and WINGED TYRANID PRIME models have a 5+ invulnerable save."
+      "text": "Friendly TYRANID WARRIORS WITH RANGED BIO-WEAPONS / TYRANID WARRIORS WITH MELEE BIO-WEAPONS units have: TYRANID WARRIORS . TYRANID WARRIORS / TYRANID PRIME WITH LASH WHIP / WINGED TYRANID PRIME models from your army have 5+ InSv ."
      },
      "grantKeywords": [
       {
@@ -7356,9 +7356,9 @@ const DATA = {
         "Shooting",
         "Fight"
        ],
-       "when": "Your opponent's Shooting phase or the Fight phase, when an enemy unit targets a friendly TYRANID WARRIORS unit.",
-       "target": "That unit.",
-       "effect": "Attacks against it with S higher than its T get -1 to wound."
+       "when": "Your opponent’s Shooting phase or the Fight phase , just after an enemy unit has selected its targets.",
+       "target": "One TYRANIDS unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+       "effect": "Until the end of the phase, models in your unit have the Feel No Pain 6+ ability. If your unit is within Synapse Range of your army, models in your unit have the Feel No Pain 5+ ability instead."
       },
       {
        "id": "synaptic_micronodes",
@@ -7368,9 +7368,9 @@ const DATA = {
        "phases": [
         "Movement"
        ],
-       "when": "End of your Movement phase.",
-       "target": "One TYRANID WARRIORS unit.",
-       "effect": "Pick one objective it controls: that objective is secured."
+       "when": "Your Movement phase.",
+       "target": "One Tyranid Warriors unit from your army.",
+       "effect": "Select one objective marker you control that your unit is within range of. That objective marker remains under your control until your opponent’s Level of Control over that objective marker is greater than yours at the end of a phase."
       },
       {
        "id": "parasitic_payload",
@@ -7380,9 +7380,9 @@ const DATA = {
        "phases": [
         "Shooting"
        ],
-       "when": "Your Shooting phase, when a TYRANID WARRIORS unit is selected to shoot.",
-       "target": "That unit.",
-       "effect": "Until the end of the phase, ranged weapons equipped by models in your unit have the [IGNORES COVER] ability."
+       "when": "Your Shooting phase.",
+       "target": "One Tyranid Warriors with Ranged Bio-weapons unit from your army that has not been selected to shoot this phase.",
+       "effect": "Until the end of the phase, ranged weapons equipped by models in your unit have the [IGNORES COVER] ability. After your unit has resolved its shooting attacks this phase, select one enemy unit hit by one or more of those attacks. Until the end of the turn, models in that unit cannot have the Benefit of Cover."
       }
      ]
     }
@@ -12643,7 +12643,7 @@ const DATA = {
      "summary": "Objectives you hold stay yours and afflict every enemy unit on them.",
      "rule": {
       "name": "Worldblight",
-      "text": "At the end of your Command phase, each objective a friendly DEATH GUARD unit controls becomes secured. Until you lose control of it, enemy units within range of that objective are Afflicted."
+      "text": "At the end of your Command phase , if a friendly DEATH GUARD unit is controlling an objective , that objective is secured . Until you lose control of that objective, while an enemy unit is within range of that objective, that enemy unit is Afflicted ."
      },
      "enhancements": [
       {
@@ -12717,8 +12717,8 @@ const DATA = {
         "Any"
        ],
        "when": "Any phase.",
-       "target": "One DEATH GUARD VEHICLE or DEATH GUARD MONSTER model from your army with the Deadly Demise ability that was just destroyed.",
-       "effect": "Its Deadly Demise mortal wounds are inflicted automatically (no D6 roll), and every enemy unit that suffers them is Afflicted until the start of your next turn."
+       "target": "One Death Guard Vehicle or Death Guard Monster model from your army with the Deadly Demise ability that was just destroyed. You can use this Stratagem on that model even though it was just destroyed.",
+       "effect": "Do not roll one D6 to determine whether mortal wounds are inflicted by your model’s Deadly Demise ability. Instead, mortal wounds are automatically inflicted. In addition, any enemy units that suffer mortal wounds as a result of this Stratagem are Afflicted until the start of your next turn."
       },
       {
        "id": "disgustingly_resilient",
@@ -12729,9 +12729,9 @@ const DATA = {
         "Shooting",
         "Fight"
        ],
-       "when": "Your opponent's Shooting phase or the Fight phase, right after an enemy unit selects its targets.",
-       "target": "One DEATH GUARD unit from your army that was targeted by those attacks.",
-       "effect": "Until the end of the phase, attacks allocated to its models get -1 Damage."
+       "when": "Your opponent’s Shooting phase or the Fight phase, just after an enemy unit has selected its targets.",
+       "target": "One Death Guard unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+       "effect": "Until the end of the phase, each time an attack is allocated to a model in your unit, subtract 1 from the Damage characteristic of that attack."
       },
       {
        "id": "plaguesurge",
@@ -12742,8 +12742,8 @@ const DATA = {
         "Command"
        ],
        "when": "Your Command phase.",
-       "target": "Your DEATH GUARD WARLORD, if it is on the battlefield.",
-       "effect": "Until the start of your next Command phase, models from your army get +3\" Contagion Range."
+       "target": "Your Death Guard WARLORD that is on the battlefield.",
+       "effect": "Until the start of your next Command phase, add 3\" to the Contagion Range of models from your army."
       },
       {
        "id": "leechspore_eruption",
@@ -12754,8 +12754,8 @@ const DATA = {
         "Command"
        ],
        "when": "Your Command phase.",
-       "target": "One DEATH GUARD model from your army that has lost one or more wounds.",
-       "effect": "Pick one enemy unit within 3\" and roll one D6 per wound your model has lost: each 5+ inflicts 1 mortal wound on that unit and heals your model by 1 wound (up to 6 each)."
+       "target": "One Death Guard model your army that has lost one or more wounds.",
+       "effect": "Select one enemy unit within 3\" of your model. Roll a number of D6 equal to the number of wounds your model has lost: for each 5+, that enemy unit suffers one mortal wound (to a maximum of 6 mortal wounds) and your model regains 1 lost wound (to a maximum of 6 lost wounds)."
       },
       {
        "id": "overwhelming_generosity",
@@ -12766,8 +12766,8 @@ const DATA = {
         "Shooting"
        ],
        "when": "Start of your Shooting phase.",
-       "target": "One DEATH GUARD CHARACTER unit from your army.",
-       "effect": "Pick one enemy unit visible to it. Until the end of the phase, DEATH GUARD units shooting at that enemy can re-roll the number of attacks their weapons make."
+       "target": "One Death Guard Character unit from your army.",
+       "effect": "Select one enemy unit visible to your unit. Until the end of the phase, each time a DEATH GUARD unit from your army selects that enemy unit as the target of any ranged attacks, you can re-roll the dice to determine how many attacks a weapon equipped by a model in that unit makes."
       },
       {
        "id": "creeping_blight",
@@ -12778,8 +12778,8 @@ const DATA = {
         "Shooting"
        ],
        "when": "Your Shooting phase.",
-       "target": "One DEATH GUARD INFANTRY unit from your army that has not shot this phase.",
-       "effect": "Until the end of the phase, its ranged attacks against an Afflicted unit can re-roll the hit roll and the wound roll."
+       "target": "One Death Guard Infantry unit from your army that has not been selected to shoot this phase.",
+       "effect": "Until the end of the phase, each time a model in your unit makes a ranged attack that targets an Afflicted unit, you can re-roll the Hit roll and you can re-roll the Wound roll."
       }
      ]
     },
@@ -12794,7 +12794,7 @@ const DATA = {
      "summary": "A preliminary bombardment afflicts distant enemy units each round; vehicle-heavy stratagems.",
      "rule": {
       "name": "Miasmic Bombardment",
-      "text": "At the start of each battle round, pick enemy units that are more than 12\" from every model of your army on the battlefield (up to 1 in Incursion, 2 in Strike Force, 3 in Onslaught). They are Afflicted until the end of the battle round."
+      "text": "At the start of the battle round , select a number of enemy units more than 12\" away from every model from your army that is on the battlefield. Until the end of the battle round, those enemy units are Afflicted ."
      },
      "enhancements": [
       {
@@ -12862,8 +12862,8 @@ const DATA = {
         "Movement"
        ],
        "when": "End of your Movement phase.",
-       "target": "One DEATH GUARD VEHICLE unit from your army.",
-       "effect": "Pick a terrain feature within 24\" that it can see. Until the start of your next turn, enemy units within 3\" of that terrain feature are Afflicted."
+       "target": "One Death Guard Vehicle unit from your army.",
+       "effect": "Select one terrain feature within 24\" of and visible to your unit. Until the start of your next turn, enemy units are Afflicted while they are within 3\" of that terrain feature."
       },
       {
        "id": "relentless_grind",
@@ -12874,9 +12874,9 @@ const DATA = {
         "Movement",
         "Charge"
        ],
-       "when": "Your Movement or Charge phase.",
-       "target": "One DEATH GUARD VEHICLE unit from your army that has not moved or charged this phase.",
-       "effect": "Until the end of the phase, its Normal, Advance and Charge moves can pass horizontally through terrain features."
+       "when": "Your Movement phase or your Charge phase.",
+       "target": "One Death Guard Vehicle unit from your army that has not been selected to move or charge this phase.",
+       "effect": "Until the end of the phase, each time your unit makes a Normal, Advance or Charge move, it can move horizontally through terrain features."
       },
       {
        "id": "drawn_to_despair",
@@ -12887,8 +12887,8 @@ const DATA = {
         "Shooting"
        ],
        "when": "Your Shooting phase.",
-       "target": "One DEATH GUARD unit from your army that has not shot this phase.",
-       "effect": "Until the end of the phase, its attacks against visible enemy units (not AIRCRAFT) in your opponent's deployment zone can re-roll the hit roll."
+       "target": "One Death Guard unit from your army that has not been selected to shoot this phase.",
+       "effect": "Until the end of the phase, each time a model in your unit makes an attack that targets a visible enemy unit (excluding AIRCRAFT) within your opponent’s deployment zone, you can re-roll the Hit roll."
       },
       {
        "id": "font_of_filth",
@@ -12899,8 +12899,8 @@ const DATA = {
         "Shooting"
        ],
        "when": "Your Shooting phase.",
-       "target": "One DEATH GUARD VEHICLE unit from your army that has not shot this phase.",
-       "effect": "Until the end of the phase its ranged weapons have [ASSAULT]."
+       "target": "One Death Guard Vehicle unit from your army that has not been selected to shoot this phase.",
+       "effect": "Until the end of the phase, ranged weapons equipped by models in your unit have the [ASSAULT] ability."
       },
       {
        "id": "eyestinger_storm",
@@ -12910,9 +12910,9 @@ const DATA = {
        "phases": [
         "Command"
        ],
-       "when": "Your opponent's Command phase.",
-       "target": "One DEATH GUARD VEHICLE unit from your army.",
-       "effect": "Pick an objective marker it can see: every Afflicted enemy unit within range of it takes a battle-shock test (and no other battle-shock test that phase)."
+       "when": "Your opponent’s Command phase.",
+       "target": "One Death Guard Vehicle unit from your army.",
+       "effect": "Select one objective marker visible to one or more models in your unit. Each Afflicted enemy unit within range of that objective marker must take a Battle-shock test. Enemy units affected by this Stratagem do not need to take any other Battle-shock tests in the same phase."
       },
       {
        "id": "stinking_mire",
@@ -12922,9 +12922,9 @@ const DATA = {
        "phases": [
         "Charge"
        ],
-       "when": "Start of your opponent's Charge phase.",
-       "target": "One unengaged DEATH GUARD VEHICLE unit from your army.",
-       "effect": "Pick one visible enemy unit within 12\": if it declares a charge, it gets -1 to the charge roll."
+       "when": "Start of your opponent’s Charge phase.",
+       "target": "One Death Guard Vehicle unit from your army.",
+       "effect": "Until the end of the phase, each time an enemy unit selects your unit as the target of a charge, subtract 2 from the Charge roll (this is not cumulative with any other negative modifiers to that Charge roll)."
       }
      ]
     },
@@ -12939,7 +12939,7 @@ const DATA = {
      "summary": "Change your chosen Plague at the start of every battle round; champion-led units hit harder.",
      "rule": {
       "name": "Manifold Maladies",
-      "text": "At the start of each battle round you can pick one of the Plagues from Nurgle's Gift. It replaces your previously chosen Plague for the rest of the battle."
+      "text": "At the start of the battle round , you can select one of the Plagues listed in Nurgle’s Gift . Until the end of the battle, that is your chosen Plague instead of any previously chosen Plague."
      },
      "plagueEachRound": true,
      "enhancements": [
@@ -13015,8 +13015,8 @@ const DATA = {
         "Fight"
        ],
        "when": "Your Shooting phase or the Fight phase.",
-       "target": "One DEATH GUARD Attached unit from your army that has not shot or fought this phase.",
-       "effect": "Until the end of the phase its attacks score a critical hit on an unmodified hit roll of 5+."
+       "target": "One Death Guard Attached unit from your army that has not been selected to shoot or fight this phase.",
+       "effect": "Until the end of the phase, each time a model in your unit makes an attack, an unmodified Hit roll of 5+ scores a Critical Hit."
       },
       {
        "id": "malignance_magnified",
@@ -13028,8 +13028,8 @@ const DATA = {
         "Fight"
        ],
        "when": "Your Shooting phase or the Fight phase.",
-       "target": "One DEATH GUARD Attached unit from your army that has not shot or fought this phase.",
-       "effect": "Until the end of the phase its attacks against units below Starting Strength can re-roll the hit roll and the wound roll."
+       "target": "One Death Guard Attached unit from your army that has not been selected to shoot or fight this phase.",
+       "effect": "Until the end of the phase, each time a model in your unit makes an attack that targets a unit that is below its Starting Strength, you can re-roll the Hit roll and you can re-roll the Wound roll."
       },
       {
        "id": "grotesque_fortitude",
@@ -13040,9 +13040,9 @@ const DATA = {
         "Shooting",
         "Fight"
        ],
-       "when": "Your opponent's Shooting phase or the Fight phase, right after an enemy unit selects its targets.",
-       "target": "One DEATH GUARD Attached unit from your army that was targeted by those attacks.",
-       "effect": "Until the end of the phase its models get +2 Toughness."
+       "when": "Your opponent’s Shooting phase or the Fight phase, just after an enemy unit has selected its targets.",
+       "target": "One Death Guard Attached unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+       "effect": "Until the end of the phase, add 2 to the Toughness characteristic of models in your unit."
       },
       {
        "id": "rabid_infusion",
@@ -13053,7 +13053,7 @@ const DATA = {
         "Fight"
        ],
        "when": "Start of the Fight phase.",
-       "target": "One DEATH GUARD unit from your army that contains two CHARACTER models.",
+       "target": "One Death Guard unit from your army that includes two Character models.",
        "effect": "Until the end of the phase, your unit has the Fights First ability."
       },
       {
@@ -13065,8 +13065,8 @@ const DATA = {
         "Movement"
        ],
        "when": "Your Movement phase, before the Reinforcements step.",
-       "target": "One other friendly DEATH GUARD unit (excluding Battle-shocked units and Attached units that already have two Leader units or one of your CHARACTER units leading it) from your army.",
-       "effect": "Attach it as a Leader to another friendly DEATH GUARD unit within 2\" horizontally and 5\" vertically that it could lead (not battle-shocked, and with room for another Leader). Adjust that unit's Starting Strength."
+       "target": "One Death Guard Character unit from your army that is not leading a unit.",
+       "effect": "Select one other friendly Death Guard unit (excluding Battle-shocked units and Attached units that already have two Leader units or one of your CHARACTER units leading it] within 2\" horizontally and 5\" vertically of your unit that your unit can lead (as described in the Leader section of its datasheet]. Your unit attaches to that unit as a Leader. Change that unit’s Starting Strength accordingly."
       },
       {
        "id": "deaths_heads",
@@ -13076,9 +13076,9 @@ const DATA = {
        "phases": [
         "Shooting"
        ],
-       "when": "Your Shooting phase.",
-       "target": "One unengaged BIOLOGUS PUTRIFIER unit that has not shot this phase.",
-       "effect": "Pick one enemy unit (not a VEHICLE) within 8\" that it can see: until the start of your next turn it suffers the effects of all Plagues."
+       "when": "Your Shooting phase .",
+       "target": "One BIOLOGUS PUTRIFIER unit from your army that is not within Engagement Range of one or more enemy units and has not been selected to shoot this phase.",
+       "effect": "Select one enemy unit (excluding VEHICLES ) that is within 8\" of and visible to your unit. Until the start of your next turn, that unit has the effect of all Plagues (see Nurgle’s Gift )."
       }
      ]
     },
@@ -13166,9 +13166,9 @@ const DATA = {
         "Any"
        ],
        "when": "Any phase.",
-       "target": "One NURGLINGS unit from your army that was just destroyed.",
-       "effect": "Add an identical new unit at Starting Strength and full wounds to your Strategic Reserves.",
-       "restrictions": "Once per battle."
+       "target": "One Nurglings unit from your army that was just destroyed. You can target that unit with this Stratagem even though it was just destroyed.",
+       "effect": "Add a new unit to your army identical to your destroyed unit, in Strategic Reserves, at its Starting Strength and with its full wounds remaining.",
+       "restrictions": "You can only use this Stratagem once per battle."
       },
       {
        "id": "clutching_corruption",
@@ -13179,8 +13179,8 @@ const DATA = {
         "Fight"
        ],
        "when": "Fight phase.",
-       "target": "One DEATH GUARD unit from your army that has not fought this phase.",
-       "effect": "Until the end of the phase its attacks against enemy units engaged with your PLAGUE LEGIONS units can re-roll the hit roll."
+       "target": "One Death Guard unit from your army that has not been selected to fight this phase.",
+       "effect": "Until the end of the phase, each time a model in your unit makes an attack that targets an enemy unit that is within Engagement Range of one or more Plague Legions units from your army, you can re-roll the Hit roll."
       },
       {
        "id": "all_is_rot",
@@ -13191,8 +13191,8 @@ const DATA = {
         "Shooting"
        ],
        "when": "Your Shooting phase.",
-       "target": "One PLAGUE LEGIONS unit engaged with enemy units.",
-       "effect": "Until the end of the phase, enemies engaged with it can still be shot at. Each time an enemy model engaged with it loses a wound, roll D6: on a 5+ your unit suffers 1 mortal wound after the attacking unit finishes."
+       "target": "One Plague Legions unit from your army that is within Engagement Range of one or more enemy units.",
+       "effect": "Until the end of the phase, enemy units are not considered to be within Engagement Range of your unit for the purposes of selecting targets of ranged weapons. Until the end of the phase, each time an enemy model loses a wound, while that model’s unit is within Engagement Range of your unit, roll one D6: on a 5+, your unit suffers 1 mortal wound after the attacking unit has finished making its attacks."
       },
       {
        "id": "fleshy_avalanche",
@@ -13203,9 +13203,9 @@ const DATA = {
         "Movement",
         "Charge"
        ],
-       "when": "Your Movement or Charge phase.",
-       "target": "One PLAGUE LEGIONS MONSTER unit that has not moved or charged this phase.",
-       "effect": "Until the end of the phase, its Normal, Advance and Charge moves can pass horizontally through terrain features."
+       "when": "Your Movement phase or your Charge phase.",
+       "target": "One Plague Legions Monster unit from your army that has not been selected to move or charge this phase.",
+       "effect": "Until the end of the phase, each time your unit makes a Normal, Advance or Charge move, it can move horizontally through terrain features."
       },
       {
        "id": "avatars_of_decay",
@@ -13216,8 +13216,8 @@ const DATA = {
         "Shooting"
        ],
        "when": "Your Shooting phase.",
-       "target": "One PLAGUE LEGIONS unit.",
-       "effect": "Until the end of the phase, enemy units within 6\" of it are Afflicted."
+       "target": "One Plague Legions unit from your army.",
+       "effect": "Until the end of the phase, while an enemy unit is within 6\" of your unit, that enemy unit is Afflicted."
       },
       {
        "id": "mireslick",
@@ -13227,9 +13227,9 @@ const DATA = {
        "phases": [
         "Movement"
        ],
-       "when": "Your opponent's Movement phase, when an enemy unit (not MONSTER or VEHICLE) is selected to fall back.",
-       "target": "One PLAGUE LEGIONS unit engaged with that enemy unit.",
-       "effect": "Until the end of the phase, each time an enemy unit engaged with yours is selected to fall back it takes a Leadership test; if failed it must remain stationary instead."
+       "when": "Your opponent’s Movement phase, when an enemy unit (excluding MONSTERS and VEHICLES) is selected to Fall Back.",
+       "target": "One Plague Legions unit from your army that is within Engagement Range of that enemy unit.",
+       "effect": "Until the end of the phase, while an enemy unit is within Engagement Range of your unit, each time that unit is selected to Fall Back, it must take a Leadership test. If that test is failed, that unit must Remain Stationary this phase instead."
       }
      ]
     },
@@ -13244,7 +13244,7 @@ const DATA = {
      "summary": "Fresh Poxwalkers keep arriving from Strategic Reserves; Poxwalkers are Battleline.",
      "rule": {
       "name": "Numberless Horde",
-      "text": "In your Command phase of battle rounds 2 and 3 (Incursion), 2-4 (Strike Force) or 2-5 (Onslaught), add a new POXWALKERS unit with a Starting Strength of 10 to your army, in Strategic Reserves. POXWALKERS units gain the BATTLELINE keyword."
+      "text": "In your Command phase in each of the following battle rounds , depending on your chosen battle size, add a new POXWALKERS unit with a Starting Strength of 10 to your army, in Strategic Reserves ."
      },
      "grantKeywords": [
       {
@@ -13336,9 +13336,9 @@ const DATA = {
        "phases": [
         "Fight"
        ],
-       "when": "Fight phase, right after an enemy unit selects its targets.",
-       "target": "One POXWALKERS unit from your army that was targeted by those attacks.",
-       "effect": "After the attacker fights, roll D6 for each Poxwalker it destroyed: each 6 inflicts 1 mortal wound on it. If your unit survives, models killed this way count for Curse of the Walking Pox."
+       "when": "Fight phase, just after an enemy unit has selected its targets.",
+       "target": "One Poxwalkers unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+       "effect": "After the attacking unit has fought, roll one D6 for each model from your unit that was destroyed as a result of those attacks: on a 6, the attacking unit suffers 1 mortal wound. If your unit is not destroyed after the attacking unit has fought, enemy models destroyed as a result of this Stratagem count as enemy models destroyed by an attack made by a model in your unit for the purposes of the Curse of the Walking Pox ability."
       },
       {
        "id": "smeared_with_filth",
@@ -13349,8 +13349,8 @@ const DATA = {
         "Fight"
        ],
        "when": "Fight phase.",
-       "target": "One POXWALKERS unit from your army that was just destroyed.",
-       "effect": "Pick one enemy unit that attacked it this phase: it is Afflicted for the rest of the battle."
+       "target": "One Poxwalkers unit from your army that was just destroyed. You can target that unit with this Stratagem even though it was just destroyed.",
+       "effect": "Select one enemy unit that made one or more attacks that targeted your unit this phase. Until the end of the battle, that enemy unit is Afflicted."
       },
       {
        "id": "gnawing_hunger",
@@ -13361,8 +13361,8 @@ const DATA = {
         "Command"
        ],
        "when": "Your Command phase.",
-       "target": "One POXWALKERS unit from your army.",
-       "effect": "Until the end of the turn: +1 Move, and +1 A and +1 S for its melee weapons."
+       "target": "One Poxwalkers unit from your army.",
+       "effect": "Until the end of the turn, add 1 to the Move characteristic of models in your unit, and add 1 to the Attacks and Strength characteristics of melee weapons equipped by models in your unit."
       },
       {
        "id": "hidden_amongst_the_dead",
@@ -13372,9 +13372,9 @@ const DATA = {
        "phases": [
         "Movement"
        ],
-       "when": "Reinforcements step of your Movement phase.",
-       "target": "One POXWALKERS unit from your army in Strategic Reserves that is not an Attached unit.",
-       "effect": "Until the end of the phase its models have Deep Strike."
+       "when": "The Reinforcements step of your Movement phase.",
+       "target": "One Poxwalkers unit from your army that is in Strategic Reserves and that is not an Attached unit.",
+       "effect": "Until the end of the phase, models in that unit have the Deep Strike ability."
       },
       {
        "id": "shock_and_horror",
@@ -13384,9 +13384,9 @@ const DATA = {
        "phases": [
         "Charge"
        ],
-       "when": "Your Charge phase, right after a DEATH GUARD unit ends a Charge move.",
-       "target": "That unit.",
-       "effect": "Every enemy unit engaged with it takes a battle-shock test at -1."
+       "when": "Your Charge phase, just after a Death Guard unit from your army ends a Charge move.",
+       "target": "That DEATH GUARD unit.",
+       "effect": "Each enemy unit within Engagement Range of your unit must take a Battle-shock test, subtracting 1 from that test."
       },
       {
        "id": "shambling_wall",
@@ -13396,9 +13396,9 @@ const DATA = {
        "phases": [
         "Shooting"
        ],
-       "when": "Your opponent's Shooting phase, right after an enemy unit selects its targets.",
-       "target": "One DEATH GUARD unit from your army that was targeted by those attacks, and one friendly POXWALKERS unit within 3\" of that unit.",
-       "effect": "Until the end of the phase, each time you would allocate an attack to a model in your DEATH GUARD unit, if your POXWALKERS unit is visible to the attacking model and is an eligible target for that attack, no saving throw is made for that attack; instead a number of POXWALKERS models from that unit equal to the Damage characteristic of that attack are destroyed."
+       "when": "Your opponent’s Shooting phase, just after an enemy unit has selected its targets.",
+       "target": "One Death Guard unit from your army that was selected as the target of one or more of the attacking unit’s attacks, and one friendly Poxwalkers unit within 3\" of your unit and visible to both your unit and the attacking unit.",
+       "effect": "Until the end of the phase, each time you would allocate an attack to a model in your DEATH GUARD unit, if your POXWALKERS unit is visible to the attacking model and is an eligible target for that attack, no saving throw is made for that attack; instead a number of POXWALKERS from your POXWALKERS unit equal to the Damage characteristic of that attack are destroyed."
       }
      ]
     },
@@ -13413,7 +13413,7 @@ const DATA = {
      "summary": "Afflicted enemies may take mortal wounds every enemy Command phase; Terminator-focused.",
      "rule": {
       "name": "Deadly Vectors",
-      "text": "In your opponent's Command phase roll 2D6 for each Afflicted enemy unit (-1 if it is Below Half-strength). On 6 or less it suffers D3 mortal wounds."
+      "text": "In your opponent’s Command phase , roll 2D6 for each Afflicted enemy unit, subtracting 1 from the result if that unit is Below Half-strength . If the result is 6 or less, that enemy unit suffers D3 mortal wounds ."
      },
      "deadlyVectors": true,
      "enhancements": [
@@ -13488,8 +13488,8 @@ const DATA = {
         "Any"
        ],
        "when": "Start of any phase.",
-       "target": "One TERMINATOR unit.",
-       "effect": "Until the end of the phase its models get +3\" Contagion Range."
+       "target": "One Terminator unit from your army.",
+       "effect": "Until the end of the phase, add 3\" to the Contagion Range of models in your unit."
       },
       {
        "id": "grim_reapers",
@@ -13500,8 +13500,8 @@ const DATA = {
         "Fight"
        ],
        "when": "Fight phase.",
-       "target": "One TERMINATOR unit that has not fought this phase.",
-       "effect": "Until the end of the phase its attacks against units other than MONSTERS and VEHICLES can re-roll the hit roll."
+       "target": "One Terminator unit from your army that has not been selected to fight this phase.",
+       "effect": "Until the end of the phase, each time a model in your unit makes an attack that targets an enemy unit (excluding MONSTERS and VEHICLES) you can re-roll the Hit roll."
       },
       {
        "id": "undying_spite",
@@ -13511,9 +13511,9 @@ const DATA = {
        "phases": [
         "Fight"
        ],
-       "when": "Fight phase, right after an enemy unit selects its targets.",
-       "target": "One TERMINATOR unit targeted by those attacks.",
-       "effect": "Until the end of the phase, when one of its models that has not fought is destroyed, roll D6: on a 4+ it fights after the attacking unit finishes, then is removed."
+       "when": "Fight phase, just after an enemy unit has selected its targets.",
+       "target": "One Terminator unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+       "effect": "Until the end of the phase, each time a model in your unit is destroyed, if that model has not fought this phase, roll one D6. On a 4+, do not remove the destroyed model from play; it can fight after the attacking unit has finished making its attacks, and is then removed from play."
       },
       {
        "id": "signal_pox",
@@ -13524,8 +13524,8 @@ const DATA = {
         "Command"
        ],
        "when": "Your Command phase.",
-       "target": "One LORD OF VIRULENCE model.",
-       "effect": "Pick an objective marker within 30\" that it can see: until the start of your next turn, enemy units within range of it are Afflicted."
+       "target": "One Lord of Virulence model from your army.",
+       "effect": "Select one objective marker within 30\" of and visible to your model. Until the start of your next turn, while an enemy unit is within range of that objective marker, that unit is Afflicted."
       },
       {
        "id": "mortarions_teachings",
@@ -13536,8 +13536,8 @@ const DATA = {
         "Shooting"
        ],
        "when": "Your Shooting phase.",
-       "target": "One TERMINATOR unit that has not shot this phase.",
-       "effect": "Until the end of the phase its ranged weapons have [ASSAULT] and [HEAVY]."
+       "target": "One Terminator unit from your army that has not been selected to shoot this phase.",
+       "effect": "Until the end of the phase, ranged weapons equipped by models in your unit have the [ASSAULT] and [HEAVY] abilities."
       },
       {
        "id": "sickening_impact",
@@ -13547,9 +13547,9 @@ const DATA = {
        "phases": [
         "Charge"
        ],
-       "when": "Your Charge phase, right after a TERMINATOR unit ends a Charge move.",
-       "target": "That unit.",
-       "effect": "Pick one engaged enemy unit and roll D6 for each of your models engaged with it: each 2+ inflicts 1 mortal wound (max 6)."
+       "when": "Your Charge phase, just after a Terminator unit from your army ends a Charge move.",
+       "target": "That TERMINATOR unit.",
+       "effect": "Select one enemy unit within Engagement Range of your unit, then roll one D6 for each model in your unit that is within Engagement Range of that enemy unit: for each 2+, that enemy unit suffers 1 mortal wound (to a maximum of 6 mortal wounds)."
       }
      ]
     },
@@ -13566,7 +13566,7 @@ const DATA = {
      "summary": "Bloat-drones, Helbrutes and Blight-haulers become Contagion Engines and shoot on the move.",
      "rule": {
       "name": "Warped and Rusted Animus",
-      "text": "Friendly FOETID BLOAT-DRONE (both kinds), HELBRUTE and MYPHITIC BLIGHT-HAULER units have CONTAGION ENGINE. Ranged attacks by CONTAGION ENGINE units have [ASSAULT]. Cannot be taken with another ENGINES detachment."
+      "text": "For all their slow degeneration, many of the Death Guard’s war machines are augmented with a fevered and inexorable urgency that brings their corrupted weapons to bear upon the foe all too quickly Friendly FOETID BLOAT-DRONE / FOETID BLOAT-DRONE WITH HEAVY BLIGHT LAUNCHER / HELBRUTE / MYPHITIC BLIGHT-HAULER units have CONTAGION ENGINE ."
      },
      "grantKeywords": [
       {
@@ -13619,9 +13619,9 @@ const DATA = {
         "Shooting",
         "Fight"
        ],
-       "when": "Your Shooting phase or the Fight phase, when a CONTAGION ENGINE unit is selected to attack.",
-       "target": "That unit.",
-       "effect": "Until the end of the phase, each time a model in your unit makes an attack, you can re-roll a Wound roll of 1."
+       "when": "Your Shooting phase or the Fight phase , when a friendly CONTAGION ENGINE unit is selected to attack .",
+       "target": "That CONTAGION ENGINE unit.",
+       "effect": "Your unit’s attacks can re-roll wound rolls of 1."
       },
       {
        "id": "bloodrust_deluge",
@@ -13631,9 +13631,9 @@ const DATA = {
        "phases": [
         "Shooting"
        ],
-       "when": "Your Shooting phase, when a CONTAGION ENGINE unit is selected to shoot.",
-       "target": "That unit.",
-       "effect": "Pick one visible enemy unit: it is Afflicted until your unit has finished attacking."
+       "when": "Your Shooting phase , when a friendly CONTAGION ENGINE unit is selected to shoot .",
+       "target": "That CONTAGION ENGINE unit.",
+       "effect": "Select one visible enemy unit. That enemy unit is Afflicted until your unit has attacked ."
       },
       {
        "id": "soulrot_flux",
@@ -13643,9 +13643,9 @@ const DATA = {
        "phases": [
         "Movement"
        ],
-       "when": "Your opponent's Movement phase, when an enemy unit engaged with a CONTAGION ENGINE unit is selected to fall back.",
+       "when": "Your opponent’s Movement phase , when an enemy unit is selected to make a fall-back move , if that enemy unit is engaged with a friendly CONTAGION ENGINE unit.",
        "target": "That CONTAGION ENGINE unit.",
-       "effect": "Roll D6 for that enemy unit: 1 = 1 mortal wound, 2-5 = D3 mortal wounds, 6 = 3 mortal wounds."
+       "effect": "When an enemy unit engaged with your unit is selected to make a fall-back move , roll one D6: On a 1, that enemy unit suffers 1 mortal wound . On a 2-5, that enemy unit suffers D3 mortal wounds . On a 6, that enemy unit suffers 3 mortal wounds ."
       }
      ]
     },
@@ -13662,7 +13662,7 @@ const DATA = {
      "summary": "Up to two Plague Marines units infiltrate under a cloud of daemon flies.",
      "rule": {
       "name": "Verminous Haze",
-      "text": "In the Declare Battle Formations step pick up to two friendly PLAGUE MARINES units: they have Infiltrators. Cannot be taken with another FLYBLOWN detachment."
+      "text": "In the Declare Battle Formations step, you can select up to two friendly PLAGUE MARINES units. This detachment has the FLYBLOWN tag and cannot be taken with another FLYBLOWN detachment ."
      },
      "enhancements": [
       {
@@ -13700,8 +13700,8 @@ const DATA = {
         "Fight"
        ],
        "when": "Start of the Fight phase.",
-       "target": "One engaged PLAGUE MARINES unit.",
-       "effect": "Pick one enemy unit engaged with it: it makes a battle-shock roll at -1."
+       "target": "One Death Guard Infantry unit from your army that is within Engagement Range of one or more enemy units.",
+       "effect": "Select one enemy unit within Engagement Range of your unit. That unit must take a Battle-shock test, subtracting 1 from the result."
       },
       {
        "id": "droning_horror",
@@ -13711,9 +13711,9 @@ const DATA = {
        "phases": [
         "Shooting"
        ],
-       "when": "Your Shooting phase, when a PLAGUE MARINES unit is selected to shoot.",
-       "target": "That unit.",
-       "effect": "Its ranged attacks re-roll hit rolls of 1, and also wound rolls of 1 against targets within half range."
+       "when": "Your Shooting phase.",
+       "target": "One Death Guard Infantry unit from your army that has not been selected to shoot this phase.",
+       "effect": "Until the end of the phase, each time a model in your unit makes a ranged attack, re-roll a Hit roll of 1. If that attack targets a unit within half range, you can re-roll the Hit roll instead."
       },
       {
        "id": "eye_of_the_swarm",
@@ -13723,9 +13723,9 @@ const DATA = {
        "phases": [
         "Shooting"
        ],
-       "when": "Your Shooting phase, when a PLAGUE MARINES unit is selected to shoot.",
-       "target": "That unit.",
-       "effect": "Until the end of the phase, ranged weapons equipped by models in your unit have the [CLOSE-QUARTERS] ability."
+       "when": "Your Shooting phase.",
+       "target": "One Death Guard Infantry unit from your army that has not been selected to shoot this phase.",
+       "effect": "Until the end of the phase, ranged weapons equipped by models in your unit (excluding Blast weapons) have the [PISTOL] ability."
       }
      ]
     },
@@ -13740,7 +13740,7 @@ const DATA = {
      "summary": "Death Guard Characters spread their Contagion 3\" further.",
      "rule": {
       "name": "Hypervirulent Strains",
-      "text": "Add 3\" to the Contagion Range of friendly DEATH GUARD CHARACTER units from your army (to a maximum of 12\")."
+      "text": "The rancid champions of the Death Guard are blessed with the most virulent contagions of Nurgle, supernatural strains that radiate towards unwilling hosts in floods of foulness Friendly DEATH GUARD CHARACTER units have +3\" to their Contagion Range (to a maximum of 12\")."
      },
      "enhancements": [
       {
@@ -13786,9 +13786,9 @@ const DATA = {
        "phases": [
         "Command"
        ],
-       "when": "Start of the Command phase.",
-       "target": "One DEATH GUARD CHARACTER unit from your army.",
-       "effect": "Until the end of the turn, add 1 to the Objective Control characteristic of models in your unit."
+       "when": "Start of the Command phase .",
+       "target": "One friendly DEATH GUARD CHARACTER unit.",
+       "effect": "Your unit has +1 OC until the end of the turn."
       },
       {
        "id": "aggravus_spasms",
@@ -13798,9 +13798,9 @@ const DATA = {
        "phases": [
         "Shooting"
        ],
-       "when": "Start of your Shooting phase.",
-       "target": "One DEATH GUARD CHARACTER unit from your army.",
-       "effect": "Pick one visible enemy unit within its Contagion Range: that unit has +6\" detection range."
+       "when": "Start of your Shooting Phase .",
+       "target": "One friendly DEATH GUARD CHARACTER unit.",
+       "effect": "Select one visible enemy unit within Contagion Range of your unit. That enemy unit has +6\" detection range ."
       },
       {
        "id": "simultaneous_contamination",
@@ -13810,9 +13810,9 @@ const DATA = {
        "phases": [
         "Shooting"
        ],
-       "when": "Your Shooting phase, when a DEATH GUARD CHARACTER unit starts an action.",
-       "target": "That unit.",
-       "effect": "Your unit can shoot this phase even though it is performing an action (the action is not interrupted)."
+       "when": "Your Shooting phase , when a friendly DEATH GUARD CHARACTER unit starts an action .",
+       "target": "That DEATH GUARD CHARACTER unit.",
+       "effect": "That action does not prevent your unit from being eligible to shoot ."
       }
      ]
     }
@@ -19034,9 +19034,9 @@ const DATA = {
        "phases": [
         "Any"
        ],
-       "when": "Any phase, right after an enemy unit selects its targets.",
-       "target": "One THOUSAND SONS unit targeted by those attacks.",
-       "effect": "Until the end of the phase, the attackers' Psychic weapons have [HAZARDOUS], and your unit has Feel No Pain 4+ against Psychic Attacks."
+       "when": "Any phase, just after an enemy unit has selected its targets.",
+       "target": "One Thousand Sons unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+       "effect": "Until the end of the phase, Psychic weapons equipped by models in the attacking unit have the [hazardous] ability, and models in your unit have the Feel No Pain 4+ ability against Psychic Attacks."
       },
       {
        "id": "destined_by_fate",
@@ -19046,9 +19046,9 @@ const DATA = {
        "phases": [
         "Any"
        ],
-       "when": "Any phase, right after a saving throw is failed for a THOUSAND SONS PSYKER model.",
-       "target": "That model.",
-       "effect": "Change the Damage characteristic of that attack to 0."
+       "when": "Any phase, just after a saving throw is failed for a Thousand Sons Psyker model from your army. If you are using fast dice rolling, this Stratagem can still be used after rolling multiple saving throws at once.",
+       "target": "That PSYKER model.",
+       "effect": "Change the Damage characteristic of that attack to 0. If you are using fast dice rolling, select one of those attacks you failed a saving throw for."
       },
       {
        "id": "egotistical_power",
@@ -19059,8 +19059,8 @@ const DATA = {
         "Command"
        ],
        "when": "Your Command phase.",
-       "target": "One THOUSAND SONS PSYKER unit.",
-       "effect": "Pick any Kindred Sorcery ability, even one already used: until your next Command phase it applies to this unit instead of the army's current one."
+       "target": "One Thousand Sons Psyker unit from your army.",
+       "effect": "Select the Imbued Manifestation, Psychic Maelstrom or Wrath of the Immaterium ability. Until the start of your next Command phase, that ability applies to your unit instead of any other Kindred Sorcery ability, even if you have already selected that ability this battle."
       },
       {
        "id": "desecration_of_worlds",
@@ -19071,8 +19071,8 @@ const DATA = {
         "Command"
        ],
        "when": "Your Command phase.",
-       "target": "One THOUSAND SONS PSYKER unit within range of an objective you control.",
-       "effect": "That objective stays yours until your opponent's Level of Control over it is higher at the end of a phase."
+       "target": "One Thousand Sons Psyker unit from your army within range of an objective marker you control.",
+       "effect": "That objective marker remains under your control until your opponent’s Level of Control over that objective marker is greater than yours at the end of a phase."
       },
       {
        "id": "arcane_focus",
@@ -19082,9 +19082,9 @@ const DATA = {
        "phases": [
         "Shooting"
        ],
-       "when": "Your Shooting phase, right after a Psychic test for a THOUSAND SONS model that Channelled the Warp.",
-       "target": "That model.",
-       "effect": "Re-roll all the dice of that Psychic test, including the extra D6."
+       "when": "Your Shooting phase, just after you take a Psychic test for a Thousand Sons model from your army that Channelled the Warp (before resolving that Ritual).",
+       "target": "That THOUSAND SONS model.",
+       "effect": "Re-roll all of the D6 rolled for that Psychic test (including the additional D6 for Channelling the Warp)."
       },
       {
        "id": "devastating_sorcery",
@@ -19095,8 +19095,8 @@ const DATA = {
         "Shooting"
        ],
        "when": "Your Shooting phase.",
-       "target": "One THOUSAND SONS PSYKER unit that has not shot this phase.",
-       "effect": "Until the end of the phase its Psychic weapons get +9\" Range and can re-roll hit and wound rolls."
+       "target": "One Thousand Sons Psyker unit from your army that has not been selected to shoot this phase.",
+       "effect": "Until the end of the phase, add 9\" to the Range characteristic of Psychic weapons equipped by models in your unit, and each time a model in your unit makes an attack with a Psychic weapon, you can re-roll the Hit roll and you can re-roll the Wound roll."
       }
      ]
     },
@@ -19111,7 +19111,7 @@ const DATA = {
      "summary": "Field the daemons of Tzeentch (SCINTILLATING LEGIONS); they grant nearby THOUSAND SONS PSYKER units a 4+ invulnerable save against ranged attacks.",
      "rule": {
       "name": "Infernal Pacts",
-      "text": "SCINTILLATING LEGIONS units from your army have the following ability: Daemonic Illusions (Aura): While a friendly THOUSAND SONS PSYKER unit is within 6\" of and visible to this unit, models in that unit have a 4+ invulnerable save against ranged attacks."
+      "text": "SCINTILLATING LEGIONS units from your army have the following the ability: Daemonic Illusions (Aura): While a friendly THOUSAND SONS PSYKER unit is within 6\" of and visible to this unit, models in that unit have a 4+ invulnerable save against ranged attacks."
      },
      "enhancements": [
       {
@@ -19185,9 +19185,9 @@ const DATA = {
         "Shooting",
         "Fight"
        ],
-       "when": "Your opponent's Shooting phase or the Fight phase, right after an enemy unit selects its targets.",
-       "target": "One THOUSAND SONS or SCINTILLATING LEGIONS unit targeted by those attacks.",
-       "effect": "Until the end of the phase, attacks against it get -1 to hit."
+       "when": "Your opponent’s Shooting phase or the Fight phase, just after an enemy unit has selected its targets.",
+       "target": "One Thousand Sons or Scintillating Legions unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+       "effect": "Until the end of the phase, each time an attack targets your unit, subtract 1 from the Hit roll."
       },
       {
        "id": "deceptive_glamour",
@@ -19198,8 +19198,8 @@ const DATA = {
         "Fight"
        ],
        "when": "Start of the Fight phase.",
-       "target": "One THOUSAND SONS unit.",
-       "effect": "Until the end of the phase, each time an enemy model within Engagement Range of your unit selects targets, that model can only target your unit with its attacks."
+       "target": "One Thousand Sons unit from your army.",
+       "effect": "Until the end of the phase, each time an enemy model within Engagement Range of your unit selects targets for its attacks, it can only target your unit if there are no eligible Scintillating Legions targets for those attacks."
       },
       {
        "id": "ethereal_phantasm",
@@ -19209,9 +19209,9 @@ const DATA = {
        "phases": [
         "Movement"
        ],
-       "when": "Your opponent's Movement phase, right after an enemy unit ends a Normal, Advance or Fall Back move.",
-       "target": "One unengaged SCINTILLATING LEGIONS unit within 8\" of that enemy unit.",
-       "effect": "Your unit can make a Normal move of up to D6\", or up to 6\" if it is wholly within 6\" of a friendly THOUSAND SONS unit."
+       "when": "Your opponent’s Movement phase, just after an enemy unit ends a Normal, Advance or Fall Back move.",
+       "target": "One Scintillating Legions unit from your army that is within 9\" of that enemy unit and not within Engagement Range of one or more enemy units.",
+       "effect": "Your unit can make a Normal move of up to D6\", or a Normal move of up to 6\" instead if it is wholly within 6\" of one or more friendly Thousand Sons units."
       },
       {
        "id": "fractal_disjunction",
@@ -19221,9 +19221,9 @@ const DATA = {
        "phases": [
         "Shooting"
        ],
-       "when": "Your opponent's Shooting phase, right after an enemy unit selects its targets.",
-       "target": "One SCINTILLATING LEGIONS unit (not MONSTER) targeted by those attacks.",
-       "effect": "Until the end of the phase it can only be shot by models within 18\"."
+       "when": "Your opponent’s Shooting phase, just after an enemy unit has selected its targets.",
+       "target": "One Scintillating Legions unit from your army (excluding Monsters) that was selected as the target of one or more of the attacking unit’s attacks.",
+       "effect": "Until the end of the phase, your unit can only be selected as the target of a ranged attack if the attacking model is within 18\"."
       },
       {
        "id": "chronosorcerous_bleed",
@@ -19233,9 +19233,9 @@ const DATA = {
        "phases": [
         "Charge"
        ],
-       "when": "Start of your opponent's Charge phase.",
-       "target": "One unengaged THOUSAND SONS PSYKER or SCINTILLATING LEGIONS unit.",
-       "effect": "Pick one visible enemy unit within 12\": if it declares a charge, -1 to its charge roll."
+       "when": "Your opponent’s Charge phase, just after an enemy unit has declared a charge.",
+       "target": "One Thousand Sons Psyker or Scintillating Legions unit from your army that was selected as a target of that charge.",
+       "effect": "Until the end of the phase, subtract 2 from Charge rolls made for that enemy unit (this is not cumulative with any other negative modifiers to that Charge roll)."
       },
       {
        "id": "glimmershift_portal",
@@ -19245,9 +19245,9 @@ const DATA = {
        "phases": [
         "Fight"
        ],
-       "when": "End of your opponent's Fight phase.",
-       "target": "Up to two SCINTILLATING LEGIONS units (not MONSTERS), or one SCINTILLATING LEGIONS MONSTER, all more than 6\" from enemy units.",
-       "effect": "Remove your unit from the battlefield and place it into Strategic Reserves. In your next Movement phase it must make an ingress move more than 6\" horizontally away from all enemy units."
+       "when": "End of your opponent’s Fight phase.",
+       "target": "Up to two Scintillating Legions units from your army (excluding Monsters), or one Scintillating Legions Monster unit from your army, if all of those units are more than 6\" horizontally away from all enemy units.",
+       "effect": "Remove those units from the battlefield and place them into Strategic Reserves."
       }
      ]
     },
@@ -19356,10 +19356,10 @@ const DATA = {
        "phases": [
         "Any"
        ],
-       "when": "Any phase, when a THOUSAND SONS CHARACTER model (not MONSTER) is destroyed.",
-       "target": "That model (even though it was just destroyed).",
-       "effect": "At the end of the phase add a one-model TZEENTCH CHAOS SPAWN unit as close as possible to where it died, not in Engagement Range.",
-       "restrictions": "Once per battle round."
+       "when": "Any phase.",
+       "target": "One Thousand Sons Character model from your army (excluding Monsters) that was just destroyed. You can use this Stratagem on that model even though it was just destroyed.",
+       "effect": "At the end of the phase, add one Tzeentch Chaos Spawn unit containing one model to your army, and set it up as close as possible to where your model was destroyed and not within Engagement Range of one or more enemy units.",
+       "restrictions": "You can only use this Stratagem once per battle round."
       },
       {
        "id": "warped_vicissitude",
@@ -19370,9 +19370,9 @@ const DATA = {
         "Shooting",
         "Fight"
        ],
-       "when": "Your opponent's Shooting phase or the Fight phase, right after an enemy unit selects its targets.",
-       "target": "One TZAANGORS unit targeted by those attacks.",
-       "effect": "Until the end of the phase its models have a 4+ invulnerable save."
+       "when": "Your opponent’s Shooting phase or the Fight phase, just after an enemy unit has selected its targets.",
+       "target": "One Tzaangors unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+       "effect": "Until the end of the phase, models in your unit have a 4+ invulnerable save."
       },
       {
        "id": "deranged_ferocity",
@@ -19382,9 +19382,9 @@ const DATA = {
        "phases": [
         "Fight"
        ],
-       "when": "Fight phase, right after a TZEENTCH MUTANT unit is selected to fight.",
-       "target": "That unit.",
-       "effect": "Until the end of the phase it piles in and consolidates up to 6\", and models within 3\" of an enemy model can fight (against a unit within 3\" of them that is engaged with their unit)."
+       "when": "Fight phase, just after a Tzeentch Mutant unit from your army is selected to fight.",
+       "target": "That TZEENTCH MUTANT unit.",
+       "effect": "Until the end of the phase, each time a model in your unit makes a Pile-in or Consolidation move, it can move up to 6\" instead of up to 3\", and when determining which models in it are eligible to fight, any models in it that are within 3\" of one or more enemy models are eligible to fight. When resolving those attacks, such models can target one of those enemy units that is within 3\" of them and within Engagement Range of their unit."
       },
       {
        "id": "blessed_transmutations",
@@ -19395,8 +19395,8 @@ const DATA = {
         "Command"
        ],
        "when": "Your Command phase.",
-       "target": "One THOUSAND SONS PSYKER model and one friendly TZAANGORS unit below Starting Strength within 12\" of it.",
-       "effect": "Return up to D3+1 destroyed models (not CHARACTERS) to the TZAANGORS unit."
+       "target": "One Thousand Sons Psyker model from your army, and one friendly Tzaangors unit that is below its Starting Strength and within 12\" of that PSYKER model.",
+       "effect": "Return up to D3+1 destroyed models (excluding Characters) to your TZAANGORS unit."
       },
       {
        "id": "touched_by_tzeentch",
@@ -19407,8 +19407,8 @@ const DATA = {
         "Movement"
        ],
        "when": "Start of your Movement phase.",
-       "target": "One TZEENTCH MUTANT unit.",
-       "effect": "Until the end of the turn it can shoot or declare a charge in a turn in which it advanced."
+       "target": "One Tzeentch Mutant unit from your army.",
+       "effect": "Until the end of the turn, your unit is eligible to shoot or declare a charge in a turn in which it Advanced."
       },
       {
        "id": "twisted_mirage",
@@ -19419,8 +19419,8 @@ const DATA = {
         "Movement"
        ],
        "when": "Reinforcements step of your Movement phase.",
-       "target": "One TZEENTCH MUTANT unit arriving from Strategic Reserves.",
-       "effect": "Set it up more than 6\" horizontally from all enemy units (more than 8\" for a MONSTER); it cannot charge this turn."
+       "target": "One Tzeentch Mutant unit from your army that is arriving from Strategic Reserves this phase.",
+       "effect": "Your unit can be set up anywhere on the battlefield that is more than 6\" horizontally away from all enemy units, or anywhere on the battlefield that is more than 9\" horizontally away from all enemy units if it is a Monster unit. In either case, until the end of the turn, it is not eligible to declare a charge."
       }
      ],
      "restrictions": " This detachment has the MUTANT tag and cannot be taken with another MUTANT detachment."
@@ -19437,7 +19437,7 @@ const DATA = {
      "summary": "Rubricae shrug off small-arms fire: +1 to armour saves against Damage 1 attacks.",
      "rule": {
       "name": "All Is Dust",
-      "text": "Each time an attack with an unmodified Damage of 1 is allocated to a RUBRICAE model from your army, add 1 to its armour saving throw."
+      "text": "Each time an attack with an unmodified Damage characteristic of 1 is allocated to a RUBRICAE model from your army, add 1 to any armour saving throw made against that attack."
      },
      "enhancements": [
       {
@@ -19501,9 +19501,9 @@ const DATA = {
        "phases": [
         "Movement"
        ],
-       "when": "Your Movement phase, right after a RUBRICAE unit falls back.",
-       "target": "That unit.",
-       "effect": "Until the end of the turn it can shoot and declare a charge in a turn in which it fell back."
+       "when": "Your Movement phase, just after a Rubricae unit from your army Falls Back.",
+       "target": "That RUBRICAE unit.",
+       "effect": "Until the end of the turn, your unit is eligible to shoot and declare a charge in a turn in which it Fell Back."
       },
       {
        "id": "inexorable_advance",
@@ -19514,20 +19514,20 @@ const DATA = {
         "Movement"
        ],
        "when": "Your Movement phase.",
-       "target": "One RUBRICAE unit.",
-       "effect": "Until the end of the turn it ignores modifiers to its Move and Advance rolls, and its ranged weapons have [ASSAULT]."
+       "target": "One Rubricae unit from your army.",
+       "effect": "Until the end of the turn, your unit can ignore any or all modifiers to its Move characteristic and to Advance rolls made for it, and ranged weapons equipped by models in your unit have the [ASSAULT] ability."
       },
       {
        "id": "infernal_fusillade",
        "name": "Infernal Fusillade",
-       "cp": 1,
+       "cp": 2,
        "type": "Wargear",
        "phases": [
         "Shooting"
        ],
        "when": "Your Shooting phase.",
-       "target": "One THOUSAND SONS PSYKER unit that has not shot this phase.",
-       "effect": "Until the end of the phase, all inferno bolt pistols, inferno boltguns, inferno combi-bolters and inferno combi-weapons equipped by models in your unit have the [LETHAL HITS] ability and improve the Armour Penetration characteristic of their attacks by 1."
+       "target": "One Thousand Sons Psyker unit from your army that has not been selected to shoot this phase.",
+       "effect": "Until the end of the phase, all inferno bolt pistols, inferno boltguns, inferno combi-bolters and inferno combi-weapons equipped by models in your unit have the [PSYCHIC] ability and a Strength characteristic of 5."
       },
       {
        "id": "revenge_of_the_rubricae",
@@ -19537,9 +19537,9 @@ const DATA = {
        "phases": [
         "Shooting"
        ],
-       "when": "Your opponent's Shooting phase, right after a THOUSAND SONS PSYKER model is destroyed.",
-       "target": "One RUBRICAE unit that was within 6\" of it.",
-       "effect": "After the attacker has shot, your unit shoots as if it were your Shooting phase, only at that enemy unit (and only if it is an eligible target)."
+       "when": "Your opponent’s Shooting phase, just after a Thousand Sons Psyker model from your army is destroyed.",
+       "target": "One Rubricae unit from your army that was within 6\" of that PSYKER model when it was destroyed.",
+       "effect": "After the attacking unit has shot, your RUBRICAE unit can shoot as if it were your Shooting phase, but when resolving those attacks it can only target the enemy unit that just destroyed your PSYKER model (and only if it is an eligible target)."
       },
       {
        "id": "implacable_guardians",
@@ -19549,9 +19549,9 @@ const DATA = {
        "phases": [
         "Shooting"
        ],
-       "when": "Your opponent's Shooting phase, right after an enemy unit selects its targets.",
-       "target": "One RUBRIC MARINES PSYKER unit targeted by those attacks.",
-       "effect": "Until the end of the phase, attacks allocated to its non-PSYKER models get -1 Damage."
+       "when": "Your opponent’s Shooting phase, just after an enemy unit has selected its targets.",
+       "target": "One Rubric Marines Psyker unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+       "effect": "Until the end of the phase, each time an attack is allocated to a model in your unit (excluding PSYKER models), subtract 1 from the Damage characteristic of that attack."
       },
       {
        "id": "unwavering_phalanx",
@@ -19561,8 +19561,8 @@ const DATA = {
        "phases": [
         "Charge"
        ],
-       "when": "Your opponent's Charge phase, right after an enemy unit ends a Charge move.",
-       "target": "One RUBRIC MARINES unit engaged with that enemy unit.",
+       "when": "Your opponent’s Charge phase, just after an enemy unit ends a Charge move.",
+       "target": "One Rubric Marines unit from your army within Engagement Range of that enemy unit.",
        "effect": "Until the end of the turn, each time an attack targets your unit, subtract 1 from the Wound roll."
       }
      ]
@@ -19578,7 +19578,7 @@ const DATA = {
      "summary": "Vehicles re-roll a hit, wound and damage roll near your psykers and explode more readily.",
      "rule": {
       "name": "Warpfire Infusion",
-      "text": "Each time a THOUSAND SONS VEHICLE unit shoots or fights: within 6\" of a friendly THOUSAND SONS PSYKER model it can re-roll one hit roll, one wound roll and one damage roll; otherwise one of those. A THOUSAND SONS VEHICLE with Deadly Demise destroyed within 6\" of a friendly PSYKER model inflicts its Deadly Demise mortal wounds on a 5+."
+      "text": "Each time a THOUSAND SONS VEHICLE unit from your army is selected to shoot or fight, apply one of the following when resolving those attacks: If that VEHICLE unit is within 6\" of one or more friendly THOUSAND SONS PSYKER models, you can re-roll one Hit roll , one Wound roll and one Damage roll."
      },
      "enhancements": [
       {
@@ -19643,9 +19643,9 @@ const DATA = {
         "Shooting",
         "Fight"
        ],
-       "when": "Your opponent's Shooting phase or the Fight phase, right after an enemy unit selects its targets.",
-       "target": "One THOUSAND SONS VEHICLE unit targeted by those attacks.",
-       "effect": "Until the attacker finishes, attacks against it get -1 AP (worse)."
+       "when": "Your opponent’s Shooting phase or the Fight phase, just after an enemy unit has selected its targets.",
+       "target": "One Thousand Sons Vehicle unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+       "effect": "Until the attacking unit has finished making its attacks, each time an attack targets your unit, worsen the Armour Penetration characteristic of that attack by 1."
       },
       {
        "id": "mutate_landscape",
@@ -19656,8 +19656,8 @@ const DATA = {
         "Command"
        ],
        "when": "Your Command phase.",
-       "target": "One THOUSAND SONS PSYKER unit within range of an objective you control.",
-       "effect": "That objective is mutated and stays yours until your opponent's Level of Control is higher at the end of a phase. While mutated and yours, each enemy unit ending a Normal, Advance, Fall Back or Charge move within range rolls D6: on a 4+ it suffers D3 mortal wounds."
+       "target": "One Thousand Sons Psyker unit from your army within range of an objective marker you control.",
+       "effect": "That objective marker is mutated, and remains under your control until your opponent’s Level of Control over that objective marker is greater than yours at the end of a phase. While an objective marker is mutated and under your control, each time an enemy unit ends a Normal, Advance, Fall Back or Charge move within range of that objective marker, roll one D6: on a 4+, that enemy unit suffers D3 mortal wounds."
       },
       {
        "id": "cyberspirit_machinations",
@@ -19667,9 +19667,9 @@ const DATA = {
        "phases": [
         "Movement"
        ],
-       "when": "Your Movement phase, right after a THOUSAND SONS VEHICLE unit falls back.",
-       "target": "That unit and one friendly THOUSAND SONS PSYKER unit within 6\" of it.",
-       "effect": "Until the end of the turn the vehicle can shoot and declare a charge after falling back."
+       "when": "Your Movement phase, just after a Thousand Sons Vehicle unit from your army Falls Back.",
+       "target": "That VEHICLE unit, and one friendly Thousand Sons Psyker unit within 6\" of that VEHICLE unit.",
+       "effect": "Until the end of the turn, your VEHICLE unit is eligible to shoot and declare a charge in a turn in which it Fell Back."
       },
       {
        "id": "malevolent_animus",
@@ -19680,20 +19680,20 @@ const DATA = {
         "Command"
        ],
        "when": "Your Command phase.",
-       "target": "One THOUSAND SONS VEHICLE unit within 6\" of a friendly THOUSAND SONS PSYKER unit.",
-       "effect": "Until your next Command phase it ignores all modifiers to its characteristics, its BS/WS and its rolls and tests (not saving throws)."
+       "target": "One Thousand Sons Vehicle unit from your army within 6\" of one or more friendly Thousand Sons Psyker units.",
+       "effect": "Until the start of your next Command phase, your VEHICLE unit is malevolent. While a unit is malevolent, it can ignore any or all modifiers to the following: the profile characteristics of its models; the Weapon Skill and Ballistic Skill characteristics of weapons equipped by its models; any roll or test made for it (excluding modifiers to saving throws)."
       },
       {
        "id": "ensorcelled_infusion",
        "name": "Ensorcelled Infusion",
-       "cp": 2,
+       "cp": 1,
        "type": "Battle Tactic",
        "phases": [
         "Shooting"
        ],
        "when": "Your Shooting phase.",
-       "target": "One THOUSAND SONS VEHICLE unit that has not shot this phase and is within 6\" of a friendly THOUSAND SONS PSYKER unit.",
-       "effect": "Until the end of the phase its ranged weapons have [PSYCHIC] and +1 to wound."
+       "target": "One Thousand Sons Vehicle unit from your army that has not been selected to shoot this phase, that is within 6\" of one or more friendly Thousand Sons Psyker units.",
+       "effect": "Until the end of the phase, ranged weapons equipped by VEHICLE models in your unit have the [PSYCHIC] ability and each time an attack is made with such a weapon, add 1 to the Wound roll."
       },
       {
        "id": "warpflame_gargoyles",
@@ -19703,9 +19703,9 @@ const DATA = {
        "phases": [
         "Charge"
        ],
-       "when": "Your opponent's Charge phase, right after an enemy unit ends a Charge move.",
-       "target": "One THOUSAND SONS VEHICLE unit engaged with that enemy unit.",
-       "effect": "Roll six D6: each 5+ inflicts 1 mortal wound on that enemy unit, which then takes a battle-shock test."
+       "when": "Your opponent’s Charge phase, just after an enemy unit ends a Charge move.",
+       "target": "One Thousand Sons Vehicle unit from your army within Engagement Range of that enemy unit.",
+       "effect": "Roll six D6: for each 5+, that enemy unit suffers 1 mortal wound. That enemy unit must then take a Battle-shock test."
       }
      ]
     },
@@ -19720,7 +19720,7 @@ const DATA = {
      "summary": "Psykers heal themselves each time they manifest a Ritual.",
      "rule": {
       "name": "Sorcerous Invigoration",
-      "text": "(Once per turn per unit) When a friendly THOUSAND SONS PSYKER unit (not MONSTER) manifests a Ritual, that unit heals D3 wounds."
+      "text": "(Once per turn, per unit) When a friendly THOUSAND SONS PSYKER unit (excluding MONSTER units) successfully manifests a Ritual , that unit heals D3 wounds."
      },
      "regenHint": true,
      "enhancements": [
@@ -19770,9 +19770,9 @@ const DATA = {
        "phases": [
         "Any"
        ],
-       "when": "Any phase, when a friendly INFANTRY/MOUNTED THOUSAND SONS PSYKER unit suffers a mortal wound.",
-       "target": "That unit.",
-       "effect": "Until the end of the phase, models in your unit have the Feel No Pain 5+ ability against mortal wounds."
+       "when": "Any phase, when a friendly INFANTRY / MOUNTED THOUSAND SONS PSYKER unit suffers a mortal wound .",
+       "target": "That INFANTRY/MOUNTED THOUSAND SONS PSYKER unit.",
+       "effect": "Your unit has Feel No Pain 5+ against mortal wounds ."
       },
       {
        "id": "mutagenic_magicks",
@@ -19782,9 +19782,9 @@ const DATA = {
        "phases": [
         "Fight"
        ],
-       "when": "Start of the Fight phase.",
-       "target": "One engaged THOUSAND SONS PSYKER unit.",
-       "effect": "Pick one engaged enemy unit and roll six D6: each 4+ inflicts 1 mortal wound."
+       "when": "Start of the Fight phase .",
+       "target": "One friendly engaged THOUSAND SONS PSYKER unit.",
+       "effect": "Select one enemy unit engaged with your unit. Roll six D6: For each 4+, that enemy unit suffers 1 mortal wound ."
       },
       {
        "id": "multitudinous_limbs",
@@ -19794,9 +19794,9 @@ const DATA = {
        "phases": [
         "Movement"
        ],
-       "when": "Your Movement phase, when a friendly INFANTRY/MOUNTED THOUSAND SONS PSYKER unit advances or falls back.",
-       "target": "That unit.",
-       "effect": "That move does not prevent your unit from starting an action this phase."
+       "when": "Your Movement phase , when a friendly INFANTRY / MOUNTED THOUSAND SONS PSYKER unit is selected to make an advance / fall back move .",
+       "target": "That INFANTRY/MOUNTED THOUSAND SONS PSYKER unit.",
+       "effect": "That move does not prevent your unit from being eligible to start an action ."
       }
      ]
     },
@@ -19811,7 +19811,7 @@ const DATA = {
      "summary": "Sekhetar Robots strike with psychic force and fight better near your psykers.",
      "rule": {
       "name": "Ensorcelled Animus",
-      "text": "Attacks by friendly SEKHETAR ROBOTS units have [PSYCHIC]. THOUSAND SONS PSYKER units have Infusion (Aura): a friendly SEKHETAR ROBOTS unit within 12\" gets +1 WS for melee attacks."
+      "text": "Friendly SEKHETAR ROBOTS units’ attacks have [PSYCHIC] . Friendly THOUSAND SONS PSYKER units have the following ability: Infusion (Aura): While a friendly SEKHETAR ROBOTS unit is within 12\" of this unit, that unit’s melee attacks have +1 WS ."
      },
      "enhancements": [
       {
@@ -19856,9 +19856,9 @@ const DATA = {
        "phases": [
         "Movement"
        ],
-       "when": "End of your Movement phase.",
-       "target": "One SEKHETAR ROBOTS unit.",
-       "effect": "Select one objective marker your unit is controlling. Until the start of your next Command phase, that objective marker is secured by your unit."
+       "when": "End of your Movement phase .",
+       "target": "One friendly SEKHETAR ROBOTS unit.",
+       "effect": "Select one objective your unit is controlling . That objective is secured ."
       },
       {
        "id": "ectoplasmic_extrusion",
@@ -19868,9 +19868,9 @@ const DATA = {
        "phases": [
         "Shooting"
        ],
-       "when": "Your Shooting phase, when a SEKHETAR ROBOTS unit within 12\" of a friendly THOUSAND SONS PSYKER unit starts an action.",
-       "target": "That unit.",
-       "effect": "Your unit can shoot this phase even though it is performing an action (the action is not interrupted)."
+       "when": "Your Shooting phase , when a friendly SEKHETAR ROBOTS unit within 12\" of a friendly THOUSAND SONS PSYKER unit starts an action .",
+       "target": "That SEKHETAR ROBOTS unit.",
+       "effect": "That action does not prevent your unit from being eligible to shoot ."
       },
       {
        "id": "warp_fields",
@@ -19880,9 +19880,9 @@ const DATA = {
        "phases": [
         "Shooting"
        ],
-       "when": "Your opponent's Shooting phase, when a SEKHETAR ROBOTS unit within 12\" of a friendly THOUSAND SONS PSYKER unit is targeted.",
-       "target": "That unit.",
-       "effect": "Ranged attacks against it with S higher than its T get -1 to wound."
+       "when": "Your opponent’s Shooting phase , when an enemy unit targets a friendly SEKHETAR ROBOTS unit within 12\" of a friendly THOUSAND SONS PSYKER unit.",
+       "target": "That SEKHETAR ROBOTS unit.",
+       "effect": "Ranged attacks that target your unit with a S greater than your unit’s T have -1 to wound rolls ."
       }
      ]
     },
@@ -19899,7 +19899,7 @@ const DATA = {
      "summary": "Tzaangors are Battleline and mutants expose their targets.",
      "rule": {
       "name": "All-seeing Mutant Hordes",
-      "text": "Friendly TZAANGORS units have BATTLELINE. In your Shooting phase, while a friendly MUTANT unit is shooting, enemy units have +6\" detection range. Cannot be taken with another MUTANT detachment."
+      "text": "Friendly TZAANGORS units have BATTLELINE . In your Shooting phase , while a friendly MUTANT unit is shooting, enemy units have +6\" detection range . This detachment has the MUTANT tag and cannot be taken with another MUTANT detachment."
      },
      "grantKeywords": [
       {
@@ -19954,9 +19954,9 @@ const DATA = {
        "phases": [
         "Movement"
        ],
-       "when": "Your Movement phase, when a friendly INFANTRY/MOUNTED MUTANT unit advances or falls back.",
-       "target": "That unit.",
-       "effect": "Its ranged attacks have [ASSAULT] until the end of the turn, and the move does not stop it shooting or charging."
+       "when": "Your Movement phase , when a friendly INFANTRY / MOUNTED MUTANT unit is selected to make an advance / fall back move .",
+       "target": "That INFANTRY/MOUNTED MUTANT unit.",
+       "effect": "Your unit’s ranged attacks have [ASSAULT] until the end of the turn. That move does not prevent your unit from being eligible to shoot / declare a charge ."
       },
       {
        "id": "temporal_instability",
@@ -19966,9 +19966,9 @@ const DATA = {
        "phases": [
         "Movement"
        ],
-       "when": "Your Movement phase, when a friendly INFANTRY/MOUNTED MUTANT unit advances or falls back.",
-       "target": "That unit.",
-       "effect": "That move does not prevent your unit from starting an action this phase."
+       "when": "Your Movement phase , when a friendly INFANTRY / MOUNTED MUTANT unit is selected to make an advance / fall back move .",
+       "target": "That INFANTRY/MOUNTED MUTANT unit.",
+       "effect": "In a turn your unit made an advance/fall-back move , that move does not prevent your unit from being eligible to start an action ."
       },
       {
        "id": "the_land_writhes",
@@ -19996,7 +19996,7 @@ const DATA = {
      "summary": "Psychic attacks re-roll wound rolls of 1, or get +1 to wound inside your Flow of Magic.",
      "rule": {
       "name": "Flow of Magic",
-      "text": "Your deployment zone is always within your Flow of Magic; No Man's Land joins it for a phase if at the start of that phase you control at least half its objectives, and so does your opponent's deployment zone. Psychic Attacks by your THOUSAND SONS models re-roll wound rolls of 1, or get +1 to wound instead if the model is wholly within your Flow of Magic."
+      "text": "Certain areas of the battlefield are within your army’s Flow of Magic, as follows: Your deployment zone is always within your army’s Flow of Magic. At the start of any phase, if you control at least half of the objective markers within No Man’s Land, until the end of that phase, No Man’s Land is within your army’s Flow of Magic."
      },
      "enhancements": [
       {
@@ -20058,8 +20058,8 @@ const DATA = {
         "Command"
        ],
        "when": "Command phase.",
-       "target": "One THOUSAND SONS PSYKER unit within range of an objective you control that is wholly within your Flow of Magic.",
-       "effect": "That objective stays yours until your opponent's Level of Control over it is higher at the end of a phase."
+       "target": "One Thousand Sons Psyker unit from your army within range of an objective marker you control, if that objective marker is wholly within your army’s Flow of Magic.",
+       "effect": "That objective marker remains under your control until your opponent’s Level of Control over that objective marker is greater than yours at the end of a phase."
       },
       {
        "id": "wrath_of_the_doomed",
@@ -20069,9 +20069,9 @@ const DATA = {
        "phases": [
         "Fight"
        ],
-       "when": "Fight phase, right after an enemy unit selects its targets.",
-       "target": "One THOUSAND SONS unit targeted by those attacks.",
-       "effect": "Until the end of the phase, a model destroyed before it has fought rolls D6 (+1 if the unit is wholly within your Flow of Magic): on a 4+ it fights after the attacker, then is removed."
+       "when": "Fight phase, just after an enemy unit has selected its targets.",
+       "target": "One THOUSAND SONS unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+       "effect": "Until the end of the phase, each time a model in your unit is destroyed, if that model has not fought this phase, roll one D6, adding 1 to the result if your unit is wholly within your army’s Flow of Magic: on a 4+, do not remove it from play. That destroyed model can fight after the attacking unit has finished making its attacks, and is then removed from play."
       },
       {
        "id": "strands_of_time",
@@ -20081,9 +20081,9 @@ const DATA = {
        "phases": [
         "Movement"
        ],
-       "when": "Your Movement phase, right after a THOUSAND SONS PSYKER unit falls back.",
-       "target": "That unit.",
-       "effect": "It can shoot or declare a charge this turn; if wholly within your Flow of Magic, it can do both."
+       "when": "Your Movement phase, just after a THOUSAND SONS PSYKER unit from your army Falls Back.",
+       "target": "That Thousand Sons Psyker unit.",
+       "effect": "Until the end of the turn, your unit is eligible to shoot or declare a charge in a turn in which it Fell Back. If your unit is wholly within your army’s Flow of Magic when it is targeted with this Stratagem, then until the end of the turn, your unit is eligible to shoot and declare a charge in a turn in which it Fell Back."
       },
       {
        "id": "through_the_veil",
@@ -20094,8 +20094,8 @@ const DATA = {
         "Movement"
        ],
        "when": "Start of the Reinforcements step of your Movement phase.",
-       "target": "One RUBRIC MARINES or SCARAB OCCULT TERMINATORS unit in Strategic Reserves.",
-       "effect": "Rubric Marines gain Deep Strike this phase. Scarab Occult Terminators arriving by Deep Strike can be set up wholly within your Flow of Magic more than 6\" from enemy models, but cannot charge this turn.",
+       "target": "One Rubric Marines or Scarab Occult Terminators unit from your army that is in Strategic Reserves.",
+       "effect": "If it is a RUBRIC MARINES unit, until the end of the phase, it has the Deep Strike ability. When your unit is set up on the battlefield using the Deep Strike ability, if it is a SCARAB OCCULT TERMINATOR unit it can be set up anywhere on the battlefield that is wholly within your army’s Flow of Magic and more than 6\" horizontally away from all enemy models.",
        "restrictions": "If a SCARAB OCCULT TERMINATORS unit is targeted with this Stratagem, it is not eligible to declare a charge in the same turn."
       },
       {
@@ -20107,8 +20107,8 @@ const DATA = {
         "Shooting"
        ],
        "when": "Your Shooting phase.",
-       "target": "One THOUSAND SONS PSYKER unit that has not shot this phase and is wholly within your Flow of Magic.",
-       "effect": "Its ranged weapons have [IGNORES COVER]; after it shoots, one enemy unit it hit cannot have the benefit of cover until the end of the phase."
+       "target": "One Thousand Sons Psyker unit from your army that has not been selected to shoot this phase and is wholly within your army’s Flow of Magic.",
+       "effect": "Until the end of the phase, ranged weapons equipped by models in your unit have the [IGNORES COVER] ability. After your unit has shot this phase, select one enemy unit hit by one or more of those attacks. Until the end of the phase, models in that unit cannot have the Benefit of Cover."
       },
       {
        "id": "kaleidoscopic_tempest",
@@ -20118,9 +20118,9 @@ const DATA = {
        "phases": [
         "Shooting"
        ],
-       "when": "Your opponent's Shooting phase, right after an enemy unit selects its targets.",
-       "target": "One THOUSAND SONS PSYKER unit targeted by those attacks.",
-       "effect": "It has Stealth, and -3\" detection range if wholly within your Flow of Magic."
+       "when": "Your opponent’s Shooting phase, just after an enemy unit has selected its targets.",
+       "target": "One Thousand Sons Psyker unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+       "effect": "Until the end of the phase, your unit has the Stealth ability, and, if your unit is wholly within your army’s Flow of Magic, each time an attack targets your unit, it has the Benefit of Cover against that attack."
       }
      ]
     }
@@ -25067,7 +25067,7 @@ const DATA = {
      "summary": "Wounded units hit harder: +1 to hit below Starting Strength, +1 to wound as well below Half-strength.",
      "rule": {
       "name": "The Blood of Martyrs",
-      "text": "Each time an ADEPTA SORORITAS model from your army attacks: +1 to the hit roll if its unit is below its Starting Strength, and +1 to the wound roll as well if its unit is Below Half-strength."
+      "text": "Each time an ADEPTA SORORITAS model from your army makes an attack, add 1 to the Hit roll if that model’s unit is below its Starting Strength, and add 1 to the Wound roll as well if that model’s unit is Below Half-strength ."
      },
      "martyrs": true,
      "enhancements": [
@@ -25384,7 +25384,7 @@ const DATA = {
      "summary": "Every ranged weapon has [ASSAULT] and +1 S against units within 6\".",
      "rule": {
       "name": "Fervent Purgation",
-      "text": "Ranged weapons of your ADEPTA SORORITAS models have [ASSAULT], and attacks made with them against a unit within 6\" get +1 S."
+      "text": "Ranged weapons equipped by ADEPTA SORORITAS models from your army have the [ASSAULT] ability, and each time an attack made with such a weapon targets a unit within 6\", add 1 to the Strength characteristic of that attack."
      },
      "enhancements": [
       {
@@ -25534,7 +25534,7 @@ const DATA = {
      "summary": "Every unit can perform up to two Acts of Faith per phase.",
      "rule": {
       "name": "Sacred Rites",
-      "text": "Each ADEPTA SORORITAS unit from your army can perform up to two Acts of Faith per phase instead of one."
+      "text": "Each ADEPTA SORORITAS unit from your army can perform up to two Acts of Faith per phase, instead of just one. Enhancements Litanies of Faith 10 pts This unassuming parchment is one of the holiest relics in the Ministorum's charge, its mere presence enough to fill the hearts of the faithful with righteous fervour."
      },
      "faithNote": "Sacred Rites: each unit can perform up to two Acts of Faith per phase.",
      "enhancements": [
@@ -25824,7 +25824,7 @@ const DATA = {
      "summary": "Flying infantry condemn enemy units and guide Exorcist strikes.",
      "rule": {
       "name": "Angelic Judgement",
-      "text": "Your ADEPTA SORORITAS INFANTRY FLY units have Condemnatory Psalms: in your Shooting phase they can pick one visible enemy unit within 12\"; it is condemned (+3\" detection range)."
+      "text": "Friendly ADEPTA SORORITAS INFANTRY FLY units have the following ability: Condemnatory Psalms: In your Shooting phase , this unit can select one visible enemy unit within 12\"."
      },
      "enhancements": [
       {
@@ -25904,7 +25904,7 @@ const DATA = {
      "summary": "Celestian veterans on a holy quest: +1 BS and WS.",
      "rule": {
       "name": "Holy Quest",
-      "text": "Attacks by your CELESTIAN units get +1 BS and WS. Cannot be taken with another REVEREND detachment."
+      "text": "Charged with a holy quest in service to the God-Emperor, the veteran Sacresant elite of an Order Militant are relentless in their pursuit of victory Friendly CELESTIAN units’ attacks have +1 BS and WS ."
      },
      "buffs": [
       {
@@ -26015,7 +26015,7 @@ const DATA = {
      "summary": "Commanders preach to their units; Hagiomnifex does not count toward your enhancement limit.",
      "rule": {
       "name": "Hymns of Battle",
-      "text": "Enhancements from this detachment do not count toward the number of enhancements in your army. Your ADEPTA SORORITAS CHARACTER units have +1 Leadership."
+      "text": "Enhancements selected from this detachment do not count towards the total number of enhancements in your army. Friendly ADEPTA SORORITAS CHARACTER units have +1 Ld ."
      },
      "enhancements": [
       {
