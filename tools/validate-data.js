@@ -68,6 +68,22 @@ for (const f of L.factions(data)) {
     if (d.rule) checkText(d.rule.text, `${dw}.rule`);
     else err('E-MISSING', dw, 'detachment has no rule');
 
+    /* Mechanics the engine reads without guarding. A buff with no scope threw
+       inside render(), which left the whole screen unrendered and every
+       control dead — the engine now skips such a buff, but the data is still
+       wrong and the rule it encodes silently stops applying. */
+    (d.buffs || []).forEach((b, i) => {
+      const w = `${dw}.buffs[${i}]`;
+      if (!b || typeof b !== 'object') { err('E-MECH', w, 'buff is not an object'); return; }
+      if (!b.scope) err('E-MECH', w, 'buff has no scope — the engine cannot target it and will skip it');
+      if (!b.source) warn('W-MECH', w, 'buff has no source, so the datasheet cannot say where the change came from');
+      /* Exactly the keys engine.js reads in apply(): m.target, m.stat, m.add,
+         m.set, m.improve, m.excludeKeyword, plus scope and source. */
+      const known = ['scope', 'source', 'target', 'stat', 'add', 'set', 'improve', 'excludeKeyword'];
+      const unknown = Object.keys(b).filter(k => !known.includes(k));
+      if (unknown.length) err('E-MECH', w, `unknown buff keys [${unknown.join(', ')}] — the engine ignores these, so the rule does nothing`);
+    });
+
     const sIds = new Set();
     for (const s of d.stratagems || []) {
       const w = `${dw}.${s.id}`;

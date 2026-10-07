@@ -434,6 +434,11 @@ const Engine = (function () {
       notes.push(src);
     };
     if (opts && opts.detachment !== false) ctx.dets.forEach(d => (d.buffs || []).forEach(b => {
+      /* A buff with no scope is malformed data. Skip it: applying a shape the
+         engine does not understand would silently change stats, and reading
+         through it throws inside render(), which leaves the whole screen
+         unrendered and every control dead. */
+      if (!b || !b.scope) return;
       if (b.scope.factionsAny && !b.scope.factionsAny.includes(fac)) return;
       if (b.scope.unitIds && !b.scope.unitIds.includes(def.id)) return;
       apply(b, b.source);

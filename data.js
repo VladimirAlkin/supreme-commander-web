@@ -690,18 +690,15 @@ const DATA = {
      },
      "buffs": [
       {
+       "scope": {
+        "factionsAny": [
+         "World Eaters"
+        ]
+       },
        "target": "melee",
        "stat": "A",
        "add": 1,
-       "condition": "after_charge",
-       "duration": "end_of_turn"
-      },
-      {
-       "target": "melee",
-       "stat": "S",
-       "add": 2,
-       "condition": "after_charge",
-       "duration": "end_of_turn"
+       "source": "Relentless Rage"
       }
      ],
      "enhancements": [
