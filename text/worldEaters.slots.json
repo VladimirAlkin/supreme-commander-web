@@ -17,7 +17,7 @@
    "detachmentRules": 8,
    "stratagems": 39,
    "enhancements": 26,
-   "unitAbilities": 64
+   "unitAbilities": 59
   }
  },
  "armyRules": {
@@ -752,7 +752,7 @@
      "text": "Wrathful Presence (Aura). An enemy unit within 6\" that is selected to fall back must pass a Leadership test or remain stationary instead."
     },
     "Supreme Commander": {
-     "_kind": null,
+     "_kind": "datasheet",
      "text": "If this model is in your army, it must be your WARLORD."
     }
    }
@@ -867,6 +867,10 @@
      "_kind": "datasheet",
      "text": "In your opponent's Shooting phase, after an enemy unit shoots: if a model in this unit was destroyed by those attacks, the unit can surge up to D6+2\"."
     },
+    "Murderous Charge": {
+     "_kind": "datasheet",
+     "text": "In a turn in which this unit made a charge move, its melee attacks get +1 S."
+    },
     "Icon of Khorne": {
      "_kind": "wargear",
      "text": "Each time the bearer's unit destroys an enemy unit, gain 1 Bloodshed point. At each Blessings of Khorne roll, roll 1 extra die per Bloodshed point, then lose them all."
@@ -937,10 +941,6 @@
     "Blood-hungry Annihilator": {
      "_kind": "datasheet",
      "text": "Ranged attacks against the closest eligible MONSTER or VEHICLE within 18\" can re-roll the wound roll and the damage roll."
-    },
-    "Damaged: 1-4 wounds remaining": {
-     "_kind": null,
-     "text": "While this model has 1-4 wounds remaining, each time this model makes an attack, subtract 1 from the Hit roll."
     }
    }
   },
@@ -950,10 +950,6 @@
     "Punishing Suppression": {
      "_kind": "datasheet",
      "text": "After this model shoots in your Shooting phase, one enemy unit it hit (not MONSTER/VEHICLE) is suppressed until your next turn: -1 to hit for its attacks."
-    },
-    "Damaged: 1-4 wounds remaining": {
-     "_kind": null,
-     "text": "While this model has 1-4 wounds remaining, each time this model makes an attack, subtract 1 from the Hit roll."
     }
    }
   },
@@ -967,10 +963,6 @@
     "Unleash Wrath": {
      "_kind": "datasheet",
      "text": "End of your opponent's Movement phase: pick an enemy unit set up within 12\" this phase. This model can shoot it (if eligible) or declare a charge against it (no charge bonus)."
-    },
-    "Damaged: 1-6 wounds remaining": {
-     "_kind": null,
-     "text": "While this model has 1-6 wounds remaining, each time this model makes an attack, subtract 1 from the Hit roll."
     }
    }
   },
@@ -980,10 +972,6 @@
     "Furious Onslaught": {
      "_kind": "datasheet",
      "text": "Ranged attacks against the closest eligible target within 18\" can re-roll the hit roll."
-    },
-    "Damaged: 1-4 wounds remaining": {
-     "_kind": null,
-     "text": "While this model has 1-4 wounds remaining, each time this model makes an attack, subtract 1 from the Hit roll."
     }
    }
   },
@@ -1006,10 +994,6 @@
     "Airborne Predator": {
      "_kind": "datasheet",
      "text": "+1 to hit for attacks against units that can FLY."
-    },
-    "Damaged: 1-4 wounds remaining": {
-     "_kind": null,
-     "text": "While this model has 1-4 wounds remaining, each time this model makes an attack, subtract 1 from the Hit roll."
     }
    }
   },
@@ -1023,10 +1007,6 @@
     "Savage Exaltation": {
      "_kind": "datasheet",
      "text": "Melee attacks against a unit below starting strength get +1 to hit; against a unit below half strength they also get +1 to wound."
-    },
-    "Damaged: 1-4 wounds remaining": {
-     "_kind": null,
-     "text": "While this model has 1-4 wounds remaining, each time this model makes an attack, subtract 1 from the Hit roll."
     }
    }
   },
@@ -1056,7 +1036,7 @@
      "text": "While this unit is on the battlefield, roll 1 extra die for each Blessings of Khorne roll."
     },
     "Super-heavy War Engine": {
-     "_kind": null,
+     "_kind": "datasheet",
      "text": "Each time this model makes a Normal, Advance or Fall Back move, it can move through models (excluding TITANIC models) and sections of terrain features that are 4\" or less in height as if they were not there. When doing so, it can move within Engagement Range of enemy models, but cannot end that move within Engagement Range of them. Each time this model makes a Normal, Advance or Fall Back move, if it moves over any sections of terrain features that are more than 4\" in height, after it has finished that move, roll one D6: on a roll of 1, this model is Battle-shocked."
     }
    }

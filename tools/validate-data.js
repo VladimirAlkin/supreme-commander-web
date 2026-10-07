@@ -108,8 +108,12 @@ for (const f of L.factions(data)) {
   }
 
   for (const u of fd.units || []) {
+    if (u.damaged && !(u.damaged.threshold > 0)) err('E-MECH', `${f}.${u.id}.damaged`, 'damaged needs a positive threshold');
     for (const a of u.abilities || []) {
       if (!a.name) { err('E-MISSING', `${f}.${u.id}`, 'ability without a name cannot be addressed by a slot file'); continue; }
+      /* The wound tracker and the DAMAGED badge read def.damaged, not ability
+         text. A damaged bracket written as an ability never switches on. */
+      if (/^damaged\b/i.test(a.name)) err('E-MECH', `${f}.${u.id}."${a.name}"`, 'damaged bracket written as an ability — put it in the unit\'s damaged {threshold, text} field so play mode can track it');
       checkText(a.text, `${f}.${u.id}."${a.name}"`);
     }
   }

@@ -3613,7 +3613,10 @@ const DATA = {
       "OC": "3",
       "Ld": "6+"
      },
-     "damaged": null,
+     "damaged": {
+      "threshold": 4,
+      "text": "While it has 1-4 wounds left: -1 to hit rolls."
+     },
      "ranged": [
       {
        "name": "Predator twin lascannon",
@@ -3713,11 +3716,6 @@ const DATA = {
        "name": "Blood-hungry Annihilator",
        "text": "Ranged attacks against the closest eligible MONSTER or VEHICLE within 18\" can re-roll the wound roll and the damage roll.",
        "kind": "datasheet"
-      },
-      {
-       "name": "Damaged: 1-4 wounds remaining",
-       "text": "While this model has 1-4 wounds remaining, each time this model makes an attack, subtract 1 from the Hit roll.",
-       "kind": "datasheet"
       }
      ],
      "sizes": [
@@ -3809,7 +3807,10 @@ const DATA = {
       "OC": "3",
       "Ld": "6+"
      },
-     "damaged": null,
+     "damaged": {
+      "threshold": 4,
+      "text": "While it has 1-4 wounds left: -1 to hit rolls."
+     },
      "ranged": [
       {
        "name": "Predator autocannon",
@@ -3908,11 +3909,6 @@ const DATA = {
        "name": "Punishing Suppression",
        "text": "After this model shoots in your Shooting phase, one enemy unit it hit (not MONSTER/VEHICLE) is suppressed until your next turn: -1 to hit for its attacks.",
        "kind": "datasheet"
-      },
-      {
-       "name": "Damaged: 1-4 wounds remaining",
-       "text": "While this model has 1-4 wounds remaining, each time this model makes an attack, subtract 1 from the Hit roll.",
-       "kind": "datasheet"
       }
      ],
      "sizes": [
@@ -4004,7 +4000,10 @@ const DATA = {
       "OC": "5",
       "Ld": "6+"
      },
-     "damaged": null,
+     "damaged": {
+      "threshold": 6,
+      "text": "While it has 1-6 wounds left: -1 to hit rolls."
+     },
      "ranged": [
       {
        "name": "Heavy missile launcher - frag",
@@ -4173,11 +4172,6 @@ const DATA = {
        "name": "Unleash Wrath",
        "text": "End of your opponent's Movement phase: pick an enemy unit set up within 12\" this phase. This model can shoot it (if eligible) or declare a charge against it (no charge bonus).",
        "kind": "datasheet"
-      },
-      {
-       "name": "Damaged: 1-6 wounds remaining",
-       "text": "While this model has 1-6 wounds remaining, each time this model makes an attack, subtract 1 from the Hit roll.",
-       "kind": "datasheet"
       }
      ],
      "sizes": [
@@ -4322,7 +4316,10 @@ const DATA = {
       "OC": "3",
       "Ld": "6+"
      },
-     "damaged": null,
+     "damaged": {
+      "threshold": 4,
+      "text": "While it has 1-4 wounds left: -1 to hit rolls."
+     },
      "ranged": [
       {
        "name": "Ectoplasma cannon",
@@ -4382,11 +4379,6 @@ const DATA = {
       {
        "name": "Furious Onslaught",
        "text": "Ranged attacks against the closest eligible target within 18\" can re-roll the hit roll.",
-       "kind": "datasheet"
-      },
-      {
-       "name": "Damaged: 1-4 wounds remaining",
-       "text": "While this model has 1-4 wounds remaining, each time this model makes an attack, subtract 1 from the Hit roll.",
        "kind": "datasheet"
       }
      ],
@@ -4821,7 +4813,10 @@ const DATA = {
       "OC": "0",
       "Ld": "6+"
      },
-     "damaged": null,
+     "damaged": {
+      "threshold": 4,
+      "text": "While it has 1-4 wounds left: -1 to hit rolls."
+     },
      "ranged": [
       {
        "name": "Baleflamer",
@@ -4875,11 +4870,6 @@ const DATA = {
       {
        "name": "Airborne Predator",
        "text": "+1 to hit for attacks against units that can FLY.",
-       "kind": "datasheet"
-      },
-      {
-       "name": "Damaged: 1-4 wounds remaining",
-       "text": "While this model has 1-4 wounds remaining, each time this model makes an attack, subtract 1 from the Hit roll.",
        "kind": "datasheet"
       }
      ],
@@ -4939,7 +4929,10 @@ const DATA = {
       "OC": "3",
       "Ld": "6+"
      },
-     "damaged": null,
+     "damaged": {
+      "threshold": 4,
+      "text": "While it has 1-4 wounds left: -1 to hit rolls."
+     },
      "ranged": [
       {
        "name": "Magma cutter",
@@ -4994,11 +4987,6 @@ const DATA = {
       {
        "name": "Savage Exaltation",
        "text": "Melee attacks against a unit below starting strength get +1 to hit; against a unit below half strength they also get +1 to wound.",
-       "kind": "datasheet"
-      },
-      {
-       "name": "Damaged: 1-4 wounds remaining",
-       "text": "While this model has 1-4 wounds remaining, each time this model makes an attack, subtract 1 from the Hit roll.",
        "kind": "datasheet"
       }
      ],

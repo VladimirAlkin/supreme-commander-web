@@ -99,22 +99,40 @@
    "why": "Brazen Fury is a detachment rule for POSSESSED, not a datasheet ability — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
   },
   {
-   "path": ".worldEaters.units[15].abilities.length",
-   "change": "CHANGED",
-   "value": "1 -> 2",
-   "why": "Damaged brackets per datasheet; Terror of Khorne is not a datasheet ability — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+   "path": ".worldEaters.units[15].damaged",
+   "change": "REMOVED",
+   "value": "null",
+   "why": "Damaged bracket per datasheet, in the damaged field the tracker reads; Terror of Khorne is a detachment ability, not a datasheet one — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
   },
   {
-   "path": ".worldEaters.units[16].abilities.length",
+   "path": ".worldEaters.units[16].damaged",
+   "change": "REMOVED",
+   "value": "null",
+   "why": "Damaged bracket per datasheet, in the damaged field the tracker reads; Terror of Khorne is a detachment ability, not a datasheet one — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".worldEaters.units[17].damaged",
+   "change": "REMOVED",
+   "value": "null",
+   "why": "Damaged bracket per datasheet, in the damaged field the tracker reads; Terror of Khorne is a detachment ability, not a datasheet one — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".worldEaters.units[17].abilities.length",
    "change": "CHANGED",
-   "value": "1 -> 2",
-   "why": "Damaged brackets per datasheet; Terror of Khorne is not a datasheet ability — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+   "value": "3 -> 2",
+   "why": "Damaged bracket per datasheet, in the damaged field the tracker reads; Terror of Khorne is a detachment ability, not a datasheet one — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
   },
   {
    "path": ".worldEaters.units[17].abilities[2].name",
-   "change": "CHANGED",
-   "value": "\"Terror of Khorne\" -> \"Damaged: 1-6 wounds remaining\"",
-   "why": "Damaged brackets per datasheet; Terror of Khorne is not a datasheet ability — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+   "change": "REMOVED",
+   "value": "\"Terror of Khorne\"",
+   "why": "Damaged bracket per datasheet, in the damaged field the tracker reads; Terror of Khorne is a detachment ability, not a datasheet one — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".worldEaters.units[17].abilities[2].kind",
+   "change": "REMOVED",
+   "value": "\"datasheet\"",
+   "why": "Damaged bracket per datasheet, in the damaged field the tracker reads; Terror of Khorne is a detachment ability, not a datasheet one — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
   },
   {
    "path": ".worldEaters.units[17].optionRules.length",
@@ -123,22 +141,76 @@
    "why": "Defiler: max one electroscourge — owner decision, encoded as forbidAllOf"
   },
   {
-   "path": ".worldEaters.units[18].abilities[1].name",
+   "path": ".worldEaters.units[18].damaged",
+   "change": "REMOVED",
+   "value": "null",
+   "why": "Damaged bracket per datasheet, in the damaged field the tracker reads; Terror of Khorne is a detachment ability, not a datasheet one — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".worldEaters.units[18].abilities.length",
    "change": "CHANGED",
-   "value": "\"Terror of Khorne\" -> \"Damaged: 1-4 wounds remaining\"",
-   "why": "Damaged brackets per datasheet; Terror of Khorne is not a datasheet ability — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+   "value": "2 -> 1",
+   "why": "Damaged bracket per datasheet, in the damaged field the tracker reads; Terror of Khorne is a detachment ability, not a datasheet one — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".worldEaters.units[18].abilities[1].name",
+   "change": "REMOVED",
+   "value": "\"Terror of Khorne\"",
+   "why": "Damaged bracket per datasheet, in the damaged field the tracker reads; Terror of Khorne is a detachment ability, not a datasheet one — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".worldEaters.units[18].abilities[1].kind",
+   "change": "REMOVED",
+   "value": "\"datasheet\"",
+   "why": "Damaged bracket per datasheet, in the damaged field the tracker reads; Terror of Khorne is a detachment ability, not a datasheet one — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".worldEaters.units[20].damaged",
+   "change": "REMOVED",
+   "value": "null",
+   "why": "Damaged bracket per datasheet, in the damaged field the tracker reads; Terror of Khorne is a detachment ability, not a datasheet one — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".worldEaters.units[20].abilities.length",
+   "change": "CHANGED",
+   "value": "2 -> 1",
+   "why": "Damaged bracket per datasheet, in the damaged field the tracker reads; Terror of Khorne is a detachment ability, not a datasheet one — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
   },
   {
    "path": ".worldEaters.units[20].abilities[1].name",
+   "change": "REMOVED",
+   "value": "\"Terror of Khorne\"",
+   "why": "Damaged bracket per datasheet, in the damaged field the tracker reads; Terror of Khorne is a detachment ability, not a datasheet one — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".worldEaters.units[20].abilities[1].kind",
+   "change": "REMOVED",
+   "value": "\"datasheet\"",
+   "why": "Damaged bracket per datasheet, in the damaged field the tracker reads; Terror of Khorne is a detachment ability, not a datasheet one — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".worldEaters.units[21].damaged",
+   "change": "REMOVED",
+   "value": "null",
+   "why": "Damaged bracket per datasheet, in the damaged field the tracker reads; Terror of Khorne is a detachment ability, not a datasheet one — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".worldEaters.units[21].abilities.length",
    "change": "CHANGED",
-   "value": "\"Terror of Khorne\" -> \"Damaged: 1-4 wounds remaining\"",
-   "why": "Damaged brackets per datasheet; Terror of Khorne is not a datasheet ability — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+   "value": "3 -> 2",
+   "why": "Damaged bracket per datasheet, in the damaged field the tracker reads; Terror of Khorne is a detachment ability, not a datasheet one — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
   },
   {
    "path": ".worldEaters.units[21].abilities[2].name",
-   "change": "CHANGED",
-   "value": "\"Terror of Khorne\" -> \"Damaged: 1-4 wounds remaining\"",
-   "why": "Damaged brackets per datasheet; Terror of Khorne is not a datasheet ability — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+   "change": "REMOVED",
+   "value": "\"Terror of Khorne\"",
+   "why": "Damaged bracket per datasheet, in the damaged field the tracker reads; Terror of Khorne is a detachment ability, not a datasheet one — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".worldEaters.units[21].abilities[2].kind",
+   "change": "REMOVED",
+   "value": "\"datasheet\"",
+   "why": "Damaged bracket per datasheet, in the damaged field the tracker reads; Terror of Khorne is a detachment ability, not a datasheet one — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
   },
   {
    "path": ".worldEaters.units[24].coreAbilities.length",
@@ -201,28 +273,22 @@
    "why": "Angron: Supreme Commander — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
   },
   {
-   "path": ".worldEaters.units[15].abilities[1].name",
+   "path": ".worldEaters.units[15].damaged.threshold",
    "change": "ADDED",
-   "value": "\"Damaged: 1-4 wounds remaining\"",
-   "why": "Damaged brackets per datasheet; Terror of Khorne is not a datasheet ability — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+   "value": "4",
+   "why": "Damaged bracket per datasheet, in the damaged field the tracker reads; Terror of Khorne is a detachment ability, not a datasheet one — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
   },
   {
-   "path": ".worldEaters.units[15].abilities[1].kind",
+   "path": ".worldEaters.units[16].damaged.threshold",
    "change": "ADDED",
-   "value": "\"datasheet\"",
-   "why": "Damaged brackets per datasheet; Terror of Khorne is not a datasheet ability — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+   "value": "4",
+   "why": "Damaged bracket per datasheet, in the damaged field the tracker reads; Terror of Khorne is a detachment ability, not a datasheet one — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
   },
   {
-   "path": ".worldEaters.units[16].abilities[1].name",
+   "path": ".worldEaters.units[17].damaged.threshold",
    "change": "ADDED",
-   "value": "\"Damaged: 1-4 wounds remaining\"",
-   "why": "Damaged brackets per datasheet; Terror of Khorne is not a datasheet ability — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
-  },
-  {
-   "path": ".worldEaters.units[16].abilities[1].kind",
-   "change": "ADDED",
-   "value": "\"datasheet\"",
-   "why": "Damaged brackets per datasheet; Terror of Khorne is not a datasheet ability — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+   "value": "6",
+   "why": "Damaged bracket per datasheet, in the damaged field the tracker reads; Terror of Khorne is a detachment ability, not a datasheet one — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
   },
   {
    "path": ".worldEaters.units[17].optionRules[0].forbidAllOf.length",
@@ -265,6 +331,24 @@
    "change": "ADDED",
    "value": "\"scourge\"",
    "why": "Defiler: max one electroscourge — owner decision, encoded as forbidAllOf"
+  },
+  {
+   "path": ".worldEaters.units[18].damaged.threshold",
+   "change": "ADDED",
+   "value": "4",
+   "why": "Damaged bracket per datasheet, in the damaged field the tracker reads; Terror of Khorne is a detachment ability, not a datasheet one — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".worldEaters.units[20].damaged.threshold",
+   "change": "ADDED",
+   "value": "4",
+   "why": "Damaged bracket per datasheet, in the damaged field the tracker reads; Terror of Khorne is a detachment ability, not a datasheet one — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".worldEaters.units[21].damaged.threshold",
+   "change": "ADDED",
+   "value": "4",
+   "why": "Damaged bracket per datasheet, in the damaged field the tracker reads; Terror of Khorne is a detachment ability, not a datasheet one — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
   },
   {
    "path": ".worldEaters.units[25].keywords[7]",
