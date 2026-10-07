@@ -1881,7 +1881,8 @@ const DATA = {
         "effect": "Aura 6\": an enemy unit selected to fall back must pass a Leadership test or stay where it is."
        }
       ]
-     }
+     },
+     "compositionNote": "This model is equipped with: Samni'arius and Spinegrinder."
     },
     {
      "id": "kharn_the_betrayer",
@@ -1985,7 +1986,8 @@ const DATA = {
      "options": [],
      "optionRules": [],
      "slots": [],
-     "optionGroups": []
+     "optionGroups": [],
+     "compositionNote": "This model is equipped with: plasma pistol; Gorechild."
     },
     {
      "id": "lord_invocatus",
@@ -2089,7 +2091,8 @@ const DATA = {
      "options": [],
      "optionRules": [],
      "slots": [],
-     "optionGroups": []
+     "optionGroups": [],
+     "compositionNote": "This model is equipped with: bolt pistol; Coward's Bane; bladed horn."
     },
     {
      "id": "daemon_prince",
@@ -2561,7 +2564,8 @@ const DATA = {
      "options": [],
      "optionRules": [],
      "slots": [],
-     "optionGroups": []
+     "optionGroups": [],
+     "compositionNote": "This model is equipped with: lacerator and daemonic claw."
     },
     {
      "id": "khorne_berzerkers",
@@ -5509,7 +5513,8 @@ const DATA = {
      "options": [],
      "optionRules": [],
      "slots": [],
-     "optionGroups": []
+     "optionGroups": [],
+     "compositionNote": "This model is equipped with: Slaughter and Carnage."
     },
     {
      "id": "bloodthirster",
@@ -31422,7 +31427,7 @@ const DATA = {
       },
       {
        "name": "Solemn Procession",
-       "text": "While it is on the battlefield, the Miracle dice you gain at the start of the battle round is a 6 instead of being rolled.",
+       "text": "While this model is on the battlefield, each time you gain a Miracle dice at the start of the battle round, that Miracle dice is a 6 (do not roll for it).",
        "kind": "datasheet"
       }
      ],
