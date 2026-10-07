@@ -415,7 +415,7 @@
   }
 
   function armyRulesHTML(fd) {
-    return `<div class="stack">${fd.armyRules.map(r => `<div class="panel pad stack"><h3>${esc(r.name)}</h3>${r.text.map(t => `<p style="margin:0">${hl(t)}</p>`).join('')}
+    return `<div class="stack">${fd.armyRules.map(r => `<div class="panel pad stack"><h3>${esc(r.name)}</h3>${[].concat(r.text || []).map(t => `<p style="margin:0">${hl(t)}</p>`).join('')}
       ${r.blessings ? `<div class="stack" style="gap:6px">${r.blessings.map(b => `<div class="blessing"><div><b>${esc(b.name)}</b><div class="dim">${hl(b.effect)}</div></div><span class="badge gold">${esc(b.reqText)}</span></div>`).join('')}</div>` : ''}</div>`).join('')}</div>`;
   }
   function enhLine(e, carriers) {
