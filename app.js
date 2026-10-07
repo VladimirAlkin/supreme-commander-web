@@ -1787,7 +1787,7 @@
         <div class="stack" style="gap:6px"><span class="eyebrow">Points</span><div class="num">${def.sizes.map(s => `${s.models} model${s.models > 1 ? 's' : ''}: ${s.pts} pts${s.ptsLater != null ? ` (${ORD(def.stepFrom)}+ copy: ${s.ptsLater} pts)` : ''}`).join('<br>')}</div></div>
         ${def.leaderOf.length ? `<div><b>Can lead:</b> ${esc(def.leaderOf.map(id => unitDef(fid, id).name).join(', '))}</div>` : ''}
         ${ledBy.length ? `<div><b>Led by:</b> ${esc(ledBy.join(', '))}</div>` : ''}
-        <div><span class="eyebrow">Keywords</span><div>${kws.map(k => `<span class="kwchip">${esc(k)}</span>`).join('')}</div><div style="margin-top:6px"><span class="eyebrow">Faction</span> <span class="kwchip">${esc(inst && r ? Engine.factionOf(inst, def, ctx) : def.faction)}</span></div></div>`}
+        <div><span class="eyebrow">Keywords</span><div>${kws.filter(k => k !== (inst && r ? Engine.factionOf(inst, def, ctx) : def.faction)).map(k => `<span class="kwchip">${esc(k)}</span>`).join('')}</div><div style="margin-top:6px"><span class="eyebrow">Faction</span> <span class="kwchip">${esc(inst && r ? Engine.factionOf(inst, def, ctx) : def.faction)}</span></div></div>`}
       </div>${S.m && nav ? `<div class="dsnav">${nav}</div>` : ''}</div></div>`;
   }
   function abilityTip(fid, a) {

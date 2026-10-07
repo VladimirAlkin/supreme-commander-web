@@ -1,0 +1,510 @@
+{
+ "ref": "main",
+ "reviewed": "2026-10-08",
+ "entries": [
+  {
+   "path": ".worldEaters.units[0].abilities.length",
+   "change": "CHANGED",
+   "value": "5 -> 6",
+   "why": "Angron: Supreme Commander — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".worldEaters.units[7].coreAbilities.length",
+   "change": "CHANGED",
+   "value": "4 -> 2",
+   "why": "Slaughterbound: Deep Strike/Scouts only when attached to Possessed (Lord of the Eightbound) — BSData 11e + wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".worldEaters.units[7].coreAbilities[1]",
+   "change": "CHANGED",
+   "value": "\"Deep Strike\" -> \"Leader\"",
+   "why": "Slaughterbound: Deep Strike/Scouts only when attached to Possessed (Lord of the Eightbound) — BSData 11e + wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".worldEaters.units[7].coreAbilities[2]",
+   "change": "REMOVED",
+   "value": "\"Leader\"",
+   "why": "Slaughterbound: Deep Strike/Scouts only when attached to Possessed (Lord of the Eightbound) — BSData 11e + wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".worldEaters.units[7].coreAbilities[3]",
+   "change": "REMOVED",
+   "value": "\"Scouts 6\\\" (when attached to Possessed)\"",
+   "why": "Slaughterbound: Deep Strike/Scouts only when attached to Possessed (Lord of the Eightbound) — BSData 11e + wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".worldEaters.units[8].coreAbilities.length",
+   "change": "CHANGED",
+   "value": "1 -> 0",
+   "why": "Khorne Berzerkers have no Deep Strike (only with Lord Invocatus) — owner decision + BSData 11e"
+  },
+  {
+   "path": ".worldEaters.units[8].coreAbilities[0]",
+   "change": "REMOVED",
+   "value": "\"Deep Strike\"",
+   "why": "Khorne Berzerkers have no Deep Strike (only with Lord Invocatus) — owner decision + BSData 11e"
+  },
+  {
+   "path": ".worldEaters.units[12].coreAbilities.length",
+   "change": "CHANGED",
+   "value": "2 -> 1",
+   "why": "Eightbound: Scouts 6\" only, no Deep Strike — owner decision + wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".worldEaters.units[12].coreAbilities[0]",
+   "change": "CHANGED",
+   "value": "\"Deep Strike\" -> \"Scouts 6\\\"\"",
+   "why": "Eightbound: Scouts 6\" only, no Deep Strike — owner decision + wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".worldEaters.units[12].coreAbilities[1]",
+   "change": "REMOVED",
+   "value": "\"Scouts 6\\\"\"",
+   "why": "Eightbound: Scouts 6\" only, no Deep Strike — owner decision + wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".worldEaters.units[12].abilities.length",
+   "change": "CHANGED",
+   "value": "2 -> 1",
+   "why": "Brazen Fury is a detachment rule for POSSESSED, not a datasheet ability — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".worldEaters.units[12].abilities[1].name",
+   "change": "REMOVED",
+   "value": "\"Brazen Fury\"",
+   "why": "Brazen Fury is a detachment rule for POSSESSED, not a datasheet ability — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".worldEaters.units[12].abilities[1].kind",
+   "change": "REMOVED",
+   "value": "\"datasheet\"",
+   "why": "Brazen Fury is a detachment rule for POSSESSED, not a datasheet ability — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".worldEaters.units[13].abilities.length",
+   "change": "CHANGED",
+   "value": "2 -> 1",
+   "why": "Brazen Fury is a detachment rule for POSSESSED, not a datasheet ability — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".worldEaters.units[13].abilities[1].name",
+   "change": "REMOVED",
+   "value": "\"Brazen Fury\"",
+   "why": "Brazen Fury is a detachment rule for POSSESSED, not a datasheet ability — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".worldEaters.units[13].abilities[1].kind",
+   "change": "REMOVED",
+   "value": "\"datasheet\"",
+   "why": "Brazen Fury is a detachment rule for POSSESSED, not a datasheet ability — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".worldEaters.units[15].abilities.length",
+   "change": "CHANGED",
+   "value": "1 -> 2",
+   "why": "Damaged brackets per datasheet; Terror of Khorne is not a datasheet ability — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".worldEaters.units[16].abilities.length",
+   "change": "CHANGED",
+   "value": "1 -> 2",
+   "why": "Damaged brackets per datasheet; Terror of Khorne is not a datasheet ability — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".worldEaters.units[17].abilities[2].name",
+   "change": "CHANGED",
+   "value": "\"Terror of Khorne\" -> \"Damaged: 1-6 wounds remaining\"",
+   "why": "Damaged brackets per datasheet; Terror of Khorne is not a datasheet ability — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".worldEaters.units[17].optionRules.length",
+   "change": "CHANGED",
+   "value": "0 -> 1",
+   "why": "Defiler: max one electroscourge — owner decision, encoded as forbidAllOf"
+  },
+  {
+   "path": ".worldEaters.units[18].abilities[1].name",
+   "change": "CHANGED",
+   "value": "\"Terror of Khorne\" -> \"Damaged: 1-4 wounds remaining\"",
+   "why": "Damaged brackets per datasheet; Terror of Khorne is not a datasheet ability — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".worldEaters.units[20].abilities[1].name",
+   "change": "CHANGED",
+   "value": "\"Terror of Khorne\" -> \"Damaged: 1-4 wounds remaining\"",
+   "why": "Damaged brackets per datasheet; Terror of Khorne is not a datasheet ability — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".worldEaters.units[21].abilities[2].name",
+   "change": "CHANGED",
+   "value": "\"Terror of Khorne\" -> \"Damaged: 1-4 wounds remaining\"",
+   "why": "Damaged brackets per datasheet; Terror of Khorne is not a datasheet ability — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".worldEaters.units[24].coreAbilities.length",
+   "change": "CHANGED",
+   "value": "2 -> 1",
+   "why": "Lord of Skulls: Super-heavy War Engine is a datasheet ability in 11th — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".worldEaters.units[24].coreAbilities[1]",
+   "change": "REMOVED",
+   "value": "\"Super-Heavy Walker\"",
+   "why": "Lord of Skulls: Super-heavy War Engine is a datasheet ability in 11th — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".worldEaters.units[24].abilities[1].name",
+   "change": "CHANGED",
+   "value": "\"Terror of Khorne\" -> \"Super-heavy War Engine\"",
+   "why": "Lord of Skulls: Super-heavy War Engine is a datasheet ability in 11th — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".worldEaters.units[25].keywords.length",
+   "change": "CHANGED",
+   "value": "7 -> 8",
+   "why": "Skarbrand has SUMMONED — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".worldEaters.units[27].keywords.length",
+   "change": "CHANGED",
+   "value": "6 -> 7",
+   "why": "Bloodletters has BLOODLETTERS — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".worldEaters.detachments[3].enhancements[1].eligible.keywordsAny.length",
+   "change": "ADDED",
+   "value": "2",
+   "why": "Blood-Forged Armour: BLOOD LEGIONS or WORLD EATERS model only; engine now treats the faction as a keyword"
+  },
+  {
+   "path": ".worldEaters.detachments[3].enhancements[1].eligible.keywordsAny[0]",
+   "change": "ADDED",
+   "value": "\"BLOOD LEGIONS\"",
+   "why": "Blood-Forged Armour: BLOOD LEGIONS or WORLD EATERS model only; engine now treats the faction as a keyword"
+  },
+  {
+   "path": ".worldEaters.detachments[3].enhancements[1].eligible.keywordsAny[1]",
+   "change": "ADDED",
+   "value": "\"WORLD EATERS\"",
+   "why": "Blood-Forged Armour: BLOOD LEGIONS or WORLD EATERS model only; engine now treats the faction as a keyword"
+  },
+  {
+   "path": ".worldEaters.units[0].abilities[5].name",
+   "change": "ADDED",
+   "value": "\"Supreme Commander\"",
+   "why": "Angron: Supreme Commander — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".worldEaters.units[0].abilities[5].kind",
+   "change": "ADDED",
+   "value": "\"datasheet\"",
+   "why": "Angron: Supreme Commander — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".worldEaters.units[15].abilities[1].name",
+   "change": "ADDED",
+   "value": "\"Damaged: 1-4 wounds remaining\"",
+   "why": "Damaged brackets per datasheet; Terror of Khorne is not a datasheet ability — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".worldEaters.units[15].abilities[1].kind",
+   "change": "ADDED",
+   "value": "\"datasheet\"",
+   "why": "Damaged brackets per datasheet; Terror of Khorne is not a datasheet ability — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".worldEaters.units[16].abilities[1].name",
+   "change": "ADDED",
+   "value": "\"Damaged: 1-4 wounds remaining\"",
+   "why": "Damaged brackets per datasheet; Terror of Khorne is not a datasheet ability — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".worldEaters.units[16].abilities[1].kind",
+   "change": "ADDED",
+   "value": "\"datasheet\"",
+   "why": "Damaged brackets per datasheet; Terror of Khorne is not a datasheet ability — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".worldEaters.units[17].optionRules[0].forbidAllOf.length",
+   "change": "ADDED",
+   "value": "2",
+   "why": "Defiler: max one electroscourge — owner decision, encoded as forbidAllOf"
+  },
+  {
+   "path": ".worldEaters.units[17].optionRules[0].forbidAllOf[0].length",
+   "change": "ADDED",
+   "value": "2",
+   "why": "Defiler: max one electroscourge — owner decision, encoded as forbidAllOf"
+  },
+  {
+   "path": ".worldEaters.units[17].optionRules[0].forbidAllOf[0][0]",
+   "change": "ADDED",
+   "value": "\"slotA\"",
+   "why": "Defiler: max one electroscourge — owner decision, encoded as forbidAllOf"
+  },
+  {
+   "path": ".worldEaters.units[17].optionRules[0].forbidAllOf[0][1]",
+   "change": "ADDED",
+   "value": "\"scourge\"",
+   "why": "Defiler: max one electroscourge — owner decision, encoded as forbidAllOf"
+  },
+  {
+   "path": ".worldEaters.units[17].optionRules[0].forbidAllOf[1].length",
+   "change": "ADDED",
+   "value": "2",
+   "why": "Defiler: max one electroscourge — owner decision, encoded as forbidAllOf"
+  },
+  {
+   "path": ".worldEaters.units[17].optionRules[0].forbidAllOf[1][0]",
+   "change": "ADDED",
+   "value": "\"slotB\"",
+   "why": "Defiler: max one electroscourge — owner decision, encoded as forbidAllOf"
+  },
+  {
+   "path": ".worldEaters.units[17].optionRules[0].forbidAllOf[1][1]",
+   "change": "ADDED",
+   "value": "\"scourge\"",
+   "why": "Defiler: max one electroscourge — owner decision, encoded as forbidAllOf"
+  },
+  {
+   "path": ".worldEaters.units[25].keywords[7]",
+   "change": "ADDED",
+   "value": "\"Summoned\"",
+   "why": "Skarbrand has SUMMONED — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".worldEaters.units[27].keywords[6]",
+   "change": "ADDED",
+   "value": "\"Bloodletters\"",
+   "why": "Bloodletters has BLOODLETTERS — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".tyranids.units[13].ranged[1].name",
+   "change": "CHANGED",
+   "value": "\"Termagant spinefist\" -> \"Termagant spinefists\"",
+   "why": "weapon name as printed in 11th — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".tyranids.units[21].melee[0].name",
+   "change": "CHANGED",
+   "value": "\"Genestealers claws and talons\" -> \"Genestealer claws and talons\"",
+   "why": "weapon name as printed in 11th — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".tyranids.units[40].melee[0].name",
+   "change": "CHANGED",
+   "value": "\"Distendible jaw\" -> \"Distensible jaw\"",
+   "why": "weapon name as printed in 11th — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".tyranids.units[41].ranged[0].name",
+   "change": "CHANGED",
+   "value": "\"Toxinjecter Harpoon\" -> \"Toxinjector Harpoon\"",
+   "why": "weapon name as printed in 11th — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".tyranids.units[41].melee[1].name",
+   "change": "CHANGED",
+   "value": "\"Toxinjecter Harpoon\" -> \"Toxinjector Harpoon\"",
+   "why": "weapon name as printed in 11th — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".tyranids.units[45].ranged[0].name",
+   "change": "CHANGED",
+   "value": "\"Sporocyst bio-weapon\" -> \"Sporocyst bio-weapons\"",
+   "why": "weapon name as printed in 11th — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".tyranids.units[51].ranged[0].name",
+   "change": "CHANGED",
+   "value": "\"Spinemaw\" -> \"Spinemaws\"",
+   "why": "weapon name as printed in 11th — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".deathGuard.units[11].abilities[1].name",
+   "change": "CHANGED",
+   "value": "\"Seven-fold Chant\" -> \"Sevenfold Chant\"",
+   "why": "name as printed in 11th — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".deathGuard.units[15].melee[0].name",
+   "change": "CHANGED",
+   "value": "\"Improvised weapons\" -> \"Improvised weapon\"",
+   "why": "name as printed in 11th — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".deathGuard.units[18].keywords[3]",
+   "change": "CHANGED",
+   "value": "\"Spawn\" -> \"Chaos Spawn\"",
+   "why": "keyword CHAOS SPAWN — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".deathGuard.units[22].keywords.length",
+   "change": "CHANGED",
+   "value": "7 -> 6",
+   "why": "Bloat-drone with Heavy Blight Launcher: only the full-name keyword — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".deathGuard.units[22].keywords[5]",
+   "change": "CHANGED",
+   "value": "\"Foetid Bloat-drone\" -> \"Foetid Bloat-drone with Heavy Blight Launcher\"",
+   "why": "Bloat-drone with Heavy Blight Launcher: only the full-name keyword — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".deathGuard.units[22].keywords[6]",
+   "change": "REMOVED",
+   "value": "\"Foetid Bloat-drone with Heavy Blight Launcher\"",
+   "why": "Bloat-drone with Heavy Blight Launcher: only the full-name keyword — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".deathGuard.units[27].ranged[8].name",
+   "change": "CHANGED",
+   "value": "\"Magma cutter\" -> \"Magma cutters\"",
+   "why": "name as printed in 11th — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".deathGuard.units[35].abilities[0].name",
+   "change": "CHANGED",
+   "value": "\"Mischief Makers (Aura)\" -> \"Mischief Makers\"",
+   "why": "name as printed in 11th — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".thousandSons.detachments[3].stratagems[2].cp",
+   "change": "CHANGED",
+   "value": "1 -> 2",
+   "why": "Infernal Fusillade 2CP — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".thousandSons.units[16].keywords[3]",
+   "change": "CHANGED",
+   "value": "\"Spawn\" -> \"Chaos Spawn\"",
+   "why": "keyword CHAOS SPAWN — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".thousandSons.units[27].keywords.length",
+   "change": "CHANGED",
+   "value": "5 -> 6",
+   "why": "Heldrake has DAEMON — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".thousandSons.units[28].abilities[1].name",
+   "change": "CHANGED",
+   "value": "\"Master of Magicks (Aura)\" -> \"Master of Magicks (Psychic)\"",
+   "why": "Master of Magicks (Psychic) — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".thousandSons.units[30].abilities.length",
+   "change": "CHANGED",
+   "value": "3 -> 4",
+   "why": "Pink Horrors: Blue Horrors swap rule, printed under this heading on the datasheet — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".thousandSons.units[10].leadModel.keywords.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "PSYKER only on the Sorcerer model — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".thousandSons.units[10].leadModel.keywords[0]",
+   "change": "ADDED",
+   "value": "\"Psyker\"",
+   "why": "PSYKER only on the Sorcerer model — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".thousandSons.units[11].leadModel.keywords.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "PSYKER only on the Sorcerer model — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".thousandSons.units[11].leadModel.keywords[0]",
+   "change": "ADDED",
+   "value": "\"Psyker\"",
+   "why": "PSYKER only on the Sorcerer model — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".thousandSons.units[27].keywords[5]",
+   "change": "ADDED",
+   "value": "\"Daemon\"",
+   "why": "Heldrake has DAEMON — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".thousandSons.units[30].abilities[3].name",
+   "change": "ADDED",
+   "value": "\"Horrors are Pink. Horrors are Blue. Whereonce there was one, now there are two.\"",
+   "why": "Pink Horrors: Blue Horrors swap rule, printed under this heading on the datasheet — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".thousandSons.units[30].abilities[3].kind",
+   "change": "ADDED",
+   "value": "\"datasheet\"",
+   "why": "Pink Horrors: Blue Horrors swap rule, printed under this heading on the datasheet — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
+  },
+  {
+   "path": ".adeptaSororitas.units[4].abilities.length",
+   "change": "CHANGED",
+   "value": "3 -> 2",
+   "why": "Condemnatory Psalms is a detachment rule for INFANTRY FLY units, not a datasheet ability — owner + data"
+  },
+  {
+   "path": ".adeptaSororitas.units[4].abilities[2].name",
+   "change": "REMOVED",
+   "value": "\"Condemnatory Psalms\"",
+   "why": "Condemnatory Psalms is a detachment rule for INFANTRY FLY units, not a datasheet ability — owner + data"
+  },
+  {
+   "path": ".adeptaSororitas.units[4].abilities[2].kind",
+   "change": "REMOVED",
+   "value": "\"datasheet\"",
+   "why": "Condemnatory Psalms is a detachment rule for INFANTRY FLY units, not a datasheet ability — owner + data"
+  },
+  {
+   "path": ".adeptaSororitas.units[28].abilities.length",
+   "change": "CHANGED",
+   "value": "2 -> 1",
+   "why": "Condemnatory Psalms is a detachment rule for INFANTRY FLY units, not a datasheet ability — owner + data"
+  },
+  {
+   "path": ".adeptaSororitas.units[28].abilities[1].name",
+   "change": "REMOVED",
+   "value": "\"Condemnatory Psalms\"",
+   "why": "Condemnatory Psalms is a detachment rule for INFANTRY FLY units, not a datasheet ability — owner + data"
+  },
+  {
+   "path": ".adeptaSororitas.units[28].abilities[1].kind",
+   "change": "REMOVED",
+   "value": "\"datasheet\"",
+   "why": "Condemnatory Psalms is a detachment rule for INFANTRY FLY units, not a datasheet ability — owner + data"
+  },
+  {
+   "path": ".adeptaSororitas.units[32].abilities.length",
+   "change": "CHANGED",
+   "value": "3 -> 2",
+   "why": "Condemnatory Psalms is a detachment rule for INFANTRY FLY units, not a datasheet ability — owner + data"
+  },
+  {
+   "path": ".adeptaSororitas.units[32].abilities[1].name",
+   "change": "CHANGED",
+   "value": "\"Condemnatory Psalms\" -> \"Sacred Banner\"",
+   "why": "Condemnatory Psalms is a detachment rule for INFANTRY FLY units, not a datasheet ability — owner + data"
+  },
+  {
+   "path": ".adeptaSororitas.units[32].abilities[1].kind",
+   "change": "CHANGED",
+   "value": "\"datasheet\" -> \"wargear\"",
+   "why": "Condemnatory Psalms is a detachment rule for INFANTRY FLY units, not a datasheet ability — owner + data"
+  },
+  {
+   "path": ".adeptaSororitas.units[32].abilities[2].name",
+   "change": "REMOVED",
+   "value": "\"Sacred Banner\"",
+   "why": "Condemnatory Psalms is a detachment rule for INFANTRY FLY units, not a datasheet ability — owner + data"
+  },
+  {
+   "path": ".adeptaSororitas.units[32].abilities[2].kind",
+   "change": "REMOVED",
+   "value": "\"wargear\"",
+   "why": "Condemnatory Psalms is a detachment rule for INFANTRY FLY units, not a datasheet ability — owner + data"
+  }
+ ]
+}

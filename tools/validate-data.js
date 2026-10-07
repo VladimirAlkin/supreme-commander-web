@@ -115,6 +115,54 @@ for (const f of L.factions(data)) {
   }
 
   if (!Array.isArray(fd.terms)) warn('W-TERMS', f, 'no terms list — faction phrases will not be highlighted');
+
+  /* optionRules: the engine knows exactly three shapes. Anything else used to
+     throw inside render(); the engine now skips it, which means the rule is
+     silently not enforced. Every [optionId, value] must point at a real
+     option and, for a choice, a real choice id. */
+  for (const u of fd.units || []) {
+    const opts = new Map((u.options || []).map(o => [o.id, o]));
+    const refOk = (pair, w) => {
+      if (!Array.isArray(pair) || pair.length !== 2) { err('E-MECH', w, `expected [optionId, value], got ${JSON.stringify(pair)}`); return; }
+      const o = opts.get(pair[0]);
+      if (!o) { err('E-MECH', w, `no option "${pair[0]}" on ${u.name} (options: ${[...opts.keys()].join(', ') || 'none'})`); return; }
+      if (o.type === 'choice' && !o.choices.some(c => c.id === pair[1])) err('E-MECH', w, `option "${pair[0]}" has no choice "${pair[1]}" (choices: ${o.choices.map(c => c.id).join(', ')})`);
+    };
+    (u.optionRules || []).forEach((r, i) => {
+      const w = `${f}.${u.id}.optionRules[${i}]`;
+      const shape = r && ['forbidAllOf', 'requireAnyOf', 'requireAllOf'].filter(k => Array.isArray(r[k]));
+      if (!shape || shape.length !== 1) { err('E-MECH', w, `unknown optionRule shape {${Object.keys(r || {}).join(', ')}} — use forbidAllOf, requireAnyOf or requireAllOf; the engine skips anything else`); return; }
+      if (!r.message) err('E-MECH', w, 'optionRule has no message to show the player');
+      r[shape[0]].forEach((p, j) => refOk(p, `${w}.${shape[0]}[${j}]`));
+      if (shape[0] !== 'forbidAllOf' && r.if !== undefined && !opts.has(r.if)) err('E-MECH', w, `"if" points at missing option "${r.if}"`);
+    });
+  }
+}
+
+/* ---- the engine itself, run over the data --------------------------------
+   The class of bug that froze the whole UI is "one row the engine cannot
+   handle". Rather than list known bad shapes, run the engine on every unit in
+   every detachment and on every enhancement. Anything that throws here throws
+   inside render() on someone's phone. */
+const Engine = require(require('path').join(L.ROOT, 'engine.js'));
+for (const f of L.factions(data)) {
+  const fd = data.factionData[f];
+  const size = (data.gameRules.battleSizes[1] || data.gameRules.battleSizes[0]).id;
+  for (const d of fd.detachments || []) {
+    for (const u of fd.units || []) {
+      const roster = { factionId: f, battleSize: size, detachmentIds: [d.id], units: [{ instanceId: 'x', datasheetId: u.id, size: 1, wargear: {} }] };
+      try { Engine.validate(roster, data); Engine.points(roster, data); Engine.buffed(u, roster.units[0], roster, data, { detachment: true }); }
+      catch (e) { err('E-CRASH', `${f}.${d.id} + ${u.id}`, `engine throws: ${e.message} — this freezes the UI for anyone who adds ${u.name}`); }
+    }
+    /* An enhancement nobody can take is a data error, not a rules choice. */
+    for (const e of d.enhancements || []) {
+      const roster = { factionId: f, battleSize: size, detachmentIds: [d.id], units: [] };
+      let ok = false;
+      try { ok = fd.units.some(u => Engine.eligibleReason(e, { instanceId: 'x', datasheetId: u.id }, roster, data) === null); }
+      catch (x) { err('E-CRASH', `${f}.${d.id}.${e.id}`, `eligibility check throws: ${x.message}`); continue; }
+      if (!ok) err('E-MECH', `${f}.${d.id}.${e.id}`, `no unit in the faction can take ${e.name} (eligible: ${JSON.stringify(e.eligible || {})})`);
+    }
+  }
 }
 
 /* ---- placement checks -------------------------------------------------

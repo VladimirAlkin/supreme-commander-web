@@ -1833,7 +1833,8 @@ const DATA = {
       },
       {
        "name": "Supreme Commander",
-       "text": "If this model is in your army, it must be your WARLORD."
+       "text": "If this model is in your army, it must be your WARLORD.",
+       "kind": "datasheet"
       }
      ],
      "sizes": [
@@ -2653,6 +2654,11 @@ const DATA = {
       {
        "name": "Blood Surge",
        "text": "In your opponent's Shooting phase, after an enemy unit shoots: if a model in this unit was destroyed by those attacks, the unit can surge up to D6+2\".",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Murderous Charge",
+       "text": "In a turn in which this unit made a charge move, its melee attacks get +1 S.",
        "kind": "datasheet"
       },
       {
@@ -3710,7 +3716,8 @@ const DATA = {
       },
       {
        "name": "Damaged: 1-4 wounds remaining",
-       "text": "While this model has 1-4 wounds remaining, each time this model makes an attack, subtract 1 from the Hit roll."
+       "text": "While this model has 1-4 wounds remaining, each time this model makes an attack, subtract 1 from the Hit roll.",
+       "kind": "datasheet"
       }
      ],
      "sizes": [
@@ -3904,7 +3911,8 @@ const DATA = {
       },
       {
        "name": "Damaged: 1-4 wounds remaining",
-       "text": "While this model has 1-4 wounds remaining, each time this model makes an attack, subtract 1 from the Hit roll."
+       "text": "While this model has 1-4 wounds remaining, each time this model makes an attack, subtract 1 from the Hit roll.",
+       "kind": "datasheet"
       }
      ],
      "sizes": [
@@ -4168,7 +4176,8 @@ const DATA = {
       },
       {
        "name": "Damaged: 1-6 wounds remaining",
-       "text": "While this model has 1-6 wounds remaining, each time this model makes an attack, subtract 1 from the Hit roll."
+       "text": "While this model has 1-6 wounds remaining, each time this model makes an attack, subtract 1 from the Hit roll.",
+       "kind": "datasheet"
       }
      ],
      "sizes": [
@@ -4273,10 +4282,17 @@ const DATA = {
      ],
      "optionRules": [
       {
-       "type": "maxCount",
-       "optionId": "electroscourge",
-       "max": 1,
-       "note": "A model cannot be equipped with more than one electroscourge."
+       "forbidAllOf": [
+        [
+         "slotA",
+         "scourge"
+        ],
+        [
+         "slotB",
+         "scourge"
+        ]
+       ],
+       "message": "A model cannot be equipped with more than one electroscourge."
       }
      ],
      "slots": [],
@@ -4370,7 +4386,8 @@ const DATA = {
       },
       {
        "name": "Damaged: 1-4 wounds remaining",
-       "text": "While this model has 1-4 wounds remaining, each time this model makes an attack, subtract 1 from the Hit roll."
+       "text": "While this model has 1-4 wounds remaining, each time this model makes an attack, subtract 1 from the Hit roll.",
+       "kind": "datasheet"
       }
      ],
      "sizes": [
@@ -4862,7 +4879,8 @@ const DATA = {
       },
       {
        "name": "Damaged: 1-4 wounds remaining",
-       "text": "While this model has 1-4 wounds remaining, each time this model makes an attack, subtract 1 from the Hit roll."
+       "text": "While this model has 1-4 wounds remaining, each time this model makes an attack, subtract 1 from the Hit roll.",
+       "kind": "datasheet"
       }
      ],
      "sizes": [
@@ -4980,7 +4998,8 @@ const DATA = {
       },
       {
        "name": "Damaged: 1-4 wounds remaining",
-       "text": "While this model has 1-4 wounds remaining, each time this model makes an attack, subtract 1 from the Hit roll."
+       "text": "While this model has 1-4 wounds remaining, each time this model makes an attack, subtract 1 from the Hit roll.",
+       "kind": "datasheet"
       }
      ],
      "sizes": [
@@ -5351,7 +5370,8 @@ const DATA = {
       },
       {
        "name": "Super-heavy War Engine",
-       "text": "Each time this model makes a Normal, Advance or Fall Back move, it can move through models (excluding TITANIC models) and sections of terrain features that are 4\" or less in height as if they were not there. When doing so, it can move within Engagement Range of enemy models, but cannot end that move within Engagement Range of them. Each time this model makes a Normal, Advance or Fall Back move, if it moves over any sections of terrain features that are more than 4\" in height, after it has finished that move, roll one D6: on a roll of 1, this model is Battle-shocked."
+       "text": "Each time this model makes a Normal, Advance or Fall Back move, it can move through models (excluding TITANIC models) and sections of terrain features that are 4\" or less in height as if they were not there. When doing so, it can move within Engagement Range of enemy models, but cannot end that move within Engagement Range of them. Each time this model makes a Normal, Advance or Fall Back move, if it moves over any sections of terrain features that are more than 4\" in height, after it has finished that move, roll one D6: on a roll of 1, this model is Battle-shocked.",
+       "kind": "datasheet"
       }
      ],
      "sizes": [
@@ -19655,7 +19675,7 @@ const DATA = {
       {
        "id": "ensorcelled_infusion",
        "name": "Ensorcelled Infusion",
-       "cp": 1,
+       "cp": 2,
        "type": "Battle Tactic",
        "phases": [
         "Shooting"
@@ -24595,7 +24615,8 @@ const DATA = {
       },
       {
        "name": "Horrors are Pink. Horrors are Blue. Whereonce there was one, now there are two.",
-       "text": "If, at any point, this unit contains no PINK HORROR models, use the BLUE HORRORS datasheet for this unit. While this unit contains one or more PINK HORROR models, the Sullen Malevolence and Exploding Horrors abilities from the BLUE HORRORS datasheet do not apply to this unit."
+       "text": "If, at any point, this unit contains no PINK HORROR models, use the BLUE HORRORS datasheet for this unit. While this unit contains one or more PINK HORROR models, the Sullen Malevolence and Exploding Horrors abilities from the BLUE HORRORS datasheet do not apply to this unit.",
+       "kind": "datasheet"
       }
      ],
      "sizes": [

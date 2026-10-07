@@ -28,6 +28,11 @@ const Engine = (function () {
   function grantsFor(def, ctx) { return ctx.dets.flatMap(d => (d.instanceGrants || []).filter(g => g.unitIds.includes(def.id))); }
   function keywordsOf(def, ctx, inst) {
     const kw = new Set(def.keywords);
+    /* The faction keyword (WORLD EATERS, BLOOD LEGIONS, ...) is a keyword in
+       the rules, so "X model only" must match it. It lives in def.faction,
+       and an enhancement's factionSwap replaces it. */
+    const fac = inst ? factionOf(inst, def, ctx) : def.faction;
+    if (fac) kw.add(fac);
     ctx.dets.forEach(d => (d.grantKeywords || []).forEach(g => { if (g.unitIds.includes(def.id)) kw.add(g.keyword); }));
     instGrants(def, ctx, inst).forEach(g => kw.add(g.keyword));
     if (inst) enhIds(inst).forEach(id => { const e = ctx.allEnh[id]; ((e && e.addKeywords) || []).forEach(k => kw.add(k)); });
@@ -368,6 +373,10 @@ const Engine = (function () {
       // unset picks count as their default: the first choice, or 0 for counts and toggles
       const val = k => { const o = (def.options || []).find(x => x.id === k) || {}; return wg[k] != null ? wg[k] : o.type === 'choice' ? o.choices[0].id : 0; };
       (def.optionRules || []).forEach(r => {
+        /* A rule of a shape this engine does not know is skipped, not thrown:
+           validate() runs inside render(), so one bad row would freeze the UI.
+           tools/validate-data.js reports it as an error before deploy. */
+        if (!r || !(Array.isArray(r.forbidAllOf) || Array.isArray(r.requireAnyOf) || Array.isArray(r.requireAllOf))) return;
         if (r.forbidAllOf) { if (r.forbidAllOf.every(([k, v]) => val(k) === v)) E(`${def.name}: ${r.message}`, inst.instanceId); return; }
         if (String(val(r.if)) === String(r.notValue)) return;
         const ok = r.requireAnyOf ? r.requireAnyOf.some(([k, v]) => val(k) === v) : r.requireAllOf.every(([k, v]) => val(k) === v);

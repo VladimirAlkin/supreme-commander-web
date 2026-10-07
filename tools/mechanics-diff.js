@@ -12,7 +12,8 @@
    read. One of those threw inside render() and left the entire UI frozen.
 
    Usage: node tools/mechanics-diff.js [ref]        (default: main)
-          node tools/mechanics-diff.js main --full                          */
+          node tools/mechanics-diff.js main --full
+          node tools/mechanics-diff.js main --all   (ignore the reviewed ledger) */
 
 const { execSync } = require('child_process');
 const fs = require('fs');
@@ -37,7 +38,9 @@ fs.unlinkSync(tmp);
 /* Prose is expected to change. buffs.target is a mechanics field that happens
    to share a name with a stratagem's prose field, so it is excluded by path. */
 const PROSE = /\.(when|target|effect|restrictions|text|summary|notes?|composition|compositionNote|faithNote|impNote|reqText|message|why|stamp)(\[\d+\])?$/;
-const isProse = p => PROSE.test(p) && !/\.buffs\[/.test(p);
+/* armyRules[].text is a list of paragraphs: how many there are, and whether it
+   is still a bare string, is wording, not mechanics. */
+const isProse = p => (PROSE.test(p) && !/\.buffs\[/.test(p)) || /\.armyRules\[\d+\]\.text\.length$/.test(p);
 
 const flat = o => {
   const m = {};
@@ -58,13 +61,39 @@ for (const k of new Set([...Object.keys(a), ...Object.keys(b)])) {
   else if (a[k] !== b[k]) rows.push(['CHANGED', k, `${JSON.stringify(a[k])} -> ${JSON.stringify(b[k])}`]);
 }
 
+/* docs/mechanics-accepted.json: mechanics changes vs main that were reviewed
+   against a source and kept. An entry only matches when path, change type and
+   value are identical, so a later edit to the same field shows up again.
+   --all ignores the ledger. */
+const all = process.argv.includes('--all');
+const ledgerFile = path.join(L.ROOT, 'docs', 'mechanics-accepted.json');
+let accepted = 0;
+if (!all && fs.existsSync(ledgerFile)) {
+  const ledger = JSON.parse(fs.readFileSync(ledgerFile, 'utf8'));
+  if (ledger.ref === ref) {
+    const ok = new Set(ledger.entries.map(e => `${e.change}|${e.path}|${e.value}`));
+    const seen = new Set();
+    for (let i = rows.length - 1; i >= 0; i--) {
+      const k = `${rows[i][0].trim()}|${rows[i][1]}|${rows[i][2]}`;
+      if (ok.has(k)) { rows.splice(i, 1); accepted += 1; seen.add(k); }
+    }
+    /* A reviewed fix that is no longer there was undone: that reintroduces a
+       known error, so it counts against the pass like any other change. */
+    for (const e of ledger.entries) {
+      const k = `${e.change}|${e.path}|${e.value}`;
+      if (!seen.has(k)) rows.push(['REVERTED', e.path, `${e.value}  (reviewed fix no longer present: ${e.why})`]);
+    }
+  }
+}
+if (accepted) console.log(`${accepted} reviewed change(s) vs ${ref} accepted from docs/mechanics-accepted.json (--all to show them)`);
+
 const byFaction = {};
 for (const r of rows) {
   const f = (r[1].match(/^\.(\w+)/) || [, '(root)'])[1];
   (byFaction[f] = byFaction[f] || []).push(r);
 }
 
-console.log(`mechanics differences vs ${ref}: ${rows.length}\n`);
+console.log(`unreviewed mechanics differences vs ${ref}: ${rows.length}\n`);
 for (const f of Object.keys(byFaction)) {
   const list = byFaction[f];
   console.log(`  ${f}  (${list.length})`);

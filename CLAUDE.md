@@ -76,6 +76,32 @@ node tools/release.js                                        # all four markers
 `mechanics-diff` is the one that catches what the others miss. Anything it
 reports that you did not do yourself is damage — investigate before shipping.
 
+### The reviewed-mechanics ledger
+
+`docs/mechanics-accepted.json` lists mechanics changes vs `main` that were
+checked against a source and kept, each with its reason. `mechanics-diff`
+subtracts exact matches (same path, same value) and fails on anything else —
+including a reviewed fix that has been undone (`REVERTED`). `--all` ignores
+the ledger.
+
+To accept a new change: verify it against the current rules, then add one
+entry with the source in `why`. Never add an entry just to make the gate pass.
+
+The first review (2026-10-08) found the text agent right on almost every
+"damage" item — main had detachment rules (Condemnatory Psalms, Brazen Fury,
+Terror of Khorne) pasted onto datasheets and 10th-edition names. Its real
+mistakes were few: a CP value, a dropped ability, and rules written in shapes
+the engine does not read. Verify before reverting; do not assume either side.
+
+### Sources, in the order they proved reliable
+
+1. wahapedia.ru/wh40k11ed datasheet pages — matched the current Faction Packs
+   on every point checked.
+2. BSData `wh40k-11e` (GitHub, machine-readable, cloneable) — good for
+   conditions (e.g. Deep Strike only with Lord Invocatus), but still carries
+   10th-edition weapon and ability names, and attaches detachment-granted
+   abilities to datasheets. Do not use it alone to settle a name.
+
 ## Deploy
 
 GitHub Pages serves a branch directly, set in Settings → Pages. No build
@@ -96,7 +122,14 @@ update check reports "already latest" forever.
 
 - Run `mechanics-diff` against `main` before every release, not after a bug.
 - Prefer a guard in the shared function over a guard in each caller. The
-  engine now skips a malformed buff instead of throwing; do the same for the
-  next shape that bites.
+  engine now skips a malformed buff and a malformed optionRule instead of
+  throwing; do the same for the next shape that bites.
+- `validate-data` runs the engine over every unit in every detachment
+  (`E-CRASH`) and fails on an enhancement no unit can take or an optionRule
+  pointing at a missing option (`E-MECH`). A new shape that throws is caught
+  there, not on a phone.
+- The faction (`unit.faction`, e.g. WORLD EATERS, BLOOD LEGIONS) counts as a
+  keyword in `Engine.keywordsOf`, as it does in the rules, so eligibility can
+  say "WORLD EATERS model only" with `keywordsAny`.
 - When you cannot reproduce something, say so and stop. Do not ship a fix
   for a bug you have only reasoned about.
