@@ -803,16 +803,20 @@
       ${S.rulesSeg === 'army' ? armyRulesHTML(fd) : dets.map(d => detachmentHTML(d, r)).join('')}</div>`;
   }
 
+  /* Source filter: every detachment's stratagems sit together under
+     "Stratagems"; Core goes last because players know those by heart.
+     Shared by both layouts so S.stratSrc means the same thing in each. */
+  const SRC_CHIPS = ['All', 'Stratagems', 'Core'];
+  const bySrc = x => S.stratSrc === 'All' || (S.stratSrc === 'Core' ? x.src === 'Core' : x.src !== 'Core');
+  const chipRow = (label, inner, cls = '') => `<div class="stack" style="gap:4px"><div class="eyebrow">${label}</div><div class="chips ${cls}" role="group" aria-label="${label}">${inner}</div></div>`;
+  const srcChips = () => SRC_CHIPS.map(s => `<button class="chip" aria-pressed="${S.stratSrc === s}" data-act="stratSrc" data-id="${s}">${s}</button>`).join('');
+
   function stratsTabHTML(r) {
-    const fd = fdata(r.factionId);
-    const dets = r.detachmentIds.map(id => fd.detachments.find(d => d.id === id));
-    let list = allStrats(r);
-    if (S.stratSrc !== 'All') list = list.filter(x => x.src === S.stratSrc);
+    let list = allStrats(r).filter(bySrc);
     if (S.stratPhase !== 'All') list = list.filter(x => x.s.phases.includes(S.stratPhase) || x.s.phases.includes('Any'));
     const phases = ['All', 'Command', 'Movement', 'Shooting', 'Charge', 'Fight', 'Any'];
-    const srcs = ['All', 'Core', ...dets.map(d => d.name)];
-    return `<div class="stack"><div class="chips phase-row" role="group" aria-label="Phase">${phases.map(p => `<button class="chip" aria-pressed="${S.stratPhase === p}" data-act="stratPhase" data-id="${p}" ${p !== 'All' ? `style="border-color:var(${PH_VAR[p]})"` : ''}>${p === 'Any' ? 'Any / Other' : p}</button>`).join('')}</div>
-      <div class="chips" role="group" aria-label="Source">${srcs.map(s => `<button class="chip" aria-pressed="${S.stratSrc === s}" data-act="stratSrc" data-id="${esc(s)}">${esc(s)}</button>`).join('')}</div>
+    return `<div class="stack">${chipRow('Phase', phases.map(p => `<button class="chip" aria-pressed="${S.stratPhase === p}" data-act="stratPhase" data-id="${p}" ${p !== 'All' ? `style="border-color:var(${PH_VAR[p]})"` : ''}>${p === 'Any' ? 'Any / Other' : p}</button>`).join(''), 'phase-row')}
+      ${chipRow('Source', srcChips())}
       ${S.stratPhase !== 'All' ? '<div class="faint" style="font-size:.85rem">Stratagems usable in any phase are included.</div>' : ''}
       <div class="sgrid">${list.map(x => stratCard(x.s, x.src)).join('') || '<div class="empty">No stratagems for this filter.</div>'}</div></div>`;
   }
@@ -1959,12 +1963,9 @@
   }
   function stratsM(r) {
     const p = playState(r);
-    const fd = fdata(r.factionId);
-    const dets = r.detachmentIds.map(id => fd.detachments.find(d => d.id === id));
-    let list = allStrats(r);
+    let list = allStrats(r).filter(bySrc);
     const mode = S.stratMode;
     if (mode !== 'all') list = list.filter(x => x.s.phases.includes(mode) || x.s.phases.includes('Any'));
-    if (S.stratSrc !== 'All') list = list.filter(x => x.src === S.stratSrc);
     const stamp = `${p.round}-${p.turn}-${p.phase}`;
     const modes = [['all', 'All'], ...PHASES.map(ph => [ph, ph])];
     const row = x => {
@@ -1973,8 +1974,8 @@
         ${open ? `<div class="srow-b">${stratDL(x.s)}<div class="faint" style="font-size:.8rem">${esc(x.src)}</div>
           <button class="btn ${used || p.cp < x.s.cp ? '' : 'primary'}" data-act="useStrat" data-id="${esc(x.key)}" data-cp="${x.s.cp}" ${used ? 'aria-disabled="true"' : ''}>${used ? 'Used this phase' : p.cp < x.s.cp ? `Needs ${x.s.cp} CP · you have ${p.cp}` : `Use · −${x.s.cp} CP (you have ${p.cp})`}</button></div>` : ''}</article>`;
     };
-    return `<div class="stack"><div class="chips scroll" role="group" aria-label="When">${modes.map(([id, l]) => `<button class="chip" aria-pressed="${mode === id}" data-act="stratMode" data-id="${id}" ${PH_VAR[id] ? `style="border-color:var(${PH_VAR[id]})"` : ''}>${esc(l)}</button>`).join('')}</div>
-      <div class="chips scroll" role="group" aria-label="Source">${['All', 'Core', ...dets.map(d => d.name)].map(x => `<button class="chip" aria-pressed="${S.stratSrc === x}" data-act="stratSrc" data-id="${esc(x)}">${esc(x)}</button>`).join('')}</div>
+    return `<div class="stack">${chipRow('Phase', modes.map(([id, l]) => `<button class="chip" aria-pressed="${mode === id}" data-act="stratMode" data-id="${id}" ${PH_VAR[id] ? `style="border-color:var(${PH_VAR[id]})"` : ''}>${esc(l)}</button>`).join(''), 'scroll')}
+      ${chipRow('Source', srcChips(), 'scroll')}
       ${mode !== 'all' ? '<div class="faint" style="font-size:.85rem">Stratagems usable in any phase are included.</div>' : ''}
       <div class="slist">${list.map(row).join('') || '<div class="empty">No stratagems for this moment.</div>'}</div></div>`;
   }
