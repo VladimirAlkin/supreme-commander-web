@@ -2042,9 +2042,37 @@
      iPhone), so no history entries there at all; the left-edge swipe below is the only Back gesture. */
   const IOS_APP = window.navigator.standalone === true;
   const HIST = !NATIVE && !IOS_APP && window.top === window && !!(window.history && history.pushState);
-  let histArmed = false;
-  function armHistory() { if (!HIST || histArmed || atRoot()) return; try { history.pushState({ sc: 1 }, ''); histArmed = true; } catch (e) { } }
-  if (HIST) window.addEventListener('popstate', () => { histArmed = false; goBack(); armHistory(); });
+  /* One history entry per open layer. The old version kept a single spare
+     entry no matter how deep you were, so from a unit's datasheet the first
+     Back worked, the second found nothing left and dropped out of the app.
+     Entries are pushed on the way down during an ordinary render, and each
+     Back consumes exactly one on the way up.
+     uiDepth mirrors goBack's ladder: it counts how many Backs still have
+     somewhere to go. armHistory re-syncs on every render, so if a count is
+     ever off it corrects itself on the next one rather than drifting. */
+  function uiDepth() {
+    let d = 0;
+    if (S.sheet) d += 1;
+    if (S.modal) d += 1;
+    if (S.renaming) d += 1;
+    if (S.view === 'roster') {
+      if (S.sub) d += 1;
+      if (S.m && S.tab !== 'build') d += 1;
+      d += 1;                                  /* leaveRoster */
+      if (S.rosterFrom !== 'home') d += 1;     /* ...which lands on faction */
+    } else if (S.view === 'wizard') d += 2;    /* -> faction -> home */
+    else if (S.view === 'faction') d += 1;     /* -> home */
+    else if (S.view === 'home' && S.homeTab !== 'armies') d += 1;
+    return d;
+  }
+  let histDepth = 0;
+  function armHistory() {
+    if (!HIST) return;
+    const d = uiDepth();
+    while (histDepth < d) { try { history.pushState({ sc: histDepth + 1 }, ''); } catch (e) { return; } histDepth += 1; }
+    if (histDepth > d) histDepth = d;
+  }
+  if (HIST) window.addEventListener('popstate', () => { if (histDepth > 0) histDepth -= 1; goBack(); armHistory(); });
   /* iPhone home-screen app: a swipe from the left edge does Back here (there is no history for iOS to go back through). */
   if (IOS_APP && window.top === window) {
     document.documentElement.classList.add('ios-app');
