@@ -27031,11 +27031,6 @@ const DATA = {
        "name": "Sacred Command",
        "text": "Once per battle round, one unit with this ability can use it when its unit is targeted with a Stratagem: that use costs 1CP less.",
        "kind": "datasheet"
-      },
-      {
-       "name": "Condemnatory Psalms",
-       "text": "Your Shooting phase: pick one visible enemy unit within 12\"; it is condemned and has +3\" detection range.",
-       "kind": "datasheet"
       }
      ],
      "sizes": [
@@ -30926,11 +30921,6 @@ const DATA = {
        "name": "Angelic Ascent",
        "text": "Your Shooting phase, after it shoots, if unengaged: Normal move up to 6\"; it cannot charge this turn.",
        "kind": "datasheet"
-      },
-      {
-       "name": "Condemnatory Psalms",
-       "text": "Your Shooting phase: pick one visible enemy unit within 12\"; it is condemned and has +3\" detection range.",
-       "kind": "datasheet"
       }
      ],
      "sizes": [
@@ -31533,11 +31523,6 @@ const DATA = {
       {
        "name": "Embodied Prophecy",
        "text": "When it fights, its melee weapons gain [SUSTAINED HITS 1] or [LETHAL HITS] until the end of the phase; both if it charged this turn.",
-       "kind": "datasheet"
-      },
-      {
-       "name": "Condemnatory Psalms",
-       "text": "Your Shooting phase: pick one visible enemy unit within 12\"; it is condemned and has +3\" detection range.",
        "kind": "datasheet"
       },
       {
