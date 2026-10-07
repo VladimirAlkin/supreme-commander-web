@@ -1467,7 +1467,7 @@ const DATA = {
        ],
        "when": "Your opponent's Shooting phase, right after an enemy unit has shot.",
        "target": "One WORLD EATERS VEHICLE hit by those attacks.",
-       "effect": "It can make a Normal move of up to 6\".",
+       "effect": "Your unit can make a Normal move of up to 6\".",
        "restrictions": "Not in the same phase as Fury Unleashed."
       },
       {
@@ -1623,7 +1623,7 @@ const DATA = {
        ],
        "when": "Any phase, when a friendly WORLD EATERS CHARACTER unit (not EPIC HERO) would suffer a mortal wound.",
        "target": "That unit.",
-       "effect": "It has Feel No Pain 4+ against mortal wounds."
+       "effect": "Until the end of the phase, models in your unit have the Feel No Pain 4+ ability against mortal wounds."
       },
       {
        "id": "aspire_to_infamy",
@@ -1715,7 +1715,7 @@ const DATA = {
        ],
        "when": "Fight phase, when a friendly TERMINATOR SQUAD unit is selected to fight.",
        "target": "That unit.",
-       "effect": "Its melee attacks get +1 A."
+       "effect": "Until the end of the phase, add 1 to the Attacks characteristic of melee weapons equipped by models in your unit."
       },
       {
        "id": "a_trophy_for_the_throne",
@@ -6082,7 +6082,7 @@ const DATA = {
         "Fight"
        ],
        "when": "Your opponent's Shooting phase or the Fight phase, right after an enemy unit selects its targets.",
-       "target": "One TYRANIDS unit targeted by those attacks.",
+       "target": "One TYRANIDS unit from your army that was targeted by those attacks.",
        "effect": "Until the end of the phase it has Feel No Pain 6+, or 5+ while within Synapse Range."
       },
       {
@@ -6106,7 +6106,7 @@ const DATA = {
         "Fight"
        ],
        "when": "Fight phase, right after an enemy unit selects its targets.",
-       "target": "One TYRANIDS unit targeted by those attacks.",
+       "target": "One TYRANIDS unit from your army that was targeted by those attacks.",
        "effect": "Until the end of the phase, when a model in it is destroyed before it has fought, roll D6: on a 4+ it can fight after the attacking unit finishes, then is removed."
       },
       {
@@ -6289,7 +6289,7 @@ const DATA = {
         "Movement"
        ],
        "when": "End of your Movement phase.",
-       "target": "One TYRANIDS unit set up as Reinforcements this turn.",
+       "target": "One TYRANIDS unit from your army that was set up as Reinforcements this turn.",
        "effect": "Until the end of your next Fight phase its weapons have [SUSTAINED HITS 1] and [IGNORES COVER]."
       },
       {
@@ -6482,7 +6482,7 @@ const DATA = {
         "Command"
        ],
        "when": "Your Command phase.",
-       "target": "One TYRANIDS unit within Synapse Range.",
+       "target": "One TYRANIDS unit from your army that is within Synapse Range.",
        "effect": "Pick any Synaptic Imperative, even one already used. Until your next Command phase it applies to this unit instead of the army's current one."
       },
       {
@@ -6759,7 +6759,7 @@ const DATA = {
         "Fight"
        ],
        "when": "Fight phase, right after an enemy unit selects its targets.",
-       "target": "One TYRANIDS MONSTER unit targeted by those attacks.",
+       "target": "One TYRANIDS MONSTER unit from your army that was targeted by those attacks.",
        "effect": "The enemy unit takes a battle-shock test and gets -1 to hit against your unit until the end of the phase; also -1 to wound if it failed the test."
       },
       {
@@ -12730,7 +12730,7 @@ const DATA = {
         "Fight"
        ],
        "when": "Your opponent's Shooting phase or the Fight phase, right after an enemy unit selects its targets.",
-       "target": "One DEATH GUARD unit targeted by those attacks.",
+       "target": "One DEATH GUARD unit from your army that was targeted by those attacks.",
        "effect": "Until the end of the phase, attacks allocated to its models get -1 Damage."
       },
       {
@@ -12754,7 +12754,7 @@ const DATA = {
         "Command"
        ],
        "when": "Your Command phase.",
-       "target": "One DEATH GUARD model that has lost one or more wounds.",
+       "target": "One DEATH GUARD model from your army that has lost one or more wounds.",
        "effect": "Pick one enemy unit within 3\" and roll one D6 per wound your model has lost: each 5+ inflicts 1 mortal wound on that unit and heals your model by 1 wound (up to 6 each)."
       },
       {
@@ -12766,7 +12766,7 @@ const DATA = {
         "Shooting"
        ],
        "when": "Start of your Shooting phase.",
-       "target": "One DEATH GUARD CHARACTER unit.",
+       "target": "One DEATH GUARD CHARACTER unit from your army.",
        "effect": "Pick one enemy unit visible to it. Until the end of the phase, DEATH GUARD units shooting at that enemy can re-roll the number of attacks their weapons make."
       },
       {
@@ -12778,7 +12778,7 @@ const DATA = {
         "Shooting"
        ],
        "when": "Your Shooting phase.",
-       "target": "One DEATH GUARD INFANTRY unit that has not shot this phase.",
+       "target": "One DEATH GUARD INFANTRY unit from your army that has not shot this phase.",
        "effect": "Until the end of the phase, its ranged attacks against an Afflicted unit can re-roll the hit roll and the wound roll."
       }
      ]
@@ -12862,7 +12862,7 @@ const DATA = {
         "Movement"
        ],
        "when": "End of your Movement phase.",
-       "target": "One DEATH GUARD VEHICLE unit.",
+       "target": "One DEATH GUARD VEHICLE unit from your army.",
        "effect": "Pick a terrain feature within 24\" that it can see. Until the start of your next turn, enemy units within 3\" of that terrain feature are Afflicted."
       },
       {
@@ -12875,7 +12875,7 @@ const DATA = {
         "Charge"
        ],
        "when": "Your Movement or Charge phase.",
-       "target": "One DEATH GUARD VEHICLE unit that has not moved or charged this phase.",
+       "target": "One DEATH GUARD VEHICLE unit from your army that has not moved or charged this phase.",
        "effect": "Until the end of the phase, its Normal, Advance and Charge moves can pass horizontally through terrain features."
       },
       {
@@ -12887,7 +12887,7 @@ const DATA = {
         "Shooting"
        ],
        "when": "Your Shooting phase.",
-       "target": "One DEATH GUARD unit that has not shot this phase.",
+       "target": "One DEATH GUARD unit from your army that has not shot this phase.",
        "effect": "Until the end of the phase, its attacks against visible enemy units (not AIRCRAFT) in your opponent's deployment zone can re-roll the hit roll."
       },
       {
@@ -12899,7 +12899,7 @@ const DATA = {
         "Shooting"
        ],
        "when": "Your Shooting phase.",
-       "target": "One DEATH GUARD VEHICLE unit that has not shot this phase.",
+       "target": "One DEATH GUARD VEHICLE unit from your army that has not shot this phase.",
        "effect": "Until the end of the phase its ranged weapons have [ASSAULT]."
       },
       {
@@ -12911,7 +12911,7 @@ const DATA = {
         "Command"
        ],
        "when": "Your opponent's Command phase.",
-       "target": "One DEATH GUARD VEHICLE unit.",
+       "target": "One DEATH GUARD VEHICLE unit from your army.",
        "effect": "Pick an objective marker it can see: every Afflicted enemy unit within range of it takes a battle-shock test (and no other battle-shock test that phase)."
       },
       {
@@ -12923,7 +12923,7 @@ const DATA = {
         "Charge"
        ],
        "when": "Start of your opponent's Charge phase.",
-       "target": "One unengaged DEATH GUARD VEHICLE unit.",
+       "target": "One unengaged DEATH GUARD VEHICLE unit from your army.",
        "effect": "Pick one visible enemy unit within 12\": if it declares a charge, it gets -1 to the charge roll."
       }
      ]
@@ -13015,7 +13015,7 @@ const DATA = {
         "Fight"
        ],
        "when": "Your Shooting phase or the Fight phase.",
-       "target": "One DEATH GUARD Attached unit that has not shot or fought this phase.",
+       "target": "One DEATH GUARD Attached unit from your army that has not shot or fought this phase.",
        "effect": "Until the end of the phase its attacks score a critical hit on an unmodified hit roll of 5+."
       },
       {
@@ -13028,7 +13028,7 @@ const DATA = {
         "Fight"
        ],
        "when": "Your Shooting phase or the Fight phase.",
-       "target": "One DEATH GUARD Attached unit that has not shot or fought this phase.",
+       "target": "One DEATH GUARD Attached unit from your army that has not shot or fought this phase.",
        "effect": "Until the end of the phase its attacks against units below Starting Strength can re-roll the hit roll and the wound roll."
       },
       {
@@ -13041,7 +13041,7 @@ const DATA = {
         "Fight"
        ],
        "when": "Your opponent's Shooting phase or the Fight phase, right after an enemy unit selects its targets.",
-       "target": "One DEATH GUARD Attached unit targeted by those attacks.",
+       "target": "One DEATH GUARD Attached unit from your army that was targeted by those attacks.",
        "effect": "Until the end of the phase its models get +2 Toughness."
       },
       {
@@ -13053,7 +13053,7 @@ const DATA = {
         "Fight"
        ],
        "when": "Start of the Fight phase.",
-       "target": "One DEATH GUARD unit that contains two CHARACTER models.",
+       "target": "One DEATH GUARD unit from your army that contains two CHARACTER models.",
        "effect": "Until the end of the phase it has Fights First."
       },
       {
@@ -13065,7 +13065,7 @@ const DATA = {
         "Movement"
        ],
        "when": "Your Movement phase, before the Reinforcements step.",
-       "target": "One other friendly DEATH GUARD unit (excluding Battle-shocked units and Attached units that already have two Leader units or one of your CHARACTER units leading it).",
+       "target": "One other friendly DEATH GUARD unit (excluding Battle-shocked units and Attached units that already have two Leader units or one of your CHARACTER units leading it) from your army.",
        "effect": "Attach it as a Leader to another friendly DEATH GUARD unit within 2\" horizontally and 5\" vertically that it could lead (not battle-shocked, and with room for another Leader). Adjust that unit's Starting Strength."
       },
       {
@@ -13179,7 +13179,7 @@ const DATA = {
         "Fight"
        ],
        "when": "Fight phase.",
-       "target": "One DEATH GUARD unit that has not fought this phase.",
+       "target": "One DEATH GUARD unit from your army that has not fought this phase.",
        "effect": "Until the end of the phase its attacks against enemy units engaged with your PLAGUE LEGIONS units can re-roll the hit roll."
       },
       {
@@ -13337,7 +13337,7 @@ const DATA = {
         "Fight"
        ],
        "when": "Fight phase, right after an enemy unit selects its targets.",
-       "target": "One POXWALKERS unit targeted by those attacks.",
+       "target": "One POXWALKERS unit from your army that was targeted by those attacks.",
        "effect": "After the attacker fights, roll D6 for each Poxwalker it destroyed: each 6 inflicts 1 mortal wound on it. If your unit survives, models killed this way count for Curse of the Walking Pox."
       },
       {
@@ -13361,7 +13361,7 @@ const DATA = {
         "Command"
        ],
        "when": "Your Command phase.",
-       "target": "One POXWALKERS unit.",
+       "target": "One POXWALKERS unit from your army.",
        "effect": "Until the end of the turn: +1 Move, and +1 A and +1 S for its melee weapons."
       },
       {
@@ -13373,7 +13373,7 @@ const DATA = {
         "Movement"
        ],
        "when": "Reinforcements step of your Movement phase.",
-       "target": "One POXWALKERS unit in Strategic Reserves that is not an Attached unit.",
+       "target": "One POXWALKERS unit from your army in Strategic Reserves that is not an Attached unit.",
        "effect": "Until the end of the phase its models have Deep Strike."
       },
       {
@@ -13397,7 +13397,7 @@ const DATA = {
         "Shooting"
        ],
        "when": "Your opponent's Shooting phase, right after an enemy unit selects its targets.",
-       "target": "One DEATH GUARD unit targeted by those attacks, and one friendly POXWALKERS unit within 3\" that both it and the attacker can see.",
+       "target": "One DEATH GUARD unit from your army that was targeted by those attacks, and one friendly POXWALKERS unit within 3\" of that unit.",
        "effect": "Until the end of the phase, each time you would allocate an attack to a model in your DEATH GUARD unit, if your POXWALKERS unit is visible to the attacking model and is an eligible target for that attack, no saving throw is made for that attack; instead a number of POXWALKERS models from that unit equal to the Damage characteristic of that attack are destroyed."
       }
      ]
@@ -13787,7 +13787,7 @@ const DATA = {
         "Command"
        ],
        "when": "Start of the Command phase.",
-       "target": "One DEATH GUARD CHARACTER unit.",
+       "target": "One DEATH GUARD CHARACTER unit from your army.",
        "effect": "It gets +1 OC until the end of the turn."
       },
       {
@@ -13799,7 +13799,7 @@ const DATA = {
         "Shooting"
        ],
        "when": "Start of your Shooting phase.",
-       "target": "One DEATH GUARD CHARACTER unit.",
+       "target": "One DEATH GUARD CHARACTER unit from your army.",
        "effect": "Pick one visible enemy unit within its Contagion Range: that unit has +6\" detection range."
       },
       {
@@ -19048,7 +19048,7 @@ const DATA = {
        ],
        "when": "Any phase, right after a saving throw is failed for a THOUSAND SONS PSYKER model.",
        "target": "That model.",
-       "effect": "Change the Damage of that attack to 0."
+       "effect": "Change the Damage characteristic of that attack to 0."
       },
       {
        "id": "egotistical_power",
@@ -19247,7 +19247,7 @@ const DATA = {
        ],
        "when": "End of your opponent's Fight phase.",
        "target": "Up to two SCINTILLATING LEGIONS units (not MONSTERS), or one SCINTILLATING LEGIONS MONSTER, all more than 6\" from enemy units.",
-       "effect": "Place them into Strategic Reserves."
+       "effect": "Remove your unit from the battlefield and place it into Strategic Reserves. In your next Movement phase it must make an ingress move more than 6\" horizontally away from all enemy units."
       }
      ]
     },
@@ -19980,7 +19980,7 @@ const DATA = {
        ],
        "when": "Your Movement phase, when a friendly MONSTER MUTANT unit is selected to move.",
        "target": "That unit.",
-       "effect": "It has MOBILE."
+       "effect": "Until the end of the phase, your unit has the MOBILE ability (it can shoot and charge in a turn in which it Fell Back)."
       }
      ]
     },
@@ -25369,7 +25369,7 @@ const DATA = {
        ],
        "when": "Your opponent's Shooting phase, right after an enemy unit has shot.",
        "target": "One PENITENT unit targeted by those attacks.",
-       "effect": "It can make a surge move of up to D6\"."
+       "effect": "Your unit can make a surge move of up to D6\"."
       }
      ]
     },
@@ -25664,7 +25664,7 @@ const DATA = {
        ],
        "when": "End of your opponent's Fight phase.",
        "target": "One unengaged ADEPTA SORORITAS JUMP PACK unit.",
-       "effect": "Place it into Strategic Reserves."
+       "effect": "Remove your unit from the battlefield and place it into Strategic Reserves."
       }
      ]
     },
@@ -25975,7 +25975,7 @@ const DATA = {
        ],
        "when": "Fight phase, when a CELESTIAN SACRESANTS unit is selected to fight.",
        "target": "That unit.",
-       "effect": "+1 A and +1 S on its melee attacks."
+       "effect": "Until the end of the phase, add 1 to the Attacks characteristic and add 1 to the Strength characteristic of melee weapons equipped by models in your unit."
       },
       {
        "id": "faithful_fortitude",
