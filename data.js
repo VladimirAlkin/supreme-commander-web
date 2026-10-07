@@ -581,10 +581,7 @@ const DATA = {
      "id": "blessings",
      "name": "Blessings of Khorne",
      "text": [
-      "At the start of each battle round, if your Army Faction is WORLD EATERS, you can make a Blessings of Khorne roll: roll 8D6.",
-      "Spend those dice to activate up to two different Blessings. Each Blessing needs a double (or triple) of the shown value or higher.",
-      "Each Blessing can be activated once per battle round. Unused dice are discarded.",
-      "An active Blessing applies to every unit in your army with the Blessings of Khorne ability until the end of the battle round."
+      "If your Army Faction is WORLD EATERS, at the start of the battle round, you can make a Blessings of Khorne roll. To do so, roll eight D6. You can then use those dice to activate up to two Blessings of Khorne (see below). Each Blessing of Khorne specifies the dice results it requires (where a number is specified, a double or triple of that value or higher is required). You can only activate each Blessing of Khorne once per battle round. Any unused dice from the Blessings of Khorne roll are then discarded. Once activated, each Blessing of Khorne applies to all units from your army with this ability until the end of the battle round."
      ],
      "blessings": [
       {
@@ -597,7 +594,7 @@ const DATA = {
         }
        ],
        "reqText": "Any double",
-       "effect": "Add 1 to Charge rolls made for this unit."
+       "effect": "This unit has +1 to charge rolls."
       },
       {
        "id": "b2",
@@ -621,7 +618,7 @@ const DATA = {
         }
        ],
        "reqText": "Double 3+",
-       "effect": "Each time a model in this unit is destroyed by a melee attack, if it has not fought this phase, roll one D6: on a 4+, do not remove it from play. The destroyed model can fight after the attacking model's unit has finished making its attacks, and is then removed from play.",
+       "effect": "Each time a model in this unit is destroyed by a melee attack, if it has not fought this phase, roll one D6: on a 4+, do not remove it from play. The destroyed model can fight after the attacking unit has finished making its attacks, and is then removed from play.",
        "text": "Each time a model in this unit is destroyed by a melee attack, if it has not fought this phase, roll one D6: on a 4+, do not remove it from play. The destroyed model can fight after the attacking model's unit has finished making its attacks, and is then removed from play."
       },
       {
@@ -677,11 +674,7 @@ const DATA = {
     {
      "id": "pact",
      "name": "Pact of Blood",
-     "text": [
-      "BLOOD LEGIONS units can only be included if your army has the Khorne Daemonkin detachment.",
-      "BLOOD LEGIONS cannot be your Army Faction, and no BLOOD LEGIONS model can be your Warlord.",
-      "Points cap for BLOOD LEGIONS units: Incursion 500, Strike Force 1000, Onslaught 1500."
-     ]
+     "text": "When mustering your army, unless specifically stated otherwise, you cannot select BLOOD LEGIONS as your Army Faction."
     }
    ],
    "detachments": [
@@ -693,7 +686,7 @@ const DATA = {
      "summary": "Each time a WORLD EATERS unit makes a Charge move, until the end of the turn its melee weapons get +1 Attacks and +2 Strength.",
      "rule": {
       "name": "Relentless Rage",
-      "text": "Each time a WORLD EATERS unit from your army makes a Charge move , until the end of the turn, add 1 to the Attacks characteristic and add 2 to the Strength characteristic of melee weapons equipped by models in that unit."
+      "text": "Each time a WORLD EATERS unit from your army makes a Charge move, until the end of the turn, add 1 to the Attacks characteristic and add 2 to the Strength characteristic of melee weapons equipped by models in that unit."
      },
      "buffs": [
       {
@@ -12612,14 +12605,7 @@ const DATA = {
        "effect": "Worsen their Move, Leadership and OC by 1 (OC cannot drop below 1)."
       }
      ],
-     "text": [
-      "If your Army Faction is DEATH GUARD: while an enemy unit is within Contagion Range of one or more DEATH GUARD models from your army, it is Afflicted.",
-      "Contagion Range is 3\" in the first battle round, 6\" in the second and 9\" from the third onwards. Modifiers can never take it above 12\".",
-      "In the Declare Battle Formations step pick one Plague. For the rest of the battle an Afflicted enemy unit has -1 Toughness and suffers that Plague.",
-      "Skullsquirm Blight: Their ranged attacks give your units the benefit of cover, and their melee attacks get -1 to hit.",
-      "Rattlejoint Ague: Worsen their Save characteristic by 1.",
-      "Scabrous Soulrot: Worsen their Move, Leadership and OC by 1 (OC cannot drop below 1)."
-     ]
+     "text": "If your Army Faction is DEATH GUARD, while an enemy unit is within Contagion Range of one or more DEATH GUARD models from your army, it is Afflicted. CONTAGION RANGE: Contagion Range changes over the course of the battle. Contagion Range cannot be greater than 12\" after modifiers. AFFLICTED: During the Declare Battle Formations step, select one of the Plagues below. Until the end of the battle, while an enemy unit is Afflicted, subtract 1 from the Toughness characteristic of models in that unit, and that unit has the effect of your chosen Plague. Skullsquirm Blight: Each time a model in this unit makes a ranged attack, enemy units have the benefit of cover against that attack. Each time a model in this unit makes a melee attack, subtract 1 from the Hit roll. Rattlejoint Ague: Worsen the Save characteristic of models in this unit by 1. Scabrous Soulrot: Worsen the Move, Leadership, and Objective Control characteristics of models in this unit by 1 (this rule can only worsen a model’s Objective Control characteristic to a minimum of 1)."
     },
     {
      "id": "pact_of_decay",
@@ -12643,7 +12629,7 @@ const DATA = {
      "summary": "Objectives you hold stay yours and afflict every enemy unit on them.",
      "rule": {
       "name": "Worldblight",
-      "text": "At the end of your Command phase , if a friendly DEATH GUARD unit is controlling an objective , that objective is secured . Until you lose control of that objective, while an enemy unit is within range of that objective, that enemy unit is Afflicted ."
+      "text": "At the end of your Command phase, if a friendly DEATH GUARD unit is controlling an objective, that objective is secured. Until you lose control of that objective, while an enemy unit is within range of that objective, that enemy unit is Afflicted."
      },
      "enhancements": [
       {
@@ -25037,12 +25023,7 @@ const DATA = {
       "gainTurn": true,
       "gainDestroyed": true
      },
-     "text": [
-      "If your Army Faction is ADEPTA SORORITAS, each unit with this ability can perform one Act of Faith per phase, using Miracle dice.",
-      "You gain 1 Miracle dice at the start of each turn (yours and your opponent's) and each time an ADEPTA SORORITAS unit from your army is destroyed. Roll one D6 when you gain it: that is its value, and it cannot be changed or re-rolled unless a rule says so. Keep them aside as your Miracle dice pool.",
-      "Before a roll for a unit with this ability, it can perform an Act of Faith: pick a die from your pool to stand in for one dice of that roll (only one dice of a Charge roll or Battle-shock test). It counts as an unmodified roll of that value. Each Miracle dice is used once. Allowed rolls: Advance, Battle-shock, Charge, Damage, Hit, Saving throw, Wound.",
-      "FAQ: a Miracle dice can be part of a re-roll; if you re-roll a roll that used one, that die is lost (the Act of Faith still counts). In the attack sequence you substitute before rolling a group of hit, wound or save rolls, or a single damage roll."
-     ]
+     "text": "If your Army Faction is ADEPTA SORORITAS, each unit from your army with this ability can perform one Act of Faith per phase. GAINING MIRACLE DICE: If your Army Faction is ADEPTA SORORITAS, you gain 1 Miracle dice: at the start of each turn; each time an ADEPTA SORORITAS unit from your army is destroyed. Each time you gain a Miracle dice, roll one D6. The number you roll is the value of that Miracle dice. This value cannot be changed or re-rolled, unless a rule specifically states otherwise. Keep your Miracle dice to one side – this is your Miracle dice pool. PERFORMING AN ACT OF FAITH: Before making a dice roll for a model or unit from your army with the Acts of Faith ability, if you have one or more dice in your Miracle dice pool, that unit can perform an Act of Faith. If it does, select one of the dice from your Miracle dice pool to substitute that dice roll (if a roll involves more than one dice, e.g. a Charge roll or Battle-shock test, only a single dice can be substituted). The dice that is being substituted is not rolled; instead, the value of the selected Miracle dice is used as if it had been rolled (this counts as an unmodified dice roll of that value for all rules purposes). Each Miracle dice can only be selected for substitution once. Once all Miracle dice substitutions have been made, remove the chosen Miracle dice from your Miracle dice pool, and roll all remaining, unsubstituted dice that are a part of the dice roll. You can use Miracle dice when a unit performs an Act of Faith for any of the following types of dice roll: Advance roll; Battle-shock test; Charge roll; Damage roll; Hit roll; Saving throw; Wound roll."
     },
     {
      "id": "assigned_agents",
@@ -25067,7 +25048,7 @@ const DATA = {
      "summary": "Wounded units hit harder: +1 to hit below Starting Strength, +1 to wound as well below Half-strength.",
      "rule": {
       "name": "The Blood of Martyrs",
-      "text": "Each time an ADEPTA SORORITAS model from your army makes an attack, add 1 to the Hit roll if that model’s unit is below its Starting Strength, and add 1 to the Wound roll as well if that model’s unit is Below Half-strength ."
+      "text": "Each time an ADEPTA SORORITAS model from your army makes an attack, add 1 to the Hit roll if that model’s unit is below its Starting Strength, and add 1 to the Wound roll as well if that model’s unit is Below Half-strength."
      },
      "martyrs": true,
      "enhancements": [
@@ -25088,7 +25069,7 @@ const DATA = {
        "name": "Through Suffering, Strength",
        "pts": 25,
        "upgrade": false,
-       "text": "ADEPTA SORORITAS model only. +1 A, S and D for the bearer's melee weapons; +2 instead while it has lost wounds.",
+       "text": "ADEPTA SORORITAS model only. Add 1 to the Attacks, Strength and Damage characteristics of the bearer’s melee weapons. If the bearer has lost one or more wounds, add 2 to the Attacks, Strength and Damage characteristics of the bearer’s melee weapons instead.",
        "eligible": {
         "factionsAll": [
          "Adepta Sororitas"
@@ -25100,7 +25081,7 @@ const DATA = {
        "name": "Chaplet of Sacrifice",
        "pts": 25,
        "upgrade": false,
-       "text": "ADEPTA SORORITAS model only. At the end of your Command phase, if the bearer is on the battlefield, you can discard 1 Miracle dice and then roll one D6: you can return it to the pool showing the new result.",
+       "text": "ADEPTA SORORITAS model only. At the end of your Command phase, if the bearer is on the battlefield, you can re-roll 1 Miracle dice from your Miracle dice pool and return it to your Miracle dice pool showing the new result you rolled. When doing so, if the bearer's unit is below its Starting Strength, you can re-roll up to 3 Miracle dice in this way instead.",
        "eligible": {
         "factionsAll": [
          "Adepta Sororitas"
@@ -25112,7 +25093,7 @@ const DATA = {
        "name": "Mantle of Ophelia",
        "pts": 20,
        "upgrade": false,
-       "text": "CANONESS or PALATINE only. Each time an attack is allocated to the bearer, change the Damage characteristic of that attack to 1.",
+       "text": "CANONESS or PALATINE model only. Each time an attack is allocated to the bearer, change the Damage characteristic of that attack to 1.",
        "eligible": {
         "factionsAll": [
          "Adepta Sororitas"
@@ -25211,7 +25192,7 @@ const DATA = {
      "summary": "Each battle round pick a Vow of Atonement for your PENITENT units; each Vow once per battle.",
      "rule": {
       "name": "Desperate for Redemption",
-      "text": "At the start of the battle round you can pick one Vow of Atonement, active for your army until the next battle round; each Vow only once per battle. The Path of the Penitent: +3\" Move for your PENITENT models. Absolution in Battle: A unit that charged this turn: its PENITENT models get +1 A and +1 S on melee weapons when it fights. Death Before Disgrace: A PENITENT model killed by a melee attack before it fought: on a 2+ it fights after the attacker, then is removed."
+      "text": "At the start of the battle round, you can select one of the following Vows of Atonement to be active for your army until the start of the next battle round. You can only select each Vow of Atonement once per battle."
      },
      "vows": [
       {
