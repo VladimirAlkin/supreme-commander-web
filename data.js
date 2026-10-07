@@ -689,22 +689,25 @@ const DATA = {
      "name": "Berzerker Warband",
      "dp": 2,
      "tags": [],
-     "summary": "Every World Eaters unit gets +1 Attack in melee.",
+     "summary": "Each time a WORLD EATERS unit makes a Charge move, until the end of the turn its melee weapons get +1 Attacks and +2 Strength.",
      "rule": {
       "name": "Relentless Rage",
-      "text": "Melee attacks made by friendly WORLD EATERS units have +1 A."
+      "text": "Each time a WORLD EATERS unit from your army makes a Charge move, until the end of the turn, add 1 to the Attacks characteristic and add 2 to the Strength characteristic of melee weapons equipped by models in that unit."
      },
      "buffs": [
       {
-       "scope": {
-        "factionsAny": [
-         "World Eaters"
-        ]
-       },
        "target": "melee",
        "stat": "A",
        "add": 1,
-       "source": "Relentless Rage"
+       "condition": "after_charge",
+       "duration": "end_of_turn"
+      },
+      {
+       "target": "melee",
+       "stat": "S",
+       "add": 2,
+       "condition": "after_charge",
+       "duration": "end_of_turn"
       }
      ],
      "enhancements": [
@@ -1011,7 +1014,7 @@ const DATA = {
        ],
        "when": "Your Command phase.",
        "target": "One WORLD EATERS MONSTER or TITANIC unit.",
-       "effect": "Pick one more Idol of Khorne ability; it is active for that unit until your next Command phase.",
+       "effect": "Select one Idols of Khorne ability. Until the start of your next Command phase, that Idols of Khorne ability is active for your unit instead of any other Idols of Khorne ability that is active for your army, even if you have already selected that ability this battle.",
        "restrictions": "Once per battle."
       }
      ],
@@ -1098,7 +1101,7 @@ const DATA = {
         "Shooting",
         "Fight"
        ],
-       "when": "Your opponent's Shooting or Fight phase, right after an enemy unit selects its targets.",
+       "when": "Your opponent's Shooting phase or the Fight phase.",
        "target": "One WORLD EATERS POSSESSED unit targeted.",
        "effect": "Until the end of the phase, -1 to wound rolls against your unit."
       },
@@ -1267,9 +1270,9 @@ const DATA = {
        "phases": [
         "Any"
        ],
-       "when": "Any phase, when the last model of a friendly unit is destroyed.",
-       "target": "One BLOODLETTERS unit in Reserves.",
-       "effect": "Set it up within 9\" of the destroyed model and more than 6\" from all enemy units.",
+       "when": "Any phase, when the last model in a unit is destroyed, before removing it from play. (If that unit is a TRANSPORT, any units embarked within it must disembark first.)",
+       "target": "One BLOODLETTERS unit from your army that is in Strategic Reserves.",
+       "effect": "Set your unit up anywhere on the battlefield wholly within 9\" of that destroyed model and more than 6\" horizontally away from all enemy units, then remove the destroyed model from play.",
        "restrictions": "Once per battle round."
       },
       {
@@ -1280,7 +1283,7 @@ const DATA = {
        "phases": [
         "Fight"
        ],
-       "when": "Start of the Fight phase.",
+       "when": "Start of your Fight phase.",
        "target": "One BLOOD LEGIONS unit and one WORLD EATERS unit near it.",
        "effect": "Their melee weapons gain [LANCE]; if Daemonic Rage is active they also gain [TWIN-LINKED]."
       },
@@ -1531,7 +1534,7 @@ const DATA = {
         "Shooting",
         "Fight"
        ],
-       "when": "Your Shooting or Fight phase, when a friendly DAEMON VEHICLE unit is selected to shoot or fight.",
+       "when": "Your Shooting phase or the Fight phase, when a friendly DAEMON VEHICLE unit is selected to attack.",
        "target": "That unit.",
        "effect": "Its attacks ignore all modifiers to BS/WS, hit rolls and wound rolls."
       },
