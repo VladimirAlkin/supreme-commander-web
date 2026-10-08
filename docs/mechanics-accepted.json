@@ -453,12 +453,6 @@
    "why": "name as printed in 11th — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
   },
   {
-   "path": ".thousandSons.detachments[3].stratagems[2].cp",
-   "change": "CHANGED",
-   "value": "1 -> 2",
-   "why": "Infernal Fusillade 2CP — wahapedia.ru/wh40k11ed (checked 2026-10-08)"
-  },
-  {
    "path": ".thousandSons.units[16].keywords[3]",
    "change": "CHANGED",
    "value": "\"Spawn\" -> \"Chaos Spawn\"",
@@ -589,6 +583,138 @@
    "change": "REMOVED",
    "value": "\"wargear\"",
    "why": "Condemnatory Psalms is a detachment rule for INFANTRY FLY units, not a datasheet ability — owner + data"
+  },
+  {
+   "path": ".worldEaters.units[1].abilities[2].name",
+   "change": "CHANGED",
+   "value": "\"Berserker Frenzy\" -> \"Berzerker Frenzy\"",
+   "why": "ability name as printed on the datasheet — wahapedia CSV 11ed (2026-09-28) + BSData wh40k-11e, checked 2026-10-08"
+  },
+  {
+   "path": ".tyranids.detachments[2].enhancements[3].name",
+   "change": "CHANGED",
+   "value": "\"The Dirgeheart of Kharis\" -> \"The Dirgeheart of Kharis (Aura)\"",
+   "why": "enhancement name incl. (Aura), same in Wahapedia and BSData — wahapedia CSV 11ed (2026-09-28) + BSData wh40k-11e, checked 2026-10-08"
+  },
+  {
+   "path": ".tyranids.detachments[3].enhancements[0].name",
+   "change": "CHANGED",
+   "value": "\"Biophagic Flow\" -> \"Biophagic Flow (Aura)\"",
+   "why": "enhancement name incl. (Aura), same in Wahapedia and BSData — wahapedia CSV 11ed (2026-09-28) + BSData wh40k-11e, checked 2026-10-08"
+  },
+  {
+   "path": ".tyranids.units[28].abilities[0].name",
+   "change": "CHANGED",
+   "value": "\"Adaptive Instincts\" -> \"Adaptive Instincts (Once per turn, per unit)\"",
+   "why": "ability name as printed on the datasheet — wahapedia CSV 11ed (2026-09-28) + BSData wh40k-11e, checked 2026-10-08"
+  },
+  {
+   "path": ".tyranids.units[41].abilities.length",
+   "change": "CHANGED",
+   "value": "2 -> 3",
+   "why": "Norn Assimilator: Harpooned is a toxinjector harpoon weapon rule on the datasheet — wahapedia CSV 11ed (2026-09-28) + BSData wh40k-11e, checked 2026-10-08"
+  },
+  {
+   "path": ".tyranids.units[41].abilities[2].name",
+   "change": "ADDED",
+   "value": "\"Harpooned\"",
+   "why": "Norn Assimilator: Harpooned is a toxinjector harpoon weapon rule on the datasheet — wahapedia CSV 11ed (2026-09-28) + BSData wh40k-11e, checked 2026-10-08"
+  },
+  {
+   "path": ".tyranids.units[41].abilities[2].kind",
+   "change": "ADDED",
+   "value": "\"wargear\"",
+   "why": "Norn Assimilator: Harpooned is a toxinjector harpoon weapon rule on the datasheet — wahapedia CSV 11ed (2026-09-28) + BSData wh40k-11e, checked 2026-10-08"
+  },
+  {
+   "path": ".deathGuard.units[30].abilities.length",
+   "change": "CHANGED",
+   "value": "2 -> 3",
+   "why": "Great Unclean One: Reverberating Summons is a weapon rule on the datasheet — wahapedia CSV 11ed (2026-09-28) + BSData wh40k-11e, checked 2026-10-08"
+  },
+  {
+   "path": ".deathGuard.units[30].abilities[2].name",
+   "change": "ADDED",
+   "value": "\"Reverberating Summons\"",
+   "why": "Great Unclean One: Reverberating Summons is a weapon rule on the datasheet — wahapedia CSV 11ed (2026-09-28) + BSData wh40k-11e, checked 2026-10-08"
+  },
+  {
+   "path": ".deathGuard.units[30].abilities[2].kind",
+   "change": "ADDED",
+   "value": "\"wargear\"",
+   "why": "Great Unclean One: Reverberating Summons is a weapon rule on the datasheet — wahapedia CSV 11ed (2026-09-28) + BSData wh40k-11e, checked 2026-10-08"
+  },
+  {
+   "path": ".thousandSons.units[24].abilities[0].name",
+   "change": "CHANGED",
+   "value": "\"Blazing Salvos\" -> \"Blazing Salvoes\"",
+   "why": "ability name as printed on the datasheet — wahapedia CSV 11ed (2026-09-28) + BSData wh40k-11e, checked 2026-10-08"
+  },
+  {
+   "path": ".adeptaSororitas.units[20].abilities.length",
+   "change": "CHANGED",
+   "value": "2 -> 3",
+   "why": "Morvenn Vahl: SUPREME COMMANDER (must be your WARLORD) — Wahapedia datasheet + BSData rule"
+  },
+  {
+   "path": ".adeptaSororitas.units[33].abilities.length",
+   "change": "CHANGED",
+   "value": "3 -> 4",
+   "why": "Aquila Kill Team: Kill Team datasheet ability — wahapedia CSV 11ed (2026-09-28) + BSData wh40k-11e, checked 2026-10-08"
+  },
+  {
+   "path": ".adeptaSororitas.units[36].abilities.length",
+   "change": "CHANGED",
+   "value": "5 -> 6",
+   "why": "Culexus Assassin: Psychic Assassin is a weapon rule on the datasheet — wahapedia CSV 11ed (2026-09-28) + BSData wh40k-11e, checked 2026-10-08"
+  },
+  {
+   "path": ".adeptaSororitas.units[54].abilities[1].name",
+   "change": "CHANGED",
+   "value": "\"Navy Bodyguards\" -> \"Navy Bodyguard\"",
+   "why": "ability name as printed on the datasheet — wahapedia CSV 11ed (2026-09-28) + BSData wh40k-11e, checked 2026-10-08"
+  },
+  {
+   "path": ".adeptaSororitas.units[20].abilities[2].name",
+   "change": "ADDED",
+   "value": "\"Supreme Commander\"",
+   "why": "Morvenn Vahl: SUPREME COMMANDER (must be your WARLORD) — Wahapedia datasheet + BSData rule"
+  },
+  {
+   "path": ".adeptaSororitas.units[20].abilities[2].kind",
+   "change": "ADDED",
+   "value": "\"datasheet\"",
+   "why": "Morvenn Vahl: SUPREME COMMANDER (must be your WARLORD) — Wahapedia datasheet + BSData rule"
+  },
+  {
+   "path": ".adeptaSororitas.units[20].mustBeWarlord",
+   "change": "ADDED",
+   "value": "true",
+   "why": "Morvenn Vahl: SUPREME COMMANDER (must be your WARLORD) — Wahapedia datasheet + BSData rule"
+  },
+  {
+   "path": ".adeptaSororitas.units[33].abilities[3].name",
+   "change": "ADDED",
+   "value": "\"Kill Team\"",
+   "why": "Aquila Kill Team: Kill Team datasheet ability — wahapedia CSV 11ed (2026-09-28) + BSData wh40k-11e, checked 2026-10-08"
+  },
+  {
+   "path": ".adeptaSororitas.units[33].abilities[3].kind",
+   "change": "ADDED",
+   "value": "\"datasheet\"",
+   "why": "Aquila Kill Team: Kill Team datasheet ability — wahapedia CSV 11ed (2026-09-28) + BSData wh40k-11e, checked 2026-10-08"
+  },
+  {
+   "path": ".adeptaSororitas.units[36].abilities[5].name",
+   "change": "ADDED",
+   "value": "\"Psychic Assassin\"",
+   "why": "Culexus Assassin: Psychic Assassin is a weapon rule on the datasheet — wahapedia CSV 11ed (2026-09-28) + BSData wh40k-11e, checked 2026-10-08"
+  },
+  {
+   "path": ".adeptaSororitas.units[36].abilities[5].kind",
+   "change": "ADDED",
+   "value": "\"wargear\"",
+   "why": "Culexus Assassin: Psychic Assassin is a weapon rule on the datasheet — wahapedia CSV 11ed (2026-09-28) + BSData wh40k-11e, checked 2026-10-08"
   }
  ]
 }

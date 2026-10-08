@@ -37,7 +37,7 @@ fs.unlinkSync(tmp);
 
 /* Prose is expected to change. buffs.target is a mechanics field that happens
    to share a name with a stratagem's prose field, so it is excluded by path. */
-const PROSE = /\.(when|target|effect|restrictions|text|summary|notes?|composition|compositionNote|faithNote|impNote|reqText|message|why|stamp)(\[\d+\])?$/;
+const PROSE = /\.(when|target|effect|restrictions|text|summary|notes?|composition|compositionNote|faithNote|impNote|reqText|message|why|stamp|boost)(\[\d+\])?$/;
 /* armyRules[].text is a list of paragraphs: how many there are, and whether it
    is still a bare string, is wording, not mechanics. */
 const isProse = p => (PROSE.test(p) && !/\.buffs\[/.test(p)) || /\.armyRules\[\d+\]\.text\.length$/.test(p);

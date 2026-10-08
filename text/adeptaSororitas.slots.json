@@ -3,7 +3,7 @@
   "faction": "adeptaSororitas",
   "factionName": "Adepta Sororitas",
   "dataVersion": "2026-10-05-mfm15-fp12",
-  "generatedAt": "2026-10-07",
+  "generatedAt": "2026-10-08",
   "howTo": "docs/TEXT-PIPELINE.md",
   "rules": [
    "Edit ONLY the plain text fields. Keys starting with _ are context and are ignored.",
@@ -17,14 +17,26 @@
    "detachmentRules": 8,
    "stratagems": 36,
    "enhancements": 25,
-   "unitAbilities": 143
+   "unitAbilities": 146
   }
  },
  "armyRules": {
   "acts_of_faith": {
    "_name": "Acts of Faith",
    "text": [
-    "If your Army Faction is ADEPTA SORORITAS, each unit from your army with this ability can perform one Act of Faith per phase. GAINING MIRACLE DICE: If your Army Faction is ADEPTA SORORITAS, you gain 1 Miracle dice: at the start of each turn; each time an ADEPTA SORORITAS unit from your army is destroyed. Each time you gain a Miracle dice, roll one D6. The number you roll is the value of that Miracle dice. This value cannot be changed or re-rolled, unless a rule specifically states otherwise. Keep your Miracle dice to one side – this is your Miracle dice pool. PERFORMING AN ACT OF FAITH: Before making a dice roll for a model or unit from your army with the Acts of Faith ability, if you have one or more dice in your Miracle dice pool, that unit can perform an Act of Faith. If it does, select one of the dice from your Miracle dice pool to substitute that dice roll (if a roll involves more than one dice, e.g. a Charge roll or Battle-shock test, only a single dice can be substituted). The dice that is being substituted is not rolled; instead, the value of the selected Miracle dice is used as if it had been rolled (this counts as an unmodified dice roll of that value for all rules purposes). Each Miracle dice can only be selected for substitution once. Once all Miracle dice substitutions have been made, remove the chosen Miracle dice from your Miracle dice pool, and roll all remaining, unsubstituted dice that are a part of the dice roll. You can use Miracle dice when a unit performs an Act of Faith for any of the following types of dice roll: Advance roll; Battle-shock test; Charge roll; Damage roll; Hit roll; Saving throw; Wound roll."
+    "If your Army Faction is ADEPTA SORORITAS, each unit from your army with this ability can perform one Act of Faith per phase. This is done using Miracle dice.",
+    "GAINING MIRACLE DICE: If your Army Faction is ADEPTA SORORITAS, you gain 1 Miracle dice:",
+    "■ At the start of each turn.",
+    "■ Each time an ADEPTA SORORITAS unit from your army is destroyed.",
+    "Each time you gain a Miracle dice, roll one D6. The number you roll is the value of that Miracle dice. This value cannot be changed or re-rolled, unless a rule specifically states otherwise. Keep your Miracle dice to one side - this is your Miracle dice pool.",
+    "PERFORMING AN ACT OF FAITH: Before making a dice roll for a model or unit from your army with the Acts of Faith ability, if you have one or more dice in your Miracle dice pool, that unit can perform an Act of Faith. If it does, select one of the dice from your Miracle dice pool to substitute that dice roll (if a roll involves more than one dice, e.g. a Charge roll or Battle-shock test, only a single dice can be substituted). The dice that is being substituted is not rolled; instead, the value of the selected Miracle dice is used as if it had been rolled ( this counts as an unmodified dice roll of that value for all rules purposes). Each Miracle dice can only be selected for substitution once. Once all Miracle dice substitutions have been made, remove the chosen Miracle dice from your Miracle dice pool, and roll all remaining, unsubstituted dice that are a part of the dice roll. You can use Miracle dice when a unit performs an Act of Faith for any of the following types of dice roll:",
+    "■ Advance roll",
+    "■ Battle-shock test",
+    "■ Charge roll",
+    "■ Damage roll",
+    "■ Hit roll",
+    "■ Saving throw",
+    "■ Wound roll"
    ]
   },
   "assigned_agents": {
@@ -52,9 +64,9 @@
       "Any"
      ],
      "when": "Any phase.",
-     "target": "One Adepta Sororitas Character unit from your army that was just destroyed. You can use this Stratagem on that unit even though it was just destroyed.",
-     "effect": "You can discard 1-3 Miracle dice. At the end of the phase, set the last destroyed model from your unit back up on the battlefield, as close as possible to where it was destroyed and not within Engagement Range of any enemy models. Roll one D3, adding 1 to the result for each Miracle dice you discarded. That model is set back up with that number of wounds remaining (up to its starting number of wounds).",
-     "restrictions": "You cannot select Saint Celestine as the target of this Stratagem. You cannot select the same CHARACTER as the target of this Stratagem more than once per battle."
+     "target": "One ADEPTA SORORITAS CHARACTER model from your army that was just destroyed. You can use this Stratagem on that model even though it was just destroyed.",
+     "effect": "You can discard 1-3 Miracle dice. At the end of the phase, set up that model on the battlefield, unengaged and as close as possible to where it was destroyed. That model is not part of an attached unit and its unit has a starting strength of 1. Roll one D3, adding 1 to the result for each Miracle dice you discarded. That model has that number of wounds remaining (up to its starting number of wounds). RESTRICTION: You cannot select SAINT CELESTINE as the target of this Stratagem. You cannot select the same CHARACTER as the target of this Stratagem more than once per battle.",
+     "restrictions": null
     },
     "suffering_and_sacrifice": {
      "_name": "Suffering and Sacrifice",
@@ -64,7 +76,7 @@
       "Fight"
      ],
      "when": "Start of the Fight phase.",
-     "target": "One Adepta Sororitas Infantry or Adepta Sororitas Walker unit from your army.",
+     "target": "One Adepta Sororitas Infantry or ADEPTA SORORITAS WALKER unit from your army.",
      "effect": "Until the end of the phase, each time an enemy model within Engagement Range of your unit selects its targets, it must select your unit as the target of its attacks.",
      "restrictions": null
     },
@@ -121,7 +133,7 @@
     "saintly_example": {
      "_name": "Saintly Example",
      "_pts": 10,
-     "text": "ADEPTA SORORITAS model only. When the bearer is destroyed, you gain D3 extra Miracle dice (an Imagifier within 12\" can re-roll them)."
+     "text": "ADEPTA SORORITAS model only. When the bearer is destroyed, you gain an additional D3 Miracle dice."
     },
     "through_suffering_strength": {
      "_name": "Through Suffering, Strength",
@@ -136,7 +148,7 @@
     "mantle_of_ophelia": {
      "_name": "Mantle of Ophelia",
      "_pts": 20,
-     "text": "CANONESS or PALATINE model only. Each time an attack is allocated to the bearer, change the Damage characteristic of that attack to 1."
+     "text": "Canoness or PALATINE model only. Each time an attack is allocated to the bearer, change the Damage characteristic of that attack to 1."
     }
    }
   },
@@ -144,7 +156,7 @@
    "_name": "Penitent Host",
    "rule": {
     "_name": "Desperate for Redemption",
-    "text": "At the start of the battle round, you can select one of the following Vows of Atonement to be active for your army until the start of the next battle round. You can only select each Vow of Atonement once per battle."
+    "text": "At the start of the battle round, you can select one of the following Vows of Atonement to be active for your army until the start of the next battle round. You can only select each Vow of Atonement once per battle. THE PATH OF THE PENITENT: Add 3\" to the Move characteristic of PENITENT models from your army. ABSOLUTION IN BATTLE: Each time a unit from your army is selected to fight, if that unit made a Charge move this turn, until the end of the phase, add 1 to the Attacks and Strength characteristics of melee weapons equipped by PENITENT models in that unit. DEATH BEFORE DISGRACE: Each time a PENITENT model from your army is destroyed by a melee attack, if that model has not fought this phase, roll one D6. On a 2+, do not remove it from play; the destroyed model can fight after the attacking unit has finished making its attacks, and is then removed from play."
    },
    "stratagems": {
     "final_redemption": {
@@ -217,7 +229,7 @@
      ],
      "when": "Your opponent’s Shooting phase, just after an enemy unit has shot.",
      "target": "One PENITENT unit from your army that was selected as the target as one or more of the attacking unit’s attacks.",
-     "effect": "Roll one D6: your unit can be moved a distance in inches up to the result, but it must end that move as close as possible to the closest enemy unit (excluding AIRCRAFT). When doing so, models in your unit can be moved within Engagement Range of enemy units.",
+     "effect": "Your unit can make a surge move of up to D6\"\".",
      "restrictions": null
     }
    },
@@ -225,22 +237,22 @@
     "psalm_of_righteous_judgement": {
      "_name": "Psalm of Righteous Judgement",
      "_pts": 20,
-     "text": "ADEPTA SORORITAS model only. While it is on the battlefield, each time a PENITENT unit of yours destroys an enemy unit you can discard 1 Miracle dice to gain one showing 6."
+     "text": "ADEPTA SORORITAS model only. While the bearer is on the battlefield, each time an enemy unit is destroyed by a penitent unit from you army, you can discard 1 Miracle dice then gain 1 Miracle dice showing a value of 6."
     },
     "verse_of_holy_piety": {
      "_name": "Verse of Holy Piety",
      "_pts": 15,
-     "text": "PENITENT model only. Once per battle, at the start of the battle round, pick a Vow (even one already used): it is also active for the bearer's unit until the next battle round."
+     "text": "PENITENT model only. Once per battle, at the start of the battle round, select one Vow of Atonement. Until the start of the next battle round, that Vow of Atonement is active for the bearer’s unit in addition to any that is active for your army, even if you have already selected that Vow of Atonement this battle."
     },
     "refrain_of_enduring_faith": {
      "_name": "Refrain of Enduring Faith",
      "_pts": 15,
-     "text": "PENITENT model only. While it leads a unit, its models have a 5+ invulnerable save."
+     "text": "PENITENT model only. While the bearer is leading a unit, models in that unit have a 5+ invulnerable save."
     },
     "catechism_of_divine_penitence": {
      "_name": "Catechism of Divine Penitence",
      "_pts": 15,
-     "text": "CANONESS, PALATINE or MINISTORUM PRIEST only. The bearer gains PENITENT and can lead a REPENTIA SQUAD."
+     "text": "CANONESS, PALATINE or MINISTORUM PRIEST model only. The bearer gains the PENITENT keyword."
     }
    }
   },
@@ -329,22 +341,22 @@
     "righteous_rage": {
      "_name": "Righteous Rage",
      "_pts": 15,
-     "text": "ADEPTA SORORITAS model only. When the bearer is selected to fight, discard up to 3 Miracle dice: +1 A and +1 S on its melee weapons per die until the end of the phase."
+     "text": "ADEPTA SORORITAS model only. Each time the bearer is selected to fight, you can first discard up to 3 Miracle dice. For each Miracle dice just discarded, until the end of the phase, add 1 to the Attacks and Strength characteristics of the bearer’s melee weapons."
     },
     "manual_of_saint_griselda": {
      "_name": "Manual of Saint Griselda",
      "_pts": 20,
-     "text": "ADEPTA SORORITAS model only. Start of your Command phase: discard up to 2 Miracle dice and gain one whose value is their sum (max 6)."
+     "text": "ADEPTA SORORITAS model only. At the start of your Command phase, you can discard up to 2 Miracle dice. Then, add 1 Miracle dice to your Miracle Dice pool showing a value equal to the sum of the two Miracle dice you just discarded (to a maximum of 6)."
     },
     "fire_and_fury": {
      "_name": "Fire and Fury",
      "_pts": 30,
-     "text": "ADEPTA SORORITAS model only. While it leads a unit: +1 A for its Torrent weapons, and its other ranged weapons have [SUSTAINED HITS 1]."
+     "text": "ADEPTA SORORITAS model only. While the bearer is leading a unit, add 1 to the Attacks characteristic of Torrent weapons equipped by models in that unit, and all other ranged weapons equipped by models in that unit have the [SUSTAINED HITS 1] ability."
     },
     "iron_surplice_of_saint_istalela": {
      "_name": "Iron Surplice of Saint Istalela",
      "_pts": 10,
-     "text": "CANONESS or PALATINE only. Save 2+ and Feel No Pain 5+."
+     "text": "CANONESS or PALATINE model only. The bearer has a Save characteristic of 2+ and the Feel No Pain 5+ ability."
     }
    }
   },
@@ -352,7 +364,7 @@
    "_name": "Army of Faith",
    "rule": {
     "_name": "Sacred Rites",
-    "text": "Each ADEPTA SORORITAS unit from your army can perform up to two Acts of Faith per phase, instead of just one. Enhancements Litanies of Faith 10 pts This unassuming parchment is one of the holiest relics in the Ministorum's charge, its mere presence enough to fill the hearts of the faithful with righteous fervour."
+    "text": "Each ADEPTA SORORITAS unit from your army can perform up to two Acts of Faith per phase, instead of just one."
    },
    "stratagems": {
     "shield_of_faith": {
@@ -399,9 +411,9 @@
       "Shooting",
       "Fight"
      ],
-     "when": "Your opponent's Shooting phase or the Fight phase, just after an enemy unit has selected its targets.",
-     "target": "One ADEPTA SORORITAS unit from your army that was selected as the target of one or more of the attacking unit's attacks, or one friendly ADEPTA SORORITAS JUMP PACK unit within 3\" of such a unit.",
-     "effect": "Until the end of the phase, each time an attack targets your unit, subtract 1 from the Hit roll. If you targeted an ADEPTA SORORITAS JUMP PACK unit from your army with this Stratagem, then until the end of the phase, while a friendly ADEPTA SORORITAS unit is unit is within 3\" of your unit, each time an attack targets that unit, subtract 1 from the Hit roll.",
+     "when": "Your opponent’s Shooting phase or the Fight phase, just after an enemy unit has selected its targets.",
+     "target": "One ADEPTA SORORITAS INFANTRY unit from your army that was selected as the target of one or more of the attacking unit’s attacks, or one friendly ADEPTA SORORITAS JUMP PACK unit within 3\" of such a unit.",
+     "effect": "Until the end of the phase, each time an attack targets your unit, subtract 1 from the Hit roll. If you targeted an ADEPTA SORORITAS JUMP PACK unit from your army with this Stratagem, then until the end of the phase, while a friendly ADEPTA SORORITAS INFANTRY unit is unit is within 3\" of your unit, each time an attack targets that unit, subtract 1 from the Hit roll.",
      "restrictions": null
     },
     "divine_guidance": {
@@ -434,22 +446,22 @@
     "litanies_of_faith": {
      "_name": "Litanies of Faith",
      "_pts": 10,
-     "text": "CANONESS or PALATINE only. Start of your Command phase, if on the battlefield: take a Leadership test; if passed, gain 1 Miracle dice."
+     "text": "CANONESS or PALATINE model only. At the start of your Command phase, if the bearer is on the battlefield, take a Leadership test for the bearer. If that test is passed, you gain 1 Miracle dice."
     },
     "blade_of_saint_ellynor": {
      "_name": "Blade of Saint Ellynor",
      "_pts": 15,
-     "text": "ADEPTA SORORITAS model only. +1 S and +1 AP on the bearer's melee weapons, which have [PRECISION]; each time it fights and kills one or more models, gain 1 Miracle dice."
+     "text": "ADEPTA SORORITAS model only. Improve the Strength and Armour Penetration characteristics of the bearer’s melee weapons by 1, and those weapons have the [PRECISION] ability. In addition, each time the bearer fights, if one or more enemy models are destroyed by those attacks, you gain 1 Miracle dice."
     },
     "divine_aspect": {
      "_name": "Divine Aspect",
      "_pts": 5,
-     "text": "ADEPTA SORORITAS model only. Your Movement phase: one enemy unit within 12\" takes a Battle-shock test; if it fails, gain 1 Miracle dice."
+     "text": "ADEPTA SORORITAS model only. In your Movement phase, you can select one enemy unit within 12\" of the bearer; that unit must take a Battle-shock test. If that test is failed, you gain 1 Miracle dice."
     },
     "triptych_of_the_macharian_crusade": {
      "_name": "Triptych of the Macharian Crusade",
      "_pts": 20,
-     "text": "ADEPTA SORORITAS model only. A saving throw the bearer replaces with a Miracle dice always succeeds, whatever its value."
+     "text": "ADEPTA SORORITAS model only. Each time the bearer uses an Act of Faith to substitute a saving throw, that saving throw is successful, irrespective of the value of the Miracle dice used."
     }
    }
   },
@@ -457,7 +469,7 @@
    "_name": "Champions of Faith",
    "rule": {
     "_name": "Righteous Purpose",
-    "text": "In your Command phase pick up to 3 ADEPTA SORORITAS units (embarked ones too): until your next Command phase they are Righteous: +1\" Move and +1 Leadership, and BATTLE SISTERS SQUAD, CELESTIAN INSIDIANTS, CELESTIAN SACRESANTS and PARAGON WARSUITS models in them also get +1 BS and WS. CELESTIAN SACRESANTS that are not battle-shocked get +1 OC."
+    "text": "In your Command phase, you can select up to 3 ADEPTA SORORITAS units from your army (including units that are embarked within Transports), until the start of your next Command phase, those units are Righteous. While a unit is Righteous: ■ Add 1\" to the Move characteristic of models in that unit. ■ Improve the Leadership characteristic of models in that unit by 1. ■ Improve the Weapon Skill and Ballistic Skill characteristics of weapons equipped by Battle Sisters Squad, CELESTIAN INSIDIANTS, Celestian Sacresants and PARAGON WARSUITS models in that unit by 1. KEYWORDS: While a CELESTIAN SACRESANTS unit from your army is not Battle-shocked, add 1 to the Objective Control characteristic of CELESTIAN SACRESANTS models in that unit."
    },
    "stratagems": {
     "shield_of_denial": {
@@ -517,7 +529,7 @@
       "Fight"
      ],
      "when": "Fight phase, just after an enemy unit has selected its targets.",
-     "target": "One Celestian Sacresants unit that was selected as the target of one or more of the attacking unit’s attacks.",
+     "target": "One CELESTIAN SACRESANTS unit that was selected as the target of one or more of the attacking unit’s attacks.",
      "effect": "Until the end of the phase, each time an attack targets your unit, subtract 1 from the Hit roll. In addition, if your unit is Righteous, you can select one other CELESTIAN SACRESANTS unit from your army that is not Battle-shocked and is within 6\" of your unit. Until the end of the phase, each time an attack targets that CELESTIAN SACRESANTS unit, subtract 1 from the Hit roll as well.",
      "restrictions": null
     },
@@ -538,22 +550,22 @@
     "triptych_of_judgement": {
      "_name": "Triptych of Judgement",
      "_pts": 15,
-     "text": "ADEPTA SORORITAS model only. Attacks by the bearer's unit ignore modifiers to BS/WS and to the hit roll."
+     "text": "ADEPTA SORORITAS model only. Each time a model in the bearer’s unit makes an attack, you can ignore any or all modifiers to that attack’s Ballistic Skill or Weapon Skill characteristics and/or any or all modifiers to the Hit roll."
     },
     "mark_of_devotion": {
      "_name": "Mark of Devotion",
      "_pts": 30,
-     "text": "ADEPTA SORORITAS model only. +1 A on the bearer's melee weapons; while its unit is Righteous, +2 A and +1 D instead."
+     "text": "ADEPTA SORORITAS model only. Add 1 to the Attacks characteristic of the bearer’s melee weapons. While the bearer’s unit is Righteous, add 2 to the Attacks characteristic and add 1 to the Damage characteristic of the bearer’s melee weapons instead."
     },
     "eyes_of_the_oracle": {
      "_name": "Eyes of the Oracle",
      "_pts": 10,
-     "text": "ADEPTA SORORITAS model only. The bearer's weapons have [PRECISION]; each time its unit destroys an enemy CHARACTER model, gain 1CP."
+     "text": "ADEPTA SORORITAS model only. The bearer’s weapons have the [PRECISION] ability. Each time the bearer’s unit destroys an enemy CHARACTER model, you gain 1CP."
     },
     "sanctified_amulet": {
      "_name": "Sanctified Amulet",
      "_pts": 25,
-     "text": "ADEPTA SORORITAS model only. Enemy units arriving from Reserves cannot be set up within 12\" of the bearer."
+     "text": "ADEPTA SORORITAS model only. Enemy units that are set up on the battlefield from Reserves cannot be set up within 12\" of the bearer."
     }
    }
   },
@@ -561,7 +573,7 @@
    "_name": "Chorus of Condemnation",
    "rule": {
     "_name": "Angelic Judgement",
-    "text": "Friendly ADEPTA SORORITAS INFANTRY FLY units have the following ability: Condemnatory Psalms: In your Shooting phase , this unit can select one visible enemy unit within 12\"."
+    "text": "Friendly ADEPTA SORORITAS INFANTRY FLY units have the following ability: Condemnatory Psalms: In your Shooting phase, this unit can select one visible enemy unit within 12\". That enemy unit is condemned: ■ While a unit is condemned, that unit has +3\" detection range."
    },
    "stratagems": {
     "inspirational_battle_canticles": {
@@ -605,12 +617,12 @@
     "clarion_of_urgency": {
      "_name": "Clarion of Urgency",
      "_pts": 15,
-     "text": "CANONESS WITH JUMP PACK only. End of your opponent's Fight phase, if unengaged: place its unit into Strategic Reserves."
+     "text": "CANONESS WITH JUMP PACK model only. At the end of your opponent’s Fight phase, if this unit is unengaged, you can place this unit in strategic reserves."
     },
     "symphonic_payload": {
      "_name": "Symphonic Payload",
      "_pts": 10,
-     "text": "EXORCIST unit only. It can re-roll rolls for the number of attacks of its weapons."
+     "text": "EXORCIST unit only. This unit can re-roll rolls to determine the A of a weapon."
     }
    }
   },
@@ -618,7 +630,7 @@
    "_name": "Sacred Champions",
    "rule": {
     "_name": "Holy Quest",
-    "text": "Charged with a holy quest in service to the God-Emperor, the veteran Sacresant elite of an Order Militant are relentless in their pursuit of victory Friendly CELESTIAN units’ attacks have +1 BS and WS ."
+    "text": "Friendly CELESTIAN units’ attacks have +1 BS and WS. This detachment has the REVEREND tag and cannot be taken with another REVEREND detachment."
    },
    "stratagems": {
     "sanctified_blows": {
@@ -630,7 +642,7 @@
      ],
      "when": "Fight phase, when a friendly CELESTIAN SACRESANTS unit is selected to fight.",
      "target": "That CELESTIAN SACRESANTS unit.",
-     "effect": "Your unit’s melee attacks have +1 A and +1 S.",
+     "effect": "Your unit’s melee attacks have +1 A and S.",
      "restrictions": null
     },
     "faithful_fortitude": {
@@ -652,9 +664,9 @@
      "_phases": [
       "Movement"
      ],
-     "when": "Your Movement phase, when a friendly CELESTIAN SACRESANTS unit is selected to make an Advance or Fall Back move.",
+     "when": "Your Movement phase, when a friendly CELESTIAN SACRESANTS unit is selected to make an advance/fall-back move.",
      "target": "That CELESTIAN SACRESANTS unit.",
-     "effect": "Your unit’s ranged attacks have [ASSAULT] until the end of the turn. That move does not prevent your unit from being eligible to shoot or declare a charge.",
+     "effect": "■ Your unit’s ranged attacks have [ASSAULT] until the end of the turn. ■ That move does not prevent your unit from being eligible to shoot/declare a charge.",
      "restrictions": null
     }
    },
@@ -662,12 +674,12 @@
     "writ_of_compunction": {
      "_name": "Writ of Compunction",
      "_pts": 20,
-     "text": "CELESTIAN SACRESANTS unit only. Add 1 to the Objective Control characteristic of models in the bearer's unit."
+     "text": "CELESTIAN SACRESANTS unit only. This unit has +1 OC."
     },
     "perfervid_haste": {
      "_name": "Perfervid Haste",
      "_pts": 10,
-     "text": "ADEPTA SORORITAS model only. The bearer's unit has +1\" Move."
+     "text": "ADEPTA SORORITAS model only. This unit has +1\" M."
     }
    }
   },
@@ -675,14 +687,14 @@
    "_name": "Sanctified Orators",
    "rule": {
     "_name": "Hymns of Battle",
-    "text": "Enhancements selected from this detachment do not count towards the total number of enhancements in your army. Friendly ADEPTA SORORITAS CHARACTER units have +1 Ld ."
+    "text": "■ Enhancements selected from this detachment do not count towards the total number of enhancements in your army. ■ Friendly ADEPTA SORORITAS CHARACTER units have +1 Ld."
    },
    "stratagems": {},
    "enhancements": {
     "hagiomnifex": {
      "_name": "Hagiomnifex",
      "_pts": 25,
-     "text": "ADEPTA SORORITAS CHARACTER only (not PENITENT). Once per turn, at the start of a phase, pick one for the bearer's unit until the end of the phase: enemy units have +6\" detection range while it shoots; it passes Battle-shock automatically; +1\" Move; +1 S on its attacks; or attacks with S above its T get -1 to wound."
+     "text": "ADEPTA SORORITAS CHARACTER model only (excluding PENITENT units). (Once per turn, per unit) At the start of a phase, you can use this ability. If you do, select one of the abilities below: ■ Rite of Revelation: While this unit is shooting, enemy units have +6\" detection range. ■ Sermon of Intolerance: This unit’s battle-shock rolls automatically succeed. ■ Catechism of Raging Fervour: This unit has +1\" M. ■ Psalm of Righteous Smiting: This unit’s attacks have +1 S. ■ Chorus of Repudiation: Attacks that target this unit with a S greater than this unit’s T have -1 to wound rolls."
     }
    }
   }
@@ -693,11 +705,11 @@
    "abilities": {
     "Auto-Tapestry of the Emperor's Judgement": {
      "_kind": "datasheet",
-     "text": "While this unit leads a unit and Aestred Thurga is alive, weapons in that unit have [DEVASTATING WOUNDS]."
+     "text": "While this unit is leading a unit and contains an AESTRED THURGA model, weapons equipped by models in that unit have the [DEVASTATING WOUNDS] ability"
     },
     "Recount the Deeds of the Saints": {
      "_kind": "datasheet",
-     "text": "While this model is leading a unit, each time a model in that unit destroys an enemy unit, you gain 1 Miracle dice."
+     "text": "While this unit is leading a unit and contains an AGATHAE DOLAN model, each time that unit destroys an enemy unit, you gain 1 Miracle dice. When that AGATHAE DOLAN model is destroyed, you gain D3 Miracle dice."
     }
    }
   },
@@ -706,7 +718,7 @@
    "abilities": {
     "Extremis Trigger Word": {
      "_kind": "datasheet",
-     "text": "When selected to fight, you can invoke it: until the end of the phase arco-flails are A 6 with [HAZARDOUS]."
+     "text": "Each time this unit is selected to fight, you can choose to invoke its extremis trigger word. If you do, then until the end of the phase, arco-flails equipped by models in this unit have an Attacks characteristic of 6 and the [HAZARDOUS] ability."
     }
    }
   },
@@ -715,15 +727,15 @@
    "abilities": {
     "Defenders of the Faith": {
      "_kind": "datasheet",
-     "text": "End of your Command phase: an objective you control that this unit is in range of stays yours with no models nearby, until your opponent controls it at the start or end of a turn."
+     "text": "At the end of your Command phase, if this unit is within range of an objective marker you control, that objective marker remains under your control, even if you have no models within range of it, until your opponent controls it at the start or end of any turn."
     },
     "Cherub": {
      "_kind": "datasheet",
-     "text": "Once per battle, after this unit performs an Act of Faith, gain 1 Miracle dice."
+     "text": "Once per battle, after this unit has performed an Act of Faith, you gain 1 Miracle dice. Designer’s Note: Place a Cherub token next to the unit, removing it once this ability has been used."
     },
     "Simulacrum Imperialis": {
      "_kind": "wargear",
-     "text": "End of your Command phase: for each objective you control with one or more of your units with this ability in range, roll D6; on a 4+ gain a Miracle dice of that value."
+     "text": "At the end of your Command phase, for each objective marker you control that has one or more units from your army with this ability within range of it, roll one D6: on a 4+, you gain 1 Miracle dice showing a value equal to that result."
     }
    }
   },
@@ -732,19 +744,19 @@
    "abilities": {
     "The Emperor's Grace": {
      "_kind": "datasheet",
-     "text": "Once per battle, at the start of any phase: 2+ invulnerable save until the end of the phase."
+     "text": "Once per battle, at the start of any phase, this model can use this ability. If it does, until the end of the phase, this model has a 2+ invulnerable save."
     },
     "Sacred Command": {
      "_kind": "datasheet",
-     "text": "Once per battle round, one unit with this ability can use it when its unit is targeted with a Stratagem: that use costs 1CP less."
+     "text": "Once per battle round, one unit from your army with this ability can use it when its unit is targeted with a Stratagem. If it does, reduce the CP cost of that use of that Stratagem by 1CP."
     },
     "Null Rod": {
      "_kind": "wargear",
-     "text": "Models in the bearer's unit have Feel No Pain 4+ against mortal wounds and Psychic Attacks."
+     "text": "Models in the bearer’s unit have the Feel No Pain 4+ ability against mortal wounds and Psychic Attacks."
     },
     "Rod of Office": {
      "_kind": "wargear",
-     "text": "Attacks by models in the bearer's unit re-roll hit rolls of 1."
+     "text": "Each time a model in the bearer’s unit makes an attack, re-roll a Hit roll of 1."
     }
    }
   },
@@ -753,11 +765,11 @@
    "abilities": {
     "Divine Deliverance": {
      "_kind": "datasheet",
-     "text": "Once per battle, start of the Fight phase: +3 A and [DEVASTATING WOUNDS] on her melee weapons until the end of the phase."
+     "text": "Once per battle, at the start of the Fight phase, this model can use this ability. If it does, until the end of the phase, add 3 to the Attacks characteristic of melee weapons equipped by this model and those weapons have the [DEVASTATING WOUNDS] ability."
     },
     "Sacred Command": {
      "_kind": "datasheet",
-     "text": "Once per battle round, one unit with this ability can use it when its unit is targeted with a Stratagem: that use costs 1CP less."
+     "text": "Once per battle round, one unit from your army with this ability can use it when its unit is targeted with a Stratagem. If it does, reduce the CP cost of that use of that Stratagem by 1CP."
     }
    }
   },
@@ -766,7 +778,7 @@
    "abilities": {
     "Rites of Castigation": {
      "_kind": "datasheet",
-     "text": "Your Shooting phase, after it shoots: one enemy unit it hit gets -1 AP (worse for them: +1 AP for your attacks) against your ADEPTA SORORITAS ranged attacks until the end of the turn; once per enemy unit per turn."
+     "text": "In your Shooting phase, after this model has shot, select one enemy unit hit by one or more of those attacks. Until the end of the turn, each time a friendly ADEPTA SORORITAS unit makes a ranged attack that targets that enemy unit, improve the Armour Penetration characteristic of that attack by 1. The same enemy unit can only be affected by this ability once per turn."
     }
    }
   },
@@ -775,23 +787,23 @@
    "abilities": {
     "Rituale Nullificatus": {
      "_kind": "datasheet",
-     "text": "Feel No Pain 4+ against Psychic Attacks and mortal wounds."
+     "text": "Models in this unit have the Feel No Pain 4+ ability against Psychic Attacks and mortal wounds."
     },
     "Virtue of Intolerance": {
      "_kind": "datasheet",
-     "text": "Start of the battle: pick one enemy unit as the quarry. Attacks against it have [PRECISION] and re-roll the hit roll (also while embarked)."
+     "text": "At the start of the battle, select one unit from your opponent’s army to be this unit’s quarry. Each time a model in this unit makes an attack that targets its quarry, that attack has the [PRECISION] ability and you can re-roll the Hit roll. This ability can be used even if this unit is embarked within a Transport."
     },
     "Attached Unit": {
      "_kind": "datasheet",
-     "text": "A character that can join a listed bodyguard can join this unit instead (see the Leader lists)."
+     "text": "If a CHARACTER unit from your army can be attached to a DOMINION SQUAD unit, it can be attached to this unit instead."
     },
     "Denuncia Oratory": {
      "_kind": "wargear",
-     "text": "When the quarry is destroyed, pick a new quarry."
+     "text": "Each time the bearer’s unit’s quarry is destroyed, you can select a new unit from your opponent’s army to be its quarry."
     },
     "Simulacrum Imperialis": {
      "_kind": "wargear",
-     "text": "End of your Command phase: for each objective you control with one or more of your units with this ability in range, roll D6; on a 4+ gain a Miracle dice of that value."
+     "text": "At the end of your Command phase, for each objective marker you control that has one or more units from your army with this ability within range of it, roll one D6: on a 4+, you gain 1 Miracle dice showing a value equal to that result."
     }
    }
   },
@@ -800,7 +812,7 @@
    "abilities": {
     "Sworn Protectors": {
      "_kind": "datasheet",
-     "text": "While an ADEPTA SORORITAS CHARACTER leads this unit, attacks against it get -1 to wound."
+     "text": "While an ADEPTA SORORITAS CHARACTER is leading this unit, each time an attack targets this unit, subtract 1 from the Wound roll."
     }
    }
   },
@@ -809,11 +821,11 @@
    "abilities": {
     "Holy Judgement": {
      "_kind": "datasheet",
-     "text": "Start of your Shooting phase: one enemy unit within 12\" of Ephrael Stern takes a Battle-shock test (-2 if CHAOS); if failed it suffers 3 mortal wounds."
+     "text": "At the start of your Shooting phase, select one enemy unit within 12\" of and visible to this unit's Ephrael Stern model. That unit must take a Battle-shock test, subtracting 2 from the result if it is a CHAOS unit. If the test is failed, that enemy unit suffers 3 mortal wounds."
     },
     "Mysterious Saviours": {
      "_kind": "datasheet",
-     "text": "You can target this unit with the Heroic Intervention Stratagem for 0CP, and can do so even if you have already targeted a different unit with that Stratagem this phase."
+     "text": "You can target this unit with the Heroic Intervention stratagem, regardless of any other uses of that stratagem this phase. If you do: ■ That use is -1 CP. ■ That use does not prevent any uses of that stratagem on other units this phase."
     }
    }
   },
@@ -822,11 +834,11 @@
    "abilities": {
     "Laud Hailer": {
      "_kind": "datasheet",
-     "text": "Once per battle, at the start of any phase: one battle-shocked ADEPTA SORORITAS unit within 12\" is no longer battle-shocked."
+     "text": "Once per battle, at the start of any phase, you can select one friendly ADEPTA SORORITAS unit that is Battle-shocked and within 12\" of this model. That unit is no longer Battle-shocked."
     },
     "Stirring Rhetoric": {
      "_kind": "datasheet",
-     "text": "While leading a unit, each time that unit performs an Act of Faith, one Miracle dice used is first changed to a 6."
+     "text": "While this model is leading a unit, each time this model’s unit performs an Act of Faith, the value of one of the Miracle dice used in that Act of Faith is first changed to a 6."
     }
    }
   },
@@ -835,11 +847,11 @@
    "abilities": {
     "Executioner of Heretics (Aura)": {
      "_kind": "datasheet",
-     "text": "Enemy units within 6\" get -1 Leadership (worse)."
+     "text": "While an enemy unit is within 6\" of this model, worsen the Leadership characteristic of models in that unit by 1."
     },
     "Unflinching Determination": {
      "_kind": "datasheet",
-     "text": "While leading a unit, its models get +1 OC."
+     "text": "While this model is leading a unit, add 1 to the Objective Control characteristic of models in that unit."
     }
    }
   },
@@ -848,19 +860,19 @@
    "abilities": {
     "Holy Vanguard": {
      "_kind": "datasheet",
-     "text": "If a Leader is attached at Declare Battle Formations and the unit starts inside a TRANSPORT, that Leader gains Scouts 6\"."
+     "text": "If this unit has a Leader unit attached to it during the Declare Battle Formations step and this unit starts the battle embarked within a TRANSPORT, that Leader unit gains the Scouts 6\" ability."
     },
     "Righteous Awareness": {
      "_kind": "datasheet",
-     "text": "Your opponent's Movement phase: when an enemy unit ends a move within 8\", this unit can make a Normal move of up to D6\" if unengaged."
+     "text": "In your opponent’s Movement phase, if an enemy unit ends a move within 8\" of this unit, if this unit is not within Engagement Range of one or more enemy units it can make a Normal move of up to D6\"."
     },
     "Cherub": {
      "_kind": "datasheet",
-     "text": "Once per battle, after this unit performs an Act of Faith, gain 1 Miracle dice."
+     "text": "Once per battle, after this unit has performed an Act of Faith, you gain 1 Miracle dice. Designer’s Note: Place a Cherub token next to the unit, removing it once this ability has been used."
     },
     "Simulacrum Imperialis": {
      "_kind": "wargear",
-     "text": "End of your Command phase: for each objective you control with one or more of your units with this ability in range, roll D6; on a 4+ gain a Miracle dice of that value."
+     "text": "At the end of your Command phase, for each objective marker you control that has one or more units from your army with this ability within range of it, roll one D6: on a 4+, you gain 1 Miracle dice showing a value equal to that result."
     }
    }
   },
@@ -869,7 +881,7 @@
    "abilities": {
     "Devastating Refrain": {
      "_kind": "datasheet",
-     "text": "After it shoots: an enemy unit hit by an Indirect Fire weapon takes a Battle-shock test; models with Deadly Demise killed by those attacks explode on a 5+."
+     "text": "In your Shooting phase, after this model has shot, if one or more of those attacks made with an Indirect Fire weapon scored a hit against an enemy unit, that unit must take a Battle-shock test. Each time such an attack destroys an enemy model that has the Deadly Demise ability, that model’s Deadly Demise ability inflicts mortal wounds on a D6 roll of 5+ instead of on a 6."
     }
    }
   },
@@ -878,11 +890,11 @@
    "abilities": {
     "Medicus Ministorum": {
      "_kind": "datasheet",
-     "text": "While leading a unit, its models have Feel No Pain 5+."
+     "text": "While this model is leading a unit, models in that unit have the Feel No Pain 5+ ability."
     },
     "Sacred Healing": {
      "_kind": "datasheet",
-     "text": "While leading a unit, in your Command phase return 1 destroyed non-CHARACTER model to it; or discard 1 Miracle dice to return up to D3+1."
+     "text": "While this model is leading a unit, in your Command phase, you can return up to 1 destroyed model (excluding CHARACTER models) to that unit. If you wish, you can first discard 1 Miracle dice; if you do, you can return up to D3+1 destroyed models (excluding CHARACTER models) to that unit instead."
     }
    }
   },
@@ -891,11 +903,11 @@
    "abilities": {
     "Litany of Deeds": {
      "_kind": "datasheet",
-     "text": "When you gain a Miracle dice because a friendly ADEPTA SORORITAS unit or model was destroyed within 12\" of this model, you can re-roll that die before adding it."
+     "text": "Each time you gain a Miracle dice as the result of an ADEPTA SORORITAS unit or model from your army being destroyed, if that unit or model was destroyed within 12\" of this model, you can re-roll the result of that Miracle dice before adding it to your Miracle dice pool."
     },
     "Stanchion of Holy Martyrs": {
      "_kind": "datasheet",
-     "text": "While leading a unit, its models have Save 2+ and a 4+ invulnerable save."
+     "text": "While this model is leading a unit, models in that unit have a Save characteristic of 2+ and a 4+ invulnerable save."
     }
    }
   },
@@ -904,7 +916,7 @@
    "abilities": {
     "Purge and Cleanse": {
      "_kind": "datasheet",
-     "text": "After it shoots: one enemy unit it hit cannot have the Benefit of Cover until the end of the phase."
+     "text": "In your Shooting phase, after this model has shot, select one enemy unit hit by one or more of those attacks. Until the end of the phase, that enemy unit cannot have the Benefit of Cover."
     }
    }
   },
@@ -913,11 +925,11 @@
    "abilities": {
     "Righteous Denunciation": {
      "_kind": "datasheet",
-     "text": "Start of the Fight phase: each enemy unit within 6\" takes a Battle-shock test at -1."
+     "text": "At the start of the Fight phase, each enemy unit within 6\" of this model must take a Battle-shock test, subtracting 1 from that test."
     },
     "Judged for Execution": {
      "_kind": "datasheet",
-     "text": "End of your Movement phase: one visible enemy unit within 18\": until your next Command phase, your ADEPTA SORORITAS attacks against it have [LETHAL HITS]."
+     "text": "At the end of your Movement phase, you can select one enemy unit within 18\" of and visible to this model. Until the start of your next Command phase, each time a friendly ADEPTA SORORITAS model makes an attack that targets that enemy unit, that attack has the [LETHAL HITS] ability."
     }
    }
   },
@@ -926,11 +938,11 @@
    "abilities": {
     "The Pulpit of Saint Holline’s Basilica": {
      "_kind": "datasheet",
-     "text": "This unit has Stealth, and melee attacks against it get -1 to hit."
+     "text": "This unit has Stealth Melee attacks that target this unit have -1 to hit rolls"
     },
     "Fiery Conviction": {
      "_kind": "datasheet",
-     "text": "Start of your Command phase, if on the battlefield: discard 1 Miracle dice to gain 1CP, or take a Leadership test and gain 1CP if passed."
+     "text": "If this model is on the battlefield at the start of your Command phase, you can choose one of the following: ■ Discard 1 Miracle dice and gain 1CP. ■ Take a Leadership test for this model, if that test is passed, gain 1CP."
     }
    }
   },
@@ -939,15 +951,15 @@
    "abilities": {
     "Righteous Smiting": {
      "_kind": "datasheet",
-     "text": "While leading a unit, melee attacks by its models get +1 to wound."
+     "text": "While this model is leading a unit, each time a model in that unit makes a melee attack, add 1 to the Wound roll."
     },
     "Zealot": {
      "_kind": "datasheet",
-     "text": "Once per battle, in the Fight phase: +3 S and +3 A on his melee weapons until the end of the phase."
+     "text": "Once per battle, in the Fight phase, this model can use this ability. If it does, until the end of the phase, improve the Strength and Attacks characteristics of melee weapons equipped by this model by 3."
     },
     "Holy Mission": {
      "_kind": "datasheet",
-     "text": "Attached to a DOMINION SQUAD at Declare Battle Formations: Scouts 6\". Attached to a SISTERS NOVITIATE SQUAD: Infiltrators."
+     "text": "If this model is attached to a DOMINION SQUAD during the Declare Battle Formations step, it gains the Scouts 6\" ability. If this model is attached to a SISTERS NOVITIATE SQUAD during the Declare Battle Formations step, it gains the Infiltrators ability."
     }
    }
   },
@@ -956,7 +968,7 @@
    "abilities": {
     "Anguish of the Unredeemed": {
      "_kind": "datasheet",
-     "text": "A model killed by a melee attack before it fought: on a 2+ it fights after the attacker, then is removed."
+     "text": "Each time a model in this unit is destroyed by a melee attack, if that model has not fought this phase, roll one D6. On a 2+, do not remove it from play; That destroyed model can fight after the attacking unit has finished making its attacks, and is then removed from play."
     },
     "Anchorite Sarcophagus": {
      "_kind": "wargear",
@@ -969,11 +981,15 @@
    "abilities": {
     "Abbess Sanctorum": {
      "_kind": "datasheet",
-     "text": "While leading a unit, attacks by its models re-roll hit and wound rolls."
+     "text": "While this model is leading a unit, each time a model in that unit makes an attack, you can re-roll the Hit roll and you can re-roll the Wound roll."
     },
     "Righteous Repugnance": {
      "_kind": "datasheet",
-     "text": "When her unit shoots or fights, discard 1 Miracle dice for +3 A on Fidelis and the Lance of Illumination until the end of the phase. Gain 1 Miracle dice each time she destroys an enemy unit."
+     "text": "Each time this model’s unit is selected to shoot or fight, you can discard 1 Miracle dice. If you do, until the end of the phase, add 3 to the Attacks characteristic of Fidelis and the Lance of Illumination. Each time an enemy unit is destroyed by this model, you gain 1 Miracle dice."
+    },
+    "Supreme Commander": {
+     "_kind": "datasheet",
+     "text": "If this model is in your army, it must be your Warlord."
     }
    }
   },
@@ -982,11 +998,11 @@
    "abilities": {
     "Fury of the Righteous": {
      "_kind": "datasheet",
-     "text": "While leading a unit, weapons in that unit have [LETHAL HITS]."
+     "text": "While this model is leading a unit, weapons equipped by models in that unit have the [LETHAL HITS] ability."
     },
     "Rapturous Blows": {
      "_kind": "datasheet",
-     "text": "When her unit fights, discard 1 Miracle dice: until the end of the phase each wound from her melee attacks also inflicts 1 mortal wound."
+     "text": "Each time this model’s unit is selected to fight, you can discard 1 Miracle dice. If you do, then until the end of the phase, each time a melee attack made by this model scores a wound, the target of that attack suffers 1 mortal wound in addition to any normal damage."
     }
    }
   },
@@ -995,7 +1011,7 @@
    "abilities": {
     "Righteous Paragons": {
      "_kind": "datasheet",
-     "text": "Attacks against MONSTER or VEHICLE units get +1 to hit and +1 to wound."
+     "text": "Each time a model in this unit makes an attack that targets a MONSTER or VEHICLE unit, add 1 to the Hit roll and add 1 to the Wound roll."
     }
    }
   },
@@ -1004,7 +1020,7 @@
    "abilities": {
     "Endless Suffering": {
      "_kind": "datasheet",
-     "text": "This unit can charge in a turn in which it advanced."
+     "text": "This unit is eligible to declare a charge in a turn in which it Advanced."
     }
    }
   },
@@ -1013,7 +1029,7 @@
    "abilities": {
     "Overseer of Redemption": {
      "_kind": "datasheet",
-     "text": "While the Repentia Superior is alive, melee attacks by Sisters Repentia re-roll hit and wound rolls."
+     "text": "While this unit contains a Repentia Superior model, each time a Sisters Repentia model in this unit makes a melee attack, you can re-roll the Hit roll and you can re-roll the Wound roll."
     }
    }
   },
@@ -1022,11 +1038,11 @@
    "abilities": {
     "Cherubs": {
      "_kind": "datasheet",
-     "text": "Twice per battle, after this unit performs an Act of Faith, gain 1 Miracle dice."
+     "text": "Twice per battle, after this unit has performed an Act of Faith, you gain 1 Miracle dice. Designer’s Note: Place two Cherub tokens next to the unit, removing one each time this ability has been used."
     },
     "Storm of Retribution": {
      "_kind": "datasheet",
-     "text": "Ranged attacks re-roll hit and wound rolls of 1; against an enemy unit that has destroyed one of your ADEPTA SORORITAS units this battle, also +1 to hit and +1 to wound."
+     "text": "Each time a model in this unit makes a ranged attack, that model can re-roll a Hit roll of 1 and re-roll a Wound roll of 1. If such an attack targets an enemy unit that has destroyed one or more ADEPTA SORORITAS units from your army during the battle, add 1 to the Hit roll and add 1 to the Wound roll as well."
     }
    }
   },
@@ -1035,15 +1051,15 @@
    "abilities": {
     "Healing Tears": {
      "_kind": "datasheet",
-     "text": "While Celestine is alive, in your Command phase return 1 destroyed Geminae Superia."
+     "text": "While this unit contains a Celestine model, in your Command phase, you can return 1 destroyed Geminae Superia model to this unit."
     },
     "Lifewards": {
      "_kind": "datasheet",
-     "text": "While a Geminae Superia is alive, Celestine has Feel No Pain 4+."
+     "text": "While this unit contains one or more Geminae Superia models, Celestine has the Feel No Pain 4+ ability."
     },
     "Miraculous Intervention": {
      "_kind": "datasheet",
-     "text": "The first time Celestine dies, roll D6 at the end of the phase: on a 2+ she is set back up as close as possible, unengaged, with full wounds."
+     "text": "The first time this unit’s Celestine model is destroyed, roll one D6 at the end of the phase. On a 2+, set that Celestine model back up on the battlefield, as close as possible to where it was destroyed and not within Engagement Range of any enemy units, with its full wounds remaining."
     }
    }
   },
@@ -1052,23 +1068,23 @@
    "abilities": {
     "Ministorum Sermon": {
      "_kind": "datasheet",
-     "text": "While a MINISTORUM PRIEST is in this unit, its melee weapons have [SUSTAINED HITS 1]."
+     "text": "While this unit contains a MINISTORUM PRIEST, melee weapons equipped by models in this unit have the [SUSTAINED HITS 1] ability."
     },
     "Cherub": {
      "_kind": "datasheet",
-     "text": "Once per battle, after this unit performs an Act of Faith, gain 1 Miracle dice."
+     "text": "Once per battle, after this unit has performed an Act of Faith, you gain 1 Miracle dice. Designer’s Note: Place a Cherub token next to the unit, removing it once this ability has been used."
     },
     "Attached Unit": {
      "_kind": "datasheet",
-     "text": "A character that can join a listed bodyguard can join this unit instead (see the Leader lists)."
+     "text": "If a Ministorum Priest from your army with the Leader ability can be attached to a Battle Sisters Squad, it can be attached to this unit instead. If a MINISTORUM PRIEST from your army is attached to this unit during the Declare Battle Formations step, that model gains the Scouts 6\" ability."
     },
     "Simulacrum Imperialis": {
      "_kind": "wargear",
-     "text": "End of your Command phase: for each objective you control with one or more of your units with this ability in range, roll D6; on a 4+ gain a Miracle dice of that value."
+     "text": "At the end of your Command phase, for each objective marker you control that has one or more units from your army with this ability within range of it, roll one D6: on a 4+, you gain 1 Miracle dice showing a value equal to that result."
     },
     "Salvationist Medikit": {
      "_kind": "wargear",
-     "text": "Your Command phase, if the bearer is on the battlefield: return up to D3 destroyed non-CHARACTER models."
+     "text": "In your Command phase, if the bearer is on the battlefield, you can return up to D3 destroyed models (excluding CHARACTER models) to this unit."
     }
    }
   },
@@ -1077,7 +1093,7 @@
    "abilities": {
     "Angelic Ascent": {
      "_kind": "datasheet",
-     "text": "Your Shooting phase, after it shoots, if unengaged: Normal move up to 6\"; it cannot charge this turn."
+     "text": "In your Shooting phase, after this unit has shot, if it is not within Engagement Range of any enemy units, it can make a Normal move of up to 6\". If it does, until the end of the turn, this unit is not eligible to declare a charge."
     }
    }
   },
@@ -1086,15 +1102,15 @@
    "abilities": {
     "Impetuous Fervour": {
      "_kind": "datasheet",
-     "text": "Attacks re-roll hit rolls of 1, or the whole hit roll against an enemy unit in range of an objective."
+     "text": "Each time a model in this unit makes an attack, re-roll a Hit roll of 1. If the target of that attack is an enemy unit within range of an objective marker, you can re-roll the Hit roll instead."
     },
     "Sacred Banner": {
      "_kind": "wargear",
-     "text": "Re-roll Advance and Charge rolls for the bearer's unit."
+     "text": "You can re-roll Advance and Charge rolls made for the bearer’s unit."
     },
     "Simulacrum Imperialis": {
      "_kind": "wargear",
-     "text": "End of your Command phase: for each objective you control with one or more of your units with this ability in range, roll D6; on a 4+ gain a Miracle dice of that value."
+     "text": "At the end of your Command phase, for each objective marker you control that has one or more units from your army with this ability within range of it, roll one D6: on a 4+, you gain 1 Miracle dice showing a value equal to that result."
     }
    }
   },
@@ -1103,7 +1119,7 @@
    "abilities": {
     "Self Repair": {
      "_kind": "datasheet",
-     "text": "Start of your Command phase: this model regains 1 lost wound."
+     "text": "At the start of your Command phase, this model regains 1 lost wound."
     }
    }
   },
@@ -1112,11 +1128,11 @@
    "abilities": {
     "Relics of the Matriarchs": {
      "_kind": "datasheet",
-     "text": "Start of each battle round: pick up to two Relics (one while Damaged); it has them until the next battle round. The Fiery Heart: Aura 6\": +2\" Move and +1 to Advance and Charge rolls. Censer of the Sacred Rose: Aura 6\": re-roll Battle-shock tests. Simulacrum of the Ebon Chalice: Aura 6\": up to two Acts of Faith per phase (never two dice in one roll). Simulacrum of the Argent Shroud: Aura 6\": ranged attacks re-roll wound rolls of 1. Icon of the Valorous Heart: Aura 6\": Feel No Pain 6+. Petals of the Bloody Rose: Aura 6\": +1 AP on melee weapons."
+     "text": "At the start of the battle round, select up to two of the abilities in the Relics of the Matriarchs section. Until the start of the next battle round, this model has those abilities. ■ THE FIERY HEART (AURA): While a friendly ADEPTA SORORITAS unit is within 6\" of this model, add 2\" to that unit's Move characteristic and add 1 to Advance and Charge rolls made for that unit. ■ CENSER OF THE SACRED ROSE (AURA): While a friendly ADEPTA SORORITAS unit is within 6\" of this model, you can re-roll Battle-shock tests taken for that unit. ■ SIMULACRUM OF THE EBON CHALICE (AURA): While a friendly ADEPTA SORORITAS unit is within 6\" of this model, that unit can perform up to two Acts of Faith per phase, instead of only one. ■ SIMULACRUM OF THE ARGENT SHROUD (AURA): While a friendly ADEPTA SORORITAS unit is within 6\" of this model, each time a model in that unit makes a ranged attack, re-roll a Wound roll of 1. ■ ICON OF THE VALOROUS HEART (AURA): While a friendly ADEPTA SORORITAS unit is within 6\" of this model, models in that unit have the Feel No Pain 6+ ability. ■ PETALS OF THE BLOODY ROSE (AURA): While a friendly ADEPTA SORORITAS unit is within 6\" of this model, improve the Armour Penetration characteristic of melee weapons equipped by models in that unit by 1."
     },
     "Solemn Procession": {
      "_kind": "datasheet",
-     "text": "While this model is on the battlefield, each time you gain a Miracle dice at the start of the battle round, that Miracle dice is a 6 (do not roll for it)."
+     "text": "Each time you gain 1 Miracle dice at the start of the battle round, if this model is on the battlefield, do not roll one D6 to determine the value of that Miracle dice; it has a value of 6."
     }
    }
   },
@@ -1125,11 +1141,11 @@
    "abilities": {
     "Embodied Prophecy": {
      "_kind": "datasheet",
-     "text": "When it fights, its melee weapons gain [SUSTAINED HITS 1] or [LETHAL HITS] until the end of the phase; both if it charged this turn."
+     "text": "Each time this unit is selected to fight, select one of the following abilities to apply to melee weapons equipped by models in this unit until the end of the phase: ■ [SUSTAINED HITS 1] ■ [LETHAL HITS] If this unit made a Charge move this turn, until the end of the phase, select both abilities above to apply to melee weapons equipped by models in this unit instead."
     },
     "Sacred Banner": {
      "_kind": "wargear",
-     "text": "Re-roll Advance and Charge rolls for the bearer's unit."
+     "text": "You can re-roll Advance and Charge rolls made for the bearer’s unit."
     }
    }
   },
@@ -1138,15 +1154,19 @@
    "abilities": {
     "Death to the Alien": {
      "_kind": "datasheet",
-     "text": "Attacks re-roll hit rolls of 1, or the whole hit roll against a unit without IMPERIUM or CHAOS."
+     "text": "Each time a model in this unit makes an attack, re-roll a Hit roll of 1. If the target of that attack does not have the IMPERIUM or CHAOS keywords, you can re-roll the Hit roll instead."
     },
     "Attached Unit": {
      "_kind": "datasheet",
-     "text": "A character that can join a DEATHWATCH KILL TEAM can join this unit instead."
+     "text": "If a CHARACTER unit from your army can be attached to a DEATHWATCH KILL TEAM unit, it can be attached to this unit instead."
     },
     "Astartes shield": {
      "_kind": "wargear",
      "text": "The bearer has a 4+ invulnerable save."
+    },
+    "Kill Team": {
+     "_kind": "datasheet",
+     "text": "Each time an attack targets this unit, if it contains models with different Toughness characteristics, until the attacking unit has finished making its attacks, use the Toughness characteristic of the majority of the models in that unit when determining what roll is required for that attack to successfully wound. If two or more Toughness characteristics are tied for majority, use the highest value. For the purposes of determining which models in this unit can embark within a Transport, Gravis Veteran models take up the space of 2 models, but can otherwise embark within any TRANSPORT their unit can embark within, even though similar models in other units have the GRAVIS keyword. Designer’s Note: While the abstractions in the above rule cause some models to behave differently to similar models in other units, they are designed to minimise complicated Transport rules."
     }
    }
   },
@@ -1155,19 +1175,19 @@
    "abilities": {
     "Reign of Confusion": {
      "_kind": "datasheet",
-     "text": "Once per turn, when your opponent targets one of their units within 12\" with a Stratagem, that use costs 1CP more."
+     "text": "Once per turn, when your opponent targets a unit from their army within 12\" of this model with a stratagem, this model can use this ability. If you do increase the CP cost of that use of that stratagem by 1CP."
     },
     "Acrobatic Escape": {
      "_kind": "datasheet",
-     "text": "End of the Fight phase, if engaged: fall back up to D6\". End of your opponent's turn, if more than 3\" from enemies: go into Strategic Reserves and arrive in your next Movement phase."
+     "text": "■ At the end of the Fight phase, if this unit is engaged, this unit can make a fall-back move of up to D6\". ■ At the end of your opponent’s turn, if this unit is more than 3\" from all enemy units, you can use this ability. If you do: ■ Place this unit in strategic reserves. ■ This unit must make an ingress move in your next Movement phase (including in your first turn)."
     },
     "Shadow Assignment": {
      "_kind": "datasheet",
-     "text": "This model cannot be your WARLORD."
+     "text": "This model cannot be selected to be your WARLORD. If your army faction is AGENTS OF THE IMPERIUM, then during the Declare Battle Formations step, you can replace this model with a different OFFICIO ASSASSINORUM model, provided the total points value of the new model does not exceed the points value of the model it replaced. Your army cannot include duplicates of the same model (i.e. after replacing a model with this rule, your army cannot have more than 1 VINDICARE ASSASSIN, it cannot have more than 1 CUlExUS ASSASSIN, it cannot have more than 1 EvERSOR ASSASSIN and it cannot have more than 1 CALLIDUS ASSASSIN)."
     },
     "Decoy Targets": {
      "_kind": "datasheet",
-     "text": "Twice per battle (not in the same round), your Movement phase: destroy another friendly unengaged INFANTRY model and put this model in its place."
+     "text": "Twice per battle, in your Movement phase, you can select one other friendly INFANTRY model that is on the battlefield and not within Engagement Range of one or more enemy units. The selected model is destroyed (ignoring any rules that are triggered when a model is destroyed) and this model is removed from the battlefield and set up again as close as possible to where that destroyed model was and not within Engagement Range of one or more enemy units. This ability cannot be used more than once in the same battle round."
     }
    }
   },
@@ -1176,15 +1196,15 @@
    "abilities": {
     "Blackstar Cluster Launcher": {
      "_kind": "datasheet",
-     "text": "After a Normal move: one enemy unit it moved over, roll six D6, each 5+ is 1 mortal wound."
+     "text": "Each time this model ends a Normal move, you can select one enemy unit it moved over during that move and roll six D6: for each 5+, that unit suffers 1 mortal wound."
     },
     "Auspex Array": {
      "_kind": "wargear",
-     "text": "The bearer's ranged weapons have [IGNORES COVER]."
+     "text": "Ranged weapons equipped by the bearer have the [IGNORES COVER] ability."
     },
     "Infernum Halo-launcher": {
      "_kind": "wargear",
-     "text": "The bearer has the SMOKE keyword."
+     "text": "The bearer has the Smoke keyword."
     }
    }
   },
@@ -1193,23 +1213,27 @@
    "abilities": {
     "Abomination": {
      "_kind": "datasheet",
-     "text": "Feel No Pain 2+ against Psychic Attacks."
+     "text": "This model has the Feel No Pain 2+ ability against Psychic Attacks."
     },
     "Soulless Horror": {
      "_kind": "datasheet",
-     "text": "Once per battle, start of any Command phase: each enemy unit within 9\" takes a Battle-shock test at -1 (-2 if PSYKER)."
+     "text": "Once per battle, at the start of any Command phase, this model can use this ability. If it does, each enemy unit within 9\" of this model must take a Battle-shock test, subtracting 1 from that test (or subtracting 2 if that unit is a PSYKER)."
     },
     "Etheric Emergence": {
      "_kind": "datasheet",
-     "text": "When it arrives by Deep Strike it can be set up anywhere more than 6\" from enemy units, but cannot charge that turn."
+     "text": "In your Movement phase, when this model is set up on the battlefield using the Deep Strike ability, it can perform an etheric emergence. If it does, this model can be set up anywhere on the battlefield that is more than 6\" horizontally away from all enemy units, but until the end of the turn, it is not eligible to declare a charge."
     },
     "Shadow Assignment": {
      "_kind": "datasheet",
-     "text": "This model cannot be your WARLORD."
+     "text": "This model cannot be selected to be your WARLORD. If your army faction is AGENTS OF THE IMPERIUM, then during the Declare Battle Formations step, you can replace this model with a different OFFICIO ASSASSINORUM model, provided the total points value of the new model does not exceed the points value of the model it replaced. Your army cannot include duplicates of the same model (i.e. after replacing a model with this rule, your army cannot have more than 1 VINDICARE ASSASSIN, it cannot have more than 1 CUlExUS ASSASSIN, it cannot have more than 1 EvERSOR ASSASSIN and it cannot have more than 1 CAllIDUS ASSASSIN)."
     },
     "Esoteric Explosives": {
      "_kind": "datasheet",
-     "text": "When targeted with the Grenades Stratagem, mortal wounds are inflicted on 3+ instead of 4+."
+     "text": "Each time this model is targeted with the Grenades Stratagem, 1 mortal wound is inflicted for each D6 roll of 3+ instead of for each 4+"
+    },
+    "Psychic Assassin": {
+     "_kind": "wargear",
+     "text": "Each time you select a PSYKER unit as the target for this weapon, until those attacks are resolved, change the Attacks characteristic of this weapon to 6."
     }
    }
   },
@@ -1218,7 +1242,7 @@
    "abilities": {
     "Death to the Alien": {
      "_kind": "datasheet",
-     "text": "Attacks re-roll hit rolls of 1, or the whole hit roll against a unit without IMPERIUM or CHAOS."
+     "text": "Each time a model in this unit makes an attack, re-roll a Hit roll of 1. If the target of that attack does not have the IMPERIUM or CHAOS keywords, you can re-roll the Hit roll instead."
     },
     "Astartes shield": {
      "_kind": "wargear",
@@ -1231,19 +1255,19 @@
    "abilities": {
     "Frenzon": {
      "_kind": "datasheet",
-     "text": "It can shoot and charge in a turn in which it advanced."
+     "text": "This model is eligible to shoot and declare a charge in a turn in which it Advanced."
     },
     "Overkill": {
      "_kind": "datasheet",
-     "text": "Once per battle, your Movement phase before a Normal move: +6\" Move and +3 A on its melee weapons until the end of the turn."
+     "text": "Once per battle, in your Movement phase, this model can use this ability before it makes a Normal move. If it does, until the end of the turn, add 6\" to this model’s Move characteristic and add 3 to the Attacks characteristic of this model’s melee weapons."
     },
     "Shadow Assignment": {
      "_kind": "datasheet",
-     "text": "This model cannot be your WARLORD."
+     "text": "This model cannot be selected to be your WARLORD. If your army faction is AGENTS OF THE IMPERIUM, then during the Declare Battle Formations step, you can replace this model with a different OFFICIO ASSASSINORUM model, provided the total points value of the new model does not exceed the points value of the model it replaced. Your army cannot include duplicates of the same model (i.e. after replacing a model with this rule, your army cannot have more than 1 VINDICARE ASSASSIN, it cannot have more than 1 CUlExUS ASSASSIN, it cannot have more than 1 EvERSOR ASSASSIN and it cannot have more than 1 CAllIDUS ASSASSIN)."
     },
     "Intra-neural Biotech": {
      "_kind": "datasheet",
-     "text": "Heroic Intervention on this unit costs 1CP less and ignores other uses this phase."
+     "text": "You can target this unit with the Heroic Intervention stratagem, regardless of any other uses of that stratagem this phase. If you do: ■ That use is -1 CP. ■ That use does not prevent any uses of that stratagem on other units this phase."
     }
    }
   },
@@ -1252,19 +1276,19 @@
    "abilities": {
     "Imperial Law": {
      "_kind": "datasheet",
-     "text": "Start of the battle: pick one enemy unit; this unit's attacks against it have [LETHAL HITS] and [PRECISION]."
+     "text": "At the start of the battle, select one unit from your opponent’s army. Each time a model in this unit makes an attack that targets that unit, that attack has the [LETHAL HITS] and [PRECISION] abilities."
     },
     "Nuncio-aquila": {
      "_kind": "wargear",
-     "text": "Once per battle, start of any Command phase: enemy units (not MONSTER or VEHICLE) in range of an objective within 6\" take a Battle-shock test."
+     "text": "Once per battle, at the start of any Command phase, you can select one objective marker within 6\" of the bearer. All enemy units (excluding MONSTERS and VEHICLES) within range of that objective marker must take a Battle-shock test. Each objective marker can only be targeted by this ability once per turn. Designer’s Note: Place one Nuncio-aquila token next to the bearer, removing it once it uses this ability."
     },
     "Arbites medi-kit": {
      "_kind": "wargear",
-     "text": "Start of your Command phase, if below Starting Strength: return up to D3 destroyed Exaction Vigilants."
+     "text": "At the start of your Command phase, if the bearer’s unit is below its Starting Strength, you can return up to D3 destroyed Exaction Vigilants to this unit."
     },
     "Soulguilt scanner": {
      "_kind": "wargear",
-     "text": "Ranged weapons of the bearer's unit have [IGNORES COVER]."
+     "text": "Ranged weapons equipped by models in the bearer’s unit have the [IGNORES COVER] ability."
     }
    }
   },
@@ -1273,19 +1297,19 @@
    "abilities": {
     "Rites of Teleportation": {
      "_kind": "datasheet",
-     "text": "INQUISITOR units attached at Declare Battle Formations get Deep Strike."
+     "text": "If one or more INQUISITOR units are attached to this unit during the Declare Battle formations step, models in those units have the Deep Strike ability."
     },
     "Hammerhand (Psychic)": {
      "_kind": "datasheet",
-     "text": "After it makes a Charge move, its melee weapons have [LETHAL HITS] until the end of the turn."
+     "text": "Each time a model in this unit makes a Charge move, until the end of the turn, melee weapons equipped by models in this unit have the [LETHAL HITS] ability."
     },
     "Narthecium": {
      "_kind": "wargear",
-     "text": "Your Command phase: return 1 destroyed non-CHARACTER model to the bearer's unit."
+     "text": "In your Command phase, you can return 1 destroyed model (excluding CHARACTERS) to the bearer’s unit."
     },
     "Ancient's Banner": {
      "_kind": "wargear",
-     "text": "Add 1 to the Objective Control characteristic of models in the bearer's unit."
+     "text": "Add 1 to the Objective Control characteristic of models in the bearer’s unit."
     }
    }
   },
@@ -1294,15 +1318,15 @@
    "abilities": {
     "Breaching Team": {
      "_kind": "datasheet",
-     "text": "Attacks re-roll wound rolls of 1, or the whole wound roll against a unit in range of an objective."
+     "text": "Each time a model in this unit makes an attack, re-roll a Wound roll of 1. If the target is within range of an objective marker, you can re-roll the Wound roll instead."
     },
     "Gheistskull": {
      "_kind": "wargear",
-     "text": "Once per battle, Grenades on this unit can target an enemy unit within 18\" that is not engaged with your army."
+     "text": "Once per battle, when you select this unit as the target of the Explosives Stratagem, you can target one enemy unit visible to and within 18\" of this unit that is not within Engagement Range of any units from your army, instead of one within 8\"."
     },
     "CAT Unit": {
      "_kind": "datasheet",
-     "text": "Once per battle, when it shoots: its ranged weapons gain [IGNORES COVER] until the end of the phase."
+     "text": "Once per battle, when this unit is selected to shoot, until the end of the phase, ranged weapons equipped by models in this unit gain the [IGNORES COVER] ability. Designer’s Note: Place one Gheistskull and one CAT Unit token next to this unit, removing each token once the relevant ability has been used."
     },
     "Endurant shield": {
      "_kind": "wargear",
@@ -1315,7 +1339,7 @@
    "abilities": {
     "Self-repair": {
      "_kind": "datasheet",
-     "text": "Start of your Command phase: this model regains 1 lost wound."
+     "text": "At the end of your Command phase, this model regains 1 lost wound."
     }
    }
   },
@@ -1324,15 +1348,15 @@
    "abilities": {
     "Authority of the Inquisition": {
      "_kind": "datasheet",
-     "text": "While leading a unit, it can embark in any TRANSPORT its bodyguard can."
+     "text": "While this model is leading a unit, it can embark within any Transport that its Bodyguard unit can embark within."
     },
     "Power of the Rosette": {
      "_kind": "datasheet",
-     "text": "Each time you target his unit with a Stratagem, roll D6: on a 3+ you gain 1CP."
+     "text": "Each time you target this model’s unit with a Stratagem, roll one D6: on a 3+, you gain 1CP."
     },
     "Blessed Wardings": {
      "_kind": "datasheet",
-     "text": "While leading a unit, its models have a 6+ invulnerable save."
+     "text": "While this model is leading a unit, models in that unit have the 6+ invulnerable save."
     },
     "Psychic gifts": {
      "_kind": "wargear",
@@ -1345,19 +1369,19 @@
    "abilities": {
     "Malefic Wardings (Psychic)": {
      "_kind": "datasheet",
-     "text": "While leading a unit, its models have a 6+ invulnerable save (4+ against Psychic Attacks and DAEMON attacks)."
+     "text": "While this model is leading a unit, models in that unit have a 6+ invulnerable save, and a 4+ invulnerable save against Psychic Attacks and attacks made by DAEMON models."
     },
     "Spy Network": {
      "_kind": "datasheet",
-     "text": "Each time your opponent gains CP from an ability, roll D6: on a 2+ you gain 1CP."
+     "text": "Each time your opponent gains a CP as the result of an ability, roll one D6: on a 2+, you also gain 1CP."
     },
     "Authority of the Inquisition": {
      "_kind": "datasheet",
-     "text": "While leading a unit, it can embark in any TRANSPORT its bodyguard can."
+     "text": "While this model is leading a unit, it can embark within any TRANSPORT that its Bodyguard unit can embark within."
     },
     "Glovodan Psyber-eagle": {
      "_kind": "wargear",
-     "text": "Your Command phase: one enemy unit within 18\" cannot have the Benefit of Cover until your next Command phase."
+     "text": "In your Command phase, you can select one enemy unit within 18\" of the bearer. Until the start of your next Command phase, that unit cannot have the Benefit of Cover. Designer’s Note: Place a Glovodan Psyber-eagle token next to the selected unit to remind you."
     }
    }
   },
@@ -1366,15 +1390,15 @@
    "abilities": {
     "Xenos Hunter": {
      "_kind": "datasheet",
-     "text": "While leading a unit, attacks against a unit without IMPERIUM or CHAOS get +1 to hit."
+     "text": "While this model is leading a unit, each time a model in that unit makes an attack that targets an enemy unit that does not have the IMPERIUM or CHAOS keywords, add 1 to the Hit roll."
     },
     "Psychic Veil (Psychic)": {
      "_kind": "datasheet",
-     "text": "Your Command phase: roll D6. On a 1 its unit suffers D3 mortal wounds; on a 2+ it can only be shot from within 18\" until your next Command phase."
+     "text": "In your Command phase, this PSYKER can use this ability. If it does, roll one D6: on a 1, this PSYKER’s unit suffers D3 mortal wounds; on a 2+, until the start of your next Command phase, this PSYKER’s unit can only be selected as the target of a ranged attack if the attacking model is within 18\"."
     },
     "Authority of the Inquisition": {
      "_kind": "datasheet",
-     "text": "While leading a unit, it can embark in any TRANSPORT its bodyguard can."
+     "text": "While this model is leading a unit, it can embark within any TRANSPORT that its Bodyguard unit can embark within."
     }
    }
   },
@@ -1383,15 +1407,15 @@
    "abilities": {
     "Psyoculum": {
      "_kind": "datasheet",
-     "text": "While leading a unit, its ranged weapons have [ANTI-PSYKER 4+]."
+     "text": "While this model is leading a unit, ranged weapons equipped by models in that unit have the [ANTI-PSYKER 4+] ability."
     },
     "No Mercy": {
      "_kind": "datasheet",
-     "text": "While leading a unit, attacks against a Below Half-strength unit get +1 to hit."
+     "text": "While this model is leading a unit, each time a model in that unit makes an attack that targets a unit that is Below Half-strength, add 1 to the Hit roll."
     },
     "Authority of the Inquisition": {
      "_kind": "datasheet",
-     "text": "While leading a unit, it can embark in any TRANSPORT its bodyguard can."
+     "text": "While this model is leading a unit, it can embark within any TRANSPORT that its Bodyguard unit can embark within."
     }
    }
   },
@@ -1400,11 +1424,11 @@
    "abilities": {
     "On My Signal, Fire!": {
      "_kind": "datasheet",
-     "text": "After it shoots: one enemy unit it hit; until the end of the phase AGENTS OF THE IMPERIUM and IMPERIUM BATTLELINE INFANTRY attacks against it re-roll the hit roll."
+     "text": "After this unit has shot, you can select one enemy unit hit by those attacks. Until the end of the phase, each time an Agents of the Imperium or IMPERIUM INFANTRY BATTLELINE model from your army makes an attack that targets that enemy unit, you can re-roll the Hit roll."
     },
     "Tox‑cycler": {
      "_kind": "datasheet",
-     "text": "After a hit with the Jindarii tox-cycler: +2 S and +2 D on it for the rest of the battle (max D6)."
+     "text": "In your Shooting phase, after this unit has shot, if this model scored a hit with its Jindarii tox-cycler, until the end of the battle, add 2 to the Strength and Damage characteristics of that weapon (to a maximum Damage characteristic of 6)."
     }
    }
   },
@@ -1413,15 +1437,15 @@
    "abilities": {
     "Loyal Henchmen": {
      "_kind": "datasheet",
-     "text": "While an INQUISITOR leads this unit, attacks against it get -1 to wound."
+     "text": "While an INQUISITOR model is leading this unit, each time an attack is made against this unit, subtract 1 from the Wound roll."
     },
     "Inquisitorial Henchmen": {
      "_kind": "datasheet",
-     "text": "In another faction's army, each INQUISITOR unit lets you take one INQUISITORIAL AGENTS unit that does not count as RETINUE."
+     "text": "If your Army Faction is not AGENTS OF THE IMPERIUM, then for each INQUISITOR unit you include in your army, you can include one INQUISITORIAL AGENTS unit in your army that does not count towards the number of RETINUE units your army can include (see Assigned Agents)."
     },
     "Tome-skull": {
      "_kind": "wargear",
-     "text": "Once per battle per Tome-skull, start of any phase: one battle-shocked friendly AGENTS OF THE IMPERIUM unit within 6\" recovers, or one enemy unit within 6\" takes a Battle-shock test."
+     "text": "Once per battle for each Tome-skull this unit is equipped with, at the start of any phase, you can select either one friendly AGENTS OF THE IMPERIUM unit that is Battle-shocked and within 6\" of this unit or one enemy unit within 6\" of this unit. If you select a friendly unit, that unit is no longer Battle-shocked. If you select an enemy unit, it must take a Battle-shock test. Designer’s Note: Place the appropriate number of Tome-skull tokens next to the unit at the start of the battle, removing one each time this unit uses this ability."
     }
    }
   },
@@ -1430,11 +1454,11 @@
    "abilities": {
     "Third Eye (Psychic)": {
      "_kind": "datasheet",
-     "text": "Start of your Shooting phase: one visible enemy unit within 12\" takes a Battle-shock test (-2 if INFANTRY); if failed it suffers 3 mortal wounds."
+     "text": "At the start of your Shooting phase, select one enemy unit within 12\" of and visible to this model. That unit must take a Battle-shock test, subtracting 2 from the result if it is an INFANTRY unit. If the test is failed, that enemy unit suffers 3 mortal wounds."
     },
     "Gaze into the Empyrean (Psychic)": {
      "_kind": "datasheet",
-     "text": "Enemy reinforcements cannot be set up within 12\" of this model."
+     "text": "Enemy units that are set up on the battlefield as Reinforcements cannot be set up within 12\" of this model."
     }
    }
   },
@@ -1443,15 +1467,15 @@
    "abilities": {
     "Backroom Deals": {
      "_kind": "datasheet",
-     "text": "At Declare Battle Formations pick one unit with this ability: while it leads a unit, those models have Infiltrators."
+     "text": "If your army contains one or more units with this ability, during the Declare Battle Formations step, select one of those units. While the selected unit is leading a unit, models in that unit have the Infiltrators ability."
     },
     "Warrant of Trade": {
      "_kind": "datasheet",
-     "text": "After deployment, redeploy up to D3 IMPERIUM BATTLELINE units (they can go into Strategic Reserves regardless of the limit)."
+     "text": "If your army includes one or more units with this ability, after both players have deployed their armies, select upto D3 IMpERIUM BATTlElINE units from your army and redeploy them. When doing so, you can set those units up in Strategic Reserves, regardless of how many units are already in Strategic Reserves."
     },
     "Healing Serum": {
      "_kind": "wargear",
-     "text": "Start of your Command phase, if the unit is below Starting Strength: return up to D3 destroyed non-CHARACTER models."
+     "text": "At the start of your Command phase, if the bearer’s unit is below its Starting Strength, you can return up to D3 destroyed models (excluding CHARACTERS) to the bearer’s unit."
     }
    }
   },
@@ -1460,11 +1484,11 @@
    "abilities": {
     "Dedication to Duty": {
      "_kind": "datasheet",
-     "text": "A model killed in melee before it fought: on a 4+ it fights after the attacker, then is removed."
+     "text": "Each time a model in this unit is destroyed by a melee attack, if that model has not fought this phase, roll one D6: on a 4+, do not remove it from play. The destroyed model can fight after the attacking model’s unit has finished making its attacks, and is then removed from play."
     },
     "Nuncio-aquila": {
      "_kind": "wargear",
-     "text": "Once per battle, start of any Command phase: enemy units (not MONSTER or VEHICLE) in range of an objective within 6\" take a Battle-shock test."
+     "text": "Once per battle, at the start of any Command phase, you can select one objective marker within 6\" of the bearer. All enemy units (excluding MONSTERS and VEHICLES) within range of that objective marker must take a Battle-shock test. Each objective marker can only be targeted by this ability once per turn. Designer’s Note: Place one Nuncio-aquila token next to the bearer, removing it once it uses this ability."
     }
    }
   },
@@ -1473,11 +1497,11 @@
    "abilities": {
     "Merciless Judgement": {
      "_kind": "datasheet",
-     "text": "Ranged attacks against a Below Half-strength unit get +1 to wound."
+     "text": "Each time a model in this unit makes a ranged attack that targets a unit that is Below Half-strength, add 1 to the Wound roll."
     },
     "Nuncio-aquila": {
      "_kind": "wargear",
-     "text": "Once per battle, start of any Command phase: enemy units (not MONSTER or VEHICLE) in range of an objective within 6\" take a Battle-shock test."
+     "text": "Once per battle, at the start of any Command phase, you can select one objective marker within 6\" of the bearer. All enemy units (excluding MONSTERS and VEHICLES) within range of that objective marker must take a Battle-shock test. Each objective marker can only be targeted by this ability once per turn."
     }
    }
   },
@@ -1486,19 +1510,19 @@
    "abilities": {
     "Shieldbreaker": {
      "_kind": "datasheet",
-     "text": "Once per battle, with the exitus rifle: +1 to wound and every successful wound roll is a Critical Wound until the end of the phase."
+     "text": "Once per battle, when selecting targets for this model’s exitus rifle, it can fire a shieldbreaker round. If it does, until the end of the phase, each time this model makes an attack with that weapon, add 1 to the Wound roll and any successful Wound roll scores a Critical Wound."
     },
     "Dead-shot": {
      "_kind": "datasheet",
-     "text": "While it shoots, enemy units lose Lone Operative and hidden enemy units have +15\" detection range."
+     "text": "When this unit is selected to shoot, until this unit has shot: ■ Enemy units do not have Lone Operative. ■ Hidden enemy units have +15\" detection range."
     },
     "Shadow Assignment": {
      "_kind": "datasheet",
-     "text": "This model cannot be your WARLORD."
+     "text": "This model cannot be selected to be your WARLORD. If your army faction is AGENTS OF THE IMPERIUM, then during the Declare Battle Formations step, you can replace this model with a different OFFICIO ASSASSINORUM model, provided the total points value of the new model does not exceed the points value of the model it replaced. Your army cannot include duplicates of the same model (i.e. after replacing a model with this rule, your army cannot have more than 1 VINDICARE ASSASSIN, it cannot have more than 1 CUlExUS ASSASSIN, it cannot have more than 1 EvERSOR ASSASSIN and it cannot have more than 1 CAllIDUS ASSASSIN)."
     },
     "Micromelta Rounds": {
      "_kind": "datasheet",
-     "text": "Its exitus rifle has [ANTI-MONSTER 4+] and [ANTI-VEHICLE 4+]."
+     "text": "This model’s exitus rifle has the [ANTI‑MONSTER 4+] and [ANTI‑VEHICLE 4+] abilities."
     }
    }
   },
@@ -1507,11 +1531,11 @@
    "abilities": {
     "Masters of Close Confines": {
      "_kind": "datasheet",
-     "text": "Ranged attacks against the closest eligible target have [LETHAL HITS]."
+     "text": "Each time a model in this unit makes a ranged attack that targets the closest eligible target, that attack has the [LETHAL HITS] ability."
     },
-    "Navy Bodyguards": {
+    "Navy Bodyguard": {
      "_kind": "datasheet",
-     "text": "In another faction's army, each VOIDFARERS CHARACTER lets you take one VOIDSMEN-AT-ARMS unit that does not count as RETINUE."
+     "text": "If your Army Faction is not AGENTS OF THE IMPERIUM, then for each VOIDFARERS CHARACTER unit you include in your army, you can include one VOIDSMEN-AT-ARMS unit in your army that does not count towards the number of RETINUE units your army can include (see Assigned Agents)"
     }
    }
   },
@@ -1520,11 +1544,11 @@
    "abilities": {
     "Tactical Instinct": {
      "_kind": "datasheet",
-     "text": "While leading a unit, weapons in that unit have [LETHAL HITS]."
+     "text": "While this model is leading a unit, weapons equipped by models in that unit have the [LETHAL HITS] ability."
     },
     "Unstoppable Champion": {
      "_kind": "datasheet",
-     "text": "The first time he dies, roll D6 at the end of the phase: on a 2+ he returns with 1 wound."
+     "text": "The first time this model is destroyed, roll one D6 at the end of the phase. On a 2+, set this model back up on the battlefield, as close as possible to where it was destroyed and not within Engagement Range of any enemy units, with 1 wound remaining."
     }
    }
   },
@@ -1533,11 +1557,11 @@
    "abilities": {
     "Strategic Knowledge": {
      "_kind": "datasheet",
-     "text": "While leading a unit, it can shoot and charge in a turn in which it advanced or fell back."
+     "text": "While this model is leading a unit, that unit is eligible to shoot and declare a charge in a turn in which it Advanced or Fell Back."
     },
     "Rites of Battle": {
      "_kind": "datasheet",
-     "text": "Once per battle round, one unit with this ability can use it when its unit is targeted with a Stratagem: that use costs 1CP less."
+     "text": "Once per battle round, one unit from your army with this ability can use it when its unit is targeted with a Stratagem. If it does, reduce the CP cost of that use of that Stratagem by 1CP."
     }
    }
   },
@@ -1546,7 +1570,7 @@
    "abilities": {
     "Rapid Deployment": {
      "_kind": "datasheet",
-     "text": "Units can disembark after it advanced; they count as having made a Normal move and cannot charge that turn."
+     "text": "Units can disembark from this TRANSPORT after it has Advanced. Units that do so make a shock disembark move (Core Rules, 18.07) for that disembarkation."
     }
    }
   }

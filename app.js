@@ -216,6 +216,12 @@
   function paras(t, max = 260) {
     const s = String(t == null ? '' : t).trim();
     if (!s) return [];
+    /* Official text marks list items with "■". Each item starts its own
+       paragraph, whatever the length; the marker itself is kept. */
+    if (/\s■\s/.test(s)) {
+      const parts = s.split(/\s+(?=■\s)/);
+      if (parts.length > 1) return parts.reduce((a, p) => a.concat(paras(p, max)), []);
+    }
     if (s.length <= max) return [s];
     /* Every paragraph is a literal slice of the source, so the wording can
        only be split, never rewritten. A sentence ends at .!? followed by
@@ -246,6 +252,8 @@
     if (start < s.length) out.push(s.slice(start));
     return out.filter(Boolean);
   }
+  /* A rule body as highlighted paragraphs: first inline, the rest as <p>. */
+  const prose = t => paras(t).map((p, i) => (i ? `<p style="margin:6px 0 0">${hl(p)}</p>` : hl(p))).join('');
   function applyTheme(fid) {
     HLF = fid || null;
     const t = (fid && faction(fid) && faction(fid).theme) || DEF_THEME;
@@ -458,7 +466,7 @@
       ${r.blessings ? `<div class="stack" style="gap:6px">${r.blessings.map(b => `<div class="blessing"><div><b>${esc(b.name)}</b><div class="dim">${hl(b.effect)}</div></div><span class="badge gold">${esc(b.reqText)}</span></div>`).join('')}</div>` : ''}</div>`).join('')}</div>`;
   }
   function enhLine(e, carriers) {
-    return `<div class="abil"><div class="row nowrap"><b class="grow">${esc(e.name)}${e.upgrade ? ' <span class="badge gold">Upgrade</span>' : ''}</b><span class="num" style="font-weight:700">${e.pts} pts</span></div><div>${hl(e.text)}</div>${carriers ? `<div class="dim" style="margin-top:4px">Carried by: ${esc(carriers)}</div>` : ''}</div>`;
+    return `<div class="abil"><div class="row nowrap"><b class="grow">${esc(e.name)}${e.upgrade ? ' <span class="badge gold">Upgrade</span>' : ''}</b><span class="num" style="font-weight:700">${e.pts} pts</span></div><div>${prose(e.text)}</div>${carriers ? `<div class="dim" style="margin-top:4px">Carried by: ${esc(carriers)}</div>` : ''}</div>`;
   }
   function detachmentHTML(d, r) {
     const carriers = e => r ? r.units.filter(u => Engine.enhIds(u).includes(e.id)).map(u => dispName(r, u)).join(', ') : '';
@@ -1779,7 +1787,7 @@
         <div class="stack" style="gap:8px"><span class="eyebrow">Abilities</span>
           ${def.coreAbilities.length ? `<div><b>Core:</b> ${def.coreAbilities.map(a => `<button class="kwchip" data-act="tip" data-tip="${esc(glossFor(a))}" data-title="${esc(a)}">${esc(a)}</button>`).join('')}</div>` : ''}
           ${def.factionAbilities.length ? `<div><b>Faction:</b> ${def.factionAbilities.map(a => `<button class="kwchip" data-act="tip" data-tip="${esc(abilityTip(fid, a))}" data-title="${esc(a)}">${esc(a)}</button>`).join('')}</div>` : ''}
-          ${def.abilities.map(a => `<div class="abil"><b>${esc(a.name)}${a.kind === 'wargear' ? ' <span class="badge">Wargear</span>' : ''}</b>${esc(a.text)}</div>`).join('')}
+          ${def.abilities.map(a => `<div class="abil"><b>${esc(a.name)}${a.kind === 'wargear' ? ' <span class="badge">Wargear</span>' : ''}</b>${prose(a.text)}</div>`).join('')}
           ${enh ? `<div class="abil"><b>${esc(enh.name)} <span class="badge gold">Enhancement</span></b>${esc(enh.text)}</div>` : ''}
           ${def.transport ? `<div class="abil"><b>Transport</b>${esc(def.transport)}</div>` : ''}</div>
         ${def.options.length ? `<div class="stack" style="gap:6px"><span class="eyebrow">Wargear options</span><ul style="margin:0;padding-left:20px">${def.options.map(o => `<li>${esc(o.label)}${o.type === 'choice' ? ': ' + esc(o.choices.map(c => c.label + (c.pts ? ` (+${c.pts})` : '')).join(' / ')) : o.per ? ` — ${o.n || 1} per ${o.per} models` : o.max === 'models' ? ' — any number' : ' — one model'}</li>`).join('')}</ul></div>` : ''}
@@ -1993,7 +2001,7 @@
   }
   /* stratagems: whose turn a stratagem is used in, read from its timing text */
   const stratTurn = s => /opponent's/i.test(s.when) ? 'opp' : /\byour\b/i.test(s.when) ? 'mine' : 'both';
-  const stratDL = s => `<dl><dt>When</dt><dd>${hl(s.when)}</dd><dt>Target</dt><dd>${hl(s.target)}</dd><dt>Effect</dt><dd>${hl(s.effect)}</dd>${s.restrictions ? `<dt>Limit</dt><dd>${hl(s.restrictions)}</dd>` : ''}</dl>`;
+  const stratDL = s => `<dl><dt>When</dt><dd>${hl(s.when)}</dd><dt>Target</dt><dd>${hl(s.target)}</dd><dt>Effect</dt><dd>${prose(s.effect)}</dd>${s.restrictions ? `<dt>Limit</dt><dd>${hl(s.restrictions)}</dd>` : ''}</dl>`;
   function allStrats(r) {
     const fd = fdata(r.factionId);
     const dets = r.detachmentIds.map(id => fd.detachments.find(d => d.id === id));

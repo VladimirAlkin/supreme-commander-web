@@ -93,14 +93,20 @@ Terror of Khorne) pasted onto datasheets and 10th-edition names. Its real
 mistakes were few: a CP value, a dropped ability, and rules written in shapes
 the engine does not read. Verify before reverting; do not assume either side.
 
-### Sources, in the order they proved reliable
+### Sources — read docs/RULES-SOURCES.md before touching rules text
 
-1. wahapedia.ru/wh40k11ed datasheet pages — matched the current Faction Packs
-   on every point checked.
-2. BSData `wh40k-11e` (GitHub, machine-readable, cloneable) — good for
-   conditions (e.g. Deep Strike only with Lord Invocatus), but still carries
-   10th-edition weapon and ability names, and attaches detachment-granted
-   abilities to datasheets. Do not use it alone to settle a name.
+Short version: Wahapedia (cloneable as a CSV export via the
+N041M/grimstat-wahapedia mirror) is the verbatim base, but it lags the
+Faction Packs by one update. BSData `wh40k-11e` carries the newest changes
+but is not a clean text source. The 30 Sep 2026 changes were found by
+diffing BSData across its import commit. **Never replace text wholesale from
+one source** — on 2026-10-07 the text agent's Wahapedia v1.2 text rolled
+back Relentless Rage, and on 2026-10-08 I nearly did the same with Infernal
+Fusillade by trusting Wahapedia for a CP value.
+
+The text agent's 2026-10-07/08 handover is archived in
+`text/inbox/superseded/`: most of it was the app's own old paraphrases sent
+back. Check that a handover is actually new wording before ingesting it.
 
 ## Deploy
 
