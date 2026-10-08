@@ -1204,6 +1204,28 @@
     return `<div class="panel pad stack kindred"><div class="row"><h3 class="grow">${esc(d.impTitle)}</h3>${cur ? `<span class="badge gold">Round ${p.round}: ${esc(cur.name)}</span>` : `<span class="badge">Round ${p.round}: none</span>`}</div>
       <div class="kin-list">${cards}</div><div class="faint" style="font-size:.85rem">${esc(d.impNote || '')}</div></div>`;
   }
+  /* Huron's Marauders — Tyrannical Motivation: brass command banners, not the Thousand Sons sigil.
+     The chosen command burns a brass chevron sweep across its card. */
+  function huronHTML(p, d) {
+    const now = (p.imp || {})[p.round], cur = d.imperatives.find(i => i.id === now);
+    const cards = d.imperatives.map((k, i) => {
+      const on = now === k.id;
+      return `<button class="htac ${on ? 'on' : ''}" style="--d:-${(i * 2.1).toFixed(1)}s" data-act="csmTac" data-id="${k.id}" aria-pressed="${on}"><span class="htac-grad" aria-hidden="true"></span><span class="htac-chev" aria-hidden="true"></span>
+        <span class="htac-t"><b>${esc(k.name)}</b><span class="htac-s">${on ? 'Commanded' : 'Command'}</span></span><span class="htac-e">${esc(k.effect)}</span></button>`;
+    }).join('');
+    return `<div class="panel pad stack hmar"><div class="row"><h3 class="grow">${esc(d.impTitle)}</h3>${cur ? `<span class="badge gold">Round ${p.round}: ${esc(cur.name)}</span>` : `<span class="badge">Round ${p.round}: none</span>`}</div>
+      <div class="htac-list">${cards}</div><div class="faint" style="font-size:.85rem">${esc(d.impNote || '')}</div></div>`;
+  }
+  /* giving a command: brass chevrons drive outward and brass embers rise from the card edge */
+  function huronFx(card) {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const fx = document.createElement('span'); fx.className = 'hmfx'; fx.setAttribute('aria-hidden', 'true');
+    const R = (a, b) => a + Math.random() * (b - a);
+    fx.innerHTML = `<svg viewBox="0 0 100 100"><path class="cv" d="M22 50 L50 30 L50 42 L78 42 M22 58 L50 58 L50 70 L78 50" pathLength="1"/></svg>`
+      + Array.from({ length: 10 }, () => `<i style="left:${R(12, 88).toFixed(0)}%;--x:${R(-12, 12).toFixed(0)}px;--t:${R(1, 1.5).toFixed(2)}s;--dl:${R(.15, .6).toFixed(2)}s"></i>`).join('');
+    card.appendChild(fx); setTimeout(() => fx.remove(), 2200);
+    if (PL.android) setTimeout(() => PL.haptic('confirm'), 150);
+  }
   /* picking a Kindred Sorcery: a golden sigil draws itself over the card, flashes and dissolves into rising motes */
   function sigilFx(card) {
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -1258,7 +1280,12 @@
       if (d.reminder) {
         const rm = d.reminder, dismissed = ((p.rem || {})[p.round] || {})[d.id];
         const active = (rm.turn !== 'mine' || p.turn !== 'opp') && p.phase === (rm.phase || 'Command');
-        if (active && !dismissed) out.push(`<div class="panel pad stack trk remind" data-remcard="${d.id}"><div class="row"><h3 class="grow">${esc(rm.title)}</h3><span class="badge gold">This round</span></div><div class="dim">${esc(rm.text)}</div><div class="row"><button class="btn sm primary" data-act="csmRemind" data-id="${d.id}">Done — dismiss</button></div></div>`);
+        const fxEl = rm.fx === 'warp'
+          ? `<span class="rem-warp" aria-hidden="true"><i></i><i></i><i></i><svg viewBox="0 0 100 60" class="rem-bolt"><path d="M54 2 L40 26 L52 26 L42 58 L70 22 L56 22 L66 2 Z"/><path d="M30 8 L22 28 L31 28 L24 52 L44 24 L34 24 L41 8 Z"/></svg></span>`
+          : rm.fx === 'slash'
+          ? `<span class="rem-slash" aria-hidden="true"><i class="rs-line"></i><i class="rs-spark"></i><i class="rs-spark"></i><i class="rs-spark"></i><i class="rs-spark"></i><i class="rs-spark"></i><i class="rs-spark"></i></span>`
+          : '';
+        if (active && !dismissed) out.push(`<div class="panel pad stack trk remind ${rm.fx ? 'fx-' + rm.fx : ''}" data-remcard="${d.id}">${fxEl}<div class="row"><h3 class="grow">${esc(rm.title)}</h3><span class="badge gold">This round</span></div><div class="dim">${esc(rm.text)}</div><div class="row"><button class="btn sm primary" data-act="csmRemind" data-id="${d.id}">Done — dismiss</button></div></div>`);
       }
       if (d.battlePick) {
         const bp = d.battlePick, picked = p.aug || [];
@@ -1291,7 +1318,7 @@
           ${cur ? `<div class="dim">${esc(cur.effect)} Active for your TYRANIDS units for the whole battle.</div>` : '<div class="dim">Choose one; it stays active for the rest of the battle.</div>'}
           ${cur ? `<div class="eyebrow" style="margin-top:4px">Predatory Imperative (extra, until your next Command phase)</div><div class="chips" role="group" aria-label="Extra Hyper-adaptation">${H.filter(h => h.id !== p.hyper).map(h => `<button class="chip" aria-pressed="${!!x && x.id === h.id}" data-act="tyrHyperX" data-id="${h.id}">${esc(h.name)}</button>`).join('')}</div>${x ? `<div class="dim">${esc(x.effect)} For the units you targeted with the Stratagem.</div>` : '<div class="faint" style="font-size:.85rem">Mark it after you use the Predatory Imperative Stratagem.</div>'}` : ''}`));
       }
-      if (d.imperatives && d.impTitle) { out.push(kinHTML(p, d)); return; }
+      if (d.imperatives && d.impTitle) { out.push(d.impStyle === 'command' ? huronHTML(p, d) : kinHTML(p, d)); return; }
       if (d.imperatives) {
         const now = (p.imp || {})[p.round], usedIn = id => Object.entries(p.imp || {}).find(([rd, v]) => v === id && +rd !== p.round);
         const curI = d.imperatives.find(i => i.id === now);
@@ -2596,6 +2623,11 @@
       const r = cur(), id = el.dataset.id, on = (playState(r).imp || {})[playState(r).round] !== id;
       playChange(r, p => { p.imp = p.imp || {}; if (p.imp[p.round] === id) delete p.imp[p.round]; else p.imp[p.round] = id; }, null, 'confirm');
       if (on) { const c = document.querySelector(`.kin[data-id="${id}"]`); if (c) sigilFx(c); }
+    },
+    csmTac: el => {   // Huron's Marauders command pick
+      const r = cur(), id = el.dataset.id, on = (playState(r).imp || {})[playState(r).round] !== id;
+      playChange(r, p => { p.imp = p.imp || {}; if (p.imp[p.round] === id) delete p.imp[p.round]; else p.imp[p.round] = id; }, null, 'confirm');
+      if (on) { const c = document.querySelector(`.htac[data-id="${id}"]`); if (c) huronFx(c); }
     },
     tsRit: el => {
       const r = cur(), id = el.dataset.id, p = playState(r);

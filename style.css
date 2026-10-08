@@ -1153,12 +1153,11 @@ html:not(.m) .seg.wide { max-width: 560px; }
 @media (prefers-reduced-motion: reduce) { .kwfx.mark::before { animation: none; } }
 
 /* Mark picker chips, tinted by god so the choice reads at a glance */
-.cchip.tone-gore[aria-checked="true"]     { border-color: #c0392b; background: color-mix(in srgb, #c0392b 20%, #070203); }
+.cchip.tone-blood[aria-checked="true"]    { border-color: #e0483c; background: color-mix(in srgb, #e0483c 20%, #070203); }
 .cchip.tone-green[aria-checked="true"]    { border-color: #8fae3a; background: color-mix(in srgb, #8fae3a 20%, #070203); }
 .cchip.tone-arcane[aria-checked="true"]   { border-color: #3fb6c9; background: color-mix(in srgb, #3fb6c9 20%, #070203); }
 .cchip.tone-slaanesh[aria-checked="true"] { border-color: #e35fa6; background: color-mix(in srgb, #e35fa6 22%, #070203); }
 .cchip.tone-gold[aria-checked="true"]     { border-color: #b88a3f; background: color-mix(in srgb, #b88a3f 20%, #070203); }
-.cchip.tone-gore .num, .cchip.tone-gore { }
 
 /* Dark Pacts reference panel */
 .darkpact-ref .dpchoices { display: grid; gap: 8px; margin: 8px 0 2px; }
@@ -1168,10 +1167,67 @@ html:not(.m) .seg.wide { max-width: 560px; }
 
 /* Play reminder (Focus of Hatred / Vendetta): a card that dissolves into warp motes when dismissed */
 .panel.remind { border-color: color-mix(in srgb, var(--accent) 45%, transparent); box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 18%, transparent); position: relative; overflow: hidden; }
-.panel.remind::after { content: ''; position: absolute; inset: 0; pointer-events: none;
-  background: radial-gradient(130% 90% at 50% -10%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 60%);
-  opacity: .5; animation: remPulse 3.4s ease-in-out infinite; will-change: opacity; }
-@keyframes remPulse { 0%, 100% { opacity: .3; } 50% { opacity: .6; } }
+.panel.remind > .row, .panel.remind > .dim { position: relative; z-index: 2; }
 .panel.remind.dissolving { animation: remDissolve .56s cubic-bezier(.4, 0, .5, 1) forwards; transform-origin: 50% 50%; }
 @keyframes remDissolve { 0% { opacity: 1; transform: none; filter: blur(0); } 100% { opacity: 0; transform: scale(.94) translateY(-6px); filter: blur(3px); } }
-@media (prefers-reduced-motion: reduce) { .panel.remind::after { animation: none; opacity: .4; } .panel.remind.dissolving { animation: none; opacity: 0; } }
+
+/* Focus of Hatred — violet-pink warp smoke with lightning */
+.remind.fx-warp { border-color: rgba(154, 92, 255, .5); }
+.rem-warp { position: absolute; inset: 0; z-index: 1; pointer-events: none; overflow: hidden; }
+.rem-warp i { position: absolute; border-radius: 50%; filter: blur(14px); opacity: .5; will-change: transform, opacity; }
+.rem-warp i:nth-child(1) { left: 8%; bottom: -30%; width: 120px; height: 120px; background: radial-gradient(circle, rgba(154,92,255,.55), transparent 70%); animation: warpSmoke 7s ease-in-out infinite; }
+.rem-warp i:nth-child(2) { right: 10%; bottom: -34%; width: 150px; height: 150px; background: radial-gradient(circle, rgba(227,95,166,.5), transparent 70%); animation: warpSmoke 9s ease-in-out infinite 1.2s; }
+.rem-warp i:nth-child(3) { left: 44%; bottom: -40%; width: 130px; height: 130px; background: radial-gradient(circle, rgba(180,110,255,.45), transparent 70%); animation: warpSmoke 8s ease-in-out infinite .6s; }
+@keyframes warpSmoke { 0% { transform: translateY(10%) translateX(0) scale(.9); opacity: .15; } 40% { opacity: .6; } 60% { opacity: .55; } 100% { transform: translateY(-120%) translateX(var(--sx, 10px)) scale(1.3); opacity: 0; } }
+.rem-warp .rem-bolt { position: absolute; top: 6%; left: 50%; width: 92px; height: 56px; margin-left: -46px; fill: none; stroke: #e6d2ff; stroke-width: 2.4;
+  filter: drop-shadow(0 0 6px rgba(200,120,255,.95)) drop-shadow(0 0 12px rgba(227,95,166,.7)); opacity: 0; animation: warpBolt 4.2s ease-out infinite; will-change: opacity, transform; }
+.rem-warp .rem-bolt path { fill: rgba(235,210,255,.92); stroke: none; }
+@keyframes warpBolt { 0%, 86%, 100% { opacity: 0; transform: scale(1); } 88% { opacity: 1; transform: scale(1.04) translateY(-2px); } 90% { opacity: .2; } 92% { opacity: .95; } 95% { opacity: 0; } }
+
+/* Vendetta — a slashing cut like World Eaters, but a steel edge throwing sparks, no blood */
+.remind.fx-slash { border-color: rgba(200, 210, 225, .4); }
+.rem-slash { position: absolute; inset: 0; z-index: 1; pointer-events: none; overflow: visible; }
+.rem-slash .rs-line { position: absolute; top: 40%; left: -6%; width: 112%; height: 2px; transform-origin: 0 50%;
+  background: linear-gradient(90deg, transparent, #fff 45%, #dfe7f2 55%, transparent); box-shadow: 0 0 10px rgba(220,235,255,.9);
+  transform: rotate(-10deg) scaleX(0); animation: venSlash 3.6s cubic-bezier(.2, .8, .3, 1) infinite; will-change: transform, opacity; }
+@keyframes venSlash { 0% { transform: rotate(-10deg) scaleX(0); opacity: 0; } 8% { opacity: 1; } 24% { transform: rotate(-10deg) scaleX(1); opacity: 1; height: 2px; } 40% { opacity: 0; height: 5px; filter: blur(2px); } 100% { opacity: 0; } }
+.rem-slash .rs-spark { position: absolute; top: 40%; left: 50%; width: 3px; height: 3px; border-radius: 50%; background: #ffe6b0;
+  box-shadow: 0 0 6px rgba(255,210,130,.95); opacity: 0; animation: venSpark 3.6s ease-out infinite; will-change: transform, opacity; }
+.rem-slash .rs-spark:nth-child(2) { --sx: -70px; --sy: -34px; animation-delay: .62s; }
+.rem-slash .rs-spark:nth-child(3) { --sx: -30px; --sy: -46px; animation-delay: .66s; }
+.rem-slash .rs-spark:nth-child(4) { --sx: 44px;  --sy: -40px; animation-delay: .64s; }
+.rem-slash .rs-spark:nth-child(5) { --sx: 80px;  --sy: -20px; animation-delay: .70s; }
+.rem-slash .rs-spark:nth-child(6) { --sx: 12px;  --sy: -52px; animation-delay: .60s; }
+.rem-slash .rs-spark:nth-child(7) { --sx: -56px; --sy: -12px; animation-delay: .72s; }
+@keyframes venSpark { 0%, 16% { opacity: 0; transform: translate(0, 0) scale(1); } 20% { opacity: 1; } 46% { opacity: 0; transform: translate(var(--sx, 40px), var(--sy, -30px)) scale(.4); } 100% { opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) { .panel.remind.dissolving { animation: none; opacity: 0; } .rem-warp, .rem-slash { display: none; } }
+
+/* Huron's Marauders — Tyrannical Motivation: brass command banners */
+.hmar .htac-list { display: grid; gap: 8px; }
+.htac { position: relative; overflow: hidden; display: grid; gap: 3px; width: 100%; text-align: left; padding: 11px 13px; border-radius: 12px;
+  border: 1px solid color-mix(in srgb, var(--accent) 32%, transparent); background: color-mix(in srgb, var(--bg) 42%, #050102); color: #fff; }
+.htac-grad { position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: .5;
+  background: linear-gradient(100deg, transparent 20%, color-mix(in srgb, var(--accent) 22%, transparent) 50%, transparent 80%); background-size: 260% 100%;
+  animation: htacDrift 9s ease-in-out infinite alternate; animation-delay: var(--d, 0s); }
+@keyframes htacDrift { from { background-position: 120% 0; } to { background-position: -20% 0; } }
+.htac-t { position: relative; z-index: 1; display: flex; align-items: baseline; gap: 8px; }
+.htac-t b { letter-spacing: .02em; } .htac-s { font-size: .72rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: color-mix(in srgb, var(--accent) 85%, white); }
+.htac-e { position: relative; z-index: 1; font-size: .85rem; color: var(--dim, #b9b2ad); }
+.htac-chev { position: absolute; right: 10px; top: 50%; width: 16px; height: 16px; margin-top: -8px; z-index: 1; opacity: .35;
+  background: conic-gradient(from 90deg at 50% 50%, transparent 0 60%, var(--accent) 60% 100%); clip-path: polygon(0 0, 55% 50%, 0 100%, 25% 50%); }
+.htac.on { border-color: var(--accent); box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 40%, transparent); }
+.htac.on .htac-grad { opacity: 1; animation-duration: 4.5s; }
+.htac.on::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 30%, transparent), var(--accent), color-mix(in srgb, var(--accent) 30%, transparent)); box-shadow: 0 0 8px var(--accent); animation: htacBar 2.2s ease-in-out infinite; }
+@keyframes htacBar { 0%, 100% { opacity: .55; } 50% { opacity: 1; } }
+.htac.on .htac-chev { opacity: 1; animation: htacChev 1.8s ease-in-out infinite; }
+@keyframes htacChev { 0%, 100% { transform: translateX(0); opacity: .7; } 50% { transform: translateX(3px); opacity: 1; } }
+.hmfx { position: absolute; inset: 0; z-index: 3; pointer-events: none; overflow: visible; }
+.hmfx svg { position: absolute; inset: 0; width: 100%; height: 100%; fill: none; stroke: var(--accent); stroke-width: 2.4;
+  filter: drop-shadow(0 0 6px color-mix(in srgb, var(--accent) 90%, transparent)); }
+.hmfx svg .cv { stroke-dasharray: 1; stroke-dashoffset: 1; animation: hmChev .55s ease-out forwards; }
+@keyframes hmChev { 0% { stroke-dashoffset: 1; opacity: 1; } 80% { opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+.hmfx i { position: absolute; bottom: 8%; width: 3px; height: 3px; border-radius: 50%; background: color-mix(in srgb, var(--accent) 85%, white);
+  box-shadow: 0 0 6px var(--accent); opacity: 0; animation: hmEmber var(--t, 1.2s) ease-out var(--dl, 0s) forwards; will-change: transform, opacity; }
+@keyframes hmEmber { 0% { opacity: 0; transform: translateY(0); } 20% { opacity: 1; } 100% { opacity: 0; transform: translate(var(--x, 0), -60px); } }
+@media (prefers-reduced-motion: reduce) { .htac-grad, .htac.on::before, .htac.on .htac-chev { animation: none; } .hmfx { display: none; } }

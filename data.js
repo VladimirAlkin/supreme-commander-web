@@ -37152,6 +37152,7 @@ const DATA = {
      ],
      "impTitle": "Tyrannical Motivation",
      "impRepeat": true,
+     "impStyle": "command",
      "impNote": "In your Command phase pick one ability for your HERETIC ASTARTES INFANTRY for the round (you may repeat it each round). Units visible to Huron Blackheart get both.",
      "imperatives": [
       {
@@ -37537,7 +37538,7 @@ const DATA = {
        "group": "mark",
        "label": "Mark: Khorne",
        "keyword": "Khorne",
-       "tone": "gore",
+       "tone": "blood",
        "unitIds": [
         "accursed_cultists",
         "chaos_bikers",
@@ -38105,6 +38106,7 @@ const DATA = {
       "title": "Vendetta",
       "phase": "Command",
       "turn": "mine",
+      "fx": "slash",
       "text": "Select one enemy unit as your Vendetta target (re-roll Hit rolls that target it until your next Command phase)."
      },
      "note": "Slaves to None: HERETIC ASTARTES models lose Dark Pacts in this Detachment; their ranged weapons gain [ASSAULT]."
@@ -38393,6 +38395,7 @@ const DATA = {
       "title": "Focus of Hatred",
       "phase": "Command",
       "turn": "mine",
+      "fx": "warp",
       "text": "Select one enemy unit as your focus of hatred (re-roll Hit rolls that target it until your next Command phase)."
      }
     },
