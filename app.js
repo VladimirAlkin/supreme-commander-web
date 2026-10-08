@@ -577,7 +577,17 @@
   /* Faction highlights (Tyranids: SYNAPSE keyword; Death Guard: units with a bigger Contagion Range; World Eaters: Icon of Khorne).
      Returns null when the unit has none; {on, cond, note, n} otherwise (n = number of sources, for ranged labels). */
   const hiKey = h => 'kw:' + (h.id || h.keyword);
-  const hiLive = (r, h) => !h.detachments || h.keyword || h.unitIds || h.wargear || Object.keys(h.detachments).some(d => r.detachmentIds.includes(d));
+  const hiLive = (r, h) => h.markHighlight ? markDet(r) != null : (!h.detachments || h.keyword || h.unitIds || h.wargear || Object.keys(h.detachments).some(d => r.detachmentIds.includes(d)));
+  /* Marks of Chaos: the detachment that offers a per-unit Mark pick (instanceGrants in a group), and the mark a unit picked. */
+  function markDet(r) {
+    const fd = fdata(r.factionId);
+    return (fd.detachments || []).find(d => d.markGroup && r.detachmentIds.includes(d.id)) || null;
+  }
+  function markOf(r, def, inst) {
+    const d = markDet(r); if (!d || !inst) return null;
+    const g = (d.instanceGrants || []).find(x => x.group === d.markGroup && (inst.grants || []).includes(x.id) && x.unitIds.includes(def.id));
+    return g || null;
+  }
   function hiState(r, def, inst, h) {
     const ctx = Engine.ctxFor(r, DATA);
     if (h.wargear) {
@@ -605,9 +615,18 @@
   function kwBadges(r, def, inst, p) {
     const f = faction(r.factionId); if (!f || !f.highlights || !def) return '';
     return f.highlights.map(h => {
+      const d = -(((inst ? inst.instanceId : def.id).split('').reduce((a, c) => a + c.charCodeAt(0), 0) % 37) / 10).toFixed(1);
+      // Marks of Chaos: label and tone come from the mark the unit picked; a markable unit with none shows a dashed reminder.
+      if (h.markHighlight) {
+        if (!markDet(r) || !inst) return '';
+        const g = markOf(r, def, inst);
+        if (g) return `<span class="kwfx tone-${g.tone} mark" style="--d:${d}s" title="Mark of ${esc(g.keyword)}">${esc(g.label.replace(/^Mark:\s*/, ''))}</span>`;
+        const det = markDet(r), markable = (det.instanceGrants[0] || {}).unitIds || [];
+        if (markable.includes(def.id)) return `<span class="kwfx tone-arcane cond mark" style="--d:${d}s" title="Pick this unit’s Mark of Chaos">Mark?*</span>`;
+        return '';
+      }
       // in Play a pick-based highlight (Righteous) shows only on the units picked this turn
       const st = p && h.playSel && inst ? ((p[h.playSel] || []).includes(inst.attachedTo || inst.instanceId) ? { on: true, note: h.title } : null) : hiState(r, def, inst, h); if (!st) return '';
-      const d = -(((inst ? inst.instanceId : def.id).split('').reduce((a, c) => a + c.charCodeAt(0), 0) % 37) / 10).toFixed(1);
       return `<span class="kwfx ${h.tone ? 'tone-' + h.tone : ''} ${st.cond ? 'cond' : ''}" style="--d:${d}s" title="${esc(st.note || h.title || '')}">${esc(hiLabel(h, st))}${st.cond ? '*' : ''}</span>`;
     }).join('');
   }
@@ -619,6 +638,12 @@
   function hiSummary(r) {
     const f = faction(r.factionId); if (!f || !f.highlights || !r.units.length) return '';
     return f.highlights.filter(h => hiLive(r, h)).map(h => {
+      if (h.markHighlight) {
+        const det = markDet(r), markable = (det.instanceGrants[0] || {}).unitIds || [];
+        const list = r.units.map(u => ({ u, g: markOf(r, unitDef(r.factionId, u.datasheetId), u) }))
+          .filter(x => x.g || markable.includes(x.u.datasheetId));
+        return `<div class="hisum tone-arcane"><span class="kwfx tone-arcane" style="--d:0s">${esc(h.label)}</span><span class="dim">${list.length ? esc(list.map(x => dispName(r, x.u) + (x.g ? ': ' + x.g.keyword : ': —')).join(', ')) : esc(h.none || 'No units')}</span></div>`;
+      }
       const list = r.units.map(u => ({ u, st: hiState(r, unitDef(r.factionId, u.datasheetId), u, h) })).filter(x => x.st);
       return `<div class="hisum ${h.tone ? 'tone-' + h.tone : ''}"><span class="kwfx ${h.tone ? 'tone-' + h.tone : ''}" style="--d:0s">${esc(h.label)}</span><span class="dim">${list.length ? esc(list.map(x => dispName(r, x.u) + (x.st.cond ? '*' : '') + (h.rangeStep ? ` (+${(x.st.n || 1) * h.rangeStep}″)` : '')).join(', ')) : esc(h.none || 'No units')}</span></div>`;
     }).join('');
@@ -737,7 +762,14 @@
         <div class="faint" style="font-size:.85rem">Can lead: ${esc(can.map(id => (unitDef(r.factionId, id) || {}).name).join(', '))}${targets.length ? '' : ' — add one of these units first.'}</div>`;
     }
     const leaders = r.units.filter(u => u.attachedTo === inst.instanceId);
-    const grants = Engine.grantsFor(def, ctx).map(g => `<label class="row toggle-row"><input type="checkbox" id="gr-${inst.instanceId}-${g.id}" data-chg="grant" data-id="${inst.instanceId}" data-g="${g.id}" ${(inst.grants || []).includes(g.id) ? 'checked' : ''}> ${esc(g.label)}</label>${g.note ? `<div class="faint" style="font-size:.85rem;margin-top:-6px">${esc(g.note)}</div>` : ''}`).join('');
+    const allGrants = Engine.grantsFor(def, ctx);
+    const groupedG = {}, loneG = [];
+    allGrants.forEach(g => { if (g.group) (groupedG[g.group] = groupedG[g.group] || []).push(g); else loneG.push(g); });
+    const grantGroups = Object.entries(groupedG).map(([grp, gs]) => {
+      const curNote = (gs.find(g => (inst.grants || []).includes(g.id)) || {}).note || '';
+      return `<div class="stack" style="gap:6px"><span class="eyebrow">${esc((gs[0].label.split(':')[0]) || 'Keyword')}</span><div class="choicechips" role="radiogroup" aria-label="${esc(gs[0].label.split(':')[0] || 'Keyword')}">${gs.map(g => `<button class="cchip ${g.tone ? 'tone-' + g.tone : ''}" role="radio" aria-checked="${(inst.grants || []).includes(g.id)}" data-act="grantPick" data-id="${inst.instanceId}" data-grp="${esc(grp)}" data-g="${g.id}">${esc(g.label.replace(/^[^:]*:\s*/, ''))}</button>`).join('')}</div>${curNote ? `<div class="faint" style="font-size:.85rem">${esc(curNote)}</div>` : ''}</div>`;
+    }).join('');
+    const grants = grantGroups + loneG.map(g => `<label class="row toggle-row"><input type="checkbox" id="gr-${inst.instanceId}-${g.id}" data-chg="grant" data-id="${inst.instanceId}" data-g="${g.id}" ${(inst.grants || []).includes(g.id) ? 'checked' : ''}> ${esc(g.label)}</label>${g.note ? `<div class="faint" style="font-size:.85rem;margin-top:-6px">${esc(g.note)}</div>` : ''}`).join('');
     const wlWhy = isChar ? Engine.warlordBlock(def, inst, ctx) : null, isWl = r.warlordUnitId === inst.instanceId;
     return `${grants}${sizes}${opts ? `<div class="stack" style="gap:10px"><span class="eyebrow">Wargear</span>${opts}</div>` : ''}${enhHTML}${attHTML}
       ${leaders.length ? `<div class="dim">Led by: ${esc(leaders.map(l => dispName(r, l)).join(', '))}</div>` : ''}
@@ -1165,7 +1197,7 @@
   }
   /* Grand Coven: Kindred Sorcery cards. The active one carries a slowly turning sigil behind the text. */
   function kinHTML(p, d) {
-    const now = (p.imp || {})[p.round], usedIn = id => Object.entries(p.imp || {}).find(([rd, v]) => v === id && +rd !== p.round), cur = d.imperatives.find(i => i.id === now);
+    const now = (p.imp || {})[p.round], usedIn = id => d.impRepeat ? null : Object.entries(p.imp || {}).find(([rd, v]) => v === id && +rd !== p.round), cur = d.imperatives.find(i => i.id === now);
     const cards = d.imperatives.map((k, i) => { const u = usedIn(k.id), on = now === k.id;
       return `<button class="kin ${on ? 'on' : ''}" style="--d:-${(i * 1.7).toFixed(1)}s" data-act="tsKin" data-id="${k.id}" aria-pressed="${on}" ${u ? 'aria-disabled="true"' : ''}><span class="kin-sig" aria-hidden="true"></span>
         <span class="kin-t"><b>${esc(k.name)}</b></span><span class="kin-s">${u ? `Used · R${u[0]}` : on ? 'Active' : 'Pick'}</span><span class="kin-e">${esc(k.effect)}</span></button>`; }).join('');
@@ -1213,8 +1245,26 @@
     const cabal = fd.armyRules.find(a => a.rituals);
     if (cabal) out.push(ritualHTML(r, p, cabal, dets));
     if (fd.armyRules.some(a => a.miracle)) out.push(sororitasHTML(r, p, dets));
+    const dp = fd.armyRules.find(a => a.refChoices);
+    if (dp) {
+      const off = dets.find(d => /lose the Dark Pacts|lose Dark Pacts/i.test(d.note || ''));
+      out.push(panel(dp.name, off ? '<span class="badge red">Disabled</span>' : '<span class="badge">Reference</span>',
+        `<div class="darkpact-ref"><div class="dim">${hl([].concat(dp.text)[0])}</div>
+        <div class="dpchoices">${dp.refChoices.map(c => `<div class="dpchoice"><b>${esc(c.name)}</b><span class="dim">${esc(c.effect)}</span></div>`).join('')}</div>
+        ${off ? `<div class="faint" style="font-size:.85rem">${esc(off.note)}</div>` : `<div class="faint" style="font-size:.85rem">${esc(dp.refNote || '')}</div>`}</div>`));
+    }
     r.units.forEach(u => { const def = unitDef(r.factionId, u.datasheetId); if (def && def.roundPick) out.unshift(roundPickHTML(r, p, u, def)); if (def && def.phaseTrigger) out.unshift(phaseTriggerHTML(r, p, u, def)); });
     dets.forEach(d => {
+      if (d.reminder) {
+        const rm = d.reminder, dismissed = ((p.rem || {})[p.round] || {})[d.id];
+        const active = (rm.turn !== 'mine' || p.turn !== 'opp') && p.phase === (rm.phase || 'Command');
+        if (active && !dismissed) out.push(`<div class="panel pad stack trk remind" data-remcard="${d.id}"><div class="row"><h3 class="grow">${esc(rm.title)}</h3><span class="badge gold">This round</span></div><div class="dim">${esc(rm.text)}</div><div class="row"><button class="btn sm primary" data-act="csmRemind" data-id="${d.id}">Done — dismiss</button></div></div>`);
+      }
+      if (d.battlePick) {
+        const bp = d.battlePick, picked = p.aug || [];
+        out.push(panel(bp.title, picked.length ? `<span class="badge gold">${picked.length}/${bp.count} active</span>` : '<span class="badge">Pick at battle start</span>',
+          `<div class="dim">${esc(bp.note)}</div><div class="choicechips augrow">${bp.options.map(o => `<button class="cchip ${picked.includes(o.id) ? 'on' : ''}" data-act="csmAug" data-id="${o.id}" aria-pressed="${picked.includes(o.id)}">${esc(o.name)}</button>`).join('')}</div>${picked.length ? `<div class="stack" style="gap:4px;margin-top:8px">${picked.map(id => { const o = bp.options.find(x => x.id === id); return o ? `<div class="dim"><b>${esc(o.name)}</b>: ${esc(o.effect)}</div>` : ''; }).join('')}</div>` : ''}`));
+      }
       if (d.numberlessHorde) {
         const rounds = d.numberlessHorde[r.battleSize] || d.numberlessHorde.strike, done = p.pox || {};
         const nowR = rounds.includes(p.round) && p.turn !== 'opp' && p.phase === 'Command' && !done[p.round];
@@ -2639,6 +2689,27 @@
       }, () => msg, d < 0 ? 'tick' : 'confirm');
     },
     wtgt: el => { S.wtgt = S.wtgt || {}; S.wtgt[el.dataset.id] = el.dataset.g; PL.haptic('tick'); render(); },
+    grantPick: el => {
+      const r = cur(), u = inst(el.dataset.id), def = unitDef(r.factionId, u.datasheetId), ctx = Engine.ctxFor(r, DATA);
+      const all = Engine.grantsFor(def, ctx), g = all.find(x => x.id === el.dataset.g); if (!g) return;
+      const groupIds = all.filter(x => x.group === el.dataset.grp).map(x => x.id);
+      const had = (u.grants || []).includes(g.id);
+      u.grants = (u.grants || []).filter(x => !groupIds.includes(x));   // single-select: clear the group
+      if (!had) u.grants.push(g.id);                                    // tapping the active one clears it
+      touch(r); PL.haptic('tick'); render();
+    },
+    csmRemind: el => {                                                  // dismiss a Play reminder, dissolving in the Chaos style
+      const r = cur(), id = el.dataset.id, card = el.closest('[data-remcard]');
+      const go = () => playChange(r, p => { p.rem = p.rem || {}; p.rem[p.round] = p.rem[p.round] || {}; p.rem[p.round][id] = 1; }, null, 'tick');
+      if (card && !matchMedia('(prefers-reduced-motion: reduce)').matches) { card.classList.add('dissolving'); PL.haptic('tick'); setTimeout(go, 560); } else go();
+    },
+    csmAug: el => {                                                     // pick/clear a Creations of Bile augmentation (persists all battle)
+      const r = cur(), id = el.dataset.id;
+      const d = fdata(r.factionId).detachments.find(x => x.battlePick && r.detachmentIds.includes(x.id)); if (!d) return;
+      const cap = d.battlePick.count || 2;
+      if (!(playState(r).aug || []).includes(id) && (playState(r).aug || []).length >= cap) { toast(`Pick up to ${cap}.`); PL.haptic('reject'); return; }
+      playChange(r, p => { p.aug = p.aug || []; p.aug = p.aug.includes(id) ? p.aug.filter(x => x !== id) : p.aug.concat(id); }, null, 'tick');
+    },
     resetWounds: () => { const r = cur(); playChange(r, p => { p.wounds = {}; }, 'Wounds reset.'); },
     stratMode: el => { S.stratMode = el.dataset.id; render(); },
     stratToggle: el => { S.stratOpen[el.dataset.id] = !S.stratOpen[el.dataset.id]; render(); },

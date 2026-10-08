@@ -6,7 +6,8 @@ const DATA = {
    "tyranids": "2026-10-03-mfm15-fp12",
    "deathGuard": "2026-10-04-mfm15-fp13",
    "thousandSons": "2026-10-04-mfm15-fp13",
-   "adeptaSororitas": "2026-10-05-mfm15-fp12"
+   "adeptaSororitas": "2026-10-05-mfm15-fp12",
+   "chaosSpaceMarines": "2026-10-08-mfm15-csm"
   },
   "stamp": "Data as of: MFM v1.5 (30/09/2026), Faction Packs World Eaters v1.3, Tyranids v1.2, Death Guard v1.3, Thousand Sons v1.3, Adepta Sororitas v1.2 and Imperial Agents v1.1. Rules text: official wording (Wahapedia export 28/09/2026 + 30/09/2026 Faction Pack changes). Checked 08.10.2026",
   "checked": "2026-10-05"
@@ -259,7 +260,79 @@ const DATA = {
   {
    "id": "chaosSpaceMarines",
    "name": "Chaos Space Marines",
-   "enabled": false
+   "enabled": true,
+   "theme": {
+    "bg": "#1a1618",
+    "bg2": "#2b2530",
+    "bgDeep": "#0a080b",
+    "accent": "#b88a3f",
+    "accent2": "#c0392b",
+    "panel": "rgba(14,10,12,.82)",
+    "card1": "#2a2230",
+    "card2": "#120c14",
+    "icon1": "#241c28",
+    "icon2": "#0c0810"
+   },
+   "emblemSvg": "<svg viewBox=\"0 0 64 64\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\"><circle cx=\"32\" cy=\"32\" r=\"30\" fill=\"#161012\"/><g fill=\"#b88a3f\"><path d=\"M32 7l3 15 10-9-6 13 14-3-13 7 13 7-14-3 6 13-10-9-3 15-3-15-10 9 6-13-14 3 13-7-13-7 14 3-6-13 10 9z\"/></g><circle cx=\"32\" cy=\"32\" r=\"7\" fill=\"#c0392b\"/></svg>",
+   "logo": "csm_logo",
+   "rosterIcon": "csm_roster",
+   "abilityTips": {
+    "Dark Pacts": "When a unit shoots or fights, it can take a Leadership test to gain [LETHAL HITS] or [SUSTAINED HITS 1] (fail = D3 mortal wounds). See Army Rules."
+   },
+   "highlights": [
+    {
+     "id": "mark",
+     "label": "MARK",
+     "tone": "arcane",
+     "title": "Mark of Chaos: the god this unit is dedicated to (Pactbound Zealots).",
+     "none": "No Marks in this roster",
+     "markHighlight": true,
+     "condNote": "Only in Pactbound Zealots."
+    },
+    {
+     "id": "icon",
+     "label": "ICON",
+     "tone": "gold",
+     "title": "Chaos icon: re-roll the Leadership test for this unit’s Dark Pacts.",
+     "none": "No Chaos icons in this roster",
+     "wargear": {
+      "legionaries": "icon",
+      "chosen": "icon",
+      "possessed": "icon",
+      "chaos_bikers": "icon"
+     },
+     "condNote": "Only with the Chaos icon (wargear option)."
+    },
+    {
+     "id": "soulforge",
+     "label": "SOUL FORGE",
+     "tone": "blood",
+     "title": "Soul Forge: SOUL FORGE keyword and a 5+ invulnerable save (Cult of the Arkifane).",
+     "none": "No Soul Forge units (needs Cult of the Arkifane)",
+     "detachments": {
+      "cult_of_the_arkifane": {
+       "unitIds": [
+        "chaos_land_raider",
+        "predator_annihilator",
+        "predator_destructor",
+        "chaos_rhino",
+        "chaos_vindicator",
+        "defiler",
+        "forgefiend",
+        "helbrute",
+        "heldrake",
+        "lord_of_skulls",
+        "lord_discordant",
+        "maulerfiend",
+        "vashtorr",
+        "venomcrawler"
+       ],
+       "cond": true,
+       "note": "DAEMON + SOUL FORGE, 5+ invulnerable save."
+      }
+     }
+    }
+   ]
   },
   {
    "id": "deathGuard",
@@ -35697,6 +35770,10974 @@ const DATA = {
     "Acts? of Faith",
     "Miracle dice",
     "Vows? of Atonement"
+   ]
+  },
+  "chaosSpaceMarines": {
+   "armyFaction": "Heretic Astartes",
+   "alliedFactions": [],
+   "armyRules": [
+    {
+     "id": "dark_pacts",
+     "name": "Dark Pacts",
+     "text": [
+      "If your Army Faction is HERETIC ASTARTES, each time a unit with this ability is selected to shoot or fight, it can make a Dark Pact. If it does, it must first take a Leadership test before any effects of that Dark Pact are resolved; if that test is failed, that unit suffers D3 mortal wounds. Then, select one of the following abilities for that unit’s weapons to gain until the end of the phase:",
+      "■ [LETHAL HITS]",
+      "■ [SUSTAINED HITS 1]"
+     ],
+     "panel": "darkpacts",
+     "refChoices": [
+      {
+       "name": "[LETHAL HITS]",
+       "effect": "Critical Hits auto-wound."
+      },
+      {
+       "name": "[SUSTAINED HITS 1]",
+       "effect": "Each Critical Hit scores 1 extra hit."
+      }
+     ],
+     "refNote": "Choose per shoot/fight. Leadership test first — fail = D3 mortal wounds. No dice are rolled in the app."
+    }
+   ],
+   "detachments": [
+    {
+     "id": "cabal_of_chaos",
+     "name": "Cabal of Chaos",
+     "dp": 1,
+     "tags": [],
+     "summary": "In your Shooting phase, when a friendly HERETIC ASTARTES PSYKER unit (excluding DAEMON units) is selected to shoot, if that unit makes a Dar",
+     "rule": {
+      "name": "Empyric Wellspring",
+      "text": "■ In your Shooting phase, when a friendly HERETIC ASTARTES PSYKER unit (excluding DAEMON units) is selected to shoot, if that unit makes a Dark Pact, that unit’s ranged attacks have +1 S. ■ In the Fight phase, when a friendly HERETIC ASTARTES DAEMON PRINCE/DAEMON PRINCE WITH WINGS unit (excluding KHORNE units) is selected to fight, if that unit makes a Dark Pact, that unit’s melee attacks have: ■ +2 S. ■ +1 AP."
+     },
+     "buffs": [],
+     "enhancements": [
+      {
+       "id": "cabal_of_chaos_touched_by_the_warp",
+       "name": "Touched by the Warp",
+       "pts": 10,
+       "upgrade": false,
+       "text": "HERETIC ASTARTES model only (excluding KHORNE models). ■ This model has PSYKER. ■ This model’s weapons have [PSYCHIC].",
+       "eligible": {
+        "factionsAll": [
+         "Heretic Astartes"
+        ]
+       }
+      },
+      {
+       "id": "cabal_of_chaos_conduit_of_chaos",
+       "name": "Conduit of Chaos",
+       "pts": 20,
+       "upgrade": false,
+       "text": "HERETIC ASTARTES DAEMON model only (excluding KHORNE models). This model’s melee attacks have [LANCE].",
+       "eligible": {
+        "factionsAll": [
+         "Heretic Astartes"
+        ]
+       }
+      }
+     ],
+     "stratagems": [
+      {
+       "id": "wreathed_in_warpflame",
+       "name": "WREATHED IN WARPFLAME",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Your Shooting phase, when a friendly HERETIC ASTARTES PSYKER unit is selected to shoot.",
+       "target": "That HERETIC ASTARTES PSYKER unit.",
+       "effect": "Your unit’s ranged attacks have [IGNORES COVER]."
+      },
+      {
+       "id": "fleshy_curse",
+       "name": "FLESHY CURSE",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Start of your Shooting phase.",
+       "target": "One friendly HERETIC ASTARTES PSYKER unit.",
+       "effect": "Select one visible enemy unit within 12\" of your unit. Roll one D6: ■ On a 1, that enemy unit suffers 1 mortal wound. ■ On a 2-4, that enemy unit suffers D3 mortal wounds. ■ On a 5-6, that enemy unit suffers 2D3 mortal wounds. These mortal wounds are inflicted by a psychic attack."
+      },
+      {
+       "id": "infernal_vigour",
+       "name": "INFERNAL VIGOUR",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Command"
+       ],
+       "when": "Your Command phase.",
+       "target": "One friendly HERETIC ASTARTES PSYKER/DAEMON unit (excluding KHORNE units).",
+       "effect": "Your unit heals D3+1 wounds."
+      }
+     ],
+     "dispositions": [
+      "Disruption"
+     ]
+    },
+    {
+     "id": "chaos_cult",
+     "name": "Chaos Cult",
+     "dp": 2,
+     "tags": [],
+     "summary": "Each time a DAMNED unit from your army with the Dark Pacts ability is selected to make a Normal or Advance move or declare a charge (excludi",
+     "rule": {
+      "name": "Desperate Devotion",
+      "text": "Each time a DAMNED unit from your army with the Dark Pacts ability is selected to make a Normal or Advance move or declare a charge (excluding units that arrived from Reserves this turn), it can make a Desperate Pact. If it does, until the end of the phase, add 2 to the Move characteristic of models in that unit and add 2 to Charge rolls made for that unit. DESPERATE PACTS: Each time a unit makes a Desperate Pact, it must first take a Leadership test; if that test is failed, that unit suffers D3 mortal wounds before any effects of that Desperate Pact are resolved."
+     },
+     "buffs": [],
+     "enhancements": [
+      {
+       "id": "chaos_cult_amulet_of_tainted_vigour",
+       "name": "Amulet of Tainted Vigour",
+       "pts": 20,
+       "upgrade": false,
+       "text": "DARK APOSTLE model only. In your Command phase, you can return up to D3 destroyed DAMNED models (excluding CHARACTER models) to the bearer’s unit.",
+       "eligible": {
+        "factionsAll": [
+         "Heretic Astartes"
+        ]
+       }
+      },
+      {
+       "id": "chaos_cult_cultists_brand",
+       "name": "Cultist’s Brand",
+       "pts": 30,
+       "upgrade": false,
+       "text": "DARK APOSTLE or DAMNED model only. If every other model in the bearer’s unit (excluding Dark Disciples) is DAMNED, you can re-roll Advance and Charge rolls made for the bearer’s unit.",
+       "eligible": {
+        "factionsAll": [
+         "Heretic Astartes"
+        ]
+       }
+      },
+      {
+       "id": "chaos_cult_incendiary_goad",
+       "name": "Incendiary Goad",
+       "pts": 25,
+       "upgrade": false,
+       "text": "DARK APOSTLE or DAMNED model only. While the bearer’s unit is below its Starting Strength, add 1 to the Strength characteristic of melee weapons equipped by DAMNED models in that unit, and while that unit is Below Half-strength, add 1 to the Attacks characteristic of those weapons as well.",
+       "eligible": {
+        "factionsAll": [
+         "Heretic Astartes"
+        ]
+       }
+      },
+      {
+       "id": "chaos_cult_warped_foresight",
+       "name": "Warped Foresight",
+       "pts": 10,
+       "upgrade": false,
+       "text": "DARK APOSTLE or DAMNED model only. While the bearer is leading a unit with the Scouts 6\" ability, every model in the bearer’s unit has the Scouts 6\" ability.",
+       "eligible": {
+        "factionsAll": [
+         "Heretic Astartes"
+        ]
+       }
+      }
+     ],
+     "stratagems": [
+      {
+       "id": "chosen_for_glory",
+       "name": "CHOSEN FOR GLORY",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Shooting",
+        "Fight"
+       ],
+       "when": "Your Shooting phase or the Fight phase.",
+       "target": "One DAMNED unit from your army that has not been selected to shoot or fight this phase.",
+       "effect": "Your unit can make a Desperate Pact. If it does, until the end of the phase, each time a model in your unit makes an attack, you can re-roll the Hit roll, and if your unit did not fail the resulting Leadership test when making that Desperate Pact, you can re-roll the Wound roll as well."
+      },
+      {
+       "id": "infernal_sacrifice",
+       "name": "INFERNAL SACRIFICE",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Fight phase.",
+       "target": "One DAMNED unit from your army that has not been selected to fight this phase.",
+       "effect": "Your unit can make a Desperate Pact. If it does, your unit suffers D3 mortal wounds (in addition to any suffered for failing the resulting Leadership test), and until the end of the phase, add 1 to the Attacks characteristic of the melee weapons equipped by models in your unit, and if your unit did not fail the resulting Leadership test when making that Desperate Pact, until the end of the phase, improve the Strength characteristic of those weapons by 1 as well."
+      },
+      {
+       "id": "crazed_focus",
+       "name": "CRAZED FOCUS",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Your Shooting phase.",
+       "target": "One DAMNED unit from your army that has not been selected to shoot this phase.",
+       "effect": "Your unit can make a Desperate Pact. If it does, until the end of the phase, each time a model in your unit makes an attack, improve the Armour Penetration characteristic of that attack by 1, and if your unit did not fail the resulting Leadership test when making that Desperate Pact, improve the Strength characteristic of that attack by 1 as well."
+      },
+      {
+       "id": "selfless_demise",
+       "name": "SELFLESS DEMISE",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Fight phase, just after an enemy unit has selected its targets.",
+       "target": "One DAMNED unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+       "effect": "Until the attacking unit has resolved all of its attacks, each time a model in your unit is destroyed, roll one D6 on a 6, the attacking unit suffers 1 mortal wound after all of its attacks have been resolved."
+      },
+      {
+       "id": "reckless_haste",
+       "name": "RECKLESS HASTE",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Charge"
+       ],
+       "when": "Your Charge phase",
+       "target": "One DAMNED unit from your army.",
+       "effect": "Until the end of the turn, your unit is eligible to declare a charge in a turn in which it Advanced."
+      },
+      {
+       "id": "mortal_thralls",
+       "name": "MORTAL THRALLS",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Your opponent’s Shooting phase, just after an enemy unit has selected ts targets.",
+       "target": "One HERETIC ASTARTES unit from your army that was selected as the target of one or more of the attacking units attacks, and one friendly DAMNED unit within 3\" of your unit and visible to both your unit and the attacking unit.",
+       "effect": "Until the end of the phase, while your DAMNED unit is on the battlefield, each time your opponent would make a Wound roll for an attack that targets your HERETIC ASTARTES unit, if your DAMNED unit is visible to the attacking model and is an eligible target for that attack, no roll is made; instead, your DAMNED unit suffers a number of mortal wounds equal to the Damage characteristic of that attack."
+      }
+     ],
+     "dispositions": [
+      "Priority Assets"
+     ],
+     "grantKeywords": [
+      {
+       "unitIds": [
+        "traitor_guardsmen"
+       ],
+       "keyword": "Battleline"
+      }
+     ]
+    },
+    {
+     "id": "creations_of_bile",
+     "name": "Creations of Bile",
+     "dp": 3,
+     "tags": [],
+     "summary": "At the start of the battle, select which augmentations are active for Heretic Astartes Infantry models (excluding Damned models) from your a",
+     "rule": {
+      "name": "Experimental Augmentations",
+      "text": "At the start of the battle, select which augmentations are active for HERETIC ASTARTES INFANTRY models (excluding DAMNED models) from your army until the end of the battle. To do so, either select one from the list below, or randomly determine two by rolling two D6. If Fabius Bile is your WARLORD, when randomly determining your augmentations, you can re-roll one or both of the dice. Duplicated augmentations have no additional effect. ■ 1 Cholinergic Accelerants: Add 1 to the Attacks characteristic of melee weapons equipped by this model. ■ 2 Hyperadrenal Infusion: Add 2\" to the Move characteristic of this model. ■ 3 Paraneural Reactions: Improve the Weapon Skill characteristic of melee weapons equipped by this model by 1. ■ 4 Supracutaneous Chitination: Improve the Toughness characteristic of this model by 1. ■ 5 Macrotensile Sinews: Add 1 to the Strength characteristic of melee weapons equipped by this model. ■ 6 Ophthalmic Enhancement: Improve the Ballistic Skill characteristic of ranged weapons equipped by this model by 1."
+     },
+     "buffs": [],
+     "enhancements": [
+      {
+       "id": "creations_of_bile_surgical_precision",
+       "name": "Surgical Precision",
+       "pts": 10,
+       "upgrade": false,
+       "text": "HERETIC ASTARTES model (excluding DAMNED models) only. The bearer’s melee weapons have the [PRECISION] ability.",
+       "eligible": {
+        "factionsAll": [
+         "Heretic Astartes"
+        ]
+       }
+      },
+      {
+       "id": "creations_of_bile_living_carapace",
+       "name": "Living Carapace",
+       "pts": 15,
+       "upgrade": false,
+       "text": "CHAOS LORD model only. Add 1 to the bearer’s Wounds characteristic and the bearer has the Feel No Pain 5+ ability.",
+       "eligible": {
+        "factionsAll": [
+         "Heretic Astartes"
+        ]
+       }
+      },
+      {
+       "id": "creations_of_bile_helm_of_all_seeing",
+       "name": "Helm of All-seeing",
+       "pts": 25,
+       "upgrade": false,
+       "text": "HERETIC ASTARTES INFANTRY model (excluding DAMNED models) only. Enemy units that are set up on the battlefield from Reserves cannot be set up within 12\" of the bearer.",
+       "eligible": {
+        "factionsAll": [
+         "Heretic Astartes"
+        ]
+       }
+      },
+      {
+       "id": "creations_of_bile_prime_test_subject",
+       "name": "Prime Test Subject",
+       "pts": 35,
+       "upgrade": false,
+       "text": "HERETIC ASTARTES INFANTRY model (excluding DAMNED models) only. Add 1 to the Damage characteristic of melee weapons equipped by the bearer. Each time the bearer makes a melee attack, you can re-roll the Hit roll.",
+       "eligible": {
+        "factionsAll": [
+         "Heretic Astartes"
+        ]
+       }
+      }
+     ],
+     "stratagems": [
+      {
+       "id": "monstrous_visages",
+       "name": "MONSTROUS VISAGES",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Shooting",
+        "Fight"
+       ],
+       "when": "Your opponent’s Shooting phase or the Fight phase, just after an enemy unit has selected its targets.",
+       "target": "One HERETIC ASTARTES INFANTRY unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+       "effect": "Until the end of the phase, each time an attack targets your unit, subtract 1 from the Hit roll."
+      },
+      {
+       "id": "delayed_mutations",
+       "name": "DELAYED MUTATIONS",
+       "cp": 2,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Command"
+       ],
+       "when": "Your Command phase.",
+       "target": "One HERETIC ASTARTES INFANTRY unit (excluding DAMNED units) from your army.",
+       "effect": "Your unit suffers D3 mortal wounds. Then select one augmentation (see Experimental Augmentations). Until the start of your next Command phase, models in your unit have the selected augmentation in addition to any other augmentations they have."
+      },
+      {
+       "id": "diabolic_regeneration",
+       "name": "DIABOLIC REGENERATION",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Command"
+       ],
+       "when": "Your Command phase.",
+       "target": "One HERETIC ASTARTES INFANTRY unit (excluding DAMNED units) from your army.",
+       "effect": "One destroyed model (excluding CHARACTER models) is returned to your unit. If your unit is a BATTLELINE unit, D3 destroyed models (excluding CHARACTER models) are returned to your unit instead."
+      },
+      {
+       "id": "autostimulants",
+       "name": "AUTOSTIMULANTS",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Charge"
+       ],
+       "when": "Start of your Charge phase.",
+       "target": "One HERETIC ASTARTES INFANTRY unit from your army.",
+       "effect": "Until the end of the turn, your unit is eligible to declare a charge in a turn in which it Advanced."
+      },
+      {
+       "id": "specimens_for_the_spider",
+       "name": "SPECIMENS FOR THE SPIDER",
+       "cp": 2,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Fight phase.",
+       "target": "One HERETIC ASTARTES INFANTRY unit from your army that has not been selected to fight this phase.",
+       "effect": "Until the end of the phase, each time a model in your unit makes a melee attack that targets a CHARACTER unit, you can re-roll the Wound roll. After your unit has fought, if one or more enemy CHARACTER models were destroyed as a result of those attacks, select one enemy unit within 6\" of your unit. That enemy unit must take a Battle-shock test. If the enemy WARLORD was destroyed as a result of those attacks, each enemy unit within 6\" of your unit must take a Battle-shock test instead."
+      },
+      {
+       "id": "masters_are_watching",
+       "name": "MASTERS ARE WATCHING",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Fight phase, just after an enemy unit has selected its targets.",
+       "target": "One HERETIC ASTARTES INFANTRY unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+       "effect": "Until the end of the phase, each time a model in your unit is destroyed, if that model has not fought this phase, roll one D6, subtracting 1 from the result if it is a DAMNED unit: on a 4+, do not remove it from play. That destroyed model can fight after the attacking unit has finished making its attacks, and is then removed from play."
+      }
+     ],
+     "dispositions": [
+      "Take and Hold",
+      "Purge the Foe"
+     ],
+     "battlePick": {
+      "title": "Experimental Augmentations",
+      "count": 2,
+      "note": "At the start of the battle pick one, or roll two D6 (Fabius Bile WARLORD: re-roll). Active all game for HERETIC ASTARTES INFANTRY (excluding DAMNED).",
+      "options": [
+       {
+        "id": "aug1",
+        "name": "Cholinergic Accelerants",
+        "effect": "+1 Attack to melee weapons."
+       },
+       {
+        "id": "aug2",
+        "name": "Hyperadrenal Infusion",
+        "effect": "+2\" Move."
+       },
+       {
+        "id": "aug3",
+        "name": "Paraneural Reactions",
+        "effect": "+1 to melee Weapon Skill."
+       },
+       {
+        "id": "aug4",
+        "name": "Supracutaneous Chitination",
+        "effect": "+1 Toughness."
+       },
+       {
+        "id": "aug5",
+        "name": "Macrotensile Sinews",
+        "effect": "+1 Strength to melee weapons."
+       },
+       {
+        "id": "aug6",
+        "name": "Ophthalmic Enhancement",
+        "effect": "+1 to ranged Ballistic Skill."
+       }
+      ]
+     }
+    },
+    {
+     "id": "cult_of_the_arkifane",
+     "name": "Cult of the Arkifane",
+     "dp": 2,
+     "tags": [],
+     "summary": "Heretic Astartes Vehicle units from your army gain the Daemon keyword. Heretic Astartes Vehicle, Lord Discordant and Vashtorr the Arkifane u",
+     "rule": {
+      "name": "Soul Forge Boons",
+      "text": "HERETIC ASTARTES VEHICLE units from your army gain the Daemon keyword. Heretic Astartes Vehicle, LORD DISCORDANT and VASHTORR THE ARKIFANE units from your army gain the SOUL FORGE keyword. SOUL FORGE units from your army have a 5+ invulnerable save."
+     },
+     "buffs": [],
+     "enhancements": [
+      {
+       "id": "cult_of_the_arkifane_wyredjinn",
+       "name": "Wyredjinn",
+       "pts": 25,
+       "upgrade": false,
+       "text": "HERETIC ASTARTES model only (excluding DAMNED models). At the start of your Command phase, if the bearer is on the battlefield, roll one D6, adding 1 to the result if the bearer is within range of an objective marker you control: on a 4+, you gain 1CP.",
+       "eligible": {
+        "factionsAll": [
+         "Heretic Astartes"
+        ]
+       }
+      },
+      {
+       "id": "cult_of_the_arkifane_cybinfernal_font",
+       "name": "Cybinfernal Font",
+       "pts": 20,
+       "upgrade": false,
+       "text": "HERETIC ASTARTES model only (excluding DAMNED models). Models in the bearer’s unit have the Soul Forge keyword.",
+       "eligible": {
+        "factionsAll": [
+         "Heretic Astartes"
+        ]
+       }
+      },
+      {
+       "id": "cult_of_the_arkifane_mark_of_the_soul_forges",
+       "name": "Mark of the Soul Forges",
+       "pts": 20,
+       "upgrade": false,
+       "text": "HERETIC ASTARTES model only (excluding DAMNED models). Each time the bearer makes an attack, an unmodified Hit roll of 5+ scores a Critical Hit.",
+       "eligible": {
+        "factionsAll": [
+         "Heretic Astartes"
+        ]
+       }
+      },
+      {
+       "id": "cult_of_the_arkifane_crown_of_worms",
+       "name": "Crown of Worms",
+       "pts": 15,
+       "upgrade": false,
+       "text": "WARPSMITH model only. Add 3\" to the range of the bearer’s Warpsmith, Master of Mechanisms and Enrage Machine Spirits abilities.",
+       "eligible": {
+        "factionsAll": [
+         "Heretic Astartes"
+        ]
+       }
+      }
+     ],
+     "stratagems": [
+      {
+       "id": "balefire_boon",
+       "name": "BALEFIRE BOON",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Shooting",
+        "Fight"
+       ],
+       "when": "Your Shooting phase or the Fight phase.",
+       "target": "One Soul Forge unit from your army that has not been selected to shoot or fight this phase.",
+       "effect": "Until the end of the phase, each time a model in your unit makes an attack, improve the Armour Penetration characteristic of that attack by 1."
+      },
+      {
+       "id": "soul_tally_offering",
+       "name": "SOUL-TALLY OFFERING",
+       "cp": 2,
+       "type": "Battle Tactic",
+       "phases": [
+        "Shooting",
+        "Fight"
+       ],
+       "when": "Your Shooting phase or the Fight phase.",
+       "target": "One Soul Forge unit from your army that has not been selected to shoot or fight this phase.",
+       "effect": "Until the end of the phase, each time a model in your unit makes an attack that targets a CHARACTER, MONSTER or VEHICLE unit, you can re-roll the Wound roll."
+      },
+      {
+       "id": "touch_of_the_arkifane",
+       "name": "TOUCH OF THE ARKIFANE",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Any"
+       ],
+       "when": "Any phase.",
+       "target": "One HERETIC ASTARTES unit from your army (excluding DAMNED units) that has not been selected to shoot or fight this phase.",
+       "effect": "Until the end of the phase, if your unit is selected to make a Dark Pact, you can select both abilities for that unit’s weapons to gain."
+      },
+      {
+       "id": "biomechanoid_regeneration",
+       "name": "BIOMECHANOID REGENERATION",
+       "cp": 1,
+       "type": "Epic Deed",
+       "phases": [
+        "Command"
+       ],
+       "when": "Your Command phase.",
+       "target": "One HERETIC ASTARTES unit from your army (excluding DAMNED units).",
+       "effect": "One model in your unit regains up to D3 lost wounds. If your unit has the Soul Forge keyword, one model in your unit regains up to 3 lost wounds instead."
+      },
+      {
+       "id": "forge_fire_surge",
+       "name": "FORGE-FIRE SURGE",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Movement"
+       ],
+       "when": "Your Movement phase, just after a HERETIC ASTARTES unit from your army Advances.",
+       "target": "That HERETIC ASTARTES unit.",
+       "effect": "Until the end of the turn, your unit is eligible to shoot in a turn in which it Advanced. If your unit has the Soul Forge keyword, until the end of the turn, your unit is eligible to shoot and declare a charge in a turn in which it Advanced instead."
+      },
+      {
+       "id": "unholy_fortitude",
+       "name": "UNHOLY FORTITUDE",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Your opponent’s Shooting phase, just after an enemy unit has selected its targets.",
+       "target": "One Soul Forge unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+       "effect": "Until the end of the phase, add 1 to the Toughness characteristic of models in your unit."
+      }
+     ],
+     "dispositions": [
+      "Priority Assets"
+     ],
+     "grantKeywords": [
+      {
+       "unitIds": [
+        "chaos_land_raider"
+       ],
+       "keyword": "Daemon"
+      },
+      {
+       "unitIds": [
+        "predator_annihilator"
+       ],
+       "keyword": "Daemon"
+      },
+      {
+       "unitIds": [
+        "predator_destructor"
+       ],
+       "keyword": "Daemon"
+      },
+      {
+       "unitIds": [
+        "chaos_rhino"
+       ],
+       "keyword": "Daemon"
+      },
+      {
+       "unitIds": [
+        "chaos_vindicator"
+       ],
+       "keyword": "Daemon"
+      },
+      {
+       "unitIds": [
+        "defiler"
+       ],
+       "keyword": "Daemon"
+      },
+      {
+       "unitIds": [
+        "forgefiend"
+       ],
+       "keyword": "Daemon"
+      },
+      {
+       "unitIds": [
+        "helbrute"
+       ],
+       "keyword": "Daemon"
+      },
+      {
+       "unitIds": [
+        "heldrake"
+       ],
+       "keyword": "Daemon"
+      },
+      {
+       "unitIds": [
+        "lord_of_skulls"
+       ],
+       "keyword": "Daemon"
+      },
+      {
+       "unitIds": [
+        "lord_discordant"
+       ],
+       "keyword": "Daemon"
+      },
+      {
+       "unitIds": [
+        "maulerfiend"
+       ],
+       "keyword": "Daemon"
+      },
+      {
+       "unitIds": [
+        "vashtorr"
+       ],
+       "keyword": "Daemon"
+      },
+      {
+       "unitIds": [
+        "venomcrawler"
+       ],
+       "keyword": "Daemon"
+      },
+      {
+       "unitIds": [
+        "chaos_land_raider"
+       ],
+       "keyword": "Soul Forge"
+      },
+      {
+       "unitIds": [
+        "predator_annihilator"
+       ],
+       "keyword": "Soul Forge"
+      },
+      {
+       "unitIds": [
+        "predator_destructor"
+       ],
+       "keyword": "Soul Forge"
+      },
+      {
+       "unitIds": [
+        "chaos_rhino"
+       ],
+       "keyword": "Soul Forge"
+      },
+      {
+       "unitIds": [
+        "chaos_vindicator"
+       ],
+       "keyword": "Soul Forge"
+      },
+      {
+       "unitIds": [
+        "defiler"
+       ],
+       "keyword": "Soul Forge"
+      },
+      {
+       "unitIds": [
+        "forgefiend"
+       ],
+       "keyword": "Soul Forge"
+      },
+      {
+       "unitIds": [
+        "helbrute"
+       ],
+       "keyword": "Soul Forge"
+      },
+      {
+       "unitIds": [
+        "heldrake"
+       ],
+       "keyword": "Soul Forge"
+      },
+      {
+       "unitIds": [
+        "lord_of_skulls"
+       ],
+       "keyword": "Soul Forge"
+      },
+      {
+       "unitIds": [
+        "lord_discordant"
+       ],
+       "keyword": "Soul Forge"
+      },
+      {
+       "unitIds": [
+        "maulerfiend"
+       ],
+       "keyword": "Soul Forge"
+      },
+      {
+       "unitIds": [
+        "vashtorr"
+       ],
+       "keyword": "Soul Forge"
+      },
+      {
+       "unitIds": [
+        "venomcrawler"
+       ],
+       "keyword": "Soul Forge"
+      }
+     ]
+    },
+    {
+     "id": "deceptors",
+     "name": "Deceptors",
+     "dp": 2,
+     "tags": [],
+     "summary": "In the Declare Battle Formations step, you can select a number of LEGIONARIES and CULTIST MOB units from your army: until the end of the bat",
+     "rule": {
+      "name": "Masters of Misdirection",
+      "text": "In the Declare Battle Formations step, you can select a number of LEGIONARIES and CULTIST MOB units from your army: until the end of the battle, those units, and any CHARACTER units attached to them (excluding EPIC HEROES), have the Infiltrators ability. The maximum number of units you can select in this way depends on the battle size, as shown below. ■ Incursion – Up to 2 units – Up to 2 units ■ Strike Force – Up to 3 units – Up to 3 units ■ Onslaught – Up to 4 units – Up to 4 units"
+     },
+     "buffs": [],
+     "enhancements": [
+      {
+       "id": "deceptors_cursed_fang",
+       "name": "Cursed Fang",
+       "pts": 10,
+       "upgrade": false,
+       "text": "HERETIC ASTARTES INFANTRY model only. Improve the Armour Penetration characteristic of the bearer’s melee weapons by 1, and the bearer’s melee weapons have the [PRECISION] ability.",
+       "eligible": {
+        "factionsAll": [
+         "Heretic Astartes"
+        ]
+       }
+      },
+      {
+       "id": "deceptors_falsehood",
+       "name": "Falsehood",
+       "pts": 10,
+       "upgrade": false,
+       "text": "CHAOS LORD model only (excluding TERMINATOR and JUMP PACK models). In the Declare Battle Formations step, you can set the bearer up in Reserves instead of setting it up on the battlefield. If you do, in one of your Movement phases, you can select one model in a friendly LEGIONARIES or CHOSEN unit that has two or more models remaining and is on the battlefield (excluding Attached units). The selected model is destroyed (ignoring any rules that are triggered when a model is destroyed) and the bearer is set up as close as possible to where that model was destroyed and only within Engagement Range of any enemy units if the destroyed model was within Engagement Range of those units. The bearer now attaches to that unit as its Leader.",
+       "eligible": {
+        "factionsAll": [
+         "Heretic Astartes"
+        ]
+       }
+      },
+      {
+       "id": "deceptors_shroud_of_obfuscation",
+       "name": "Shroud of Obfuscation",
+       "pts": 15,
+       "upgrade": false,
+       "text": "HERETIC ASTARTES INFANTRY model only. The bearer has the Stealth and Lone Operative abilities.",
+       "eligible": {
+        "factionsAll": [
+         "Heretic Astartes"
+        ]
+       }
+      },
+      {
+       "id": "deceptors_soul_link",
+       "name": "Soul Link",
+       "pts": 5,
+       "upgrade": false,
+       "text": "HERETIC ASTARTES INFANTRY model only. At the start of your Command phase, you can select one other HERETIC ASTARTES INFANTRY CHARACTER model from your army (excluding EPIC HEROES). Until the start of your next Command phase, the bearer gains the PSYKER keyword, and replace the bearer’s datasheet abilities with the datasheet abilities of the CHARACTER you selected.",
+       "eligible": {
+        "factionsAll": [
+         "Heretic Astartes"
+        ]
+       }
+      }
+     ],
+     "stratagems": [
+      {
+       "id": "pick_them_off",
+       "name": "PICK THEM OFF",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Your Shooting phase.",
+       "target": "One HERETIC ASTARTES unit from your army that has not been selected to shoot this phase.",
+       "effect": "Until the end of the phase, each time a model in your unit makes an attack that targets a unit that is below its Starting Strength, you can re-roll the Hit roll. If the target is Below Half-strength, you can re-roll the Wound roll as well."
+      },
+      {
+       "id": "from_all_sides",
+       "name": "FROM ALL SIDES",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Charge"
+       ],
+       "when": "Start of your Charge phase.",
+       "target": "One HERETIC ASTARTES unit from your army.",
+       "effect": "Until the end of the phase, add 1 to Charge rolls made for your unit for each other HERETIC ASTARTES unit from your army that made a Charge move this phase (to a maximum of +3)"
+      },
+      {
+       "id": "relentless_pursuit",
+       "name": "RELENTLESS PURSUIT",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Movement"
+       ],
+       "when": "Your opponent’s Movement phase, just after an enemy unit ends a Normal, Advance or Fall Back move.",
+       "target": "One HERETIC ASTARTES INFANTRY or HERETIC ASTARTES MOUNTED unit from your army that is within 8\" of that enemy unit and not within Engagement Range of one or more enemy units.",
+       "effect": "Your unit can make a Normal move of up to 6\"."
+      },
+      {
+       "id": "coils_of_deception",
+       "name": "COILS OF DECEPTION",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Movement"
+       ],
+       "when": "Your Movement phase, just after a HERETIC ASTARTES unit from your army Falls Back.",
+       "target": "That HERETIC ASTARTES unit.",
+       "effect": "Until the end of the turn, your unit is eligible to shoot in a turn in which it Fell Back"
+      },
+      {
+       "id": "scrambled_coordinates",
+       "name": "SCRAMBLED COORDINATES",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Movement"
+       ],
+       "when": "Start of the Reinforcements step of your opponent’s Movement phase.",
+       "target": "One HERETIC ASTARTES unit from your army.",
+       "effect": "Until the end of the phase, enemy units that are set up on the battlefield from Reserves cannot be set up within 12\" horizontally of your unit."
+      },
+      {
+       "id": "detonator",
+       "name": "DETONATOR",
+       "cp": 1,
+       "type": "Wargear",
+       "phases": [
+        "Any"
+       ],
+       "when": "Any phase, just after an enemy model with the Deadly Demise ability (excluding TITANIC models) is destroyed",
+       "target": "One HERETIC ASTARTES CHARACTER unit from your army that was within 18\" of that enemy model when it was destroyed.",
+       "effect": "Your opponent does not roll to determine whether mortal wounds are inflicted by their model’s Deadly Demise ability. Instead, mortal wounds are automatically inflicted (if that ability inflicts a random number of mortal wounds, your opponent rolls to determine that number as normal)."
+      }
+     ],
+     "dispositions": [
+      "Disruption"
+     ]
+    },
+    {
+     "id": "devotees_of_destruction",
+     "name": "Devotees of Destruction",
+     "dp": 1,
+     "tags": [],
+     "summary": "Friendly HAVOCS/OBLITERATORS units’ ranged attacks have [HEAVY].",
+     "rule": {
+      "name": "Rain of Ruin",
+      "text": "Friendly HAVOCS/OBLITERATORS units’ ranged attacks have [HEAVY]."
+     },
+     "buffs": [],
+     "enhancements": [
+      {
+       "id": "devotees_of_destruction_pact_of_destruction",
+       "name": "Pact of Destruction",
+       "pts": 15,
+       "upgrade": false,
+       "text": "WARPSMITH model only. ■ When this unit uses its Dark Pacts ability, this unit can re-roll Leadership rolls. ■ In your Shooting phase, when this unit has shot, if this unit used its Dark Pacts ability and if those attacks destroyed an enemy model, this unit heals 3 wounds",
+       "eligible": {
+        "factionsAll": [
+         "Heretic Astartes"
+        ]
+       }
+      },
+      {
+       "id": "devotees_of_destruction_eye_of_oblivion",
+       "name": "Eye of Oblivion",
+       "pts": 20,
+       "upgrade": false,
+       "text": "WARPSMITH model only. When this unit is selected to shoot, select one enemy unit within 24\" of this unit. That enemy unit has +6\" detection range until this unit has shot.",
+       "eligible": {
+        "factionsAll": [
+         "Heretic Astartes"
+        ]
+       }
+      }
+     ],
+     "stratagems": [
+      {
+       "id": "snare_of_fire",
+       "name": "SNARE OF FIRE",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Movement"
+       ],
+       "when": "Your opponent’s Movement phase, when an enemy unit ends a move within 8\" of a friendly unengaged HAVOCS unit.",
+       "target": "That HAVOCS unit.",
+       "effect": "Your unit can make a normal move of up to D3+3\"."
+      },
+      {
+       "id": "ruinations_bounty",
+       "name": "RUINATION’S BOUNTY",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Your Shooting phase, when a friendly HAVOCS/OBLITERATORS unit is selected to shoot.",
+       "target": "That HAVOCS/OBLITERATORS unit.",
+       "effect": "When your unit uses the Dark Pacts ability, your unit’s ranged attacks have: ■ [LETHAL HITS]. ■ [SUSTAINED HITS 1]."
+      },
+      {
+       "id": "undying_hatred",
+       "name": "UNDYING HATRED",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Your opponent’s Shooting phase, when an enemy unit targets a friendly HAVOCS/OBLITERATORS unit.",
+       "target": "That HAVOCS/OBLITERATORS unit.",
+       "effect": "Attacks that target your unit with a S greater than your unit’s T have -1 to wound rolls."
+      }
+     ],
+     "dispositions": [
+      "Priority Assets"
+     ]
+    },
+    {
+     "id": "dread_talons",
+     "name": "Dread Talons",
+     "dp": 2,
+     "tags": [],
+     "summary": "In the Battle-shock step of your opponent’s Command phase, if an enemy unit that is below its Starting Strength is within 12\" of one or more",
+     "rule": {
+      "name": "Terror Descends (Aura)",
+      "text": "In the Battle-shock step of your opponent’s Command phase, if an enemy unit that is below its Starting Strength is within 12\" of one or more HERETIC ASTARTES units from your army, that enemy unit must take a Battle-shock test. Each time an enemy unit within 12\" of one or more HERETIC ASTARTES units from your army takes a Battle-shock test, subtract 1 from the result. Enemy units affected by this Detachment rule do not need to take any other Battle-shock tests in the same phase."
+     },
+     "buffs": [],
+     "enhancements": [
+      {
+       "id": "dread_talons_eater_of_dread",
+       "name": "Eater of Dread",
+       "pts": 15,
+       "upgrade": false,
+       "text": "HERETIC ASTARTES model only. At the start of your Command phase, if the bearer is on the battlefield, roll one D6, adding 1 to the result for each Battle-shocked enemy unit that is on the battlefield: on a 5+, you gain 1CP.",
+       "eligible": {
+        "factionsAll": [
+         "Heretic Astartes"
+        ]
+       }
+      },
+      {
+       "id": "dread_talons_nights_shroud",
+       "name": "Night’s Shroud",
+       "pts": 10,
+       "upgrade": false,
+       "text": "CHAOS LORD model only (excluding TERMINATOR models). Models in the bearer’s unit have the Stealth ability.",
+       "eligible": {
+        "factionsAll": [
+         "Heretic Astartes"
+        ]
+       }
+      },
+      {
+       "id": "dread_talons_warp_fuelled_thrusters",
+       "name": "Warp-fuelled Thrusters",
+       "pts": 20,
+       "upgrade": false,
+       "text": "JUMP PACK CHAOS LORD model only. At the end of your opponent’s turn, if the bearer’s unit is not within Engagement Range of one or more enemy units, you can remove the bearer’s unit from the battlefield and place it into Strategic Reserves.",
+       "eligible": {
+        "factionsAll": [
+         "Heretic Astartes"
+        ]
+       }
+      },
+      {
+       "id": "dread_talons_willbreaker",
+       "name": "Willbreaker",
+       "pts": 10,
+       "upgrade": false,
+       "text": "HERETIC ASTARTES model only. In the Fight phase, after the bearer has made its attacks, select one enemy unit hit by one or more of those attacks. That unit must take a Battle-shock test.",
+       "eligible": {
+        "factionsAll": [
+         "Heretic Astartes"
+        ]
+       }
+      }
+     ],
+     "stratagems": [
+      {
+       "id": "pitiless_hunters",
+       "name": "PITILESS HUNTERS",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Your Shooting phase.",
+       "target": "One HERETIC ASTARTES INFANTRY unit from your army that has not been selected to shoot this phase.",
+       "effect": "Until the end of the phase, each time a model in your unit makes an attack that targets a unit that is Battle-shocked and/or Below Half-strength, you can re-roll the Hit roll and you can re-roll the Wound roll."
+      },
+      {
+       "id": "depthless_cruelty",
+       "name": "DEPTHLESS CRUELTY",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Fight phase",
+       "target": "One HERETIC ASTARTES INFANTRY unit from your army that has not been selected to fight this phase.",
+       "effect": "Until the end of the phase, each time a model in your unit makes an attack that targets a unit that is Battle-shocked and/or Below Half-strength, improve the Armour Penetration characteristic of that attack by 1."
+      },
+      {
+       "id": "bloody_example",
+       "name": "BLOODY EXAMPLE",
+       "cp": 1,
+       "type": "Epic Deed",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Fight phase, just after a HERETIC ASTARTES unit from your army destroys a CHARACTER unit.",
+       "target": "That HERETIC ASTARTES unit.",
+       "effect": "Each enemy unit within 12\" of and visible to your unit must take a Battle-shock test."
+      },
+      {
+       "id": "relentless_terror",
+       "name": "RELENTLESS TERROR",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Movement"
+       ],
+       "when": "Your Movement phase, just after a HERETIC ASTARTES INFANTRY unit from your army Falls Back.",
+       "target": "That HERETIC ASTARTES INFANTRY unit.",
+       "effect": "Until the end of the turn, your unit is eligible to declare a charge in a turn in which it Fell Back."
+      },
+      {
+       "id": "merciless_pursuit",
+       "name": "MERCILESS PURSUIT",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Movement"
+       ],
+       "when": "End of your opponent’s Movement phase.",
+       "target": "One HERETIC ASTARTES INFANTRY unit from your army that is not within Engagement range of one or more enemy units.",
+       "effect": "Select one enemy unit that Fell Back this turn and is within 6\" of your unit. Your unit can declare a charge as if it were your Charge phase. When doing so, you can only select that enemy unit as the target of that charge (and only if it is an eligible target). Note that even if this charge is successful, your unit does not receive any Charge bonus this turn."
+      },
+      {
+       "id": "screaming_descent",
+       "name": "SCREAMING DESCENT",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Movement"
+       ],
+       "when": "Reinforcements step of your Movement phase, from the second battle round onwards.",
+       "target": "One HERETIC ASTARTES JUMP PACK unit from your army that is in Reserves.",
+       "effect": "Set your unit up anywhere on the battlefield that is more than 6\" horizontally away from all enemy units, but until the end of the turn, it is not eligible to declare a charge. Then select one enemy INFANTRY or MOUNTED unit within 9\" of and visible to your unit: that unit must take a Battle-shock test."
+      }
+     ],
+     "dispositions": [
+      "Disruption"
+     ]
+    },
+    {
+     "id": "fellhammer_siege_host",
+     "name": "Fellhammer Siege-host",
+     "dp": 2,
+     "tags": [],
+     "summary": "Each time a ranged attack targets a HERETIC ASTARTES unit from your army (excluding DAMNED units), if the Strength characteristic of that at",
+     "rule": {
+      "name": "Iron Fortitude",
+      "text": "Each time a ranged attack targets a HERETIC ASTARTES unit from your army (excluding DAMNED units), if the Strength characteristic of that attack is greater than the Toughness characteristic of that unit, subtract 1 from the Wound roll."
+     },
+     "buffs": [],
+     "enhancements": [
+      {
+       "id": "fellhammer_siege_host_bastion_plate",
+       "name": "Bastion Plate",
+       "pts": 10,
+       "upgrade": false,
+       "text": "CHAOS LORD model only (excluding JUMP PACK models). Once per battle round, when a saving throw is failed for the bearer’s unit, you can change the Damage characteristic of that attack to 0.",
+       "eligible": {
+        "factionsAll": [
+         "Heretic Astartes"
+        ]
+       }
+      },
+      {
+       "id": "fellhammer_siege_host_iron_artifice",
+       "name": "Iron Artifice",
+       "pts": 10,
+       "upgrade": false,
+       "text": "HERETIC ASTARTES INFANTRY model only. The bearers weapons have the [ANTI-VEHICLE 4+] and [ANTI-FORTIFICATION 4+] abilities.",
+       "eligible": {
+        "factionsAll": [
+         "Heretic Astartes"
+        ]
+       }
+      },
+      {
+       "id": "fellhammer_siege_host_ironbound_enmity",
+       "name": "Ironbound Enmity",
+       "pts": 15,
+       "upgrade": false,
+       "text": "HERETIC ASTARTES model only. Each time the bearer makes an attack while within range of an objective marker, add 1 to the Wound roll.",
+       "eligible": {
+        "factionsAll": [
+         "Heretic Astartes"
+        ]
+       }
+      },
+      {
+       "id": "fellhammer_siege_host_warp_tracer",
+       "name": "Warp Tracer",
+       "pts": 20,
+       "upgrade": false,
+       "text": "HERETIC ASTARTES model only. In your Shooting phase, after the bearer has shot, select one enemy unit hit by one or more of those attacks. Until the end of the phase, that enemy unit cannot have the Benefit of Cover.",
+       "eligible": {
+        "factionsAll": [
+         "Heretic Astartes"
+        ]
+       }
+      }
+     ],
+     "stratagems": [
+      {
+       "id": "pitiless_cannonade",
+       "name": "PITILESS CANNONADE",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Your Shooting phase.",
+       "target": "One HERETIC ASTARTES unit from your army that has not been selected to shoot this phase.",
+       "effect": "Until the end of the phase, each time a model in your unit makes an attack that targets a unit that is Below Half-strength, a successful unmodified Hit roll of 5+ scores a Critical Hit"
+      },
+      {
+       "id": "point_blank_destruction",
+       "name": "POINT-BLANK DESTRUCTION",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Your Shooting phase",
+       "target": "One HERETIC ASTARTES unit from your army that is within Engagement Range of one or more enemy units and has not been selected to shoot this phase.",
+       "effect": "Until the end of the phase, your unit’s ranged weapons (excluding Blast weapons) have the [PISTOL] ability."
+      },
+      {
+       "id": "persistent_assailants",
+       "name": "PERSISTENT ASSAILANTS",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Fight phase.",
+       "target": "One HERETIC ASTARTES unit from your army that was selected as the target of one or more attacks this phase and has not been selected to fight this phase.",
+       "effect": "Until the end of the phase, each time a model in your unit makes an attack, you can re-roll the Hit roll, and if your unit is Below Half-strength you can re-roll the Wound roll as well."
+      },
+      {
+       "id": "brutal_attrition",
+       "name": "BRUTAL ATTRITION",
+       "cp": 1,
+       "type": "Epic Deed",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Fight phase, just after an enemy unit has selected its targets.",
+       "target": "One HERETIC ASTARTES INFANTRY unit from your army (excluding DAMNED units) that was selected as the target of one or more of the attacking unit’s attacks.",
+       "effect": "Until the end of the phase, each time a melee attack is allocated to your unit, after the attacking unit has finished making its attacks, roll one D6 (to maximum of six D6 per attacking unit): for each 4+, the attacking unit suffers 1 mortal wound."
+      },
+      {
+       "id": "steadfast_determination",
+       "name": "STEADFAST DETERMINATION",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Your opponent’s Shooting phase, just after an enemy unit has selected its targets.",
+       "target": "One HERETIC ASTARTES unit from your army (excluding DAMNED units) that was selected as the target of one or more of the attacking unit’s attacks.",
+       "effect": "Until the end of the phase, models in your unit have the Feel No Pain 5+ ability."
+      },
+      {
+       "id": "siegecraft",
+       "name": "SIEGECRAFT",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Charge"
+       ],
+       "when": "Start of your opponents Charge phase.",
+       "target": "One HERETIC ASTARTES unit from your army.",
+       "effect": "Until the end of the phase, each time an enemy unit selects your unit as a target of a charge, subtract 2 from the Charge roll (this is not cumulative with any other negative modifiers to that Charge roll)."
+      }
+     ],
+     "dispositions": [
+      "Take and Hold"
+     ]
+    },
+    {
+     "id": "hurons_marauders",
+     "name": "Huron’s Marauders",
+     "dp": 3,
+     "tags": [],
+     "summary": "In your Command phase, select one of the following abilities. Until the start of your next Command phase, each Heretic Astartes Infantry uni",
+     "rule": {
+      "name": "Tyrannical Motivation",
+      "text": "In your Command phase, select one of the following abilities. Until the start of your next Command phase, each HERETIC ASTARTES INFANTRY unit from your army has that ability. At the start of each phase, if such a unit is visible to a friendly HURON BLACKHEART model, until the end of the phase, it has both of the following abilities. HURON’S ELITE: Each time a model in this unit makes an attack, add 1 to the Hit roll. MOBILE MARAUDERS: This unit is eligible to shoot and declare a charge in a turn in which it Fell Back. Designer’s Note: If a unit is gaining eligibility to shoot and declare a charge in a turn in which it Fell Back as a result of being visible to Huron Blackheart, but after making a Fall Back move it is no longer visible to Huron Blackheart, that unit will not be eligible to shoot in your Shooting phase or to declare a charge in your Charge phase unless it is visible again at the start of the respective phase."
+     },
+     "buffs": [],
+     "enhancements": [
+      {
+       "id": "hurons_marauders_voice_of_the_tyrant",
+       "name": "Voice of the Tyrant",
+       "pts": 25,
+       "upgrade": false,
+       "text": "HERETIC ASTARTES model only (excluding DAMNED models). The bearer’s unit has both abilities from the Tyrannical Motivation Detachment rule.",
+       "eligible": {
+        "factionsAll": [
+         "Heretic Astartes"
+        ]
+       }
+      },
+      {
+       "id": "hurons_marauders_raid_leader",
+       "name": "Raid Leader",
+       "pts": 20,
+       "upgrade": false,
+       "text": "HERETIC ASTARTES model only (excluding Damned models). Each time the bearer’s unit is set up after disembarking from a Transport that has made a Normal move this turn, the bearer’s unit makes an assault disembark move for that disembarkation.",
+       "eligible": {
+        "factionsAll": [
+         "Heretic Astartes"
+        ]
+       }
+      },
+      {
+       "id": "hurons_marauders_dread_reputation",
+       "name": "Dread Reputation",
+       "pts": 25,
+       "upgrade": false,
+       "text": "HERETIC ASTARTES model only (excluding DAMNED models). Each time the bearer’s unit is set up on the battlefield, each enemy unit within 6\" of the bearer’s unit (or within 12\" if the bearer’s unit was set up using the Deep Strike ability) takes a Battle-shock test.",
+       "eligible": {
+        "factionsAll": [
+         "Heretic Astartes"
+        ]
+       }
+      },
+      {
+       "id": "hurons_marauders_eager_for_bloodshed",
+       "name": "Eager for Bloodshed",
+       "pts": 30,
+       "upgrade": false,
+       "text": "HERETIC ASTARTES model only. The bearer has the Infiltrators ability.",
+       "eligible": {
+        "factionsAll": [
+         "Heretic Astartes"
+        ]
+       }
+      }
+     ],
+     "stratagems": [
+      {
+       "id": "hardened_killers",
+       "name": "HARDENED KILLERS",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Command"
+       ],
+       "when": "Your Command phase.",
+       "target": "One DAMNED unit from your army.",
+       "effect": "Select one of the following effects: ■ Improve the Ballistic Skill characteristic of ranged weapons equipped by models in this unit by 1. ■ Improve the Attacks characteristic of Rapid Fire weapons equipped by models in this unit by 1. ■ Improve the Save characteristic of models in this unit by 1. Until the start of your next turn, your unit has the benefit of that effect."
+      },
+      {
+       "id": "reavers_flurry",
+       "name": "REAVERS’ FLURRY",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Your Fight phase.",
+       "target": "One HERETIC ASTARTES unit from your army that made a Charge move this turn.",
+       "effect": "Until the end of the phase, add 1 to the Attacks characteristics of melee weapons equipped by models in your unit."
+      },
+      {
+       "id": "seize_the_prize",
+       "name": "SEIZE THE PRIZE",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Movement"
+       ],
+       "when": "Your Movement phase, just after a HERETIC ASTARTES unit (excluding Monsters and Vehicles) from your army has been selected to Advance.",
+       "target": "That HERETIC ASTARTES unit.",
+       "effect": "Do not make an Advance roll for your unit. Instead, until the end of the phase add 6\" to the Move characteristic of models in your unit."
+      },
+      {
+       "id": "to_the_favoured_the_spoils",
+       "name": "TO THE FAVOURED THE SPOILS",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Your opponent’s Shooting phase, just after an enemy unit has shot.",
+       "target": "One HERETIC ASTARTES unit from your army that lost one or more wounds as a result of those attacks.",
+       "effect": "Your unit can make a surge move of up to D6\"."
+      },
+      {
+       "id": "encircling_surge",
+       "name": "ENCIRCLING SURGE",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Fight"
+       ],
+       "when": "End of your opponent’s Fight phase.",
+       "target": "One HERETIC ASTARTES unit (excluding Monsters and Vehicles) from your army that is within 6\" of one or more battlefield edges and not within Engagement Range of one or more enemy units.",
+       "effect": "Remove your unit from the battlefield and place it into Strategic Reserves."
+      },
+      {
+       "id": "at_the_tyrants_command",
+       "name": "AT THE TYRANT’S COMMAND",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Movement"
+       ],
+       "when": "Your Movement phase.",
+       "target": "One HERETIC ASTARTES unit (excluding Monsters and Vehicles) from your army.",
+       "effect": "Until the end of the turn, your unit is eligible to shoot and declare a charge in a turn in which it Advanced."
+      }
+     ],
+     "dispositions": [
+      "Disruption",
+      "Purge the Foe"
+     ],
+     "impTitle": "Tyrannical Motivation",
+     "impRepeat": true,
+     "impNote": "In your Command phase pick one ability for your HERETIC ASTARTES INFANTRY for the round (you may repeat it each round). Units visible to Huron Blackheart get both.",
+     "imperatives": [
+      {
+       "id": "hurons_elite",
+       "name": "Huron’s Elite",
+       "effect": "Each time a model in the unit makes an attack, add 1 to the Hit roll."
+      },
+      {
+       "id": "tyrants_due",
+       "name": "The Tyrant’s Due",
+       "effect": "Each time a model in the unit makes an attack targeting a unit within range of an objective marker, add 1 to the Wound roll."
+      }
+     ]
+    },
+    {
+     "id": "murdertalon_raiders",
+     "name": "Murdertalon Raiders",
+     "dp": 1,
+     "tags": [
+      "Nightmare"
+     ],
+     "summary": "Friendly HERETIC ASTARTES INFANTRY FLY units’ attacks that target a battle-shocked unit or a unit at or below half-strength can re-roll hit ",
+     "rule": {
+      "name": "Prey on the Weak",
+      "text": "■ Friendly HERETIC ASTARTES INFANTRY FLY units’ attacks that target a battle-shocked unit or a unit at or below half-strength can re-roll hit rolls of 1. ■ When an enemy unit’s attacks target a friendly HERETIC ASTARTES INFANTRY FLY unit, if that enemy unit is battle-shocked or at or below half-strength, those attacks have -1 to hit rolls. This detachment has the NIGHTMARE tag and cannot be taken with another NIGHTMARE detachment."
+     },
+     "buffs": [],
+     "enhancements": [
+      {
+       "id": "murdertalon_raiders_shadowcowl_talisman",
+       "name": "Shadowcowl Talisman",
+       "pts": 20,
+       "upgrade": false,
+       "text": "CHAOS LORD WITH JUMP PACK model only. This unit has 5+ InSv.",
+       "eligible": {
+        "factionsAll": [
+         "Heretic Astartes"
+        ]
+       }
+      },
+      {
+       "id": "murdertalon_raiders_pact_of_cursed_pinions",
+       "name": "Pact of Cursed Pinions",
+       "pts": 20,
+       "upgrade": false,
+       "text": "CHAOS LORD WITH JUMP PACK model only. ■ This model has DAEMON. ■ This model’s melee attacks have +1 A.",
+       "eligible": {
+        "factionsAll": [
+         "Heretic Astartes"
+        ]
+       }
+      }
+     ],
+     "stratagems": [
+      {
+       "id": "warp_twisted_terrors",
+       "name": "WARP-TWISTED TERRORS",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Movement"
+       ],
+       "when": "Your Movement phase, when a friendly WARP TALONS unit ends a move.",
+       "target": "That WARP TALONS unit.",
+       "effect": "Select one visible enemy unit (excluding MONSTER/VEHICLE units) within 9\" of your unit. That enemy unit makes a battle-shock roll, with -1 to that battle-shock roll."
+      },
+      {
+       "id": "raking_pass",
+       "name": "RAKING PASS",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Movement"
+       ],
+       "when": "Your Movement phase, when a friendly HERETIC ASTARTES INFANTRY FLY unit is selected to make a fall-back move.",
+       "target": "That HERETIC ASTARTES INFANTRY FLY unit.",
+       "effect": "That move does not prevent your unit from being eligible to declare a charge."
+      },
+      {
+       "id": "plunging_talons",
+       "name": "PLUNGING TALONS",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Fight phase, when a friendly HERETIC ASTARTES INFANTRY FLY unit that made a charge move this turn is selected to fight.",
+       "target": "That HERETIC ASTARTES INFANTRY FLY unit.",
+       "effect": "Your unit’s melee attacks have [LANCE]."
+      }
+     ],
+     "dispositions": [
+      "Reconnaissance"
+     ]
+    },
+    {
+     "id": "nightmare_hunt",
+     "name": "Nightmare Hunt",
+     "dp": 2,
+     "tags": [
+      "Nightmare"
+     ],
+     "summary": "In the Battle-shock step of your opponent’s Command phase, if an enemy unit that is below its Starting Strength is within 12\" of one or more",
+     "rule": {
+      "name": "Terror Made Manifest",
+      "text": "In the Battle-shock step of your opponent’s Command phase, if an enemy unit that is below its Starting Strength is within 12\" of one or more HERETIC ASTARTES units from your army, that enemy unit must take a Battle-shock test, subtracting 1 from the result. Enemy units affected by this Detachment rule do not need to take any other Battle-shock tests in the same phase. Each time a HERETIC ASTARTES model from your army makes an attack that targets a unit that is Below Half-strength, add 1 to the Hit roll. Each time an attack targets a HERETIC ASTARTES unit from your army, if the attacking model is Battle‐shocked, subtract 1 from the Hit roll. Each time a HERETIC ASTARTES model from your army makes an attack that targets a Battle‐shocked unit, add 1 to the Wound roll."
+     },
+     "buffs": [],
+     "enhancements": [
+      {
+       "id": "nightmare_hunt_greyveil_hex",
+       "name": "Greyveil Hex",
+       "pts": 25,
+       "upgrade": false,
+       "text": "CHAOS LORD model only. Models in the bearer’s unit have the Stealth ability. While the bearer’s unit is within range of one or more objective markers you control, that unit can only be selected as the target of a ranged attack if the attacking model is within 18\".",
+       "eligible": {
+        "factionsAll": [
+         "Heretic Astartes"
+        ]
+       }
+      },
+      {
+       "id": "nightmare_hunt_warp_fuelled_thrusters",
+       "name": "Warp-fuelled Thrusters",
+       "pts": 20,
+       "upgrade": false,
+       "text": "CHAOS LORD JUMP PACK model only. At the end of your opponent’s Fight phase, if the bearer’s unit is not within Engagement Range of one or more enemy units, you can remove the bearer’s unit from the battlefield and place it into Strategic Reserves.",
+       "eligible": {
+        "factionsAll": [
+         "Heretic Astartes"
+        ]
+       }
+      },
+      {
+       "id": "nightmare_hunt_terrorglut_parasite",
+       "name": "Terrorglut Parasite",
+       "pts": 20,
+       "upgrade": false,
+       "text": "HERETIC ASTARTES model only. At the start of the Fight phase, each enemy unit within Engagement Range of the bearer must take a Battle-shock test, subtracting 1 from the result.",
+       "eligible": {
+        "factionsAll": [
+         "Heretic Astartes"
+        ]
+       }
+      },
+      {
+       "id": "nightmare_hunt_sorrowscent_vulture",
+       "name": "Sorrowscent Vulture",
+       "pts": 35,
+       "upgrade": false,
+       "text": "CHAOS LORD JUMP PACK model only. Models in the bearer’s unit have the Scouts 6\" ability. In the Declare Battle Formations step, the bearer can be attached to a WARP TALONS unit.",
+       "eligible": {
+        "factionsAll": [
+         "Heretic Astartes"
+        ]
+       }
+      }
+     ],
+     "stratagems": [
+      {
+       "id": "horrific_incursion",
+       "name": "HORRIFIC INCURSION",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Movement"
+       ],
+       "when": "Your Movement phase.",
+       "target": "One HERETIC ASTARTES unit from your army that arrived from Reserves this turn.",
+       "effect": "Select one enemy unit (excluding MONSTER and VEHICLE units) within 12\" of and visible to your unit: that unit must take a Battle-shock test, subtracting 1 from the result."
+      },
+      {
+       "id": "talons_sunk_deep",
+       "name": "TALONS SUNK DEEP",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Shooting",
+        "Fight"
+       ],
+       "when": "Your Shooting phase or the Fight phase.",
+       "target": "One HERETIC ASTARTES INFANTRY unit from your army that has not been selected to shoot or fight this phase.",
+       "effect": "Until the end of the phase, each time a model in your unit makes an attack that targets a unit that is Battle-shocked and/or Below Half-strength, improve the Armour Penetration characteristic of that attack by 1."
+      },
+      {
+       "id": "prey_on_the_weak",
+       "name": "PREY ON THE WEAK",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Shooting",
+        "Fight"
+       ],
+       "when": "Your Shooting phase or the Fight phase.",
+       "target": "One HERETIC ASTARTES INFANTRY unit from your army that has not been selected to shoot or fight this phase.",
+       "effect": "Until the end of the phase, each time a model in your unit makes an attack that targets a unit that is Battle-shocked and/or Below Half-strength, you can re-roll the Hit roll."
+      },
+      {
+       "id": "sadistic_display",
+       "name": "SADISTIC DISPLAY",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Fight phase, just after a HERETIC ASTARTES unit from your army destroys an enemy unit.",
+       "target": "That HERETIC ASTARTES unit.",
+       "effect": "Each enemy unit within 6\" of and visible to your unit (excluding MONSTER and VEHICLE units) must take a Battle-shock test."
+      },
+      {
+       "id": "malicious_surge",
+       "name": "MALICIOUS SURGE",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Charge"
+       ],
+       "when": "Your Charge phase.",
+       "target": "One HERETIC ASTARTES INFANTRY unit from your army.",
+       "effect": "Until the end of the phase, your unit is eligible to declare a charge in a turn in which it Advanced."
+      },
+      {
+       "id": "relentless_terror",
+       "name": "RELENTLESS TERROR",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Movement"
+       ],
+       "when": "Your Movement phase, just after a HERETIC ASTARTES INFANTRY unit from your army Falls Back.",
+       "target": "That HERETIC ASTARTES unit.",
+       "effect": "Until the end of the turn, your unit is eligible to shoot and declare a charge in a turn in which it Fell Back."
+      }
+     ],
+     "dispositions": [
+      "Disruption"
+     ]
+    },
+    {
+     "id": "pactbound_zealots",
+     "name": "Pactbound Zealots",
+     "dp": 3,
+     "tags": [],
+     "summary": "When mustering your army, when you select a HERETIC ASTARTES unit to include in your army, if that unit is not an EPIC HERO and does not alr",
+     "rule": {
+      "name": "Marks of Chaos",
+      "text": "When mustering your army, when you select a HERETIC ASTARTES unit to include in your army, if that unit is not an EPIC HERO and does not already have one of the following keywords, you must select one for that unit and note it on your Army Roster: KHORNE. TZEENTCH, NURGLE, SLAANESH, CHAOS UNDIVIDED. Each time a unit with one of these keywords gains a weapon ability as the result of a Dark Pact and does not fail the resulting Leadership test, until the end of the phase, that unit gains the associated ability below. UNITS THAT GAINED [LETHAL HITS]: ■ KHORNE: Each time a model in this unit makes a melee attack, an unmodified Hit roll of 5+ scores a Critical Hit. ■ TZEENTCH: Each time a model in this unit makes a ranged attack, an unmodified Hit roll of 5+ scores a Critical Hit. ■ CHAOS UNDIVIDED: Each time a model in this unit makes an attack, re-roll a Hit roll of 1. UNITS THAT GAINED [SUSTAINED HITS 1]: ■ NURGLE: Each time a model in this unit makes a ranged attack, an unmodified Hit roll of 5+ scores a Critical Hit. ■ SLAANESH: Each time a model in this unit makes a melee attack, an unmodified Hit roll of 5+ scores a Critical Hit. ■ CHAOS UNDIVIDED: Each time a model in this unit makes an attack, re-roll a Hit roll of 1. RESTRICTIONS: ■ You cannot select the KHORNE keyword for a PSYKER unit. ■ A CHARACTER unit can only be attached to a unit if both units share the same keyword from the list above. ■ A unit can only embark within (or start the battle embarked within) a TRANSPORT if both of those units share the same keyword from the list above."
+     },
+     "buffs": [],
+     "enhancements": [
+      {
+       "id": "pactbound_zealots_eye_of_tzeentch",
+       "name": "Eye of Tzeentch",
+       "pts": 15,
+       "upgrade": false,
+       "text": "HERETIC ASTARTES TZEENTCH model only. Each time the bearer’s unit makes a Dark Pact and does not fail the resulting Leadership test, if the result of that test was 8 or more, you gain 1CP.",
+       "eligible": {
+        "factionsAll": [
+         "Heretic Astartes"
+        ]
+       }
+      },
+      {
+       "id": "pactbound_zealots_intoxicating_elixir",
+       "name": "Intoxicating Elixir",
+       "pts": 15,
+       "upgrade": false,
+       "text": "HERETIC ASTARTES SLAANESH model only. The bearer has the Feel No Pain 5+ ability. Each time the bearer shoots or fights, if the bearer’s unit made a Dark Pact this phase and did not fail the resulting Leadership test, after the bearer has resolved those attacks, select one enemy unit that was hit by one or more of those attacks; that enemy unit must take a Battle-shock test.",
+       "eligible": {
+        "factionsAll": [
+         "Heretic Astartes"
+        ]
+       }
+      },
+      {
+       "id": "pactbound_zealots_orbs_of_unlife",
+       "name": "Orbs of Unlife",
+       "pts": 15,
+       "upgrade": false,
+       "text": "HERETIC ASTARTES NURGLE model only. At the end of the Fight phase, roll one D6 for every enemy unit within 3\" of the bearer, adding 1 to the result if the bearer’s unit made a Dark Pact that phase and did not fail the resulting Leadership test: on a 4+, that enemy unit suffers D3 mortal wounds.",
+       "eligible": {
+        "factionsAll": [
+         "Heretic Astartes"
+        ]
+       }
+      },
+      {
+       "id": "pactbound_zealots_talisman_of_burning_blood",
+       "name": "Talisman of Burning Blood",
+       "pts": 15,
+       "upgrade": false,
+       "text": "HERETIC ASTARTES KHORNE model only. Add 1 to the Attacks and Strength characteristics of the bearer’s melee weapons. Each time the bearer’s unit makes a Dark Pact and does not fail the resulting Leadership test, roll one D3: until the end of the phase, add the result to the Attacks and Strength characteristics of the bearers melee weapons instead.",
+       "eligible": {
+        "factionsAll": [
+         "Heretic Astartes"
+        ]
+       }
+      }
+     ],
+     "stratagems": [
+      {
+       "id": "profane_zeal",
+       "name": "PROFANE ZEAL",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Shooting",
+        "Fight"
+       ],
+       "when": "Your Shooting phase or the Fight phase.",
+       "target": "One HERETIC ASTARTES CHAOS UNDIVIDED unit from your army that has not been selected to shoot or fight this phase.",
+       "effect": "Until the end of the phase, each time a model in your unit makes an attack, you can re-roll the Wound roll."
+      },
+      {
+       "id": "eye_of_the_gods",
+       "name": "EYE OF THE GODS",
+       "cp": 1,
+       "type": "Epic Deed",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Fight phase, just after a HERETIC ASTARTES CHARACTER unit from your army (excluding DAMNED, DAEMON and EPIC HERO units) destroys a enemy unit.",
+       "target": "One HERETIC ASTARTES CHARACTER model in that unit.",
+       "effect": "Until the end of the battle, add 1 to the Move, Toughness and Wounds characteristics of that CHARACTER model, and add 1 to the Attacks. Strength and Damage characteristics of that CHARACTER model’s melee weapons."
+      },
+      {
+       "id": "skinshift",
+       "name": "SKINSHIFT",
+       "cp": 1,
+       "type": "Epic Deed",
+       "phases": [
+        "Command"
+       ],
+       "when": "Your Command phase.",
+       "target": "One HERETIC ASTARTES unit from your army.",
+       "effect": "One model in your unit regains up to 3 lost wounds. In addition, if your unit is a TZEENTCH unit below its Starting Strength, one destroyed model (excluding CHARACTER models) is returned to your unit with its full wounds remaining."
+      },
+      {
+       "id": "torpefying_refrain",
+       "name": "TORPEFYING REFRAIN",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Movement"
+       ],
+       "when": "Your Movement phase.",
+       "target": "One HERETIC ASTARTES unit from your army.",
+       "effect": "Until the end of the turn, your unit is eligible to declare a charge in a turn in which it Fell Back. If your unit is a SLAANESH unit, until the end of the turn, your unit is eligible to shoot and declare a charge in a turn in which it Advanced or Fell Back."
+      },
+      {
+       "id": "festering_miasma",
+       "name": "FESTERING MIASMA",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Your opponent’s Shooting phase, just after an enemy unit has selected its targets.",
+       "target": "One HERETIC ASTARTES unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+       "effect": "Until the end of the phase, your unit has the Stealth ability. In addition, if your unit is a NURGLE unit, it can only be selected as the target of a ranged attack if the attacking model is within 18\"."
+      },
+      {
+       "id": "eternal_hate",
+       "name": "ETERNAL HATE",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Fight phase, just after an enemy unit has selected its targets.",
+       "target": "One HERETIC ASTARTES unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+       "effect": "Until the end of the phase, each time a model in your unit is destroyed, if that model has not fought this phase, roll one D6, adding 1 to the result if it is a KHORNE unit: on a 4+, do not remove it from play. That destroyed model can fight after the attacking model’s unit has finished making its attacks, and is then removed from play."
+      }
+     ],
+     "dispositions": [
+      "Disruption",
+      "Priority Assets"
+     ],
+     "markGroup": "mark",
+     "instanceGrants": [
+      {
+       "id": "mk_khorne",
+       "group": "mark",
+       "label": "Mark: Khorne",
+       "keyword": "Khorne",
+       "tone": "gore",
+       "unitIds": [
+        "accursed_cultists",
+        "chaos_bikers",
+        "chaos_land_raider",
+        "chaos_lord",
+        "chaos_lord_term",
+        "chaos_lord_jump",
+        "predator_annihilator",
+        "predator_destructor",
+        "chaos_rhino",
+        "chaos_spawn",
+        "chaos_terminators",
+        "chaos_vindicator",
+        "chosen",
+        "cultist_firebrand",
+        "cultist_mob",
+        "dark_apostle",
+        "dark_commune",
+        "defiler",
+        "fellgor_beastmen",
+        "forgefiend",
+        "havocs",
+        "helbrute",
+        "heldrake",
+        "daemon_prince",
+        "daemon_prince_wings",
+        "lord_of_skulls",
+        "legionaries",
+        "lord_discordant",
+        "master_executions",
+        "master_possession",
+        "masters_maelstrom",
+        "maulerfiend",
+        "mutilators",
+        "nemesis_claw",
+        "noctilith_crown",
+        "obliterators",
+        "possessed",
+        "raptors",
+        "red_corsairs_raiders",
+        "reave_captain",
+        "sorcerer",
+        "sorcerer_term",
+        "traitor_enforcer",
+        "traitor_guardsmen",
+        "venomcrawler",
+        "warpsmith",
+        "warp_talons"
+       ],
+       "note": ""
+      },
+      {
+       "id": "mk_nurgle",
+       "group": "mark",
+       "label": "Mark: Nurgle",
+       "keyword": "Nurgle",
+       "tone": "green",
+       "unitIds": [
+        "accursed_cultists",
+        "chaos_bikers",
+        "chaos_land_raider",
+        "chaos_lord",
+        "chaos_lord_term",
+        "chaos_lord_jump",
+        "predator_annihilator",
+        "predator_destructor",
+        "chaos_rhino",
+        "chaos_spawn",
+        "chaos_terminators",
+        "chaos_vindicator",
+        "chosen",
+        "cultist_firebrand",
+        "cultist_mob",
+        "dark_apostle",
+        "dark_commune",
+        "defiler",
+        "fellgor_beastmen",
+        "forgefiend",
+        "havocs",
+        "helbrute",
+        "heldrake",
+        "daemon_prince",
+        "daemon_prince_wings",
+        "lord_of_skulls",
+        "legionaries",
+        "lord_discordant",
+        "master_executions",
+        "master_possession",
+        "masters_maelstrom",
+        "maulerfiend",
+        "mutilators",
+        "nemesis_claw",
+        "noctilith_crown",
+        "obliterators",
+        "possessed",
+        "raptors",
+        "red_corsairs_raiders",
+        "reave_captain",
+        "sorcerer",
+        "sorcerer_term",
+        "traitor_enforcer",
+        "traitor_guardsmen",
+        "venomcrawler",
+        "warpsmith",
+        "warp_talons"
+       ],
+       "note": ""
+      },
+      {
+       "id": "mk_tzeentch",
+       "group": "mark",
+       "label": "Mark: Tzeentch",
+       "keyword": "Tzeentch",
+       "tone": "arcane",
+       "unitIds": [
+        "accursed_cultists",
+        "chaos_bikers",
+        "chaos_land_raider",
+        "chaos_lord",
+        "chaos_lord_term",
+        "chaos_lord_jump",
+        "predator_annihilator",
+        "predator_destructor",
+        "chaos_rhino",
+        "chaos_spawn",
+        "chaos_terminators",
+        "chaos_vindicator",
+        "chosen",
+        "cultist_firebrand",
+        "cultist_mob",
+        "dark_apostle",
+        "dark_commune",
+        "defiler",
+        "fellgor_beastmen",
+        "forgefiend",
+        "havocs",
+        "helbrute",
+        "heldrake",
+        "daemon_prince",
+        "daemon_prince_wings",
+        "lord_of_skulls",
+        "legionaries",
+        "lord_discordant",
+        "master_executions",
+        "master_possession",
+        "masters_maelstrom",
+        "maulerfiend",
+        "mutilators",
+        "nemesis_claw",
+        "noctilith_crown",
+        "obliterators",
+        "possessed",
+        "raptors",
+        "red_corsairs_raiders",
+        "reave_captain",
+        "sorcerer",
+        "sorcerer_term",
+        "traitor_enforcer",
+        "traitor_guardsmen",
+        "venomcrawler",
+        "warpsmith",
+        "warp_talons"
+       ],
+       "note": ""
+      },
+      {
+       "id": "mk_slaanesh",
+       "group": "mark",
+       "label": "Mark: Slaanesh",
+       "keyword": "Slaanesh",
+       "tone": "slaanesh",
+       "unitIds": [
+        "accursed_cultists",
+        "chaos_bikers",
+        "chaos_land_raider",
+        "chaos_lord",
+        "chaos_lord_term",
+        "chaos_lord_jump",
+        "predator_annihilator",
+        "predator_destructor",
+        "chaos_rhino",
+        "chaos_spawn",
+        "chaos_terminators",
+        "chaos_vindicator",
+        "chosen",
+        "cultist_firebrand",
+        "cultist_mob",
+        "dark_apostle",
+        "dark_commune",
+        "defiler",
+        "fellgor_beastmen",
+        "forgefiend",
+        "havocs",
+        "helbrute",
+        "heldrake",
+        "daemon_prince",
+        "daemon_prince_wings",
+        "lord_of_skulls",
+        "legionaries",
+        "lord_discordant",
+        "master_executions",
+        "master_possession",
+        "masters_maelstrom",
+        "maulerfiend",
+        "mutilators",
+        "nemesis_claw",
+        "noctilith_crown",
+        "obliterators",
+        "possessed",
+        "raptors",
+        "red_corsairs_raiders",
+        "reave_captain",
+        "sorcerer",
+        "sorcerer_term",
+        "traitor_enforcer",
+        "traitor_guardsmen",
+        "venomcrawler",
+        "warpsmith",
+        "warp_talons"
+       ],
+       "note": ""
+      },
+      {
+       "id": "mk_undivided",
+       "group": "mark",
+       "label": "Mark: Undivided",
+       "keyword": "Chaos Undivided",
+       "tone": "gold",
+       "unitIds": [
+        "accursed_cultists",
+        "chaos_bikers",
+        "chaos_land_raider",
+        "chaos_lord",
+        "chaos_lord_term",
+        "chaos_lord_jump",
+        "predator_annihilator",
+        "predator_destructor",
+        "chaos_rhino",
+        "chaos_spawn",
+        "chaos_terminators",
+        "chaos_vindicator",
+        "chosen",
+        "cultist_firebrand",
+        "cultist_mob",
+        "dark_apostle",
+        "dark_commune",
+        "defiler",
+        "fellgor_beastmen",
+        "forgefiend",
+        "havocs",
+        "helbrute",
+        "heldrake",
+        "daemon_prince",
+        "daemon_prince_wings",
+        "lord_of_skulls",
+        "legionaries",
+        "lord_discordant",
+        "master_executions",
+        "master_possession",
+        "masters_maelstrom",
+        "maulerfiend",
+        "mutilators",
+        "nemesis_claw",
+        "noctilith_crown",
+        "obliterators",
+        "possessed",
+        "raptors",
+        "red_corsairs_raiders",
+        "reave_captain",
+        "sorcerer",
+        "sorcerer_term",
+        "traitor_enforcer",
+        "traitor_guardsmen",
+        "venomcrawler",
+        "warpsmith",
+        "warp_talons"
+       ],
+       "note": "No god; the default Mark."
+      }
+     ]
+    },
+    {
+     "id": "renegade_raiders",
+     "name": "Renegade Raiders",
+     "dp": 3,
+     "tags": [],
+     "summary": "Ranged weapons equipped by HERETIC ASTARTES models from your army have the [ASSAULT] ability, and each time a HERETIC ASTARTES model from yo",
+     "rule": {
+      "name": "Raiders and Reavers",
+      "text": "Ranged weapons equipped by HERETIC ASTARTES models from your army have the [ASSAULT] ability, and each time a HERETIC ASTARTES model from your army makes an attack that targets a unit within range of an objective marker, improve the Armour Penetration characteristic of that attack by 1."
+     },
+     "buffs": [],
+     "enhancements": [
+      {
+       "id": "renegade_raiders_despots_claim",
+       "name": "Despot’s Claim",
+       "pts": 15,
+       "upgrade": false,
+       "text": "HERETIC ASTARTES model only. At the start of your Command phase, if the bearer is on the battlefield, roll one D6, adding 1 to the result if the bearer is wholly within 12\" of your opponent’s deployment zone: on a 5+, you gain 1 CP.",
+       "eligible": {
+        "factionsAll": [
+         "Heretic Astartes"
+        ]
+       }
+      },
+      {
+       "id": "renegade_raiders_dread_reaver",
+       "name": "Dread Reaver",
+       "pts": 15,
+       "upgrade": false,
+       "text": "HERETIC ASTARTES model only. Each time the bearer makes a melee attack, if the bearer is wholly within 12\" of your opponent’s deployment zone, you can re-roll the Hit roll and you can re-roll the Wound roll.",
+       "eligible": {
+        "factionsAll": [
+         "Heretic Astartes"
+        ]
+       }
+      },
+      {
+       "id": "renegade_raiders_mark_of_the_hound",
+       "name": "Mark of the Hound",
+       "pts": 25,
+       "upgrade": false,
+       "text": "HERETIC ASTARTES model only. Models in the bearers unit have the Scouts 6\" ability.",
+       "eligible": {
+        "factionsAll": [
+         "Heretic Astartes"
+        ]
+       }
+      },
+      {
+       "id": "renegade_raiders_tyrants_lash",
+       "name": "Tyrant’s Lash",
+       "pts": 20,
+       "upgrade": false,
+       "text": "HERETIC ASTARTES model only. You can re-roll Advance rolls made for the bearer’s unit, and the bearer’s unit is eligible to shoot in a turn in which it Fell Back.",
+       "eligible": {
+        "factionsAll": [
+         "Heretic Astartes"
+        ]
+       }
+      }
+     ],
+     "stratagems": [
+      {
+       "id": "scour_and_seize",
+       "name": "SCOUR AND SEIZE",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Fight phase.",
+       "target": "One HERETIC ASTARTES unit from your army that has not been selected to fight this phase.",
+       "effect": "Until the end of the phase, each time a model in your unit makes an attack that targets a unit within range of an objective marker, that attack has the [PRECISION] ability."
+      },
+      {
+       "id": "ruinous_raid",
+       "name": "RUINOUS RAID",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Shooting",
+        "Fight"
+       ],
+       "when": "Your Shooting phase or your Fight phase",
+       "target": "One HERETIC ASTARTES unit from your army that disembarked from a TRANSPORT this turn and has not been selected to shoot or fight this phase.",
+       "effect": "Until the end of the phase, each time a model in your unit makes an attack, if the target of that attack is within range of an objective marker, you can re-roll the Hit roll and you can re-roll the Wound roll."
+      },
+      {
+       "id": "unfailingly_obdurate",
+       "name": "UNFAILINGLY OBDURATE",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Shooting",
+        "Fight"
+       ],
+       "when": "Your opponent’s Shooting phase or the Fight phase, just after an enemy unit has selected its targets.",
+       "target": "One HERETIC ASTARTES unit from your army (excluding DAMNED units) that was selected as the target of one or more of the attacking unit’s attacks.",
+       "effect": "Until the attacking unit has finished making its attacks, each time an attack targets your unit, worsen the Armour Penetration characteristic of that attack by 1."
+      },
+      {
+       "id": "reavers_haste",
+       "name": "REAVERS’ HASTE",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Charge"
+       ],
+       "when": "Your Charge phase.",
+       "target": "One HERETIC ASTARTES INFANTRY or HERETIC ASTARTES MOUNTED unit from your army.",
+       "effect": "Until the end of the phase, your unit is eligible to declare a charge in a turn in which it Advanced. If you select one or more units within range of an objective marker as a target of that charge, add 1 to the Charge roll."
+      },
+      {
+       "id": "opportunistic_raiders",
+       "name": "OPPORTUNISTIC RAIDERS",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Fight"
+       ],
+       "when": "End of the Fight phase",
+       "target": "One HERETIC ASTARTES unit from your army that was eligible to fight this phase.",
+       "effect": "If your unit is not within Engagement Range of one or more enemy units, it can make a Normal move of up to 6\", or up to 12\" if it is a MOUNTED unit. Otherwise, your unit can make a Fall Back move. It cannot embark within a TRANSPORT at the end of this move if it disembarked from a TRANSPORT this turn."
+      },
+      {
+       "id": "warpcharged_engines",
+       "name": "WARPCHARGED ENGINES",
+       "cp": 1,
+       "type": "Wargear",
+       "phases": [
+        "Movement"
+       ],
+       "when": "Your Movement phase.",
+       "target": "One HERETIC ASTARTES TRANSPORT or HERETIC ASTARTES MOUNTED unit from your army that has not been selected to move this phase.",
+       "effect": "Until the end of the phase, if your unit Advances, do not make an Advance roll for it. Instead, until the end of the phase, add 6\" to the Move characteristic of models in your unit."
+      }
+     ],
+     "dispositions": [
+      "Priority Assets",
+      "Reconnaissance"
+     ]
+    },
+    {
+     "id": "renegade_warband",
+     "name": "Renegade Warband",
+     "dp": 2,
+     "tags": [],
+     "summary": "HERETIC ASTARTES models from your army lose the Dark Pacts ability. Ranged weapons equipped by HERETIC ASTARTES models from your army have t",
+     "rule": {
+      "name": "Slaves to None",
+      "text": "HERETIC ASTARTES models from your army lose the Dark Pacts ability. Ranged weapons equipped by HERETIC ASTARTES models from your army have the [ASSAULT] ability. When mustering your army, you cannot use the Cults of the Dark Gods rule."
+     },
+     "buffs": [],
+     "enhancements": [
+      {
+       "id": "renegade_warband_weaponised_hatred",
+       "name": "Weaponised Hatred",
+       "pts": 35,
+       "upgrade": false,
+       "text": "HERETIC ASTARTES model only. Once per battle round, after your Vendetta target is destroyed, if the bearer is on the battlefield, you can select one enemy unit visible to the bearer. That enemy unit becomes your Vendetta target until you select a new one.",
+       "eligible": {
+        "factionsAll": [
+         "Heretic Astartes"
+        ]
+       }
+      },
+      {
+       "id": "renegade_warband_eyes_of_the_hunter",
+       "name": "Eyes of the Hunter",
+       "pts": 15,
+       "upgrade": false,
+       "text": "HERETIC ASTARTES model only. Ranged weapons equipped by models in the bearer’s unit have the [IGNORES COVER] ability.",
+       "eligible": {
+        "factionsAll": [
+         "Heretic Astartes"
+        ]
+       }
+      },
+      {
+       "id": "renegade_warband_fratricidal_trophies",
+       "name": "Fratricidal Trophies",
+       "pts": 5,
+       "upgrade": false,
+       "text": "HERETIC ASTARTES TERMINATOR model only. In a turn in which the bearer’s unit chose to Default to Doctrine, until the end of the turn, each time a model in this unit makes an attack, you can re-roll the Hit roll.",
+       "eligible": {
+        "factionsAll": [
+         "Heretic Astartes"
+        ]
+       }
+      },
+      {
+       "id": "renegade_warband_empyric_symbiote",
+       "name": "Empyric Symbiote",
+       "pts": 15,
+       "upgrade": false,
+       "text": "HERETIC ASTARTES model only. Add 1 to Advance and Charge rolls made for the bearer’s unit.",
+       "eligible": {
+        "factionsAll": [
+         "Heretic Astartes"
+        ]
+       }
+      }
+     ],
+     "stratagems": [
+      {
+       "id": "corrupted_munitions",
+       "name": "CORRUPTED MUNITIONS",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Your Shooting phase.",
+       "target": "One HERETIC ASTARTES unit in your army that has just been selected to shoot.",
+       "effect": "Until the end of the phase, each time a model in this unit makes a ranged attack, improve the Armour Penetration of that attack by 1."
+      },
+      {
+       "id": "vengeful_destruction",
+       "name": "VENGEFUL DESTRUCTION",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Shooting",
+        "Fight"
+       ],
+       "when": "Your Shooting phase or the Fight phase.",
+       "target": "One Heretic Astartes Infantry (excluding DAMNED units) or HERETIC ASTARTES MOUNTED unit from your army that has not been selected to shoot or fight this phase.",
+       "effect": "Until the end of the phase, each time your unit makes an attack that targets your Vendetta target, add 1 to the Wound roll."
+      },
+      {
+       "id": "never_outgunned",
+       "name": "NEVER OUTGUNNED",
+       "cp": 1,
+       "type": "Epic Deed",
+       "phases": [
+        "Shooting",
+        "Fight"
+       ],
+       "when": "Your Shooting phase or the Fight phase.",
+       "target": "One HERETIC ASTARTES unit from your army that has just been selected to shoot or fight.",
+       "effect": "Select either the [LETHAL HITS] or [SUSTAINED HITS 1] ability. Until the end of the phase, weapons equipped by models in your unit have the selected ability."
+      },
+      {
+       "id": "reavers_reaction",
+       "name": "REAVERS’ REACTION",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Your opponent’s Shooting phase, just after an enemy unit has shot.",
+       "target": "One HERETIC ASTARTES unit (excluding Monsters and Vehicles) from your army that was hit by one or more of those attacks.",
+       "effect": "Your unit can make a Normal move of up to D6\"."
+      },
+      {
+       "id": "renegade_claim",
+       "name": "RENEGADE CLAIM",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Movement"
+       ],
+       "when": "Your Movement phase",
+       "target": "One HERETIC ASTARTES unit from your army within range of an objective marker you control.",
+       "effect": "That objective marker remains under your control until your opponent’s Level of Control over that objective marker is greater than yours at the end of a phase."
+      },
+      {
+       "id": "undying_hatred",
+       "name": "UNDYING HATRED",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Fight phase, just after an enemy unit has selected its targets.",
+       "target": "One HERETIC ASTARTES unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+       "effect": "Until the end of the phase, each time a model in your unit is destroyed, if that model has not fought this phase, roll one D6: on a 4+, do not remove the destroyed model from play; it can fight after the attacking unit has finished making its attacks, and is then removed from play."
+      }
+     ],
+     "dispositions": [
+      "Priority Assets"
+     ],
+     "reminder": {
+      "title": "Vendetta",
+      "phase": "Command",
+      "turn": "mine",
+      "text": "Select one enemy unit as your Vendetta target (re-roll Hit rolls that target it until your next Command phase)."
+     },
+     "note": "Slaves to None: HERETIC ASTARTES models lose Dark Pacts in this Detachment; their ranged weapons gain [ASSAULT]."
+    },
+    {
+     "id": "soulforged_warpack",
+     "name": "Soulforged Warpack",
+     "dp": 2,
+     "tags": [],
+     "summary": "Each time a HERETIC ASTARTES DAEMON VEHICLE unit from your army makes a Dark Pact, it can invoke its contract. If it does, subtract 1 from t",
+     "rule": {
+      "name": "Debt to the Soul Forge",
+      "text": "Each time a HERETIC ASTARTES DAEMON VEHICLE unit from your army makes a Dark Pact, it can invoke its contract. If it does, subtract 1 from the resulting Leadership test when making that Dark Pact, and until the end of the phase: ■ Each time a model in that unit makes a ranged attack, add 1 to the Wound roll. ■ Add 2 to the Attacks characteristic of melee weapons equipped by models in that unit."
+     },
+     "buffs": [],
+     "enhancements": [
+      {
+       "id": "soulforged_warpack_forges_blessing",
+       "name": "Forge’s Blessing",
+       "pts": 20,
+       "upgrade": false,
+       "text": "HERETIC ASTARTES model only. In your Command phase, select one friendly HERETIC ASTARTES VEHICLE unit within 12\" of the bearer. Until the start of your next Command phase, that unit has the Feel No Pain 6+ ability.",
+       "eligible": {
+        "factionsAll": [
+         "Heretic Astartes"
+        ]
+       }
+      },
+      {
+       "id": "soulforged_warpack_invigorated_mechatendrils",
+       "name": "Invigorated Mechatendrils",
+       "pts": 15,
+       "upgrade": false,
+       "text": "WARPSMITH model only. Add 4\" to the bearer’s Move characteristic.",
+       "eligible": {
+        "factionsAll": [
+         "Heretic Astartes"
+        ]
+       }
+      },
+      {
+       "id": "soulforged_warpack_tempting_addendum",
+       "name": "Tempting Addendum",
+       "pts": 40,
+       "upgrade": false,
+       "text": "HERETIC ASTARTES model only. Each time a HERETIC ASTARTES DAEMON VEHICLE unit from your army invokes its contract while within 3\" of the bearer: ■ If it suffers one or more mortal wounds as a result of that Dark Pact, add 1 to the number of mortal wounds it suffers. ■ Until the end of the phase, each time a model in that unit makes an attack, you can re-roll the Hit roll.",
+       "eligible": {
+        "factionsAll": [
+         "Heretic Astartes"
+        ]
+       }
+      },
+      {
+       "id": "soulforged_warpack_soul_harvester",
+       "name": "Soul Harvester",
+       "pts": 15,
+       "upgrade": false,
+       "text": "HERETIC ASTARTES model only. While the bearer is on the battlefield, each time an enemy unit within 12\" of the bearer is destroyed, roll one D6: on a 5+, you gain 1CP.",
+       "eligible": {
+        "factionsAll": [
+         "Heretic Astartes"
+        ]
+       }
+      }
+     ],
+     "stratagems": [
+      {
+       "id": "desperate_pledge",
+       "name": "DESPERATE PLEDGE",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Shooting",
+        "Fight"
+       ],
+       "when": "Your Shooting phase or the Fight phase.",
+       "target": "One HERETIC ASTARTES DAEMON VEHICLE unit from your army that has not been selected to shoot or fight this phase.",
+       "effect": "Until the end of the phase, if your unit invokes its contract, each time it makes an attack, improve the Armour Penetration characteristic of that attack by 1."
+      },
+      {
+       "id": "daemonic_possession",
+       "name": "DAEMONIC POSSESSION",
+       "cp": 1,
+       "type": "Epic Deed",
+       "phases": [
+        "Command"
+       ],
+       "when": "Your Command phase.",
+       "target": "One HERETIC ASTARTES VEHICLE unit from your army (excluding DAEMON units).",
+       "effect": "Until the end of the battle, your unit has the DAEMON keyword."
+      },
+      {
+       "id": "unstoppable_rampage",
+       "name": "UNSTOPPABLE RAMPAGE",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Movement",
+        "Charge"
+       ],
+       "when": "Your Movement phase or Charge phase.",
+       "target": "One HERETIC ASTARTES VEHICLE or VASHTORR THE ARKIFANE unit from your army that has not been selected to move or charge this phase.",
+       "effect": "Until the end of the phase, each time your unit makes Normal, Advance or charge move, it can move horizontally through terrain features as if they were not there."
+      },
+      {
+       "id": "predatory_pursuit",
+       "name": "PREDATORY PURSUIT",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Movement"
+       ],
+       "when": "Your opponent’s Movement phase, just after an enemy unit ends a Normal, Advance or Fall back move.",
+       "target": "One HERETIC ASTARTES VEHICLE or VASHTORR THE ARKIFANE unit from your army that is within 8\" of that enemy unit and not within Engagement Range of one or more enemy units.",
+       "effect": "Your unit can make a Normal move of up to 6\", but must end that move as close as possible to that enemy unit."
+      },
+      {
+       "id": "feeding_frenzy",
+       "name": "FEEDING FRENZY",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Movement"
+       ],
+       "when": "Your opponent’s Movement phase, when an enemy unit (excluding MONSTER and VEHICLES) is selected to Fall Back.",
+       "target": "One HERETIC ASTARTES DAEMON VEHICLE or VASHTORR THE ARKIFANE unit from your army that is within Engagement Range of that enemy unit.",
+       "effect": "Until the end of the phase, each time an enemy unit (excluding MONSTERS and VEHICLES) that is within Engagement Range of your units Falls Back, all models in that enemy unit must take a Desperate Escape test. When doing so, of that enemy unit is Battle-shocked, substract 1 from each of those tests."
+      },
+      {
+       "id": "glut_of_souls",
+       "name": "GLUT OF SOULS",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Fight phase.",
+       "target": "One HERETIC ASTARTES DAEMON VEHICLE unit from your army (excluding TITANIC units) that has not been selected to fight this phase.",
+       "effect": "Until the end of the phase, if your unit invokes its contract, each time it makes an attack that destroys an enemy model, roll one D6: on 5+, your unit regains 1 lost wound after all of its attacks have been resolved (to a maximum of 6 wound)."
+      }
+     ],
+     "dispositions": [
+      "Take and Hold"
+     ]
+    },
+    {
+     "id": "veterans_long_war",
+     "name": "Veterans of the Long War",
+     "dp": 2,
+     "tags": [],
+     "summary": "At the start of your Command phase, select one unit from your opponents army to be your focus of hatred. Until the start of your next Comman",
+     "rule": {
+      "name": "Focus of Hatred",
+      "text": "At the start of your Command phase, select one unit from your opponents army to be your focus of hatred. Until the start of your next Command phase, each time a HERETIC ASTARTES model from your army (excluding DAMNED models) makes an attack that targets your focus of hatred, you can re-roll the Hit roll."
+     },
+     "buffs": [],
+     "enhancements": [
+      {
+       "id": "veterans_long_war_eager_for_vengeance",
+       "name": "Eager for Vengeance",
+       "pts": 20,
+       "upgrade": false,
+       "text": "HERETIC ASTARTES model only (excluding DAMNED models). The bearer’s unit is eligible to shoot and declare a charge in a turn in which it Fell Back. Each time a model in the bearer’s unit makes an attack that targets your focus of hatred, if the bearer’s unit Fell Back this turn, add 1 to the Hit roll, and each time you select your focus of hatred as a target of that unit’s charge, add 1 to the Charge roll.",
+       "eligible": {
+        "factionsAll": [
+         "Heretic Astartes"
+        ]
+       }
+      },
+      {
+       "id": "veterans_long_war_eye_of_abaddon",
+       "name": "Eye of Abaddon",
+       "pts": 15,
+       "upgrade": false,
+       "text": "HERETIC ASTARTES model only (excluding DAMNED models). While the bearer is on the battlefield, each time your focus of hatred is destroyed, roll one D6: on a 4+, you gain 1CP.",
+       "eligible": {
+        "factionsAll": [
+         "Heretic Astartes"
+        ]
+       }
+      },
+      {
+       "id": "veterans_long_war_mark_of_legend",
+       "name": "Mark of Legend",
+       "pts": 10,
+       "upgrade": false,
+       "text": "HERETIC ASTARTES model only (excluding DAMNED models). Once per turn, you can re-roll one Hit roll, one Wound roll or one saving throw made for the bearer.",
+       "eligible": {
+        "factionsAll": [
+         "Heretic Astartes"
+        ]
+       }
+      },
+      {
+       "id": "veterans_long_war_warmasters_gift",
+       "name": "Warmaster’s Gift",
+       "pts": 15,
+       "upgrade": false,
+       "text": "CHAOS LORD model only. Each time the bearer makes an attack that targets your focus of hatred, an unmodified successful Wound roll of 5+ scores a Critical Wound.",
+       "eligible": {
+        "factionsAll": [
+         "Heretic Astartes"
+        ]
+       }
+      }
+     ],
+     "stratagems": [
+      {
+       "id": "let_the_galaxy_burn",
+       "name": "LET THE GALAXY BURN",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Your Shooting phase.",
+       "target": "One HERETIC ASTARTES unit from your army (excluding TZEENTCH units) that has not been selected to shoot this phase",
+       "effect": "Until the end of the phase, ranged weapons equipped by models in your unit have the [IGNORES COVER] ability, and change the Attacks characteristic of Torrent weapons equipped by models in your unit to 6."
+      },
+      {
+       "id": "contemptuous_disregard",
+       "name": "CONTEMPTUOUS DISREGARD",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Shooting",
+        "Fight"
+       ],
+       "when": "Your opponents Shooting phase or the Fight phase, just after an enemy unit has selected its targets.",
+       "target": "One HERETIC ASTARTES unit from your army (excluding DAMNED units) that was selected as the target of one or more of the attacking unit’s attacks.",
+       "effect": "Until the attacking unit has finished making its attacks, each time an attack targets your unit, worsen the Armour Penetration characteristic of that attack by 1."
+      },
+      {
+       "id": "bringers_of_despair",
+       "name": "BRINGERS OF DESPAIR",
+       "cp": 1,
+       "type": "Epic Deed",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Fight phase.",
+       "target": "One HERETIC ASTARTES unit from your army (excluding DAMNED units) that is within Engagement Range of your focus of hatred.",
+       "effect": "Until the end of the phase, your unit has the Fights First ability."
+      },
+      {
+       "id": "endless_ire",
+       "name": "ENDLESS IRE",
+       "cp": 2,
+       "type": "Epic Deed",
+       "phases": [
+        "Any"
+       ],
+       "when": "Any phase, just after your focus of hatred is destroyed.",
+       "target": "One HERETIC ASTARTES CHARACTER unit from your army (excluding DAMNED units)",
+       "effect": "Select one enemy unit within 12\" of and visible to your unit. Until the start of your next Command phase, that enemy unit is considered to be your focus of hatred."
+      },
+      {
+       "id": "millennia_of_experience",
+       "name": "MILLENNIA OF EXPERIENCE",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Movement"
+       ],
+       "when": "Your opponent’s Movement phase, just after an enemy unit ends a Normal, Advance or Fall Back move.",
+       "target": "One HERETIC ASTARTES INFANTRY or HERETIC ASTARTES MOUNTED unit from your army (excluding DAMNED units) that is within 8\" of that enemy unit and not within Engagement Range of one or more enemy units.",
+       "effect": "Your unit can make a Normal move of up to 6\"."
+      },
+      {
+       "id": "black_crusade",
+       "name": "BLACK CRUSADE",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Movement"
+       ],
+       "when": "Your Movement phase",
+       "target": "One HERETIC ASTARTES INFANTRY unit or HERETIC ASTARTES MOUNTED unit from your army (excluding DAMNED units).",
+       "effect": "Until the end of the turn, your unit is eligible to shoot in a turn in which it Advanced or Fell Back, and bolt pistols, boltguns and combi-bolters equipped by models in your unit have the [DEVASTATING WOUNDS] ability while your unit has not already inflicted 6 wounds this turn using that ability."
+      }
+     ],
+     "dispositions": [
+      "Take and Hold"
+     ],
+     "reminder": {
+      "title": "Focus of Hatred",
+      "phase": "Command",
+      "turn": "mine",
+      "text": "Select one enemy unit as your focus of hatred (re-roll Hit rolls that target it until your next Command phase)."
+     }
+    },
+    {
+     "id": "warpstrike_champions",
+     "name": "Warpstrike Champions",
+     "dp": 2,
+     "tags": [],
+     "summary": "At the end of your opponent’s turn, you can select a number of Heretic Astartes Terminator, Obliterators and Mutilators units from your army",
+     "rule": {
+      "name": "Warp Portals",
+      "text": "At the end of your opponent’s turn, you can select a number of Heretic Astartes Terminator, OBLITERATORS and MUTILATORS units from your army (excluding units that are within Engagement Range of one or more enemy units). The maximum number of units you can select depends on the battle size, as follows: ■ Incursion: Up to 1 unit ■ Strike Force: Up to 2 units ■ Onslaught: Up to 3 units Once you have made your selections, remove those units from the battlefield and place them into Strategic Reserves."
+     },
+     "buffs": [],
+     "enhancements": [
+      {
+       "id": "warpstrike_champions_infernal_fulgurite",
+       "name": "Infernal Fulgurite",
+       "pts": 20,
+       "upgrade": false,
+       "text": "HERETIC ASTARTES model only (excluding DAMNED models). Once per battle, you can target the bearer’s unit with the Rapid Ingress Stratagem for 0CP, and can do so even if you have already targeted a different unit with that Stratagem this phase.",
+       "eligible": {
+        "factionsAll": [
+         "Heretic Astartes"
+        ]
+       }
+      },
+      {
+       "id": "warpstrike_champions_eye_of_the_warp",
+       "name": "Eye of the Warp",
+       "pts": 15,
+       "upgrade": false,
+       "text": "HERETIC ASTARTES model with the Deep Strike ability only. Each time the bearer’s unit is set up on the battlefield, until the end of the turn, you can re-roll Charge rolls made for that unit.",
+       "eligible": {
+        "factionsAll": [
+         "Heretic Astartes"
+        ]
+       }
+      },
+      {
+       "id": "warpstrike_champions_akshurs_binding_runes",
+       "name": "Akshur’s Binding Runes",
+       "pts": 20,
+       "upgrade": false,
+       "text": "HERETIC ASTARTES model with the Deep Strike ability only. The bearer’s unit can be set up using the Deep Strike ability in the Reinforcements step of your first, second or third Movement phase, regardless of any mission rules.",
+       "eligible": {
+        "factionsAll": [
+         "Heretic Astartes"
+        ]
+       }
+      },
+      {
+       "id": "warpstrike_champions_tzagulla",
+       "name": "Tzagulla",
+       "pts": 25,
+       "upgrade": false,
+       "text": "HERETIC ASTARTES model with the Deep Strike ability only. Improve the Attacks, Strength and Armour Penetration characteristics of the bearer’s weapons by 1. In addition, each time the bearer’s unit is set up on the battlefield from Reserves, until the end of the turn, improve the Damage characteristic of the bearer’s weapons by 1.",
+       "eligible": {
+        "factionsAll": [
+         "Heretic Astartes"
+        ]
+       }
+      }
+     ],
+     "stratagems": [
+      {
+       "id": "portal_of_spite",
+       "name": "PORTAL OF SPITE",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Charge"
+       ],
+       "when": "Your Charge phase.",
+       "target": "One HERETIC ASTARTES unit from your army that was set up using the Deep Strike ability this turn and has not declared a charge this phase.",
+       "effect": "Your unit has +2 to charge rolls."
+      },
+      {
+       "id": "empyric_dislocation",
+       "name": "EMPYRIC DISLOCATION",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Shooting",
+        "Fight"
+       ],
+       "when": "Your opponent’s Shooting phase or the Fight phase, just after an enemy unit has selected its targets.",
+       "target": "One HERETIC ASTARTES unit from your army (excluding DAMNED units) that was selected as the target of one or more of the attacking unit’s attacks.",
+       "effect": "Until the attacking unit has finished making its attacks, each time an attack targets your unit, worsen the Armour Penetration characteristic of that attack by 1.",
+       "restrictions": "You cannot target the same unit with the Empyric Dislocation and Armour of Corruption Stratagems in the same phase."
+      },
+      {
+       "id": "armour_of_corruption",
+       "name": "ARMOUR OF CORRUPTION",
+       "cp": 2,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Fight phase, just after an enemy unit has selected its targets.",
+       "target": "One Heretic Astartes Terminator, OBLITERATORS or MUTILATORS unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+       "effect": "Until the end of the turn, each time an attack is allocated to a model in your unit, subtract 1 from the Damage characteristic of that attack.",
+       "restrictions": "You cannot target the same unit with the Armour of Corruption and Empyric Dislocation Stratagems in the same phase."
+      },
+      {
+       "id": "siegebreaker_strike",
+       "name": "SIEGEBREAKER STRIKE",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Your Shooting phase.",
+       "target": "Up to two HERETIC ASTARTES units from your army that were set up using the Deep Strike ability this turn and have not been selected to shoot this phase.",
+       "effect": "Until the end of the phase, ranged weapons equipped by models in your units have the [IGNORES COVER] ability."
+      },
+      {
+       "id": "warp_tainted",
+       "name": "WARP-TAINTED",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Movement"
+       ],
+       "when": "Your Movement phase.",
+       "target": "One Heretic Astartes Terminator, OBLITERATORS or MUTILATORS unit from your army, within range of an objective marker you control.",
+       "effect": "That objective marker remains under your control until your opponent’s Level of Control over that objective marker is greater than yours at the end of a phase."
+      },
+      {
+       "id": "warp_flicker",
+       "name": "WARP FLICKER",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Movement"
+       ],
+       "when": "Your Movement phase.",
+       "target": "One Heretic Astartes Terminator, OBLITERATORS or MUTILATORS unit from your army.",
+       "effect": "Until the end of the turn, your unit is eligible to shoot and declare a charge in a turn in which it Advanced."
+      }
+     ],
+     "dispositions": [
+      "Disruption"
+     ]
+    }
+   ],
+   "units": [
+    {
+     "id": "abaddon",
+     "name": "Abaddon the Despoiler",
+     "role": "epic hero",
+     "faction": "Heretic Astartes",
+     "keywords": [
+      "Abaddon the Despoiler",
+      "Chaos",
+      "Chaos Undivided",
+      "Character",
+      "Epic Hero",
+      "Infantry",
+      "Leader",
+      "Terminator",
+      "Warlord"
+     ],
+     "image": "csm_abaddon",
+     "baseSize": "60mm",
+     "profile": {
+      "M": "5\"",
+      "T": "6",
+      "Sv": "2+",
+      "InSv": "4+",
+      "W": "9",
+      "OC": "4",
+      "Ld": "5+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Talon of Horus",
+       "range": "24\"",
+       "A": "4",
+       "skill": "2+",
+       "S": "5",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Sustained Hits 1"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Talon of Horus",
+       "range": "Melee",
+       "A": "14",
+       "skill": "2+",
+       "S": "7",
+       "AP": "-3",
+       "D": "1",
+       "kw": [
+        "Devastating Wounds"
+       ]
+      },
+      {
+       "name": "Drach'nyen",
+       "range": "Melee",
+       "A": "8",
+       "skill": "2+",
+       "S": "14",
+       "AP": "-4",
+       "D": "3",
+       "kw": [
+        "Devastating Wounds"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Deep Strike"
+     ],
+     "factionAbilities": [
+      "Dark Pacts"
+     ],
+     "abilities": [
+      {
+       "name": "The Warmaster",
+       "text": "In your Command phase, select one Warmaster ability. Until the start of your next Command phase, this model has that ability.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Dark Destiny",
+       "text": "Each time this model’s unit makes a Dark Pact and does not fail the resulting leadership roll, if the result of that roll was 7+, you gain 1CP.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 300
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "chaos_terminators",
+      "chosen"
+     ],
+     "composition": "",
+     "options": [],
+     "optionRules": []
+    },
+    {
+     "id": "accursed_cultists",
+     "name": "Accursed Cultists",
+     "role": "infantry",
+     "faction": "Heretic Astartes",
+     "keywords": [
+      "Accursed Cultists",
+      "Chaos",
+      "Damned",
+      "Infantry"
+     ],
+     "image": "csm_accursed_cultists",
+     "baseSize": "25mm",
+     "profile": {
+      "M": "6\"",
+      "T": "4",
+      "Sv": "6+",
+      "InSv": "—",
+      "W": "3",
+      "OC": "1",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [],
+     "melee": [
+      {
+       "name": "Hideous mutations",
+       "range": "Melee",
+       "A": "D6+2",
+       "skill": "4+",
+       "S": "5",
+       "AP": "-1",
+       "D": "2",
+       "kw": []
+      },
+      {
+       "name": "Blasphemous appendages",
+       "range": "Melee",
+       "A": "2",
+       "skill": "4+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Feel No Pain 6+",
+      "Scouts 6\""
+     ],
+     "factionAbilities": [
+      "Dark Pacts"
+     ],
+     "abilities": [
+      {
+       "name": "Howling Horde",
+       "text": "In your opponent's Shooting phase, when an enemy unit has shot, if a model from this unit was destroyed as a result of those attacks, this unit can make a surge move of up to D6\".",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 8,
+       "pts": 90,
+       "ptsLater": 110
+      },
+      {
+       "models": 16,
+       "pts": 185,
+       "ptsLater": 205
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [],
+     "composition": "",
+     "options": [],
+     "optionRules": []
+    },
+    {
+     "id": "chaos_bikers",
+     "name": "Chaos Bikers",
+     "role": "mounted",
+     "faction": "Heretic Astartes",
+     "keywords": [
+      "Chaos",
+      "Chaos Bikers",
+      "Grenades",
+      "Mounted",
+      "Unit Champion"
+     ],
+     "image": "csm_chaos_bikers",
+     "baseSize": "75 x 42mm",
+     "profile": {
+      "M": "12\"",
+      "T": "6",
+      "Sv": "3+",
+      "InSv": "—",
+      "W": "3",
+      "OC": "2",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Bolt pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Plasma pistol - standard",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "7",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Plasma pistol - supercharge",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-3",
+       "D": "2",
+       "kw": [
+        "Hazardous",
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Combi-bolter",
+       "range": "24\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Rapid Fire 2"
+       ]
+      },
+      {
+       "name": "Flamer",
+       "range": "12\"",
+       "A": "D6",
+       "skill": "N/A",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Ignores Cover",
+        "Torrent"
+       ]
+      },
+      {
+       "name": "Meltagun",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "9",
+       "AP": "-4",
+       "D": "D6",
+       "kw": [
+        "Melta 2"
+       ]
+      },
+      {
+       "name": "Plasma gun - standard",
+       "range": "24\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "7",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Rapid Fire 1"
+       ]
+      },
+      {
+       "name": "Plasma gun - supercharge",
+       "range": "24\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-3",
+       "D": "2",
+       "kw": [
+        "Hazardous",
+        "Rapid Fire 1"
+       ]
+      },
+      {
+       "name": "Combi-weapon",
+       "range": "24\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Anti-INFANTRY 4+",
+        "Devastating Wounds",
+        "Rapid Fire 1"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Accursed weapon",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Astartes chainsword",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Power fist",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-2",
+       "D": "2",
+       "kw": []
+      },
+      {
+       "name": "Close combat weapon",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [],
+     "factionAbilities": [
+      "Dark Pacts"
+     ],
+     "abilities": [
+      {
+       "name": "Rapid Assault",
+       "text": "Each time a model in this unit makes a melee attack, if this unit made a Charge move this turn, improve the Strength characteristic of that attack by 1.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Warp Stalker",
+       "text": "You can re-roll Advance and Charge rolls made for this model's unit.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Unholy Speed",
+       "text": "Add 1 to Advance and Charge rolls made for this model's unit.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Mutant Form",
+       "text": "Add 1 to this model's Wounds characteristic.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Massive Fangs",
+       "text": "Melee weapons equipped by this model have the [LANCE] ability.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Eightfold Eyes",
+       "text": "Once per turn, you can re-roll one Hit roll, one Wound roll, one Damage roll or one saving throw made for this model.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Daemonic Flesh",
+       "text": "Add 1 to this model's Toughness characteristic.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Scorpion Tail",
+       "text": "Add 1 to the Attacks characteristic of melee weapons equipped by this model.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Iron-hard Talons",
+       "text": "Improve the Armour Penetration characteristic of melee weapons equipped by this model by 1.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Dark Blessing",
+       "text": "Once per battle, at the start of your opponent's Shooting phase, this model can use this ability. If it does, until the end of the phase, this model's unit has the Stealth ability.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Chaos icon",
+       "text": "Each time the bearer’s unit takes a Leadership test for the Dark Pacts ability, you can re-roll that test.",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 3,
+       "pts": 80
+      },
+      {
+       "models": 6,
+       "pts": 150
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "",
+     "options": [
+      {
+       "id": "champ_pistol",
+       "type": "choice",
+       "label": "Biker Champion pistol/melee",
+       "choices": [
+        {
+         "id": "bolt",
+         "label": "Bolt pistol",
+         "pts": 0
+        },
+        {
+         "id": "plasma",
+         "label": "Plasma pistol",
+         "pts": 0
+        },
+        {
+         "id": "accursed",
+         "label": "Accursed weapon",
+         "pts": 0
+        },
+        {
+         "id": "chainsword",
+         "label": "Astartes chainsword",
+         "pts": 0
+        },
+        {
+         "id": "fist",
+         "label": "Power fist",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "special",
+       "type": "count",
+       "label": "Combi/flamer/meltagun/plasma (2 max)",
+       "max": 2
+      },
+      {
+       "id": "icon",
+       "type": "toggle",
+       "label": "Chaos icon"
+      }
+     ],
+     "optionRules": []
+    },
+    {
+     "id": "chaos_land_raider",
+     "name": "Chaos Land Raider",
+     "role": "transport",
+     "faction": "Heretic Astartes",
+     "keywords": [
+      "Vehicle",
+      "Transport",
+      "Smoke",
+      "Chaos",
+      "Land Raider",
+      "Frame"
+     ],
+     "image": "chaos_land_raider",
+     "baseSize": "Use model",
+     "profile": {
+      "M": "10\"",
+      "T": "12",
+      "Sv": "2+",
+      "InSv": "—",
+      "W": "16",
+      "OC": "5",
+      "Ld": "6+"
+     },
+     "damaged": {
+      "threshold": 5,
+      "text": "While it has 1-5 wounds left: -1 to hit rolls."
+     },
+     "ranged": [
+      {
+       "name": "Soulshatter lascannon",
+       "range": "48\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "12",
+       "AP": "-3",
+       "D": "D6+1",
+       "kw": []
+      },
+      {
+       "name": "Inferno combi-bolter",
+       "range": "24\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Rapid Fire 2"
+       ]
+      },
+      {
+       "name": "Inferno combi-weapon",
+       "range": "24\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Anti-infantry 4+",
+        "Devastating Wounds",
+        "Rapid Fire 1"
+       ]
+      },
+      {
+       "name": "Havoc launcher",
+       "range": "48\"",
+       "A": "D6",
+       "skill": "3+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Blast"
+       ]
+      },
+      {
+       "name": "Twin inferno heavy bolter",
+       "range": "36\"",
+       "A": "3",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Sustained Hits 1",
+        "Twin-linked"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Armoured tracks",
+       "range": "Melee",
+       "A": "6",
+       "skill": "4+",
+       "S": "8",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D6"
+     ],
+     "factionAbilities": [],
+     "abilities": [
+      {
+       "name": "Assault Ramp",
+       "text": "Each time a unit disembarks from this model after it has made a Normal move, that unit is still eligible to declare a charge this turn.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 220,
+       "ptsLater": 240
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [],
+     "composition": "1 Chaos Land Raider: 2 soulshatter lascannons, twin inferno heavy bolter, armoured tracks.",
+     "options": [
+      {
+       "id": "pintle",
+       "type": "choice",
+       "label": "Pintle weapon",
+       "choices": [
+        {
+         "id": "none",
+         "label": "None",
+         "pts": 0
+        },
+        {
+         "id": "combib",
+         "label": "Inferno combi-bolter",
+         "pts": 0
+        },
+        {
+         "id": "combiw",
+         "label": "Inferno combi-weapon",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "havoc",
+       "type": "toggle",
+       "label": "Havoc launcher"
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "transport": "Carries 14 THOUSAND SONS INFANTRY models. Each TERMINATOR model takes the space of 2."
+    },
+    {
+     "id": "chaos_lord",
+     "name": "Chaos Lord",
+     "role": "character",
+     "faction": "Heretic Astartes",
+     "keywords": [
+      "Chaos",
+      "Chaos Lord",
+      "Character",
+      "Grenades",
+      "Infantry",
+      "Leader",
+      "Warlord"
+     ],
+     "image": "csm_chaos_lord",
+     "baseSize": "40mm",
+     "profile": {
+      "M": "6\"",
+      "T": "5",
+      "Sv": "3+",
+      "InSv": "4+",
+      "W": "5",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Plasma pistol - standard",
+       "range": "12\"",
+       "A": "1",
+       "skill": "2+",
+       "S": "7",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Plasma pistol - supercharge",
+       "range": "12\"",
+       "A": "1",
+       "skill": "2+",
+       "S": "8",
+       "AP": "-3",
+       "D": "2",
+       "kw": [
+        "Hazardous",
+        "Pistol"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Daemon hammer",
+       "range": "Melee",
+       "A": "5",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Devastating Wounds"
+       ]
+      },
+      {
+       "name": "Accursed weapon",
+       "range": "Melee",
+       "A": "6",
+       "skill": "2+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Astartes chainblade",
+       "range": "Melee",
+       "A": "7",
+       "skill": "2+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Power fist",
+       "range": "Melee",
+       "A": "5",
+       "skill": "2+",
+       "S": "8",
+       "AP": "-2",
+       "D": "2",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [],
+     "factionAbilities": [
+      "Dark Pacts"
+     ],
+     "abilities": [
+      {
+       "name": "Chance for Glory",
+       "text": "Once per battle, at the start of the Fight phase, this model can use this ability. If it does, until the end of the phase, improve the Strength, Attacks, Armour Penetration and Damage characteristics of melee weapons equipped by this model by 1.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Lord of Chaos",
+       "text": "Once per battle round, one unit from your army with this ability can use it when its unit is targeted with a Stratagem. If it does, reduce the CP cost of that use of that Stratagem by 1CP.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 95
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "chosen",
+      "legionaries",
+      "nemesis_claw",
+      "red_corsairs_raiders"
+     ],
+     "composition": "",
+     "options": [
+      {
+       "id": "melee",
+       "type": "choice",
+       "label": "Melee weapon",
+       "choices": [
+        {
+         "id": "hammer",
+         "label": "Daemon hammer",
+         "pts": 0
+        },
+        {
+         "id": "accursed",
+         "label": "Accursed weapon",
+         "pts": 0
+        },
+        {
+         "id": "chainblade",
+         "label": "Astartes chainblade",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "fist",
+       "type": "toggle",
+       "label": "Power fist (replace plasma pistol)"
+      }
+     ],
+     "optionRules": []
+    },
+    {
+     "id": "chaos_lord_term",
+     "name": "Chaos Lord in Terminator Armour",
+     "role": "character",
+     "faction": "Heretic Astartes",
+     "keywords": [
+      "Chaos",
+      "Chaos Lord",
+      "Chaos Lord in Terminator Armour",
+      "Character",
+      "Infantry",
+      "Leader",
+      "Terminator",
+      "Warlord"
+     ],
+     "image": "csm_chaos_lord_term",
+     "baseSize": "40mm",
+     "profile": {
+      "M": "5\"",
+      "T": "6",
+      "Sv": "2+",
+      "InSv": "4+",
+      "W": "6",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Combi-bolter",
+       "range": "24\"",
+       "A": "2",
+       "skill": "2+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Rapid Fire 2"
+       ]
+      },
+      {
+       "name": "Combi-weapon",
+       "range": "24\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Anti-INFANTRY 4+",
+        "Devastating Wounds",
+        "Rapid Fire 1"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Exalted weapon",
+       "range": "Melee",
+       "A": "6",
+       "skill": "2+",
+       "S": "5",
+       "AP": "-2",
+       "D": "2",
+       "kw": []
+      },
+      {
+       "name": "Chainfist",
+       "range": "Melee",
+       "A": "5",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Anti-VEHICLE 3+"
+       ]
+      },
+      {
+       "name": "Paired accursed weapons",
+       "range": "Melee",
+       "A": "7",
+       "skill": "2+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Twin-linked"
+       ]
+      },
+      {
+       "name": "Power fist",
+       "range": "Melee",
+       "A": "5",
+       "skill": "2+",
+       "S": "8",
+       "AP": "-2",
+       "D": "2",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deep Strike"
+     ],
+     "factionAbilities": [
+      "Dark Pacts"
+     ],
+     "abilities": [
+      {
+       "name": "Formidably Resilient",
+       "text": "Each time an attack is allocated to this model, halve the Damage characteristic of that attack.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Lord of Chaos",
+       "text": "Once per battle round, one unit from your army with this ability can use it when its unit is targeted with a Stratagem. If it does, reduce the CP cost of that use of that Stratagem by 1CP.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 90
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "chaos_terminators"
+     ],
+     "composition": "",
+     "options": [
+      {
+       "id": "combi",
+       "type": "toggle",
+       "label": "Combi-weapon (replace combi-bolter)"
+      },
+      {
+       "id": "melee",
+       "type": "choice",
+       "label": "Exalted weapon",
+       "choices": [
+        {
+         "id": "exalted",
+         "label": "Exalted weapon",
+         "pts": 0
+        },
+        {
+         "id": "chainfist",
+         "label": "Chainfist",
+         "pts": 0
+        },
+        {
+         "id": "fist",
+         "label": "Power fist",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "paired",
+       "type": "toggle",
+       "label": "Paired accursed weapons"
+      }
+     ],
+     "optionRules": []
+    },
+    {
+     "id": "chaos_lord_jump",
+     "name": "Chaos Lord with Jump Pack",
+     "role": "character",
+     "faction": "Heretic Astartes",
+     "keywords": [
+      "Chaos",
+      "Chaos Lord",
+      "Character",
+      "Fly",
+      "Grenades",
+      "Infantry",
+      "Jump Pack",
+      "Leader",
+      "Warlord"
+     ],
+     "image": "csm_chaos_lord_jump",
+     "baseSize": "40mm",
+     "profile": {
+      "M": "12\"",
+      "T": "5",
+      "Sv": "3+",
+      "InSv": "4+",
+      "W": "5",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Plasma pistol - standard",
+       "range": "12\"",
+       "A": "1",
+       "skill": "2+",
+       "S": "7",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Plasma pistol - supercharge",
+       "range": "12\"",
+       "A": "1",
+       "skill": "2+",
+       "S": "8",
+       "AP": "-3",
+       "D": "2",
+       "kw": [
+        "Hazardous",
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Bolt pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "2+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Accursed weapon",
+       "range": "Melee",
+       "A": "6",
+       "skill": "2+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Power fist",
+       "range": "Melee",
+       "A": "5",
+       "skill": "2+",
+       "S": "8",
+       "AP": "-2",
+       "D": "2",
+       "kw": []
+      },
+      {
+       "name": "Twin lightning claws",
+       "range": "Melee",
+       "A": "6",
+       "skill": "2+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Twin-linked"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Deep Strike"
+     ],
+     "factionAbilities": [
+      "Dark Pacts"
+     ],
+     "abilities": [
+      {
+       "name": "Cruel Hunter",
+       "text": "While this model is leading a unit, each time that unit Piles In or Consolidates, each model in that unit can move up to 6\" instead of up to 3\".",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Lord of Chaos",
+       "text": "Once per battle round, one unit from your army with this ability can use it when its unit is targeted with a Stratagem. If it does, reduce the CP cost of that use of that Stratagem by 1CP.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 85
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "raptors"
+     ],
+     "composition": "",
+     "options": [
+      {
+       "id": "plasma",
+       "type": "toggle",
+       "label": "Plasma pistol (replace bolt pistol)"
+      },
+      {
+       "id": "fist",
+       "type": "toggle",
+       "label": "Power fist (replace accursed weapon)"
+      },
+      {
+       "id": "claws",
+       "type": "toggle",
+       "label": "Twin lightning claws"
+      }
+     ],
+     "optionRules": []
+    },
+    {
+     "id": "predator_annihilator",
+     "name": "Chaos Predator Annihilator",
+     "role": "vehicle",
+     "faction": "Heretic Astartes",
+     "keywords": [
+      "Vehicle",
+      "Smoke",
+      "Chaos",
+      "Predator Annihilator",
+      "Frame"
+     ],
+     "image": "predator_annihilator",
+     "baseSize": "Use model",
+     "profile": {
+      "M": "10\"",
+      "T": "10",
+      "Sv": "3+",
+      "InSv": "—",
+      "W": "11",
+      "OC": "3",
+      "Ld": "6+"
+     },
+     "damaged": {
+      "threshold": 4,
+      "text": "While it has 1-4 wounds left: -1 to hit rolls."
+     },
+     "ranged": [
+      {
+       "name": "Predator twin lascannon",
+       "range": "48\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "14",
+       "AP": "-3",
+       "D": "D6+1",
+       "kw": [
+        "Twin-linked"
+       ]
+      },
+      {
+       "name": "Inferno combi-bolter",
+       "range": "24\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Rapid Fire 2"
+       ]
+      },
+      {
+       "name": "Inferno combi-weapon",
+       "range": "24\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Anti-infantry 4+",
+        "Devastating Wounds",
+        "Rapid Fire 1"
+       ]
+      },
+      {
+       "name": "Inferno heavy bolter",
+       "range": "36\"",
+       "A": "3",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Sustained Hits 1"
+       ]
+      },
+      {
+       "name": "Lascannon",
+       "range": "48\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "12",
+       "AP": "-3",
+       "D": "D6+1",
+       "kw": []
+      },
+      {
+       "name": "Havoc launcher",
+       "range": "48\"",
+       "A": "D6",
+       "skill": "3+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Blast"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Armoured tracks",
+       "range": "Melee",
+       "A": "3",
+       "skill": "4+",
+       "S": "6",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D3"
+     ],
+     "factionAbilities": [],
+     "abilities": [
+      {
+       "name": "Ensorcelled Annihilation",
+       "text": "Each time this model makes a ranged attack that targets a MONSTER or VEHICLE unit that was hit by one or more Psychic Attacks made by a THOUSAND SONS PSYKER model from your army this phase (including the Doombolt Ritual), you can re-roll the Hit roll and you can re-roll the Damage roll.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 140,
+       "ptsLater": 150
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [],
+     "composition": "1 Chaos Predator Annihilator: Predator twin lascannon, armoured tracks.",
+     "options": [
+      {
+       "id": "sponsons",
+       "type": "choice",
+       "label": "Sponsons",
+       "choices": [
+        {
+         "id": "none",
+         "label": "None",
+         "pts": 0
+        },
+        {
+         "id": "las",
+         "label": "2 lascannons",
+         "pts": 0
+        },
+        {
+         "id": "hb",
+         "label": "2 inferno heavy bolters",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "pintle",
+       "type": "choice",
+       "label": "Pintle weapon",
+       "choices": [
+        {
+         "id": "none",
+         "label": "None",
+         "pts": 0
+        },
+        {
+         "id": "combib",
+         "label": "Inferno combi-bolter",
+         "pts": 0
+        },
+        {
+         "id": "combiw",
+         "label": "Inferno combi-weapon",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "havoc",
+       "type": "toggle",
+       "label": "Havoc launcher"
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "predator_destructor",
+     "name": "Chaos Predator Destructor",
+     "role": "vehicle",
+     "faction": "Heretic Astartes",
+     "keywords": [
+      "Vehicle",
+      "Smoke",
+      "Chaos",
+      "Predator Destructor",
+      "Frame"
+     ],
+     "image": "predator_destructor",
+     "baseSize": "Use model",
+     "profile": {
+      "M": "10\"",
+      "T": "10",
+      "Sv": "3+",
+      "InSv": "—",
+      "W": "11",
+      "OC": "3",
+      "Ld": "6+"
+     },
+     "damaged": {
+      "threshold": 4,
+      "text": "While it has 1-4 wounds left: -1 to hit rolls."
+     },
+     "ranged": [
+      {
+       "name": "Predator autocannon",
+       "range": "48\"",
+       "A": "4",
+       "skill": "3+",
+       "S": "9",
+       "AP": "-1",
+       "D": "3",
+       "kw": [
+        "Rapid Fire 2"
+       ]
+      },
+      {
+       "name": "Inferno combi-bolter",
+       "range": "24\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Rapid Fire 2"
+       ]
+      },
+      {
+       "name": "Inferno combi-weapon",
+       "range": "24\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Anti-infantry 4+",
+        "Devastating Wounds",
+        "Rapid Fire 1"
+       ]
+      },
+      {
+       "name": "Inferno heavy bolter",
+       "range": "36\"",
+       "A": "3",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Sustained Hits 1"
+       ]
+      },
+      {
+       "name": "Lascannon",
+       "range": "48\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "12",
+       "AP": "-3",
+       "D": "D6+1",
+       "kw": []
+      },
+      {
+       "name": "Havoc launcher",
+       "range": "48\"",
+       "A": "D6",
+       "skill": "3+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Blast"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Armoured tracks",
+       "range": "Melee",
+       "A": "3",
+       "skill": "4+",
+       "S": "6",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D3"
+     ],
+     "factionAbilities": [],
+     "abilities": [
+      {
+       "name": "Ensorcelled Destruction",
+       "text": "Each time this model makes a ranged attack that targets a unit (excluding MONSTERS and VEHICLES) that was hit by one or more Psychic Attacks made by a THOUSAND SONS PSYKER model from your army this phase (including the Doombolt Ritual), improve the Strength and Armour Penetration characteristics of that attack by 1.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 145,
+       "ptsLater": 155
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [],
+     "composition": "1 Chaos Predator Destructor: Predator autocannon, armoured tracks.",
+     "options": [
+      {
+       "id": "sponsons",
+       "type": "choice",
+       "label": "Sponsons",
+       "choices": [
+        {
+         "id": "none",
+         "label": "None",
+         "pts": 0
+        },
+        {
+         "id": "las",
+         "label": "2 lascannons",
+         "pts": 0
+        },
+        {
+         "id": "hb",
+         "label": "2 inferno heavy bolters",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "pintle",
+       "type": "choice",
+       "label": "Pintle weapon",
+       "choices": [
+        {
+         "id": "none",
+         "label": "None",
+         "pts": 0
+        },
+        {
+         "id": "combib",
+         "label": "Inferno combi-bolter",
+         "pts": 0
+        },
+        {
+         "id": "combiw",
+         "label": "Inferno combi-weapon",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "havoc",
+       "type": "toggle",
+       "label": "Havoc launcher"
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "chaos_rhino",
+     "name": "Chaos Rhino",
+     "role": "transport",
+     "faction": "Heretic Astartes",
+     "keywords": [
+      "Vehicle",
+      "Transport",
+      "Dedicated Transport",
+      "Chaos",
+      "Rhino",
+      "Smoke",
+      "Frame"
+     ],
+     "image": "chaos_rhino",
+     "baseSize": "Use model",
+     "profile": {
+      "M": "12\"",
+      "T": "9",
+      "Sv": "3+",
+      "InSv": "—",
+      "W": "10",
+      "OC": "2",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Inferno combi-bolter",
+       "range": "24\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Rapid Fire 2"
+       ]
+      },
+      {
+       "name": "Inferno combi-weapon",
+       "range": "24\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Anti-infantry 4+",
+        "Devastating Wounds",
+        "Rapid Fire 1"
+       ]
+      },
+      {
+       "name": "Havoc launcher",
+       "range": "48\"",
+       "A": "D6",
+       "skill": "3+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Blast"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Armoured tracks",
+       "range": "Melee",
+       "A": "3",
+       "skill": "4+",
+       "S": "6",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D3",
+      "Firing Deck 2"
+     ],
+     "factionAbilities": [],
+     "abilities": [
+      {
+       "name": "Sorcerous Support",
+       "text": "In your Shooting phase, after this model has shot, select one enemy unit hit by one or more of those attacks. Until the end of the phase, each time a friendly model that disembarked from this TRANSPORT this turn makes a Psychic Attack that targets that enemy unit, add 1 to the Hit roll and add 1 to the Wound roll.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 65,
+       "ptsLater": 75
+      }
+     ],
+     "stepFrom": 4,
+     "leaderOf": [],
+     "composition": "1 Chaos Rhino: inferno combi-bolter, armoured tracks.",
+     "options": [
+      {
+       "id": "extra",
+       "type": "choice",
+       "label": "Extra pintle weapon",
+       "choices": [
+        {
+         "id": "none",
+         "label": "None",
+         "pts": 0
+        },
+        {
+         "id": "combib",
+         "label": "Inferno combi-bolter",
+         "pts": 0
+        },
+        {
+         "id": "combiw",
+         "label": "Inferno combi-weapon",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "havoc",
+       "type": "toggle",
+       "label": "Havoc launcher",
+       "note": "This model can be equipped with 1 havoc launcher or can replace 1 inferno combi-bolter with 1 havoc launcher."
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "transport": "Carries 12 THOUSAND SONS INFANTRY models (not TERMINATOR models)."
+    },
+    {
+     "id": "chaos_spawn",
+     "name": "Chaos Spawn",
+     "role": "beast",
+     "faction": "Heretic Astartes",
+     "keywords": [
+      "Beast",
+      "Chaos",
+      "Chaos Spawn",
+      "Mutant"
+     ],
+     "image": "chaos_spawn",
+     "baseSize": "50mm",
+     "profile": {
+      "M": "8\"",
+      "T": "5",
+      "Sv": "4+",
+      "InSv": "5+",
+      "W": "4",
+      "OC": "1",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [],
+     "melee": [
+      {
+       "name": "Hideous Mutations",
+       "range": "Melee",
+       "A": "D6+2",
+       "skill": "4+",
+       "S": "5",
+       "AP": "-1",
+       "D": "2",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Feel No Pain 5+"
+     ],
+     "factionAbilities": [],
+     "abilities": [
+      {
+       "name": "Regenerating Monstrosities",
+       "text": "At the start of each player’s Command phase, one model in this unit regains up to 3 lost wounds.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 2,
+       "pts": 60
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "2 Chaos Spawn: hideous mutations.",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "chaos_terminators",
+     "name": "Chaos Terminator Squad",
+     "role": "infantry",
+     "faction": "Heretic Astartes",
+     "keywords": [
+      "Chaos",
+      "Chaos Terminator Squad",
+      "Infantry",
+      "Terminator",
+      "Unit Champion"
+     ],
+     "image": "csm_chaos_terminators",
+     "baseSize": "40mm",
+     "profile": {
+      "M": "5\"",
+      "T": "6",
+      "Sv": "2+",
+      "InSv": "4+",
+      "W": "3",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Combi-bolter",
+       "range": "24\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Rapid Fire 2"
+       ]
+      },
+      {
+       "name": "Combi-weapon",
+       "range": "24\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Anti-INFANTRY 4+",
+        "Devastating Wounds",
+        "Rapid Fire 1"
+       ]
+      },
+      {
+       "name": "Heavy flamer",
+       "range": "12\"",
+       "A": "D6",
+       "skill": "N/A",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Ignores Cover",
+        "Torrent"
+       ]
+      },
+      {
+       "name": "Reaper autocannon",
+       "range": "36\"",
+       "A": "4",
+       "skill": "3+",
+       "S": "7",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Devastating Wounds",
+        "Sustained Hits 1"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Accursed weapon",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Power fist",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-2",
+       "D": "2",
+       "kw": []
+      },
+      {
+       "name": "Chainfist",
+       "range": "Melee",
+       "A": "3",
+       "skill": "4+",
+       "S": "8",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Anti-VEHICLE 3+"
+       ]
+      },
+      {
+       "name": "Paired accursed weapons",
+       "range": "Melee",
+       "A": "5",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Twin-linked"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Deep Strike"
+     ],
+     "factionAbilities": [
+      "Dark Pacts"
+     ],
+     "abilities": [
+      {
+       "name": "Despoilers",
+       "text": "Each time this unit makes a Dark Pact, until the end of the phase, each time a model in this unit makes an attack, you can re-roll the Hit roll.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Warp Stalker",
+       "text": "You can re-roll Advance and Charge rolls made for this model's unit.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Unholy Speed",
+       "text": "Add 1 to Advance and Charge rolls made for this model's unit.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Mutant Form",
+       "text": "Add 1 to this model's Wounds characteristic.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Massive Fangs",
+       "text": "Melee weapons equipped by this model have the [LANCE] ability.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Eightfold Eyes",
+       "text": "Once per turn, you can re-roll one Hit roll, one Wound roll, one Damage roll or one saving throw made for this model.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Daemonic Flesh",
+       "text": "Add 1 to this model's Toughness characteristic.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Scorpion Tail",
+       "text": "Add 1 to the Attacks characteristic of melee weapons equipped by this model.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Iron-hard Talons",
+       "text": "Improve the Armour Penetration characteristic of melee weapons equipped by this model by 1.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Dark Blessing",
+       "text": "Once per battle, at the start of your opponent's Shooting phase, this model can use this ability. If it does, until the end of the phase, this model's unit has the Stealth ability.",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 5,
+       "pts": 185,
+       "ptsLater": 215
+      },
+      {
+       "models": 10,
+       "pts": 370,
+       "ptsLater": 400
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [],
+     "composition": "",
+     "options": [
+      {
+       "id": "heavy",
+       "type": "count",
+       "label": "Heavy flamer / reaper autocannon",
+       "per": 5,
+       "n": 1
+      },
+      {
+       "id": "combi",
+       "type": "count",
+       "label": "Combi-weapon",
+       "max": "models"
+      },
+      {
+       "id": "paired",
+       "type": "count",
+       "label": "Paired accursed weapons",
+       "per": 5,
+       "n": 1
+      },
+      {
+       "id": "fist",
+       "type": "count",
+       "label": "Power fist",
+       "per": 5,
+       "n": 3
+      },
+      {
+       "id": "chainfist",
+       "type": "count",
+       "label": "Chainfist",
+       "per": 5,
+       "n": 1
+      }
+     ],
+     "optionRules": []
+    },
+    {
+     "id": "chaos_vindicator",
+     "name": "Chaos Vindicator",
+     "role": "vehicle",
+     "faction": "Heretic Astartes",
+     "keywords": [
+      "Vehicle",
+      "Smoke",
+      "Chaos",
+      "Vindicator",
+      "Frame"
+     ],
+     "image": "chaos_vindicator",
+     "baseSize": "Use model",
+     "profile": {
+      "M": "9\"",
+      "T": "11",
+      "Sv": "2+",
+      "InSv": "—",
+      "W": "11",
+      "OC": "3",
+      "Ld": "6+"
+     },
+     "damaged": {
+      "threshold": 4,
+      "text": "While it has 1-4 wounds left: -1 to hit rolls."
+     },
+     "ranged": [
+      {
+       "name": "Demolisher cannon",
+       "range": "24\"",
+       "A": "D6+3",
+       "skill": "3+",
+       "S": "14",
+       "AP": "-3",
+       "D": "D6",
+       "kw": [
+        "Blast"
+       ]
+      },
+      {
+       "name": "Inferno combi-bolter",
+       "range": "24\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Rapid Fire 2"
+       ]
+      },
+      {
+       "name": "Inferno combi-weapon",
+       "range": "24\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Anti-infantry 4+",
+        "Devastating Wounds",
+        "Rapid Fire 1"
+       ]
+      },
+      {
+       "name": "Havoc launcher",
+       "range": "48\"",
+       "A": "D6",
+       "skill": "3+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Blast"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Armoured tracks",
+       "range": "Melee",
+       "A": "3",
+       "skill": "4+",
+       "S": "6",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D3"
+     ],
+     "factionAbilities": [],
+     "abilities": [
+      {
+       "name": "Siege Shield",
+       "text": "When making ranged attacks with its demolisher cannon, this model can target enemy units within Engagement Range of it (provided no other friendly units are also within Engagement Range of that enemy unit). In addition, when making ranged attacks, this model does not suffer the penalty to its Hit rolls for being within Engagement Range of one or more enemy units.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 180,
+       "ptsLater": 190
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [],
+     "composition": "1 Chaos Vindicator: demolisher cannon, armoured tracks.",
+     "options": [
+      {
+       "id": "pintle",
+       "type": "choice",
+       "label": "Pintle weapon",
+       "choices": [
+        {
+         "id": "none",
+         "label": "None",
+         "pts": 0
+        },
+        {
+         "id": "combib",
+         "label": "Inferno combi-bolter",
+         "pts": 0
+        },
+        {
+         "id": "combiw",
+         "label": "Inferno combi-weapon",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "havoc",
+       "type": "toggle",
+       "label": "Havoc launcher"
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "chosen",
+     "name": "Chosen",
+     "role": "infantry",
+     "faction": "Heretic Astartes",
+     "keywords": [
+      "Chaos",
+      "Chosen",
+      "Grenades",
+      "Infantry",
+      "Unit Champion"
+     ],
+     "image": "csm_chosen",
+     "baseSize": "32mm",
+     "profile": {
+      "M": "6\"",
+      "T": "5",
+      "Sv": "3+",
+      "InSv": "—",
+      "W": "3",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Bolt pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Boltgun",
+       "range": "24\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Plasma pistol - standard",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "7",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Plasma pistol - supercharge",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-3",
+       "D": "2",
+       "kw": [
+        "Hazardous",
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Combi-weapon",
+       "range": "24\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Anti-INFANTRY 4+",
+        "Devastating Wounds",
+        "Rapid Fire 1"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Accursed weapon",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Paired accursed weapons",
+       "range": "Melee",
+       "A": "5",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Twin-linked"
+       ]
+      },
+      {
+       "name": "Power fist",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-2",
+       "D": "2",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [],
+     "factionAbilities": [
+      "Dark Pacts"
+     ],
+     "abilities": [
+      {
+       "name": "Chosen Marauders",
+       "text": "This unit is eligible to shoot and declare a charge in a turn in which it Advanced or Fell Back.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Warp Stalker",
+       "text": "You can re-roll Advance and Charge rolls made for this model's unit.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Unholy Speed",
+       "text": "Add 1 to Advance and Charge rolls made for this model's unit.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Mutant Form",
+       "text": "Add 1 to this model's Wounds characteristic.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Massive Fangs",
+       "text": "Melee weapons equipped by this model have the [LANCE] ability.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Eightfold Eyes",
+       "text": "Once per turn, you can re-roll one Hit roll, one Wound roll, one Damage roll or one saving throw made for this model.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Daemonic Flesh",
+       "text": "Add 1 to this model's Toughness characteristic.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Scorpion Tail",
+       "text": "Add 1 to the Attacks characteristic of melee weapons equipped by this model.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Iron-hard Talons",
+       "text": "Improve the Armour Penetration characteristic of melee weapons equipped by this model by 1.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Dark Blessing",
+       "text": "Once per battle, at the start of your opponent's Shooting phase, this model can use this ability. If it does, until the end of the phase, this model's unit has the Stealth ability.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Chaos icon",
+       "text": "Each time the bearer’s unit takes a Leadership test for the Dark Pacts ability, you can re-roll that test.",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 5,
+       "pts": 140,
+       "ptsLater": 150
+      },
+      {
+       "models": 10,
+       "pts": 280,
+       "ptsLater": 290
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [],
+     "composition": "",
+     "options": [
+      {
+       "id": "plasma",
+       "type": "count",
+       "label": "Plasma pistol",
+       "per": 5,
+       "n": 2
+      },
+      {
+       "id": "combi",
+       "type": "count",
+       "label": "Combi-weapon",
+       "per": 5,
+       "n": 2
+      },
+      {
+       "id": "paired",
+       "type": "count",
+       "label": "Paired accursed weapons",
+       "per": 5,
+       "n": 1
+      },
+      {
+       "id": "fist",
+       "type": "count",
+       "label": "Power fist",
+       "per": 5,
+       "n": 1
+      },
+      {
+       "id": "icon",
+       "type": "toggle",
+       "label": "Chaos icon"
+      }
+     ],
+     "optionRules": []
+    },
+    {
+     "id": "cultist_firebrand",
+     "name": "Cultist Firebrand",
+     "role": "character",
+     "faction": "Heretic Astartes",
+     "keywords": [
+      "Chaos",
+      "Character",
+      "Cultist Firebrand",
+      "Damned",
+      "Grenades",
+      "Infantry",
+      "Leader",
+      "Warlord"
+     ],
+     "image": "csm_cultist_firebrand",
+     "baseSize": "32mm",
+     "profile": {
+      "M": "6\"",
+      "T": "4",
+      "Sv": "4+",
+      "InSv": "—",
+      "W": "4",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Balefire pike",
+       "range": "12\"",
+       "A": "D6+3",
+       "skill": "N/A",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Ignores Cover",
+        "Torrent"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Close combat weapon",
+       "range": "Melee",
+       "A": "4",
+       "skill": "4+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [],
+     "factionAbilities": [
+      "Dark Pacts"
+     ],
+     "abilities": [
+      {
+       "name": "Fiery Faith",
+       "text": "While this model is leading a unit, you can re-roll Leadership tests taken for that unit.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Cursed Flames",
+       "text": "In your Shooting phase, after this model has shot, select one enemy INFANTRY unit hit by one or more of those attacks. That unit must take a Battle-shock test.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 45,
+       "ptsLater": 50
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [
+      "accursed_cultists",
+      "cultist_mob"
+     ],
+     "composition": "",
+     "options": [],
+     "optionRules": []
+    },
+    {
+     "id": "cultist_mob",
+     "name": "Cultist Mob",
+     "role": "battleline",
+     "faction": "Heretic Astartes",
+     "keywords": [
+      "Battleline",
+      "Chaos",
+      "Cultist Mob",
+      "Damned",
+      "Grenades",
+      "Infantry",
+      "Unit Champion"
+     ],
+     "image": "csm_cultist_mob",
+     "baseSize": "25mm",
+     "profile": {
+      "M": "6\"",
+      "T": "3",
+      "Sv": "6+",
+      "InSv": "—",
+      "W": "1",
+      "OC": "1",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Bolt pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Autopistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Brutal assault weapon",
+       "range": "Melee",
+       "A": "2",
+       "skill": "4+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [],
+     "factionAbilities": [
+      "Dark Pacts"
+     ],
+     "abilities": [
+      {
+       "name": "For the Dark Gods",
+       "text": "At the end of your Command phase, if this unit is within range of an objective marker you control, that objective marker remains under your control until your opponent's level of Control over that objective marker is greater than yours at the start or end of any phase.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Warp Stalker",
+       "text": "You can re-roll Advance and Charge rolls made for this model's unit.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Unholy Speed",
+       "text": "Add 1 to Advance and Charge rolls made for this model's unit.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Mutant Form",
+       "text": "Add 1 to this model's Wounds characteristic.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Massive Fangs",
+       "text": "Melee weapons equipped by this model have the [LANCE] ability.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Eightfold Eyes",
+       "text": "Once per turn, you can re-roll one Hit roll, one Wound roll, one Damage roll or one saving throw made for this model.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Daemonic Flesh",
+       "text": "Add 1 to this model's Toughness characteristic.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Scorpion Tail",
+       "text": "Add 1 to the Attacks characteristic of melee weapons equipped by this model.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Iron-hard Talons",
+       "text": "Improve the Armour Penetration characteristic of melee weapons equipped by this model by 1.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Dark Blessing",
+       "text": "Once per battle, at the start of your opponent's Shooting phase, this model can use this ability. If it does, until the end of the phase, this model's unit has the Stealth ability.",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 10,
+       "pts": 50
+      },
+      {
+       "models": 20,
+       "pts": 90
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "",
+     "options": [
+      {
+       "id": "champ_bolt",
+       "type": "toggle",
+       "label": "Cultist Champion: bolt pistol"
+      }
+     ],
+     "optionRules": []
+    },
+    {
+     "id": "cypher",
+     "name": "Cypher",
+     "role": "epic hero",
+     "faction": "Heretic Astartes",
+     "keywords": [
+      "Chaos",
+      "Character",
+      "Cypher",
+      "Epic Hero",
+      "Fallen",
+      "Infantry",
+      "Warlord"
+     ],
+     "image": "csm_cypher",
+     "baseSize": "32mm",
+     "profile": {
+      "M": "6\"",
+      "T": "5",
+      "Sv": "3+",
+      "InSv": "4+",
+      "W": "5",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Cypher's bolt pistol",
+       "range": "12\"",
+       "A": "6",
+       "skill": "2+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Assault",
+        "Pistol",
+        "Sustained Hits 1"
+       ]
+      },
+      {
+       "name": "Cypher's plasma pistol",
+       "range": "12\"",
+       "A": "3",
+       "skill": "2+",
+       "S": "8",
+       "AP": "-3",
+       "D": "2",
+       "kw": [
+        "Assault",
+        "Pistol",
+        "Sustained Hits 1"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Cypher's bolt pistol",
+       "range": "Melee",
+       "A": "6",
+       "skill": "2+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Sustained Hits 1"
+       ]
+      },
+      {
+       "name": "Cypher's plasma pistol",
+       "range": "Melee",
+       "A": "3",
+       "skill": "2+",
+       "S": "8",
+       "AP": "-3",
+       "D": "2",
+       "kw": [
+        "Extra Attacks"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Lone Operative"
+     ],
+     "factionAbilities": [
+      "Dark Pacts"
+     ],
+     "abilities": [
+      {
+       "name": "Agent of Discord (Aura)",
+       "text": "Once per turn, when your opponent targets a unit from their army within 12” of this model with a stratagem, you can use this ability. If you do increase the CP cost of that use of that stratagem by 1CP.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Guns Blazing",
+       "text": "Once per turn, in your opponent's Shooting phase, when an enemy unit makes a ranged attack that targets a friendly HERETIC ASTARTES unit within 3\" of this model, after that enemy unit has shot, this model can shoot as if it were your Shooting phase, but it must target only that enemy unit when doing so, and can only do so if that enemy unit is an eligible target.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 95
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "",
+     "options": [],
+     "optionRules": []
+    },
+    {
+     "id": "dark_apostle",
+     "name": "Dark Apostle",
+     "role": "character",
+     "faction": "Heretic Astartes",
+     "keywords": [
+      "Chaos",
+      "Character",
+      "Dark Apostle",
+      "Grenades",
+      "Infantry",
+      "Leader"
+     ],
+     "image": "csm_dark_apostle",
+     "baseSize": "40mm",
+     "profile": {
+      "M": "6\"",
+      "T": "5",
+      "Sv": "3+",
+      "InSv": "4+",
+      "W": "4",
+      "OC": "1",
+      "Ld": "5+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Bolt pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Accursed crozius",
+       "range": "Melee",
+       "A": "5",
+       "skill": "2+",
+       "S": "6",
+       "AP": "-1",
+       "D": "2",
+       "kw": []
+      },
+      {
+       "name": "Close combat weapon",
+       "range": "Melee",
+       "A": "1",
+       "skill": "4+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [],
+     "factionAbilities": [
+      "Dark Pacts"
+     ],
+     "abilities": [
+      {
+       "name": "Dark Zealotry",
+       "text": "While this unit is leading a unit and contains a DARK APOSTLE model, each time a model in that unit makes a melee attack, add 1 to the Wound roll.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Demagogue",
+       "text": "Once per battle, at the start of any phase, you can select one friendly HERETIC ASTARTES unit that is Battle-shocked and within 12\" of this unit’s DARK APOSTLE model. That unit is no longer Battle-shocked.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Malign Sacrifice",
+       "text": "At the start of the Fight phase, if this unit contains one or more Dark Disciple models, you can select one of those models and one enemy unit within Engagement Range of this unit, then roll one D6: on a 2-5, that enemy unit suffers 1 mortal wound; on a 6, that enemy unit suffers D3 mortal wounds. That Dark Disciple model is then destroyed.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 3,
+       "pts": 70
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "accursed_cultists",
+      "chosen",
+      "cultist_mob",
+      "legionaries",
+      "nemesis_claw",
+      "red_corsairs_raiders"
+     ],
+     "composition": "",
+     "options": [],
+     "optionRules": []
+    },
+    {
+     "id": "dark_commune",
+     "name": "Dark Commune",
+     "role": "character",
+     "faction": "Heretic Astartes",
+     "keywords": [
+      "Chaos",
+      "Character",
+      "Damned",
+      "Dark Commune",
+      "Grenades",
+      "Infantry",
+      "Leader"
+     ],
+     "image": "csm_dark_commune",
+     "baseSize": "32mm",
+     "profile": {
+      "M": "6\"",
+      "T": "3",
+      "Sv": "6+",
+      "InSv": "—",
+      "W": "1",
+      "OC": "1",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Autopistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Warp Curse - witchfire",
+       "range": "18\"",
+       "A": "3",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Psychic"
+       ]
+      },
+      {
+       "name": "Warp Curse - focused witchfire",
+       "range": "18\"",
+       "A": "3",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Hazardous",
+        "Psychic",
+        "Sustained Hits 2"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Commune blade",
+       "range": "Melee",
+       "A": "2",
+       "skill": "4+",
+       "S": "4",
+       "AP": "-2",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Close combat weapon",
+       "range": "Melee",
+       "A": "1",
+       "skill": "4+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Commune stave",
+       "range": "Melee",
+       "A": "2",
+       "skill": "4+",
+       "S": "3",
+       "AP": "0",
+       "D": "D3",
+       "kw": [
+        "Devastating Wounds"
+       ]
+      }
+     ],
+     "coreAbilities": [],
+     "factionAbilities": [
+      "Dark Pacts"
+     ],
+     "abilities": [
+      {
+       "name": "Faithful Flock",
+       "text": "While this unit is leading a unit and contains a CULT DEMAGOGUE model, models in that unit have a 5+ invulnerable save.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Dark Ritual",
+       "text": "Once per battle, in your Command phase, if this unit contains a CULT DEMAGOGUE model, it can use this ability. If it does, until the end of the turn, this unit can declare a charge in a turn in which it Advanced and each time a model in this unit makes an attack, add 1 to the Hit roll and add 1 to the Wound roll.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Chaos icon",
+       "text": "Each time the bearer’s unit takes a Leadership test for the Dark Pacts ability, you can re-roll that test.",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 5,
+       "pts": 90,
+       "ptsLater": 100
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [
+      "accursed_cultists",
+      "cultist_mob"
+     ],
+     "composition": "",
+     "options": [],
+     "optionRules": []
+    },
+    {
+     "id": "defiler",
+     "name": "Defiler",
+     "role": "walker",
+     "faction": "Heretic Astartes",
+     "keywords": [
+      "Vehicle",
+      "Walker",
+      "Chaos",
+      "Daemon",
+      "Defiler"
+     ],
+     "image": "defiler",
+     "baseSize": "160mm",
+     "profile": {
+      "M": "12\"",
+      "T": "11",
+      "Sv": "3+",
+      "InSv": "5+",
+      "W": "18",
+      "OC": "5",
+      "Ld": "6+"
+     },
+     "damaged": {
+      "threshold": 6,
+      "text": "While it has 1-6 wounds left: -1 to hit rolls."
+     },
+     "ranged": [
+      {
+       "name": "Heavy missile launcher - frag",
+       "range": "48\"",
+       "A": "2D6",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Blast"
+       ]
+      },
+      {
+       "name": "Heavy missile launcher - krak",
+       "range": "48\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "10",
+       "AP": "-2",
+       "D": "D6+1",
+       "kw": []
+      },
+      {
+       "name": "Hades lascannon",
+       "range": "48\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "12",
+       "AP": "-3",
+       "D": "D6+1",
+       "kw": []
+      },
+      {
+       "name": "Heavy reaper autocannon",
+       "range": "48\"",
+       "A": "4",
+       "skill": "3+",
+       "S": "9",
+       "AP": "-2",
+       "D": "3",
+       "kw": [
+        "Devastating Wounds",
+        "Sustained Hits 1"
+       ]
+      },
+      {
+       "name": "Hades battle cannon",
+       "range": "48\"",
+       "A": "D6+3",
+       "skill": "3+",
+       "S": "10",
+       "AP": "-1",
+       "D": "3",
+       "kw": [
+        "Blast"
+       ]
+      },
+      {
+       "name": "Ectoplasma destructor",
+       "range": "36\"",
+       "A": "D6",
+       "skill": "3+",
+       "S": "12",
+       "AP": "-3",
+       "D": "3",
+       "kw": [
+        "Blast"
+       ]
+      },
+      {
+       "name": "Heavy baleflamer",
+       "range": "12\"",
+       "A": "D6+3",
+       "skill": "—",
+       "S": "7",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Ignores Cover",
+        "Torrent"
+       ]
+      },
+      {
+       "name": "Excruciator cannon",
+       "range": "36\"",
+       "A": "6",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-2",
+       "D": "2",
+       "kw": []
+      },
+      {
+       "name": "Pyraflux magma cutter",
+       "range": "12\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "10",
+       "AP": "-4",
+       "D": "D6",
+       "kw": [
+        "Melta 2"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Shearing claws - strike",
+       "range": "Melee",
+       "A": "5",
+       "skill": "3+",
+       "S": "16",
+       "AP": "-3",
+       "D": "D6+1",
+       "kw": []
+      },
+      {
+       "name": "Shearing claws - sweep",
+       "range": "Melee",
+       "A": "10",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-2",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Electroscourge",
+       "range": "Melee",
+       "A": "5",
+       "skill": "3+",
+       "S": "12",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Extra Attacks",
+        "Sustained Hits 2"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D6"
+     ],
+     "factionAbilities": [],
+     "abilities": [
+      {
+       "name": "Scuttling Walker",
+       "text": "Each time this unit makes a Normal, Advance or Fall Back move, it can move through models (excluding TITANIC models) and terrain features. When doing so, it can move within Engagement Range of enemy models, but cannot end that move within Engagement Range of them, and any Desperate Escape test is automatically passed.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Destroyer of Futures (Once per phase, per unit)",
+       "text": "You can target this unit with the Counter-offensive stratagem, regardless of any other uses of that stratagem this phase. If you do: ■ That use is ‐1 CP. ■ That use does not prevent any uses of that stratagem on other units this phase.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 300,
+       "ptsLater": 350
+      }
+     ],
+     "stepFrom": 2,
+     "leaderOf": [],
+     "composition": "1 Defiler: Hades battle cannon, 2 excruciator cannons, heavy missile launcher, heavy baleflamer, shearing claws.",
+     "options": [
+      {
+       "id": "main",
+       "type": "choice",
+       "label": "Main gun",
+       "choices": [
+        {
+         "id": "hbc",
+         "label": "Hades battle cannon",
+         "pts": 0
+        },
+        {
+         "id": "ecto",
+         "label": "Ectoplasma destructor",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "excr",
+       "type": "choice",
+       "label": "Hull guns",
+       "choices": [
+        {
+         "id": "excr",
+         "label": "2 excruciator cannons",
+         "pts": 0
+        },
+        {
+         "id": "magma",
+         "label": "2 pyraflux magma cutters",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "flamer",
+       "type": "choice",
+       "label": "Heavy baleflamer",
+       "choices": [
+        {
+         "id": "bale",
+         "label": "Heavy baleflamer",
+         "pts": 0
+        },
+        {
+         "id": "las",
+         "label": "Hades lascannon",
+         "pts": 15
+        },
+        {
+         "id": "reaper",
+         "label": "Heavy reaper autocannon",
+         "pts": 15
+        },
+        {
+         "id": "scourge",
+         "label": "Electroscourge",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "hml",
+       "type": "choice",
+       "label": "Heavy missile launcher",
+       "choices": [
+        {
+         "id": "hml",
+         "label": "Heavy missile launcher",
+         "pts": 0
+        },
+        {
+         "id": "las",
+         "label": "Hades lascannon",
+         "pts": 15
+        },
+        {
+         "id": "reaper",
+         "label": "Heavy reaper autocannon",
+         "pts": 15
+        },
+        {
+         "id": "scourge",
+         "label": "Electroscourge",
+         "pts": 0
+        }
+       ]
+      }
+     ],
+     "optionRules": [
+      {
+       "forbidAllOf": [
+        [
+         "flamer",
+         "scourge"
+        ],
+        [
+         "hml",
+         "scourge"
+        ]
+       ],
+       "message": "Only one electroscourge."
+      }
+     ],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "fabius_bile",
+     "name": "Fabius Bile",
+     "role": "epic hero",
+     "faction": "Heretic Astartes",
+     "keywords": [
+      "Chaos",
+      "Chaos Undivided",
+      "Character",
+      "Epic Hero",
+      "Fabius Bile",
+      "Infantry",
+      "Leader",
+      "Warlord"
+     ],
+     "image": "csm_fabius_bile",
+     "baseSize": "40mm",
+     "profile": {
+      "M": "6\"",
+      "T": "5",
+      "Sv": "3+",
+      "InSv": "—",
+      "W": "5",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Xyclos needler",
+       "range": "18\"",
+       "A": "3",
+       "skill": "2+",
+       "S": "2",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Anti-INFANTRY 2+",
+        "Pistol"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "The Chirurgeon",
+       "range": "Melee",
+       "A": "2",
+       "skill": "2+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Extra Attacks"
+       ]
+      },
+      {
+       "name": "Rod of Torment",
+       "range": "Melee",
+       "A": "6",
+       "skill": "2+",
+       "S": "5",
+       "AP": "-1",
+       "D": "3",
+       "kw": []
+      },
+      {
+       "name": "Surgeon Acolyte's tools",
+       "range": "Melee",
+       "A": "1",
+       "skill": "5+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Feel No Pain 5+"
+     ],
+     "factionAbilities": [
+      "Dark Pacts"
+     ],
+     "abilities": [
+      {
+       "name": "Enhanced Warriors",
+       "text": "If this unit is attached to a unit at the start of the battle, until the end of the battle, add 1 to the Strength characteristic of melee weapons equipped by Bodyguard models in that unit and add 1 to the Toughness characteristic of Bodyguard models in that unit.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Surgeon Acolyte",
+       "text": "Once per turn, when an attack is allocated to a model in this unit, if this unit contains FABIUS BILE, you can change the Damage characteristic of that attack to 0.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Chirurgeon",
+       "text": "The first time this unit’s FABIUS BILE model is destroyed, at the end of the phase, roll one D6: on a 2+, set it back up on the battlefield, as close as possible to where it was destroyed and not within Engagement Range of any enemy models, with its full wounds remaining.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 2,
+       "pts": 110
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "accursed_cultists",
+      "chosen",
+      "cultist_mob",
+      "legionaries",
+      "red_corsairs_raiders"
+     ],
+     "composition": "",
+     "options": [],
+     "optionRules": []
+    },
+    {
+     "id": "fellgor_beastmen",
+     "name": "Fellgor Beastmen",
+     "role": "infantry",
+     "faction": "Heretic Astartes",
+     "keywords": [
+      "Chaos",
+      "Damned",
+      "Fellgor Beastmen",
+      "Grenades",
+      "Infantry"
+     ],
+     "image": "csm_fellgor_beastmen",
+     "baseSize": "32mm",
+     "profile": {
+      "M": "6\"",
+      "T": "4",
+      "Sv": "5+",
+      "InSv": "—",
+      "W": "1",
+      "OC": "1",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Bolt pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Plasma pistol - standard",
+       "range": "12\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "7",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Plasma pistol- supercharge",
+       "range": "12\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "8",
+       "AP": "-3",
+       "D": "2",
+       "kw": [
+        "Hazardous",
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Autopistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Corrupted stave",
+       "range": "18\"",
+       "A": "D3",
+       "skill": "4+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Devastating Wounds",
+        "Psychic"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Chainsword",
+       "range": "Melee",
+       "A": "3",
+       "skill": "4+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Close combat weapon",
+       "range": "Melee",
+       "A": "2",
+       "skill": "4+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Great weapon",
+       "range": "Melee",
+       "A": "2",
+       "skill": "5+",
+       "S": "8",
+       "AP": "-1",
+       "D": "2",
+       "kw": []
+      },
+      {
+       "name": "Corrupted stave",
+       "range": "Melee",
+       "A": "2",
+       "skill": "4+",
+       "S": "4",
+       "AP": "-1",
+       "D": "D3",
+       "kw": [
+        "Devastating Wounds",
+        "Psychic"
+       ]
+      }
+     ],
+     "coreAbilities": [],
+     "factionAbilities": [
+      "Dark Pacts"
+     ],
+     "abilities": [
+      {
+       "name": "Bestial Raiders",
+       "text": "If this unit starts the game in Strategic Reserves, it can be set up in the Reinforcements step of your first, second or third Movement phase, regardless of any mission rules. If this unit is in Strategic Reserves, for the purposes of setting up this unit on the battlefield, treat the current battle round number as being one higher than it actually is.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 10,
+       "pts": 60
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "",
+     "options": [
+      {
+       "id": "champ_plasma",
+       "type": "toggle",
+       "label": "Fellgor Champion: plasma pistol"
+      },
+      {
+       "id": "great_weapon",
+       "type": "toggle",
+       "label": "Great weapon (1 model)"
+      },
+      {
+       "id": "corrupted_stave",
+       "type": "toggle",
+       "label": "Corrupted stave (1 model)"
+      }
+     ],
+     "optionRules": []
+    },
+    {
+     "id": "forgefiend",
+     "name": "Forgefiend",
+     "role": "walker",
+     "faction": "Heretic Astartes",
+     "keywords": [
+      "Vehicle",
+      "Walker",
+      "Daemon",
+      "Chaos",
+      "Forgefiend"
+     ],
+     "image": "forgefiend",
+     "baseSize": "120x92mm",
+     "profile": {
+      "M": "8\"",
+      "T": "10",
+      "Sv": "3+",
+      "InSv": "5+",
+      "W": "12",
+      "OC": "3",
+      "Ld": "6+"
+     },
+     "damaged": {
+      "threshold": 4,
+      "text": "While it has 1-4 wounds left: -1 to hit rolls."
+     },
+     "ranged": [
+      {
+       "name": "Ectoplasma cannon",
+       "range": "36\"",
+       "A": "D3",
+       "skill": "3+",
+       "S": "10",
+       "AP": "-3",
+       "D": "3",
+       "kw": [
+        "Blast"
+       ]
+      },
+      {
+       "name": "Hades autocannon",
+       "range": "36\"",
+       "A": "6",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-2",
+       "D": "2",
+       "kw": []
+      }
+     ],
+     "melee": [
+      {
+       "name": "Forgefiend claws",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "6",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Forgefiend jaws",
+       "range": "Melee",
+       "A": "5",
+       "skill": "3+",
+       "S": "7",
+       "AP": "0",
+       "D": "2",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D3"
+     ],
+     "factionAbilities": [],
+     "abilities": [
+      {
+       "name": "Blazing Salvoes",
+       "text": "In your Shooting phase, after this model has shot, select one enemy unit hit by one or more of those attacks. Until the start of your next turn, that enemy unit is suppressed. While a unit is suppressed, each time a model in that unit makes an attack, subtract 1 from the Hit roll.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 155,
+       "ptsLater": 165
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [],
+     "composition": "1 Forgefiend: 2 Hades autocannons, Forgefiend jaws.",
+     "options": [
+      {
+       "id": "guns",
+       "type": "choice",
+       "label": "Guns",
+       "choices": [
+        {
+         "id": "hades",
+         "label": "2 Hades autocannons",
+         "pts": 0
+        },
+        {
+         "id": "ecto",
+         "label": "2 ectoplasma cannons",
+         "pts": 10
+        }
+       ]
+      },
+      {
+       "id": "jaws",
+       "type": "choice",
+       "label": "Forgefiend jaws",
+       "choices": [
+        {
+         "id": "jaws",
+         "label": "Forgefiend jaws",
+         "pts": 0
+        },
+        {
+         "id": "ecto",
+         "label": "Ectoplasma cannon and Forgefiend claws",
+         "pts": 5
+        }
+       ]
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "haarken",
+     "name": "Haarken Worldclaimer",
+     "role": "epic hero",
+     "faction": "Heretic Astartes",
+     "keywords": [
+      "Chaos",
+      "Chaos Undivided",
+      "Character",
+      "Epic Hero",
+      "Fly",
+      "Haarken Worldclaimer",
+      "Infantry",
+      "Jump Pack",
+      "Leader",
+      "Warlord"
+     ],
+     "image": "csm_haarken",
+     "baseSize": "40mm",
+     "profile": {
+      "M": "12\"",
+      "T": "5",
+      "Sv": "3+",
+      "InSv": "4+",
+      "W": "5",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Hellspear",
+       "range": "12\"",
+       "A": "1",
+       "skill": "2+",
+       "S": "8",
+       "AP": "-3",
+       "D": "3",
+       "kw": [
+        "Assault",
+        "Sustained Hits D3"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Hellspear",
+       "range": "Melee",
+       "A": "1",
+       "skill": "2+",
+       "S": "8",
+       "AP": "-3",
+       "D": "3",
+       "kw": [
+        "Extra Attacks",
+        "Lance",
+        "Sustained Hits D3"
+       ]
+      },
+      {
+       "name": "Herald's Talon",
+       "range": "Melee",
+       "A": "6",
+       "skill": "2+",
+       "S": "5",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Precision"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Deep Strike"
+     ],
+     "factionAbilities": [
+      "Dark Pacts"
+     ],
+     "abilities": [
+      {
+       "name": "Head Taker",
+       "text": "While this model is leading a unit, each time this model’s unit ends a Charge move, select one enemy unit within Engagement Range of this model’s unit and roll one D6 for each model in this models unit that is within Engagement Range of that enemy unit: for each 4+, that enemy unit suffers 1 mortal wound.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Herald of the Apocalypse (Aura)",
+       "text": "While an enemy unit is within 6\" of this model, in the Battle-shock step of your opponent’s Command phase, if that enemy unit is below its Starting Strength, it must take a Battle-shock test. This ability cannot cause a unit to take two Battle-shock tests in the same phase.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 95
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "raptors"
+     ],
+     "composition": "",
+     "options": [],
+     "optionRules": []
+    },
+    {
+     "id": "havocs",
+     "name": "Havocs",
+     "role": "infantry",
+     "faction": "Heretic Astartes",
+     "keywords": [
+      "Chaos",
+      "Havocs",
+      "Infantry"
+     ],
+     "image": "csm_havocs",
+     "baseSize": "40mm",
+     "profile": {
+      "M": "5\"",
+      "T": "5",
+      "Sv": "3+",
+      "InSv": "—",
+      "W": "3",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Flamer",
+       "range": "12\"",
+       "A": "D6",
+       "skill": "N/A",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Ignores Cover",
+        "Torrent"
+       ]
+      },
+      {
+       "name": "Plasma gun - standard",
+       "range": "24\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "7",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Rapid Fire 1"
+       ]
+      },
+      {
+       "name": "Plasma gun - supercharge",
+       "range": "24\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-3",
+       "D": "2",
+       "kw": [
+        "Hazardous",
+        "Rapid Fire 1"
+       ]
+      },
+      {
+       "name": "Plasma pistol - standard",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "7",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Plasma pistol - supercharge",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-3",
+       "D": "2",
+       "kw": [
+        "Hazardous",
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Boltgun",
+       "range": "24\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Meltagun",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "9",
+       "AP": "-4",
+       "D": "D6",
+       "kw": [
+        "Melta 2"
+       ]
+      },
+      {
+       "name": "Havoc autocannon",
+       "range": "48\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "9",
+       "AP": "-1",
+       "D": "3",
+       "kw": []
+      },
+      {
+       "name": "Havoc lascannon",
+       "range": "48\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "12",
+       "AP": "-3",
+       "D": "D6+1",
+       "kw": []
+      },
+      {
+       "name": "Havoc missile launcher - frag",
+       "range": "48\"",
+       "A": "D6",
+       "skill": "3+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Blast"
+       ]
+      },
+      {
+       "name": "Havoc missile launcher - krak",
+       "range": "48\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "9",
+       "AP": "-2",
+       "D": "D6",
+       "kw": []
+      },
+      {
+       "name": "Havoc reaper chaincannon",
+       "range": "24\"",
+       "A": "8",
+       "skill": "3+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Havoc heavy bolter",
+       "range": "36\"",
+       "A": "3",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Sustained Hits 1"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Accursed weapon",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Power fist",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-2",
+       "D": "2",
+       "kw": []
+      },
+      {
+       "name": "Astartes chainsword",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Close combat weapon",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [],
+     "factionAbilities": [
+      "Dark Pacts"
+     ],
+     "abilities": [
+      {
+       "name": "Stabilisation Talons",
+       "text": "Each time a model in this unit makes an attack with a ranged weapon, you can ignore any or all modifiers to the Hit roll and any or all modifiers to the Ballistic Skill characteristic of that weapon.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 5,
+       "pts": 135,
+       "ptsLater": 145
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [],
+     "composition": "",
+     "options": [
+      {
+       "id": "champ_melee",
+       "type": "choice",
+       "label": "Havoc Champion melee",
+       "choices": [
+        {
+         "id": "chainsword",
+         "label": "Astartes chainsword",
+         "pts": 0
+        },
+        {
+         "id": "accursed",
+         "label": "Accursed weapon",
+         "pts": 0
+        },
+        {
+         "id": "fist",
+         "label": "Power fist",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "heavy",
+       "type": "count",
+       "label": "Havoc heavy weapons",
+       "max": "models"
+      }
+     ],
+     "optionRules": []
+    },
+    {
+     "id": "helbrute",
+     "name": "Helbrute",
+     "role": "walker",
+     "faction": "Heretic Astartes",
+     "keywords": [
+      "Vehicle",
+      "Walker",
+      "Chaos",
+      "Helbrute"
+     ],
+     "image": "helbrute",
+     "baseSize": "60mm",
+     "profile": {
+      "M": "8\"",
+      "T": "9",
+      "Sv": "2+",
+      "InSv": "5+",
+      "W": "8",
+      "OC": "3",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Inferno combi-bolter",
+       "range": "24\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Rapid Fire 2"
+       ]
+      },
+      {
+       "name": "Heavy flamer",
+       "range": "12\"",
+       "A": "D6",
+       "skill": "—",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Ignores Cover",
+        "Torrent"
+       ]
+      },
+      {
+       "name": "Missile launcher - frag",
+       "range": "48\"",
+       "A": "D6",
+       "skill": "3+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Blast"
+       ]
+      },
+      {
+       "name": "Missile launcher - krak",
+       "range": "48\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "9",
+       "AP": "-2",
+       "D": "D6",
+       "kw": []
+      },
+      {
+       "name": "Multi-melta",
+       "range": "18\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "9",
+       "AP": "-4",
+       "D": "D6",
+       "kw": [
+        "Melta 2"
+       ]
+      },
+      {
+       "name": "Twin autocannon",
+       "range": "48\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "9",
+       "AP": "-1",
+       "D": "3",
+       "kw": [
+        "Twin-linked"
+       ]
+      },
+      {
+       "name": "Helbrute plasma cannon",
+       "range": "36\"",
+       "A": "D3",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-3",
+       "D": "3",
+       "kw": [
+        "Blast",
+        "Hazardous"
+       ]
+      },
+      {
+       "name": "Twin inferno heavy bolter",
+       "range": "36\"",
+       "A": "3",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Sustained Hits 1",
+        "Twin-linked"
+       ]
+      },
+      {
+       "name": "Twin lascannon",
+       "range": "48\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "12",
+       "AP": "-3",
+       "D": "D6+1",
+       "kw": [
+        "Twin-linked"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Close combat weapon",
+       "range": "Melee",
+       "A": "5",
+       "skill": "3+",
+       "S": "6",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Helbrute fist",
+       "range": "Melee",
+       "A": "5",
+       "skill": "3+",
+       "S": "12",
+       "AP": "-2",
+       "D": "3",
+       "kw": []
+      },
+      {
+       "name": "Helbrute hammer",
+       "range": "Melee",
+       "A": "5",
+       "skill": "4+",
+       "S": "14",
+       "AP": "-3",
+       "D": "D6+1",
+       "kw": []
+      },
+      {
+       "name": "Power scourge",
+       "range": "Melee",
+       "A": "8",
+       "skill": "3+",
+       "S": "7",
+       "AP": "-1",
+       "D": "2",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise 1"
+     ],
+     "factionAbilities": [],
+     "abilities": [
+      {
+       "name": "Terrifying Assault",
+       "text": "In your Shooting phase and the Fight phase, after this model has shot or fought, select one enemy unit hit by one or more of those attacks. That unit must take a Battle-shock test, subtracting 1 from that test if it is within 9\" of one or more THOUSAND SONS PSYKER units from your army.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Devoted to Destruction",
+       "text": "If this model is equipped with two melee weapons in addition to its close combat weapon, add 2 to the Attacks characteristic of those two weapons.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 125
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 Helbrute: missile launcher, multi-melta, close combat weapon.",
+     "options": [
+      {
+       "id": "arm1",
+       "type": "choice",
+       "label": "Multi-melta arm",
+       "choices": [
+        {
+         "id": "mm",
+         "label": "Multi-melta",
+         "pts": 0
+        },
+        {
+         "id": "pc",
+         "label": "Helbrute plasma cannon",
+         "pts": 0
+        },
+        {
+         "id": "tac",
+         "label": "Twin autocannon",
+         "pts": 0
+        },
+        {
+         "id": "thb",
+         "label": "Twin inferno heavy bolter",
+         "pts": 0
+        },
+        {
+         "id": "tlc",
+         "label": "Twin lascannon",
+         "pts": 0
+        },
+        {
+         "id": "fist",
+         "label": "Helbrute fist",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "arm2",
+       "type": "choice",
+       "label": "Missile launcher arm",
+       "choices": [
+        {
+         "id": "ml",
+         "label": "Missile launcher",
+         "pts": 0
+        },
+        {
+         "id": "fist",
+         "label": "Helbrute fist",
+         "pts": 0
+        },
+        {
+         "id": "hammer",
+         "label": "Helbrute hammer",
+         "pts": 0
+        },
+        {
+         "id": "scourge",
+         "label": "Power scourge",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "fist1",
+       "type": "choice",
+       "label": "Fist weapon (needs a Helbrute fist)",
+       "choices": [
+        {
+         "id": "none",
+         "label": "None",
+         "pts": 0
+        },
+        {
+         "id": "combib",
+         "label": "Inferno combi-bolter",
+         "pts": 0
+        },
+        {
+         "id": "flamer",
+         "label": "Heavy flamer",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "fist2",
+       "type": "choice",
+       "label": "Second fist weapon (needs two fists)",
+       "choices": [
+        {
+         "id": "none",
+         "label": "None",
+         "pts": 0
+        },
+        {
+         "id": "combib",
+         "label": "Inferno combi-bolter",
+         "pts": 0
+        },
+        {
+         "id": "flamer",
+         "label": "Heavy flamer",
+         "pts": 0
+        }
+       ]
+      }
+     ],
+     "optionRules": [
+      {
+       "if": "fist1",
+       "notValue": "none",
+       "requireAnyOf": [
+        [
+         "arm1",
+         "fist"
+        ],
+        [
+         "arm2",
+         "fist"
+        ]
+       ],
+       "message": "The fist weapon needs at least one Helbrute fist."
+      },
+      {
+       "if": "fist2",
+       "notValue": "none",
+       "requireAllOf": [
+        [
+         "arm1",
+         "fist"
+        ],
+        [
+         "arm2",
+         "fist"
+        ]
+       ],
+       "message": "A second fist weapon needs two Helbrute fists."
+      }
+     ],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "heldrake",
+     "name": "Heldrake",
+     "role": "vehicle",
+     "faction": "Heretic Astartes",
+     "keywords": [
+      "Vehicle",
+      "Fly",
+      "Chaos",
+      "Heldrake",
+      "Daemon"
+     ],
+     "image": "heldrake",
+     "baseSize": "120x92mm (flying base)",
+     "profile": {
+      "M": "12\"",
+      "T": "9",
+      "Sv": "3+",
+      "InSv": "5+",
+      "W": "12",
+      "OC": "0",
+      "Ld": "6+"
+     },
+     "damaged": {
+      "threshold": 4,
+      "text": "While it has 1-4 wounds left: -1 to hit rolls."
+     },
+     "ranged": [
+      {
+       "name": "Baleflamer",
+       "range": "12\"",
+       "A": "D6+3",
+       "skill": "—",
+       "S": "6",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Ignores Cover",
+        "Torrent"
+       ]
+      },
+      {
+       "name": "Hades autocannon",
+       "range": "36\"",
+       "A": "6",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-2",
+       "D": "2",
+       "kw": []
+      }
+     ],
+     "melee": [
+      {
+       "name": "Heldrake claws",
+       "range": "Melee",
+       "A": "5",
+       "skill": "3+",
+       "S": "7",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Anti-fly 2+",
+        "Devastating Wounds"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D3",
+      "Hover"
+     ],
+     "factionAbilities": [],
+     "abilities": [
+      {
+       "name": "Flame-wreathed",
+       "text": "Each time this model ends a Normal move, select one enemy unit it moved over during that move. Until the end of the turn, models in that unit cannot have the Benefit of Cover.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 175
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 Heldrake: Hades autocannon, Heldrake claws.",
+     "options": [
+      {
+       "id": "gun",
+       "type": "choice",
+       "label": "Gun",
+       "choices": [
+        {
+         "id": "hades",
+         "label": "Hades autocannon",
+         "pts": 0
+        },
+        {
+         "id": "bale",
+         "label": "Baleflamer",
+         "pts": 0
+        }
+       ]
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "daemon_prince",
+     "name": "Daemon Prince",
+     "role": "character",
+     "faction": "Heretic Astartes",
+     "keywords": [
+      "Chaos",
+      "Character",
+      "Daemon",
+      "Daemon Prince",
+      "Monster",
+      "Warlord"
+     ],
+     "image": "csm_daemon_prince",
+     "baseSize": "60mm",
+     "profile": {
+      "M": "8\"",
+      "T": "10",
+      "Sv": "2+",
+      "InSv": "4+",
+      "W": "10",
+      "OC": "3",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Infernal cannon",
+       "range": "24\"",
+       "A": "3",
+       "skill": "2+",
+       "S": "5",
+       "AP": "-1",
+       "D": "2",
+       "kw": []
+      }
+     ],
+     "melee": [
+      {
+       "name": "Hellforged weapons - strike",
+       "range": "Melee",
+       "A": "6",
+       "skill": "2+",
+       "S": "8",
+       "AP": "-2",
+       "D": "3",
+       "kw": []
+      },
+      {
+       "name": "Hellforged weapons - sweep",
+       "range": "Melee",
+       "A": "14",
+       "skill": "2+",
+       "S": "6",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D3"
+     ],
+     "factionAbilities": [
+      "Dark Pacts"
+     ],
+     "abilities": [
+      {
+       "name": "Dark Blessing (Aura)",
+       "text": "While a friendly HERETIC ASTARTES INFANTRY unit is within 6\" of this model, each time a ranged attack is allocated to a model in that unit, that model has the Benefit of Cover against that attack.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Ascended Daemon",
+       "text": "Each time this model shoot or fights, while resolving those attacks, you can re-roll one Hit roll and you can re-roll one Wound roll.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Lord of Chaos",
+       "text": "While this model is within 3\" of a friendly Heretic Astartes Infantry unit, this model has Lone Operative.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 155
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "",
+     "options": [],
+     "optionRules": []
+    },
+    {
+     "id": "daemon_prince_wings",
+     "name": "Daemon Prince with Wings",
+     "role": "character",
+     "faction": "Heretic Astartes",
+     "keywords": [
+      "Chaos",
+      "Character",
+      "Daemon",
+      "Daemon Prince",
+      "Daemon Prince with Wings",
+      "Fly",
+      "Monster",
+      "Warlord"
+     ],
+     "image": "csm_daemon_prince_wings",
+     "baseSize": "60mm",
+     "profile": {
+      "M": "12\"",
+      "T": "9",
+      "Sv": "2+",
+      "InSv": "4+",
+      "W": "10",
+      "OC": "3",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Infernal cannon",
+       "range": "24\"",
+       "A": "3",
+       "skill": "2+",
+       "S": "5",
+       "AP": "-1",
+       "D": "2",
+       "kw": []
+      }
+     ],
+     "melee": [
+      {
+       "name": "Hellforged weapons - strike",
+       "range": "Melee",
+       "A": "6",
+       "skill": "2+",
+       "S": "8",
+       "AP": "-2",
+       "D": "3",
+       "kw": []
+      },
+      {
+       "name": "Hellforged weapons - sweep",
+       "range": "Melee",
+       "A": "14",
+       "skill": "2+",
+       "S": "6",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D3",
+      "Deep Strike"
+     ],
+     "factionAbilities": [
+      "Dark Pacts"
+     ],
+     "abilities": [
+      {
+       "name": "Flying Horror",
+       "text": "Each time this model ends a Normal or Advance move, select one enemy unit it moved over during that move. That unit must take a Battle-shock test.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Daemonic Destruction",
+       "text": "Each time this model ends a Charge move, select one enemy unit within Engagement Range of it and roll one D6 for each of this model’s remaining wounds: for each 4+, that enemy unit suffers 1 mortal wound (to a maximum of 6 mortal wounds).",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 170
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "",
+     "options": [],
+     "optionRules": []
+    },
+    {
+     "id": "huron",
+     "name": "Huron Blackheart",
+     "role": "epic hero",
+     "faction": "Heretic Astartes",
+     "keywords": [
+      "Chaos",
+      "Chaos Undivided",
+      "Character",
+      "Epic Hero",
+      "Huron Blackheart",
+      "Infantry",
+      "Leader",
+      "Warlord"
+     ],
+     "image": "csm_huron",
+     "baseSize": "50mm",
+     "profile": {
+      "M": "6\"",
+      "T": "6",
+      "Sv": "3+",
+      "InSv": "4+",
+      "W": "5",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Tyrant's Claw heavy flamer",
+       "range": "12\"",
+       "A": "D6+2",
+       "skill": "N/A",
+       "S": "6",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Ignores Cover",
+        "Pistol",
+        "Torrent"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Tyrant's Claw and exalted power weapon",
+       "range": "Melee",
+       "A": "6",
+       "skill": "2+",
+       "S": "8",
+       "AP": "-3",
+       "D": "3",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deep Strike",
+      "Feel No Pain 5+"
+     ],
+     "factionAbilities": [
+      "Dark Pacts"
+     ],
+     "abilities": [
+      {
+       "name": "Lord of Badab (Aura)",
+       "text": "While a friendly HERETIC ASTARTES INFANTRY unit (excluding Battle-shocked units and DAMNED units) is within 6\" of this model, add 1 to the Objective Control characteristic of models in that unit.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Hamadrya’s Knowledge (Psychic)",
+       "text": "Once per battle round, when an enemy unit ends a Normal, Advance or Fall Back move within 8\" of this model’s unit, if this model’s unit is not within Engagement Range of one or more enemy units, it can make a Normal move of up to D3+3\".",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 135
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "chaos_terminators",
+      "chosen",
+      "legionaries",
+      "red_corsairs_raiders"
+     ],
+     "composition": "",
+     "options": [],
+     "optionRules": []
+    },
+    {
+     "id": "lord_of_skulls",
+     "name": "Khorne Lord of Skulls",
+     "role": "titanic",
+     "faction": "Heretic Astartes",
+     "keywords": [
+      "Vehicle",
+      "Titanic",
+      "Towering",
+      "Chaos",
+      "Daemon",
+      "Lord of Skulls",
+      "Frame"
+     ],
+     "image": "lord_of_skulls",
+     "baseSize": "Use model",
+     "profile": {
+      "M": "12\"",
+      "T": "13",
+      "Sv": "3+",
+      "InSv": "5+",
+      "W": "24",
+      "OC": "8",
+      "Ld": "6+"
+     },
+     "damaged": {
+      "threshold": 8,
+      "text": "While it has 1-8 wounds left: -4 OC and -1 to hit.",
+      "ocMod": -4
+     },
+     "ranged": [
+      {
+       "name": "Hades gatling cannon",
+       "range": "48\"",
+       "A": "12",
+       "skill": "4+",
+       "S": "8",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Rapid Fire 6",
+        "Sustained Hits 1"
+       ]
+      },
+      {
+       "name": "Skullhurler",
+       "range": "60\"",
+       "A": "2D6",
+       "skill": "4+",
+       "S": "14",
+       "AP": "-3",
+       "D": "3",
+       "kw": [
+        "Rapid Fire 3"
+       ]
+      },
+      {
+       "name": "Gorestorm cannon",
+       "range": "24\"",
+       "A": "D6+3",
+       "skill": "4+",
+       "S": "10",
+       "AP": "-2",
+       "D": "3",
+       "kw": [
+        "Blast",
+        "Rapid Fire 3"
+       ]
+      },
+      {
+       "name": "Daemongore cannon",
+       "range": "18\"",
+       "A": "D6",
+       "skill": "4+",
+       "S": "14",
+       "AP": "-4",
+       "D": "D6+2",
+       "kw": [
+        "Blast",
+        "Rapid Fire 3"
+       ]
+      },
+      {
+       "name": "Ichor cannon",
+       "range": "48\"",
+       "A": "2D6",
+       "skill": "4+",
+       "S": "7",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Blast",
+        "Rapid Fire 4"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Great cleaver of Khorne - strike",
+       "range": "Melee",
+       "A": "6",
+       "skill": "3+",
+       "S": "16",
+       "AP": "-4",
+       "D": "8",
+       "kw": []
+      },
+      {
+       "name": "Great cleaver of Khorne - sweep",
+       "range": "Melee",
+       "A": "18",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-2",
+       "D": "2",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D6+2"
+     ],
+     "factionAbilities": [
+      "Blessings of Khorne"
+     ],
+     "abilities": [
+      {
+       "name": "Idol of Blessed Blood",
+       "text": "At the start of the battle round, if this model is on the battlefield, when you make a Blessings of Khorne roll, roll one additional D6.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Super-heavy War Engine",
+       "text": "Each time this model makes a Normal, Advance or Fall Back move, it can move through models (excluding TITANIC models) and sections of terrain features that are 4\" or less in height. When doing so it can move within Engagement Range of enemy models, but cannot end that move within Engagement Range of them. It can also move through sections of terrain features that are more than 4\" in height, but if it does, after it has moved, roll one D6: on a roll of 1, this model is Battle-shocked.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 450,
+       "ptsLater": 475
+      }
+     ],
+     "stepFrom": 2,
+     "leaderOf": [],
+     "composition": "1 model. Default: Hades gatling cannon, gorestorm cannon, great cleaver of Khorne.",
+     "options": [
+      {
+       "id": "gatling",
+       "type": "choice",
+       "label": "Gatling slot",
+       "choices": [
+        {
+         "id": "gat",
+         "label": "Hades gatling cannon",
+         "pts": 0
+        },
+        {
+         "id": "skull",
+         "label": "Skullhurler",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "cannon",
+       "type": "choice",
+       "label": "Cannon slot",
+       "choices": [
+        {
+         "id": "gore",
+         "label": "Gorestorm cannon",
+         "pts": 0
+        },
+        {
+         "id": "daemon",
+         "label": "Daemongore cannon",
+         "pts": 0
+        },
+        {
+         "id": "ichor",
+         "label": "Ichor cannon",
+         "pts": 0
+        }
+       ]
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "kravek_morne",
+     "name": "Kravek Morne",
+     "role": "epic hero",
+     "faction": "Heretic Astartes",
+     "keywords": [
+      "Chaos",
+      "Chaos Undivided",
+      "Character",
+      "Epic Hero",
+      "Infantry",
+      "Kravek Morne",
+      "Leader",
+      "Terminator",
+      "Warlord"
+     ],
+     "image": "csm_kravek_morne",
+     "baseSize": "50mm",
+     "profile": {
+      "M": "5\"",
+      "T": "6",
+      "Sv": "2+",
+      "InSv": "4+",
+      "W": "6",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Baleflamer",
+       "range": "12\"",
+       "A": "D6+3",
+       "skill": "N/A",
+       "S": "6",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Ignores Cover",
+        "Torrent"
+       ]
+      },
+      {
+       "name": "Combi-bolter",
+       "range": "24\"",
+       "A": "2",
+       "skill": "2+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Rapid Fire 2"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Last Argument and power fist",
+       "range": "Melee",
+       "A": "7",
+       "skill": "2+",
+       "S": "10",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Devastating Wounds"
+       ]
+      },
+      {
+       "name": "Servo-harness",
+       "range": "Melee",
+       "A": "3",
+       "skill": "2+",
+       "S": "6",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Anti-Vehicle 2+",
+        "Extra Attacks"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Deep Strike"
+     ],
+     "factionAbilities": [
+      "Dark Pacts"
+     ],
+     "abilities": [
+      {
+       "name": "Headlong Destruction",
+       "text": "Each time a model in this unit makes an attack that targets the closest eligible enemy unit, improve the Armour Penetration characteristic of that attack by 1.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Architect of Ruin",
+       "text": "At the start of the battle, select one unit in your opponent’s army to be this model’s hated foe. Each time this model makes an attack that targets its hated foe, you can re-roll the Wound roll. Each time this model’s hated foe is destroyed, you can select a new unit from your opponent’s army to be its hated foe.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 130
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "chaos_terminators",
+      "mutilators",
+      "obliterators"
+     ],
+     "composition": "",
+     "options": [],
+     "optionRules": []
+    },
+    {
+     "id": "legionaries",
+     "name": "Legionaries",
+     "role": "battleline",
+     "faction": "Heretic Astartes",
+     "keywords": [
+      "Battleline",
+      "Chaos",
+      "Grenades",
+      "Infantry",
+      "Legionaries"
+     ],
+     "image": "csm_legionaries",
+     "baseSize": "32mm",
+     "profile": {
+      "M": "6\"",
+      "T": "5",
+      "Sv": "3+",
+      "InSv": "—",
+      "W": "2",
+      "OC": "2",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Bolt pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Plasma pistol - standard",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "7",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Plasma pistol - supercharge",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-3",
+       "D": "2",
+       "kw": [
+        "Hazardous",
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Boltgun",
+       "range": "24\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Balefire tome",
+       "range": "18\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Psychic"
+       ]
+      },
+      {
+       "name": "Flamer",
+       "range": "12\"",
+       "A": "D6",
+       "skill": "N/A",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Ignores Cover",
+        "Torrent"
+       ]
+      },
+      {
+       "name": "Havoc autocannon",
+       "range": "48\"",
+       "A": "2",
+       "skill": "4+",
+       "S": "9",
+       "AP": "-1",
+       "D": "3",
+       "kw": []
+      },
+      {
+       "name": "Heavy bolter",
+       "range": "36\"",
+       "A": "3",
+       "skill": "4+",
+       "S": "5",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Heavy",
+        "Sustained Hits 1"
+       ]
+      },
+      {
+       "name": "Lascannon",
+       "range": "48\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "12",
+       "AP": "-3",
+       "D": "D6+1",
+       "kw": [
+        "Heavy"
+       ]
+      },
+      {
+       "name": "Missile launcher - frag",
+       "range": "48\"",
+       "A": "D6",
+       "skill": "4+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Blast",
+        "Heavy"
+       ]
+      },
+      {
+       "name": "Missile launcher - krak",
+       "range": "48\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "9",
+       "AP": "-2",
+       "D": "D6",
+       "kw": [
+        "Heavy"
+       ]
+      },
+      {
+       "name": "Plasma gun - standard",
+       "range": "24\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "7",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Rapid Fire 1"
+       ]
+      },
+      {
+       "name": "Plasma gun - supercharge",
+       "range": "24\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-3",
+       "D": "2",
+       "kw": [
+        "Hazardous",
+        "Rapid Fire 1"
+       ]
+      },
+      {
+       "name": "Reaper chaincannon",
+       "range": "24\"",
+       "A": "8",
+       "skill": "4+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Heavy"
+       ]
+      },
+      {
+       "name": "Meltagun",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "9",
+       "AP": "-4",
+       "D": "D6",
+       "kw": [
+        "Melta 2"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Accursed weapon",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Astartes chainsword",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Heavy melee weapon",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-2",
+       "D": "2",
+       "kw": []
+      },
+      {
+       "name": "Close combat weapon",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [],
+     "factionAbilities": [
+      "Dark Pacts"
+     ],
+     "abilities": [
+      {
+       "name": "Veterans of the Long War",
+       "text": "Each time a model in this unit targets an enemy unit with a melee attack, re-roll a Wound roll of 1. If that enemy unit is within range of an objective marker, you can re-roll the Wound roll instead.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Chaos icon",
+       "text": "Each time the bearer’s unit takes a Leadership test for the Dark Pacts ability, you can re-roll that test.",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 5,
+       "pts": 95
+      },
+      {
+       "models": 10,
+       "pts": 180
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "",
+     "options": [
+      {
+       "id": "champ_ranged",
+       "type": "choice",
+       "label": "Aspiring Champion ranged",
+       "choices": [
+        {
+         "id": "boltgun",
+         "label": "Boltgun",
+         "pts": 0
+        },
+        {
+         "id": "plasma",
+         "label": "Plasma pistol",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "champ_melee",
+       "type": "choice",
+       "label": "Aspiring Champion melee",
+       "choices": [
+        {
+         "id": "ccw",
+         "label": "Bolt pistol / close combat",
+         "pts": 0
+        },
+        {
+         "id": "accursed",
+         "label": "Accursed weapon",
+         "pts": 0
+        },
+        {
+         "id": "chainsword",
+         "label": "Astartes chainsword",
+         "pts": 0
+        },
+        {
+         "id": "heavy",
+         "label": "Heavy melee weapon",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "special",
+       "type": "count",
+       "label": "Special/heavy weapon",
+       "per": 5,
+       "n": 1
+      },
+      {
+       "id": "balefire",
+       "type": "toggle",
+       "label": "Balefire tome (1 model)"
+      },
+      {
+       "id": "icon",
+       "type": "toggle",
+       "label": "Chaos icon"
+      }
+     ],
+     "optionRules": []
+    },
+    {
+     "id": "lord_discordant",
+     "name": "Lord Discordant on Helstalker",
+     "role": "character",
+     "faction": "Heretic Astartes",
+     "keywords": [
+      "Chaos",
+      "Character",
+      "Daemon",
+      "Lord Discordant",
+      "Mounted",
+      "Warlord"
+     ],
+     "image": "csm_lord_discordant",
+     "baseSize": "120 x 92mm",
+     "profile": {
+      "M": "14\"",
+      "T": "9",
+      "Sv": "2+",
+      "InSv": "4+",
+      "W": "10",
+      "OC": "4",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Helstalker autocannon",
+       "range": "48\"",
+       "A": "3",
+       "skill": "2+",
+       "S": "9",
+       "AP": "-1",
+       "D": "3",
+       "kw": []
+      },
+      {
+       "name": "Baleflamer",
+       "range": "12\"",
+       "A": "D6+3",
+       "skill": "N/A",
+       "S": "6",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Ignores Cover",
+        "Torrent"
+       ]
+      },
+      {
+       "name": "Magma cutter",
+       "range": "6\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "9",
+       "AP": "-4",
+       "D": "D6",
+       "kw": [
+        "Melta 2"
+       ]
+      },
+      {
+       "name": "Bolt pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "2+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Bladed limbs",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Extra Attacks"
+       ]
+      },
+      {
+       "name": "Impaler chainglaive",
+       "range": "Melee",
+       "A": "5",
+       "skill": "2+",
+       "S": "8",
+       "AP": "-3",
+       "D": "3",
+       "kw": [
+        "Lance"
+       ]
+      },
+      {
+       "name": "Techno-virus injector",
+       "range": "Melee",
+       "A": "1",
+       "skill": "3+",
+       "S": "3",
+       "AP": "-3",
+       "D": "2",
+       "kw": [
+        "Anti-VEHICLE 2+",
+        "Extra Attacks"
+       ]
+      }
+     ],
+     "coreAbilities": [],
+     "factionAbilities": [
+      "Dark Pacts"
+     ],
+     "abilities": [
+      {
+       "name": "Corrupt Machine Spirits",
+       "text": "At the start of your Shooting phase, select one visible enemy VEHICLE unit within 12\" of this model and roll one D6: on a 2-3, that enemy unit suffers D3 mortal wounds; on a 4-5, that enemy unit suffers 3 mortal wounds; on a 6, that enemy unit suffers D3+3 mortal wounds.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Spirit Thief",
+       "text": "At the start of your Shooting phase, select one visible enemy VEHICLE unit. Until the end of the phase, each time a friendly HERETIC ASTARTES model makes an attack that targets that unit, re-roll a Wound roll of 1.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 155
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "",
+     "options": [
+      {
+       "id": "baleflamer",
+       "type": "toggle",
+       "label": "Baleflamer (replace Helstalker autocannon)"
+      },
+      {
+       "id": "magma",
+       "type": "toggle",
+       "label": "Magma cutter (replace techno-virus injector)"
+      }
+     ],
+     "optionRules": []
+    },
+    {
+     "id": "master_executions",
+     "name": "Master of Executions",
+     "role": "character",
+     "faction": "Heretic Astartes",
+     "keywords": [
+      "Chaos",
+      "Character",
+      "Grenades",
+      "Infantry",
+      "Master of Executions",
+      "Support",
+      "Warlord"
+     ],
+     "image": "csm_master_executions",
+     "baseSize": "40mm",
+     "profile": {
+      "M": "6\"",
+      "T": "5",
+      "Sv": "3+",
+      "InSv": "—",
+      "W": "4",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Bolt pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Axe of dismemberment",
+       "range": "Melee",
+       "A": "5",
+       "skill": "2+",
+       "S": "7",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Devastating Wounds",
+        "Precision"
+       ]
+      }
+     ],
+     "coreAbilities": [],
+     "factionAbilities": [
+      "Dark Pacts"
+     ],
+     "abilities": [
+      {
+       "name": "Support",
+       "text": "This model can be attached to the following units: CHOSEN, LEGIONARIES, NEMESIS CLAW, RED CORSAIRS RAIDERS",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Warp-sighted Butcher",
+       "text": "While this model is leading a unit, each time a model in that unit makes a melee attack that targets a unit that is below its Starting Strength, you can re-roll the Hit roll. If that unit is Below Half-strength, you can re-roll the Wound roll as well.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Trophy Taker",
+       "text": "Each time this model destroys an enemy CHARACTER model, you gain 1CP.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 75
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "chosen",
+      "legionaries",
+      "nemesis_claw",
+      "red_corsairs_raiders"
+     ],
+     "composition": "",
+     "options": [],
+     "optionRules": [],
+     "support": true
+    },
+    {
+     "id": "master_possession",
+     "name": "Master of Possession",
+     "role": "character",
+     "faction": "Heretic Astartes",
+     "keywords": [
+      "Chaos",
+      "Character",
+      "Infantry",
+      "Leader",
+      "Master of Possession",
+      "Psyker",
+      "Warlord"
+     ],
+     "image": "csm_master_possession",
+     "baseSize": "40mm",
+     "profile": {
+      "M": "8\"",
+      "T": "5",
+      "Sv": "3+",
+      "InSv": "5+",
+      "W": "4",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Rite of Possession - witchfire",
+       "range": "18\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-3",
+       "D": "2",
+       "kw": [
+        "Anti-PSYKER 2+",
+        "Pistol",
+        "Precision",
+        "Psychic"
+       ]
+      },
+      {
+       "name": "Rite of Possession - focused witchfire",
+       "range": "18\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-3",
+       "D": "3",
+       "kw": [
+        "Anti-PSYKER 2+",
+        "Hazardous",
+        "Pistol",
+        "Precision",
+        "Psychic"
+       ]
+      },
+      {
+       "name": "Bolt pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Staff of possession",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-1",
+       "D": "D3",
+       "kw": [
+        "Anti-PSYKER 2+",
+        "Psychic"
+       ]
+      }
+     ],
+     "coreAbilities": [],
+     "factionAbilities": [
+      "Dark Pacts"
+     ],
+     "abilities": [
+      {
+       "name": "Daemonkin (Psychic)",
+       "text": "While this model is leading a unit, add 1 to Advance and Charge rolls made for that unit.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Sacrificial Dagger",
+       "text": "Once per phase, when this model is selected to shoot or fight, it can use this ability. If it does, this model’s unit suffers 1 mortal wound and, until the end of the phase, each time this model makes a Psychic Attack, add 1 to the Hit roll and add 1 to the Wound roll.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 65
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "chosen",
+      "legionaries",
+      "nemesis_claw",
+      "possessed",
+      "red_corsairs_raiders"
+     ],
+     "composition": "",
+     "options": [],
+     "optionRules": []
+    },
+    {
+     "id": "masters_maelstrom",
+     "name": "Masters of the Maelstrom",
+     "role": "character",
+     "faction": "Heretic Astartes",
+     "keywords": [
+      "Chaos",
+      "Chaos Undivided",
+      "Epic Hero",
+      "Grenades",
+      "Infantry",
+      "Masters of the Maelstrom",
+      "Psyker",
+      "Support"
+     ],
+     "image": "csm_masters_maelstrom",
+     "baseSize": "40mm",
+     "profile": {
+      "M": "6\"",
+      "T": "5",
+      "Sv": "3+",
+      "InSv": "—",
+      "W": "4",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Absolver bolt pistol",
+       "range": "18\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Mind Wrench",
+       "range": "12\"",
+       "A": "1",
+       "skill": "2+",
+       "S": "6",
+       "AP": "-2",
+       "D": "D6+1",
+       "kw": [
+        "Precision",
+        "Psychic"
+       ]
+      },
+      {
+       "name": "Bolt pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Laspistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Londaxi maimer",
+       "range": "18\"",
+       "A": "3",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Assault"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Reductor array",
+       "range": "Melee",
+       "A": "6",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-2",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Force stave",
+       "range": "Melee",
+       "A": "4",
+       "skill": "2+",
+       "S": "6",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Psychic"
+       ]
+      },
+      {
+       "name": "Axe of Ending",
+       "range": "Melee",
+       "A": "6",
+       "skill": "2+",
+       "S": "6",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Anti-CHARACTER 2+",
+        "Precision"
+       ]
+      },
+      {
+       "name": "Power sabre",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-2",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Bionic gauntlet",
+       "range": "Melee",
+       "A": "1",
+       "skill": "2+",
+       "S": "6",
+       "AP": "-2",
+       "D": "2",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [],
+     "factionAbilities": [
+      "Dark Pacts"
+     ],
+     "abilities": [
+      {
+       "name": "Fleet Command",
+       "text": "After both players have deployed their armies, if this unit is on the battlefield (or any Transport it is embarked within is on the battlefield) select up to three HERETIC ASTARTES units from your army and redeploy them. When doing so, you can set those units up in Strategic Reserves, regardless of how many units are already in Strategic Reserves.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Plunder",
+       "text": "Once per battle, after this unit ends a Normal move, you can select one visible enemy unit within 12\" of it and roll one D6: on a 2+, that enemy unit suffers D3+1 mortal wounds.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Support",
+       "text": "This unit can be attached to the following units: CHOSEN, LEGIONARIES, RED CORSAIRS RAIDERS",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Choice Samples",
+       "text": "While this unit’s Garreon the Corpsemaster is on the battlefield, in your Command phase, select one of the following: you can return 1 destroyed model (excluding CHARACTER models) to this unit, or, if one or more HERETIC ASTARTES INFANTRY units from your army are below Starting Strength and within 3\" of this unit, you gain 1CP.",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 5,
+       "pts": 150
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "chosen",
+      "legionaries",
+      "red_corsairs_raiders"
+     ],
+     "composition": "",
+     "options": [],
+     "optionRules": [],
+     "support": true
+    },
+    {
+     "id": "maulerfiend",
+     "name": "Maulerfiend",
+     "role": "walker",
+     "faction": "Heretic Astartes",
+     "keywords": [
+      "Vehicle",
+      "Walker",
+      "Daemon",
+      "Chaos",
+      "Maulerfiend"
+     ],
+     "image": "maulerfiend",
+     "baseSize": "120x92mm",
+     "profile": {
+      "M": "10\"",
+      "T": "10",
+      "Sv": "3+",
+      "InSv": "5+",
+      "W": "12",
+      "OC": "3",
+      "Ld": "6+"
+     },
+     "damaged": {
+      "threshold": 4,
+      "text": "While it has 1-4 wounds left: -1 to hit rolls."
+     },
+     "ranged": [
+      {
+       "name": "Magma cutter",
+       "range": "6\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "9",
+       "AP": "-4",
+       "D": "D6",
+       "kw": [
+        "Melta 2"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Maulerfiend fists",
+       "range": "Melee",
+       "A": "6",
+       "skill": "3+",
+       "S": "14",
+       "AP": "-2",
+       "D": "D6+1",
+       "kw": []
+      },
+      {
+       "name": "Lasher tendrils",
+       "range": "Melee",
+       "A": "6",
+       "skill": "3+",
+       "S": "7",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Extra Attacks"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D3"
+     ],
+     "factionAbilities": [],
+     "abilities": [
+      {
+       "name": "Snarling Protector",
+       "text": "You can target this unit with the Heroic Intervention stratagem, regardless of any other uses of that stratagem this phase. If you do: ■ That use is -1 CP. ■ That use does not prevent any uses of that stratagem on other units this phase. ■ When this unit declares a charge, If a friendly engaged PSYKER unit is within 12\" of this unit, you can use this part of this ability. If you do: ■ This unit can re-roll that charge roll. ■ This unit must end that charge move engaged with an enemy unit engaged with that friendly PSYKER unit.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 125
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 Maulerfiend: lasher tendrils, Maulerfiend fists.",
+     "options": [
+      {
+       "id": "tendrils",
+       "type": "choice",
+       "label": "Lasher tendrils",
+       "choices": [
+        {
+         "id": "tendrils",
+         "label": "Lasher tendrils",
+         "pts": 0
+        },
+        {
+         "id": "magma",
+         "label": "2 magma cutters",
+         "pts": 0
+        }
+       ]
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "mutilators",
+     "name": "Mutilators",
+     "role": "infantry",
+     "faction": "Heretic Astartes",
+     "keywords": [
+      "Chaos",
+      "Daemon",
+      "Infantry",
+      "Mutilators"
+     ],
+     "image": "csm_mutilators",
+     "baseSize": "50mm",
+     "profile": {
+      "M": "5\"",
+      "T": "7",
+      "Sv": "2+",
+      "InSv": "5+",
+      "W": "5",
+      "OC": "2",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [],
+     "melee": [
+      {
+       "name": "Fleshmetal weapons - rending strikes",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "9",
+       "AP": "-3",
+       "D": "3",
+       "kw": []
+      },
+      {
+       "name": "Fleshmetal weapons - clawed sweeps",
+       "range": "Melee",
+       "A": "6",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-2",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Fleshmetal weapons - thunderous blows",
+       "range": "Melee",
+       "A": "2",
+       "skill": "3+",
+       "S": "12",
+       "AP": "-4",
+       "D": "D6+2",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deep Strike"
+     ],
+     "factionAbilities": [
+      "Dark Pacts"
+     ],
+     "abilities": [
+      {
+       "name": "Crushing Charge",
+       "text": "You can re-roll charge rolls made for this unit, and each time this unit makes a Charge move, select one enemy unit and roll one D6 for each model in this unit that is within Engagement Range of that unit: for each 4+, that enemy unit suffers D3 mortal wounds.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 3,
+       "pts": 165,
+       "ptsLater": 185
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [],
+     "composition": "",
+     "options": [],
+     "optionRules": []
+    },
+    {
+     "id": "nemesis_claw",
+     "name": "Nemesis Claw",
+     "role": "infantry",
+     "faction": "Heretic Astartes",
+     "keywords": [
+      "Chaos",
+      "Grenades",
+      "Infantry",
+      "Nemesis Claw",
+      "Psyker"
+     ],
+     "image": "csm_nemesis_claw",
+     "baseSize": "32mm",
+     "profile": {
+      "M": "6\"",
+      "T": "5",
+      "Sv": "3+",
+      "InSv": "—",
+      "W": "2",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Bolt pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Plasma pistol - standard",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "7",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Plasma pistol - supercharge",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-3",
+       "D": "2",
+       "kw": [
+        "Hazardous",
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Boltgun",
+       "range": "24\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Heavy bolter",
+       "range": "36\"",
+       "A": "3",
+       "skill": "4+",
+       "S": "5",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Heavy",
+        "Sustained Hits 1"
+       ]
+      },
+      {
+       "name": "Missile launcher - frag",
+       "range": "48\"",
+       "A": "D6",
+       "skill": "4+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Blast",
+        "Heavy"
+       ]
+      },
+      {
+       "name": "Missile launcher - krak",
+       "range": "48\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "9",
+       "AP": "-2",
+       "D": "D6",
+       "kw": [
+        "Heavy"
+       ]
+      },
+      {
+       "name": "Flamer",
+       "range": "12\"",
+       "A": "D6",
+       "skill": "N/A",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Ignores Cover",
+        "Torrent"
+       ]
+      },
+      {
+       "name": "Plasma gun - standard",
+       "range": "24\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "7",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Rapid Fire 1"
+       ]
+      },
+      {
+       "name": "Plasma gun - supercharge",
+       "range": "24\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-3",
+       "D": "2",
+       "kw": [
+        "Hazardous",
+        "Rapid Fire 1"
+       ]
+      },
+      {
+       "name": "Meltagun",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "9",
+       "AP": "-4",
+       "D": "D6",
+       "kw": [
+        "Melta 2"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Nostraman chainblade",
+       "range": "Melee",
+       "A": "5",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Sustained Hits 1"
+       ]
+      },
+      {
+       "name": "Accursed weapon",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Power fist",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-2",
+       "D": "2",
+       "kw": []
+      },
+      {
+       "name": "Close combat weapon",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Astartes chainsword",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Nostraman chainglaive",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Sustained Hits 1"
+       ]
+      },
+      {
+       "name": "Paired accursed weapons",
+       "range": "Melee",
+       "A": "5",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Twin-linked"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Stealth"
+     ],
+     "factionAbilities": [
+      "Dark Pacts"
+     ],
+     "abilities": [
+      {
+       "name": "Visions of Suffering (Psychic)",
+       "text": "Each time a model in this unit makes an attack that targets an enemy unit that is below its Starting Strength, add 1 to the Hit roll. If that enemy unit is Below Half-strength, add 1 to the Wound roll as well.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Attached Unit",
+       "text": "If a CHARACTER unit from your army with the Leader ability (excluding Epic Heroes) can be attached to a LEGIONARIES unit, it can be attached to this unit instead.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Voice eater",
+       "text": "Enemy units (excluding MONSTERS and VEHICLES) cannot be targeted with Stratagems while they are within Engagement Range of the bearer’s unit.",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 5,
+       "pts": 105
+      },
+      {
+       "models": 10,
+       "pts": 190
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "",
+     "options": [
+      {
+       "id": "vis_pistol",
+       "type": "choice",
+       "label": "Visionary pistol",
+       "choices": [
+        {
+         "id": "bolt",
+         "label": "Bolt pistol",
+         "pts": 0
+        },
+        {
+         "id": "plasma",
+         "label": "Plasma pistol",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "vis_melee",
+       "type": "choice",
+       "label": "Visionary melee",
+       "choices": [
+        {
+         "id": "chainblade",
+         "label": "Nostraman chainblade",
+         "pts": 0
+        },
+        {
+         "id": "accursed",
+         "label": "Accursed weapon",
+         "pts": 0
+        },
+        {
+         "id": "fist",
+         "label": "Power fist",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "special",
+       "type": "count",
+       "label": "Flamer/meltagun/plasma gun",
+       "per": 5,
+       "n": 1
+      },
+      {
+       "id": "heavy",
+       "type": "toggle",
+       "label": "Heavy bolter / missile (10-model unit)"
+      }
+     ],
+     "optionRules": []
+    },
+    {
+     "id": "noctilith_crown",
+     "name": "Noctilith Crown",
+     "role": "fortification",
+     "faction": "Heretic Astartes",
+     "keywords": [
+      "Chaos",
+      "Fortification",
+      "Frame",
+      "Noctilith Crown"
+     ],
+     "image": "csm_noctilith_crown",
+     "baseSize": "Use model",
+     "profile": {
+      "M": "-",
+      "T": "11",
+      "Sv": "3+",
+      "InSv": "—",
+      "W": "14",
+      "OC": "0",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Lashing warp energies",
+       "range": "6\"",
+       "A": "8",
+       "skill": "4+",
+       "S": "8",
+       "AP": "-1",
+       "D": "2",
+       "kw": []
+      }
+     ],
+     "melee": [],
+     "coreAbilities": [
+      "Deadly Demise D6"
+     ],
+     "factionAbilities": [
+      "Dark Pacts"
+     ],
+     "abilities": [
+      {
+       "name": "Malevolent Locus (Aura)",
+       "text": "While a friendly HERETIC ASTARTES model is wholly within 9\" of this FORTIFICATION, improve that unit’s Leadership characteristic by 1.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Malign Cover",
+       "text": "Each time a ranged attack is allocated to a model, if that model is not fully visible to every model in the attacking unit because of this FORTIFICATION, that model has the Benefit of Cover against that attack.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 125
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "",
+     "options": [],
+     "optionRules": []
+    },
+    {
+     "id": "obliterators",
+     "name": "Obliterators",
+     "role": "infantry",
+     "faction": "Heretic Astartes",
+     "keywords": [
+      "Chaos",
+      "Daemon",
+      "Infantry",
+      "Obliterators"
+     ],
+     "image": "csm_obliterators",
+     "baseSize": "50mm",
+     "profile": {
+      "M": "4\"",
+      "T": "7",
+      "Sv": "2+",
+      "InSv": "5+",
+      "W": "5",
+      "OC": "2",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Fleshmetal guns - focused malice",
+       "range": "18\"",
+       "A": "D3",
+       "skill": "3+",
+       "S": "12",
+       "AP": "-3",
+       "D": "4",
+       "kw": [
+        "Melta 2"
+       ]
+      },
+      {
+       "name": "Fleshmetal guns - ruinous salvo",
+       "range": "24\"",
+       "A": "D6",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Blast"
+       ]
+      },
+      {
+       "name": "Fleshmetal guns - warp hail",
+       "range": "24\"",
+       "A": "D6+3",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Sustained Hits 1"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Crushing fists",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "9",
+       "AP": "-2",
+       "D": "2",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deep Strike"
+     ],
+     "factionAbilities": [
+      "Dark Pacts"
+     ],
+     "abilities": [
+      {
+       "name": "Warp Rift Firepower",
+       "text": "Once per battle, during the shooting phase, this unit can use this ability. If it does, until the end of the phase, ranged weapons equipped by models in this unit have the [INDIRECT FIRE] ability.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 2,
+       "pts": 160,
+       "ptsLater": 170
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [],
+     "composition": "",
+     "options": [],
+     "optionRules": []
+    },
+    {
+     "id": "possessed",
+     "name": "Possessed",
+     "role": "infantry",
+     "faction": "Heretic Astartes",
+     "keywords": [
+      "Chaos",
+      "Daemon",
+      "Infantry",
+      "Possessed"
+     ],
+     "image": "csm_possessed",
+     "baseSize": "40mm",
+     "profile": {
+      "M": "9\"",
+      "T": "6",
+      "Sv": "3+",
+      "InSv": "5+",
+      "W": "3",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [],
+     "melee": [
+      {
+       "name": "Hideous mutations",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-1",
+       "D": "2",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [],
+     "factionAbilities": [
+      "Dark Pacts"
+     ],
+     "abilities": [
+      {
+       "name": "Unholy Bloodshed",
+       "text": "Once per battle, when this unit makes a Dark Pact, until the end of the phase, weapons equipped by models in this unit have the [DEVASTATING WOUNDS] ability.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Chaos icon",
+       "text": "Each time the bearer’s unit takes a Leadership test for the Dark Pacts ability, you can re-roll that test.",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 5,
+       "pts": 130,
+       "ptsLater": 150
+      },
+      {
+       "models": 10,
+       "pts": 260,
+       "ptsLater": 280
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [],
+     "composition": "",
+     "options": [
+      {
+       "id": "icon",
+       "type": "toggle",
+       "label": "Chaos icon"
+      }
+     ],
+     "optionRules": []
+    },
+    {
+     "id": "raptors",
+     "name": "Raptors",
+     "role": "infantry",
+     "faction": "Heretic Astartes",
+     "keywords": [
+      "Chaos",
+      "Fly",
+      "Grenades",
+      "Infantry",
+      "Jump Pack",
+      "Raptors"
+     ],
+     "image": "csm_raptors",
+     "baseSize": "32mm",
+     "profile": {
+      "M": "12\"",
+      "T": "5",
+      "Sv": "3+",
+      "InSv": "—",
+      "W": "2",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Bolt pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Plasma pistol - standard",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "7",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Plasma pistol - supercharge",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-3",
+       "D": "2",
+       "kw": [
+        "Hazardous",
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Meltagun",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "9",
+       "AP": "-4",
+       "D": "D6",
+       "kw": [
+        "Melta 2"
+       ]
+      },
+      {
+       "name": "Plasma gun - standard",
+       "range": "24\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "7",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Rapid Fire 1"
+       ]
+      },
+      {
+       "name": "Plasma gun - supercharge",
+       "range": "24\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-3",
+       "D": "2",
+       "kw": [
+        "Hazardous",
+        "Rapid Fire 1"
+       ]
+      },
+      {
+       "name": "Flamer",
+       "range": "12\"",
+       "A": "D6",
+       "skill": "N/A",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Ignores Cover",
+        "Torrent"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Astartes chainsword",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Accursed weapon",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Heavy melee weapon",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-2",
+       "D": "2",
+       "kw": []
+      },
+      {
+       "name": "Mutations",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Close combat weapon",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deep Strike"
+     ],
+     "factionAbilities": [
+      "Dark Pacts"
+     ],
+     "abilities": [
+      {
+       "name": "Fearsome (Aura)",
+       "text": "While an enemy unit is within 6\" of this unit, each time that enemy unit takes a Battle-shock or Leadership test, subtract 1 from the result.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Terrifying Assault",
+       "text": "At the start of the Fight phase, each enemy unit within Engagement Range of one or more units with this ability must take a Battle-shock test.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 5,
+       "pts": 115,
+       "ptsLater": 125
+      },
+      {
+       "models": 10,
+       "pts": 225,
+       "ptsLater": 235
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [],
+     "composition": "",
+     "options": [
+      {
+       "id": "champ_pistol",
+       "type": "choice",
+       "label": "Raptor Champion pistol",
+       "choices": [
+        {
+         "id": "bolt",
+         "label": "Bolt pistol",
+         "pts": 0
+        },
+        {
+         "id": "plasma",
+         "label": "Plasma pistol",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "champ_melee",
+       "type": "choice",
+       "label": "Raptor Champion melee",
+       "choices": [
+        {
+         "id": "chainsword",
+         "label": "Astartes chainsword",
+         "pts": 0
+        },
+        {
+         "id": "accursed",
+         "label": "Accursed weapon",
+         "pts": 0
+        },
+        {
+         "id": "heavy",
+         "label": "Heavy melee weapon",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "plasma",
+       "type": "count",
+       "label": "Plasma pistol",
+       "per": 5,
+       "n": 2
+      },
+      {
+       "id": "special",
+       "type": "count",
+       "label": "Flamer/meltagun (2 max)",
+       "max": 2
+      }
+     ],
+     "optionRules": []
+    },
+    {
+     "id": "red_corsairs_raiders",
+     "name": "Red Corsairs Raiders",
+     "role": "infantry",
+     "faction": "Heretic Astartes",
+     "keywords": [
+      "Chaos",
+      "Grenades",
+      "Infantry",
+      "Red Corsairs Raiders"
+     ],
+     "image": "csm_red_corsairs_raiders",
+     "baseSize": "32mm",
+     "profile": {
+      "M": "6\"",
+      "T": "5",
+      "Sv": "3+",
+      "InSv": "—",
+      "W": "3",
+      "OC": "2",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Hand flamer",
+       "range": "12\"",
+       "A": "D6",
+       "skill": "N/A",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Ignores Cover",
+        "Pistol",
+        "Torrent"
+       ]
+      },
+      {
+       "name": "Bolt pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Boltgun",
+       "range": "24\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Meltagun",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "9",
+       "AP": "-4",
+       "D": "D6",
+       "kw": [
+        "Melta 2"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Reaver's blade",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Power fist",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-2",
+       "D": "2",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Infiltrators"
+     ],
+     "factionAbilities": [
+      "Dark Pacts"
+     ],
+     "abilities": [
+      {
+       "name": "Trophy Takers",
+       "text": "The first time this unit destroys an enemy unit, until the end of the battle, while this unit is not Battle-shocked, add 1 to the Objective Control characteristic of models in this unit.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Attached Unit",
+       "text": "If a CHARACTER unit from your army with the Leader ability can be attached to a LEGIONARIES unit, it can be attached to this unit instead.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 5,
+       "pts": 120,
+       "ptsLater": 130
+      },
+      {
+       "models": 10,
+       "pts": 220,
+       "ptsLater": 230
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [],
+     "composition": "",
+     "options": [
+      {
+       "id": "champ_flamer",
+       "type": "toggle",
+       "label": "Champion: hand flamer"
+      },
+      {
+       "id": "special",
+       "type": "count",
+       "label": "Meltagun / plasma (per 5)",
+       "per": 5,
+       "n": 1
+      }
+     ],
+     "optionRules": []
+    },
+    {
+     "id": "reave_captain",
+     "name": "Red Corsairs Reave-captain",
+     "role": "character",
+     "faction": "Heretic Astartes",
+     "keywords": [
+      "Chaos",
+      "Character",
+      "Infantry",
+      "Leader",
+      "Red Corsairs Reave-captain",
+      "Warlord"
+     ],
+     "image": "csm_reave_captain",
+     "baseSize": "40mm",
+     "profile": {
+      "M": "6\"",
+      "T": "5",
+      "Sv": "3+",
+      "InSv": "4+",
+      "W": "5",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Bolt pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "2+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Plasma pistol - standard",
+       "range": "12\"",
+       "A": "1",
+       "skill": "2+",
+       "S": "7",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Plasma pistol - supercharge",
+       "range": "12\"",
+       "A": "1",
+       "skill": "2+",
+       "S": "8",
+       "AP": "-3",
+       "D": "2",
+       "kw": [
+        "Hazardous",
+        "Pistol"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Power sword",
+       "range": "Melee",
+       "A": "7",
+       "skill": "2+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Sustained Hits 1"
+       ]
+      },
+      {
+       "name": "Power maul",
+       "range": "Melee",
+       "A": "5",
+       "skill": "2+",
+       "S": "5",
+       "AP": "-2",
+       "D": "2",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Infiltrators"
+     ],
+     "factionAbilities": [
+      "Dark Pacts"
+     ],
+     "abilities": [
+      {
+       "name": "Brutal Raider",
+       "text": "Each time this model’s unit ends a Charge move, until the end of the turn, add 1 to the Strength characteristic of melee weapons equipped by this model and improve the Armour Penetration characteristics of those weapons by 1.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Raider's Due",
+       "text": "When this unit declares a charge, If an enemy unit within range of an objective is within 12\" of this unit, you can use this ability. If you do: ■ This unit can re-roll that charge roll. ■ This unit must end that charge move engaged with one or more of those enemy units.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 65
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "chosen",
+      "legionaries",
+      "nemesis_claw",
+      "red_corsairs_raiders"
+     ],
+     "composition": "",
+     "options": [
+      {
+       "id": "maul",
+       "type": "toggle",
+       "label": "Power maul (replace power sword)"
+      },
+      {
+       "id": "plasma",
+       "type": "toggle",
+       "label": "Plasma pistol"
+      }
+     ],
+     "optionRules": []
+    },
+    {
+     "id": "sorcerer",
+     "name": "Sorcerer",
+     "role": "character",
+     "faction": "Heretic Astartes",
+     "keywords": [
+      "Chaos",
+      "Character",
+      "Grenades",
+      "Infantry",
+      "Leader",
+      "Psyker",
+      "Sorcerer",
+      "Warlord"
+     ],
+     "image": "csm_sorcerer",
+     "baseSize": "40mm",
+     "profile": {
+      "M": "6\"",
+      "T": "5",
+      "Sv": "3+",
+      "InSv": "—",
+      "W": "4",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Bolt pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Infernal Gaze - witchfire",
+       "range": "24\"",
+       "A": "D6",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "D3",
+       "kw": [
+        "Psychic"
+       ]
+      },
+      {
+       "name": "Infernal Gaze - focused witchfire",
+       "range": "24\"",
+       "A": "D6",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-2",
+       "D": "D3",
+       "kw": [
+        "Devastating Wounds",
+        "Hazardous",
+        "Psychic"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Force weapon",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-1",
+       "D": "D3",
+       "kw": [
+        "Psychic"
+       ]
+      }
+     ],
+     "coreAbilities": [],
+     "factionAbilities": [
+      "Dark Pacts"
+     ],
+     "abilities": [
+      {
+       "name": "Prescience (Psychic)",
+       "text": "While this model is leading a unit, each time an attack targets that unit, subtract 1 from the Hit roll.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Gift of Chaos (Psychic)",
+       "text": "Each time this model is selected to shoot or fight, after resolving its attacks, select one enemy unit hit by one or more of those attacks that had the [PSYCHIC] ability. That unit must take a Leadership test: if that test is failed, that unit suffers D3 mortal wounds.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 65
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "chosen",
+      "legionaries",
+      "nemesis_claw",
+      "red_corsairs_raiders"
+     ],
+     "composition": "",
+     "options": [],
+     "optionRules": []
+    },
+    {
+     "id": "sorcerer_term",
+     "name": "Sorcerer in Terminator Armour",
+     "role": "character",
+     "faction": "Heretic Astartes",
+     "keywords": [
+      "Chaos",
+      "Character",
+      "Infantry",
+      "Leader",
+      "Psyker",
+      "Sorcerer in Terminator Armour",
+      "Terminator",
+      "Warlord"
+     ],
+     "image": "csm_sorcerer_term",
+     "baseSize": "40mm",
+     "profile": {
+      "M": "5\"",
+      "T": "6",
+      "Sv": "2+",
+      "InSv": "4+",
+      "W": "5",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Combi-bolter",
+       "range": "24\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Rapid Fire 2"
+       ]
+      },
+      {
+       "name": "Combi-weapon",
+       "range": "24\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Anti-INFANTRY 4+",
+        "Devastating Wounds",
+        "Rapid Fire 1"
+       ]
+      },
+      {
+       "name": "Infernal Gaze - witchfire",
+       "range": "24\"",
+       "A": "D6",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "D3",
+       "kw": [
+        "Psychic"
+       ]
+      },
+      {
+       "name": "Infernal Gaze - focused witchfire",
+       "range": "24\"",
+       "A": "D6",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-2",
+       "D": "D3",
+       "kw": [
+        "Devastating Wounds",
+        "Hazardous",
+        "Psychic"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Force weapon",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-1",
+       "D": "D3",
+       "kw": [
+        "Psychic"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Deep Strike"
+     ],
+     "factionAbilities": [
+      "Dark Pacts"
+     ],
+     "abilities": [
+      {
+       "name": "Warptime (Psychic)",
+       "text": "While this model is leading a unit, you can re-roll Advance and Charge rolls made for that unit.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Death Hex (Psychic)",
+       "text": "At the start of your Shooting phase, one Psyker with this ability can use it. If it does, select one enemy unit within 12\" of and visible to that PSYKER and roll one D6: on a 1, that PSYKER’s unit suffers D3 mortal wounds; on a 2+, until the start of your next Movement phase, each time an attack targets that enemy unit, improve the Armour Penetration characteristic of that attack by 1.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Chaos Familiar",
+       "text": "Once per battle, when an attack is allocated to the bearer, you can change the Damage characteristic to 0.",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 85
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "chaos_terminators"
+     ],
+     "composition": "",
+     "options": [
+      {
+       "id": "combi",
+       "type": "toggle",
+       "label": "Combi-weapon (replace combi-bolter)"
+      },
+      {
+       "id": "familiar",
+       "type": "toggle",
+       "label": "Chaos familiar"
+      }
+     ],
+     "optionRules": []
+    },
+    {
+     "id": "traitor_enforcer",
+     "name": "Traitor Enforcer",
+     "role": "character",
+     "faction": "Heretic Astartes",
+     "keywords": [
+      "Chaos",
+      "Character",
+      "Damned",
+      "Grenades",
+      "Infantry",
+      "Leader",
+      "Traitor Enforcer"
+     ],
+     "image": "csm_traitor_enforcer",
+     "baseSize": "32mm",
+     "profile": {
+      "M": "6\"",
+      "T": "3",
+      "Sv": "5+",
+      "InSv": "5+",
+      "W": "3",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Bolt pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Power fist",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-2",
+       "D": "2",
+       "kw": []
+      },
+      {
+       "name": "Ogryn weapons",
+       "range": "Melee",
+       "A": "5",
+       "skill": "3+",
+       "S": "7",
+       "AP": "-1",
+       "D": "2",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [],
+     "factionAbilities": [
+      "Dark Pacts"
+     ],
+     "abilities": [
+      {
+       "name": "Brutal Example",
+       "text": "Once per turn, while this unit is leading a unit and contains a TRAITOR ENFORCER model, you can target that unit with the Fire Overwatch Stratagem for 0CP, and can do so even if you have already targeted a different unit from your army with that Stratagem this turn. Each time you use this ability, one Bodyguard model in that unit is destroyed.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Mutated Bodyguard",
+       "text": "While this unit contains a Traitor Ogryn model, CHARACTER models in this unit have the Feel No Pain 4+ ability.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 2,
+       "pts": 70
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "traitor_guardsmen"
+     ],
+     "composition": "",
+     "options": [],
+     "optionRules": []
+    },
+    {
+     "id": "traitor_guardsmen",
+     "name": "Traitor Guardsmen Squad",
+     "role": "infantry",
+     "faction": "Heretic Astartes",
+     "keywords": [
+      "Chaos",
+      "Damned",
+      "Grenades",
+      "Infantry",
+      "Traitor Guardsmen Squad"
+     ],
+     "image": "csm_traitor_guardsmen",
+     "baseSize": "25mm",
+     "profile": {
+      "M": "6\"",
+      "T": "3",
+      "Sv": "5+",
+      "InSv": "—",
+      "W": "1",
+      "OC": "2",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Corrupted pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "4",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Boltgun",
+       "range": "24\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Rapid Fire 1"
+       ]
+      },
+      {
+       "name": "Lasgun",
+       "range": "24\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Rapid Fire 1"
+       ]
+      },
+      {
+       "name": "Flamer",
+       "range": "12\"",
+       "A": "D6",
+       "skill": "N/A",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Ignores Cover",
+        "Torrent"
+       ]
+      },
+      {
+       "name": "Plasma gun - standard",
+       "range": "24\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "7",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Rapid Fire 1"
+       ]
+      },
+      {
+       "name": "Plasma gun - supercharge",
+       "range": "24\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "8",
+       "AP": "-3",
+       "D": "2",
+       "kw": [
+        "Hazardous",
+        "Rapid Fire 1"
+       ]
+      },
+      {
+       "name": "Meltagun",
+       "range": "12\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "9",
+       "AP": "-4",
+       "D": "D6",
+       "kw": [
+        "Melta 2"
+       ]
+      },
+      {
+       "name": "Cultist sniper rifle",
+       "range": "36\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "4",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Heavy",
+        "Precision"
+       ]
+      },
+      {
+       "name": "Cultist grenade launcher - frag",
+       "range": "24\"",
+       "A": "D3",
+       "skill": "4+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Blast"
+       ]
+      },
+      {
+       "name": "Cultist grenade launcher - krak",
+       "range": "24\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "9",
+       "AP": "-2",
+       "D": "D3",
+       "kw": []
+      }
+     ],
+     "melee": [
+      {
+       "name": "Chainsword",
+       "range": "Melee",
+       "A": "3",
+       "skill": "4+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Power weapon",
+       "range": "Melee",
+       "A": "2",
+       "skill": "4+",
+       "S": "4",
+       "AP": "-2",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Close combat weapon",
+       "range": "Melee",
+       "A": "1",
+       "skill": "4+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [],
+     "factionAbilities": [
+      "Dark Pacts"
+     ],
+     "abilities": [
+      {
+       "name": "Twisted Defence Force",
+       "text": "While this unit is within range of an objective, this unit has +1 Sv against ranged attacks.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 10,
+       "pts": 65
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "",
+     "options": [
+      {
+       "id": "special",
+       "type": "count",
+       "label": "Special weapon (grenade launcher/flamer/melta)",
+       "max": 3
+      },
+      {
+       "id": "sgt_melee",
+       "type": "choice",
+       "label": "Traitor Sergeant melee",
+       "choices": [
+        {
+         "id": "ccw",
+         "label": "Close combat weapon",
+         "pts": 0
+        },
+        {
+         "id": "chainsword",
+         "label": "Chainsword",
+         "pts": 0
+        },
+        {
+         "id": "power",
+         "label": "Power weapon",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "sgt_bolt",
+       "type": "toggle",
+       "label": "Sergeant: boltgun"
+      }
+     ],
+     "optionRules": []
+    },
+    {
+     "id": "vashtorr",
+     "name": "Vashtorr the Arkifane",
+     "role": "epic hero",
+     "faction": "Heretic Astartes",
+     "keywords": [
+      "Chaos",
+      "Character",
+      "Daemon",
+      "Epic Hero",
+      "Fly",
+      "Monster",
+      "Vashtorr the Arkifane",
+      "Warlord"
+     ],
+     "image": "csm_vashtorr",
+     "baseSize": "80mm",
+     "profile": {
+      "M": "12\"",
+      "T": "10",
+      "Sv": "2+",
+      "InSv": "4+",
+      "W": "14",
+      "OC": "3",
+      "Ld": "6+"
+     },
+     "damaged": {
+      "threshold": 4,
+      "text": "While this model has 1-4 wounds remaining, each time this model makes an attack, subtract 1 from the Hit roll."
+     },
+     "ranged": [
+      {
+       "name": "Vashtorr's claw",
+       "range": "12\"",
+       "A": "D6",
+       "skill": "N/A",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Anti-VEHICLE 4+",
+        "Torrent"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Vashtorr's hammer - strike",
+       "range": "Melee",
+       "A": "6",
+       "skill": "2+",
+       "S": "14",
+       "AP": "-3",
+       "D": "3",
+       "kw": [
+        "Anti-VEHICLE 4+",
+        "Devastating Wounds"
+       ]
+      },
+      {
+       "name": "Vashtorr's hammer - sweep",
+       "range": "Melee",
+       "A": "12",
+       "skill": "2+",
+       "S": "8",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Anti-VEHICLE 4+",
+        "Devastating Wounds"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D3",
+      "Deep Strike"
+     ],
+     "factionAbilities": [
+      "Dark Pacts"
+     ],
+     "abilities": [
+      {
+       "name": "Unholy Mechanisms (Aura)",
+       "text": "While a friendly DAEMON VEHICLE unit is within 6\" of this model, add 2 to the Strength characteristic of weapons equipped by models in that unit.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Reorder Reality",
+       "text": "Each time an enemy unit within 18\" of this model targets this model, subtract 1 from the Hit roll and, until the end of the phase, that enemy unit’s ranged weapons have the [HAZARDOUS] ability.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Indentured Daemon Engines",
+       "text": "While this model is within 3\" of one or more friendly DAEMON VEHICLE units, this model has the Lone Operative ability.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 220
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "",
+     "options": [],
+     "optionRules": []
+    },
+    {
+     "id": "venomcrawler",
+     "name": "Venomcrawler",
+     "role": "walker",
+     "faction": "Heretic Astartes",
+     "keywords": [
+      "Chaos",
+      "Daemon",
+      "Vehicle",
+      "Venomcrawler",
+      "Walker"
+     ],
+     "image": "csm_venomcrawler",
+     "baseSize": "100mm",
+     "profile": {
+      "M": "12\"",
+      "T": "9",
+      "Sv": "3+",
+      "InSv": "5+",
+      "W": "9",
+      "OC": "3",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Excruciator cannon",
+       "range": "36\"",
+       "A": "6",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-1",
+       "D": "2",
+       "kw": []
+      }
+     ],
+     "melee": [
+      {
+       "name": "Soulflayer tendrils and claws",
+       "range": "Melee",
+       "A": "6",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-1",
+       "D": "2",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D3"
+     ],
+     "factionAbilities": [
+      "Dark Pacts"
+     ],
+     "abilities": [
+      {
+       "name": "Soul Eater",
+       "text": "At the end of the Fight phase, if one or more attacks made by this model this phase destroyed one or more enemy units, until the end of the battle, add 1 to the Attacks characteristic of this model’s weapons.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 120,
+       "ptsLater": 130
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [],
+     "composition": "",
+     "options": [],
+     "optionRules": []
+    },
+    {
+     "id": "warpsmith",
+     "name": "Warpsmith",
+     "role": "character",
+     "faction": "Heretic Astartes",
+     "keywords": [
+      "Chaos",
+      "Character",
+      "Infantry",
+      "Leader",
+      "Warlord",
+      "Warpsmith"
+     ],
+     "image": "csm_warpsmith",
+     "baseSize": "60 x 35.5mm",
+     "profile": {
+      "M": "6\"",
+      "T": "5",
+      "Sv": "2+",
+      "InSv": "—",
+      "W": "4",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Flamer tendril",
+       "range": "12\"",
+       "A": "D6",
+       "skill": "N/A",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Ignores Cover",
+        "Pistol",
+        "Torrent"
+       ]
+      },
+      {
+       "name": "Melta tendril",
+       "range": "6\"",
+       "A": "1",
+       "skill": "2+",
+       "S": "8",
+       "AP": "-4",
+       "D": "D3",
+       "kw": [
+        "Melta 1",
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Plasma pistol - standard",
+       "range": "12\"",
+       "A": "1",
+       "skill": "2+",
+       "S": "7",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Plasma pistol - supercharge",
+       "range": "12\"",
+       "A": "1",
+       "skill": "2+",
+       "S": "8",
+       "AP": "-3",
+       "D": "2",
+       "kw": [
+        "Hazardous",
+        "Pistol"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Forge weapon",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Anti-VEHICLE 4+"
+       ]
+      }
+     ],
+     "coreAbilities": [],
+     "factionAbilities": [
+      "Dark Pacts"
+     ],
+     "abilities": [
+      {
+       "name": "Warpsmith",
+       "text": "While this model is within 3\" of one or more friendly HERETIC ASTARTES VEHICLE units, this model has the Lone Operative ability.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Master of Mechanisms",
+       "text": "In your Command phase, select one friendly HERETIC ASTARTES VEHICLE model within 3\" of this model. That VEHICLE model regains up to D3 lost wounds and, until the start of your next Command phase, each time that VEHICLE makes an attack, add 1 to the Hit roll. Each model can only be selected for this ability once per Command phase.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Enrage Machine Spirits",
+       "text": "At the end of your Movement phase, select one enemy VEHICLE unit within 12\" of this model. That unit must take a Battle-shock test.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 65
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "chosen",
+      "havocs",
+      "legionaries",
+      "nemesis_claw",
+      "red_corsairs_raiders"
+     ],
+     "composition": "",
+     "options": [],
+     "optionRules": []
+    },
+    {
+     "id": "warp_talons",
+     "name": "Warp Talons",
+     "role": "infantry",
+     "faction": "Heretic Astartes",
+     "keywords": [
+      "Chaos",
+      "Daemon",
+      "Fly",
+      "Grenades",
+      "Infantry",
+      "Jump Pack",
+      "Warp Talons"
+     ],
+     "image": "csm_warp_talons",
+     "baseSize": "32mm",
+     "profile": {
+      "M": "12\"",
+      "T": "5",
+      "Sv": "3+",
+      "InSv": "5+",
+      "W": "2",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [],
+     "melee": [
+      {
+       "name": "Warp claws",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Twin-linked"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Deep Strike"
+     ],
+     "factionAbilities": [
+      "Dark Pacts"
+     ],
+     "abilities": [
+      {
+       "name": "Warp Strike",
+       "text": "At the end of the Fight phase, if this unit destroyed one or more enemy units this phase and is not within Engagement Range of one or more enemy units, you can remove this unit from the battlefield and place it into Strategic Reserves.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 5,
+       "pts": 130,
+       "ptsLater": 140
+      },
+      {
+       "models": 10,
+       "pts": 290,
+       "ptsLater": 300
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [],
+     "composition": "",
+     "options": [],
+     "optionRules": []
+    }
+   ],
+   "terms": [
+    "Dark Pact",
+    "Dark Pacts",
+    "Marks of Chaos",
+    "Mark of Chaos",
+    "Icon",
+    "Chaos icon",
+    "Soul Forge",
+    "Desperate Pact",
+    "Focus of Hatred",
+    "Vendetta",
+    "Twisted Doctrine",
+    "Debt to the Soul Forge",
+    "Dark Rewards",
+    "Experimental Augmentations",
+    "Tyrannical Motivation"
    ]
   }
  }

@@ -5,6 +5,7 @@
   "bsdata: catalogue file names in BSData/wh40k-11e that hold the army's units and rules (include its Library file if it has one).",
   "packVersion: the newest official Faction Pack version. wahapediaVersion: the version the Wahapedia export carries. When they differ, Wahapedia lags and BSData text wins where the two disagree (status PACK_AHEAD, reviewed by hand)."
  ],
+ "chaosSpaceMarines":{ "wahapedia": ["CSM", "CD"], "bsdata": ["Chaos - Chaos Space Marines.json"], "packVersion": "1.3", "wahapediaVersion": "1.2" },
  "worldEaters":     { "wahapedia": ["WE", "CD"],  "bsdata": ["Chaos - World Eaters.json"], "packVersion": "1.3", "wahapediaVersion": "1.2" },
  "deathGuard":      { "wahapedia": ["DG", "CD"],  "bsdata": ["Chaos - Death Guard.json"], "packVersion": "1.3", "wahapediaVersion": "1.2" },
  "thousandSons":    { "wahapedia": ["TS", "CD"],  "bsdata": ["Chaos - Thousand Sons.json"], "packVersion": "1.3", "wahapediaVersion": "1.2" },

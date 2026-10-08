@@ -1,7 +1,8 @@
 # Rules text: sources and which one wins
 
-Applies to every army in the app: World Eaters, Death Guard, Thousand Sons,
-Tyranids, Adepta Sororitas (with Imperial Agents), and any army added later.
+Applies to every army in the app: Chaos Space Marines, World Eaters, Death
+Guard, Thousand Sons, Tyranids, Adepta Sororitas (with Imperial Agents), and
+any army added later.
 
 Current to: the 30 Sep 2026 update (MFM v1.5; Faction Packs World Eaters,
 Death Guard, Thousand Sons v1.3; Tyranids and Adepta Sororitas v1.2 with no
@@ -68,3 +69,12 @@ Found by `bsdelta.py` across BSData's import (`374f505..HEAD`) plus reviews:
 - Psychostatic Disruption (Tyranids): BSData only; "(Aura)" in the name?
 - Core stratagems (`gameRules.coreStratagems`) are still paraphrases.
 - Myphitic Blight-haulers: no 11th-edition datasheet text found.
+- Chaos Space Marines (added 2026-10-08, MFM v1.5): Faction Pack exact version
+  not confirmed in a text source (`factions.json` carries packVersion 1.3 /
+  wahapediaVersion 1.2 like the other Chaos armies — confirm against the pack).
+  Raid Leader (Huron's Marauders): Wahapedia 11e rewords with "(Core Rules,
+  18.06)"; kept the 11e assault-disembark wording without the citation
+  (`overrides.json`). Creations of Bile augmentation table: Wahapedia draws the
+  D6 column as images, transcribed 1–6 by hand. Cabal of Chaos / Devotees of
+  Destruction / Murdertalon Raiders carry only 3 stratagems in the Wahapedia
+  export (likely a partial export — confirm the full set against the app).

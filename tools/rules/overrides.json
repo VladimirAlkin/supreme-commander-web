@@ -9,6 +9,22 @@
  ],
  "replace": [
   {
+   "f": "chaosSpaceMarines",
+   "cat": "det-rule",
+   "det": "Creations of Bile",
+   "name": "Experimental Augmentations",
+   "text": "At the start of the battle, select which augmentations are active for HERETIC ASTARTES INFANTRY models (excluding DAMNED models) from your army until the end of the battle. To do so, either select one from the list below, or randomly determine two by rolling two D6. If Fabius Bile is your WARLORD, when randomly determining your augmentations, you can re-roll one or both of the dice. Duplicated augmentations have no additional effect. ■ 1 Cholinergic Accelerants: Add 1 to the Attacks characteristic of melee weapons equipped by this model. ■ 2 Hyperadrenal Infusion: Add 2\" to the Move characteristic of this model. ■ 3 Paraneural Reactions: Improve the Weapon Skill characteristic of melee weapons equipped by this model by 1. ■ 4 Supracutaneous Chitination: Improve the Toughness characteristic of this model by 1. ■ 5 Macrotensile Sinews: Add 1 to the Strength characteristic of melee weapons equipped by this model. ■ 6 Ophthalmic Enhancement: Improve the Ballistic Skill characteristic of ranged weapons equipped by this model by 1.",
+   "why": "Wahapedia draws the D6 roll column as images ([[IMG]]). Transcribed the D6 results 1–6 in order from the Faction Pack augmentation table."
+  },
+  {
+   "f": "chaosSpaceMarines",
+   "cat": "enh",
+   "det": "Huron’s Marauders",
+   "name": "Raid Leader",
+   "text": "HERETIC ASTARTES model only (excluding Damned models). Each time the bearer’s unit is set up after disembarking from a Transport that has made a Normal move this turn, the bearer’s unit makes an assault disembark move for that disembarkation.",
+   "why": "Wahapedia 11e reworded with a cross-reference '(Core Rules, 18.06)'. The CSM Faction Pack prints the assault-disembark wording without the citation; 10e codex text was the older 'still eligible to declare a charge'. Kept the 11e mechanic, dropped the citation."
+  },
+  {
    "f": "thousandSons",
    "cat": "strat",
    "det": "Rubricae Phalanx",

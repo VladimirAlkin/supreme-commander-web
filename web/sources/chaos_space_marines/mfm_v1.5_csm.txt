@@ -1,0 +1,80 @@
+# MFM v1.5 — Chaos Space Marines (captured 2026-10-08 via built-in browser)
+# Source: https://mfm.warhammer-community.com/en/chaos-space-marines
+# "Show Legends" adds NO entries to the CSM points list -> current roster = list below.
+
+## UNITS (points; ▲/▼ = change vs prior MFM; steps = 1st-2nd vs 3rd+)
+ABADDON THE DESPOILER        1: 300 (+5)                 LEADER: Chaos Terminator Squad, Chosen
+ACCURSED CULTISTS            8:90  16:185(-10)  | 3rd+ 8:110 16:205(-10)
+CHAOS BIKERS                 3:80(+10)  6:150(+20)
+CHAOS LAND RAIDER            1:220  | 3rd+ 1:240
+CHAOS LORD                   1:95(+5)                    LEADER: Chosen, Legionaries, Nemesis Claw, Red Corsairs Raiders
+CHAOS LORD IN TERMINATOR ARMOUR  1:90(+5)                LEADER: Chaos Terminator Squad
+CHAOS LORD WITH JUMP PACK    1:85(+5)                    LEADER: Raptors
+CHAOS PREDATOR ANNIHILATOR   1:140(-5)  | 3rd+ 1:150(-5)
+CHAOS PREDATOR DESTRUCTOR    1:145(-5)  | 3rd+ 1:155(-5)
+CHAOS RHINO                  1:65  | 4th+ 1:75           [Dedicated Transport]
+CHAOS SPAWN                  2:60
+CHAOS TERMINATOR SQUAD       5:185(+10) 10:370(+20) | 3rd+ 5:215 10:400
+CHAOS VINDICATOR             1:180(-5)  | 3rd+ 1:190(-5)
+CHOSEN                       5:140(+5) 10:280(+10) | 3rd+ 5:150(+5) 10:290(+10)
+CULTIST FIREBRAND            1:45  | 3rd+ 1:50           LEADER: Accursed Cultists, Cultist Mob
+CULTIST MOB                  10:50  20:90
+CYPHER                       1:95(+5)
+DARK APOSTLE                 3:70(+5)                    LEADER: Accursed Cultists, Chosen, Cultist Mob, Legionaries, Nemesis Claw, Red Corsairs Raiders
+DARK COMMUNE                 5:90  | 3rd+ 5:100          LEADER: Accursed Cultists, Cultist Mob
+DEFILER                      1:300  | 2nd+ 1:350         WARGEAR: per Heavy Reaper Autocannon 15; per Hades Lascannon 15
+FABIUS BILE                  2:110(+10)                  LEADER: Accursed Cultists, Chosen, Cultist Mob, Legionaries, Red Corsairs Raiders
+FELLGOR BEASTMEN             10:60
+FORGEFIEND                   1:155(-5) | 3rd+ 1:165(-5)  WARGEAR: per Ectoplasma cannon 5
+HAARKEN WORLDCLAIMER         1:95(+5)                    LEADER: Raptors
+HAVOCS                       5:135(+10) | 3rd+ 5:145(+10)
+HELBRUTE                     1:125(-5)
+HELDRAKE                     1:175
+HERETIC ASTARTES DAEMON PRINCE          1:155(-10)
+HERETIC ASTARTES DAEMON PRINCE WITH WINGS 1:170(-10)
+HURON BLACKHEART             1:135(+5)                   LEADER: Chaos Terminator Squad, Chosen, Legionaries, Red Corsairs Raiders
+KHORNE LORD OF SKULLS        1:450  | 2nd+ 1:475
+KRAVEK MORNE                 1:130(+10)                  LEADER: Chaos Terminator Squad, Mutilators, Obliterators
+LEGIONARIES                  5:95(+5) 10:180(+10)
+LORD DISCORDANT ON HELSTALKER 1:155(-5)
+MASTER OF EXECUTIONS         1:75(+5)                    SUPPORT: Chosen, Legionaries, Nemesis Claw, Red Corsairs Raiders
+MASTER OF POSSESSION         1:65(+5)                    LEADER: Chosen, Legionaries, Nemesis Claw, Possessed, Red Corsairs Raiders
+MASTERS OF THE MAELSTROM     5:150(+5)                   SUPPORT: Chosen, Legionaries, Red Corsairs Raiders
+MAULERFIEND                  1:125(-5)
+MUTILATORS                   3:165  | 3rd+ 3:185(+10)
+NEMESIS CLAW                 5:105(+5) 10:190(+10)
+NOCTILITH CROWN              1:125                       [Fortification]
+OBLITERATORS                 2:160  | 3rd+ 2:170
+POSSESSED                    5:130(+10) 10:260(+10) | 3rd+ 5:150(+20) 10:280(+20)
+RAPTORS                      5:115(+5) 10:225(+15) | 3rd+ 5:125(+5) 10:235(+15)
+RED CORSAIRS RAIDERS         5:120(+10) 10:220(+10) | 3rd+ 5:130(+10) 10:230(+10)
+RED CORSAIRS REAVE-CAPTAIN   1:65(+5)                    LEADER: Chosen, Legionaries, Nemesis Claw, Red Corsairs Raiders
+SORCERER                     1:65(+5)                    LEADER: Chosen, Legionaries, Nemesis Claw, Red Corsairs Raiders
+SORCERER IN TERMINATOR ARMOUR 1:85(+5)                   LEADER: Chaos Terminator Squad
+TRAITOR ENFORCER             2:70                        LEADER: Traitor Guardsmen Squad
+TRAITOR GUARDSMEN SQUAD      10:65(-5)
+VASHTORR THE ARKIFANE        1:220
+VENOMCRAWLER                 1:120  | 3rd+ 1:130
+WARPSMITH                    1:65(+5)                    LEADER: Chosen, Havocs, Legionaries, Nemesis Claw, Red Corsairs Raiders
+WARP TALONS                  5:130(+5) 10:290(+10) | 3rd+ 5:140(+5) 10:300(+10)
+# Total current datasheets: 54
+
+## DETACHMENTS (DP | Force Disposition(s) | Enhancements pts)  — enhancement pts are AUTHORITATIVE (MFM), supersede Wahapedia 28/09
+CABAL OF CHAOS          1DP | Disruption                      | Conduit of Chaos 20, Touched by the Warp 10
+CHAOS CULT              2DP | Priority Assets                 | Amulet of Tainted Vigour 20, Cultist's Brand 30, Incendiary Goad 25, Warped Foresight 10
+CREATIONS OF BILE       3DP | Take and Hold, Purge the Foe    | Helm of All-Seeing 25, Living Carapace 15, Prime Test Subject 35, Surgical Precision 10   [UPDATED: FD changed]
+CULT OF THE ARKIFANE    2DP | Priority Assets                 | Crown of Worms 15, Cybinfernal Font 20, Mark of the Soul Forges 20, Wyredjinn 25
+DECEPTORS               2DP | Disruption                      | Cursed Fang 10, Falsehood 10, Shroud of Obfuscation 15, Soul Link 5
+DEVOTEES OF DESTRUCTION 1DP | Priority Assets                 | Eye of Oblivion 20, Pact of Destruction 15
+DREAD TALONS            2DP | Disruption                      | Eater of Dread 15, Night's Shroud 10, Warp-Fuelled Thrusters 20, Willbreaker 10
+FELLHAMMER SIEGE-HOST   2DP | Take and Hold                   | Bastion Plate 10, Iron Artifice 10, Ironbound Enmity 15, Warp Tracer 20
+HURON'S MARAUDERS       3DP | Disruption, Purge the Foe       | Dread Reputation 25, Eager for Bloodshed 30, Raid Leader 20, Voice of the Tyrant 25   [UPDATED: FD changed]
+MURDERTALON RAIDERS     1DP | Reconnaissance | UNIQUE: NIGHTMARE | Pact of Cursed Pinions 20 (LEADER: Warp Talons), Shadowcowl Talisman 20
+NIGHTMARE HUNT          2DP | Disruption     | UNIQUE: NIGHTMARE | Greyveil Hex 25, Sorrowscent Vulture 35, Terrorglut Parasite 20 (LEADER: Warp Talons), Warp-Fuelled Thrusters 20
+PACTBOUND ZEALOTS       3DP | Disruption, Priority Assets     | Eye of Tzeentch 15, Intoxicating Elixir 15, Orbs of Unlife 15, Talisman of Burning Blood 15   [UPDATED: FD changed]
+RENEGADE RAIDERS        3DP | Priority Assets, Reconnaissance | Despot's Claim 15, Dread Reaver 15, Mark of the Hound 25, Tyrant's Lash 20   [UPDATED: FD changed]
+RENEGADE WARBAND        2DP | Priority Assets                 | Empyric Symbiote 15, Eyes of the Hunter 15, Fratricidal Trophies 5, Weaponised Hatred 35
+SOULFORGED WARPACK      2DP | Take and Hold                   | Forge's Blessing 20, Invigorated Mechatendrils 15, Soul Harvester 15, Tempting Addendum 40
+VETERANS OF THE LONG WAR 2DP | Take and Hold                  | Eager for Vengeance 20, Eye of Abaddon 15, Mark of Legend 10, Warmaster's Gift 15
+WARPSTRIKE CHAMPIONS    2DP | Disruption                      | Akshur's Binding Runes 20, Eye of the Warp 15, Infernal Fulgurite 20, Tzagulla 25
+# Total detachments: 17  (Wahapedia's extra 3 — Champions of Chaos, Infernal Reavers, Underdeck Uprising — are Combat Patrol/boxed, EXCLUDED)

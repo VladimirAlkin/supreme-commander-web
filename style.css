@@ -1135,3 +1135,43 @@ html:not(.m) .seg.wide { max-width: 560px; }
 .hl-kw { color: #b9cfe2; letter-spacing: .01em; }
 .hl-d { color: var(--fg); }
 .dim .hl-d, .pick-desc .hl-d { color: inherit; }
+
+/* ===== Chaos Space Marines ===== */
+/* Slaanesh — the new god tone (kwfx shimmer + glow), matching the tone system */
+.kwfx.tone-slaanesh { border-color: rgba(227, 95, 166, .55); color: #f08ec4;
+  background-image: linear-gradient(100deg, #e35fa6 0%, #e35fa6 30%, #ffe3f2 40%, #e35fa6 50%, #f3a6d2 62%, #e35fa6 72%, #e35fa6 100%);
+  animation-name: kwwave, kwglowSl; }
+@keyframes kwglowSl { 0%, 100% { box-shadow: 0 0 0 rgba(227, 95, 166, 0); } 50% { box-shadow: 0 0 6px rgba(227, 95, 166, .4); } }
+.hisum.tone-slaanesh { border-color: rgba(227, 95, 166, .25); background: rgba(227, 95, 166, .05); }
+@media (prefers-reduced-motion: reduce) { .kwfx.tone-slaanesh { -webkit-text-fill-color: #f08ec4; } }
+
+/* Mark badge: a faint eight-point rune breathes behind the god's name */
+.kwfx.mark { position: relative; }
+.kwfx.mark::before { content: '✛'; position: absolute; left: -11px; top: 50%; transform: translateY(-50%); font-size: .7em;
+  -webkit-text-fill-color: currentColor; opacity: .5; animation: markRune 7s linear infinite; animation-delay: var(--d, 0s); will-change: transform; }
+@keyframes markRune { to { transform: translateY(-50%) rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .kwfx.mark::before { animation: none; } }
+
+/* Mark picker chips, tinted by god so the choice reads at a glance */
+.cchip.tone-gore[aria-checked="true"]     { border-color: #c0392b; background: color-mix(in srgb, #c0392b 20%, #070203); }
+.cchip.tone-green[aria-checked="true"]    { border-color: #8fae3a; background: color-mix(in srgb, #8fae3a 20%, #070203); }
+.cchip.tone-arcane[aria-checked="true"]   { border-color: #3fb6c9; background: color-mix(in srgb, #3fb6c9 20%, #070203); }
+.cchip.tone-slaanesh[aria-checked="true"] { border-color: #e35fa6; background: color-mix(in srgb, #e35fa6 22%, #070203); }
+.cchip.tone-gold[aria-checked="true"]     { border-color: #b88a3f; background: color-mix(in srgb, #b88a3f 20%, #070203); }
+.cchip.tone-gore .num, .cchip.tone-gore { }
+
+/* Dark Pacts reference panel */
+.darkpact-ref .dpchoices { display: grid; gap: 8px; margin: 8px 0 2px; }
+.dpchoice { display: flex; flex-direction: column; gap: 2px; padding: 8px 10px; border-radius: 10px;
+  border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent); background: color-mix(in srgb, var(--accent) 7%, transparent); }
+.dpchoice b { color: var(--accent); letter-spacing: .03em; }
+
+/* Play reminder (Focus of Hatred / Vendetta): a card that dissolves into warp motes when dismissed */
+.panel.remind { border-color: color-mix(in srgb, var(--accent) 45%, transparent); box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 18%, transparent); position: relative; overflow: hidden; }
+.panel.remind::after { content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(130% 90% at 50% -10%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 60%);
+  opacity: .5; animation: remPulse 3.4s ease-in-out infinite; will-change: opacity; }
+@keyframes remPulse { 0%, 100% { opacity: .3; } 50% { opacity: .6; } }
+.panel.remind.dissolving { animation: remDissolve .56s cubic-bezier(.4, 0, .5, 1) forwards; transform-origin: 50% 50%; }
+@keyframes remDissolve { 0% { opacity: 1; transform: none; filter: blur(0); } 100% { opacity: 0; transform: scale(.94) translateY(-6px); filter: blur(3px); } }
+@media (prefers-reduced-motion: reduce) { .panel.remind::after { animation: none; opacity: .4; } .panel.remind.dissolving { animation: none; opacity: 0; } }
