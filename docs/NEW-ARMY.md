@@ -3,6 +3,11 @@
 The order matters: structure first, text from the pipeline, gates last.
 Every step below exists because skipping it broke something before.
 
+This file covers data and rules text. Before building, the army gets a
+proposal the owner approves (data report, Play panels and unit helpers,
+badges, terms, 2–3 palettes as hex text, Play effects, allies, images):
+project doc `claude/army-builder/new-army-prompt.md`.
+
 ## 1. Structure (by hand, through `tools/lib.js` `writeData`)
 
 - `factions[]` entry and `factionData.<id>`: `armyRules`, `detachments`
