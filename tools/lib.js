@@ -23,7 +23,7 @@ function writeData(data) {
   return out.length;
 }
 
-/* Keys beginning with "_" are read-only context shown to the text author.
+/* Keys beginning with "_" are read-only context that identifies the entry.
    They are never merged back, so points, ids, CP and mechanics cannot be
    changed from a slot file. */
 const isCtx = k => k.startsWith('_');

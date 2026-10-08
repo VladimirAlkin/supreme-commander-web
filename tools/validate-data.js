@@ -243,6 +243,28 @@ for (const f of L.factions(data)) {
   }
 }
 
+/* ---- official-app wording --------------------------------------------
+   text/official.json pins fields to wording copied from the official app.
+   Any other source (a rebuild from Wahapedia or BSData, a slot edit) that
+   changes one of them is a rollback of the best text we have. */
+const Official = require('./official');
+for (const e of Official.load()) {
+  const r = Official.resolve(data, e);
+  if (r.error) { err('E-OFFICIAL', 'text/official.json', `${r.error} — renamed or removed? fix the entry, do not delete it`); continue; }
+  if (!Official.same(r.obj[r.field], e.text))
+    err('E-OFFICIAL', r.where, `differs from the official app wording in text/official.json (${e.source}) — run "node tools/rules/fill-slots.js --official-only" then merge`);
+}
+
+/* ---- third-party rewordings ------------------------------------------
+   Wahapedia rewrites some rules into its own harmonised phrasing that is
+   not printed in the official app: "(Core Rules, 18.06)" cross-references
+   and the "Explosives Stratagem" name. The codex wording (Wahapedia's 10e
+   export, usually equal to BSData) is what the app shows. */
+const HARMONISED = /\(Core Rules,|Explosives Stratagem/;
+for (const e of entries)
+  if (typeof e.text === 'string' && HARMONISED.test(e.text))
+    err('E-REWORDED', e.where, `Wahapedia's own rewording ("${e.text.match(HARMONISED)[0]}") — use the codex/app wording (see docs/RULES-SOURCES.md)`);
+
 /* ---- what is still outstanding --------------------------------------- */
 const outstanding = entries.filter(e => typeof e.text === 'string' && !e.text.trim()).length;
 

@@ -4,7 +4,7 @@
   "factionName": "Thousand Sons",
   "dataVersion": "2026-10-04-mfm15-fp13",
   "generatedAt": "2026-10-08",
-  "howTo": "docs/TEXT-PIPELINE.md",
+  "howTo": "docs/RULES-SOURCES.md",
   "rules": [
    "Edit ONLY the plain text fields. Keys starting with _ are context and are ignored.",
    "Plain text only: no HTML, no markdown, no ** or [] markup. Highlighting is automatic.",
@@ -162,7 +162,7 @@
       "Fight"
      ],
      "when": "Your opponent’s Shooting phase or the Fight phase, just after an enemy unit has selected its targets.",
-     "target": "One Thousand Sons or SCINTILLATING LEGIONS unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+     "target": "One THOUSAND SONS or SCINTILLATING LEGIONS unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
      "effect": "Until the end of the phase, each time an attack targets your unit, subtract 1 from the Hit roll.",
      "restrictions": null
     },
@@ -254,7 +254,7 @@
    "_name": "Warpmeld Pact",
    "rule": {
     "_name": "Warpmeld Sacrifice",
-    "text": "Each time an enemy unit is selected to shoot or fight and one or more Tzeentch Mutant Infantry or TZEENTCH MUTANT MOUNTED units from your army are selected as a target of one or more of those attacks, each of those TZEENTCH MUTANT units can make a Warpmeld Sacrifice. If it does, until the end of the phase, each time an attack targets that unit, subtract 1 from the Wound roll. At the end of the phase, that TZEENTCH MUTANT unit suffers D3 mortal wounds. Each time a TZEENTCH MUTANT INFANTRY or TZEENTCH MUTANT MOUNTED unit from your army is selected to shoot or fight, before selecting its targets, that unit can make a Warpmeld Sacrifice. If it does, until the end of the phase, each time a model in that unit makes an attack, add 1 to the Wound roll. At the end of the phase, that TZEENTCH MUTANT unit suffers D3 mortal wounds. KEYWORDS: TZAANGORS units from your army have the BATTLELINE keyword, and while such a unit is not Battle-shocked, add 1 to the Objective Control characteristic of TZAANGOR models in that unit."
+    "text": "Each time an enemy unit is selected to shoot or fight and one or more TZEENTCH MUTANT INFANTRY or TZEENTCH MUTANT MOUNTED units from your army are selected as a target of one or more of those attacks, each of those TZEENTCH MUTANT units can make a Warpmeld Sacrifice. If it does, until the end of the phase, each time an attack targets that unit, subtract 1 from the Wound roll. At the end of the phase, that TZEENTCH MUTANT unit suffers D3 mortal wounds. Each time a TZEENTCH MUTANT INFANTRY or TZEENTCH MUTANT MOUNTED unit from your army is selected to shoot or fight, before selecting its targets, that unit can make a Warpmeld Sacrifice. If it does, until the end of the phase, each time a model in that unit makes an attack, add 1 to the Wound roll. At the end of the phase, that TZEENTCH MUTANT unit suffers D3 mortal wounds. KEYWORDS: TZAANGORS units from your army have the BATTLELINE keyword, and while such a unit is not Battle-shocked, add 1 to the Objective Control characteristic of TZAANGOR models in that unit."
    },
    "stratagems": {
     "gift_of_change": {
@@ -1077,7 +1077,7 @@
    "abilities": {
     "Assault Ramp": {
      "_kind": "datasheet",
-     "text": "Each time a unit disembarks from this TRANSPORT after it has made a Normal move, that unit makes an assault disembark move (Core Rules, 18.06) for that disembarkation."
+     "text": "Each time a unit disembarks from this TRANSPORT after it has made a Normal move, that unit is still eligible to declare a charge this turn."
     }
    }
   },

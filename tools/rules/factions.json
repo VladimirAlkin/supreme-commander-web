@@ -1,0 +1,13 @@
+{
+ "_doc": [
+  "One entry per army in data.js. Adding an army = one entry here; no source script names an army.",
+  "wahapedia: faction codes in the Wahapedia CSV export (Datasheets.csv column 3). List the army's own code first; add a shared code (CD = Chaos Daemons, AoI = Agents of the Imperium) only when the army's units or rules live there.",
+  "bsdata: catalogue file names in BSData/wh40k-11e that hold the army's units and rules (include its Library file if it has one).",
+  "packVersion: the newest official Faction Pack version. wahapediaVersion: the version the Wahapedia export carries. When they differ, Wahapedia lags and BSData text wins where the two disagree (status PACK_AHEAD, reviewed by hand)."
+ ],
+ "worldEaters":     { "wahapedia": ["WE", "CD"],  "bsdata": ["Chaos - World Eaters.json"], "packVersion": "1.3", "wahapediaVersion": "1.2" },
+ "deathGuard":      { "wahapedia": ["DG", "CD"],  "bsdata": ["Chaos - Death Guard.json"], "packVersion": "1.3", "wahapediaVersion": "1.2" },
+ "thousandSons":    { "wahapedia": ["TS", "CD"],  "bsdata": ["Chaos - Thousand Sons.json"], "packVersion": "1.3", "wahapediaVersion": "1.2" },
+ "tyranids":        { "wahapedia": ["TYR"],       "bsdata": ["Tyranids.json", "Library - Tyranids.json"], "packVersion": "1.2", "wahapediaVersion": "1.2" },
+ "adeptaSororitas": { "wahapedia": ["AS", "AoI"], "bsdata": ["Imperium - Adepta Sororitas.json", "Imperium - Agents of the Imperium.json"], "packVersion": "1.2", "wahapediaVersion": "1.2" }
+}

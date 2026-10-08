@@ -852,7 +852,7 @@ const DATA = {
      "summary": "Jakhals and Goremongers become Battleline; Monsters and Titanic units project Idols of Khorne auras.",
      "rule": {
       "name": "Idols of Khorne",
-      "text": "At the start of your Command phase, you can select one of the Idols of Khorne abilities listed below. Until the start of your next Command phase, that ability is active and its effects apply to all World Eaters Titanic and WORLD EATERS MONSTER units from your army. You can only select each Idols of Khorne ability once per battle. IDOL OF INFINITE RAGE (AURA): While a friendly Jakhals or GOREMONGERS unit is within 6\" of this model (or within 9\" if this model is TITANIC), each time a model in that unit makes an attack, add 1 to the Hit roll and add 1 to the Wound roll. IDOL OF BURNING WRATH (AURA): While a friendly JAKHALS or GOREMONGERS unit is within 6\" of this model (or within 9\" if this model is TITANIC), add 1\" to the Move characteristic of models in that unit and add 1 to Advance and Charge rolls made for that unit. IDOL OF BLESSED BLOOD (AURA): While a friendly JAKHALS or GOREMONGERS unit is within 6\" of this model (or within 9\" if this model is TITANIC), models in that unit have a 4+ invulnerable save. KEYWORDS JAKHALS and GOREMONGERS units from your army have the BATTLELINE keyword."
+      "text": "At the start of your Command phase, you can select one of the Idols of Khorne abilities listed below. Until the start of your next Command phase, that ability is active and its effects apply to all WORLD EATERS TITANIC and WORLD EATERS MONSTER units from your army. You can only select each Idols of Khorne ability once per battle. IDOL OF INFINITE RAGE (AURA): While a friendly JAKHALS or GOREMONGERS unit is within 6\" of this model (or within 9\" if this model is TITANIC), each time a model in that unit makes an attack, add 1 to the Hit roll and add 1 to the Wound roll. IDOL OF BURNING WRATH (AURA): While a friendly JAKHALS or GOREMONGERS unit is within 6\" of this model (or within 9\" if this model is TITANIC), add 1\" to the Move characteristic of models in that unit and add 1 to Advance and Charge rolls made for that unit. IDOL OF BLESSED BLOOD (AURA): While a friendly JAKHALS or GOREMONGERS unit is within 6\" of this model (or within 9\" if this model is TITANIC), models in that unit have a 4+ invulnerable save. KEYWORDS JAKHALS and GOREMONGERS units from your army have the BATTLELINE keyword."
      },
      "grantKeywords": [
       {
@@ -943,8 +943,8 @@ const DATA = {
         "Any"
        ],
        "when": "Any phase.",
-       "target": "One World Eaters Monster or WORLD EATERS TITANIC unit from your army that was just destroyed by an enemy unit. You can use this Stratagem on that unit even though it was just destroyed.",
-       "effect": "Until the end of the battle, each time a model in a Jakhals or GOREMONGERS unit from your army makes an attack that targets the enemy unit that just destroyed your unit, you can re-roll the Hit roll."
+       "target": "One WORLD EATERS MONSTER or WORLD EATERS TITANIC unit from your army that was just destroyed by an enemy unit. You can use this Stratagem on that unit even though it was just destroyed.",
+       "effect": "Until the end of the battle, each time a model in a JAKHALS or GOREMONGERS unit from your army makes an attack that targets the enemy unit that just destroyed your unit, you can re-roll the Hit roll."
       },
       {
        "id": "drawn_to_the_slaughter",
@@ -969,7 +969,7 @@ const DATA = {
         "Fight"
        ],
        "when": "Your opponent’s Shooting phase or the Fight phase, just after an enemy unit has selected its targets.",
-       "target": "One Jakhals or GOREMONGERS unit from your army that was selected as the target as one or more of the attacking unit’s attacks.",
+       "target": "One JAKHALS or GOREMONGERS unit from your army that was selected as the target as one or more of the attacking unit’s attacks.",
        "effect": "Until the end of the phase, models in your unit have the Feel No Pain 6+ ability. If your unit is within 6\" of one or more friendly WORLD EATERS MONSTER units, or within 9\" of one or more friendly WORLD EATERS TITANIC units, your unit has the Feel No Pain 5+ ability instead."
       },
       {
@@ -981,7 +981,7 @@ const DATA = {
         "Fight"
        ],
        "when": "Fight phase.",
-       "target": "One Jakhals or GOREMONGERS unit from your army that has not been selected to fight this phase and is within Engagement Range of one or more enemy units.",
+       "target": "One JAKHALS or GOREMONGERS unit from your army that has not been selected to fight this phase and is within Engagement Range of one or more enemy units.",
        "effect": "Until the end of the phase, each time your unit is selected to fight, when determining which models in it are eligible to fight, any models in your unit that are within 3\" of one or more enemy models are eligible to fight. When resolving those attacks, such models can target one of those enemy units that is within 3\" of them and within Engagement Range of their unit."
       },
       {
@@ -993,7 +993,7 @@ const DATA = {
         "Fight"
        ],
        "when": "Fight phase.",
-       "target": "One Jakhals or GOREMONGERS unit from your army.",
+       "target": "One JAKHALS or GOREMONGERS unit from your army.",
        "effect": "Until the end of the phase, each time a model in your unit makes an attack, re-roll a Hit roll of 1. If that model’s unit is within 6\" of one or more friendly WORLD EATERS MONSTER units, or within 9\" of one or more friendly WORLD EATERS TITANIC units, you can re-roll the Hit roll instead."
       },
       {
@@ -1005,7 +1005,7 @@ const DATA = {
         "Command"
        ],
        "when": "Your Command phase.",
-       "target": "One World Eaters Monster or WORLD EATERS TITANIC unit from your army.",
+       "target": "One WORLD EATERS MONSTER or WORLD EATERS TITANIC unit from your army.",
        "effect": "Select the Idol of Infinite Rage, Idol of Burning Wrath or Idol of Blessed Blood. Until the start of your next Command phase, that Idols of Khorne ability is active for your unit instead of any other Idols of Khorne ability that is active for your army, even if you have already selected that ability this battle.",
        "restrictions": "You can only use this Stratagem once per battle."
       }
@@ -1172,7 +1172,7 @@ const DATA = {
      "summary": "Unlocks Blood Legions daemons; kills earn Blood Tithe points for army-wide boons.",
      "rule": {
       "name": "Blood Tithe",
-      "text": "Each time a Blood Legions or WORLD EATERS unit from your army destroys an enemy unit, roll one D6: on a 3+, you gain 1 Blood Tithe point (BTP). At the start of the Command phase, you can spend one or more of your BTP to activate one of the following abilities until the end of the battle: ■ Enraged Abjuration [2BTP] BLOOD LEGIONS and WORLD EATERS models from your army have the Feel No Pain 5+ ability against Psychic Attacks and mortal wounds. ■ Daemonic Rage [3BTP] Melee weapons equipped by BLOOD LEGIONS units from your army have the [lance] ability. ■ Boon of Blood [4BTP] BLOOD LEGIONS units from your army have a 4+ invulnerable save. ■ Might of Khorne [5BTP] BLOOD LEGIONS units from your army gain the Blessings of Khorne ability. RESTRICTIONS You can include the BLOOD LEGIONS units in your army. The combined points cost of such units you can include in your army is: Incursion: Up to 500 pts Strike Force: Up to 1000 pts Onslaught: Up to 1500 pts No BLOOD LEGIONS model from your army can be your WARLORD."
+      "text": "Each time a BLOOD LEGIONS or WORLD EATERS unit from your army destroys an enemy unit, roll one D6: on a 3+, you gain 1 Blood Tithe point (BTP). At the start of the Command phase, you can spend one or more of your BTP to activate one of the following abilities until the end of the battle: ■ Enraged Abjuration [2BTP] BLOOD LEGIONS and WORLD EATERS models from your army have the Feel No Pain 5+ ability against Psychic Attacks and mortal wounds. ■ Daemonic Rage [3BTP] Melee weapons equipped by BLOOD LEGIONS units from your army have the [lance] ability. ■ Boon of Blood [4BTP] BLOOD LEGIONS units from your army have a 4+ invulnerable save. ■ Might of Khorne [5BTP] BLOOD LEGIONS units from your army gain the Blessings of Khorne ability. RESTRICTIONS You can include the BLOOD LEGIONS units in your army. The combined points cost of such units you can include in your army is: Incursion: Up to 500 pts Strike Force: Up to 1000 pts Onslaught: Up to 1500 pts No BLOOD LEGIONS model from your army can be your WARLORD."
      },
      "unlocks": {
       "faction": "Blood Legions"
@@ -1212,7 +1212,7 @@ const DATA = {
        "name": "Blood-Forged Armour",
        "pts": 20,
        "upgrade": false,
-       "text": "Blood Legions or WORLD EATERS model only. The bearer has a Save characteristic of 2+. If the bearer is destroyed, you gain 1 Blood Tithe point.",
+       "text": "BLOOD LEGIONS or WORLD EATERS model only. The bearer has a Save characteristic of 2+. If the bearer is destroyed, you gain 1 Blood Tithe point.",
        "eligible": {
         "keywordsAny": [
          "BLOOD LEGIONS",
@@ -1292,7 +1292,7 @@ const DATA = {
        "phases": [
         "Fight"
        ],
-       "when": "Fight phase, just after a Blood Legions or WORLD EATERS unit from your army has fought, and one or more enemy CHARACTER or MONSTER models were destroyed as a result of those attacks.",
+       "when": "Fight phase, just after a BLOOD LEGIONS or WORLD EATERS unit from your army has fought, and one or more enemy CHARACTER or MONSTER models were destroyed as a result of those attacks.",
        "target": "That BLOOD LEGIONS or WORLD EATERS unit.",
        "effect": "You gain D3BTP and you can then spend one or more BTP you have to activate one of the Blood Tithe abilities."
       },
@@ -1446,7 +1446,7 @@ const DATA = {
        ],
        "when": "Your Movement phase.",
        "target": "One WORLD EATERS RHINO model from your army that has not been selected to move this phase.",
-       "effect": "Until the end of the phase, each time a WORLD EATERS unit disembarks from that model after it has made a Normal move, that unit makes an assault disembark move (Core Rules, 18.06) for that disembarkation."
+       "effect": "Until the end of the phase, each time a WORLD EATERS unit disembarks from that model after it has made a Normal move, that unit is still eligible to declare a charge this turn."
       },
       {
        "id": "unrelenting_advance",
@@ -3539,7 +3539,7 @@ const DATA = {
      "abilities": [
       {
        "name": "Assault Ramp",
-       "text": "Each time a unit disembarks from this model after it has made a Normal move, that unit makes an assault disembark move (Core Rules, 18.06) for that disembarkation.",
+       "text": "Each time a unit disembarks from this model after it has made a Normal move, that unit is still eligible to declare a charge this turn.",
        "kind": "datasheet"
       }
      ],
@@ -6158,7 +6158,7 @@ const DATA = {
      "summary": "Burrowers leave Tunnel Markers for your reinforcements; re-roll hit rolls of 1; up to two Trygons can be Characters.",
      "rule": {
       "name": "Surprise Assault",
-      "text": "Each time a TYRANIDS model from your army makes an attack, re-roll a Hit roll of 1. Each time a BURROWER unit from your army is set up on the battlefield from Reserves, place a circular 40mm Tunnel Marker anywhere on the battlefield within 1\" of that unit and more than 3\" horizontally away from all enemy units. In the Reinforcements step of your Movement phase, when you set up a unit on the battlefield from Reserves, you can set that unit up wholly within 9\" of one of your Tunnel Markers and more than 6\" horizontally away from any enemy units. If an enemy model (excluding AIRCRAFT) ends any kind of move within 3\" of one of your Tunnel Markers, that Tunnel Marker is removed from the battlefield. KEYWORDS: Mawloc and TRYGON units from your army have the BURROWER keyword. In the Muster Armies step, you can select up to 2 TRYGON models from your army. The selected units gain the CHARACTER keyword. Designer’s Note: This means that the selected models can be given Enhancements and one of them can be selected as your WARLORD."
+      "text": "Each time a TYRANIDS model from your army makes an attack, re-roll a Hit roll of 1. Each time a BURROWER unit from your army is set up on the battlefield from Reserves, place a circular 40mm Tunnel Marker anywhere on the battlefield within 1\" of that unit and more than 3\" horizontally away from all enemy units. In the Reinforcements step of your Movement phase, when you set up a unit on the battlefield from Reserves, you can set that unit up wholly within 9\" of one of your Tunnel Markers and more than 6\" horizontally away from any enemy units. If an enemy model (excluding AIRCRAFT) ends any kind of move within 3\" of one of your Tunnel Markers, that Tunnel Marker is removed from the battlefield. KEYWORDS: MAWLOC and TRYGON units from your army have the BURROWER keyword. In the Muster Armies step, you can select up to 2 TRYGON models from your army. The selected units gain the CHARACTER keyword. Designer’s Note: This means that the selected models can be given Enhancements and one of them can be selected as your WARLORD."
      },
      "grantKeywords": [
       {
@@ -6263,7 +6263,7 @@ const DATA = {
         "Command"
        ],
        "when": "Command phase.",
-       "target": "One Mawloc or TRYGON unit from your army.",
+       "target": "One MAWLOC or TRYGON unit from your army.",
        "effect": "Until the start of your next Command phase, your unit has the Synapse keyword."
       },
       {
@@ -12723,7 +12723,7 @@ const DATA = {
         "Any"
        ],
        "when": "Any phase.",
-       "target": "One Death Guard Vehicle or DEATH GUARD MONSTER model from your army with the Deadly Demise ability that was just destroyed. You can use this Stratagem on that model even though it was just destroyed.",
+       "target": "One DEATH GUARD VEHICLE or DEATH GUARD MONSTER model from your army with the Deadly Demise ability that was just destroyed. You can use this Stratagem on that model even though it was just destroyed.",
        "effect": "Do not roll one D6 to determine whether mortal wounds are inflicted by your model’s Deadly Demise ability. Instead, mortal wounds are automatically inflicted. In addition, any enemy units that suffer mortal wounds as a result of this Stratagem are Afflicted until the start of your next turn."
       },
       {
@@ -17254,7 +17254,7 @@ const DATA = {
      "abilities": [
       {
        "name": "Assault Ramp",
-       "text": "Each time a unit disembarks from this model after it has made a Normal move, that unit makes an assault disembark move (Core Rules, 18.06) for that disembarkation.",
+       "text": "Each time a unit disembarks from this model after it has made a Normal move, that unit is still eligible to declare a charge this turn.",
        "kind": "datasheet"
       }
      ],
@@ -19199,7 +19199,7 @@ const DATA = {
         "Fight"
        ],
        "when": "Your opponent’s Shooting phase or the Fight phase, just after an enemy unit has selected its targets.",
-       "target": "One Thousand Sons or SCINTILLATING LEGIONS unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+       "target": "One THOUSAND SONS or SCINTILLATING LEGIONS unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
        "effect": "Until the end of the phase, each time an attack targets your unit, subtract 1 from the Hit roll."
       },
       {
@@ -19277,7 +19277,7 @@ const DATA = {
      "summary": "Mutants trade wounds for power with Warpmeld Sacrifice; Tzaangors are Battleline with +1 OC.",
      "rule": {
       "name": "Warpmeld Sacrifice",
-      "text": "Each time an enemy unit is selected to shoot or fight and one or more Tzeentch Mutant Infantry or TZEENTCH MUTANT MOUNTED units from your army are selected as a target of one or more of those attacks, each of those TZEENTCH MUTANT units can make a Warpmeld Sacrifice. If it does, until the end of the phase, each time an attack targets that unit, subtract 1 from the Wound roll. At the end of the phase, that TZEENTCH MUTANT unit suffers D3 mortal wounds. Each time a TZEENTCH MUTANT INFANTRY or TZEENTCH MUTANT MOUNTED unit from your army is selected to shoot or fight, before selecting its targets, that unit can make a Warpmeld Sacrifice. If it does, until the end of the phase, each time a model in that unit makes an attack, add 1 to the Wound roll. At the end of the phase, that TZEENTCH MUTANT unit suffers D3 mortal wounds. KEYWORDS: TZAANGORS units from your army have the BATTLELINE keyword, and while such a unit is not Battle-shocked, add 1 to the Objective Control characteristic of TZAANGOR models in that unit."
+      "text": "Each time an enemy unit is selected to shoot or fight and one or more TZEENTCH MUTANT INFANTRY or TZEENTCH MUTANT MOUNTED units from your army are selected as a target of one or more of those attacks, each of those TZEENTCH MUTANT units can make a Warpmeld Sacrifice. If it does, until the end of the phase, each time an attack targets that unit, subtract 1 from the Wound roll. At the end of the phase, that TZEENTCH MUTANT unit suffers D3 mortal wounds. Each time a TZEENTCH MUTANT INFANTRY or TZEENTCH MUTANT MOUNTED unit from your army is selected to shoot or fight, before selecting its targets, that unit can make a Warpmeld Sacrifice. If it does, until the end of the phase, each time a model in that unit makes an attack, add 1 to the Wound roll. At the end of the phase, that TZEENTCH MUTANT unit suffers D3 mortal wounds. KEYWORDS: TZAANGORS units from your army have the BATTLELINE keyword, and while such a unit is not Battle-shocked, add 1 to the Objective Control characteristic of TZAANGOR models in that unit."
      },
      "grantKeywords": [
       {
@@ -22672,7 +22672,7 @@ const DATA = {
      "abilities": [
       {
        "name": "Assault Ramp",
-       "text": "Each time a unit disembarks from this TRANSPORT after it has made a Normal move, that unit makes an assault disembark move (Core Rules, 18.06) for that disembarkation.",
+       "text": "Each time a unit disembarks from this TRANSPORT after it has made a Normal move, that unit is still eligible to declare a charge this turn.",
        "kind": "datasheet"
       }
      ],
@@ -25135,7 +25135,7 @@ const DATA = {
        "name": "Mantle of Ophelia",
        "pts": 20,
        "upgrade": false,
-       "text": "Canoness or PALATINE model only. Each time an attack is allocated to the bearer, change the Damage characteristic of that attack to 1.",
+       "text": "CANONESS or PALATINE model only. Each time an attack is allocated to the bearer, change the Damage characteristic of that attack to 1.",
        "eligible": {
         "factionsAll": [
          "Adepta Sororitas"
@@ -25169,7 +25169,7 @@ const DATA = {
         "Fight"
        ],
        "when": "Start of the Fight phase.",
-       "target": "One Adepta Sororitas Infantry or ADEPTA SORORITAS WALKER unit from your army.",
+       "target": "One ADEPTA SORORITAS INFANTRY or ADEPTA SORORITAS WALKER unit from your army.",
        "effect": "Until the end of the phase, each time an enemy model within Engagement Range of your unit selects its targets, it must select your unit as the target of its attacks."
       },
       {
@@ -25505,7 +25505,7 @@ const DATA = {
        ],
        "when": "Your Movement phase, just before an ADEPTA SORORITAS TRANSPORT model from your army Advances.",
        "target": "That ADEPTA SORORITAS TRANSPORT model.",
-       "effect": "Until the end of the turn, you can re-roll Advance rolls made for your TRANSPORT, and units can disembark from your TRANSPORT even though it Advanced. Units that do so make a shock disembark move (Core Rules, 18.07) for that disembarkation."
+       "effect": "Until the end of the turn, you can re-roll Advance rolls made for your TRANSPORT, and units can disembark from your TRANSPORT even though it Advanced. Units that do so count as having made a Normal move, and cannot declare a charge this turn."
       },
       {
        "id": "cleansing_flames",
@@ -25704,7 +25704,7 @@ const DATA = {
      "summary": "Each Command phase pick up to 3 units to be Righteous: faster, braver and, for some, more accurate.",
      "rule": {
       "name": "Righteous Purpose",
-      "text": "In your Command phase, you can select up to 3 ADEPTA SORORITAS units from your army (including units that are embarked within Transports), until the start of your next Command phase, those units are Righteous. While a unit is Righteous: ■ Add 1\" to the Move characteristic of models in that unit. ■ Improve the Leadership characteristic of models in that unit by 1. ■ Improve the Weapon Skill and Ballistic Skill characteristics of weapons equipped by Battle Sisters Squad, CELESTIAN INSIDIANTS, Celestian Sacresants and PARAGON WARSUITS models in that unit by 1. KEYWORDS: While a CELESTIAN SACRESANTS unit from your army is not Battle-shocked, add 1 to the Objective Control characteristic of CELESTIAN SACRESANTS models in that unit."
+      "text": "In your Command phase, you can select up to 3 ADEPTA SORORITAS units from your army (including units that are embarked within Transports), until the start of your next Command phase, those units are Righteous. While a unit is Righteous: ■ Add 1\" to the Move characteristic of models in that unit. ■ Improve the Leadership characteristic of models in that unit by 1. ■ Improve the Weapon Skill and Ballistic Skill characteristics of weapons equipped by Battle Sisters Squad, CELESTIAN INSIDIANTS, CELESTIAN SACRESANTS and PARAGON WARSUITS models in that unit by 1. KEYWORDS: While a CELESTIAN SACRESANTS unit from your army is not Battle-shocked, add 1 to the Objective Control characteristic of CELESTIAN SACRESANTS models in that unit."
      },
      "righteous": {
       "max": 3
@@ -33380,7 +33380,7 @@ const DATA = {
       },
       {
        "name": "Gheistskull",
-       "text": "Once per battle, when you select this unit as the target of the Explosives Stratagem, you can target one enemy unit visible to and within 18\" of this unit that is not within Engagement Range of any units from your army, instead of one within 8\".",
+       "text": "Once per battle, when you select this unit as the target of the Grenade Stratagem, you can target one enemy unit visible to and within 18\" of this unit that is not within Engagement Range of any units from your army, instead of one within 8\".",
        "kind": "wargear"
       },
       {
@@ -34227,7 +34227,7 @@ const DATA = {
      "abilities": [
       {
        "name": "On My Signal, Fire!",
-       "text": "After this unit has shot, you can select one enemy unit hit by those attacks. Until the end of the phase, each time an Agents of the Imperium or IMPERIUM INFANTRY BATTLELINE model from your army makes an attack that targets that enemy unit, you can re-roll the Hit roll.",
+       "text": "After this unit has shot, you can select one enemy unit hit by those attacks. Until the end of the phase, each time an AGENTS OF THE IMPERIUM or IMPERIUM INFANTRY BATTLELINE model from your army makes an attack that targets that enemy unit, you can re-roll the Hit roll.",
        "kind": "datasheet"
       },
       {
@@ -35604,7 +35604,7 @@ const DATA = {
      "abilities": [
       {
        "name": "Rapid Deployment",
-       "text": "Units can disembark from this TRANSPORT after it has Advanced. Units that do so make a shock disembark move (Core Rules, 18.07) for that disembarkation.",
+       "text": "Units can disembark from this TRANSPORT after it has Advanced. Units that do so count as having made a Normal move that phase, and cannot declare a charge in the same turn, but can otherwise act normally.",
        "kind": "datasheet"
       }
      ],

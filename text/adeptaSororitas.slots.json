@@ -4,7 +4,7 @@
   "factionName": "Adepta Sororitas",
   "dataVersion": "2026-10-05-mfm15-fp12",
   "generatedAt": "2026-10-08",
-  "howTo": "docs/TEXT-PIPELINE.md",
+  "howTo": "docs/RULES-SOURCES.md",
   "rules": [
    "Edit ONLY the plain text fields. Keys starting with _ are context and are ignored.",
    "Plain text only: no HTML, no markdown, no ** or [] markup. Highlighting is automatic.",
@@ -76,7 +76,7 @@
       "Fight"
      ],
      "when": "Start of the Fight phase.",
-     "target": "One Adepta Sororitas Infantry or ADEPTA SORORITAS WALKER unit from your army.",
+     "target": "One ADEPTA SORORITAS INFANTRY or ADEPTA SORORITAS WALKER unit from your army.",
      "effect": "Until the end of the phase, each time an enemy model within Engagement Range of your unit selects its targets, it must select your unit as the target of its attacks.",
      "restrictions": null
     },
@@ -148,7 +148,7 @@
     "mantle_of_ophelia": {
      "_name": "Mantle of Ophelia",
      "_pts": 20,
-     "text": "Canoness or PALATINE model only. Each time an attack is allocated to the bearer, change the Damage characteristic of that attack to 1."
+     "text": "CANONESS or PALATINE model only. Each time an attack is allocated to the bearer, change the Damage characteristic of that attack to 1."
     }
    }
   },
@@ -297,7 +297,7 @@
      ],
      "when": "Your Movement phase, just before an ADEPTA SORORITAS TRANSPORT model from your army Advances.",
      "target": "That ADEPTA SORORITAS TRANSPORT model.",
-     "effect": "Until the end of the turn, you can re-roll Advance rolls made for your TRANSPORT, and units can disembark from your TRANSPORT even though it Advanced. Units that do so make a shock disembark move (Core Rules, 18.07) for that disembarkation.",
+     "effect": "Until the end of the turn, you can re-roll Advance rolls made for your TRANSPORT, and units can disembark from your TRANSPORT even though it Advanced. Units that do so count as having made a Normal move, and cannot declare a charge this turn.",
      "restrictions": null
     },
     "cleansing_flames": {
@@ -469,7 +469,7 @@
    "_name": "Champions of Faith",
    "rule": {
     "_name": "Righteous Purpose",
-    "text": "In your Command phase, you can select up to 3 ADEPTA SORORITAS units from your army (including units that are embarked within Transports), until the start of your next Command phase, those units are Righteous. While a unit is Righteous: ■ Add 1\" to the Move characteristic of models in that unit. ■ Improve the Leadership characteristic of models in that unit by 1. ■ Improve the Weapon Skill and Ballistic Skill characteristics of weapons equipped by Battle Sisters Squad, CELESTIAN INSIDIANTS, Celestian Sacresants and PARAGON WARSUITS models in that unit by 1. KEYWORDS: While a CELESTIAN SACRESANTS unit from your army is not Battle-shocked, add 1 to the Objective Control characteristic of CELESTIAN SACRESANTS models in that unit."
+    "text": "In your Command phase, you can select up to 3 ADEPTA SORORITAS units from your army (including units that are embarked within Transports), until the start of your next Command phase, those units are Righteous. While a unit is Righteous: ■ Add 1\" to the Move characteristic of models in that unit. ■ Improve the Leadership characteristic of models in that unit by 1. ■ Improve the Weapon Skill and Ballistic Skill characteristics of weapons equipped by Battle Sisters Squad, CELESTIAN INSIDIANTS, CELESTIAN SACRESANTS and PARAGON WARSUITS models in that unit by 1. KEYWORDS: While a CELESTIAN SACRESANTS unit from your army is not Battle-shocked, add 1 to the Objective Control characteristic of CELESTIAN SACRESANTS models in that unit."
    },
    "stratagems": {
     "shield_of_denial": {
@@ -1322,7 +1322,7 @@
     },
     "Gheistskull": {
      "_kind": "wargear",
-     "text": "Once per battle, when you select this unit as the target of the Explosives Stratagem, you can target one enemy unit visible to and within 18\" of this unit that is not within Engagement Range of any units from your army, instead of one within 8\"."
+     "text": "Once per battle, when you select this unit as the target of the Grenade Stratagem, you can target one enemy unit visible to and within 18\" of this unit that is not within Engagement Range of any units from your army, instead of one within 8\"."
     },
     "CAT Unit": {
      "_kind": "datasheet",
@@ -1424,7 +1424,7 @@
    "abilities": {
     "On My Signal, Fire!": {
      "_kind": "datasheet",
-     "text": "After this unit has shot, you can select one enemy unit hit by those attacks. Until the end of the phase, each time an Agents of the Imperium or IMPERIUM INFANTRY BATTLELINE model from your army makes an attack that targets that enemy unit, you can re-roll the Hit roll."
+     "text": "After this unit has shot, you can select one enemy unit hit by those attacks. Until the end of the phase, each time an AGENTS OF THE IMPERIUM or IMPERIUM INFANTRY BATTLELINE model from your army makes an attack that targets that enemy unit, you can re-roll the Hit roll."
     },
     "Tox‑cycler": {
      "_kind": "datasheet",
@@ -1570,7 +1570,7 @@
    "abilities": {
     "Rapid Deployment": {
      "_kind": "datasheet",
-     "text": "Units can disembark from this TRANSPORT after it has Advanced. Units that do so make a shock disembark move (Core Rules, 18.07) for that disembarkation."
+     "text": "Units can disembark from this TRANSPORT after it has Advanced. Units that do so count as having made a Normal move that phase, and cannot declare a charge in the same turn, but can otherwise act normally."
     }
    }
   }

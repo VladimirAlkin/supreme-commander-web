@@ -1,11 +1,8 @@
 {
   "name": "supreme-commander-web",
   "private": true,
-  "description": "Army builder for Warhammer 40,000. data.js is generated — see docs/TEXT-PIPELINE.md",
+  "description": "Army builder for Warhammer 40,000. data.js is generated — see CLAUDE.md and docs/RULES-SOURCES.md",
   "scripts": {
-    "scope": "node tools/check-agent-scope.js",
-    "ingest": "node tools/ingest-inbox.js",
-    "ingest:dry": "node tools/ingest-inbox.js --dry",
     "slots": "node tools/gen-slots.js",
     "merge": "node tools/merge-text.js",
     "merge:dry": "node tools/merge-text.js --dry",
@@ -13,6 +10,8 @@
     "mech": "node tools/mechanics-diff.js",
     "release": "node tools/release.js",
     "release:check": "node tools/release.js --check",
-    "check": "node tools/validate-data.js && node tools/mechanics-diff.js main"
+    "check": "node tools/validate-data.js && node tools/mechanics-diff.js main",
+    "rules:rebuild": "tools/rules/rebuild.sh",
+    "rules:official": "node tools/rules/fill-slots.js --official-only"
   }
 }

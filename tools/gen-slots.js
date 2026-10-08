@@ -2,7 +2,7 @@
 'use strict';
 /* gen-slots.js — build text/<faction>.slots.json from data.js.
 
-   Slot files are the ONLY surface the text author touches. Every entry is
+   Slot files are the only way rules text gets into data.js. Every entry is
    addressed by the stable id already in data.js, so nothing can be filed
    under the wrong unit or stratagem.
 
@@ -32,7 +32,7 @@ for (const f of targets) {
       factionName: (data.factions.find(x => x.id === f) || {}).name || f,
       dataVersion: data.meta.factionVersions[f] || data.meta.dataVersion,
       generatedAt: new Date().toISOString().slice(0, 10),
-      howTo: 'docs/TEXT-PIPELINE.md',
+      howTo: 'docs/RULES-SOURCES.md',
       rules: [
         'Edit ONLY the plain text fields. Keys starting with _ are context and are ignored.',
         'Plain text only: no HTML, no markdown, no ** or [] markup. Highlighting is automatic.',

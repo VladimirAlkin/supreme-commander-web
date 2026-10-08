@@ -4,7 +4,7 @@
   "factionName": "Death Guard",
   "dataVersion": "2026-10-04-mfm15-fp13",
   "generatedAt": "2026-10-08",
-  "howTo": "docs/TEXT-PIPELINE.md",
+  "howTo": "docs/RULES-SOURCES.md",
   "rules": [
    "Edit ONLY the plain text fields. Keys starting with _ are context and are ignored.",
    "Plain text only: no HTML, no markdown, no ** or [] markup. Highlighting is automatic.",
@@ -59,7 +59,7 @@
       "Any"
      ],
      "when": "Any phase.",
-     "target": "One Death Guard Vehicle or DEATH GUARD MONSTER model from your army with the Deadly Demise ability that was just destroyed. You can use this Stratagem on that model even though it was just destroyed.",
+     "target": "One DEATH GUARD VEHICLE or DEATH GUARD MONSTER model from your army with the Deadly Demise ability that was just destroyed. You can use this Stratagem on that model even though it was just destroyed.",
      "effect": "Do not roll one D6 to determine whether mortal wounds are inflicted by your model’s Deadly Demise ability. Instead, mortal wounds are automatically inflicted. In addition, any enemy units that suffer mortal wounds as a result of this Stratagem are Afflicted until the start of your next turn.",
      "restrictions": null
     },
@@ -1143,7 +1143,7 @@
    "abilities": {
     "Assault Ramp": {
      "_kind": "datasheet",
-     "text": "Each time a unit disembarks from this model after it has made a Normal move, that unit makes an assault disembark move (Core Rules, 18.06) for that disembarkation."
+     "text": "Each time a unit disembarks from this model after it has made a Normal move, that unit is still eligible to declare a charge this turn."
     }
    }
   },

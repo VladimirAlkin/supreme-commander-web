@@ -1,0 +1,108 @@
+{
+ "_doc": [
+  "Text copied from the official Warhammer 40,000 app. Top source: overrides Faction Pack PDFs, BSData and Wahapedia.",
+  "validate-data fails (E-OFFICIAL) if data.js differs; tools/rules/fill-slots.js writes these last.",
+  "Add an entry only from the app itself (screenshot), never from another source. See docs/RULES-SOURCES.md."
+ ],
+ "entries": [
+  {
+   "faction": "adeptaSororitas",
+   "cat": "strat",
+   "det": "Bringers of Flame",
+   "name": "Carry Forth the Faithful",
+   "field": "effect",
+   "text": "Until the end of the turn, you can re-roll Advance rolls made for your TRANSPORT, and units can disembark from your TRANSPORT even though it Advanced. Units that do so count as having made a Normal move, and cannot declare a charge this turn.",
+   "source": "GW official app, screenshot sent by the owner 2026-10-08"
+  },
+  {
+   "faction": "adeptaSororitas",
+   "cat": "strat",
+   "det": "Champions of Faith",
+   "name": "Path of the Righteous",
+   "field": "when",
+   "text": "Fight phase.",
+   "source": "GW official app, screenshot sent by the owner 2026-10-08"
+  },
+  {
+   "faction": "adeptaSororitas",
+   "cat": "strat",
+   "det": "Champions of Faith",
+   "name": "Path of the Righteous",
+   "field": "target",
+   "text": "One ADEPTA SORORITAS unit from your army that has not been selected to fight this phase.",
+   "source": "GW official app, screenshot sent by the owner 2026-10-08"
+  },
+  {
+   "faction": "adeptaSororitas",
+   "cat": "strat",
+   "det": "Champions of Faith",
+   "name": "Path of the Righteous",
+   "field": "effect",
+   "text": "Until the end of the turn, each time a model in your unit makes a Pile-in or Consolidation move, it can move up to 6\" instead of up to 3\". When doing so, if your unit is Righteous, it does not need to end that move closer to the closest enemy model, provided it ends that move as close as possible to the closest enemy unit.",
+   "source": "GW official app, screenshot sent by the owner 2026-10-08"
+  },
+  {
+   "faction": "adeptaSororitas",
+   "cat": "strat",
+   "det": "Champions of Faith",
+   "name": "Path of the Righteous",
+   "field": "restrictions",
+   "text": null,
+   "source": "GW official app, screenshot sent by the owner 2026-10-08"
+  },
+  {
+   "faction": "adeptaSororitas",
+   "cat": "strat",
+   "det": "Army of Faith",
+   "name": "Light of the Emperor",
+   "field": "when",
+   "text": "Command phase.",
+   "source": "GW official app, screenshot sent by the owner 2026-10-08"
+  },
+  {
+   "faction": "adeptaSororitas",
+   "cat": "strat",
+   "det": "Army of Faith",
+   "name": "Light of the Emperor",
+   "field": "target",
+   "text": "One ADEPTA SORORITAS unit from your army.",
+   "source": "GW official app, screenshot sent by the owner 2026-10-08"
+  },
+  {
+   "faction": "adeptaSororitas",
+   "cat": "strat",
+   "det": "Army of Faith",
+   "name": "Light of the Emperor",
+   "field": "effect",
+   "text": "Until the end of the turn, your unit is blessed. While a unit is blessed, it can ignore any or all modifiers to the following: the profile characteristics of its models; the Weapon Skill or Ballistic Skill characteristics of weapons equipped by its models; any roll or test made for it (excluding modifiers to saving throws). If your unit has the JUMP PACK keyword, until the end of the turn, while a friendly ADEPTA SORORITAS unit is within 3\" of your unit, that friendly unit is also blessed.",
+   "source": "GW official app, screenshot sent by the owner 2026-10-08"
+  },
+  {
+   "faction": "adeptaSororitas",
+   "cat": "strat",
+   "det": "Army of Faith",
+   "name": "Light of the Emperor",
+   "field": "restrictions",
+   "text": null,
+   "source": "GW official app, screenshot sent by the owner 2026-10-08"
+  },
+  {
+   "faction": "adeptaSororitas",
+   "cat": "enh",
+   "det": "Hallowed Martyrs",
+   "name": "Chaplet of Sacrifice",
+   "field": "text",
+   "text": "ADEPTA SORORITAS model only. At the end of your Command phase, if the bearer is on the battlefield, you can re-roll 1 Miracle dice from your Miracle dice pool and return it to your Miracle dice pool showing the new result you rolled. When doing so, if the bearer's unit is below its Starting Strength, you can re-roll up to 3 Miracle dice in this way instead.",
+   "source": "GW official app, screenshot sent by the owner 2026-10-08"
+  },
+  {
+   "faction": "adeptaSororitas",
+   "cat": "enh",
+   "det": "Hallowed Martyrs",
+   "name": "Mantle of Ophelia",
+   "field": "text",
+   "text": "CANONESS or PALATINE model only. Each time an attack is allocated to the bearer, change the Damage characteristic of that attack to 1.",
+   "source": "GW official app, screenshot sent by the owner 2026-10-08"
+  }
+ ]
+}

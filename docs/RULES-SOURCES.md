@@ -1,65 +1,70 @@
-# Rules text: where it comes from and how it was rebuilt
+# Rules text: sources and which one wins
 
-Last full rebuild: 2026-10-08 (build after 08.10-c8af56f).
+Applies to every army in the app: World Eaters, Death Guard, Thousand Sons,
+Tyranids, Adepta Sororitas (with Imperial Agents), and any army added later.
 
-## What is current
+Current to: the 30 Sep 2026 update (MFM v1.5; Faction Packs World Eaters,
+Death Guard, Thousand Sons v1.3; Tyranids and Adepta Sororitas v1.2 with no
+rules change; Imperial Agents profiles only). Last full rebuild 2026-10-08.
 
-Freshness cutoff: the 30 Sep 2026 update (MFM v1.5; Faction Packs World
-Eaters v1.3, Death Guard v1.3, Thousand Sons v1.3; Tyranids v1.2 and Adepta
-Sororitas v1.2 unchanged for rules; Imperial Agents profiles only).
+## Order of precedence
 
-## Sources, and what each is good for
+| # | Source | Reach | Use it for | Known faults |
+|---|---|---|---|---|
+| 1 | **Official Warhammer 40,000 app** (screenshots from the owner) | owner only | final wording; recorded in `text/official.json` | none known — it is the reference |
+| 2 | Official Faction Pack PDFs (assets.warhammer-community.com) | WebFetch, quotes capped at 125 chars | what an update changed; short exact phrases | cannot be read in full from here |
+| 3 | BSData `wh40k-11e` | `git clone`, full history | what the newest update changed (diff across the import commit); errata; conditions on abilities (Leader-only, enhancement-only); DP, Force Dispositions | drops restriction lines and Designer's Notes; some 10th-edition wording; typos; a few stale entries (Revolting Regeneration) |
+| 4 | Wahapedia CSV export, mirror `N041M/grimstat-wahapedia` (`wh40k-11e/`, `wh40k-10e/`) | `git clone` | base text: verbatim, restriction lines ("X model only."), full stratagems | **one update behind** the Faction Packs; **rewrites some rules in its own words** (below); errata in a separate block that the export misses; tables drawn as images |
+| 5 | Reviews of an update (Spikey Bits, Tabletop Battles, La Voz de Horus …) | WebFetch | confirming a change no text source has (stratagem CP, conditions) — two that agree | paraphrase, never wording |
 
-| Source | Reach from the container | Current to | Use it for |
-|---|---|---|---|
-| Official Faction Pack PDFs (assets.warhammer-community.com) | WebFetch only, quotes capped at 125 chars | 30 Sep 2026 | the list of what changed; short exact phrases |
-| Wahapedia CSV export, mirrored at github.com/N041M/grimstat-wahapedia (`wh40k-11e/`) | `git clone` | Faction Pack v1.2 (26 Aug 2026), export of 28 Sep | **base text** for everything: verbatim, includes restriction lines ("X model only."), Designer's Notes and 11th-edition wording (shock/assault disembark, Level of Control) |
-| BSData `wh40k-11e` (github.com/BSData/wh40k-11e) | `git clone` | 7 Oct 2026, includes the 30 Sep import (commits 119dab8, baaf144) | **what changed on 30 Sep**: diff the catalogues across the import; conditions (e.g. Deep Strike only with Lord Invocatus); DP and Force Dispositions |
-| Reviews of the update (Spikey Bits, Tabletop Battles, La Voz de Horus) | WebFetch | 30 Sep 2026 | confirming changes BSData does not encode (stratagems) — need two that agree |
+Rules for using them:
 
-Where they disagree:
+- **Never replace text wholesale from one source.** Every rebuild goes through
+  `tools/rules/` which compares all of them and stops where they disagree in
+  a way it cannot decide.
+- **The app beats everything.** When the owner sends a screenshot, the text
+  goes into `text/official.json` exactly as shown; `validate-data` then fails
+  if any later pass changes it (`E-OFFICIAL`).
+- **Wahapedia's rewordings are not rules text.** Its 11th-edition export
+  replaces some codex wording with cross-references to the core rules:
+  "makes an assault disembark move (Core Rules, 18.06)", "shock disembark
+  move (Core Rules, 18.07)", "Explosives Stratagem" for "Grenade Stratagem".
+  The official app prints the codex wording (confirmed for Carry Forth the
+  Faithful, 2026-10-08). `validate-data` fails on these (`E-REWORDED`) and
+  `best.py` takes the 10e export's wording instead (`CODEX_WORDING`).
+  The universal 11th-edition core rule may still make those disembarks work
+  as assault/shock moves in play; the app text is what we show.
+- **CP, points and keywords are mechanics.** A source disagreeing on them is
+  reported by the pipeline, never applied. Change them by hand only after two
+  sources agree, and record the change in `docs/mechanics-accepted.json`.
+  (On 2026-10-08 Wahapedia's 2CP for Infernal Fusillade was nearly shipped;
+  the v1.3 pack made it 1CP.)
+- **Nothing granted by a Leader, an enhancement or a detachment goes on a
+  datasheet.** Check with `tools/rules/bsq.py`: BSData shows granted
+  abilities as hidden profiles with a condition.
 
-- BSData is **not** a reliable text source on its own: it drops restriction
-  lines and Designer's Notes, keeps some 10th-edition wording (Assault Ramp,
-  Infected Outbreak, Rapid Deployment) and has typos.
-- Wahapedia's datasheet export sometimes misses an errata that the page
-  shows in a separate Errata block (The Swarmlord's Malign Presence, Kairos
-  Fateweaver's One Head Looks Back): BSData has the errata version.
-- Wahapedia shows table values as images in two army rules (Contagion
-  Range, the Psychic test sequence); those values came from BSData.
+## What the 30 Sep 2026 update changed in text
 
-## The 30 Sep 2026 text changes (from the BSData diff + reviews)
+Found by `bsdelta.py` across BSData's import (`374f505..HEAD`) plus reviews:
 
 - World Eaters: Relentless Rage ("Friendly WORLD EATERS units' melee attacks
-  have +1 A."), Khorne Berzerkers gain Murderous Charge, Angron's Driven by
-  Ultimate Rage (re-roll hit and wound rolls of 1). Berzerker Warband 2 DP.
-- Thousand Sons: Infernal Fusillade 1CP and no longer sets S5; Unwavering
+  have +1 A."); Khorne Berzerkers gain Murderous Charge; Angron's Driven by
+  Ultimate Rage (re-roll hit and wound rolls of 1).
+- Thousand Sons: Infernal Fusillade 1CP, no longer sets S5; Unwavering
   Phalanx only against attacks with S greater than T; Exalted Sorcerer on
   Disc has Illusions of Tzeentch instead of Arcane Shield.
-- Profiles (Astartes T5/T6, bolt weapons S5 AP-1) and several Force
-  Dispositions — already in data.js before this rebuild.
+- Death Guard, Tyranids, Adepta Sororitas, Imperial Agents: no text change
+  (profiles, DP and Force Dispositions only, already in data.js).
 
-**Unwavering Phalanx**: the official v1.3 wording was not retrieved. The
-text in data.js expresses the change in GW's standard phrasing. Replace it
-with the printed text when the Thousand Sons Faction Pack v1.3 is available.
+## Open — check against the app when possible
 
-## How the rebuild was done
-
-1. Parse the Wahapedia CSV (HTML to plain text: lists as "■", inline
-   headings in caps, flavour text removed, keyword case restored).
-2. Take BSData only where it is newer (the 30 Sep set above, and errata
-   blocks Wahapedia missed).
-3. Options that Wahapedia lists as separate rows (Mortarion's Lord of the
-   Death Guard, Magnus' Crimson King abilities, the Triumph's relics) are
-   folded into the parent ability as "■ NAME: text".
-4. Write into the slot files and apply with `tools/merge-text.js`; ability
-   and enhancement renames and added datasheet weapon rules go through
-   `lib.writeData` and are recorded in `docs/mechanics-accepted.json`.
-
-Nothing granted by a Leader or a detachment is written onto a datasheet.
-
-## Not covered
-
-- Core stratagems in `gameRules.coreStratagems` are still paraphrases; the
-  Wahapedia faction export does not contain 11th-edition core stratagems.
-- Myphitic Blight-haulers: no 11th-edition datasheet found; text unchanged.
+- Unwavering Phalanx (Thousand Sons): wording reconstructed from reviews.
+- Revolting Regeneration (Death Guard enhancement): Wahapedia "Feel No Pain
+  5+", BSData "regains up to D3 lost wounds" (BSData did not change it in the
+  import, so Wahapedia is kept).
+- Storm of Retribution (Retributor Squad) "that model can re-roll" vs "re-roll";
+  Death Approaches (Deathshroud) 8" vs 9"; Unleash Wrath (World Eaters
+  Defiler) — Wahapedia 11e and BSData differ in wording.
+- Psychostatic Disruption (Tyranids): BSData only; "(Aura)" in the name?
+- Core stratagems (`gameRules.coreStratagems`) are still paraphrases.
+- Myphitic Blight-haulers: no 11th-edition datasheet text found.

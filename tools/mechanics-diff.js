@@ -2,7 +2,7 @@
 'use strict';
 /* mechanics-diff.js — what changed in data.js that is NOT wording.
 
-   The text role is supposed to change prose and nothing else. This proves
+   A text pass is supposed to change prose and nothing else. This proves
    whether that held. It compares the current data.js against any git ref and
    reports every difference outside the prose fields: ids, points, CP,
    keywords, core abilities, buffs, option rules, array lengths.
