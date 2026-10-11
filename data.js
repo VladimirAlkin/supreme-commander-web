@@ -39064,24 +39064,24 @@ const DATA = {
        "kw": []
       },
       {
-       "name": "Inferno combi-bolter",
+       "name": "Combi-bolter",
        "range": "24\"",
        "A": "2",
        "skill": "3+",
        "S": "5",
-       "AP": "-2",
+       "AP": "-1",
        "D": "1",
        "kw": [
         "Rapid Fire 2"
        ]
       },
       {
-       "name": "Inferno combi-weapon",
+       "name": "Combi-weapon",
        "range": "24\"",
        "A": "1",
        "skill": "4+",
        "S": "5",
-       "AP": "-2",
+       "AP": "-1",
        "D": "1",
        "kw": [
         "Anti-infantry 4+",
@@ -39102,12 +39102,12 @@ const DATA = {
        ]
       },
       {
-       "name": "Twin inferno heavy bolter",
+       "name": "Twin heavy bolter",
        "range": "36\"",
        "A": "3",
        "skill": "3+",
        "S": "5",
-       "AP": "-2",
+       "AP": "-1",
        "D": "2",
        "kw": [
         "Sustained Hits 1",
@@ -39130,7 +39130,9 @@ const DATA = {
      "coreAbilities": [
       "Deadly Demise D6"
      ],
-     "factionAbilities": [],
+     "factionAbilities": [
+      "Dark Pacts"
+     ],
      "abilities": [
       {
        "name": "Assault Ramp",
@@ -39147,7 +39149,7 @@ const DATA = {
      ],
      "stepFrom": 3,
      "leaderOf": [],
-     "composition": "1 Chaos Land Raider: 2 soulshatter lascannons, twin inferno heavy bolter, armoured tracks.",
+     "composition": "1 Chaos Land Raider: 2 soulshatter lascannons, twin heavy bolter, armoured tracks.",
      "options": [
       {
        "id": "pintle",
@@ -39161,12 +39163,12 @@ const DATA = {
         },
         {
          "id": "combib",
-         "label": "Inferno combi-bolter",
+         "label": "Combi-bolter",
          "pts": 0
         },
         {
          "id": "combiw",
-         "label": "Inferno combi-weapon",
+         "label": "Combi-weapon",
          "pts": 0
         }
        ]
@@ -39180,7 +39182,7 @@ const DATA = {
      "optionRules": [],
      "slots": [],
      "optionGroups": [],
-     "transport": "Carries 14 THOUSAND SONS INFANTRY models. Each TERMINATOR model takes the space of 2."
+     "transport": "Carries 12 HERETIC ASTARTES INFANTRY models (excluding OBLITERATOR and JUMP PACK models). Each POSSESSED, MUTILATORS and TERMINATOR model takes the space of 2."
     },
     {
      "id": "chaos_lord",
@@ -39696,24 +39698,24 @@ const DATA = {
        ]
       },
       {
-       "name": "Inferno combi-bolter",
+       "name": "Combi-bolter",
        "range": "24\"",
        "A": "2",
        "skill": "3+",
        "S": "5",
-       "AP": "-2",
+       "AP": "-1",
        "D": "1",
        "kw": [
         "Rapid Fire 2"
        ]
       },
       {
-       "name": "Inferno combi-weapon",
+       "name": "Combi-weapon",
        "range": "24\"",
        "A": "1",
        "skill": "4+",
        "S": "5",
-       "AP": "-2",
+       "AP": "-1",
        "D": "1",
        "kw": [
         "Anti-infantry 4+",
@@ -39722,12 +39724,12 @@ const DATA = {
        ]
       },
       {
-       "name": "Inferno heavy bolter",
+       "name": "Heavy bolter",
        "range": "36\"",
        "A": "3",
        "skill": "3+",
        "S": "5",
-       "AP": "-2",
+       "AP": "-1",
        "D": "2",
        "kw": [
         "Sustained Hits 1"
@@ -39771,11 +39773,13 @@ const DATA = {
      "coreAbilities": [
       "Deadly Demise D3"
      ],
-     "factionAbilities": [],
+     "factionAbilities": [
+      "Dark Pacts"
+     ],
      "abilities": [
       {
-       "name": "Ensorcelled Annihilation",
-       "text": "Each time this model makes a ranged attack that targets a MONSTER or VEHICLE unit that was hit by one or more Psychic Attacks made by a THOUSAND SONS PSYKER model from your army this phase (including the Doombolt Ritual), you can re-roll the Hit roll and you can re-roll the Damage roll.",
+       "name": "Annihilator",
+       "text": "Each time a ranged attack made by this model is allocated to a MONSTER or VEHICLE model, you can re-roll the Damage roll.",
        "kind": "datasheet"
       }
      ],
@@ -39807,7 +39811,7 @@ const DATA = {
         },
         {
          "id": "hb",
-         "label": "2 inferno heavy bolters",
+         "label": "2 heavy bolters",
          "pts": 0
         }
        ]
@@ -39824,12 +39828,12 @@ const DATA = {
         },
         {
          "id": "combib",
-         "label": "Inferno combi-bolter",
+         "label": "Combi-bolter",
          "pts": 0
         },
         {
          "id": "combiw",
-         "label": "Inferno combi-weapon",
+         "label": "Combi-weapon",
          "pts": 0
         }
        ]
@@ -39885,24 +39889,24 @@ const DATA = {
        ]
       },
       {
-       "name": "Inferno combi-bolter",
+       "name": "Combi-bolter",
        "range": "24\"",
        "A": "2",
        "skill": "3+",
        "S": "5",
-       "AP": "-2",
+       "AP": "-1",
        "D": "1",
        "kw": [
         "Rapid Fire 2"
        ]
       },
       {
-       "name": "Inferno combi-weapon",
+       "name": "Combi-weapon",
        "range": "24\"",
        "A": "1",
        "skill": "4+",
        "S": "5",
-       "AP": "-2",
+       "AP": "-1",
        "D": "1",
        "kw": [
         "Anti-infantry 4+",
@@ -39911,12 +39915,12 @@ const DATA = {
        ]
       },
       {
-       "name": "Inferno heavy bolter",
+       "name": "Heavy bolter",
        "range": "36\"",
        "A": "3",
        "skill": "3+",
        "S": "5",
-       "AP": "-2",
+       "AP": "-1",
        "D": "2",
        "kw": [
         "Sustained Hits 1"
@@ -39960,11 +39964,13 @@ const DATA = {
      "coreAbilities": [
       "Deadly Demise D3"
      ],
-     "factionAbilities": [],
+     "factionAbilities": [
+      "Dark Pacts"
+     ],
      "abilities": [
       {
-       "name": "Ensorcelled Destruction",
-       "text": "Each time this model makes a ranged attack that targets a unit (excluding MONSTERS and VEHICLES) that was hit by one or more Psychic Attacks made by a THOUSAND SONS PSYKER model from your army this phase (including the Doombolt Ritual), improve the Strength and Armour Penetration characteristics of that attack by 1.",
+       "name": "Destructor",
+       "text": "Each time a ranged attack made by this model targets an enemy INFANTRY unit, improve the Armour Penetration characteristic of that attack by 1.",
        "kind": "datasheet"
       }
      ],
@@ -39996,7 +40002,7 @@ const DATA = {
         },
         {
          "id": "hb",
-         "label": "2 inferno heavy bolters",
+         "label": "2 heavy bolters",
          "pts": 0
         }
        ]
@@ -40013,12 +40019,12 @@ const DATA = {
         },
         {
          "id": "combib",
-         "label": "Inferno combi-bolter",
+         "label": "Combi-bolter",
          "pts": 0
         },
         {
          "id": "combiw",
-         "label": "Inferno combi-weapon",
+         "label": "Combi-weapon",
          "pts": 0
         }
        ]
@@ -40061,24 +40067,24 @@ const DATA = {
      "damaged": null,
      "ranged": [
       {
-       "name": "Inferno combi-bolter",
+       "name": "Combi-bolter",
        "range": "24\"",
        "A": "2",
        "skill": "3+",
        "S": "5",
-       "AP": "-2",
+       "AP": "-1",
        "D": "1",
        "kw": [
         "Rapid Fire 2"
        ]
       },
       {
-       "name": "Inferno combi-weapon",
+       "name": "Combi-weapon",
        "range": "24\"",
        "A": "1",
        "skill": "4+",
        "S": "5",
-       "AP": "-2",
+       "AP": "-1",
        "D": "1",
        "kw": [
         "Anti-infantry 4+",
@@ -40115,11 +40121,13 @@ const DATA = {
       "Deadly Demise D3",
       "Firing Deck 2"
      ],
-     "factionAbilities": [],
+     "factionAbilities": [
+      "Dark Pacts"
+     ],
      "abilities": [
       {
-       "name": "Sorcerous Support",
-       "text": "In your Shooting phase, after this model has shot, select one enemy unit hit by one or more of those attacks. Until the end of the phase, each time a friendly model that disembarked from this TRANSPORT this turn makes a Psychic Attack that targets that enemy unit, add 1 to the Hit roll and add 1 to the Wound roll.",
+       "name": "Self-repair",
+       "text": "At the start of your Command phase, this model regains 1 lost wound.",
        "kind": "datasheet"
       }
      ],
@@ -40132,7 +40140,7 @@ const DATA = {
      ],
      "stepFrom": 4,
      "leaderOf": [],
-     "composition": "1 Chaos Rhino: inferno combi-bolter, armoured tracks.",
+     "composition": "1 Chaos Rhino: combi-bolter, armoured tracks.",
      "options": [
       {
        "id": "extra",
@@ -40146,12 +40154,12 @@ const DATA = {
         },
         {
          "id": "combib",
-         "label": "Inferno combi-bolter",
+         "label": "Combi-bolter",
          "pts": 0
         },
         {
          "id": "combiw",
-         "label": "Inferno combi-weapon",
+         "label": "Combi-weapon",
          "pts": 0
         }
        ]
@@ -40160,13 +40168,13 @@ const DATA = {
        "id": "havoc",
        "type": "toggle",
        "label": "Havoc launcher",
-       "note": "This model can be equipped with 1 havoc launcher or can replace 1 inferno combi-bolter with 1 havoc launcher."
+       "note": "This model can be equipped with 1 havoc launcher or can replace 1 combi-bolter with 1 havoc launcher."
       }
      ],
      "optionRules": [],
      "slots": [],
      "optionGroups": [],
-     "transport": "Carries 12 THOUSAND SONS INFANTRY models (not TERMINATOR models)."
+     "transport": "Carries 12 HERETIC ASTARTES INFANTRY models. Cannot carry TERMINATOR, JUMP PACK, MUTILATORS, OBLITERATORS or POSSESSED models."
     },
     {
      "id": "chaos_spawn",
@@ -40176,8 +40184,7 @@ const DATA = {
      "keywords": [
       "Beast",
       "Chaos",
-      "Chaos Spawn",
-      "Mutant"
+      "Chaos Spawn"
      ],
      "image": "chaos_spawn",
      "baseSize": "50mm",
@@ -40185,9 +40192,9 @@ const DATA = {
       "M": "8\"",
       "T": "5",
       "Sv": "4+",
-      "InSv": "5+",
+      "InSv": "—",
       "W": "4",
-      "OC": "1",
+      "OC": "0",
       "Ld": "7+"
      },
      "damaged": null,
@@ -40207,11 +40214,13 @@ const DATA = {
      "coreAbilities": [
       "Feel No Pain 5+"
      ],
-     "factionAbilities": [],
+     "factionAbilities": [
+      "Dark Pacts"
+     ],
      "abilities": [
       {
-       "name": "Regenerating Monstrosities",
-       "text": "At the start of each player’s Command phase, one model in this unit regains up to 3 lost wounds.",
+       "name": "Mind-breaking Mutations (Aura)",
+       "text": "While an enemy unit (excluding VEHICLES) is within 3\" of this unit, subtract 1 from the Objective Control characteristic of models in that enemy unit.",
        "kind": "datasheet"
       }
      ],
@@ -40505,24 +40514,24 @@ const DATA = {
        ]
       },
       {
-       "name": "Inferno combi-bolter",
+       "name": "Combi-bolter",
        "range": "24\"",
        "A": "2",
        "skill": "3+",
        "S": "5",
-       "AP": "-2",
+       "AP": "-1",
        "D": "1",
        "kw": [
         "Rapid Fire 2"
        ]
       },
       {
-       "name": "Inferno combi-weapon",
+       "name": "Combi-weapon",
        "range": "24\"",
        "A": "1",
        "skill": "4+",
        "S": "5",
-       "AP": "-2",
+       "AP": "-1",
        "D": "1",
        "kw": [
         "Anti-infantry 4+",
@@ -40558,7 +40567,9 @@ const DATA = {
      "coreAbilities": [
       "Deadly Demise D3"
      ],
-     "factionAbilities": [],
+     "factionAbilities": [
+      "Dark Pacts"
+     ],
      "abilities": [
       {
        "name": "Siege Shield",
@@ -40589,12 +40600,12 @@ const DATA = {
         },
         {
          "id": "combib",
-         "label": "Inferno combi-bolter",
+         "label": "Combi-bolter",
          "pts": 0
         },
         {
          "id": "combiw",
-         "label": "Inferno combi-weapon",
+         "label": "Combi-weapon",
          "pts": 0
         }
        ]
@@ -41528,7 +41539,7 @@ const DATA = {
        "A": "4",
        "skill": "3+",
        "S": "9",
-       "AP": "-2",
+       "AP": "-1",
        "D": "3",
        "kw": [
         "Devastating Wounds",
@@ -41578,16 +41589,16 @@ const DATA = {
        "A": "6",
        "skill": "3+",
        "S": "6",
-       "AP": "-2",
+       "AP": "-1",
        "D": "2",
        "kw": []
       },
       {
-       "name": "Pyraflux magma cutter",
+       "name": "Magma cutter",
        "range": "12\"",
        "A": "2",
        "skill": "3+",
-       "S": "10",
+       "S": "9",
        "AP": "-4",
        "D": "D6",
        "kw": [
@@ -41633,7 +41644,9 @@ const DATA = {
      "coreAbilities": [
       "Deadly Demise D6"
      ],
-     "factionAbilities": [],
+     "factionAbilities": [
+      "Dark Pacts"
+     ],
      "abilities": [
       {
        "name": "Scuttling Walker",
@@ -41641,8 +41654,8 @@ const DATA = {
        "kind": "datasheet"
       },
       {
-       "name": "Destroyer of Futures (Once per phase, per unit)",
-       "text": "You can target this unit with the Counter-offensive stratagem, regardless of any other uses of that stratagem this phase. If you do: ■ That use is ‐1 CP. ■ That use does not prevent any uses of that stratagem on other units this phase.",
+       "name": "Daemonforge",
+       "text": "Each time this unit makes a Dark Pact, until the end of the phase, each time this model makes an attack, re-roll a Wound roll of 1.",
        "kind": "datasheet"
       }
      ],
@@ -41686,7 +41699,7 @@ const DATA = {
         },
         {
          "id": "magma",
-         "label": "2 pyraflux magma cutters",
+         "label": "2 magma cutters",
          "pts": 0
         }
        ]
@@ -42099,20 +42112,20 @@ const DATA = {
        "A": "6",
        "skill": "3+",
        "S": "8",
-       "AP": "-2",
+       "AP": "-1",
        "D": "2",
        "kw": []
       }
      ],
      "melee": [
       {
-       "name": "Forgefiend claws",
+       "name": "Armoured limbs",
        "range": "Melee",
-       "A": "3",
+       "A": "2",
        "skill": "3+",
        "S": "6",
        "AP": "0",
-       "D": "1",
+       "D": "2",
        "kw": []
       },
       {
@@ -42129,11 +42142,13 @@ const DATA = {
      "coreAbilities": [
       "Deadly Demise D3"
      ],
-     "factionAbilities": [],
+     "factionAbilities": [
+      "Dark Pacts"
+     ],
      "abilities": [
       {
-       "name": "Blazing Salvoes",
-       "text": "In your Shooting phase, after this model has shot, select one enemy unit hit by one or more of those attacks. Until the start of your next turn, that enemy unit is suppressed. While a unit is suppressed, each time a model in that unit makes an attack, subtract 1 from the Hit roll.",
+       "name": "Daemonic Ordnance",
+       "text": "Each time this model is selected to shoot, it can use this ability. If it does, until the end of the phase, its ranged weapons have the [DEVASTATING WOUNDS] and [HAZARDOUS] abilities.",
        "kind": "datasheet"
       }
      ],
@@ -42177,7 +42192,7 @@ const DATA = {
         },
         {
          "id": "ecto",
-         "label": "Ectoplasma cannon and Forgefiend claws",
+         "label": "Ectoplasma cannon and Armoured limbs",
          "pts": 5
         }
        ]
@@ -42713,10 +42728,10 @@ const DATA = {
      "image": "helbrute",
      "baseSize": "60mm",
      "profile": {
-      "M": "8\"",
+      "M": "6\"",
       "T": "9",
       "Sv": "2+",
-      "InSv": "5+",
+      "InSv": "—",
       "W": "8",
       "OC": "3",
       "Ld": "6+"
@@ -42724,12 +42739,12 @@ const DATA = {
      "damaged": null,
      "ranged": [
       {
-       "name": "Inferno combi-bolter",
+       "name": "Combi-bolter",
        "range": "24\"",
        "A": "2",
        "skill": "3+",
        "S": "5",
-       "AP": "-2",
+       "AP": "-1",
        "D": "1",
        "kw": [
         "Rapid Fire 2"
@@ -42741,7 +42756,7 @@ const DATA = {
        "A": "D6",
        "skill": "—",
        "S": "5",
-       "AP": "-2",
+       "AP": "-1",
        "D": "1",
        "kw": [
         "Ignores Cover",
@@ -42808,12 +42823,12 @@ const DATA = {
        ]
       },
       {
-       "name": "Twin inferno heavy bolter",
+       "name": "Twin heavy bolter",
        "range": "36\"",
        "A": "3",
        "skill": "3+",
        "S": "5",
-       "AP": "-2",
+       "AP": "-1",
        "D": "2",
        "kw": [
         "Sustained Hits 1",
@@ -42878,16 +42893,18 @@ const DATA = {
      "coreAbilities": [
       "Deadly Demise 1"
      ],
-     "factionAbilities": [],
+     "factionAbilities": [
+      "Dark Pacts"
+     ],
      "abilities": [
       {
-       "name": "Terrifying Assault",
-       "text": "In your Shooting phase and the Fight phase, after this model has shot or fought, select one enemy unit hit by one or more of those attacks. That unit must take a Battle-shock test, subtracting 1 from that test if it is within 9\" of one or more THOUSAND SONS PSYKER units from your army.",
+       "name": "Dark Ascension (Aura)",
+       "text": "While a friendly HERETIC ASTARTES unit is within 6\" of this model, each time that unit makes a Dark Pact, until the end of the phase, its weapons gain both abilities conferred by that pact (instead of only one).",
        "kind": "datasheet"
       },
       {
        "name": "Devoted to Destruction",
-       "text": "If this model is equipped with two melee weapons in addition to its close combat weapon, add 2 to the Attacks characteristic of those two weapons.",
+       "text": "If this model is equipped with 2 melee weapons in addition to its close combat weapon, add 2 to the Attacks characteristics of those 2 weapons.",
        "kind": "datasheet"
       }
      ],
@@ -42923,7 +42940,7 @@ const DATA = {
         },
         {
          "id": "thb",
-         "label": "Twin inferno heavy bolter",
+         "label": "Twin heavy bolter",
          "pts": 0
         },
         {
@@ -42977,7 +42994,7 @@ const DATA = {
         },
         {
          "id": "combib",
-         "label": "Inferno combi-bolter",
+         "label": "Combi-bolter",
          "pts": 0
         },
         {
@@ -42999,7 +43016,7 @@ const DATA = {
         },
         {
          "id": "combib",
-         "label": "Inferno combi-bolter",
+         "label": "Combi-bolter",
          "pts": 0
         },
         {
@@ -43079,7 +43096,7 @@ const DATA = {
        "A": "D6+3",
        "skill": "—",
        "S": "6",
-       "AP": "-2",
+       "AP": "-1",
        "D": "2",
        "kw": [
         "Ignores Cover",
@@ -43092,7 +43109,7 @@ const DATA = {
        "A": "6",
        "skill": "3+",
        "S": "8",
-       "AP": "-2",
+       "AP": "-1",
        "D": "2",
        "kw": []
       }
@@ -43116,11 +43133,13 @@ const DATA = {
       "Deadly Demise D3",
       "Hover"
      ],
-     "factionAbilities": [],
+     "factionAbilities": [
+      "Dark Pacts"
+     ],
      "abilities": [
       {
-       "name": "Flame-wreathed",
-       "text": "Each time this model ends a Normal move, select one enemy unit it moved over during that move. Until the end of the turn, models in that unit cannot have the Benefit of Cover.",
+       "name": "Airborne Predator",
+       "text": "Each time this model makes an attack that targets a unit that can FLY, add 1 to the Hit roll.",
        "kind": "datasheet"
       }
      ],
@@ -43443,6 +43462,7 @@ const DATA = {
       "Titanic",
       "Towering",
       "Chaos",
+      "Khorne",
       "Daemon",
       "Lord of Skulls",
       "Frame"
@@ -43450,7 +43470,7 @@ const DATA = {
      "image": "lord_of_skulls",
      "baseSize": "Use model",
      "profile": {
-      "M": "12\"",
+      "M": "8\"",
       "T": "13",
       "Sv": "3+",
       "InSv": "5+",
@@ -43468,12 +43488,11 @@ const DATA = {
        "name": "Hades gatling cannon",
        "range": "48\"",
        "A": "12",
-       "skill": "4+",
+       "skill": "3+",
        "S": "8",
        "AP": "-2",
        "D": "2",
        "kw": [
-        "Rapid Fire 6",
         "Sustained Hits 1"
        ]
       },
@@ -43481,51 +43500,46 @@ const DATA = {
        "name": "Skullhurler",
        "range": "60\"",
        "A": "2D6",
-       "skill": "4+",
+       "skill": "3+",
        "S": "14",
        "AP": "-3",
        "D": "3",
-       "kw": [
-        "Rapid Fire 3"
-       ]
+       "kw": []
       },
       {
        "name": "Gorestorm cannon",
        "range": "24\"",
        "A": "D6+3",
-       "skill": "4+",
+       "skill": "3+",
        "S": "10",
        "AP": "-2",
        "D": "3",
        "kw": [
-        "Blast",
-        "Rapid Fire 3"
+        "Blast"
        ]
       },
       {
        "name": "Daemongore cannon",
        "range": "18\"",
        "A": "D6",
-       "skill": "4+",
+       "skill": "3+",
        "S": "14",
        "AP": "-4",
        "D": "D6+2",
        "kw": [
-        "Blast",
-        "Rapid Fire 3"
+        "Blast"
        ]
       },
       {
        "name": "Ichor cannon",
        "range": "48\"",
        "A": "2D6",
-       "skill": "4+",
+       "skill": "3+",
        "S": "7",
        "AP": "-2",
        "D": "2",
        "kw": [
-        "Blast",
-        "Rapid Fire 4"
+        "Blast"
        ]
       }
      ],
@@ -43533,7 +43547,7 @@ const DATA = {
       {
        "name": "Great cleaver of Khorne - strike",
        "range": "Melee",
-       "A": "6",
+       "A": "5",
        "skill": "3+",
        "S": "16",
        "AP": "-4",
@@ -43543,7 +43557,7 @@ const DATA = {
       {
        "name": "Great cleaver of Khorne - sweep",
        "range": "Melee",
-       "A": "18",
+       "A": "15",
        "skill": "3+",
        "S": "8",
        "AP": "-2",
@@ -43555,17 +43569,12 @@ const DATA = {
       "Deadly Demise D6+2"
      ],
      "factionAbilities": [
-      "Blessings of Khorne"
+      "Dark Pacts"
      ],
      "abilities": [
       {
-       "name": "Idol of Blessed Blood",
-       "text": "At the start of the battle round, if this model is on the battlefield, when you make a Blessings of Khorne roll, roll one additional D6.",
-       "kind": "datasheet"
-      },
-      {
-       "name": "Super-heavy War Engine",
-       "text": "Each time this model makes a Normal, Advance or Fall Back move, it can move through models (excluding TITANIC models) and sections of terrain features that are 4\" or less in height. When doing so it can move within Engagement Range of enemy models, but cannot end that move within Engagement Range of them. It can also move through sections of terrain features that are more than 4\" in height, but if it does, after it has moved, roll one D6: on a roll of 1, this model is Battle-shocked.",
+       "name": "Plough Through the Enemy",
+       "text": "In the Fight phase, after this model has finished making its attacks, if this model destroyed one or more enemy units this phase, each enemy unit within 6\" of this model must take a Battle-shock test.",
        "kind": "datasheet"
       }
      ],
@@ -44866,11 +44875,13 @@ const DATA = {
      "coreAbilities": [
       "Deadly Demise D3"
      ],
-     "factionAbilities": [],
+     "factionAbilities": [
+      "Dark Pacts"
+     ],
      "abilities": [
       {
-       "name": "Snarling Protector",
-       "text": "You can target this unit with the Heroic Intervention stratagem, regardless of any other uses of that stratagem this phase. If you do: ■ That use is -1 CP. ■ That use does not prevent any uses of that stratagem on other units this phase. ■ When this unit declares a charge, If a friendly engaged PSYKER unit is within 12\" of this unit, you can use this part of this ability. If you do: ■ This unit can re-roll that charge roll. ■ This unit must end that charge move engaged with an enemy unit engaged with that friendly PSYKER unit.",
+       "name": "Siege Crawler",
+       "text": "You can ignore any or all modifiers to this model's Move characteristic and to Advance and Charge rolls made for it.",
        "kind": "datasheet"
       }
      ],

@@ -1783,36 +1783,36 @@
   "predator_annihilator": {
    "_name": "Chaos Predator Annihilator",
    "abilities": {
-    "Ensorcelled Annihilation": {
+    "Annihilator": {
      "_kind": "datasheet",
-     "text": "Each time this model makes a ranged attack that targets a MONSTER or VEHICLE unit that was hit by one or more Psychic Attacks made by a THOUSAND SONS PSYKER model from your army this phase (including the Doombolt Ritual), you can re-roll the Hit roll and you can re-roll the Damage roll."
+     "text": "Each time a ranged attack made by this model is allocated to a MONSTER or VEHICLE model, you can re-roll the Damage roll."
     }
    }
   },
   "predator_destructor": {
    "_name": "Chaos Predator Destructor",
    "abilities": {
-    "Ensorcelled Destruction": {
+    "Destructor": {
      "_kind": "datasheet",
-     "text": "Each time this model makes a ranged attack that targets a unit (excluding MONSTERS and VEHICLES) that was hit by one or more Psychic Attacks made by a THOUSAND SONS PSYKER model from your army this phase (including the Doombolt Ritual), improve the Strength and Armour Penetration characteristics of that attack by 1."
+     "text": "Each time a ranged attack made by this model targets an enemy INFANTRY unit, improve the Armour Penetration characteristic of that attack by 1."
     }
    }
   },
   "chaos_rhino": {
    "_name": "Chaos Rhino",
    "abilities": {
-    "Sorcerous Support": {
+    "Self-repair": {
      "_kind": "datasheet",
-     "text": "In your Shooting phase, after this model has shot, select one enemy unit hit by one or more of those attacks. Until the end of the phase, each time a friendly model that disembarked from this TRANSPORT this turn makes a Psychic Attack that targets that enemy unit, add 1 to the Hit roll and add 1 to the Wound roll."
+     "text": "At the start of your Command phase, this model regains 1 lost wound."
     }
    }
   },
   "chaos_spawn": {
    "_name": "Chaos Spawn",
    "abilities": {
-    "Regenerating Monstrosities": {
+    "Mind-breaking Mutations (Aura)": {
      "_kind": "datasheet",
-     "text": "At the start of each player’s Command phase, one model in this unit regains up to 3 lost wounds."
+     "text": "While an enemy unit (excluding VEHICLES) is within 3\" of this unit, subtract 1 from the Objective Control characteristic of models in that enemy unit."
     }
    }
   },
@@ -2031,9 +2031,9 @@
      "_kind": "datasheet",
      "text": "Each time this unit makes a Normal, Advance or Fall Back move, it can move through models (excluding TITANIC models) and terrain features. When doing so, it can move within Engagement Range of enemy models, but cannot end that move within Engagement Range of them, and any Desperate Escape test is automatically passed."
     },
-    "Destroyer of Futures (Once per phase, per unit)": {
+    "Daemonforge": {
      "_kind": "datasheet",
-     "text": "You can target this unit with the Counter-offensive stratagem, regardless of any other uses of that stratagem this phase. If you do: ■ That use is ‐1 CP. ■ That use does not prevent any uses of that stratagem on other units this phase."
+     "text": "Each time this unit makes a Dark Pact, until the end of the phase, each time this model makes an attack, re-roll a Wound roll of 1."
     }
    }
   },
@@ -2066,9 +2066,9 @@
   "forgefiend": {
    "_name": "Forgefiend",
    "abilities": {
-    "Blazing Salvoes": {
+    "Daemonic Ordnance": {
      "_kind": "datasheet",
-     "text": "In your Shooting phase, after this model has shot, select one enemy unit hit by one or more of those attacks. Until the start of your next turn, that enemy unit is suppressed. While a unit is suppressed, each time a model in that unit makes an attack, subtract 1 from the Hit roll."
+     "text": "Each time this model is selected to shoot, it can use this ability. If it does, until the end of the phase, its ranged weapons have the [DEVASTATING WOUNDS] and [HAZARDOUS] abilities."
     }
    }
   },
@@ -2097,22 +2097,22 @@
   "helbrute": {
    "_name": "Helbrute",
    "abilities": {
-    "Terrifying Assault": {
+    "Dark Ascension (Aura)": {
      "_kind": "datasheet",
-     "text": "In your Shooting phase and the Fight phase, after this model has shot or fought, select one enemy unit hit by one or more of those attacks. That unit must take a Battle-shock test, subtracting 1 from that test if it is within 9\" of one or more THOUSAND SONS PSYKER units from your army."
+     "text": "While a friendly HERETIC ASTARTES unit is within 6\" of this model, each time that unit makes a Dark Pact, until the end of the phase, its weapons gain both abilities conferred by that pact (instead of only one)."
     },
     "Devoted to Destruction": {
      "_kind": "datasheet",
-     "text": "If this model is equipped with two melee weapons in addition to its close combat weapon, add 2 to the Attacks characteristic of those two weapons."
+     "text": "If this model is equipped with 2 melee weapons in addition to its close combat weapon, add 2 to the Attacks characteristics of those 2 weapons."
     }
    }
   },
   "heldrake": {
    "_name": "Heldrake",
    "abilities": {
-    "Flame-wreathed": {
+    "Airborne Predator": {
      "_kind": "datasheet",
-     "text": "Each time this model ends a Normal move, select one enemy unit it moved over during that move. Until the end of the turn, models in that unit cannot have the Benefit of Cover."
+     "text": "Each time this model makes an attack that targets a unit that can FLY, add 1 to the Hit roll."
     }
    }
   },
@@ -2162,13 +2162,9 @@
   "lord_of_skulls": {
    "_name": "Khorne Lord of Skulls",
    "abilities": {
-    "Idol of Blessed Blood": {
+    "Plough Through the Enemy": {
      "_kind": "datasheet",
-     "text": "At the start of the battle round, if this model is on the battlefield, when you make a Blessings of Khorne roll, roll one additional D6."
-    },
-    "Super-heavy War Engine": {
-     "_kind": "datasheet",
-     "text": "Each time this model makes a Normal, Advance or Fall Back move, it can move through models (excluding TITANIC models) and sections of terrain features that are 4\" or less in height. When doing so it can move within Engagement Range of enemy models, but cannot end that move within Engagement Range of them. It can also move through sections of terrain features that are more than 4\" in height, but if it does, after it has moved, roll one D6: on a roll of 1, this model is Battle-shocked."
+     "text": "In the Fight phase, after this model has finished making its attacks, if this model destroyed one or more enemy units this phase, each enemy unit within 6\" of this model must take a Battle-shock test."
     }
    }
   },
@@ -2265,9 +2261,9 @@
   "maulerfiend": {
    "_name": "Maulerfiend",
    "abilities": {
-    "Snarling Protector": {
+    "Siege Crawler": {
      "_kind": "datasheet",
-     "text": "You can target this unit with the Heroic Intervention stratagem, regardless of any other uses of that stratagem this phase. If you do: ■ That use is -1 CP. ■ That use does not prevent any uses of that stratagem on other units this phase. ■ When this unit declares a charge, If a friendly engaged PSYKER unit is within 12\" of this unit, you can use this part of this ability. If you do: ■ This unit can re-roll that charge roll. ■ This unit must end that charge move engaged with an enemy unit engaged with that friendly PSYKER unit."
+     "text": "You can ignore any or all modifiers to this model's Move characteristic and to Advance and Charge rolls made for it."
     }
    }
   },
