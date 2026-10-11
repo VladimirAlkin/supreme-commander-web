@@ -541,7 +541,7 @@
     const fd = fdata(r.factionId);
     const blAllowed = (fd.alliedFactions || []).filter(a => !a.requiresDetachment || r.detachmentIds.includes(a.requiresDetachment)).map(a => a.faction);
     const present = new Set(fd.units.filter(u => u.faction === fd.armyFaction || blAllowed.includes(u.faction)).map(u => catOf(u, r)));
-    const hi = (faction(r.factionId).highlights || []).filter(h => hiLive(r, h)).map(h => [hiKey(h), h.label.charAt(0) + h.label.slice(1).toLowerCase()]);
+    const hi = (faction(r.factionId).highlights || []).filter(h => hiLive(r, h) && !h.pickLabels && !h.noFilter).map(h => [hiKey(h), h.label.charAt(0) + h.label.slice(1).toLowerCase()]);
     return { blAllowed, cats: CATS.filter(([c]) => c === 'all' || present.has(c)).concat(hi) };
   }
   function catalogList(r) {
@@ -626,8 +626,16 @@
         if (markable.includes(def.id)) return `<span class="kwfx tone-arcane cond mark" style="--d:${d}s" title="Pick this unit’s Mark of Chaos">Mark?*</span>`;
         return '';
       }
+      // a badge whose label follows a unit's roundPick (Mechanicus protocols / canticles / icons); a leader's pick shows on the unit it leads too
+      if (h.pickLabels) {
+        if (!inst) return '';
+        const src = [inst].concat(r.units.filter(x => x.attachedTo === inst.instanceId)).find(x => h.pickLabels[x.datasheetId]); if (!src) return '';
+        const pl = h.pickLabels[src.datasheetId], rp = (unitDef(r.factionId, src.datasheetId) || {}).roundPick; if (!rp) return '';
+        const pk = p ? rpCur(p, src, rp) : (rp.persist ? rp.default : null), lab = (pk && pl[pk]) || h.label;
+        return `<span class="kwfx ${h.tone ? 'tone-' + h.tone : ''} ${pk ? '' : 'cond'}" style="--d:${d}s" title="${esc(h.title || '')}">${esc(lab)}${pk ? '' : '*'}</span>`;
+      }
       // in Play a pick-based highlight (Righteous) shows only on the units picked this turn
-      const st = p && h.playSel && inst ? ((p[h.playSel] || []).includes(inst.attachedTo || inst.instanceId) ? { on: true, note: h.title } : null) : hiState(r, def, inst, h); if (!st) return '';
+      const st = p && h.playSel && inst ? ((p[h.playSel] || []).includes(inst.attachedTo || inst.instanceId) ? { on: true, note: h.title } : (h.playOr ? hiState(r, def, inst, h) : null)) : hiState(r, def, inst, h); if (!st) return '';
       return `<span class="kwfx ${h.tone ? 'tone-' + h.tone : ''} ${st.cond ? 'cond' : ''}" style="--d:${d}s" title="${esc(st.note || h.title || '')}">${esc(hiLabel(h, st))}${st.cond ? '*' : ''}</span>`;
     }).join('');
   }
@@ -638,7 +646,7 @@
   }
   function hiSummary(r) {
     const f = faction(r.factionId); if (!f || !f.highlights || !r.units.length) return '';
-    return f.highlights.filter(h => hiLive(r, h)).map(h => {
+    return f.highlights.filter(h => hiLive(r, h) && !h.pickLabels).map(h => {
       if (h.markHighlight) {
         const det = markDet(r), markable = (det.instanceGrants[0] || {}).unitIds || [];
         const list = r.units.map(u => ({ u, g: markOf(r, unitDef(r.factionId, u.datasheetId), u) }))
@@ -1278,22 +1286,33 @@
         <div class="dpchoices">${dp.refChoices.map(c => `<div class="dpchoice"><b>${esc(c.name)}</b><span class="dim">${esc(c.effect)}</span></div>`).join('')}</div>
         ${off ? `<div class="faint" style="font-size:.85rem">${esc(off.note)}</div>` : `<div class="faint" style="font-size:.85rem">${esc(dp.refNote || '')}</div>`}</div>`));
     }
-    r.units.forEach(u => { const def = unitDef(r.factionId, u.datasheetId); if (def && def.roundPick) out.unshift(roundPickHTML(r, p, u, def)); if (def && def.phaseTrigger) out.unshift(phaseTriggerHTML(r, p, u, def)); });
+    r.units.forEach(u => { const def = unitDef(r.factionId, u.datasheetId); if (def && def.roundPick) out.unshift(roundPickHTML(r, p, u, def)); if (def && def.phaseTrigger) out.unshift(phaseTriggerHTML(r, p, u, def)); if (def && def.oncePerBattle) out.push(oncePanelHTML(r, p, u, def)); });
+    fd.armyRules.filter(a => a.imperatives).forEach(a => out.unshift(doctrinaHTML(p, a)));
+    fd.armyRules.filter(a => a.cpNote).forEach(a => {
+      const names = new Set(a.cpNote.abilities), has = r.units.filter(u => (unitDef(r.factionId, u.datasheetId).abilities || []).some(x => names.has(x.name)));
+      if (has.length) out.push(panel2(a.cpNote.title, '<span class="badge">Reminder</span>', `<div class="dim" style="font-size:.9rem">${esc(a.cpNote.text)}</div><div class="faint" style="font-size:.85rem">${esc(has.map(u => dispName(r, u)).join(', '))}</div>`));
+    });
     dets.forEach(d => {
+      if (d.halo) out.push(haloUnitsHTML(r, p, d));
+      if (d.imperatives && d.impStyle === 'doctrina') { out.push(doctrinaHTML(p, d)); return; }
       if (d.reminder) {
         const rm = d.reminder, dismissed = ((p.rem || {})[p.round] || {})[d.id];
-        const active = (rm.turn !== 'mine' || p.turn !== 'opp') && p.phase === (rm.phase || 'Command');
+        const inRange = (!rm.from || p.round >= rm.from) && (!rm.to || p.round <= rm.to), firstNow = !!rm.first && p.round === 1;
+        const active = inRange && (firstNow || ((rm.turn !== 'mine' || p.turn !== 'opp') && p.phase === (rm.phase || 'Command')));
+        const enhHave = new Set(r.units.flatMap(x => Engine.enhIds(x)));
+        const impNow = rm.byImp && ((p.imp || {})[p.round]);
+        const rmText = [firstNow ? rm.first : (impNow && rm.byImp[impNow]) || rm.text].concat(Object.keys(rm.extraByEnh || {}).filter(id => enhHave.has(id)).map(id => rm.extraByEnh[id])).filter(Boolean);
         const fxEl = rm.fx === 'warp'
           ? `<span class="rem-warp" aria-hidden="true"><i></i><i></i><i></i><svg viewBox="0 0 100 60" class="rem-bolt"><path d="M54 2 L40 26 L52 26 L42 58 L70 22 L56 22 L66 2 Z"/><path d="M30 8 L22 28 L31 28 L24 52 L44 24 L34 24 L41 8 Z"/></svg></span>`
           : rm.fx === 'slash'
           ? `<span class="rem-slash" aria-hidden="true"><i class="rs-line"></i><i class="rs-spark"></i><i class="rs-spark"></i><i class="rs-spark"></i><i class="rs-spark"></i><i class="rs-spark"></i><i class="rs-spark"></i></span>`
-          : '';
-        if (active && !dismissed) out.push(`<div class="panel pad stack trk remind ${rm.fx ? 'fx-' + rm.fx : ''}" data-remcard="${d.id}">${fxEl}<div class="row"><h3 class="grow">${esc(rm.title)}</h3><span class="badge gold">This round</span></div><div class="dim">${esc(rm.text)}</div><div class="row"><button class="btn sm primary" data-act="csmRemind" data-id="${d.id}">Done — dismiss</button></div></div>`);
+          : rm.fx ? `<span class="mfx loop m-${rm.fx}" aria-hidden="true">${mfxHTML(rm.fx)}</span>` : '';
+        if (active && !dismissed) out.push(`<div class="panel pad stack trk remind ${rm.fx ? 'fx-' + rm.fx : ''}" data-remcard="${d.id}">${fxEl}<div class="row"><h3 class="grow">${esc(rm.title)}</h3><span class="badge gold">This round</span></div>${rmText.map(t => `<div class="dim">${esc(t)}</div>`).join('')}<div class="row"><button class="btn sm primary" data-act="csmRemind" data-id="${d.id}">Done — dismiss</button></div></div>`);
       }
       if (d.battlePick) {
         const bp = d.battlePick, picked = p.aug || [];
         out.push(panel(bp.title, picked.length ? `<span class="badge gold">${picked.length}/${bp.count} active</span>` : '<span class="badge">Pick at battle start</span>',
-          `<div class="dim">${esc(bp.note)}</div><div class="choicechips augrow">${bp.options.map(o => `<button class="cchip ${picked.includes(o.id) ? 'on' : ''}" data-act="csmAug" data-id="${o.id}" aria-pressed="${picked.includes(o.id)}">${esc(o.name)}</button>`).join('')}</div>${picked.length ? `<div class="stack" style="gap:4px;margin-top:8px">${picked.map(id => { const o = bp.options.find(x => x.id === id); return o ? `<div class="dim"><b>${esc(o.name)}</b>: ${esc(o.effect)}</div>` : ''; }).join('')}</div>` : ''}`));
+          `<div class="dim">${esc(bp.note)}</div>${Object.keys(bp.extraByEnh || {}).filter(id => r.units.some(x => Engine.enhIds(x).includes(id))).map(id => `<div class="dim"><b>Enhancement:</b> ${esc(bp.extraByEnh[id])}</div>`).join('')}<div class="choicechips augrow">${bp.options.map(o => `<button class="cchip ${picked.includes(o.id) ? 'on' : ''}" data-act="csmAug" data-fx="${bp.fx || ''}" data-id="${o.id}" aria-pressed="${picked.includes(o.id)}">${esc(o.name)}</button>`).join('')}</div>${picked.length ? `<div class="stack" style="gap:4px;margin-top:8px">${picked.map(id => { const o = bp.options.find(x => x.id === id); return o ? `<div class="dim"><b>${esc(o.name)}</b>: ${esc(o.effect)}</div>` : ''; }).join('')}</div>` : ''}`));
       }
       if (d.numberlessHorde) {
         const rounds = d.numberlessHorde[r.battleSize] || d.numberlessHorde.strike, done = p.pox || {};
@@ -1357,6 +1376,7 @@
     const fd = fdata(r.factionId); if (!fd) return;
     // +1CP units (Swarmlord): your Command phase, while alive
     if (p.turn !== 'opp' && r.units.some(u => (unitDef(r.factionId, u.datasheetId) || {}).cpEachCommand && !unitDead(p, u)) && !(p.hc || {})[p.round]) { p.cp += 1; p.hc = Object.assign(p.hc || {}, { [p.round]: 1 }); }
+    if (p.turn !== 'opp') p.haloU = [];
     if (!fd.armyRules.some(a => a.miracle)) return;
     if (p.turn !== 'opp') p.righteous = [];
     if (p.turn === (p.first || 'mine') && triumph(r, p) && !(p.proc || {})[p.round]) {
@@ -1450,8 +1470,16 @@
 
   /* A unit that takes one ability each battle round (Angron's Wrathful Presence, Magnus' Crimson King).
      State p.rpick[instanceId][round] = option id. Cards in the unit's own style: 'wrath' (blood) or 'eye' (warp). */
+  /* the option in force: this round's pick, or (persist) the latest earlier pick, or the default */
+  function rpCur(p, u, rp) {
+    const m = (p.rpick || {})[u.instanceId] || {};
+    if (m[p.round]) return m[p.round];
+    if (!rp.persist) return null;
+    for (let rd = p.round - 1; rd >= 1; rd--) if (m[rd]) return m[rd];
+    return rp.default || null;
+  }
   function roundPickHTML(r, p, u, def) {
-    const rp = def.roundPick, cur = ((p.rpick || {})[u.instanceId] || {})[p.round], dead = unitDead(p, u), opt = rp.options.find(o => o.id === cur);
+    const rp = def.roundPick, cur = rpCur(p, u, rp), dead = unitDead(p, u), opt = rp.options.find(o => o.id === cur);
     const badge = dead ? '<span class="badge">Dead</span>' : opt ? `<span class="badge gold">Round ${p.round}: ${esc(opt.name)}</span>` : `<span class="badge ${p.turn === (p.first || 'mine') ? 'gold' : ''}">Round ${p.round}: pick one</span>`;
     const cards = rp.options.map((o, i) => `<button class="rpk rpk-${rp.style} ${cur === o.id ? 'on' : ''}" style="--d:-${(i * 1.4).toFixed(1)}s" data-act="rpPick" data-u="${u.instanceId}" data-id="${o.id}" aria-pressed="${cur === o.id}" ${dead ? 'aria-disabled="true"' : ''}><span class="rpk-mark" aria-hidden="true" ${rp.style === 'wrath' && IMG.we_rune ? `style="--rune:url('${IMG.we_rune}')"` : ''}></span><span class="rpk-t"><b>${esc(o.name)}</b></span><span class="rpk-s">${cur === o.id ? 'Active' : dead ? '' : 'Pick'}</span><span class="rpk-e">${esc(o.effect)}</span></button>`).join('');
     return `<div class="panel pad stack trk rpanel rpanel-${rp.style} ${dead ? 'dead' : ''}"><div class="row"><h3 class="grow">${esc(rp.title)}</h3>${badge}</div>
@@ -1487,7 +1515,7 @@
      the card lights up in that phase and the player marks it done. State p.trig[instanceId][round] = true. */
   function phaseTriggerHTML(r, p, u, def) {
     const t = def.phaseTrigger, done = ((p.trig || {})[u.instanceId] || {})[p.round], dead = unitDead(p, u);
-    const now = !dead && !done && p.phase === t.phase && (t.turn !== 'mine' || p.turn !== 'opp');
+    const now = !dead && !done && p.phase === t.phase && (t.turn !== 'mine' || p.turn !== 'opp') && (t.turn !== 'opp' || p.turn === 'opp');
     const badge = dead ? '<span class="badge">Dead</span>' : done ? `<span class="badge">Round ${p.round}: done</span>` : now ? '<span class="badge gold">Now</span>' : `<span class="badge">${esc(t.when)}</span>`;
     return `<div class="panel pad stack trk"><div class="row"><h3 class="grow">${esc(t.title)}</h3>${badge}</div>
       <button class="hop hop-${t.style} ${done ? 'done' : ''} ${now ? 'now' : ''}" data-act="trigDone" data-u="${u.instanceId}" aria-pressed="${!!done}" ${dead ? 'aria-disabled="true"' : ''}>
@@ -1507,12 +1535,64 @@
     document.body.appendChild(fx); setTimeout(() => fx.remove(), 3300);
     if (PL.android) setTimeout(() => PL.haptic('confirm'), 150);
   }
+  /* ---- Mechanicus: Doctrina-style picks (army rule or detachment) and shared effect overlays ---- */
+  const gearPath = (n, ro, ri) => { let d = ''; for (let i = 0; i < n * 4; i++) { const a = i / (n * 4) * Math.PI * 2, rr = (i % 4 === 1 || i % 4 === 2) ? ro : ri; d += (i ? 'L' : 'M') + (12 + Math.cos(a) * rr).toFixed(2) + ' ' + (12 + Math.sin(a) * rr).toFixed(2); } return d + 'Z M12 8.4a3.6 3.6 0 1 0 .01 0Z'; };
+  function mfxHTML(k) {
+    const R = (a, b) => a + Math.random() * (b - a), n = c => Array.from({ length: c }, (_, i) => i);
+    if (k === 'steel' || k === 'red') {
+      const gear = (x, y, sz, dir, dl) => `<svg class="mf-gear" viewBox="0 0 24 24" style="left:${x}%;top:${y}%;--sz:${sz}px;--dir:${dir};--dl:${dl}s"><path fill-rule="evenodd" d="${gearPath(8, 11, 8.6)}"/></svg>`;
+      const pts = Array.from({ length: 11 }, (_, i) => `${(i * 10).toFixed(0)},${(i === 0 || i === 10 ? 20 : 20 + R(-13, 13)).toFixed(1)}`).join(' ');
+      return gear(8, 30, 34, 1, 0) + gear(88, 68, 30, -1, .05) + gear(48, 6, 22, 1, .1)
+        + `<svg class="mf-arc" viewBox="0 0 100 40" preserveAspectRatio="none"><polyline points="${pts}"/></svg>`
+        + n(16).map(() => { const a = R(0, Math.PI * 2), d = R(30, 110); return `<i class="mf-sp" style="left:${R(10, 90).toFixed(0)}%;top:${R(20, 80).toFixed(0)}%;--x:${(Math.cos(a) * d).toFixed(0)}px;--y:${(Math.sin(a) * d * .6).toFixed(0)}px;--dl:${R(0, .35).toFixed(2)}s`+'"></i>'; }).join('');
+    }
+    if (k === 'runes') return n(5).map(i => `<svg class="mf-rune" viewBox="0 0 24 24" style="left:${8 + i * 20}%;--dl:${(i * .16).toFixed(2)}s"><path d="${['M12 3v18M12 8l6-4M12 13l6-4','M7 4v16M7 4l9 6-9 6','M5 5l14 14M19 5L5 19M12 3v18','M12 3l8 9-8 9-8-9zM12 8v8','M6 4h12M12 4v16M6 20h12'][i]}"/></svg>`).join('');
+    if (k === 'halo') return '<i class="mf-halo"></i><i class="mf-halo h2"></i>';
+    if (k === 'geiger') return '<i class="mf-gpulse"></i>' + n(9).map(() => `<i class="mf-tick" style="left:${R(6, 94).toFixed(0)}%;top:${R(14, 84).toFixed(0)}%;--dl:${R(0, 1.6).toFixed(2)}s"></i>`).join('');
+    if (k === 'sonar') return '<i class="mf-ping"></i><i class="mf-ping p2"></i><i class="mf-ping p3"></i>';
+    if (k === 'crosshair') return '<svg class="mf-cross" viewBox="0 0 60 60"><circle cx="30" cy="30" r="17"/><path d="M30 4v14M30 42v14M4 30h14M42 30h14"/></svg>';
+    if (k === 'cloak') return '<i class="mf-cloak"></i><i class="mf-cloak c2"></i>';
+    return '';
+  }
+  function mechFx(el, k, loop) {
+    if (!el || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const fx = document.createElement('span'); fx.className = 'mfx m-' + k; fx.setAttribute('aria-hidden', 'true'); fx.innerHTML = mfxHTML(k);
+    el.appendChild(fx); setTimeout(() => fx.remove(), 2300);
+    if (PL.android) setTimeout(() => PL.haptic('confirm'), 120);
+  }
+  /* one pick per battle round, stored under p[key][round]; key is 'imp' for the army rule and 'halo' for Noospheric Transference */
+  function doctrinaHTML(p, d) {
+    const key = d.impKey || 'imp', now = (p[key] || {})[p.round], cur = d.imperatives.find(i => i.id === now);
+    const cards = d.imperatives.map(k => { const on = now === k.id;
+      return `<button class="dct dct-${k.tone || 'steel'} ${on ? 'on' : ''}" data-act="adImp" data-key="${key}" data-id="${k.id}" data-fx="${k.fx || d.impFx || ''}" aria-pressed="${on}"><span class="dct-gr" aria-hidden="true"></span>
+        <span class="dct-t"><b>${esc(k.name)}</b><span class="dct-s">${on ? 'Active' : 'Activate'}</span></span><span class="dct-e">${esc(k.effect)}</span></button>`; }).join('');
+    return `<div class="panel pad stack trk dctr"><div class="row"><h3 class="grow">${esc(d.impTitle)}</h3>${cur ? `<span class="badge gold">Round ${p.round}: ${esc(cur.name)}</span>` : `<span class="badge">Round ${p.round}: none</span>`}</div>
+      <div class="dct-list">${cards}</div><div class="faint" style="font-size:.85rem">${esc(d.impNote || '')}</div></div>`;
+  }
+  /* Haloscreed: which units carry HALO OVERRIDE this round (limit by battle size); cleared when your turn starts */
+  function haloUnitsHTML(r, p, d) {
+    const fd = fdata(r.factionId), sel = p.haloU || [], max = d.halo.max[r.battleSize] || 1, nowR = p.turn !== 'opp' && p.phase === 'Command';
+    const list = r.units.filter(u => !u.attachedTo && unitDef(r.factionId, u.datasheetId).faction === fd.armyFaction && !unitDead(p, u)
+      && !r.units.some(x => x.attachedTo === u.instanceId && Engine.enhIds(x).includes('transoracular_dyad_wafers')));
+    const lbl = u => [u, ...r.units.filter(x => x.attachedTo === u.instanceId)].map(x => dispName(r, x)).join(' + ');
+    return panel2('Noospheric Transference', nowR ? `<span class="badge gold">Now · ${sel.length}/${max}</span>` : `<span class="badge">${sel.length}/${max}</span>`,
+      `<div class="dim" style="font-size:.9rem">${esc(d.halo.note)}</div>
+      <div class="chips" role="group" aria-label="Halo Override units">${list.map(u => `<button class="chip" aria-pressed="${sel.includes(u.instanceId)}" data-act="asHalo" data-id="${u.instanceId}">${esc(lbl(u))}</button>`).join('')}</div>`);
+  }
+  const panel2 = (title, badge, body) => `<div class="panel pad stack trk"><div class="row"><h3 class="grow">${esc(title)}</h3>${badge || ''}</div>${body}</div>`;
+  /* Once per battle: a unit's one-shot ability (Servo-skull Uplink, Defend the Divine Work). State p.once[instanceId] = round used. */
+  function oncePanelHTML(r, p, u, def) {
+    const o = def.oncePerBattle, used = (p.once || {})[u.instanceId], dead = unitDead(p, u);
+    return panel2(o.title, dead ? '<span class="badge">Dead</span>' : used ? `<span class="badge">Used · round ${used}</span>` : '<span class="badge gold">Ready</span>',
+      `<div class="dim" style="font-size:.9rem">${esc(o.text)}</div>
+      <button class="hop hop-mech ${used ? 'done' : 'now'}" data-act="onceUse" data-u="${u.instanceId}" aria-pressed="${!!used}" ${dead ? 'aria-disabled="true"' : ''}><span class="hop-t"><b>${esc(o.when)}</b></span><span class="hop-s">${used ? 'Used ✓' : esc(o.button)}</span></button>`);
+  }
   function roundHint(r, p) {
     const fd = fdata(r.factionId), dets = r.detachmentIds.map(id => fd.detachments.find(d => d.id === id)).filter(Boolean);
     const startOfRound = p.turn === (p.first || 'mine');
     const h = [];
     if (p.turn !== 'opp' && (p.hc || {})[p.round] && p.phase === 'Command') { const u = r.units.find(x => (unitDef(r.factionId, x.datasheetId) || {}).cpEachCommand); if (u) h.push(` ${unitDef(r.factionId, u.datasheetId).cpEachCommand.name}: +1 CP.`); }
-    if (startOfRound) r.units.forEach(u => { const rp = (unitDef(r.factionId, u.datasheetId) || {}).roundPick; if (rp && !unitDead(p, u) && !((p.rpick || {})[u.instanceId] || {})[p.round]) h.push(` Pick ${rp.who}'s ${rp.title}.`); });
+    if (startOfRound) r.units.forEach(u => { const rp = (unitDef(r.factionId, u.datasheetId) || {}).roundPick; if (rp && !rp.persist && !unitDead(p, u) && !((p.rpick || {})[u.instanceId] || {})[p.round]) h.push(` Pick ${rp.who}'s ${rp.title}.`); });
     if (fd.armyRules.some(a => a.blessings)) return (startOfRound && !(p.active || []).length ? ' Roll and pick Blessings of Khorne.' : '') + h.join('');
     if (fd.armyRules.some(a => a.contagion)) {
       const c = fd.armyRules.find(a => a.contagion).contagion;
@@ -1523,7 +1603,10 @@
       if (nh && p.turn !== 'opp' && (nh.numberlessHorde[r.battleSize] || []).includes(p.round) && !(p.pox || {})[p.round]) h.push(' Add 10 Poxwalkers to Strategic Reserves.');
       if (p.turn === 'opp' && dets.some(d => d.deadlyVectors)) h.push(' Deadly Vectors: roll for Afflicted enemy units.');
     }
-    const impD = dets.find(d => d.imperatives);
+    [].concat(fd.armyRules.filter(a => a.imperatives && a.impStyle === 'doctrina'), dets.filter(d => d.imperatives && d.impStyle === 'doctrina')).forEach(d => {
+      if (!((p[d.impKey || 'imp'] || {})[p.round]) && (d.impCommand ? p.turn !== 'opp' && p.phase === 'Command' : startOfRound)) h.push(` Pick ${d.impTitle}.`);
+    });
+    const impD = dets.find(d => d.imperatives && d.impStyle !== 'doctrina');
     if (impD && !(p.imp || {})[p.round] && (impD.impTitle ? p.turn !== 'opp' && p.phase === 'Command' : startOfRound)) h.push(` Pick ${impD.impTitle || 'a Synaptic Imperative'}.`);
     if (p.round === 1 && dets.some(d => d.hyperAdaptations) && !p.hyper) h.push(' Pick a Hyper-adaptation.');
     if (p.turn !== 'opp' && dets.some(d => d.harvesterReminder)) h.push(' Feed the Swarm.');
@@ -2628,6 +2711,22 @@
       playChange(r, p => { p.imp = p.imp || {}; if (p.imp[p.round] === id) delete p.imp[p.round]; else p.imp[p.round] = id; }, null, 'confirm');
       if (on) { const c = document.querySelector(`.kin[data-id="${id}"]`); if (c) sigilFx(c); }
     },
+    adImp: el => {   // Doctrina Imperatives / Halo Override: one pick per battle round
+      const r = cur(), id = el.dataset.id, key = el.dataset.key || 'imp', on = ((playState(r)[key] || {})[playState(r).round]) !== id;
+      playChange(r, p => { p[key] = p[key] || {}; if (p[key][p.round] === id) delete p[key][p.round]; else p[key][p.round] = id; }, null, 'confirm');
+      if (on) mechFx(document.querySelector(`.dct[data-key="${key}"][data-id="${id}"]`), el.dataset.fx);
+    },
+    asHalo: el => {
+      const r = cur(), id = el.dataset.id, fd = fdata(r.factionId), d = r.detachmentIds.map(x => fd.detachments.find(y => y.id === x)).find(y => y && y.halo), max = d.halo.max[r.battleSize] || 1, sel = playState(r).haloU || [];
+      if (!sel.includes(id) && sel.length >= max) { toast(`Up to ${max} unit${max > 1 ? 's' : ''} at this battle size. Tap a picked one to swap it.`); PL.haptic('reject'); return; }
+      playChange(r, p => { p.haloU = sel.includes(id) ? sel.filter(x => x !== id) : sel.concat(id); }, null, 'confirm');
+      if (!sel.includes(id)) mechFx(document.querySelector(`[data-act="asHalo"][data-id="${id}"]`), 'halo');
+    },
+    onceUse: el => {
+      if (el.getAttribute('aria-disabled') === 'true') { PL.haptic('reject'); return; }
+      const r = cur(), iid = el.dataset.u;
+      playChange(r, p => { p.once = p.once || {}; if (p.once[iid]) delete p.once[iid]; else p.once[iid] = p.round; }, null, 'confirm');
+    },
     csmTac: el => {   // Huron's Marauders command pick
       const r = cur(), id = el.dataset.id, on = (playState(r).imp || {})[playState(r).round] !== id;
       playChange(r, p => { p.imp = p.imp || {}; if (p.imp[p.round] === id) delete p.imp[p.round]; else p.imp[p.round] = id; }, null, 'confirm');
@@ -2661,9 +2760,9 @@
     rpPick: el => {
       if (el.getAttribute('aria-disabled') === 'true') { toast('Dead. Bring the model back first.'); PL.haptic('reject'); return; }
       const r = cur(), iid = el.dataset.u, id = el.dataset.id, u = inst(iid), def = unitDef(r.factionId, u.datasheetId);
-      const on = ((playState(r).rpick || {})[iid] || {})[playState(r).round] !== id;
+      const on = rpCur(playState(r), u, def.roundPick) !== id || !!def.roundPick.persist && !((playState(r).rpick || {})[iid] || {})[playState(r).round];
       playChange(r, p => { p.rpick = p.rpick || {}; const m = p.rpick[iid] = p.rpick[iid] || {}; if (m[p.round] === id) delete m[p.round]; else m[p.round] = id; }, null, 'confirm');
-      if (on) { const c = document.querySelector(`.rpk[data-u="${iid}"][data-id="${id}"]`); if (def.roundPick.style === 'wrath') wrathFx(c); else eyeFx(c); }
+      if (on) { const c = document.querySelector(`.rpk[data-u="${iid}"][data-id="${id}"]`); if (def.roundPick.style === 'wrath') wrathFx(c); else if (def.roundPick.fx) mechFx(c, def.roundPick.fx); else eyeFx(c); }
     },
     asGain: el => { const r = cur(), v = +el.dataset.v; playChange(r, p => { p.miracle = (p.miracle || []).concat(v); S.mNew = p.miracle.length - 1; }, `Miracle dice ${v} added.`, 'confirm'); holyFx(document.querySelector('.mdie.new'), 'die'); setTimeout(() => { S.mNew = null; }, 50); },
     asSpend: el => {
@@ -2743,8 +2842,10 @@
       const r = cur(), id = el.dataset.id;
       const d = fdata(r.factionId).detachments.find(x => x.battlePick && r.detachmentIds.includes(x.id)); if (!d) return;
       const cap = d.battlePick.count || 2;
-      if (!(playState(r).aug || []).includes(id) && (playState(r).aug || []).length >= cap) { toast(`Pick up to ${cap}.`); PL.haptic('reject'); return; }
-      playChange(r, p => { p.aug = p.aug || []; p.aug = p.aug.includes(id) ? p.aug.filter(x => x !== id) : p.aug.concat(id); }, null, 'tick');
+      if (cap > 1 && !(playState(r).aug || []).includes(id) && (playState(r).aug || []).length >= cap) { toast(`Pick up to ${cap}.`); PL.haptic('reject'); return; }
+      const wasOn = (playState(r).aug || []).includes(id);
+      playChange(r, p => { p.aug = p.aug || []; p.aug = p.aug.includes(id) ? p.aug.filter(x => x !== id) : cap === 1 ? [id] : p.aug.concat(id); }, null, 'tick');
+      if (!wasOn && el.dataset.fx) mechFx(document.querySelector(`.cchip[data-act="csmAug"][data-id="${id}"]`), el.dataset.fx);
     },
     resetWounds: () => { const r = cur(); playChange(r, p => { p.wounds = {}; }, 'Wounds reset.'); },
     stratMode: el => { S.stratMode = el.dataset.id; render(); },

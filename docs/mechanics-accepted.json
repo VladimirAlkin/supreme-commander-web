@@ -1,6 +1,6 @@
 {
  "ref": "main",
- "reviewed": "2026-10-08",
+ "reviewed": "2026-10-11",
  "entries": [
   {
    "path": ".worldEaters.units[0].abilities.length",
@@ -73217,8 +73217,1010 @@
   {
    "path": ".adeptusMechanicus.terms.length",
    "change": "ADDED",
-   "value": "0",
-   "why": "Adeptus Mechanicus (new army, added 2026-10-11): points and tiers from MFM v1.5 (chat-1 report) and BSData 11e; CP, keywords, detachment DP/dispositions and enhancement costs from Wahapedia 11e (matches Faction Pack v1.2; 2CP: Bulwark Imperative, Baleful Halo, Binharic Offence, Auto-oracular Retrieval); Kastelan tiers 150/300 then 180/330; TL-4O9 30 pts (MFM; pack gives none); Ironstrider twin cognis lascannon +10, Disintegrator Ferrumite cannon +10 (checked 2026-10-11)"
+   "value": "12",
+   "why": "Adeptus Mechanicus (new army, added 2026-10-11): points and tiers from MFM v1.5 (chat-1 report) and BSData 11e; CP, keywords, detachment DP/dispositions and enhancement costs from Wahapedia 11e (matches Faction Pack v1.2; 2CP: Bulwark Imperative, Baleful Halo, Binharic Offence, Auto-oracular Retrieval); Kastelan tiers 150/300 then 180/330; TL-4O9 30 pts (MFM; pack gives none); Ironstrider twin cognis lascannon +10, Disintegrator Ferrumite cannon +10 (checked 2026-10-11); terms filled with Mechanicus rule names 2026-10-11"
+  },
+  {
+   "path": ".adeptusMechanicus.armyRules[0].impTitle",
+   "change": "ADDED",
+   "value": "\"Doctrina Imperatives\"",
+   "why": "Doctrina Imperatives Play tracker: two Imperatives per Adeptus Mechanicus army rule text (Faction Pack v1.2 / Wahapedia AdM); cpNote = Enhanced/Broad Spectrum Data-tether and Command Uplink text on datasheets (BSData)"
+  },
+  {
+   "path": ".adeptusMechanicus.armyRules[0].impStyle",
+   "change": "ADDED",
+   "value": "\"doctrina\"",
+   "why": "Doctrina Imperatives Play tracker: two Imperatives per Adeptus Mechanicus army rule text (Faction Pack v1.2 / Wahapedia AdM); cpNote = Enhanced/Broad Spectrum Data-tether and Command Uplink text on datasheets (BSData)"
+  },
+  {
+   "path": ".adeptusMechanicus.armyRules[0].impRepeat",
+   "change": "ADDED",
+   "value": "true",
+   "why": "Doctrina Imperatives Play tracker: two Imperatives per Adeptus Mechanicus army rule text (Faction Pack v1.2 / Wahapedia AdM); cpNote = Enhanced/Broad Spectrum Data-tether and Command Uplink text on datasheets (BSData)"
+  },
+  {
+   "path": ".adeptusMechanicus.armyRules[0].imperatives.length",
+   "change": "ADDED",
+   "value": "2",
+   "why": "Doctrina Imperatives Play tracker: two Imperatives per Adeptus Mechanicus army rule text (Faction Pack v1.2 / Wahapedia AdM); cpNote = Enhanced/Broad Spectrum Data-tether and Command Uplink text on datasheets (BSData)"
+  },
+  {
+   "path": ".adeptusMechanicus.armyRules[0].imperatives[0].id",
+   "change": "ADDED",
+   "value": "\"protector\"",
+   "why": "Doctrina Imperatives Play tracker: two Imperatives per Adeptus Mechanicus army rule text (Faction Pack v1.2 / Wahapedia AdM); cpNote = Enhanced/Broad Spectrum Data-tether and Command Uplink text on datasheets (BSData)"
+  },
+  {
+   "path": ".adeptusMechanicus.armyRules[0].imperatives[0].name",
+   "change": "ADDED",
+   "value": "\"Protector Imperative\"",
+   "why": "Doctrina Imperatives Play tracker: two Imperatives per Adeptus Mechanicus army rule text (Faction Pack v1.2 / Wahapedia AdM); cpNote = Enhanced/Broad Spectrum Data-tether and Command Uplink text on datasheets (BSData)"
+  },
+  {
+   "path": ".adeptusMechanicus.armyRules[0].imperatives[0].tone",
+   "change": "ADDED",
+   "value": "\"steel\"",
+   "why": "Doctrina Imperatives Play tracker: two Imperatives per Adeptus Mechanicus army rule text (Faction Pack v1.2 / Wahapedia AdM); cpNote = Enhanced/Broad Spectrum Data-tether and Command Uplink text on datasheets (BSData)"
+  },
+  {
+   "path": ".adeptusMechanicus.armyRules[0].imperatives[0].fx",
+   "change": "ADDED",
+   "value": "\"steel\"",
+   "why": "Doctrina Imperatives Play tracker: two Imperatives per Adeptus Mechanicus army rule text (Faction Pack v1.2 / Wahapedia AdM); cpNote = Enhanced/Broad Spectrum Data-tether and Command Uplink text on datasheets (BSData)"
+  },
+  {
+   "path": ".adeptusMechanicus.armyRules[0].imperatives[1].id",
+   "change": "ADDED",
+   "value": "\"conqueror\"",
+   "why": "Doctrina Imperatives Play tracker: two Imperatives per Adeptus Mechanicus army rule text (Faction Pack v1.2 / Wahapedia AdM); cpNote = Enhanced/Broad Spectrum Data-tether and Command Uplink text on datasheets (BSData)"
+  },
+  {
+   "path": ".adeptusMechanicus.armyRules[0].imperatives[1].name",
+   "change": "ADDED",
+   "value": "\"Conqueror Imperative\"",
+   "why": "Doctrina Imperatives Play tracker: two Imperatives per Adeptus Mechanicus army rule text (Faction Pack v1.2 / Wahapedia AdM); cpNote = Enhanced/Broad Spectrum Data-tether and Command Uplink text on datasheets (BSData)"
+  },
+  {
+   "path": ".adeptusMechanicus.armyRules[0].imperatives[1].tone",
+   "change": "ADDED",
+   "value": "\"red\"",
+   "why": "Doctrina Imperatives Play tracker: two Imperatives per Adeptus Mechanicus army rule text (Faction Pack v1.2 / Wahapedia AdM); cpNote = Enhanced/Broad Spectrum Data-tether and Command Uplink text on datasheets (BSData)"
+  },
+  {
+   "path": ".adeptusMechanicus.armyRules[0].imperatives[1].fx",
+   "change": "ADDED",
+   "value": "\"red\"",
+   "why": "Doctrina Imperatives Play tracker: two Imperatives per Adeptus Mechanicus army rule text (Faction Pack v1.2 / Wahapedia AdM); cpNote = Enhanced/Broad Spectrum Data-tether and Command Uplink text on datasheets (BSData)"
+  },
+  {
+   "path": ".adeptusMechanicus.armyRules[0].cpNote.title",
+   "change": "ADDED",
+   "value": "\"Data-tether\"",
+   "why": "Doctrina Imperatives Play tracker: two Imperatives per Adeptus Mechanicus army rule text (Faction Pack v1.2 / Wahapedia AdM); cpNote = Enhanced/Broad Spectrum Data-tether and Command Uplink text on datasheets (BSData)"
+  },
+  {
+   "path": ".adeptusMechanicus.armyRules[0].cpNote.abilities.length",
+   "change": "ADDED",
+   "value": "3",
+   "why": "Doctrina Imperatives Play tracker: two Imperatives per Adeptus Mechanicus army rule text (Faction Pack v1.2 / Wahapedia AdM); cpNote = Enhanced/Broad Spectrum Data-tether and Command Uplink text on datasheets (BSData)"
+  },
+  {
+   "path": ".adeptusMechanicus.armyRules[0].cpNote.abilities[0]",
+   "change": "ADDED",
+   "value": "\"Enhanced Data-tether\"",
+   "why": "Doctrina Imperatives Play tracker: two Imperatives per Adeptus Mechanicus army rule text (Faction Pack v1.2 / Wahapedia AdM); cpNote = Enhanced/Broad Spectrum Data-tether and Command Uplink text on datasheets (BSData)"
+  },
+  {
+   "path": ".adeptusMechanicus.armyRules[0].cpNote.abilities[1]",
+   "change": "ADDED",
+   "value": "\"Broad Spectrum Data-tether\"",
+   "why": "Doctrina Imperatives Play tracker: two Imperatives per Adeptus Mechanicus army rule text (Faction Pack v1.2 / Wahapedia AdM); cpNote = Enhanced/Broad Spectrum Data-tether and Command Uplink text on datasheets (BSData)"
+  },
+  {
+   "path": ".adeptusMechanicus.armyRules[0].cpNote.abilities[2]",
+   "change": "ADDED",
+   "value": "\"Command Uplink\"",
+   "why": "Doctrina Imperatives Play tracker: two Imperatives per Adeptus Mechanicus army rule text (Faction Pack v1.2 / Wahapedia AdM); cpNote = Enhanced/Broad Spectrum Data-tether and Command Uplink text on datasheets (BSData)"
+  },
+  {
+   "path": ".adeptusMechanicus.detachments[2].battlePick.title",
+   "change": "ADDED",
+   "value": "\"Benedictions of the Omnissiah\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.detachments[2].battlePick.count",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.detachments[2].battlePick.fx",
+   "change": "ADDED",
+   "value": "\"runes\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.detachments[2].battlePick.extraByEnh.data_blessed_autosermon",
+   "change": "ADDED",
+   "value": "\"Once per battle, at the start of your Command phase, the bearer’s unit also gets the Benediction you did not pick, until your next Command phase.\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.detachments[2].battlePick.options.length",
+   "change": "ADDED",
+   "value": "2",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.detachments[2].battlePick.options[0].id",
+   "change": "ADDED",
+   "value": "\"panegyric\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.detachments[2].battlePick.options[0].name",
+   "change": "ADDED",
+   "value": "\"Panegyric Procession\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.detachments[2].battlePick.options[1].id",
+   "change": "ADDED",
+   "value": "\"citation\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.detachments[2].battlePick.options[1].name",
+   "change": "ADDED",
+   "value": "\"Citation in Savagery\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.detachments[3].reminder.title",
+   "change": "ADDED",
+   "value": "\"Murderous Imperative\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.detachments[3].reminder.phase",
+   "change": "ADDED",
+   "value": "\"Command\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.detachments[3].reminder.turn",
+   "change": "ADDED",
+   "value": "\"mine\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.detachments[3].reminder.fx",
+   "change": "ADDED",
+   "value": "\"crosshair\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.detachments[3].reminder.byImp.protector",
+   "change": "ADDED",
+   "value": "\"Protector Imperative is active: SKITARII models re-roll Hit rolls of 1.\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.detachments[3].reminder.byImp.conqueror",
+   "change": "ADDED",
+   "value": "\"Conqueror Imperative is active: SKITARII models re-roll Wound rolls of 1.\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.detachments[4].reminder.title",
+   "change": "ADDED",
+   "value": "\"Acquisition at Any Cost\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.detachments[4].reminder.phase",
+   "change": "ADDED",
+   "value": "\"Command\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.detachments[4].reminder.turn",
+   "change": "ADDED",
+   "value": "\"mine\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.detachments[4].reminder.fx",
+   "change": "ADDED",
+   "value": "\"sonar\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.detachments[4].reminder.extraByEnh.magos",
+   "change": "ADDED",
+   "value": "\"Magos: at the end of your Command phase, if the bearer is in range of the marker, roll one D6: on a 4+ you gain 1CP.\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.detachments[5].halo.max.incursion",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.detachments[5].halo.max.strike",
+   "change": "ADDED",
+   "value": "2",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.detachments[5].halo.max.onslaught",
+   "change": "ADDED",
+   "value": "3",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.detachments[5].impKey",
+   "change": "ADDED",
+   "value": "\"halo\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.detachments[5].impTitle",
+   "change": "ADDED",
+   "value": "\"Override abilities\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.detachments[5].impStyle",
+   "change": "ADDED",
+   "value": "\"doctrina\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.detachments[5].impCommand",
+   "change": "ADDED",
+   "value": "true",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.detachments[5].impFx",
+   "change": "ADDED",
+   "value": "\"halo\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.detachments[5].imperatives.length",
+   "change": "ADDED",
+   "value": "4",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.detachments[5].imperatives[0].id",
+   "change": "ADDED",
+   "value": "\"electromotive\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.detachments[5].imperatives[0].name",
+   "change": "ADDED",
+   "value": "\"Electromotive Energisation\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.detachments[5].imperatives[0].tone",
+   "change": "ADDED",
+   "value": "\"steel\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.detachments[5].imperatives[1].id",
+   "change": "ADDED",
+   "value": "\"microactuator\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.detachments[5].imperatives[1].name",
+   "change": "ADDED",
+   "value": "\"Microactuator Bracing\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.detachments[5].imperatives[1].tone",
+   "change": "ADDED",
+   "value": "\"steel\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.detachments[5].imperatives[2].id",
+   "change": "ADDED",
+   "value": "\"predation\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.detachments[5].imperatives[2].name",
+   "change": "ADDED",
+   "value": "\"Predation Protocols\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.detachments[5].imperatives[2].tone",
+   "change": "ADDED",
+   "value": "\"steel\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.detachments[5].imperatives[3].id",
+   "change": "ADDED",
+   "value": "\"muted\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.detachments[5].imperatives[3].name",
+   "change": "ADDED",
+   "value": "\"Muted Servomotors\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.detachments[5].imperatives[3].tone",
+   "change": "ADDED",
+   "value": "\"steel\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.detachments[8].reminder.title",
+   "change": "ADDED",
+   "value": "\"Rad-bombardment\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.detachments[8].reminder.phase",
+   "change": "ADDED",
+   "value": "\"Command\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.detachments[8].reminder.turn",
+   "change": "ADDED",
+   "value": "\"mine\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.detachments[8].reminder.fx",
+   "change": "ADDED",
+   "value": "\"geiger\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.detachments[8].reminder.from",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.detachments[8].reminder.to",
+   "change": "ADDED",
+   "value": "5",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.detachments[8].reminder.first",
+   "change": "ADDED",
+   "value": "\"Round 1 Bombardment (start of the battle round): for each enemy unit in your opponent’s deployment zone they choose stand firm or take cover. Roll a D6 for each. Standing firm: 3+ = D3 mortal wounds. Taking cover: the unit is battle-shocked, and on a 5+ it suffers D3 mortal wounds.\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.detachments[9].reminder.title",
+   "change": "ADDED",
+   "value": "\"Stealth Optimisation\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.detachments[9].reminder.phase",
+   "change": "ADDED",
+   "value": "\"Command\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.detachments[9].reminder.turn",
+   "change": "ADDED",
+   "value": "\"mine\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.detachments[9].reminder.fx",
+   "change": "ADDED",
+   "value": "\"cloak\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.detachments[9].reminder.to",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[0].roundPick.title",
+   "change": "ADDED",
+   "value": "\"Canticles of the Omnissiah\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[0].roundPick.style",
+   "change": "ADDED",
+   "value": "\"mech\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[0].roundPick.fx",
+   "change": "ADDED",
+   "value": "\"steel\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[0].roundPick.who",
+   "change": "ADDED",
+   "value": "\"Cawl\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[0].roundPick.deadNote",
+   "change": "ADDED",
+   "value": "\"Belisarius Cawl is dead.\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[0].roundPick.options.length",
+   "change": "ADDED",
+   "value": "3",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[0].roundPick.options[0].id",
+   "change": "ADDED",
+   "value": "\"vengeance\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[0].roundPick.options[0].name",
+   "change": "ADDED",
+   "value": "\"Invocation of Machine Vengeance\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[0].roundPick.options[1].id",
+   "change": "ADDED",
+   "value": "\"discipline\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[0].roundPick.options[1].name",
+   "change": "ADDED",
+   "value": "\"Mantra of Discipline\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[0].roundPick.options[2].id",
+   "change": "ADDED",
+   "value": "\"shroud\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[0].roundPick.options[2].name",
+   "change": "ADDED",
+   "value": "\"Shroudpsalm\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[0].phaseTrigger.style",
+   "change": "ADDED",
+   "value": "\"mech\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[0].phaseTrigger.title",
+   "change": "ADDED",
+   "value": "\"Self-repair Mechanisms\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[0].phaseTrigger.who",
+   "change": "ADDED",
+   "value": "\"Cawl\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[0].phaseTrigger.phase",
+   "change": "ADDED",
+   "value": "\"Command\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[0].phaseTrigger.turn",
+   "change": "ADDED",
+   "value": "\"mine\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[0].phaseTrigger.button",
+   "change": "ADDED",
+   "value": "\"Heal D3\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[0].phaseTrigger.done",
+   "change": "ADDED",
+   "value": "\"Healed\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[1].roundPick.title",
+   "change": "ADDED",
+   "value": "\"Icon of War\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[1].roundPick.style",
+   "change": "ADDED",
+   "value": "\"mech\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[1].roundPick.fx",
+   "change": "ADDED",
+   "value": "\"steel\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[1].roundPick.who",
+   "change": "ADDED",
+   "value": "\"Ghuld\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[1].roundPick.deadNote",
+   "change": "ADDED",
+   "value": "\"Thulia Ghuld is dead.\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[1].roundPick.options.length",
+   "change": "ADDED",
+   "value": "3",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[1].roundPick.options[0].id",
+   "change": "ADDED",
+   "value": "\"fanatical\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[1].roundPick.options[0].name",
+   "change": "ADDED",
+   "value": "\"Fanatical Devotion\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[1].roundPick.options[1].id",
+   "change": "ADDED",
+   "value": "\"adaptive\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[1].roundPick.options[1].name",
+   "change": "ADDED",
+   "value": "\"Adaptive Tactics\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[1].roundPick.options[2].id",
+   "change": "ADDED",
+   "value": "\"fires\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[1].roundPick.options[2].name",
+   "change": "ADDED",
+   "value": "\"The Fires of Mars\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[1].phaseTrigger.style",
+   "change": "ADDED",
+   "value": "\"mech\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[1].phaseTrigger.title",
+   "change": "ADDED",
+   "value": "\"Secutor of Olympus\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[1].phaseTrigger.who",
+   "change": "ADDED",
+   "value": "\"Ghuld\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[1].phaseTrigger.phase",
+   "change": "ADDED",
+   "value": "\"Shooting\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[1].phaseTrigger.turn",
+   "change": "ADDED",
+   "value": "\"mine\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[1].phaseTrigger.button",
+   "change": "ADDED",
+   "value": "\"Strike\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[1].phaseTrigger.done",
+   "change": "ADDED",
+   "value": "\"Struck\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[2].phaseTrigger.style",
+   "change": "ADDED",
+   "value": "\"mech\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[2].phaseTrigger.title",
+   "change": "ADDED",
+   "value": "\"Data-spike\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[2].phaseTrigger.who",
+   "change": "ADDED",
+   "value": "\"the Dominus\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[2].phaseTrigger.phase",
+   "change": "ADDED",
+   "value": "\"Fight\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[2].phaseTrigger.turn",
+   "change": "ADDED",
+   "value": "\"mine\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[2].phaseTrigger.button",
+   "change": "ADDED",
+   "value": "\"Jack in\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[2].phaseTrigger.done",
+   "change": "ADDED",
+   "value": "\"Done\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[3].phaseTrigger.style",
+   "change": "ADDED",
+   "value": "\"mech\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[3].phaseTrigger.title",
+   "change": "ADDED",
+   "value": "\"Omnissiah’s Blessing\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[3].phaseTrigger.who",
+   "change": "ADDED",
+   "value": "\"the Enginseer\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[3].phaseTrigger.phase",
+   "change": "ADDED",
+   "value": "\"Command\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[3].phaseTrigger.turn",
+   "change": "ADDED",
+   "value": "\"mine\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[3].phaseTrigger.button",
+   "change": "ADDED",
+   "value": "\"Bless\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[3].phaseTrigger.done",
+   "change": "ADDED",
+   "value": "\"Blessed\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[4].oncePerBattle.title",
+   "change": "ADDED",
+   "value": "\"Defend the Divine Work\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[4].oncePerBattle.button",
+   "change": "ADDED",
+   "value": "\"Use\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[6].oncePerBattle.title",
+   "change": "ADDED",
+   "value": "\"Servo-skull Uplink\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[6].oncePerBattle.button",
+   "change": "ADDED",
+   "value": "\"Use\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[8].roundPick.title",
+   "change": "ADDED",
+   "value": "\"Battle Protocols\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[8].roundPick.style",
+   "change": "ADDED",
+   "value": "\"mech\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[8].roundPick.fx",
+   "change": "ADDED",
+   "value": "\"steel\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[8].roundPick.who",
+   "change": "ADDED",
+   "value": "\"the Datasmith\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[8].roundPick.persist",
+   "change": "ADDED",
+   "value": "true",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[8].roundPick.default",
+   "change": "ADDED",
+   "value": "\"aegis\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[8].roundPick.deadNote",
+   "change": "ADDED",
+   "value": "\"The Datasmith is dead.\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[8].roundPick.options.length",
+   "change": "ADDED",
+   "value": "3",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[8].roundPick.options[0].id",
+   "change": "ADDED",
+   "value": "\"aegis\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[8].roundPick.options[0].name",
+   "change": "ADDED",
+   "value": "\"Aegis Protocol\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[8].roundPick.options[1].id",
+   "change": "ADDED",
+   "value": "\"protector\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[8].roundPick.options[1].name",
+   "change": "ADDED",
+   "value": "\"Protector Protocol\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[8].roundPick.options[2].id",
+   "change": "ADDED",
+   "value": "\"conqueror\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[8].roundPick.options[2].name",
+   "change": "ADDED",
+   "value": "\"Conqueror Protocol\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[21].phaseTrigger.style",
+   "change": "ADDED",
+   "value": "\"mech\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[21].phaseTrigger.title",
+   "change": "ADDED",
+   "value": "\"Voices in the Code\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[21].phaseTrigger.who",
+   "change": "ADDED",
+   "value": "\"the Infiltrators\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[21].phaseTrigger.phase",
+   "change": "ADDED",
+   "value": "\"Fight\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[21].phaseTrigger.turn",
+   "change": "ADDED",
+   "value": "\"mine\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[21].phaseTrigger.button",
+   "change": "ADDED",
+   "value": "\"Broadcast\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[21].phaseTrigger.done",
+   "change": "ADDED",
+   "value": "\"Done\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[31].phaseTrigger.style",
+   "change": "ADDED",
+   "value": "\"mech\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[31].phaseTrigger.title",
+   "change": "ADDED",
+   "value": "\"Bomb Rack\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[31].phaseTrigger.who",
+   "change": "ADDED",
+   "value": "\"the Fusilave\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[31].phaseTrigger.phase",
+   "change": "ADDED",
+   "value": "\"Fight\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[31].phaseTrigger.turn",
+   "change": "ADDED",
+   "value": "\"opp\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[31].phaseTrigger.button",
+   "change": "ADDED",
+   "value": "\"Drop\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.units[31].phaseTrigger.done",
+   "change": "ADDED",
+   "value": "\"Dropped\"",
+   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
+  },
+  {
+   "path": ".adeptusMechanicus.terms.length",
+   "change": "ADDED",
+   "value": "12",
+   "why": "Palette C, emblem and highlighted terms (owner decision 2026-10-11)"
+  },
+  {
+   "path": ".adeptusMechanicus.terms[0]",
+   "change": "ADDED",
+   "value": "\"Doctrina Imperatives?\"",
+   "why": "Palette C, emblem and highlighted terms (owner decision 2026-10-11)"
+  },
+  {
+   "path": ".adeptusMechanicus.terms[1]",
+   "change": "ADDED",
+   "value": "\"Protector Imperative\"",
+   "why": "Palette C, emblem and highlighted terms (owner decision 2026-10-11)"
+  },
+  {
+   "path": ".adeptusMechanicus.terms[2]",
+   "change": "ADDED",
+   "value": "\"Conqueror Imperative\"",
+   "why": "Palette C, emblem and highlighted terms (owner decision 2026-10-11)"
+  },
+  {
+   "path": ".adeptusMechanicus.terms[3]",
+   "change": "ADDED",
+   "value": "\"Benedictions? of the Omnissiah\"",
+   "why": "Palette C, emblem and highlighted terms (owner decision 2026-10-11)"
+  },
+  {
+   "path": ".adeptusMechanicus.terms[4]",
+   "change": "ADDED",
+   "value": "\"Acquisition objective marker\"",
+   "why": "Palette C, emblem and highlighted terms (owner decision 2026-10-11)"
+  },
+  {
+   "path": ".adeptusMechanicus.terms[5]",
+   "change": "ADDED",
+   "value": "\"HALO OVERRIDE\"",
+   "why": "Palette C, emblem and highlighted terms (owner decision 2026-10-11)"
+  },
+  {
+   "path": ".adeptusMechanicus.terms[6]",
+   "change": "ADDED",
+   "value": "\"Halo Override\"",
+   "why": "Palette C, emblem and highlighted terms (owner decision 2026-10-11)"
+  },
+  {
+   "path": ".adeptusMechanicus.terms[7]",
+   "change": "ADDED",
+   "value": "\"Machine Vengeance target\"",
+   "why": "Palette C, emblem and highlighted terms (owner decision 2026-10-11)"
+  },
+  {
+   "path": ".adeptusMechanicus.terms[8]",
+   "change": "ADDED",
+   "value": "\"(?:Aegis|Protector|Conqueror) Protocols?\"",
+   "why": "Palette C, emblem and highlighted terms (owner decision 2026-10-11)"
+  },
+  {
+   "path": ".adeptusMechanicus.terms[9]",
+   "change": "ADDED",
+   "value": "\"RECON AUGURY\"",
+   "why": "Palette C, emblem and highlighted terms (owner decision 2026-10-11)"
+  },
+  {
+   "path": ".adeptusMechanicus.terms[10]",
+   "change": "ADDED",
+   "value": "\"Recon Augury\"",
+   "why": "Palette C, emblem and highlighted terms (owner decision 2026-10-11)"
+  },
+  {
+   "path": ".adeptusMechanicus.terms[11]",
+   "change": "ADDED",
+   "value": "\"analysed\"",
+   "why": "Palette C, emblem and highlighted terms (owner decision 2026-10-11)"
   }
  ]
 }

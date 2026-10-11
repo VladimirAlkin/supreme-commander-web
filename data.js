@@ -644,7 +644,7 @@ const DATA = {
    "enabled": true,
    "theme": {
     "bg": "#090c11",
-    "bg2": "#16505f",
+    "bg2": "#2fb6d6",
     "bgDeep": "#04060a",
     "accent": "#d94a2b",
     "accent2": "#7fd6e8",
@@ -654,8 +654,77 @@ const DATA = {
     "icon1": "#0e2a33",
     "icon2": "#04060a"
    },
-   "emblemSvg": "<svg viewBox=\"0 0 64 64\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\"><circle cx=\"32\" cy=\"32\" r=\"30\" fill=\"#07090d\"/><circle cx=\"32\" cy=\"32\" r=\"19\" fill=\"none\" stroke=\"#7fd6e8\" stroke-width=\"6\" stroke-dasharray=\"6.2 4.1\"/><circle cx=\"32\" cy=\"32\" r=\"14\" fill=\"none\" stroke=\"#d94a2b\" stroke-width=\"3\"/><circle cx=\"32\" cy=\"32\" r=\"5\" fill=\"#e4e1d6\"/></svg>",
-   "highlights": [],
+   "emblemSvg": "<svg viewBox=\"0 0 64 64\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\"><defs><clipPath id=\"admr\"><rect x=\"32\" y=\"0\" width=\"32\" height=\"64\"/></clipPath></defs><circle cx=\"32\" cy=\"32\" r=\"30\" fill=\"#090c11\"/><path fill-rule=\"evenodd\" d=\"M56.50 32.00L60.64 36.54L59.58 40.96L53.83 43.12L51.82 46.40L52.51 52.51L49.05 55.46L43.12 53.83L39.57 55.30L36.54 60.64L32.00 61.00L28.17 56.20L24.43 55.30L18.83 57.84L14.95 55.46L14.68 49.32L12.18 46.40L6.16 45.17L4.42 40.96L7.80 35.83L7.50 32.00L3.36 27.46L4.42 23.04L10.17 20.88L12.18 17.60L11.49 11.49L14.95 8.54L20.88 10.17L24.43 8.70L27.46 3.36L32.00 3.00L35.83 7.80L39.57 8.70L45.17 6.16L49.05 8.54L49.32 14.68L51.82 17.60L57.84 18.83L59.58 23.04L56.20 28.17ZM32 13.5a18.5 18.5 0 1 0 .01 0Z\" fill=\"#2fb6d6\"/><path d=\"M32 15c-8.6 0-14 5.6-14 13 0 4.6 2 7.6 5 9.6V44h4v-3.6h2V44h6v-3.6h2V44h4v-6.4c3-2 5-5 5-9.6 0-7.4-5.4-13-14-13z\" fill=\"#e4e1d6\"/><path d=\"M32 15c-8.6 0-14 5.6-14 13 0 4.6 2 7.6 5 9.6V44h4v-3.6h2V44h6v-3.6h2V44h4v-6.4c3-2 5-5 5-9.6 0-7.4-5.4-13-14-13z\" fill=\"#d94a2b\" clip-path=\"url(#admr)\"/><path d=\"M22.6 27.5a4 4.4 0 1 0 8 0 4 4.4 0 1 0-8 0zM33.4 27.5a4 4.4 0 1 0 8 0 4 4.4 0 1 0-8 0z\" fill=\"#090c11\"/><path d=\"M32 32.6l-2.2 4.2h4.4z\" fill=\"#090c11\"/></svg>",
+   "highlights": [
+    {
+     "id": "anchor",
+     "label": "ANCHOR",
+     "tone": "steel",
+     "keyword": "Battleline",
+     "title": "BATTLELINE: its own Imperative bonuses, and nearby ADEPTUS MECHANICUS units get them too",
+     "notes": {
+      "skitarii_rangers": "BATTLELINE anchor for Doctrina Imperatives.",
+      "skitarii_vanguard": "BATTLELINE anchor for Doctrina Imperatives."
+     },
+     "conditional": {
+      "belisarius_cawl": "Mantra of Discipline gives Cawl BATTLELINE."
+     }
+    },
+    {
+     "id": "protocol",
+     "label": "PROTOCOL",
+     "tone": "arcane",
+     "title": "Protocol / Canticle / Icon in force",
+     "pickLabels": {
+      "cybernetica_datasmith": {
+       "aegis": "AEGIS",
+       "protector": "PROTECTOR",
+       "conqueror": "CONQUEROR"
+      },
+      "belisarius_cawl": {
+       "vengeance": "VENGEANCE",
+       "discipline": "DISCIPLINE",
+       "shroud": "SHROUD"
+      },
+      "thulia_ghuld": {
+       "fanatical": "FANATICAL",
+       "adaptive": "ADAPTIVE",
+       "fires": "FIRES OF MARS"
+      }
+     }
+    },
+    {
+     "id": "halo",
+     "label": "HALO",
+     "tone": "gold",
+     "playSel": "haloU",
+     "playOr": true,
+     "title": "HALO OVERRIDE: carries the Override picked this round",
+     "none": "No unit has HALO OVERRIDE yet.",
+     "detachments": {
+      "haloscreed_battle_clade": {
+       "unitIds": []
+      }
+     },
+     "enhancements": {
+      "transoracular_dyad_wafers": "Its KASTELAN ROBOTS unit has HALO OVERRIDE all battle."
+     },
+     "noFilter": true
+    },
+    {
+     "id": "dual",
+     "label": "DUAL",
+     "tone": "blood",
+     "title": "Protector and Conqueror Imperatives are both active",
+     "none": "No unit has both Imperatives.",
+     "enhancements": {
+      "omnicogitator": "Both Imperatives are active for the bearer’s unit.",
+      "cognitive_reinforcement": "Both Imperatives are active for the bearer’s unit.",
+      "cantic_thrallnet": "Each battle round the bearer picks a SKITARII unit within 12″: both Imperatives are active for it."
+     },
+     "noFilter": true
+    }
+   ],
    "abilityTips": {},
    "logo": "admech_logo",
    "rosterIcon": "admech_roster"
@@ -48426,7 +48495,36 @@ const DATA = {
       "At the start of the battle round, you can select one of the Doctrina Imperatives below. Until the end of the battle round, that Doctrina Imperative is active for your army, and all units from your army that have the Doctrina Imperatives ability gain the relevant abilities shown below.",
       "PROTECTOR IMPERATIVE: ■ Ranged weapons equipped by models in this unit have the [HEAVY] ability. ■ Improve the Ballistic Skill characteristic of ranged weapons equipped by models in this unit by 1. ■ Each time a melee attack targets this unit, if this unit has the BATTLELINE keyword and/or it is within 6\" of one or more friendly ADEPTUS MECHANICUS BATTLELINE units, subtract 1 from the Hit roll.",
       "CONQUEROR IMPERATIVE: ■ Ranged weapons equipped by models in this unit have the [ASSAULT] ability. ■ Improve the Weapon Skill characteristic of melee weapons equipped by models in this unit by 1. ■ Each time a model in this unit makes an attack, if this unit has the BATTLELINE keyword and/or it is within 6\" of one or more friendly ADEPTUS MECHANICUS BATTLELINE units, improve the Armour Penetration characteristic of that attack by 1."
-     ]
+     ],
+     "impTitle": "Doctrina Imperatives",
+     "impStyle": "doctrina",
+     "impRepeat": true,
+     "impNote": "At the start of each battle round pick one. Until the end of the round it is active for your units with the Doctrina Imperatives ability. You may pick the same one again.",
+     "imperatives": [
+      {
+       "id": "protector",
+       "name": "Protector Imperative",
+       "tone": "steel",
+       "fx": "steel",
+       "effect": "Ranged weapons gain [HEAVY] and +1 BS. Melee attacks against a BATTLELINE unit, or a unit within 6″ of friendly ADEPTUS MECHANICUS BATTLELINE: −1 to Hit."
+      },
+      {
+       "id": "conqueror",
+       "name": "Conqueror Imperative",
+       "tone": "red",
+       "fx": "red",
+       "effect": "Ranged weapons gain [ASSAULT]; melee weapons +1 WS. A BATTLELINE unit, or one within 6″ of friendly ADEPTUS MECHANICUS BATTLELINE: +1 AP on its attacks."
+      }
+     ],
+     "cpNote": {
+      "title": "Data-tether",
+      "text": "Each time you target a unit with a data-tether with a Stratagem, roll one D6: on a 5+ you gain 1CP.",
+      "abilities": [
+       "Enhanced Data-tether",
+       "Broad Spectrum Data-tether",
+       "Command Uplink"
+      ]
+     }
     }
    ],
    "detachments": [
@@ -48799,7 +48897,28 @@ const DATA = {
        "effect": "Roll one D6 for each enemy unit within 6\" of one or more CULT MECHANICUS models in your unit, adding 1 to the result if that model is an ELECTRO-PRIEST. On a 5+, that enemy unit suffers D3 mortal wounds."
       }
      ],
-     "restrictions": " This detachment has the UNIQUE: DATA-PSALM tag and cannot be taken with another DATA-PSALM detachment."
+     "restrictions": " This detachment has the UNIQUE: DATA-PSALM tag and cannot be taken with another DATA-PSALM detachment.",
+     "battlePick": {
+      "title": "Benedictions of the Omnissiah",
+      "count": 1,
+      "fx": "runes",
+      "note": "At the start of the first battle round pick one. It stays active for your CULT MECHANICUS units until the end of the battle.",
+      "extraByEnh": {
+       "data_blessed_autosermon": "Once per battle, at the start of your Command phase, the bearer’s unit also gets the Benediction you did not pick, until your next Command phase."
+      },
+      "options": [
+       {
+        "id": "panegyric",
+        "name": "Panegyric Procession",
+        "effect": "Ranged attack at a target within half range: improve AP by 1."
+       },
+       {
+        "id": "citation",
+        "name": "Citation in Savagery",
+        "effect": "Unit selected to fight that made a Charge move this turn: until end of the phase, +1 Strength and +1 Attacks on melee weapons."
+       }
+      ]
+     }
     },
     {
      "id": "eradication_cohort",
@@ -48942,7 +49061,18 @@ const DATA = {
        "target": "One ADEPTUS MECHANICUS unit from your army that has not been selected to fight this phase.",
        "effect": "Until the end of the phase, melee weapons equipped by models in your unit have the [LANCE] ability."
       }
-     ]
+     ],
+     "reminder": {
+      "title": "Murderous Imperative",
+      "phase": "Command",
+      "turn": "mine",
+      "fx": "crosshair",
+      "text": "Pick a Doctrina Imperative this round. Protector: SKITARII models re-roll Hit rolls of 1. Conqueror: SKITARII models re-roll Wound rolls of 1.",
+      "byImp": {
+       "protector": "Protector Imperative is active: SKITARII models re-roll Hit rolls of 1.",
+       "conqueror": "Conqueror Imperative is active: SKITARII models re-roll Wound rolls of 1."
+      }
+     }
     },
     {
      "id": "explorator_maniple",
@@ -49082,7 +49212,17 @@ const DATA = {
        "target": "One ADEPTUS MECHANICUS INFANTRY unit from your army that was selected as the target of one or more of the attacking unit’s attacks, and one friendly ADEPTUS MECHANICUS SMOKE unit within 6\" of it.",
        "effect": "Until the end of the phase, both of those units have the Stealth ability and the Benefit of Cover."
       }
-     ]
+     ],
+     "reminder": {
+      "title": "Acquisition at Any Cost",
+      "phase": "Command",
+      "turn": "mine",
+      "fx": "sonar",
+      "text": "Select an objective marker as your Acquisition objective marker until your next Command phase. Attacks made by a model whose unit is in range of it, or against a target in range of it: re-roll Wound rolls of 1.",
+      "extraByEnh": {
+       "magos": "Magos: at the end of your Command phase, if the bearer is in range of the marker, roll one D6: on a 4+ you gain 1CP."
+      }
+     }
     },
     {
      "id": "haloscreed_battle_clade",
@@ -49226,6 +49366,46 @@ const DATA = {
        "when": "Your Movement phase.",
        "target": "One ADEPTUS MECHANICUS unit from your army.",
        "effect": "If your unit is a HALO OVERRIDE unit, it suffers D3 mortal wounds. Select one Override ability. Until the start of your next Command phase, that ability is active for your unit. Designer’s Note: This means that if the targeted unit already has the HALO OVERRIDE keyword, it can be affected by multiple Override abilities at the same time, but suffers mortal wounds to do so. Alternatively, if your unit does not have the HALO OVERRIDE keyword, it instead has the chosen Override ability until the start of your next Command phase, but does not benefit from any other Override abilities that are active."
+      }
+     ],
+     "halo": {
+      "max": {
+       "incursion": 1,
+       "strike": 2,
+       "onslaught": 3
+      },
+      "note": "In your Command phase pick the ADEPTUS MECHANICUS units (embarked ones too) that gain HALO OVERRIDE until your next Command phase: 1 unit in Incursion, 2 in Strike Force, 3 in Onslaught."
+     },
+     "impKey": "halo",
+     "impTitle": "Override abilities",
+     "impStyle": "doctrina",
+     "impCommand": true,
+     "impFx": "halo",
+     "impNote": "Then pick one Override. Until your next Command phase every unit with HALO OVERRIDE has it.",
+     "imperatives": [
+      {
+       "id": "electromotive",
+       "name": "Electromotive Energisation",
+       "tone": "steel",
+       "effect": "+2″ Move."
+      },
+      {
+       "id": "microactuator",
+       "name": "Microactuator Bracing",
+       "tone": "steel",
+       "effect": "+1 Toughness."
+      },
+      {
+       "id": "predation",
+       "name": "Predation Protocols",
+       "tone": "steel",
+       "effect": "Eligible to declare a charge in a turn in which it Advanced."
+      },
+      {
+       "id": "muted",
+       "name": "Muted Servomotors",
+       "tone": "steel",
+       "effect": "Models have Stealth."
       }
      ]
     },
@@ -49526,7 +49706,17 @@ const DATA = {
        "target": "One ADEPTUS MECHANICUS unit from your army that has not been selected to shoot this phase.",
        "effect": "Until the end of the phase, ranged weapons equipped by models in your unit have the [LETHAL HITS] ability."
       }
-     ]
+     ],
+     "reminder": {
+      "title": "Rad-bombardment",
+      "phase": "Command",
+      "turn": "mine",
+      "fx": "geiger",
+      "from": 1,
+      "to": 5,
+      "first": "Round 1 Bombardment (start of the battle round): for each enemy unit in your opponent’s deployment zone they choose stand firm or take cover. Roll a D6 for each. Standing firm: 3+ = D3 mortal wounds. Taking cover: the unit is battle-shocked, and on a 5+ it suffers D3 mortal wounds.",
+      "text": "Fallout: roll one D6 for each enemy unit in your opponent’s deployment zone. On a 3+ it suffers 1 mortal wound and takes a Battle-shock test."
+     }
     },
     {
      "id": "skitarii_hunter_cohort",
@@ -49670,7 +49860,15 @@ const DATA = {
        "target": "One SICARIAN, PTERAXII or SYDONIAN unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
        "effect": "Until the end of the phase, models in your unit have the Feel No Pain 5+ ability."
       }
-     ]
+     ],
+     "reminder": {
+      "title": "Stealth Optimisation",
+      "phase": "Command",
+      "turn": "mine",
+      "fx": "cloak",
+      "to": 1,
+      "text": "Your SKITARII INFANTRY, SKITARII MOUNTED and IRONSTRIDER BALLISTARII units have Stealth."
+     }
     }
    ],
    "units": [
@@ -49807,7 +50005,43 @@ const DATA = {
      "optionRules": [],
      "slots": [],
      "optionGroups": [],
-     "mustBeWarlord": "Supreme Commander: Belisarius Cawl must be your Warlord."
+     "mustBeWarlord": "Supreme Commander: Belisarius Cawl must be your Warlord.",
+     "roundPick": {
+      "title": "Canticles of the Omnissiah",
+      "style": "mech",
+      "fx": "steel",
+      "who": "Cawl",
+      "note": "In your Command phase pick one Canticle. Cawl has it until your next Command phase.",
+      "deadNote": "Belisarius Cawl is dead.",
+      "options": [
+       {
+        "id": "vengeance",
+        "name": "Invocation of Machine Vengeance",
+        "effect": "Select an enemy unit as the Machine Vengeance target: friendly ADEPTUS MECHANICUS attacks against it may re-roll the Hit roll."
+       },
+       {
+        "id": "discipline",
+        "name": "Mantra of Discipline",
+        "effect": "Cawl has BATTLELINE and Binharic Courage: ADEPTUS MECHANICUS units within 6″ get +1 OC and +1 to Battle-shock and Leadership tests."
+       },
+       {
+        "id": "shroud",
+        "name": "Shroudpsalm",
+        "effect": "Aura 6″: friendly ADEPTUS MECHANICUS units have Stealth."
+       }
+      ]
+     },
+     "phaseTrigger": {
+      "style": "mech",
+      "title": "Self-repair Mechanisms",
+      "who": "Cawl",
+      "phase": "Command",
+      "turn": "mine",
+      "when": "Start of your Command phase",
+      "text": "Cawl regains up to D3 lost wounds.",
+      "button": "Heal D3",
+      "done": "Healed"
+     }
     },
     {
      "id": "thulia_ghuld",
@@ -49939,7 +50173,43 @@ const DATA = {
      "optionRules": [],
      "slots": [],
      "optionGroups": [],
-     "mustBeWarlord": "Supreme Commander: Thulia Ghuld must be your Warlord."
+     "mustBeWarlord": "Supreme Commander: Thulia Ghuld must be your Warlord.",
+     "roundPick": {
+      "title": "Icon of War",
+      "style": "mech",
+      "fx": "steel",
+      "who": "Ghuld",
+      "note": "In your Command phase pick one Icon of War. Ghuld has it until your next Command phase.",
+      "deadNote": "Thulia Ghuld is dead.",
+      "options": [
+       {
+        "id": "fanatical",
+        "name": "Fanatical Devotion",
+        "effect": "One SKITARII or GHULD unit within 6″: eligible to shoot and declare a charge after Advancing."
+       },
+       {
+        "id": "adaptive",
+        "name": "Adaptive Tactics",
+        "effect": "One SKITARII or GHULD unit within 6″: eligible to shoot and declare a charge after Falling Back."
+       },
+       {
+        "id": "fires",
+        "name": "The Fires of Mars",
+        "effect": "One SKITARII or GHULD unit within 6″: Protector and Conqueror Imperatives are both active for it."
+       }
+      ]
+     },
+     "phaseTrigger": {
+      "style": "mech",
+      "title": "Secutor of Olympus",
+      "who": "Ghuld",
+      "phase": "Shooting",
+      "turn": "mine",
+      "when": "Start of your Shooting phase",
+      "text": "Select an enemy VEHICLE within 12″ and roll a D6: on a 2+ it suffers D3+1 mortal wounds.",
+      "button": "Strike",
+      "done": "Struck"
+     }
     },
     {
      "id": "tech_priest_dominus",
@@ -50110,7 +50380,18 @@ const DATA = {
      ],
      "optionRules": [],
      "slots": [],
-     "optionGroups": []
+     "optionGroups": [],
+     "phaseTrigger": {
+      "style": "mech",
+      "title": "Data-spike",
+      "who": "the Dominus",
+      "phase": "Fight",
+      "turn": "mine",
+      "when": "Start of the Fight phase",
+      "text": "Enemy VEHICLE in Engagement Range of the Dominus’s unit: roll a D6, on a 4+ it suffers D6 mortal wounds and its melee Weapon Skill is worsened by 1 this phase.",
+      "button": "Jack in",
+      "done": "Done"
+     }
     },
     {
      "id": "tech_priest_enginseer",
@@ -50216,7 +50497,18 @@ const DATA = {
      "options": [],
      "optionRules": [],
      "slots": [],
-     "optionGroups": []
+     "optionGroups": [],
+     "phaseTrigger": {
+      "style": "mech",
+      "title": "Omnissiah’s Blessing",
+      "who": "the Enginseer",
+      "phase": "Command",
+      "turn": "mine",
+      "when": "Your Command phase",
+      "text": "One friendly ADEPTUS MECHANICUS model within 3″ regains up to D3 lost wounds; a VEHICLE also gets Feel No Pain 5+ until your next Command phase. Each model once per phase.",
+      "button": "Bless",
+      "done": "Blessed"
+     }
     },
     {
      "id": "tech_priest_manipulus",
@@ -50338,7 +50630,13 @@ const DATA = {
      ],
      "optionRules": [],
      "slots": [],
-     "optionGroups": []
+     "optionGroups": [],
+     "oncePerBattle": {
+      "title": "Defend the Divine Work",
+      "when": "Once per battle, start of any phase",
+      "text": "Until the end of the phase all models in the Manipulus’s unit have a 4+ invulnerable save.",
+      "button": "Use"
+     }
     },
     {
      "id": "technoarcheologist",
@@ -50521,7 +50819,13 @@ const DATA = {
      "optionRules": [],
      "slots": [],
      "optionGroups": [],
-     "support": true
+     "support": true,
+     "oncePerBattle": {
+      "title": "Servo-skull Uplink",
+      "when": "Once per battle, any phase",
+      "text": "Select a friendly SKITARII unit within 6″ of the Marshal that is Battle-shocked: it is no longer Battle-shocked.",
+      "button": "Use"
+     }
     },
     {
      "id": "sydonian_skatros",
@@ -50744,7 +51048,34 @@ const DATA = {
      "optionRules": [],
      "slots": [],
      "optionGroups": [],
-     "support": true
+     "support": true,
+     "roundPick": {
+      "title": "Battle Protocols",
+      "style": "mech",
+      "fx": "steel",
+      "who": "the Datasmith",
+      "persist": true,
+      "default": "aegis",
+      "note": "A KASTELAN ROBOTS unit starts in Aegis Protocols and stays in a protocol until you change it in your Command phase.",
+      "deadNote": "The Datasmith is dead.",
+      "options": [
+       {
+        "id": "aegis",
+        "name": "Aegis Protocol",
+        "effect": "+1 Toughness to KASTELAN ROBOT models in the unit."
+       },
+       {
+        "id": "protector",
+        "name": "Protector Protocol",
+        "effect": "+2 Attacks on ranged weapons of KASTELAN ROBOT models in the unit."
+       },
+       {
+        "id": "conqueror",
+        "name": "Conqueror Protocol",
+        "effect": "+2 Attacks on melee weapons of KASTELAN ROBOT models in the unit."
+       }
+      ]
+     }
     },
     {
      "id": "skitarii_rangers",
@@ -52512,7 +52843,18 @@ const DATA = {
        }
       }
      ],
-     "optionGroups": []
+     "optionGroups": [],
+     "phaseTrigger": {
+      "style": "mech",
+      "title": "Voices in the Code",
+      "who": "the Infiltrators",
+      "phase": "Fight",
+      "turn": "mine",
+      "when": "Start of the Fight phase",
+      "text": "Each enemy unit in Engagement Range of this unit takes a Battle-shock test.",
+      "button": "Broadcast",
+      "done": "Done"
+     }
     },
     {
      "id": "sicarian_ruststalkers",
@@ -53892,7 +54234,18 @@ const DATA = {
      ],
      "optionRules": [],
      "slots": [],
-     "optionGroups": []
+     "optionGroups": [],
+     "phaseTrigger": {
+      "style": "mech",
+      "title": "Bomb Rack",
+      "who": "the Fusilave",
+      "phase": "Fight",
+      "turn": "opp",
+      "when": "End of the opponent’s Fight phase",
+      "text": "Select a visible enemy unit within 24″ (not a Lone Operative) and roll six D6: each 4+ is a mortal wound.",
+      "button": "Drop",
+      "done": "Dropped"
+     }
     },
     {
      "id": "archaeopter_stratoraptor",
@@ -54138,7 +54491,20 @@ const DATA = {
      "transport": "This model has a transport capacity of 11 Skitarii Infantry or Tech-Priest Infantry models. It cannot transport Jump Pack or Kataphron models."
     }
    ],
-   "terms": []
+   "terms": [
+    "Doctrina Imperatives?",
+    "Protector Imperative",
+    "Conqueror Imperative",
+    "Benedictions? of the Omnissiah",
+    "Acquisition objective marker",
+    "HALO OVERRIDE",
+    "Halo Override",
+    "Machine Vengeance target",
+    "(?:Aegis|Protector|Conqueror) Protocols?",
+    "RECON AUGURY",
+    "Recon Augury",
+    "analysed"
+   ]
   }
  }
 };

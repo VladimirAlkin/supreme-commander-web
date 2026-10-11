@@ -1231,3 +1231,56 @@ html:not(.m) .seg.wide { max-width: 560px; }
   box-shadow: 0 0 6px var(--accent); opacity: 0; animation: hmEmber var(--t, 1.2s) ease-out var(--dl, 0s) forwards; will-change: transform, opacity; }
 @keyframes hmEmber { 0% { opacity: 0; transform: translateY(0); } 20% { opacity: 1; } 100% { opacity: 0; transform: translate(var(--x, 0), -60px); } }
 @media (prefers-reduced-motion: reduce) { .htac-grad, .htac.on::before, .htac.on .htac-chev { animation: none; } .hmfx { display: none; } }
+
+/* ---- Adeptus Mechanicus: Doctrina Imperatives, Halo Override, mechanical effects (transform/opacity only) ---- */
+.dctr .dct-list { display: grid; gap: 8px; grid-template-columns: 1fr 1fr; }
+@media (max-width: 420px) { .dctr .dct-list { grid-template-columns: 1fr; } }
+.dct { position: relative; overflow: hidden; isolation: isolate; display: grid; gap: 4px; text-align: left; padding: 11px 12px; border-radius: 12px; font: inherit; color: #e4e1d6; cursor: pointer;
+  background: linear-gradient(180deg, #0c1118, #070a0e); border: 1px solid var(--c, #3a5568); -webkit-tap-highlight-color: transparent; transition: border-color .4s ease, box-shadow .5s ease; }
+.dct-steel { --c: rgba(90, 160, 215, .4); --cb: #5aa9e6; } .dct-red { --c: rgba(217, 74, 43, .4); --cb: #e8532f; }
+.dct > .dct-t, .dct > .dct-e { position: relative; z-index: 1; }
+.dct-t { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; } .dct-t b { font-size: 1.02rem; letter-spacing: .02em; }
+.dct-s { font-size: .72rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--cb); }
+.dct-e { font-size: .85rem; color: #b9c4cc; }
+.dct-gr { position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: .45; background: linear-gradient(100deg, transparent 20%, color-mix(in srgb, var(--cb) 20%, transparent) 50%, transparent 80%); background-size: 260% 100%; animation: htacDrift 10s ease-in-out infinite alternate; }
+.dct.on { border-color: var(--cb); box-shadow: 0 0 0 1px color-mix(in srgb, var(--cb) 45%, transparent), 0 0 16px color-mix(in srgb, var(--cb) 28%, transparent); }
+.dct.on .dct-gr { opacity: 1; animation-duration: 4.5s; }
+.rpk-mech, .rpanel-mech .rpk { color: #e4e1d6; background: linear-gradient(180deg, #0c1118, #070a0e); border: 1px solid rgba(47, 182, 214, .32); }
+.rpk-mech .rpk-e { color: #b9c4cc; } .rpk-mech .rpk-s { color: #7fd6e8; }
+.rpk-mech::before { content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: .5; background: linear-gradient(100deg, transparent 20%, rgba(47, 182, 214, .16) 50%, transparent 80%); background-size: 260% 100%; animation: htacDrift 10s ease-in-out infinite alternate; animation-delay: var(--d, 0s); }
+.rpk-mech.on { border-color: #2fb6d6; box-shadow: 0 0 16px rgba(47, 182, 214, .3); } .rpk-mech.on .rpk-s { color: #e4f8ff; text-shadow: 0 0 10px rgba(47, 182, 214, .8); }
+.hop-mech { color: #e4e1d6; background: linear-gradient(180deg, #0c1118, #070a0e); border-color: rgba(47, 182, 214, .35); } .hop-mech .hop-e { color: #b9c4cc; } .hop-mech .hop-s { color: #7fd6e8; } .hop-mech::before { display: none; }
+.hop-mech.now { border-color: rgba(127, 214, 232, .85); box-shadow: 0 0 14px rgba(47, 182, 214, .35); } .hop-mech.done { border-color: rgba(90, 110, 120, .5); opacity: .8; }
+.cchip, .chip { position: relative; }
+
+.mfx { position: absolute; inset: 0; z-index: 4; pointer-events: none; overflow: visible; --fx: #7fd6e8; }
+.mfx.m-red { --fx: #ff7a4d; } .mfx.m-steel { --fx: #7cc4ff; }
+.mfx svg, .mfx i { position: absolute; will-change: transform, opacity; }
+.mf-gear { width: var(--sz); height: var(--sz); margin: calc(var(--sz) / -2) 0 0 calc(var(--sz) / -2); fill: var(--fx); opacity: 0; animation: mfGear 1.5s ease-out forwards; animation-delay: var(--dl, 0s); filter: drop-shadow(0 0 4px var(--fx)); }
+@keyframes mfGear { 0% { opacity: 0; transform: scale(.4) rotate(0); } 25% { opacity: .85; } 100% { opacity: 0; transform: scale(1.15) rotate(calc(var(--dir) * 150deg)); } }
+.mf-arc { left: 0; top: 30%; width: 100%; height: 40%; overflow: visible; fill: none; stroke: #fff; stroke-width: 2.2; vector-effect: non-scaling-stroke; transform-origin: 0 50%; opacity: 0; animation: mfArc 1s steps(1, end) .1s forwards; filter: drop-shadow(0 0 5px var(--fx)) drop-shadow(0 0 2px var(--fx)); }
+.mf-arc polyline { vector-effect: non-scaling-stroke; }
+@keyframes mfArc { 0% { opacity: 1; transform: scaleX(.25); } 15% { opacity: .2; transform: scaleX(.6); } 30% { opacity: 1; transform: scaleX(1); } 45% { opacity: 0; } 60% { opacity: .9; transform: scaleX(1) scaleY(-1); } 80% { opacity: .3; } 100% { opacity: 0; } }
+.mf-sp { width: 3px; height: 3px; border-radius: 50%; background: #fff; box-shadow: 0 0 6px 1px var(--fx); opacity: 0; animation: mfSpark .9s ease-out forwards; animation-delay: var(--dl, 0s); }
+@keyframes mfSpark { 0% { opacity: 1; transform: translate(0, 0) scale(1.4); } 100% { opacity: 0; transform: translate(var(--x), var(--y)) scale(.3); } }
+.m-runes .mf-rune { top: 50%; width: 22px; height: 22px; margin: -11px 0 0 -11px; fill: none; stroke: var(--fx); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; opacity: 0; animation: mfRune 1.3s ease-out forwards; animation-delay: var(--dl); filter: drop-shadow(0 0 5px var(--fx)); }
+@keyframes mfRune { 0% { opacity: 0; transform: translateY(8px) scale(.6); } 30% { opacity: 1; transform: translateY(0) scale(1.15); } 100% { opacity: 0; transform: translateY(-10px) scale(1); } }
+.mf-halo { left: 50%; top: 50%; width: 46px; height: 46px; margin: -23px 0 0 -23px; border-radius: 50%; border: 2px solid var(--fx); box-shadow: 0 0 12px var(--fx), inset 0 0 8px var(--fx); opacity: 0; animation: mfHalo 1.4s ease-out forwards; }
+.mf-halo.h2 { animation-delay: .25s; }
+@keyframes mfHalo { 0% { opacity: .9; transform: scale(.4); } 100% { opacity: 0; transform: scale(3.2); } }
+.m-halo .mf-halo { border-color: #ffe9a8; --fx: #ffd978; }
+.mf-gpulse { inset: 0; background: radial-gradient(60% 90% at 50% 50%, rgba(160, 255, 90, .28), transparent 70%); opacity: 0; animation: mfGeiger 1.8s ease-in-out infinite; }
+@keyframes mfGeiger { 0%, 100% { opacity: .05; } 12% { opacity: .85; } 20% { opacity: .2; } 28% { opacity: .7; } 45% { opacity: .1; } }
+.mf-tick { width: 3px; height: 3px; border-radius: 50%; background: #c8ff6a; box-shadow: 0 0 6px #9cff3a; opacity: 0; animation: mfTick 1.6s linear infinite; animation-delay: var(--dl); }
+@keyframes mfTick { 0%, 40%, 100% { opacity: 0; } 44% { opacity: 1; transform: scale(1.6); } 52% { opacity: 0; } }
+.mf-ping { left: 18%; top: 50%; width: 40px; height: 40px; margin: -20px 0 0 -20px; border-radius: 50%; border: 1.5px solid #5fe0ff; opacity: 0; animation: mfPing 3.2s ease-out infinite; }
+.mf-ping.p2 { animation-delay: 1.05s; } .mf-ping.p3 { animation-delay: 2.1s; }
+@keyframes mfPing { 0% { opacity: .8; transform: scale(.2); } 100% { opacity: 0; transform: scale(5); } }
+.mf-cross { left: 50%; top: 50%; width: 64px; height: 64px; margin: -32px 0 0 -32px; fill: none; stroke: #ff6a45; stroke-width: 2; opacity: 0; animation: mfCross 2.6s ease-in-out infinite; filter: drop-shadow(0 0 4px #ff4a28); }
+@keyframes mfCross { 0%, 55%, 100% { opacity: 0; transform: scale(1.8); } 62% { opacity: 1; transform: scale(.85); } 70% { opacity: 1; transform: scale(1); } 85% { opacity: .8; transform: scale(1); } }
+.mf-cloak { inset: 0; background: linear-gradient(100deg, transparent, rgba(60, 90, 110, .45), transparent); opacity: 0; animation: mfCloak 4.5s ease-in-out infinite; }
+.mf-cloak.c2 { animation-delay: 2.2s; background: linear-gradient(80deg, transparent, rgba(30, 50, 60, .55), transparent); }
+@keyframes mfCloak { 0%, 100% { opacity: 0; transform: translateX(-12%); } 50% { opacity: .9; transform: translateX(12%); } }
+.panel.remind.fx-geiger { border-color: rgba(160, 255, 90, .4); } .panel.remind.fx-sonar { border-color: rgba(95, 224, 255, .4); } .panel.remind.fx-crosshair { border-color: rgba(255, 106, 69, .45); } .panel.remind.fx-cloak { border-color: rgba(120, 160, 180, .4); }
+.mfx.loop { z-index: 1; overflow: hidden; }
+@media (prefers-reduced-motion: reduce) { .mfx, .dct-gr, .rpk-mech::before { display: none; } }

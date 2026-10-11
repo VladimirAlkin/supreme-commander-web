@@ -69,6 +69,16 @@ Found by `bsdelta.py` across BSData's import (`374f505..HEAD`) plus reviews:
   Defiler) — Wahapedia 11e and BSData differ in wording.
 - Psychostatic Disruption (Tyranids): BSData only; "(Aura)" in the name?
 - Core stratagems (`gameRules.coreStratagems`) are still paraphrases.
+- Adeptus Mechanicus (added 2026-10-11, MFM v1.5; Faction Pack v1.2, legal from
+  26 Aug 2026, no v1.3 found): 34 datasheets, 10 detachments, 51 stratagems.
+  Texts of TL-4Ø9 and Threat-cogitation Targeters come from the Faction Pack
+  PDF only (Wahapedia has none) — check against the PDF/app. War-form Mantles
+  (Lords of the Forge) wording differs between Wahapedia and BSData; RECON
+  AUGURY granted by Cohort Acquisitus is not on any datasheet (keyword grant).
+  Pteraxii and Hastarii step counts (1st-2nd vs 3rd+ unit): MFM v1.5 kept.
+  No product photo on warhammer.com for Cybernetica Datasmith and Servitor
+  Battleclade (logo placeholder); Hastarii Exterminators/Fusiliers and the two
+  Sydonian Dragoons share one box each (two different box images used).
 - Myphitic Blight-haulers: no 11th-edition datasheet text found.
 - Chaos Space Marines (added 2026-10-08, MFM v1.5): Faction Pack exact version
   not confirmed in a text source (`factions.json` carries packVersion 1.3 /
