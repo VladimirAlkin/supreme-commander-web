@@ -651,8 +651,9 @@ const DATA = {
     "panel": "rgba(4,6,10,.84)",
     "card1": "#12303a",
     "card2": "#07090d",
-    "icon1": "#0e2a33",
-    "icon2": "#04060a"
+    "icon1": "#6a1713",
+    "icon2": "#2a0907",
+    "iconRim": "#2fb6d6"
    },
    "emblemSvg": "<svg viewBox=\"0 0 64 64\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\"><defs><clipPath id=\"admr\"><rect x=\"32\" y=\"0\" width=\"32\" height=\"64\"/></clipPath></defs><circle cx=\"32\" cy=\"32\" r=\"30\" fill=\"#090c11\"/><path fill-rule=\"evenodd\" d=\"M56.50 32.00L60.64 36.54L59.58 40.96L53.83 43.12L51.82 46.40L52.51 52.51L49.05 55.46L43.12 53.83L39.57 55.30L36.54 60.64L32.00 61.00L28.17 56.20L24.43 55.30L18.83 57.84L14.95 55.46L14.68 49.32L12.18 46.40L6.16 45.17L4.42 40.96L7.80 35.83L7.50 32.00L3.36 27.46L4.42 23.04L10.17 20.88L12.18 17.60L11.49 11.49L14.95 8.54L20.88 10.17L24.43 8.70L27.46 3.36L32.00 3.00L35.83 7.80L39.57 8.70L45.17 6.16L49.05 8.54L49.32 14.68L51.82 17.60L57.84 18.83L59.58 23.04L56.20 28.17ZM32 13.5a18.5 18.5 0 1 0 .01 0Z\" fill=\"#2fb6d6\"/><path d=\"M32 15c-8.6 0-14 5.6-14 13 0 4.6 2 7.6 5 9.6V44h4v-3.6h2V44h6v-3.6h2V44h4v-6.4c3-2 5-5 5-9.6 0-7.4-5.4-13-14-13z\" fill=\"#e4e1d6\"/><path d=\"M32 15c-8.6 0-14 5.6-14 13 0 4.6 2 7.6 5 9.6V44h4v-3.6h2V44h6v-3.6h2V44h4v-6.4c3-2 5-5 5-9.6 0-7.4-5.4-13-14-13z\" fill=\"#d94a2b\" clip-path=\"url(#admr)\"/><path d=\"M22.6 27.5a4 4.4 0 1 0 8 0 4 4.4 0 1 0-8 0zM33.4 27.5a4 4.4 0 1 0 8 0 4 4.4 0 1 0-8 0z\" fill=\"#090c11\"/><path d=\"M32 32.6l-2.2 4.2h4.4z\" fill=\"#090c11\"/></svg>",
    "highlights": [
@@ -50004,7 +50005,8 @@ const DATA = {
         "fx": "canticle-cyan"
        }
       ]
-     }
+     },
+     "warlordGroup": "supreme_commander"
     },
     {
      "id": "thulia_ghuld",
@@ -50162,17 +50164,7 @@ const DATA = {
        }
       ]
      },
-     "phaseTrigger": {
-      "style": "mech",
-      "title": "Secutor of Olympus",
-      "who": "Ghuld",
-      "phase": "Shooting",
-      "turn": "mine",
-      "when": "Start of your Shooting phase",
-      "text": "Select an enemy VEHICLE within 12″ and roll a D6: on a 2+ it suffers D3+1 mortal wounds.",
-      "button": "Strike",
-      "done": "Struck"
-     }
+     "warlordGroup": "supreme_commander"
     },
     {
      "id": "tech_priest_dominus",

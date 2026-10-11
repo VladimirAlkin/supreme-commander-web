@@ -296,7 +296,11 @@ const Engine = (function () {
     roster.units.forEach(inst => {
       const def = ctx.unitById[inst.datasheetId];
       if (def && def.warlordHint && roster.warlordUnitId !== inst.instanceId) W(def.warlordHint, inst.instanceId);
-      if (def && def.mustBeWarlord && roster.warlordUnitId !== inst.instanceId) E(def.mustBeWarlord, inst.instanceId);
+      if (def && def.mustBeWarlord && roster.warlordUnitId !== inst.instanceId) {
+        // units sharing a warlordGroup (Cawl and Ghuld: Supreme Commander) can both be in the army: one of them being the Warlord is enough
+        const wl = roster.units.find(o => o.instanceId === roster.warlordUnitId), peer = def.warlordGroup && wl && (ctx.unitById[wl.datasheetId] || {}).warlordGroup === def.warlordGroup;
+        if (!peer) E(def.mustBeWarlord, inst.instanceId);
+      }
     });
 
     // ---- Per-unit keyword grants (e.g. Subterranean Assault Trygons)

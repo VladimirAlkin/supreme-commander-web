@@ -73749,48 +73749,6 @@
    "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
   },
   {
-   "path": ".adeptusMechanicus.units[1].phaseTrigger.style",
-   "change": "ADDED",
-   "value": "\"mech\"",
-   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
-  },
-  {
-   "path": ".adeptusMechanicus.units[1].phaseTrigger.title",
-   "change": "ADDED",
-   "value": "\"Secutor of Olympus\"",
-   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
-  },
-  {
-   "path": ".adeptusMechanicus.units[1].phaseTrigger.who",
-   "change": "ADDED",
-   "value": "\"Ghuld\"",
-   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
-  },
-  {
-   "path": ".adeptusMechanicus.units[1].phaseTrigger.phase",
-   "change": "ADDED",
-   "value": "\"Shooting\"",
-   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
-  },
-  {
-   "path": ".adeptusMechanicus.units[1].phaseTrigger.turn",
-   "change": "ADDED",
-   "value": "\"mine\"",
-   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
-  },
-  {
-   "path": ".adeptusMechanicus.units[1].phaseTrigger.button",
-   "change": "ADDED",
-   "value": "\"Strike\"",
-   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
-  },
-  {
-   "path": ".adeptusMechanicus.units[1].phaseTrigger.done",
-   "change": "ADDED",
-   "value": "\"Struck\"",
-   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
-  },
-  {
    "path": ".adeptusMechanicus.units[2].phaseTrigger.style",
    "change": "ADDED",
    "value": "\"mech\"",
@@ -74167,6 +74125,18 @@
    "change": "ADDED",
    "value": "\"canticle-cyan\"",
    "why": "Cawl Canticles effect: litany animation per canticle (owner request 2026-10-11)"
+  },
+  {
+   "path": ".adeptusMechanicus.units[0].warlordGroup",
+   "change": "ADDED",
+   "value": "\"supreme_commander\"",
+   "why": "Cawl and Ghuld both have Supreme Commander (must be Warlord); with both in the army one Warlord satisfies both (owner decision 2026-10-12)"
+  },
+  {
+   "path": ".adeptusMechanicus.units[1].warlordGroup",
+   "change": "ADDED",
+   "value": "\"supreme_commander\"",
+   "why": "Cawl and Ghuld both have Supreme Commander (must be Warlord); with both in the army one Warlord satisfies both (owner decision 2026-10-12)"
   }
  ]
 }
