@@ -73619,7 +73619,7 @@
   {
    "path": ".adeptusMechanicus.units[0].roundPick.style",
    "change": "ADDED",
-   "value": "\"mech\"",
+   "value": "\"canticle\"",
    "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
   },
   {

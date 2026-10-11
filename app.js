@@ -1481,7 +1481,7 @@
   function roundPickHTML(r, p, u, def) {
     const rp = def.roundPick, cur = rpCur(p, u, rp), dead = unitDead(p, u), opt = rp.options.find(o => o.id === cur);
     const badge = dead ? '<span class="badge">Dead</span>' : opt ? `<span class="badge gold">Round ${p.round}: ${esc(opt.name)}</span>` : `<span class="badge ${p.turn === (p.first || 'mine') ? 'gold' : ''}">Round ${p.round}: pick one</span>`;
-    const cards = rp.options.map((o, i) => `<button class="rpk rpk-${rp.style} ${cur === o.id ? 'on' : ''}" style="--d:-${(i * 1.4).toFixed(1)}s" data-act="rpPick" data-u="${u.instanceId}" data-id="${o.id}" aria-pressed="${cur === o.id}" ${dead ? 'aria-disabled="true"' : ''}><span class="rpk-mark" aria-hidden="true" ${rp.style === 'wrath' && IMG.we_rune ? `style="--rune:url('${IMG.we_rune}')"` : ''}></span><span class="rpk-t"><b>${esc(o.name)}</b></span><span class="rpk-s">${cur === o.id ? 'Active' : dead ? '' : 'Pick'}</span><span class="rpk-e">${esc(o.effect)}</span></button>`).join('');
+    const cards = rp.options.map((o, i) => `<button class="rpk rpk-${rp.style} ${cur === o.id ? 'on' : ''}" style="--d:-${(i * 1.4).toFixed(1)}s" data-act="rpPick" data-u="${u.instanceId}" data-id="${o.id}" aria-pressed="${cur === o.id}" ${dead ? 'aria-disabled="true"' : ''}>${rp.style === 'canticle' ? `<span class="ctg" aria-hidden="true" style="--c:${CANT[(o.fx || '').split('-')[1]] || CANT.gold}">${cogSvg('ctg-1')}${cogSvg('ctg-2')}${cogSvg('ctg-3')}</span>` : ''}<span class="rpk-mark" aria-hidden="true" ${rp.style === 'wrath' && IMG.we_rune ? `style="--rune:url('${IMG.we_rune}')"` : ''}></span><span class="rpk-t"><b>${esc(o.name)}</b></span><span class="rpk-s">${cur === o.id ? 'Active' : dead ? '' : 'Pick'}</span><span class="rpk-e">${esc(o.effect)}</span></button>`).join('');
     return `<div class="panel pad stack trk rpanel rpanel-${rp.style} ${dead ? 'dead' : ''}"><div class="row"><h3 class="grow">${esc(rp.title)}</h3>${badge}</div>
       <div class="dim" style="font-size:.9rem">${esc(dead ? rp.deadNote : rp.note)}</div><div class="rpk-list">${cards}</div></div>`;
   }
@@ -1554,24 +1554,21 @@
     if (k === 'cloak') return '<i class="mf-cloak"></i><i class="mf-cloak c2"></i>';
     return '';
   }
-  /* Cawl's Canticles: a screen-wide litany. A great cog turns up behind the card, rays of light sweep out of it,
-     binary code pours down in columns, a shockwave leaves the card. Colour follows the canticle. transform/opacity only. */
+  /* Cawl's Canticles: on the click binary code runs along the button and gears spin up behind it, peeking out of its edges. */
+  const CANT = { red: '#ff7a55', gold: '#ffd36a', cyan: '#55d8ff' };
+  const cogSvg = (cls, extra) => `<svg class="${cls}" viewBox="0 0 24 24" ${extra || ''}><path fill-rule="evenodd" d="${gearPath(10, 11.4, 9.2)}M12 7.2a4.8 4.8 0 1 0 .01 0Z"/></svg>`;
   function canticleFx(card, tone) {
-    if (matchMedia('(prefers-reduced-motion: reduce)').matches || !card) return;
-    const b = card.getBoundingClientRect(), cx = b.left + b.width / 2, cy = b.top + b.height / 2, R = (a, c) => a + Math.random() * (c - a);
-    const col = { red: ['#ff6a45', '#ffc2a8'], gold: ['#ffd36a', '#fff1c4'], cyan: ['#4fd8ff', '#d2f6ff'] }[tone] || ['#ffd36a', '#fff1c4'];
-    const fx = document.createElement('div'); fx.className = 'cantfx'; fx.style.setProperty('--c', col[0]); fx.style.setProperty('--c2', col[1]); fx.setAttribute('aria-hidden', 'true');
-    const bin = () => Array.from({ length: 9 }, () => Math.random() < .5 ? 0 : 1).join('<br>');
-    fx.innerHTML = '<div class="ct-vig"></div>'
-      + `<div class="ct-rays" style="left:${cx}px;top:${cy}px"></div>`
-      + `<svg class="ct-cog" viewBox="0 0 24 24" style="left:${cx}px;top:${cy}px"><path fill-rule="evenodd" d="${gearPath(12, 11.4, 9.4)}M12 5.6a6.4 6.4 0 1 0 .01 0Z"/></svg>`
-      + `<svg class="ct-cog c2" viewBox="0 0 24 24" style="left:${cx}px;top:${cy}px"><circle cx="12" cy="12" r="11.6" fill="none" stroke-dasharray="1.2 1.1"/></svg>`
-      + `<i class="ct-wave" style="left:${cx}px;top:${cy}px"></i><i class="ct-wave w2" style="left:${cx}px;top:${cy}px"></i>`
-      + Array.from({ length: 16 }, (_, i) => `<u class="ct-bin" style="left:${(3 + i * 6.1 + R(-1.5, 1.5)).toFixed(1)}%;--t:${R(1.5, 2.4).toFixed(2)}s;--dl:${R(0, .7).toFixed(2)}s">${bin()}</u>`).join('')
-      + Array.from({ length: 22 }, () => { const a = R(0, Math.PI * 2), d = R(80, 240); return `<i class="ct-sp" style="left:${cx}px;top:${cy}px;--x:${(Math.cos(a) * d).toFixed(0)}px;--y:${(Math.sin(a) * d * .7).toFixed(0)}px;--dl:${R(.1, .5).toFixed(2)}s"></i>`; }).join('');
-    document.body.appendChild(fx); setTimeout(() => fx.remove(), 3400);
-    card.classList.add('ct-flash'); setTimeout(() => card.classList.remove('ct-flash'), 1400);
-    if (PL.android) { PL.haptic('confirm'); setTimeout(() => PL.haptic('confirm'), 300); }
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches || !card || !card.parentElement) return;
+    const R = (a, c) => a + Math.random() * (c - a), c = CANT[tone] || CANT.gold, bin = n => Array.from({ length: n }, () => Math.random() < .5 ? 0 : 1).join('');
+    const code = document.createElement('span'); code.className = 'ctb'; code.setAttribute('aria-hidden', 'true'); code.style.setProperty('--c', c);
+    code.innerHTML = [8, 38, 68].map((t, i) => `<i style="top:${t}%;--dl:${(i * .12).toFixed(2)}s">${bin(34)}</i>`).join('');
+    card.appendChild(code); setTimeout(() => code.remove(), 1500);
+    const par = card.parentElement, fx = document.createElement('span'); fx.className = 'ctl'; fx.setAttribute('aria-hidden', 'true'); fx.style.setProperty('--c', c);
+    fx.style.cssText += `;left:${card.offsetLeft}px;top:${card.offsetTop}px;width:${card.offsetWidth}px;height:${card.offsetHeight}px`;
+    fx.innerHTML = [[-20, -18, 46, 1], [88, -22, 36, -1], [-14, 62, 34, -1], [94, 58, 50, 1], [44, -26, 30, 1], [48, 90, 32, -1]]
+      .map(([x, y, sz, d], i) => cogSvg('ctl-g', `style="left:${x}%;top:${y}%;--sz:${sz}px;--dir:${d};--dl:${(i * .07).toFixed(2)}s"`)).join('');
+    par.appendChild(fx); setTimeout(() => fx.remove(), 2000);
+    if (PL.android) PL.haptic('confirm');
   }
   function mechFx(el, k, loop) {
     if (!el || matchMedia('(prefers-reduced-motion: reduce)').matches) return;

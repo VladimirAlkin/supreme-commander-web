@@ -1285,26 +1285,23 @@ html:not(.m) .seg.wide { max-width: 560px; }
 .mfx.loop { z-index: 1; overflow: hidden; }
 @media (prefers-reduced-motion: reduce) { .mfx, .dct-gr, .rpk-mech::before { display: none; } }
 
-/* Cawl's Canticles: a screen-wide litany (cog, rays, binary rain, shockwave) */
-.cantfx { position: fixed; inset: 0; z-index: 60; pointer-events: none; overflow: hidden; --c: #ffd36a; --c2: #fff1c4; }
-.ct-vig { position: absolute; inset: 0; background: radial-gradient(70% 55% at 50% 50%, transparent 40%, color-mix(in srgb, var(--c) 28%, #000) 100%); opacity: 0; animation: ctVig 3s ease-out forwards; }
-@keyframes ctVig { 0% { opacity: 0; } 18% { opacity: .9; } 100% { opacity: 0; } }
-.ct-rays { position: absolute; width: 150vmax; height: 150vmax; margin: -75vmax 0 0 -75vmax; opacity: 0; will-change: transform, opacity;
-  background: repeating-conic-gradient(from 0deg, color-mix(in srgb, var(--c) 34%, transparent) 0deg 4deg, transparent 4deg 15deg);
-  -webkit-mask-image: radial-gradient(circle, #000 0, transparent 55%); mask-image: radial-gradient(circle, #000 0, transparent 55%); animation: ctRays 3s ease-out forwards; }
-@keyframes ctRays { 0% { opacity: 0; transform: rotate(0) scale(.3); } 20% { opacity: 1; } 100% { opacity: 0; transform: rotate(50deg) scale(1); } }
-.ct-cog { position: absolute; width: min(86vw, 440px); height: min(86vw, 440px); margin: calc(min(86vw, 440px) / -2) 0 0 calc(min(86vw, 440px) / -2); fill: var(--c); opacity: 0; will-change: transform, opacity;
-  filter: drop-shadow(0 0 18px var(--c)); animation: ctCog 3s ease-out forwards; }
-.ct-cog.c2 { fill: none; stroke: var(--c2); stroke-width: .35; filter: drop-shadow(0 0 8px var(--c2)); animation-name: ctCog2; }
-@keyframes ctCog { 0% { opacity: 0; transform: scale(.4) rotate(0); } 18% { opacity: .5; } 100% { opacity: 0; transform: scale(1.25) rotate(120deg); } }
-@keyframes ctCog2 { 0% { opacity: 0; transform: scale(1.5) rotate(0); } 25% { opacity: .9; } 100% { opacity: 0; transform: scale(.8) rotate(-160deg); } }
-.ct-wave { position: absolute; width: 90px; height: 90px; margin: -45px 0 0 -45px; border-radius: 50%; border: 3px solid var(--c2); box-shadow: 0 0 22px var(--c), inset 0 0 14px var(--c); opacity: 0; will-change: transform, opacity; animation: ctWave 1.6s ease-out .1s forwards; }
-.ct-wave.w2 { animation-delay: .45s; }
-@keyframes ctWave { 0% { opacity: .95; transform: scale(.3); } 100% { opacity: 0; transform: scale(11); } }
-.ct-bin { position: absolute; top: -140px; font: 700 .8rem/1.15 ui-monospace, monospace; color: var(--c); text-shadow: 0 0 8px var(--c); opacity: 0; will-change: transform, opacity; animation: ctBin var(--t) linear var(--dl) forwards; }
-@keyframes ctBin { 0% { opacity: 0; transform: translateY(0); } 15% { opacity: .9; } 85% { opacity: .7; } 100% { opacity: 0; transform: translateY(110vh); } }
-.ct-sp { position: absolute; width: 4px; height: 4px; margin: -2px; border-radius: 50%; background: var(--c2); box-shadow: 0 0 8px 1px var(--c); opacity: 0; animation: ctSp 1.3s ease-out var(--dl) forwards; }
-@keyframes ctSp { 0% { opacity: 1; transform: translate(0, 0) scale(1.5); } 100% { opacity: 0; transform: translate(var(--x), var(--y)) scale(.2); } }
-.rpk.ct-flash { animation: ctFlash 1.4s ease-out; }
-@keyframes ctFlash { 0% { filter: brightness(2.2); } 100% { filter: none; } }
-@media (prefers-reduced-motion: reduce) { .cantfx { display: none; } .rpk.ct-flash { animation: none; } }
+/* Cawl's Canticles: gears turn behind the active button; a click runs binary code along it and spins gears up behind its edges */
+.rpk-list { position: relative; isolation: isolate; }
+.rpk-canticle, .rpk-canticle.on { z-index: 1; color: #e4e1d6; background: linear-gradient(180deg, #0c1118, #070a0e); border: 1px solid rgba(47, 182, 214, .32); }
+.rpk-canticle .rpk-e { color: #b9c4cc; } .rpk-canticle .rpk-s { color: #7fd6e8; }
+.rpk-canticle::before { content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: .5; background: linear-gradient(100deg, transparent 20%, rgba(47, 182, 214, .16) 50%, transparent 80%); background-size: 260% 100%; animation: htacDrift 10s ease-in-out infinite alternate; }
+.rpk-canticle.on { border-color: rgba(47, 182, 214, .85); box-shadow: 0 0 16px rgba(47, 182, 214, .28); } .rpk-canticle.on .rpk-s { color: #e4f8ff; text-shadow: 0 0 10px rgba(47, 182, 214, .8); }
+.ctg { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; opacity: 0; transition: opacity .6s ease; }
+.rpk-canticle.on .ctg { opacity: 1; }
+.ctg svg { position: absolute; fill: var(--c); opacity: .13; will-change: transform; }
+.ctg-1 { width: 74px; height: 74px; right: -12px; top: -22px; animation: ctSpin 14s linear infinite; }
+.ctg-2 { width: 46px; height: 46px; right: 46px; bottom: -18px; animation: ctSpin 9s linear infinite reverse; }
+.ctg-3 { width: 34px; height: 34px; left: 38%; top: -12px; opacity: .09 !important; animation: ctSpin 7s linear infinite; }
+@keyframes ctSpin { to { transform: rotate(360deg); } }
+.ctb { position: absolute; inset: 0; z-index: 2; pointer-events: none; overflow: hidden; }
+.ctb i { position: absolute; left: 0; white-space: nowrap; font: 700 .72rem/1 ui-monospace, monospace; letter-spacing: .12em; font-style: normal; color: var(--c); opacity: 0; text-shadow: 0 0 6px var(--c); will-change: transform, opacity; animation: ctRun 1.2s ease-in-out var(--dl) forwards; }
+@keyframes ctRun { 0% { opacity: 0; transform: translateX(-60%); } 20% { opacity: .55; } 80% { opacity: .4; } 100% { opacity: 0; transform: translateX(8%); } }
+.ctl { position: absolute; z-index: 0; pointer-events: none; }
+.ctl-g { position: absolute; width: var(--sz); height: var(--sz); margin: calc(var(--sz) / -2) 0 0 calc(var(--sz) / -2); fill: var(--c); opacity: 0; will-change: transform, opacity; animation: ctlGear 1.7s ease-out var(--dl) forwards; }
+@keyframes ctlGear { 0% { opacity: 0; transform: scale(.5) rotate(0); } 25% { opacity: .45; } 100% { opacity: 0; transform: scale(1) rotate(calc(var(--dir) * 160deg)); } }
+@media (prefers-reduced-motion: reduce) { .ctg svg, .rpk-canticle::before { animation: none; } .ctb, .ctl { display: none; } }

@@ -49979,7 +49979,7 @@ const DATA = {
      "mustBeWarlord": "Supreme Commander: Belisarius Cawl must be your Warlord.",
      "roundPick": {
       "title": "Canticles of the Omnissiah",
-      "style": "mech",
+      "style": "canticle",
       "fx": "canticle-gold",
       "who": "Cawl",
       "note": "In your Command phase pick one Canticle. Cawl has it until your next Command phase.",
