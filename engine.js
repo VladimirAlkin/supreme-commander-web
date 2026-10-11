@@ -33,7 +33,7 @@ const Engine = (function () {
        the rules, so "X model only" must match it. It lives in def.faction,
        and an enhancement's factionSwap replaces it. */
     const fac = inst ? factionOf(inst, def, ctx) : def.faction;
-    if (fac) kw.add(fac);
+    if (fac) kw.add(keywordAsOf(ctx, fac));
     ctx.dets.forEach(d => (d.grantKeywords || []).forEach(g => { if (g.unitIds.includes(def.id)) kw.add(g.keyword); }));
     instGrants(def, ctx, inst).forEach(g => kw.add(g.keyword));
     if (inst) enhIds(inst).forEach(id => { const e = ctx.allEnh[id]; ((e && e.addKeywords) || []).forEach(k => kw.add(k)); });
@@ -53,6 +53,17 @@ const Engine = (function () {
   function factionOf(inst, def, ctx) {
     for (const id of enhIds(inst)) { const e = ctx.allEnh[id]; if (e && e.factionSwap) return e.factionSwap; }
     return def.faction;
+  }
+  /* Points cap of an allied group for a battle size: per-size map `ptsCap` {incursion, strike, onslaught}, else the battleSizes key `capKey`. */
+  function alliedPtsCap(a, bs) {
+    if (!bs) return null;
+    if (a.ptsCap && a.ptsCap[bs.id] != null) return a.ptsCap[bs.id];
+    return a.capKey && bs[a.capKey] != null ? bs[a.capKey] : null;
+  }
+  /* Keyword an allied unit counts as in place of its own faction (Cult of the Dark Gods: HERETIC ASTARTES). */
+  function keywordAsOf(ctx, fac) {
+    const a = ((ctx.fd && ctx.fd.alliedFactions) || []).find(x => x.faction === fac && x.keywordAs);
+    return a ? a.keywordAs : fac;
   }
 
   function copyLimit(def, ctx) {
@@ -243,11 +254,12 @@ const Engine = (function () {
       if (!units.length) return;
       alliedCaps(roster, DATA).filter(c => c.faction === a.faction && c.used > c.n).forEach(c =>
         E(`${a.rule || a.faction}: ${c.used} ${c.keyword.toUpperCase()} units; ${bs.name} allows ${c.n}.`, c.units[c.units.length - 1].instanceId));
-      if (!a.requiresDetachment) return;
-      const hasDet = (roster.detachmentIds || []).includes(a.requiresDetachment);
-      if (!hasDet) units.forEach(inst => E(`${nameOf(inst)} is ${a.faction.toUpperCase()} and needs the ${(fd.detachments.find(d => d.id === a.requiresDetachment) || {}).name} detachment.`, inst.instanceId));
-      const cap = bs[a.capKey];
-      if (cap != null && (pts.allied[a.faction] || 0) > cap) E(`${a.faction} units total ${pts.allied[a.faction]} pts; the ${bs.name} cap is ${cap} pts.`);
+      if (a.requiresDetachment) {
+        const hasDet = (roster.detachmentIds || []).includes(a.requiresDetachment);
+        if (!hasDet) units.forEach(inst => E(`${nameOf(inst)} is ${a.faction.toUpperCase()} and needs the ${(fd.detachments.find(d => d.id === a.requiresDetachment) || {}).name} detachment.`, inst.instanceId));
+      }
+      const cap = alliedPtsCap(a, bs);
+      if (cap != null && (pts.allied[a.faction] || 0) > cap) E(`${a.rule || a.faction}: units total ${pts.allied[a.faction]} pts; the ${bs.name} cap is ${cap} pts.`);
     });
 
     // ---- Copy limits and surcharges
@@ -505,6 +517,6 @@ const Engine = (function () {
   }
 
   function eligibleReason(e, inst, roster, DATA) { const ctx = ctxFor(roster, DATA); const def = ctx.unitById[inst.datasheetId]; return eligible(e, def, inst, ctx); }
-  return { alliedCaps, warlordBlock, grantsFor, instGrants, dispositionsOf, dataVersionFor, eligibleReason, ctxFor, points, validate, copyLimit, nextCopyInfo, enhancementCount, enhancementBlock, optionMax, slotSize, slotUsed, ownCap, keywordsOf, hasKw, factionOf, buffed, attachedGroup, canLead, attachBlock, carries, enhIds, addStat, ORD };
+  return { alliedCaps, alliedPtsCap, warlordBlock, grantsFor, instGrants, dispositionsOf, dataVersionFor, eligibleReason, ctxFor, points, validate, copyLimit, nextCopyInfo, enhancementCount, enhancementBlock, optionMax, slotSize, slotUsed, ownCap, keywordsOf, hasKw, factionOf, buffed, attachedGroup, canLead, attachBlock, carries, enhIds, addStat, ORD };
 })();
 if (typeof module !== 'undefined') module.exports = Engine;

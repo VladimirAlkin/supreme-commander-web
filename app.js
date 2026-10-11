@@ -558,6 +558,7 @@
     units.forEach(u => (grouped[catOf(u, r)] = grouped[catOf(u, r)] || []).push(u));
     const have = id => r.units.filter(x => x.datasheetId === id).length;
     const caps = Engine.alliedCaps(r, DATA);
+    const ptsCaps = (fd.alliedFactions || []).map(a => ({ a, cap: Engine.alliedPtsCap(a, bs) })).filter(x => x.cap != null && blAllowed.includes(x.a.faction)).map(x => ({ label: x.a.rule || x.a.faction, used: (pts.allied && pts.allied[x.a.faction]) || 0, cap: x.cap }));
     const addRow = u => {
       const nx = Engine.nextCopyInfo(u, r, DATA, u.sizes[0].models);
       const blocked = nx.copyNo > nx.limit ? `Limit ${nx.limit} reached in ${bs.name}` : null;
@@ -570,7 +571,7 @@
         ${nx.surcharge ? `<div class="sub" style="color:var(--warn)">Next copy: +${nx.surcharge} pts</div>` : ''}${blocked ? `<div class="why">${esc(blocked)}</div>` : overPts ? `<div class="why">${esc(overPts)}</div>` : ''}</div>
         <button class="addbtn" data-act="addUnit" data-id="${u.id}" ${blocked ? 'aria-disabled="true"' : ''} aria-label="Add ${esc(u.name)}${blocked ? ' (' + esc(blocked) + ')' : ''}">+</button></div>`;
     };
-    return (Object.keys(CAT_NAME).filter(c => grouped[c]).map(c => `<div class="grouphdr">${CAT_NAME[c]}${c === 'allies' ? ' · ' + esc(blAllowed.join(', ')) : ''}</div>${c === 'allies' && caps.length ? `<div class="faint allycaps">${caps.map(x => `<span class="${x.used > x.n ? 'bad' : ''}">${esc(x.keyword.toUpperCase())} <b class="num">${x.used}/${x.n}</b></span>`).join('')}</div>` : ''}${grouped[c].map(addRow).join('')}`).join('') || '<div class="empty">No units match.</div>')
+    return (Object.keys(CAT_NAME).filter(c => grouped[c]).map(c => `<div class="grouphdr">${CAT_NAME[c]}${c === 'allies' ? ' · ' + esc(blAllowed.join(', ')) : ''}</div>${c === 'allies' && ptsCaps.length ? `<div class="faint allycaps">${ptsCaps.map(x => `<span class="${x.used > x.cap ? 'bad' : ''}">${esc(x.label)} <b class="num">${x.used}/${x.cap} pts</b></span>`).join('')}</div>` : ''}${c === 'allies' && caps.length ? `<div class="faint allycaps">${caps.map(x => `<span class="${x.used > x.n ? 'bad' : ''}">${esc(x.keyword.toUpperCase())} <b class="num">${x.used}/${x.n}</b></span>`).join('')}</div>` : ''}${grouped[c].map(addRow).join('')}`).join('') || '<div class="empty">No units match.</div>')
       + (blAllowed.length ? '' : (fd.alliedFactions || []).filter(a => a.requiresDetachment).map(a => `<div class="faint" style="font-size:.85rem;margin-top:8px">${esc(a.faction)} allies appear when ${esc((fd.detachments.find(d => d.id === a.requiresDetachment) || {}).name || '')} is in the roster.</div>`).join(''));
   }
   /* display order: each bodyguard followed by the leaders attached to it */

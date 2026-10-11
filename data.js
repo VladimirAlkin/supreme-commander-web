@@ -35774,7 +35774,18 @@ const DATA = {
   },
   "chaosSpaceMarines": {
    "armyFaction": "Heretic Astartes",
-   "alliedFactions": [],
+   "alliedFactions": [
+    {
+     "faction": "Cult of the Dark Gods",
+     "rule": "Cult of the Dark Gods",
+     "keywordAs": "Heretic Astartes",
+     "ptsCap": {
+      "incursion": 250,
+      "strike": 500,
+      "onslaught": 750
+     }
+    }
+   ],
    "armyRules": [
     {
      "id": "dark_pacts",
@@ -35796,6 +35807,21 @@ const DATA = {
       }
      ],
      "refNote": "Choose per shoot/fight. Leadership test first — fail = D3 mortal wounds. No dice are rolled in the app."
+    },
+    {
+     "id": "cult_of_the_dark_gods",
+     "name": "Cult of the Dark Gods",
+     "text": [
+      "If your Army Faction is HERETIC ASTARTES, you can include any of the following units in your army, and when you do so their Faction keywords are replaced with HERETIC ASTARTES:",
+      "■ Khorne Berzerkers (see World Eaters)",
+      "■ Rubric Marines (see Thousand Sons)",
+      "■ Plague Marines (see Death Guard)",
+      "■ Noise Marines (see Emperor’s Children)",
+      "The combined points value of such units you can include in your army depends on the battle size, as follows:",
+      "■ Incursion: Up to 250 pts",
+      "■ Strike Force: Up to 500 pts",
+      "■ Onslaught: Up to 750 pts"
+     ]
     }
    ],
    "detachments": [
@@ -47412,6 +47438,940 @@ const DATA = {
      "composition": "",
      "options": [],
      "optionRules": []
+    },
+    {
+     "id": "khorne_berzerkers",
+     "name": "Khorne Berzerkers",
+     "role": "battleline",
+     "faction": "Cult of the Dark Gods",
+     "keywords": [
+      "Infantry",
+      "Battleline",
+      "Grenades",
+      "Chaos",
+      "Khorne",
+      "Berzerkers"
+     ],
+     "image": "khorne_berzerkers",
+     "baseSize": "32mm",
+     "profile": {
+      "M": "8\"",
+      "T": "5",
+      "Sv": "3+",
+      "InSv": "—",
+      "W": "2",
+      "OC": "2",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Plasma pistol - standard",
+       "range": "12\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "7",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Plasma pistol - supercharge",
+       "range": "12\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "8",
+       "AP": "-3",
+       "D": "2",
+       "kw": [
+        "Hazardous",
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Bolt pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Chainblade",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Khornate eviscerator",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-2",
+       "D": "2",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [],
+     "factionAbilities": [],
+     "abilities": [
+      {
+       "name": "Blood Surge",
+       "text": "In your opponent’s Shooting phase, when an enemy unit has shot, if a model in this unit was destroyed as a result of those attacks, this unit can make a surge move of up to D6+2\".",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Murderous Charge",
+       "text": "If this unit made a charge move this turn, this unit’s melee attacks have +1 S.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Icon of Khorne",
+       "text": "If the bearer’s unit contains one or more Icons of Khorne, each time the bearer’s unit destroys an enemy unit, you gain 1 Bloodshed point. Each time you make a Blessings of Khorne roll, roll one additional D6 for each Bloodshed point you have, after which, all your Bloodshed points are lost.",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 10,
+       "pts": 170
+      },
+      {
+       "models": 20,
+       "pts": 330
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 Khorne Berzerker Champion and 9 or 19 Khorne Berzerkers. Default: bolt pistol and chainblade.",
+     "options": [
+      {
+       "id": "plasma",
+       "type": "count",
+       "label": "Plasma pistol",
+       "slots": [
+        "ranged"
+       ],
+       "per": 5,
+       "n": 1
+      },
+      {
+       "id": "champ_plasma",
+       "type": "toggle",
+       "label": "Champion: plasma pistol",
+       "slots": [
+        "ranged"
+       ]
+      },
+      {
+       "id": "evisc",
+       "type": "count",
+       "label": "Khornate eviscerator",
+       "slots": [
+        "melee"
+       ],
+       "per": 5,
+       "n": 1
+      },
+      {
+       "id": "icon",
+       "type": "toggle",
+       "label": "Icon of Khorne"
+      }
+     ],
+     "optionRules": [],
+     "slots": [
+      {
+       "id": "ranged",
+       "label": "Pistol",
+       "default": "Bolt pistol",
+       "size": {
+        "models": 1
+       }
+      },
+      {
+       "id": "melee",
+       "label": "Melee weapon",
+       "default": "Chainblade",
+       "size": {
+        "models": 1
+       }
+      }
+     ],
+     "optionGroups": []
+    },
+    {
+     "id": "rubric_marines",
+     "name": "Rubric Marines",
+     "role": "unit",
+     "faction": "Cult of the Dark Gods",
+     "keywords": [
+      "Infantry",
+      "Battleline",
+      "Chaos",
+      "Tzeentch",
+      "Rubric Marines",
+      "Rubricae"
+     ],
+     "image": "ts_rubric_marines",
+     "baseSize": "32mm",
+     "profile": {
+      "M": "6\"",
+      "T": "5",
+      "Sv": "3+",
+      "InSv": "5+",
+      "W": "2",
+      "OC": "2",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Malefic Curse",
+       "range": "24\"",
+       "A": "3",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-3",
+       "D": "1",
+       "kw": [
+        "Anti-infantry 4+",
+        "Devastating Wounds",
+        "Psychic"
+       ]
+      },
+      {
+       "name": "Inferno bolt pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Warpflame pistol",
+       "range": "12\"",
+       "A": "D6",
+       "skill": "—",
+       "S": "3",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Ignores Cover",
+        "Pistol",
+        "Torrent"
+       ]
+      },
+      {
+       "name": "Inferno boltgun",
+       "range": "24\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Warpflamer",
+       "range": "12\"",
+       "A": "D6",
+       "skill": "—",
+       "S": "4",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Ignores Cover",
+        "Torrent"
+       ]
+      },
+      {
+       "name": "Soulreaper cannon",
+       "range": "24\"",
+       "A": "6",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Devastating Wounds"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Force weapon",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-1",
+       "D": "D3",
+       "kw": [
+        "Psychic"
+       ]
+      },
+      {
+       "name": "Close combat weapon",
+       "range": "Melee",
+       "A": "2",
+       "skill": "3+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [],
+     "factionAbilities": [],
+     "abilities": [
+      {
+       "name": "Bringers of Change",
+       "text": "Each time a model in this unit makes a ranged attack, re-roll a Wound roll of 1. If that attack targets a unit within range of an objective marker you do not control, you can re-roll the Wound roll instead.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Icon of Flame",
+       "text": "Ranged weapons equipped by models in the bearer’s unit (excluding CHARACTERS) have the [IGNORES COVER] ability.",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 5,
+       "pts": 115,
+       "ptsLater": 125
+      },
+      {
+       "models": 10,
+       "pts": 210,
+       "ptsLater": 220
+      }
+     ],
+     "stepFrom": 4,
+     "leaderOf": [],
+     "composition": "1 Aspiring Sorcerer (inferno bolt pistol, Malefic Curse, force weapon) and 4 or 9 Rubric Marines (inferno boltgun, close combat weapon).",
+     "options": [
+      {
+       "id": "ch_gun",
+       "type": "choice",
+       "label": "Champion: pistol",
+       "choices": [
+        {
+         "id": "bolt",
+         "label": "Inferno bolt pistol",
+         "pts": 0
+        },
+        {
+         "id": "warp",
+         "label": "Warpflame pistol",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "soulreaper",
+       "type": "count",
+       "label": "Soulreaper cannon",
+       "slots": [
+        "rm"
+       ],
+       "max": 1
+      },
+      {
+       "id": "warpflamer",
+       "type": "count",
+       "label": "Warpflamer",
+       "slots": [
+        "rm"
+       ],
+       "max": "slot"
+      },
+      {
+       "id": "icon",
+       "type": "toggle",
+       "label": "Icon of flame"
+      }
+     ],
+     "optionRules": [],
+     "slots": [
+      {
+       "id": "rm",
+       "label": "Rubric Marine gun",
+       "default": "Inferno boltgun",
+       "size": {
+        "models": 1,
+        "minus": 1
+       },
+       "fixedNote": "All also have a close combat weapon."
+      }
+     ],
+     "optionGroups": [],
+     "leadModel": {
+      "name": "Aspiring Sorcerer",
+      "W": "3",
+      "Ld": "6+",
+      "keywords": [
+       "Psyker"
+      ]
+     }
+    },
+    {
+     "id": "plague_marines",
+     "name": "Plague Marines",
+     "role": "battleline",
+     "faction": "Cult of the Dark Gods",
+     "keywords": [
+      "Infantry",
+      "Chaos",
+      "Nurgle",
+      "Grenades",
+      "Battleline",
+      "Plague Marines"
+     ],
+     "image": "dg_plague_marines",
+     "baseSize": "32mm",
+     "profile": {
+      "M": "5\"",
+      "T": "6",
+      "Sv": "3+",
+      "InSv": "—",
+      "W": "2",
+      "OC": "2",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Bolt pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Lethal Hits",
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Boltgun",
+       "range": "24\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Lethal Hits"
+       ]
+      },
+      {
+       "name": "Plasma gun - standard",
+       "range": "24\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "7",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Rapid Fire 1"
+       ]
+      },
+      {
+       "name": "Plasma gun - supercharge",
+       "range": "24\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-3",
+       "D": "2",
+       "kw": [
+        "Hazardous",
+        "Rapid Fire 1"
+       ]
+      },
+      {
+       "name": "Plasma pistol - standard",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "7",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Plasma pistol - supercharge",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-3",
+       "D": "2",
+       "kw": [
+        "Hazardous",
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Blight launcher",
+       "range": "24\"",
+       "A": "D3",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Blast",
+        "Lethal Hits"
+       ]
+      },
+      {
+       "name": "Plague spewer",
+       "range": "12\"",
+       "A": "D6",
+       "skill": "—",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Anti-infantry 2+",
+        "Ignores Cover",
+        "Torrent"
+       ]
+      },
+      {
+       "name": "Meltagun",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "9",
+       "AP": "-4",
+       "D": "D6",
+       "kw": [
+        "Melta 2"
+       ]
+      },
+      {
+       "name": "Plague belcher",
+       "range": "12\"",
+       "A": "D6",
+       "skill": "—",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Anti-infantry 4+",
+        "Ignores Cover",
+        "Torrent"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Power fist",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Lethal Hits"
+       ]
+      },
+      {
+       "name": "Plague knives",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Lethal Hits"
+       ]
+      },
+      {
+       "name": "Bubotic weapons",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Lethal Hits"
+       ]
+      },
+      {
+       "name": "Heavy plague weapon",
+       "range": "Melee",
+       "A": "3",
+       "skill": "4+",
+       "S": "8",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Lethal Hits"
+       ]
+      }
+     ],
+     "coreAbilities": [],
+     "factionAbilities": [],
+     "abilities": [
+      {
+       "name": "Icon of Despair (Aura)",
+       "text": "While an enemy unit is within 6\" of the bearer, worsen the Leadership characteristic of models in that unit by 1.",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 5,
+       "pts": 90
+      },
+      {
+       "models": 7,
+       "pts": 125
+      },
+      {
+       "models": 10,
+       "pts": 175
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 Plague Champion and 4, 6 or 9 Plague Marines: boltgun, plague knives.",
+     "options": [
+      {
+       "id": "ch_gun",
+       "type": "choice",
+       "label": "Champion: ranged weapon",
+       "choices": [
+        {
+         "id": "bolt",
+         "label": "Boltgun",
+         "pts": 0
+        },
+        {
+         "id": "pistol",
+         "label": "Bolt pistol",
+         "pts": 0
+        },
+        {
+         "id": "plasma",
+         "label": "Plasma gun",
+         "pts": 0
+        },
+        {
+         "id": "ppistol",
+         "label": "Plasma pistol",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "ch_melee",
+       "type": "choice",
+       "label": "Champion: melee weapon",
+       "choices": [
+        {
+         "id": "knives",
+         "label": "Plague knives",
+         "pts": 0
+        },
+        {
+         "id": "bubotic",
+         "label": "Bubotic weapons",
+         "pts": 0
+        },
+        {
+         "id": "fist",
+         "label": "Power fist",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "blight",
+       "type": "count",
+       "label": "Blight launcher",
+       "slots": [
+        "pm"
+       ],
+       "per": 5,
+       "n": 1
+      },
+      {
+       "id": "spewer",
+       "type": "count",
+       "label": "Plague spewer",
+       "slots": [
+        "pm"
+       ],
+       "per": 5,
+       "n": 1
+      },
+      {
+       "id": "melta",
+       "type": "count",
+       "label": "Meltagun",
+       "slots": [
+        "pm"
+       ],
+       "group": "special",
+       "per": 5,
+       "n": 1
+      },
+      {
+       "id": "belcher",
+       "type": "count",
+       "label": "Plague belcher",
+       "slots": [
+        "pm"
+       ],
+       "group": "special",
+       "per": 5,
+       "n": 1
+      },
+      {
+       "id": "plasma",
+       "type": "count",
+       "label": "Plasma gun",
+       "slots": [
+        "pm"
+       ],
+       "group": "special",
+       "per": 5,
+       "n": 1
+      },
+      {
+       "id": "bubotic",
+       "type": "count",
+       "label": "Bubotic weapons",
+       "slots": [
+        "pm"
+       ],
+       "per": 5,
+       "n": 2
+      },
+      {
+       "id": "heavy",
+       "type": "count",
+       "label": "Heavy plague weapon",
+       "slots": [
+        "pm"
+       ],
+       "per": 5,
+       "n": 2
+      },
+      {
+       "id": "icon",
+       "type": "toggle",
+       "label": "Icon of despair (on a boltgun Plague Marine)"
+      }
+     ],
+     "optionRules": [],
+     "slots": [
+      {
+       "id": "pm",
+       "label": "Plague Marine weapon",
+       "default": "Boltgun",
+       "size": {
+        "models": 1,
+        "minus": 1
+       },
+       "fixedNote": "All also have plague knives."
+      }
+     ],
+     "optionGroups": [
+      {
+       "id": "special",
+       "per": 5,
+       "n": 1,
+       "label": "Meltagun / plague belcher / plasma gun"
+      }
+     ]
+    },
+    {
+     "id": "noise_marines",
+     "name": "Noise Marines",
+     "role": "infantry",
+     "faction": "Cult of the Dark Gods",
+     "keywords": [
+      "Infantry",
+      "Chaos",
+      "Slaanesh",
+      "Noise Marines"
+     ],
+     "image": "csm_noise_marines",
+     "baseSize": "40mm",
+     "profile": {
+      "M": "6\"",
+      "T": "5",
+      "Sv": "3+",
+      "InSv": "—",
+      "W": "3",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Blastmaster - single frequency",
+       "range": "18\"",
+       "A": "3",
+       "skill": "3+",
+       "S": "10",
+       "AP": "-2",
+       "D": "3",
+       "kw": [
+        "Ignores Cover"
+       ]
+      },
+      {
+       "name": "Blastmaster - varied frequency",
+       "range": "18\"",
+       "A": "6",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Ignores Cover"
+       ]
+      },
+      {
+       "name": "Screamer pistol",
+       "range": "12\"",
+       "A": "3",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Ignores Cover",
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Sonic blaster",
+       "range": "18\"",
+       "A": "3",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Ignores Cover"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Close combat weapon",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Power sword",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [],
+     "factionAbilities": [],
+     "abilities": [
+      {
+       "name": "Terrifying Crescendo",
+       "text": "In your Shooting phase, after this unit has shot, select one enemy unit hit by one or more of those attacks. Until the start of your next Shooting phase, each time a Battle-shock or Leadership test is taken for that enemy unit, subtract 1 from that test.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 6,
+       "pts": 160,
+       "ptsLater": 175
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [],
+     "composition": "1 Disharmonist and 5 Noise Marines. Default: sonic blaster, close combat weapon.",
+     "options": [
+      {
+       "id": "dh_weapons",
+       "type": "choice",
+       "label": "Disharmonist: sonic blaster replaced with",
+       "choices": [
+        {
+         "id": "blaster",
+         "label": "Sonic blaster",
+         "pts": 0
+        },
+        {
+         "id": "pistol_sword",
+         "label": "Screamer pistol and power sword",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "blastmaster",
+       "type": "count",
+       "label": "Blastmaster (replaces sonic blaster)",
+       "slots": [
+        "nm"
+       ],
+       "n": 2
+      }
+     ],
+     "optionRules": [],
+     "slots": [
+      {
+       "id": "nm",
+       "label": "Noise Marine weapon",
+       "default": "Sonic blaster",
+       "size": {
+        "models": 1,
+        "minus": 1
+       },
+       "fixedNote": "All also have a close combat weapon."
+      }
+     ],
+     "optionGroups": []
     }
    ],
    "terms": [

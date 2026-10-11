@@ -78,3 +78,10 @@ Found by `bsdelta.py` across BSData's import (`374f505..HEAD`) plus reviews:
   D6 column as images, transcribed 1–6 by hand. Cabal of Chaos / Devotees of
   Destruction / Murdertalon Raiders carry only 3 stratagems in the Wahapedia
   export (likely a partial export — confirm the full set against the app).
+- Chaos Space Marines allies (Cult of the Dark Gods, added 2026-10-11; rule text
+  from Wahapedia Abilities.csv 000008360, confirmed by BSData): Noise Marines
+  have W3 and 160/175 pts in BSData and MFM v1.5 but W2 and 145/160 in
+  Wahapedia (pack 1.2) — the app uses W3; confirm against the app. The four
+  units carry no faction ability of their home army (Wahapedia still lists
+  them on its CSM copies) — confirm. BSData lifts the points limit in Crusade
+  Force; the app has no such battle size. Details: `audit/chaos_space_marines_*.md`.

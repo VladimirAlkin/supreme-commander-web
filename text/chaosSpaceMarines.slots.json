@@ -3,7 +3,7 @@
   "faction": "chaosSpaceMarines",
   "factionName": "Chaos Space Marines",
   "dataVersion": "2026-10-08-mfm15-csm",
-  "generatedAt": "2026-10-08",
+  "generatedAt": "2026-10-11",
   "howTo": "docs/RULES-SOURCES.md",
   "rules": [
    "Edit ONLY the plain text fields. Keys starting with _ are context and are ignored.",
@@ -13,11 +13,11 @@
    "Leave a field unchanged if you have not done it yet. Never delete a key."
   ],
   "counts": {
-   "armyRules": 1,
+   "armyRules": 2,
    "detachmentRules": 17,
    "stratagems": 93,
    "enhancements": 62,
-   "unitAbilities": 136
+   "unitAbilities": 144
   }
  },
  "armyRules": {
@@ -27,6 +27,20 @@
     "If your Army Faction is HERETIC ASTARTES, each time a unit with this ability is selected to shoot or fight, it can make a Dark Pact. If it does, it must first take a Leadership test before any effects of that Dark Pact are resolved; if that test is failed, that unit suffers D3 mortal wounds. Then, select one of the following abilities for that unit’s weapons to gain until the end of the phase:",
     "■ [LETHAL HITS]",
     "■ [SUSTAINED HITS 1]"
+   ]
+  },
+  "cult_of_the_dark_gods": {
+   "_name": "Cult of the Dark Gods",
+   "text": [
+    "If your Army Faction is HERETIC ASTARTES, you can include any of the following units in your army, and when you do so their Faction keywords are replaced with HERETIC ASTARTES:",
+    "■ Khorne Berzerkers (see World Eaters)",
+    "■ Rubric Marines (see Thousand Sons)",
+    "■ Plague Marines (see Death Guard)",
+    "■ Noise Marines (see Emperor’s Children)",
+    "The combined points value of such units you can include in your army depends on the battle size, as follows:",
+    "■ Incursion: Up to 250 pts",
+    "■ Strike Force: Up to 500 pts",
+    "■ Onslaught: Up to 750 pts"
    ]
   }
  },
@@ -2130,6 +2144,10 @@
     "Lord of Chaos": {
      "_kind": "datasheet",
      "text": "While this model is within 3\" of a friendly Heretic Astartes Infantry unit, this model has Lone Operative."
+    },
+    "Daemonic Allegiance": {
+     "_kind": "datasheet",
+     "text": "When you select this model to include in your army, you must select one of the keywords below. Until the end of the battle, this model has that keyword and the characteristic modifier stated for that keyword below. ■ KHORNE: Add 2 to the Strength characteristic of this model's hellforged weapons. ■ TZEENTCH: Add 3 to the Attacks characteristic of its infernal cannon. ■ NURGLE: Add 1 to its Toughness characteristic. ■ SLAANESH: Add 2\" to its Move characteristic."
     }
    }
   },
@@ -2143,6 +2161,10 @@
     "Daemonic Destruction": {
      "_kind": "datasheet",
      "text": "Each time this model ends a Charge move, select one enemy unit within Engagement Range of it and roll one D6 for each of this model’s remaining wounds: for each 4+, that enemy unit suffers 1 mortal wound (to a maximum of 6 mortal wounds)."
+    },
+    "Daemonic Allegiance": {
+     "_kind": "datasheet",
+     "text": "When you select this model to include in your army, you must select one of the keywords below. Until the end of the battle, this model has that keyword and the characteristic modifier stated for that keyword below. ■ KHORNE: Add 2 to the Strength characteristic of this model's hellforged weapons. ■ TZEENTCH: Add 3 to the Attacks characteristic of its infernal cannon. ■ NURGLE: Add 1 to its Toughness characteristic. ■ SLAANESH: Add 2\" to its Move characteristic."
     }
    }
   },
@@ -2468,6 +2490,54 @@
     "Warp Strike": {
      "_kind": "datasheet",
      "text": "At the end of the Fight phase, if this unit destroyed one or more enemy units this phase and is not within Engagement Range of one or more enemy units, you can remove this unit from the battlefield and place it into Strategic Reserves."
+    }
+   }
+  },
+  "khorne_berzerkers": {
+   "_name": "Khorne Berzerkers",
+   "abilities": {
+    "Blood Surge": {
+     "_kind": "datasheet",
+     "text": "In your opponent’s Shooting phase, when an enemy unit has shot, if a model in this unit was destroyed as a result of those attacks, this unit can make a surge move of up to D6+2\"."
+    },
+    "Murderous Charge": {
+     "_kind": "datasheet",
+     "text": "If this unit made a charge move this turn, this unit’s melee attacks have +1 S."
+    },
+    "Icon of Khorne": {
+     "_kind": "wargear",
+     "text": "If the bearer’s unit contains one or more Icons of Khorne, each time the bearer’s unit destroys an enemy unit, you gain 1 Bloodshed point. Each time you make a Blessings of Khorne roll, roll one additional D6 for each Bloodshed point you have, after which, all your Bloodshed points are lost."
+    }
+   }
+  },
+  "rubric_marines": {
+   "_name": "Rubric Marines",
+   "abilities": {
+    "Bringers of Change": {
+     "_kind": "datasheet",
+     "text": "Each time a model in this unit makes a ranged attack, re-roll a Wound roll of 1. If that attack targets a unit within range of an objective marker you do not control, you can re-roll the Wound roll instead."
+    },
+    "Icon of Flame": {
+     "_kind": "wargear",
+     "text": "Ranged weapons equipped by models in the bearer’s unit (excluding CHARACTERS) have the [IGNORES COVER] ability."
+    }
+   }
+  },
+  "plague_marines": {
+   "_name": "Plague Marines",
+   "abilities": {
+    "Icon of Despair (Aura)": {
+     "_kind": "wargear",
+     "text": "While an enemy unit is within 6\" of the bearer, worsen the Leadership characteristic of models in that unit by 1."
+    }
+   }
+  },
+  "noise_marines": {
+   "_name": "Noise Marines",
+   "abilities": {
+    "Terrifying Crescendo": {
+     "_kind": "datasheet",
+     "text": "In your Shooting phase, after this unit has shot, select one enemy unit hit by one or more of those attacks. Until the start of your next Shooting phase, each time a Battle-shock or Leadership test is taken for that enemy unit, subtract 1 from that test."
     }
    }
   }
