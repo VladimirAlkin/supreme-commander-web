@@ -26229,12 +26229,6 @@
    "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
   },
   {
-   "path": ".chaosSpaceMarines.units[24].options.length",
-   "change": "ADDED",
-   "value": "2",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
    "path": ".chaosSpaceMarines.units[24].options[0].id",
    "change": "ADDED",
    "value": "\"champ_melee\"",
@@ -26310,30 +26304,6 @@
    "path": ".chaosSpaceMarines.units[24].options[0].choices[2].pts",
    "change": "ADDED",
    "value": "0",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.units[24].options[1].id",
-   "change": "ADDED",
-   "value": "\"heavy\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.units[24].options[1].type",
-   "change": "ADDED",
-   "value": "\"count\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.units[24].options[1].label",
-   "change": "ADDED",
-   "value": "\"Havoc heavy weapons\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.units[24].options[1].max",
-   "change": "ADDED",
-   "value": "\"models\"",
    "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
   },
   {
@@ -31917,33 +31887,9 @@
    "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
   },
   {
-   "path": ".chaosSpaceMarines.units[32].options.length",
-   "change": "ADDED",
-   "value": "5",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.units[32].options[0].id",
-   "change": "ADDED",
-   "value": "\"champ_ranged\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
    "path": ".chaosSpaceMarines.units[32].options[0].type",
    "change": "ADDED",
    "value": "\"choice\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.units[32].options[0].label",
-   "change": "ADDED",
-   "value": "\"Aspiring Champion ranged\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.units[32].options[0].choices.length",
-   "change": "ADDED",
-   "value": "2",
    "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
   },
   {
@@ -31983,39 +31929,9 @@
    "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
   },
   {
-   "path": ".chaosSpaceMarines.units[32].options[1].id",
-   "change": "ADDED",
-   "value": "\"champ_melee\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
    "path": ".chaosSpaceMarines.units[32].options[1].type",
    "change": "ADDED",
    "value": "\"choice\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.units[32].options[1].label",
-   "change": "ADDED",
-   "value": "\"Aspiring Champion melee\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.units[32].options[1].choices.length",
-   "change": "ADDED",
-   "value": "4",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.units[32].options[1].choices[0].id",
-   "change": "ADDED",
-   "value": "\"ccw\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.units[32].options[1].choices[0].label",
-   "change": "ADDED",
-   "value": "\"Bolt pistol / close combat\"",
    "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
   },
   {
@@ -32025,33 +31941,9 @@
    "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
   },
   {
-   "path": ".chaosSpaceMarines.units[32].options[1].choices[1].id",
-   "change": "ADDED",
-   "value": "\"accursed\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.units[32].options[1].choices[1].label",
-   "change": "ADDED",
-   "value": "\"Accursed weapon\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
    "path": ".chaosSpaceMarines.units[32].options[1].choices[1].pts",
    "change": "ADDED",
    "value": "0",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.units[32].options[1].choices[2].id",
-   "change": "ADDED",
-   "value": "\"chainsword\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.units[32].options[1].choices[2].label",
-   "change": "ADDED",
-   "value": "\"Astartes chainsword\"",
    "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
   },
   {
@@ -32061,93 +31953,15 @@
    "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
   },
   {
-   "path": ".chaosSpaceMarines.units[32].options[1].choices[3].id",
-   "change": "ADDED",
-   "value": "\"heavy\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.units[32].options[1].choices[3].label",
-   "change": "ADDED",
-   "value": "\"Heavy melee weapon\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
    "path": ".chaosSpaceMarines.units[32].options[1].choices[3].pts",
    "change": "ADDED",
    "value": "0",
    "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
   },
   {
-   "path": ".chaosSpaceMarines.units[32].options[2].id",
-   "change": "ADDED",
-   "value": "\"special\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
    "path": ".chaosSpaceMarines.units[32].options[2].type",
    "change": "ADDED",
    "value": "\"count\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.units[32].options[2].label",
-   "change": "ADDED",
-   "value": "\"Special/heavy weapon\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.units[32].options[2].per",
-   "change": "ADDED",
-   "value": "5",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.units[32].options[2].n",
-   "change": "ADDED",
-   "value": "1",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.units[32].options[3].id",
-   "change": "ADDED",
-   "value": "\"balefire\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.units[32].options[3].type",
-   "change": "ADDED",
-   "value": "\"toggle\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.units[32].options[3].label",
-   "change": "ADDED",
-   "value": "\"Balefire tome (1 model)\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.units[32].options[4].id",
-   "change": "ADDED",
-   "value": "\"icon\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.units[32].options[4].type",
-   "change": "ADDED",
-   "value": "\"toggle\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.units[32].options[4].label",
-   "change": "ADDED",
-   "value": "\"Chaos icon\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.units[32].optionRules.length",
-   "change": "ADDED",
-   "value": "0",
    "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
   },
   {
@@ -39387,12 +39201,6 @@
    "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
   },
   {
-   "path": ".chaosSpaceMarines.units[44].options.length",
-   "change": "ADDED",
-   "value": "2",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
    "path": ".chaosSpaceMarines.units[44].options[0].id",
    "change": "ADDED",
    "value": "\"champ_flamer\"",
@@ -39411,21 +39219,9 @@
    "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
   },
   {
-   "path": ".chaosSpaceMarines.units[44].options[1].id",
-   "change": "ADDED",
-   "value": "\"special\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
    "path": ".chaosSpaceMarines.units[44].options[1].type",
    "change": "ADDED",
    "value": "\"count\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.units[44].options[1].label",
-   "change": "ADDED",
-   "value": "\"Meltagun / plasma (per 5)\"",
    "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
   },
   {
@@ -42381,129 +42177,9 @@
    "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
   },
   {
-   "path": ".chaosSpaceMarines.units[49].options.length",
-   "change": "ADDED",
-   "value": "3",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.units[49].options[0].id",
-   "change": "ADDED",
-   "value": "\"special\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
    "path": ".chaosSpaceMarines.units[49].options[0].type",
    "change": "ADDED",
    "value": "\"count\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.units[49].options[0].label",
-   "change": "ADDED",
-   "value": "\"Special weapon (grenade launcher/flamer/melta)\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.units[49].options[0].max",
-   "change": "ADDED",
-   "value": "3",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.units[49].options[1].id",
-   "change": "ADDED",
-   "value": "\"sgt_melee\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.units[49].options[1].type",
-   "change": "ADDED",
-   "value": "\"choice\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.units[49].options[1].label",
-   "change": "ADDED",
-   "value": "\"Traitor Sergeant melee\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.units[49].options[1].choices.length",
-   "change": "ADDED",
-   "value": "3",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.units[49].options[1].choices[0].id",
-   "change": "ADDED",
-   "value": "\"ccw\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.units[49].options[1].choices[0].label",
-   "change": "ADDED",
-   "value": "\"Close combat weapon\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.units[49].options[1].choices[0].pts",
-   "change": "ADDED",
-   "value": "0",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.units[49].options[1].choices[1].id",
-   "change": "ADDED",
-   "value": "\"chainsword\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.units[49].options[1].choices[1].label",
-   "change": "ADDED",
-   "value": "\"Chainsword\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.units[49].options[1].choices[1].pts",
-   "change": "ADDED",
-   "value": "0",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.units[49].options[1].choices[2].id",
-   "change": "ADDED",
-   "value": "\"power\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.units[49].options[1].choices[2].label",
-   "change": "ADDED",
-   "value": "\"Power weapon\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.units[49].options[1].choices[2].pts",
-   "change": "ADDED",
-   "value": "0",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.units[49].options[2].id",
-   "change": "ADDED",
-   "value": "\"sgt_bolt\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.units[49].options[2].type",
-   "change": "ADDED",
-   "value": "\"toggle\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.units[49].options[2].label",
-   "change": "ADDED",
-   "value": "\"Sergeant: boltgun\"",
    "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
   },
   {
@@ -44239,6 +43915,1956 @@
    "change": "ADDED",
    "value": "\"Tyrannical Motivation\"",
    "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[13].options[0].slots.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[13].options[0].slots[0]",
+   "change": "ADDED",
+   "value": "\"pistol\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[13].options[1].slots.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[13].options[1].slots[0]",
+   "change": "ADDED",
+   "value": "\"gun\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[13].options[2].slots.length",
+   "change": "ADDED",
+   "value": "2",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[13].options[2].slots[0]",
+   "change": "ADDED",
+   "value": "\"gun\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[13].options[2].slots[1]",
+   "change": "ADDED",
+   "value": "\"melee\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[13].options[3].slots.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[13].options[3].slots[0]",
+   "change": "ADDED",
+   "value": "\"melee\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[13].slots.length",
+   "change": "ADDED",
+   "value": "3",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[13].slots[0].id",
+   "change": "ADDED",
+   "value": "\"pistol\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[13].slots[0].label",
+   "change": "ADDED",
+   "value": "\"Chosen pistol\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[13].slots[0].default",
+   "change": "ADDED",
+   "value": "\"Bolt pistol\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[13].slots[0].size.models",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[13].slots[1].id",
+   "change": "ADDED",
+   "value": "\"gun\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[13].slots[1].label",
+   "change": "ADDED",
+   "value": "\"Chosen ranged weapon\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[13].slots[1].default",
+   "change": "ADDED",
+   "value": "\"Boltgun\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[13].slots[1].size.models",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[13].slots[2].id",
+   "change": "ADDED",
+   "value": "\"melee\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[13].slots[2].label",
+   "change": "ADDED",
+   "value": "\"Chosen melee weapon\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[13].slots[2].default",
+   "change": "ADDED",
+   "value": "\"Accursed weapon\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[13].slots[2].size.models",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options.length",
+   "change": "ADDED",
+   "value": "10",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[1].id",
+   "change": "ADDED",
+   "value": "\"champ_gun\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[1].type",
+   "change": "ADDED",
+   "value": "\"choice\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[1].label",
+   "change": "ADDED",
+   "value": "\"Havoc Champion ranged\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[1].choices.length",
+   "change": "ADDED",
+   "value": "7",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[1].choices[0].id",
+   "change": "ADDED",
+   "value": "\"flamer\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[1].choices[0].label",
+   "change": "ADDED",
+   "value": "\"Flamer\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[1].choices[0].pts",
+   "change": "ADDED",
+   "value": "0",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[1].choices[1].id",
+   "change": "ADDED",
+   "value": "\"boltgun\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[1].choices[1].label",
+   "change": "ADDED",
+   "value": "\"Boltgun\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[1].choices[1].pts",
+   "change": "ADDED",
+   "value": "0",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[1].choices[2].id",
+   "change": "ADDED",
+   "value": "\"meltagun\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[1].choices[2].label",
+   "change": "ADDED",
+   "value": "\"Meltagun\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[1].choices[2].pts",
+   "change": "ADDED",
+   "value": "0",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[1].choices[3].id",
+   "change": "ADDED",
+   "value": "\"plasma\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[1].choices[3].label",
+   "change": "ADDED",
+   "value": "\"Plasma gun\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[1].choices[3].pts",
+   "change": "ADDED",
+   "value": "0",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[1].choices[4].id",
+   "change": "ADDED",
+   "value": "\"ppistol\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[1].choices[4].label",
+   "change": "ADDED",
+   "value": "\"Plasma pistol\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[1].choices[4].pts",
+   "change": "ADDED",
+   "value": "0",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[1].choices[5].id",
+   "change": "ADDED",
+   "value": "\"accursed\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[1].choices[5].label",
+   "change": "ADDED",
+   "value": "\"Accursed weapon\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[1].choices[5].pts",
+   "change": "ADDED",
+   "value": "0",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[1].choices[6].id",
+   "change": "ADDED",
+   "value": "\"fist\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[1].choices[6].label",
+   "change": "ADDED",
+   "value": "\"Power fist\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[1].choices[6].pts",
+   "change": "ADDED",
+   "value": "0",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[2].id",
+   "change": "ADDED",
+   "value": "\"a_hb\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[2].type",
+   "change": "ADDED",
+   "value": "\"count\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[2].label",
+   "change": "ADDED",
+   "value": "\"Havoc heavy bolter\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[2].slots.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[2].slots[0]",
+   "change": "ADDED",
+   "value": "\"ac\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[2].max",
+   "change": "ADDED",
+   "value": "\"slot\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[3].id",
+   "change": "ADDED",
+   "value": "\"a_lc\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[3].type",
+   "change": "ADDED",
+   "value": "\"count\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[3].label",
+   "change": "ADDED",
+   "value": "\"Havoc lascannon\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[3].slots.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[3].slots[0]",
+   "change": "ADDED",
+   "value": "\"ac\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[3].max",
+   "change": "ADDED",
+   "value": "\"slot\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[4].id",
+   "change": "ADDED",
+   "value": "\"a_ml\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[4].type",
+   "change": "ADDED",
+   "value": "\"count\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[4].label",
+   "change": "ADDED",
+   "value": "\"Havoc missile launcher\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[4].slots.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[4].slots[0]",
+   "change": "ADDED",
+   "value": "\"ac\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[4].max",
+   "change": "ADDED",
+   "value": "\"slot\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[5].id",
+   "change": "ADDED",
+   "value": "\"a_rc\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[5].type",
+   "change": "ADDED",
+   "value": "\"count\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[5].label",
+   "change": "ADDED",
+   "value": "\"Havoc reaper chaincannon\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[5].slots.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[5].slots[0]",
+   "change": "ADDED",
+   "value": "\"ac\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[5].max",
+   "change": "ADDED",
+   "value": "\"slot\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[6].id",
+   "change": "ADDED",
+   "value": "\"b_ac\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[6].type",
+   "change": "ADDED",
+   "value": "\"count\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[6].label",
+   "change": "ADDED",
+   "value": "\"Havoc autocannon\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[6].slots.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[6].slots[0]",
+   "change": "ADDED",
+   "value": "\"lc\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[6].max",
+   "change": "ADDED",
+   "value": "\"slot\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[7].id",
+   "change": "ADDED",
+   "value": "\"b_hb\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[7].type",
+   "change": "ADDED",
+   "value": "\"count\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[7].label",
+   "change": "ADDED",
+   "value": "\"Havoc heavy bolter\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[7].slots.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[7].slots[0]",
+   "change": "ADDED",
+   "value": "\"lc\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[7].max",
+   "change": "ADDED",
+   "value": "\"slot\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[8].id",
+   "change": "ADDED",
+   "value": "\"b_ml\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[8].type",
+   "change": "ADDED",
+   "value": "\"count\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[8].label",
+   "change": "ADDED",
+   "value": "\"Havoc missile launcher\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[8].slots.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[8].slots[0]",
+   "change": "ADDED",
+   "value": "\"lc\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[8].max",
+   "change": "ADDED",
+   "value": "\"slot\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[9].id",
+   "change": "ADDED",
+   "value": "\"b_rc\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[9].type",
+   "change": "ADDED",
+   "value": "\"count\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[9].label",
+   "change": "ADDED",
+   "value": "\"Havoc reaper chaincannon\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[9].slots.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[9].slots[0]",
+   "change": "ADDED",
+   "value": "\"lc\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].options[9].max",
+   "change": "ADDED",
+   "value": "\"slot\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].slots.length",
+   "change": "ADDED",
+   "value": "2",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].slots[0].id",
+   "change": "ADDED",
+   "value": "\"ac\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].slots[0].label",
+   "change": "ADDED",
+   "value": "\"Autocannon Havocs\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].slots[0].default",
+   "change": "ADDED",
+   "value": "\"Havoc autocannon\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].slots[0].size.per.length",
+   "change": "ADDED",
+   "value": "2",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].slots[0].size.per[0]",
+   "change": "ADDED",
+   "value": "5",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].slots[0].size.per[1]",
+   "change": "ADDED",
+   "value": "2",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].slots[1].id",
+   "change": "ADDED",
+   "value": "\"lc\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].slots[1].label",
+   "change": "ADDED",
+   "value": "\"Lascannon Havocs\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].slots[1].default",
+   "change": "ADDED",
+   "value": "\"Havoc lascannon\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].slots[1].size.per.length",
+   "change": "ADDED",
+   "value": "2",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].slots[1].size.per[0]",
+   "change": "ADDED",
+   "value": "5",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[24].slots[1].size.per[1]",
+   "change": "ADDED",
+   "value": "2",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options.length",
+   "change": "ADDED",
+   "value": "15",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[0].id",
+   "change": "ADDED",
+   "value": "\"champ_gun\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[0].label",
+   "change": "ADDED",
+   "value": "\"Champion: boltgun replaced with\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[0].choices.length",
+   "change": "ADDED",
+   "value": "5",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[0].choices[2].id",
+   "change": "ADDED",
+   "value": "\"accursed\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[0].choices[2].label",
+   "change": "ADDED",
+   "value": "\"Accursed weapon\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[0].choices[2].pts",
+   "change": "ADDED",
+   "value": "0",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[0].choices[3].id",
+   "change": "ADDED",
+   "value": "\"chainsword\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[0].choices[3].label",
+   "change": "ADDED",
+   "value": "\"Astartes chainsword\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[0].choices[3].pts",
+   "change": "ADDED",
+   "value": "0",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[0].choices[4].id",
+   "change": "ADDED",
+   "value": "\"heavy\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[0].choices[4].label",
+   "change": "ADDED",
+   "value": "\"Heavy melee weapon\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[0].choices[4].pts",
+   "change": "ADDED",
+   "value": "0",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[1].id",
+   "change": "ADDED",
+   "value": "\"champ_pistol\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[1].label",
+   "change": "ADDED",
+   "value": "\"Champion: bolt pistol replaced with\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[1].choices.length",
+   "change": "ADDED",
+   "value": "5",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[1].choices[0].id",
+   "change": "ADDED",
+   "value": "\"bolt\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[1].choices[0].label",
+   "change": "ADDED",
+   "value": "\"Bolt pistol\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[1].choices[1].id",
+   "change": "ADDED",
+   "value": "\"plasma\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[1].choices[1].label",
+   "change": "ADDED",
+   "value": "\"Plasma pistol\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[1].choices[2].id",
+   "change": "ADDED",
+   "value": "\"accursed\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[1].choices[2].label",
+   "change": "ADDED",
+   "value": "\"Accursed weapon\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[1].choices[3].id",
+   "change": "ADDED",
+   "value": "\"chainsword\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[1].choices[3].label",
+   "change": "ADDED",
+   "value": "\"Astartes chainsword\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[1].choices[4].id",
+   "change": "ADDED",
+   "value": "\"heavy\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[1].choices[4].label",
+   "change": "ADDED",
+   "value": "\"Heavy melee weapon\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[1].choices[4].pts",
+   "change": "ADDED",
+   "value": "0",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[2].id",
+   "change": "ADDED",
+   "value": "\"chainsword\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[2].label",
+   "change": "ADDED",
+   "value": "\"Astartes chainsword\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[2].slots.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[2].slots[0]",
+   "change": "ADDED",
+   "value": "\"lg\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[2].max",
+   "change": "ADDED",
+   "value": "\"slot\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[3].id",
+   "change": "ADDED",
+   "value": "\"heavy\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[3].type",
+   "change": "ADDED",
+   "value": "\"count\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[3].label",
+   "change": "ADDED",
+   "value": "\"Heavy melee weapon\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[3].slots.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[3].slots[0]",
+   "change": "ADDED",
+   "value": "\"lg\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[3].max",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[4].id",
+   "change": "ADDED",
+   "value": "\"balefire\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[4].type",
+   "change": "ADDED",
+   "value": "\"count\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[4].label",
+   "change": "ADDED",
+   "value": "\"Balefire tome\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[4].slots.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[4].slots[0]",
+   "change": "ADDED",
+   "value": "\"lg\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[4].max",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[5].id",
+   "change": "ADDED",
+   "value": "\"sp_pp\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[5].type",
+   "change": "ADDED",
+   "value": "\"count\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[5].label",
+   "change": "ADDED",
+   "value": "\"Plasma pistol and Astartes chainsword\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[5].slots.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[5].slots[0]",
+   "change": "ADDED",
+   "value": "\"lg\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[5].group",
+   "change": "ADDED",
+   "value": "\"special\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[5].max",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[6].id",
+   "change": "ADDED",
+   "value": "\"sp_flamer\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[6].type",
+   "change": "ADDED",
+   "value": "\"count\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[6].label",
+   "change": "ADDED",
+   "value": "\"Flamer\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[6].slots.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[6].slots[0]",
+   "change": "ADDED",
+   "value": "\"lg\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[6].group",
+   "change": "ADDED",
+   "value": "\"special\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[6].max",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[7].id",
+   "change": "ADDED",
+   "value": "\"sp_hac\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[7].type",
+   "change": "ADDED",
+   "value": "\"count\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[7].label",
+   "change": "ADDED",
+   "value": "\"Havoc autocannon\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[7].slots.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[7].slots[0]",
+   "change": "ADDED",
+   "value": "\"lg\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[7].group",
+   "change": "ADDED",
+   "value": "\"special\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[7].max",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[8].id",
+   "change": "ADDED",
+   "value": "\"sp_hb\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[8].type",
+   "change": "ADDED",
+   "value": "\"count\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[8].label",
+   "change": "ADDED",
+   "value": "\"Heavy bolter\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[8].slots.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[8].slots[0]",
+   "change": "ADDED",
+   "value": "\"lg\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[8].group",
+   "change": "ADDED",
+   "value": "\"special\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[8].max",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[9].id",
+   "change": "ADDED",
+   "value": "\"sp_lc\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[9].type",
+   "change": "ADDED",
+   "value": "\"count\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[9].label",
+   "change": "ADDED",
+   "value": "\"Lascannon\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[9].slots.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[9].slots[0]",
+   "change": "ADDED",
+   "value": "\"lg\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[9].group",
+   "change": "ADDED",
+   "value": "\"special\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[9].max",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[10].id",
+   "change": "ADDED",
+   "value": "\"sp_melta\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[10].type",
+   "change": "ADDED",
+   "value": "\"count\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[10].label",
+   "change": "ADDED",
+   "value": "\"Meltagun\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[10].slots.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[10].slots[0]",
+   "change": "ADDED",
+   "value": "\"lg\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[10].group",
+   "change": "ADDED",
+   "value": "\"special\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[10].max",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[11].id",
+   "change": "ADDED",
+   "value": "\"sp_ml\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[11].type",
+   "change": "ADDED",
+   "value": "\"count\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[11].label",
+   "change": "ADDED",
+   "value": "\"Missile launcher\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[11].slots.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[11].slots[0]",
+   "change": "ADDED",
+   "value": "\"lg\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[11].group",
+   "change": "ADDED",
+   "value": "\"special\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[11].max",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[12].id",
+   "change": "ADDED",
+   "value": "\"sp_pg\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[12].type",
+   "change": "ADDED",
+   "value": "\"count\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[12].label",
+   "change": "ADDED",
+   "value": "\"Plasma gun\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[12].slots.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[12].slots[0]",
+   "change": "ADDED",
+   "value": "\"lg\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[12].group",
+   "change": "ADDED",
+   "value": "\"special\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[12].max",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[13].id",
+   "change": "ADDED",
+   "value": "\"sp_rcc\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[13].type",
+   "change": "ADDED",
+   "value": "\"count\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[13].label",
+   "change": "ADDED",
+   "value": "\"Reaper chaincannon\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[13].slots.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[13].slots[0]",
+   "change": "ADDED",
+   "value": "\"lg\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[13].group",
+   "change": "ADDED",
+   "value": "\"special\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[13].max",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[14].id",
+   "change": "ADDED",
+   "value": "\"icon\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[14].type",
+   "change": "ADDED",
+   "value": "\"toggle\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].options[14].label",
+   "change": "ADDED",
+   "value": "\"Chaos icon\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].optionRules.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].optionRules[0].forbidAllOf.length",
+   "change": "ADDED",
+   "value": "2",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].optionRules[0].forbidAllOf[0].length",
+   "change": "ADDED",
+   "value": "2",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].optionRules[0].forbidAllOf[0][0]",
+   "change": "ADDED",
+   "value": "\"champ_gun\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].optionRules[0].forbidAllOf[0][1]",
+   "change": "ADDED",
+   "value": "\"plasma\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].optionRules[0].forbidAllOf[1].length",
+   "change": "ADDED",
+   "value": "2",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].optionRules[0].forbidAllOf[1][0]",
+   "change": "ADDED",
+   "value": "\"champ_pistol\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].optionRules[0].forbidAllOf[1][1]",
+   "change": "ADDED",
+   "value": "\"plasma\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].slots.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].slots[0].id",
+   "change": "ADDED",
+   "value": "\"lg\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].slots[0].label",
+   "change": "ADDED",
+   "value": "\"Legionary weapon\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].slots[0].default",
+   "change": "ADDED",
+   "value": "\"Boltgun\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].slots[0].size.models",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].slots[0].size.minus",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].slots[0].fixedNote",
+   "change": "ADDED",
+   "value": "\"All also have a bolt pistol and close combat weapon.\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].optionGroups.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].optionGroups[0].id",
+   "change": "ADDED",
+   "value": "\"special\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].optionGroups[0].per",
+   "change": "ADDED",
+   "value": "5",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].optionGroups[0].n",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[32].optionGroups[0].label",
+   "change": "ADDED",
+   "value": "\"Special/heavy weapon (no duplicates)\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[44].options.length",
+   "change": "ADDED",
+   "value": "3",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[44].options[1].id",
+   "change": "ADDED",
+   "value": "\"melta\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[44].options[1].label",
+   "change": "ADDED",
+   "value": "\"Meltagun\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[44].options[1].slots.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[44].options[1].slots[0]",
+   "change": "ADDED",
+   "value": "\"gun\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[44].options[2].id",
+   "change": "ADDED",
+   "value": "\"fist\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[44].options[2].type",
+   "change": "ADDED",
+   "value": "\"count\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[44].options[2].label",
+   "change": "ADDED",
+   "value": "\"Power fist\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[44].options[2].slots.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[44].options[2].slots[0]",
+   "change": "ADDED",
+   "value": "\"blade\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[44].options[2].per",
+   "change": "ADDED",
+   "value": "5",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[44].options[2].n",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[44].slots.length",
+   "change": "ADDED",
+   "value": "2",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[44].slots[0].id",
+   "change": "ADDED",
+   "value": "\"gun\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[44].slots[0].label",
+   "change": "ADDED",
+   "value": "\"Raider ranged weapon\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[44].slots[0].default",
+   "change": "ADDED",
+   "value": "\"Boltgun\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[44].slots[0].size.models",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[44].slots[0].size.minus",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[44].slots[0].fixedNote",
+   "change": "ADDED",
+   "value": "\"All also have a bolt pistol.\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[44].slots[1].id",
+   "change": "ADDED",
+   "value": "\"blade\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[44].slots[1].label",
+   "change": "ADDED",
+   "value": "\"Raider melee weapon\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[44].slots[1].default",
+   "change": "ADDED",
+   "value": "\"Reaver's blade\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[44].slots[1].size.models",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[44].slots[1].size.minus",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[49].options.length",
+   "change": "ADDED",
+   "value": "7",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[49].options[0].id",
+   "change": "ADDED",
+   "value": "\"sp_gl\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[49].options[0].label",
+   "change": "ADDED",
+   "value": "\"Cultist grenade launcher\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[49].options[0].slots.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[49].options[0].slots[0]",
+   "change": "ADDED",
+   "value": "\"las\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[49].options[0].group",
+   "change": "ADDED",
+   "value": "\"special\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[49].options[0].max",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[49].options[1].id",
+   "change": "ADDED",
+   "value": "\"sp_flamer\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[49].options[1].type",
+   "change": "ADDED",
+   "value": "\"count\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[49].options[1].label",
+   "change": "ADDED",
+   "value": "\"Flamer\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[49].options[1].slots.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[49].options[1].slots[0]",
+   "change": "ADDED",
+   "value": "\"las\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[49].options[1].group",
+   "change": "ADDED",
+   "value": "\"special\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[49].options[1].max",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[49].options[2].id",
+   "change": "ADDED",
+   "value": "\"sp_melta\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[49].options[2].type",
+   "change": "ADDED",
+   "value": "\"count\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[49].options[2].label",
+   "change": "ADDED",
+   "value": "\"Meltagun\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[49].options[2].slots.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[49].options[2].slots[0]",
+   "change": "ADDED",
+   "value": "\"las\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[49].options[2].group",
+   "change": "ADDED",
+   "value": "\"special\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[49].options[2].max",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[49].options[3].id",
+   "change": "ADDED",
+   "value": "\"sp_plasma\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[49].options[3].type",
+   "change": "ADDED",
+   "value": "\"count\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[49].options[3].label",
+   "change": "ADDED",
+   "value": "\"Plasma gun\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[49].options[3].slots.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[49].options[3].slots[0]",
+   "change": "ADDED",
+   "value": "\"las\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[49].options[3].group",
+   "change": "ADDED",
+   "value": "\"special\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[49].options[3].max",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[49].options[4].id",
+   "change": "ADDED",
+   "value": "\"sp_sniper\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[49].options[4].type",
+   "change": "ADDED",
+   "value": "\"count\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[49].options[4].label",
+   "change": "ADDED",
+   "value": "\"Cultist sniper rifle\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[49].options[4].slots.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[49].options[4].slots[0]",
+   "change": "ADDED",
+   "value": "\"las\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[49].options[4].group",
+   "change": "ADDED",
+   "value": "\"special\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[49].options[4].max",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[49].options[5].id",
+   "change": "ADDED",
+   "value": "\"sgt_melee\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[49].options[5].type",
+   "change": "ADDED",
+   "value": "\"choice\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[49].options[5].label",
+   "change": "ADDED",
+   "value": "\"Traitor Sergeant melee\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[49].options[5].choices.length",
+   "change": "ADDED",
+   "value": "3",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[49].options[5].choices[0].id",
+   "change": "ADDED",
+   "value": "\"ccw\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[49].options[5].choices[0].label",
+   "change": "ADDED",
+   "value": "\"Close combat weapon\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[49].options[5].choices[0].pts",
+   "change": "ADDED",
+   "value": "0",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[49].options[5].choices[1].id",
+   "change": "ADDED",
+   "value": "\"chainsword\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[49].options[5].choices[1].label",
+   "change": "ADDED",
+   "value": "\"Chainsword\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[49].options[5].choices[1].pts",
+   "change": "ADDED",
+   "value": "0",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[49].options[5].choices[2].id",
+   "change": "ADDED",
+   "value": "\"power\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[49].options[5].choices[2].label",
+   "change": "ADDED",
+   "value": "\"Power weapon\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[49].options[5].choices[2].pts",
+   "change": "ADDED",
+   "value": "0",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[49].options[6].id",
+   "change": "ADDED",
+   "value": "\"sgt_bolt\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[49].options[6].type",
+   "change": "ADDED",
+   "value": "\"toggle\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[49].options[6].label",
+   "change": "ADDED",
+   "value": "\"Sergeant: boltgun\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[49].slots.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[49].slots[0].id",
+   "change": "ADDED",
+   "value": "\"las\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[49].slots[0].label",
+   "change": "ADDED",
+   "value": "\"Traitor Guardsman weapon\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[49].slots[0].default",
+   "change": "ADDED",
+   "value": "\"Lasgun\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[49].slots[0].size.models",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[49].slots[0].size.minus",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[49].optionGroups.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[49].optionGroups[0].id",
+   "change": "ADDED",
+   "value": "\"special\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[49].optionGroups[0].per",
+   "change": "ADDED",
+   "value": "10",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[49].optionGroups[0].n",
+   "change": "ADDED",
+   "value": "3",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[49].optionGroups[0].label",
+   "change": "ADDED",
+   "value": "\"Special weapons (no duplicates)\"",
+   "why": "Wargear options rebuilt per model slot (Legionaries, Red Corsairs Raiders, Havocs, Chosen, Traitor Guardsmen Squad): limits and swap lists match BSData wh40k-11e Chaos - Chaos Space Marines.json (min/max constraints) and Wahapedia Datasheets_options.csv (checked 2026-10-11); all options 0 pts, no points change in MFM v1.5."
   }
  ]
 }

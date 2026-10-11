@@ -40811,6 +40811,9 @@ const DATA = {
        "id": "plasma",
        "type": "count",
        "label": "Plasma pistol",
+       "slots": [
+        "pistol"
+       ],
        "per": 5,
        "n": 2
       },
@@ -40818,6 +40821,9 @@ const DATA = {
        "id": "combi",
        "type": "count",
        "label": "Combi-weapon",
+       "slots": [
+        "gun"
+       ],
        "per": 5,
        "n": 2
       },
@@ -40825,15 +40831,24 @@ const DATA = {
        "id": "paired",
        "type": "count",
        "label": "Paired accursed weapons",
+       "slots": [
+        "gun",
+        "melee"
+       ],
        "per": 5,
-       "n": 1
+       "n": 1,
+       "note": "replaces boltgun and accursed weapon"
       },
       {
        "id": "fist",
        "type": "count",
        "label": "Power fist",
+       "slots": [
+        "melee"
+       ],
        "per": 5,
-       "n": 1
+       "n": 1,
+       "note": "on a boltgun model; boltgun stays"
       },
       {
        "id": "icon",
@@ -40841,7 +40856,33 @@ const DATA = {
        "label": "Chaos icon"
       }
      ],
-     "optionRules": []
+     "optionRules": [],
+     "slots": [
+      {
+       "id": "pistol",
+       "label": "Chosen pistol",
+       "default": "Bolt pistol",
+       "size": {
+        "models": 1
+       }
+      },
+      {
+       "id": "gun",
+       "label": "Chosen ranged weapon",
+       "default": "Boltgun",
+       "size": {
+        "models": 1
+       }
+      },
+      {
+       "id": "melee",
+       "label": "Chosen melee weapon",
+       "default": "Accursed weapon",
+       "size": {
+        "models": 1
+       }
+      }
+     ]
     },
     {
      "id": "cultist_firebrand",
@@ -42510,13 +42551,153 @@ const DATA = {
        ]
       },
       {
-       "id": "heavy",
+       "id": "champ_gun",
+       "type": "choice",
+       "label": "Havoc Champion ranged",
+       "choices": [
+        {
+         "id": "flamer",
+         "label": "Flamer",
+         "pts": 0
+        },
+        {
+         "id": "boltgun",
+         "label": "Boltgun",
+         "pts": 0
+        },
+        {
+         "id": "meltagun",
+         "label": "Meltagun",
+         "pts": 0
+        },
+        {
+         "id": "plasma",
+         "label": "Plasma gun",
+         "pts": 0
+        },
+        {
+         "id": "ppistol",
+         "label": "Plasma pistol",
+         "pts": 0
+        },
+        {
+         "id": "accursed",
+         "label": "Accursed weapon",
+         "pts": 0
+        },
+        {
+         "id": "fist",
+         "label": "Power fist",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "a_hb",
        "type": "count",
-       "label": "Havoc heavy weapons",
-       "max": "models"
+       "label": "Havoc heavy bolter",
+       "slots": [
+        "ac"
+       ],
+       "max": "slot",
+       "note": "replaces autocannon"
+      },
+      {
+       "id": "a_lc",
+       "type": "count",
+       "label": "Havoc lascannon",
+       "slots": [
+        "ac"
+       ],
+       "max": "slot",
+       "note": "replaces autocannon"
+      },
+      {
+       "id": "a_ml",
+       "type": "count",
+       "label": "Havoc missile launcher",
+       "slots": [
+        "ac"
+       ],
+       "max": "slot",
+       "note": "replaces autocannon"
+      },
+      {
+       "id": "a_rc",
+       "type": "count",
+       "label": "Havoc reaper chaincannon",
+       "slots": [
+        "ac"
+       ],
+       "max": "slot",
+       "note": "replaces autocannon"
+      },
+      {
+       "id": "b_ac",
+       "type": "count",
+       "label": "Havoc autocannon",
+       "slots": [
+        "lc"
+       ],
+       "max": "slot",
+       "note": "replaces lascannon"
+      },
+      {
+       "id": "b_hb",
+       "type": "count",
+       "label": "Havoc heavy bolter",
+       "slots": [
+        "lc"
+       ],
+       "max": "slot",
+       "note": "replaces lascannon"
+      },
+      {
+       "id": "b_ml",
+       "type": "count",
+       "label": "Havoc missile launcher",
+       "slots": [
+        "lc"
+       ],
+       "max": "slot",
+       "note": "replaces lascannon"
+      },
+      {
+       "id": "b_rc",
+       "type": "count",
+       "label": "Havoc reaper chaincannon",
+       "slots": [
+        "lc"
+       ],
+       "max": "slot",
+       "note": "replaces lascannon"
       }
      ],
-     "optionRules": []
+     "optionRules": [],
+     "slots": [
+      {
+       "id": "ac",
+       "label": "Autocannon Havocs",
+       "default": "Havoc autocannon",
+       "size": {
+        "per": [
+         5,
+         2
+        ]
+       }
+      },
+      {
+       "id": "lc",
+       "label": "Lascannon Havocs",
+       "default": "Havoc lascannon",
+       "size": {
+        "per": [
+         5,
+         2
+        ]
+       }
+      }
+     ]
     },
     {
      "id": "helbrute",
@@ -43839,9 +44020,9 @@ const DATA = {
      "composition": "",
      "options": [
       {
-       "id": "champ_ranged",
+       "id": "champ_gun",
        "type": "choice",
-       "label": "Aspiring Champion ranged",
+       "label": "Champion: boltgun replaced with",
        "choices": [
         {
          "id": "boltgun",
@@ -43851,18 +44032,6 @@ const DATA = {
         {
          "id": "plasma",
          "label": "Plasma pistol",
-         "pts": 0
-        }
-       ]
-      },
-      {
-       "id": "champ_melee",
-       "type": "choice",
-       "label": "Aspiring Champion melee",
-       "choices": [
-        {
-         "id": "ccw",
-         "label": "Bolt pistol / close combat",
          "pts": 0
         },
         {
@@ -43883,16 +44052,153 @@ const DATA = {
        ]
       },
       {
-       "id": "special",
+       "id": "champ_pistol",
+       "type": "choice",
+       "label": "Champion: bolt pistol replaced with",
+       "choices": [
+        {
+         "id": "bolt",
+         "label": "Bolt pistol",
+         "pts": 0
+        },
+        {
+         "id": "plasma",
+         "label": "Plasma pistol",
+         "pts": 0
+        },
+        {
+         "id": "accursed",
+         "label": "Accursed weapon",
+         "pts": 0
+        },
+        {
+         "id": "chainsword",
+         "label": "Astartes chainsword",
+         "pts": 0
+        },
+        {
+         "id": "heavy",
+         "label": "Heavy melee weapon",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "chainsword",
        "type": "count",
-       "label": "Special/heavy weapon",
-       "per": 5,
-       "n": 1
+       "label": "Astartes chainsword",
+       "slots": [
+        "lg"
+       ],
+       "max": "slot"
+      },
+      {
+       "id": "heavy",
+       "type": "count",
+       "label": "Heavy melee weapon",
+       "slots": [
+        "lg"
+       ],
+       "max": 1
       },
       {
        "id": "balefire",
-       "type": "toggle",
-       "label": "Balefire tome (1 model)"
+       "type": "count",
+       "label": "Balefire tome",
+       "slots": [
+        "lg"
+       ],
+       "max": 1
+      },
+      {
+       "id": "sp_pp",
+       "type": "count",
+       "label": "Plasma pistol and Astartes chainsword",
+       "slots": [
+        "lg"
+       ],
+       "group": "special",
+       "max": 1
+      },
+      {
+       "id": "sp_flamer",
+       "type": "count",
+       "label": "Flamer",
+       "slots": [
+        "lg"
+       ],
+       "group": "special",
+       "max": 1
+      },
+      {
+       "id": "sp_hac",
+       "type": "count",
+       "label": "Havoc autocannon",
+       "slots": [
+        "lg"
+       ],
+       "group": "special",
+       "max": 1
+      },
+      {
+       "id": "sp_hb",
+       "type": "count",
+       "label": "Heavy bolter",
+       "slots": [
+        "lg"
+       ],
+       "group": "special",
+       "max": 1
+      },
+      {
+       "id": "sp_lc",
+       "type": "count",
+       "label": "Lascannon",
+       "slots": [
+        "lg"
+       ],
+       "group": "special",
+       "max": 1
+      },
+      {
+       "id": "sp_melta",
+       "type": "count",
+       "label": "Meltagun",
+       "slots": [
+        "lg"
+       ],
+       "group": "special",
+       "max": 1
+      },
+      {
+       "id": "sp_ml",
+       "type": "count",
+       "label": "Missile launcher",
+       "slots": [
+        "lg"
+       ],
+       "group": "special",
+       "max": 1
+      },
+      {
+       "id": "sp_pg",
+       "type": "count",
+       "label": "Plasma gun",
+       "slots": [
+        "lg"
+       ],
+       "group": "special",
+       "max": 1
+      },
+      {
+       "id": "sp_rcc",
+       "type": "count",
+       "label": "Reaper chaincannon",
+       "slots": [
+        "lg"
+       ],
+       "group": "special",
+       "max": 1
       },
       {
        "id": "icon",
@@ -43900,7 +44206,41 @@ const DATA = {
        "label": "Chaos icon"
       }
      ],
-     "optionRules": []
+     "optionRules": [
+      {
+       "forbidAllOf": [
+        [
+         "champ_gun",
+         "plasma"
+        ],
+        [
+         "champ_pistol",
+         "plasma"
+        ]
+       ],
+       "message": "the Aspiring Champion can have only 1 plasma pistol (maximum 1 per model)."
+      }
+     ],
+     "slots": [
+      {
+       "id": "lg",
+       "label": "Legionary weapon",
+       "default": "Boltgun",
+       "size": {
+        "models": 1,
+        "minus": 1
+       },
+       "fixedNote": "All also have a bolt pistol and close combat weapon."
+      }
+     ],
+     "optionGroups": [
+      {
+       "id": "special",
+       "per": 5,
+       "n": 1,
+       "label": "Special/heavy weapon (no duplicates)"
+      }
+     ]
     },
     {
      "id": "lord_discordant",
@@ -45609,14 +45949,48 @@ const DATA = {
        "label": "Champion: hand flamer"
       },
       {
-       "id": "special",
+       "id": "melta",
        "type": "count",
-       "label": "Meltagun / plasma (per 5)",
+       "label": "Meltagun",
+       "slots": [
+        "gun"
+       ],
+       "per": 5,
+       "n": 1
+      },
+      {
+       "id": "fist",
+       "type": "count",
+       "label": "Power fist",
+       "slots": [
+        "blade"
+       ],
        "per": 5,
        "n": 1
       }
      ],
-     "optionRules": []
+     "optionRules": [],
+     "slots": [
+      {
+       "id": "gun",
+       "label": "Raider ranged weapon",
+       "default": "Boltgun",
+       "size": {
+        "models": 1,
+        "minus": 1
+       },
+       "fixedNote": "All also have a bolt pistol."
+      },
+      {
+       "id": "blade",
+       "label": "Raider melee weapon",
+       "default": "Reaver's blade",
+       "size": {
+        "models": 1,
+        "minus": 1
+       }
+      }
+     ]
     },
     {
      "id": "reave_captain",
@@ -46302,10 +46676,54 @@ const DATA = {
      "composition": "",
      "options": [
       {
-       "id": "special",
+       "id": "sp_gl",
        "type": "count",
-       "label": "Special weapon (grenade launcher/flamer/melta)",
-       "max": 3
+       "label": "Cultist grenade launcher",
+       "slots": [
+        "las"
+       ],
+       "group": "special",
+       "max": 1
+      },
+      {
+       "id": "sp_flamer",
+       "type": "count",
+       "label": "Flamer",
+       "slots": [
+        "las"
+       ],
+       "group": "special",
+       "max": 1
+      },
+      {
+       "id": "sp_melta",
+       "type": "count",
+       "label": "Meltagun",
+       "slots": [
+        "las"
+       ],
+       "group": "special",
+       "max": 1
+      },
+      {
+       "id": "sp_plasma",
+       "type": "count",
+       "label": "Plasma gun",
+       "slots": [
+        "las"
+       ],
+       "group": "special",
+       "max": 1
+      },
+      {
+       "id": "sp_sniper",
+       "type": "count",
+       "label": "Cultist sniper rifle",
+       "slots": [
+        "las"
+       ],
+       "group": "special",
+       "max": 1
       },
       {
        "id": "sgt_melee",
@@ -46335,7 +46753,26 @@ const DATA = {
        "label": "Sergeant: boltgun"
       }
      ],
-     "optionRules": []
+     "optionRules": [],
+     "slots": [
+      {
+       "id": "las",
+       "label": "Traitor Guardsman weapon",
+       "default": "Lasgun",
+       "size": {
+        "models": 1,
+        "minus": 1
+       }
+      }
+     ],
+     "optionGroups": [
+      {
+       "id": "special",
+       "per": 10,
+       "n": 3,
+       "label": "Special weapons (no duplicates)"
+      }
+     ]
     },
     {
      "id": "vashtorr",
