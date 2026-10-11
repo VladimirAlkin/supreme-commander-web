@@ -646,7 +646,7 @@
   }
   function hiSummary(r) {
     const f = faction(r.factionId); if (!f || !f.highlights || !r.units.length) return '';
-    return f.highlights.filter(h => hiLive(r, h) && !h.pickLabels).map(h => {
+    return f.highlights.filter(h => hiLive(r, h) && !h.pickLabels && !h.playOnly).map(h => {
       if (h.markHighlight) {
         const det = markDet(r), markable = (det.instanceGrants[0] || {}).unitIds || [];
         const list = r.units.map(u => ({ u, g: markOf(r, unitDef(r.factionId, u.datasheetId), u) }))
@@ -1553,6 +1553,25 @@
     if (k === 'crosshair') return '<svg class="mf-cross" viewBox="0 0 60 60"><circle cx="30" cy="30" r="17"/><path d="M30 4v14M30 42v14M4 30h14M42 30h14"/></svg>';
     if (k === 'cloak') return '<i class="mf-cloak"></i><i class="mf-cloak c2"></i>';
     return '';
+  }
+  /* Cawl's Canticles: a screen-wide litany. A great cog turns up behind the card, rays of light sweep out of it,
+     binary code pours down in columns, a shockwave leaves the card. Colour follows the canticle. transform/opacity only. */
+  function canticleFx(card, tone) {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches || !card) return;
+    const b = card.getBoundingClientRect(), cx = b.left + b.width / 2, cy = b.top + b.height / 2, R = (a, c) => a + Math.random() * (c - a);
+    const col = { red: ['#ff6a45', '#ffc2a8'], gold: ['#ffd36a', '#fff1c4'], cyan: ['#4fd8ff', '#d2f6ff'] }[tone] || ['#ffd36a', '#fff1c4'];
+    const fx = document.createElement('div'); fx.className = 'cantfx'; fx.style.setProperty('--c', col[0]); fx.style.setProperty('--c2', col[1]); fx.setAttribute('aria-hidden', 'true');
+    const bin = () => Array.from({ length: 9 }, () => Math.random() < .5 ? 0 : 1).join('<br>');
+    fx.innerHTML = '<div class="ct-vig"></div>'
+      + `<div class="ct-rays" style="left:${cx}px;top:${cy}px"></div>`
+      + `<svg class="ct-cog" viewBox="0 0 24 24" style="left:${cx}px;top:${cy}px"><path fill-rule="evenodd" d="${gearPath(12, 11.4, 9.4)}M12 5.6a6.4 6.4 0 1 0 .01 0Z"/></svg>`
+      + `<svg class="ct-cog c2" viewBox="0 0 24 24" style="left:${cx}px;top:${cy}px"><circle cx="12" cy="12" r="11.6" fill="none" stroke-dasharray="1.2 1.1"/></svg>`
+      + `<i class="ct-wave" style="left:${cx}px;top:${cy}px"></i><i class="ct-wave w2" style="left:${cx}px;top:${cy}px"></i>`
+      + Array.from({ length: 16 }, (_, i) => `<u class="ct-bin" style="left:${(3 + i * 6.1 + R(-1.5, 1.5)).toFixed(1)}%;--t:${R(1.5, 2.4).toFixed(2)}s;--dl:${R(0, .7).toFixed(2)}s">${bin()}</u>`).join('')
+      + Array.from({ length: 22 }, () => { const a = R(0, Math.PI * 2), d = R(80, 240); return `<i class="ct-sp" style="left:${cx}px;top:${cy}px;--x:${(Math.cos(a) * d).toFixed(0)}px;--y:${(Math.sin(a) * d * .7).toFixed(0)}px;--dl:${R(.1, .5).toFixed(2)}s"></i>`; }).join('');
+    document.body.appendChild(fx); setTimeout(() => fx.remove(), 3400);
+    card.classList.add('ct-flash'); setTimeout(() => card.classList.remove('ct-flash'), 1400);
+    if (PL.android) { PL.haptic('confirm'); setTimeout(() => PL.haptic('confirm'), 300); }
   }
   function mechFx(el, k, loop) {
     if (!el || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -2762,7 +2781,7 @@
       const r = cur(), iid = el.dataset.u, id = el.dataset.id, u = inst(iid), def = unitDef(r.factionId, u.datasheetId);
       const on = rpCur(playState(r), u, def.roundPick) !== id || !!def.roundPick.persist && !((playState(r).rpick || {})[iid] || {})[playState(r).round];
       playChange(r, p => { p.rpick = p.rpick || {}; const m = p.rpick[iid] = p.rpick[iid] || {}; if (m[p.round] === id) delete m[p.round]; else m[p.round] = id; }, null, 'confirm');
-      if (on) { const c = document.querySelector(`.rpk[data-u="${iid}"][data-id="${id}"]`); if (def.roundPick.style === 'wrath') wrathFx(c); else if (def.roundPick.fx) mechFx(c, def.roundPick.fx); else eyeFx(c); }
+      if (on) { const c = document.querySelector(`.rpk[data-u="${iid}"][data-id="${id}"]`); if (def.roundPick.style === 'wrath') wrathFx(c); else { const ox = def.roundPick.options.find(o => o.id === id) || {}, fk = ox.fx || def.roundPick.fx; if (fk && fk.startsWith('canticle')) canticleFx(c, fk.split('-')[1]); else if (fk) mechFx(c, fk); else eyeFx(c); } }
     },
     asGain: el => { const r = cur(), v = +el.dataset.v; playChange(r, p => { p.miracle = (p.miracle || []).concat(v); S.mNew = p.miracle.length - 1; }, `Miracle dice ${v} added.`, 'confirm'); holyFx(document.querySelector('.mdie.new'), 'die'); setTimeout(() => { S.mNew = null; }, 50); },
     asSpend: el => {

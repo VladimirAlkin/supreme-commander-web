@@ -1284,3 +1284,27 @@ html:not(.m) .seg.wide { max-width: 560px; }
 .panel.remind.fx-geiger { border-color: rgba(160, 255, 90, .4); } .panel.remind.fx-sonar { border-color: rgba(95, 224, 255, .4); } .panel.remind.fx-crosshair { border-color: rgba(255, 106, 69, .45); } .panel.remind.fx-cloak { border-color: rgba(120, 160, 180, .4); }
 .mfx.loop { z-index: 1; overflow: hidden; }
 @media (prefers-reduced-motion: reduce) { .mfx, .dct-gr, .rpk-mech::before { display: none; } }
+
+/* Cawl's Canticles: a screen-wide litany (cog, rays, binary rain, shockwave) */
+.cantfx { position: fixed; inset: 0; z-index: 60; pointer-events: none; overflow: hidden; --c: #ffd36a; --c2: #fff1c4; }
+.ct-vig { position: absolute; inset: 0; background: radial-gradient(70% 55% at 50% 50%, transparent 40%, color-mix(in srgb, var(--c) 28%, #000) 100%); opacity: 0; animation: ctVig 3s ease-out forwards; }
+@keyframes ctVig { 0% { opacity: 0; } 18% { opacity: .9; } 100% { opacity: 0; } }
+.ct-rays { position: absolute; width: 150vmax; height: 150vmax; margin: -75vmax 0 0 -75vmax; opacity: 0; will-change: transform, opacity;
+  background: repeating-conic-gradient(from 0deg, color-mix(in srgb, var(--c) 34%, transparent) 0deg 4deg, transparent 4deg 15deg);
+  -webkit-mask-image: radial-gradient(circle, #000 0, transparent 55%); mask-image: radial-gradient(circle, #000 0, transparent 55%); animation: ctRays 3s ease-out forwards; }
+@keyframes ctRays { 0% { opacity: 0; transform: rotate(0) scale(.3); } 20% { opacity: 1; } 100% { opacity: 0; transform: rotate(50deg) scale(1); } }
+.ct-cog { position: absolute; width: min(86vw, 440px); height: min(86vw, 440px); margin: calc(min(86vw, 440px) / -2) 0 0 calc(min(86vw, 440px) / -2); fill: var(--c); opacity: 0; will-change: transform, opacity;
+  filter: drop-shadow(0 0 18px var(--c)); animation: ctCog 3s ease-out forwards; }
+.ct-cog.c2 { fill: none; stroke: var(--c2); stroke-width: .35; filter: drop-shadow(0 0 8px var(--c2)); animation-name: ctCog2; }
+@keyframes ctCog { 0% { opacity: 0; transform: scale(.4) rotate(0); } 18% { opacity: .5; } 100% { opacity: 0; transform: scale(1.25) rotate(120deg); } }
+@keyframes ctCog2 { 0% { opacity: 0; transform: scale(1.5) rotate(0); } 25% { opacity: .9; } 100% { opacity: 0; transform: scale(.8) rotate(-160deg); } }
+.ct-wave { position: absolute; width: 90px; height: 90px; margin: -45px 0 0 -45px; border-radius: 50%; border: 3px solid var(--c2); box-shadow: 0 0 22px var(--c), inset 0 0 14px var(--c); opacity: 0; will-change: transform, opacity; animation: ctWave 1.6s ease-out .1s forwards; }
+.ct-wave.w2 { animation-delay: .45s; }
+@keyframes ctWave { 0% { opacity: .95; transform: scale(.3); } 100% { opacity: 0; transform: scale(11); } }
+.ct-bin { position: absolute; top: -140px; font: 700 .8rem/1.15 ui-monospace, monospace; color: var(--c); text-shadow: 0 0 8px var(--c); opacity: 0; will-change: transform, opacity; animation: ctBin var(--t) linear var(--dl) forwards; }
+@keyframes ctBin { 0% { opacity: 0; transform: translateY(0); } 15% { opacity: .9; } 85% { opacity: .7; } 100% { opacity: 0; transform: translateY(110vh); } }
+.ct-sp { position: absolute; width: 4px; height: 4px; margin: -2px; border-radius: 50%; background: var(--c2); box-shadow: 0 0 8px 1px var(--c); opacity: 0; animation: ctSp 1.3s ease-out var(--dl) forwards; }
+@keyframes ctSp { 0% { opacity: 1; transform: translate(0, 0) scale(1.5); } 100% { opacity: 0; transform: translate(var(--x), var(--y)) scale(.2); } }
+.rpk.ct-flash { animation: ctFlash 1.4s ease-out; }
+@keyframes ctFlash { 0% { filter: brightness(2.2); } 100% { filter: none; } }
+@media (prefers-reduced-motion: reduce) { .cantfx { display: none; } .rpk.ct-flash { animation: none; } }

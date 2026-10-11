@@ -699,30 +699,10 @@ const DATA = {
      "tone": "gold",
      "playSel": "haloU",
      "playOr": true,
-     "title": "HALO OVERRIDE: carries the Override picked this round",
+     "title": "HALO OVERRIDE: given to this unit this round",
      "none": "No unit has HALO OVERRIDE yet.",
-     "detachments": {
-      "haloscreed_battle_clade": {
-       "unitIds": []
-      }
-     },
-     "enhancements": {
-      "transoracular_dyad_wafers": "Its KASTELAN ROBOTS unit has HALO OVERRIDE all battle."
-     },
-     "noFilter": true
-    },
-    {
-     "id": "dual",
-     "label": "DUAL",
-     "tone": "blood",
-     "title": "Protector and Conqueror Imperatives are both active",
-     "none": "No unit has both Imperatives.",
-     "enhancements": {
-      "omnicogitator": "Both Imperatives are active for the bearer’s unit.",
-      "cognitive_reinforcement": "Both Imperatives are active for the bearer’s unit.",
-      "cantic_thrallnet": "Each battle round the bearer picks a SKITARII unit within 12″: both Imperatives are active for it."
-     },
-     "noFilter": true
+     "noFilter": true,
+     "playOnly": true
     }
    ],
    "abilityTips": {},
@@ -48515,16 +48495,7 @@ const DATA = {
        "fx": "red",
        "effect": "Ranged weapons gain [ASSAULT]; melee weapons +1 WS. A BATTLELINE unit, or one within 6″ of friendly ADEPTUS MECHANICUS BATTLELINE: +1 AP on its attacks."
       }
-     ],
-     "cpNote": {
-      "title": "Data-tether",
-      "text": "Each time you target a unit with a data-tether with a Stratagem, roll one D6: on a 5+ you gain 1CP.",
-      "abilities": [
-       "Enhanced Data-tether",
-       "Broad Spectrum Data-tether",
-       "Command Uplink"
-      ]
-     }
+     ]
     }
    ],
    "detachments": [
@@ -50009,7 +49980,7 @@ const DATA = {
      "roundPick": {
       "title": "Canticles of the Omnissiah",
       "style": "mech",
-      "fx": "steel",
+      "fx": "canticle-gold",
       "who": "Cawl",
       "note": "In your Command phase pick one Canticle. Cawl has it until your next Command phase.",
       "deadNote": "Belisarius Cawl is dead.",
@@ -50017,30 +49988,22 @@ const DATA = {
        {
         "id": "vengeance",
         "name": "Invocation of Machine Vengeance",
-        "effect": "Select an enemy unit as the Machine Vengeance target: friendly ADEPTUS MECHANICUS attacks against it may re-roll the Hit roll."
+        "effect": "Select an enemy unit as the Machine Vengeance target: friendly ADEPTUS MECHANICUS attacks against it may re-roll the Hit roll.",
+        "fx": "canticle-red"
        },
        {
         "id": "discipline",
         "name": "Mantra of Discipline",
-        "effect": "Cawl has BATTLELINE and Binharic Courage: ADEPTUS MECHANICUS units within 6″ get +1 OC and +1 to Battle-shock and Leadership tests."
+        "effect": "Cawl has BATTLELINE and Binharic Courage: ADEPTUS MECHANICUS units within 6″ get +1 OC and +1 to Battle-shock and Leadership tests.",
+        "fx": "canticle-gold"
        },
        {
         "id": "shroud",
         "name": "Shroudpsalm",
-        "effect": "Aura 6″: friendly ADEPTUS MECHANICUS units have Stealth."
+        "effect": "Aura 6″: friendly ADEPTUS MECHANICUS units have Stealth.",
+        "fx": "canticle-cyan"
        }
       ]
-     },
-     "phaseTrigger": {
-      "style": "mech",
-      "title": "Self-repair Mechanisms",
-      "who": "Cawl",
-      "phase": "Command",
-      "turn": "mine",
-      "when": "Start of your Command phase",
-      "text": "Cawl regains up to D3 lost wounds.",
-      "button": "Heal D3",
-      "done": "Healed"
      }
     },
     {

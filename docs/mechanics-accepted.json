@@ -73293,36 +73293,6 @@
    "why": "Doctrina Imperatives Play tracker: two Imperatives per Adeptus Mechanicus army rule text (Faction Pack v1.2 / Wahapedia AdM); cpNote = Enhanced/Broad Spectrum Data-tether and Command Uplink text on datasheets (BSData)"
   },
   {
-   "path": ".adeptusMechanicus.armyRules[0].cpNote.title",
-   "change": "ADDED",
-   "value": "\"Data-tether\"",
-   "why": "Doctrina Imperatives Play tracker: two Imperatives per Adeptus Mechanicus army rule text (Faction Pack v1.2 / Wahapedia AdM); cpNote = Enhanced/Broad Spectrum Data-tether and Command Uplink text on datasheets (BSData)"
-  },
-  {
-   "path": ".adeptusMechanicus.armyRules[0].cpNote.abilities.length",
-   "change": "ADDED",
-   "value": "3",
-   "why": "Doctrina Imperatives Play tracker: two Imperatives per Adeptus Mechanicus army rule text (Faction Pack v1.2 / Wahapedia AdM); cpNote = Enhanced/Broad Spectrum Data-tether and Command Uplink text on datasheets (BSData)"
-  },
-  {
-   "path": ".adeptusMechanicus.armyRules[0].cpNote.abilities[0]",
-   "change": "ADDED",
-   "value": "\"Enhanced Data-tether\"",
-   "why": "Doctrina Imperatives Play tracker: two Imperatives per Adeptus Mechanicus army rule text (Faction Pack v1.2 / Wahapedia AdM); cpNote = Enhanced/Broad Spectrum Data-tether and Command Uplink text on datasheets (BSData)"
-  },
-  {
-   "path": ".adeptusMechanicus.armyRules[0].cpNote.abilities[1]",
-   "change": "ADDED",
-   "value": "\"Broad Spectrum Data-tether\"",
-   "why": "Doctrina Imperatives Play tracker: two Imperatives per Adeptus Mechanicus army rule text (Faction Pack v1.2 / Wahapedia AdM); cpNote = Enhanced/Broad Spectrum Data-tether and Command Uplink text on datasheets (BSData)"
-  },
-  {
-   "path": ".adeptusMechanicus.armyRules[0].cpNote.abilities[2]",
-   "change": "ADDED",
-   "value": "\"Command Uplink\"",
-   "why": "Doctrina Imperatives Play tracker: two Imperatives per Adeptus Mechanicus army rule text (Faction Pack v1.2 / Wahapedia AdM); cpNote = Enhanced/Broad Spectrum Data-tether and Command Uplink text on datasheets (BSData)"
-  },
-  {
    "path": ".adeptusMechanicus.detachments[2].battlePick.title",
    "change": "ADDED",
    "value": "\"Benedictions of the Omnissiah\"",
@@ -73653,12 +73623,6 @@
    "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
   },
   {
-   "path": ".adeptusMechanicus.units[0].roundPick.fx",
-   "change": "ADDED",
-   "value": "\"steel\"",
-   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
-  },
-  {
    "path": ".adeptusMechanicus.units[0].roundPick.who",
    "change": "ADDED",
    "value": "\"Cawl\"",
@@ -73710,48 +73674,6 @@
    "path": ".adeptusMechanicus.units[0].roundPick.options[2].name",
    "change": "ADDED",
    "value": "\"Shroudpsalm\"",
-   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
-  },
-  {
-   "path": ".adeptusMechanicus.units[0].phaseTrigger.style",
-   "change": "ADDED",
-   "value": "\"mech\"",
-   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
-  },
-  {
-   "path": ".adeptusMechanicus.units[0].phaseTrigger.title",
-   "change": "ADDED",
-   "value": "\"Self-repair Mechanisms\"",
-   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
-  },
-  {
-   "path": ".adeptusMechanicus.units[0].phaseTrigger.who",
-   "change": "ADDED",
-   "value": "\"Cawl\"",
-   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
-  },
-  {
-   "path": ".adeptusMechanicus.units[0].phaseTrigger.phase",
-   "change": "ADDED",
-   "value": "\"Command\"",
-   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
-  },
-  {
-   "path": ".adeptusMechanicus.units[0].phaseTrigger.turn",
-   "change": "ADDED",
-   "value": "\"mine\"",
-   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
-  },
-  {
-   "path": ".adeptusMechanicus.units[0].phaseTrigger.button",
-   "change": "ADDED",
-   "value": "\"Heal D3\"",
-   "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
-  },
-  {
-   "path": ".adeptusMechanicus.units[0].phaseTrigger.done",
-   "change": "ADDED",
-   "value": "\"Healed\"",
    "why": "Play helpers from datasheet ability text (BSData 11e + Wahapedia AdM, checked 2026-10-11): roundPick (Canticles, Icon of War, Battle Protocols), phaseTrigger, oncePerBattle"
   },
   {
@@ -74221,6 +74143,30 @@
    "change": "ADDED",
    "value": "\"analysed\"",
    "why": "Palette C, emblem and highlighted terms (owner decision 2026-10-11)"
+  },
+  {
+   "path": ".adeptusMechanicus.units[0].roundPick.fx",
+   "change": "ADDED",
+   "value": "\"canticle-gold\"",
+   "why": "Cawl Canticles effect: litany animation per canticle (owner request 2026-10-11)"
+  },
+  {
+   "path": ".adeptusMechanicus.units[0].roundPick.options[0].fx",
+   "change": "ADDED",
+   "value": "\"canticle-red\"",
+   "why": "Cawl Canticles effect: litany animation per canticle (owner request 2026-10-11)"
+  },
+  {
+   "path": ".adeptusMechanicus.units[0].roundPick.options[1].fx",
+   "change": "ADDED",
+   "value": "\"canticle-gold\"",
+   "why": "Cawl Canticles effect: litany animation per canticle (owner request 2026-10-11)"
+  },
+  {
+   "path": ".adeptusMechanicus.units[0].roundPick.options[2].fx",
+   "change": "ADDED",
+   "value": "\"canticle-cyan\"",
+   "why": "Cawl Canticles effect: litany animation per canticle (owner request 2026-10-11)"
   }
  ]
 }
