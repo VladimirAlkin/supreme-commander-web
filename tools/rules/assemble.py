@@ -84,8 +84,10 @@ for e in best:
                       ours=e['ours'], A_cp=e.get('A_cp'), ours_cp=e.get('ours_cp'), A_type=e.get('A_type'), ours_type=e.get('ours_type')))
 
 # An override that matched nothing is stale (renamed entry) — say so rather than silently doing nothing.
+RUN = {e['f'] for e in best}  # a single-army run says nothing about the other armies' overrides
 for lst in ('replace', 'useBsdata', 'composites'):
     for x in OVERRIDES.get(lst, []):
+        if x['f'] not in RUN: continue
         if not any(match(e, x) for e in best if e['f'] == x['f']): REVIEW.append(f"overrides.json {lst}: matches nothing — {x['f']} {x['cat']} {x.get('unit') or x.get('det') or ''} / {x['name']}")
 # CP from Wahapedia differs from data.js: data.js CP is mechanics and is changed only by hand, after checking the pack.
 for x in final:

@@ -10,5 +10,6 @@
  "deathGuard":      { "wahapedia": ["DG", "CD"],  "bsdata": ["Chaos - Death Guard.json"], "packVersion": "1.3", "wahapediaVersion": "1.2" },
  "thousandSons":    { "wahapedia": ["TS", "CD"],  "bsdata": ["Chaos - Thousand Sons.json"], "packVersion": "1.3", "wahapediaVersion": "1.2" },
  "tyranids":        { "wahapedia": ["TYR"],       "bsdata": ["Tyranids.json", "Library - Tyranids.json"], "packVersion": "1.2", "wahapediaVersion": "1.2" },
- "adeptaSororitas": { "wahapedia": ["AS", "AoI"], "bsdata": ["Imperium - Adepta Sororitas.json", "Imperium - Agents of the Imperium.json"], "packVersion": "1.2", "wahapediaVersion": "1.2" }
+ "adeptaSororitas": { "wahapedia": ["AS", "AoI"], "bsdata": ["Imperium - Adepta Sororitas.json", "Imperium - Agents of the Imperium.json"], "packVersion": "1.2", "wahapediaVersion": "1.2" },
+ "adeptusMechanicus": { "wahapedia": ["AdM"],     "bsdata": ["Imperium - Adeptus Mechanicus.json"], "packVersion": "1.2", "wahapediaVersion": "1.2" }
 }

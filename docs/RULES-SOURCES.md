@@ -1,7 +1,8 @@
 # Rules text: sources and which one wins
 
 Applies to every army in the app: Chaos Space Marines, World Eaters, Death
-Guard, Thousand Sons, Tyranids, Adepta Sororitas (with Imperial Agents), and
+Guard, Thousand Sons, Tyranids, Adepta Sororitas (with Imperial Agents),
+Adeptus Mechanicus, and
 any army added later.
 
 Current to: the 30 Sep 2026 update (MFM v1.5; Faction Packs World Eaters,
@@ -85,3 +86,12 @@ Found by `bsdelta.py` across BSData's import (`374f505..HEAD`) plus reviews:
   units carry no faction ability of their home army (Wahapedia still lists
   them on its CSM copies) — confirm. BSData lifts the points limit in Crusade
   Force; the app has no such battle size. Details: `audit/chaos_space_marines_*.md`.
+- Adeptus Mechanicus (added 2026-10-11, MFM v1.5, Faction Pack v1.2 = Wahapedia
+  version; no allies, no Legends): TL-4Ø9 (Lords of the Forge) and Threat-cogitation
+  Targeters (Eradication Cohort) are `replace` overrides from the pack because the
+  Wahapedia rows are empty/truncated; the pack gives no points for TL-4Ø9 (MFM 30
+  used). War-form Mantles text is garbled in Wahapedia ("4+ InSv", "On 2+") and
+  identical in the pack — kept, check against the app. Explorator Dispensation and
+  Voltagheist Reliquary texts lack a final period (verbatim). Copy-tier counting for
+  Pteraxii/Hastarii is per datasheet. RECON AUGURY is granted by Cohort Acquisitus,
+  not on datasheets. Theme and emblem are provisional (design pass pending).

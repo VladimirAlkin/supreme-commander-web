@@ -95,6 +95,27 @@
     "TWIST OF FATE (PSYCHIC): WARP CHARGE 9 Select one enemy unit within 24\" of and visible to the manifesting model. Until the end of the phase, each time a THOUSAND SONS or SCINTILLATING LEGIONS model from your army makes an attack that targets that unit, improve the Armour Penetration characteristic of that attack by 1. If the Psychic test result for this Ritual was 12+, improve the Armour Penetration characteristic of that attack by 2 instead."
    ],
    "why": "Wahapedia draws the Psychic test sequence steps as images; step labels from BSData."
+  },
+  {
+   "f": "adeptusMechanicus",
+   "cat": "enh",
+   "det": "Lords of the Forge",
+   "name": "TL-4Ø9",
+   "text": "TECH-PRIEST model only. This model has the following weapon: TL-4Ø9 — Range 24\", A 3, BS 2+, S 11, AP -2, D D3+2, [DEVASTATING WOUNDS, HAZARDOUS].",
+   "why": "Wahapedia 11e has an empty description for this enhancement. Adeptus Mechanicus Faction Pack v1.2 (assets.warhammer-community.com, read 2026-10-11): 'TECH-PRIEST model only. This model has the following weapon:' with the profile 24\", A 3, BS 2+, S 11, AP -2, D D3+2, [DEVASTATING WOUNDS, HAZARDOUS]. The profile is written inline because the app shows enhancement text as prose; points (30) are MFM v1.5 and Wahapedia."
+  },
+  {
+   "f": "adeptusMechanicus",
+   "cat": "strat",
+   "det": "Eradication Cohort",
+   "name": "Threat-cogitation Targeters",
+   "text": {
+    "when": "Your Shooting phase.",
+    "target": "One SKITARII VEHICLE unit from your army that has not been selected to shoot this phase.",
+    "effect": "Until the end of the phase, each time a ranged attack made by a model in your unit is allocated to a MONSTER or VEHICLE model, you can re-roll the Damage roll.",
+    "restrictions": null
+   },
+   "why": "Wahapedia 11e row is truncated after the legend text (no phase, no rules). Adeptus Mechanicus Faction Pack v1.2 (read 2026-10-11): Eradication Cohort Wargear Stratagem, 1CP, Shooting phase, same fields as shown here."
   }
  ],
  "useBsdata": [
