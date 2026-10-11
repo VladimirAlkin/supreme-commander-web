@@ -35804,7 +35804,7 @@ const DATA = {
      "name": "Cabal of Chaos",
      "dp": 1,
      "tags": [],
-     "summary": "In your Shooting phase, when a friendly HERETIC ASTARTES PSYKER unit (excluding DAEMON units) is selected to shoot, if that unit makes a Dar",
+     "summary": "Psykers and Daemon Princes that make a Dark Pact hit harder: +1 S ranged, or +2 S and +1 AP in melee.",
      "rule": {
       "name": "Empyric Wellspring",
       "text": "■ In your Shooting phase, when a friendly HERETIC ASTARTES PSYKER unit (excluding DAEMON units) is selected to shoot, if that unit makes a Dark Pact, that unit’s ranged attacks have +1 S. ■ In the Fight phase, when a friendly HERETIC ASTARTES DAEMON PRINCE/DAEMON PRINCE WITH WINGS unit (excluding KHORNE units) is selected to fight, if that unit makes a Dark Pact, that unit’s melee attacks have: ■ +2 S. ■ +1 AP."
@@ -35820,6 +35820,9 @@ const DATA = {
        "eligible": {
         "factionsAll": [
          "Heretic Astartes"
+        ],
+        "keywordsNone": [
+         "Khorne"
         ]
        }
       },
@@ -35832,6 +35835,12 @@ const DATA = {
        "eligible": {
         "factionsAll": [
          "Heretic Astartes"
+        ],
+        "keywordsAll": [
+         "Daemon"
+        ],
+        "keywordsNone": [
+         "Khorne"
         ]
        }
       }
@@ -35883,7 +35892,7 @@ const DATA = {
      "name": "Chaos Cult",
      "dp": 2,
      "tags": [],
-     "summary": "Each time a DAMNED unit from your army with the Dark Pacts ability is selected to make a Normal or Advance move or declare a charge (excludi",
+     "summary": "DAMNED units can make a Desperate Pact for +2 Move and +2 to Charge rolls, at the risk of D3 mortal wounds.",
      "rule": {
       "name": "Desperate Devotion",
       "text": "Each time a DAMNED unit from your army with the Dark Pacts ability is selected to make a Normal or Advance move or declare a charge (excluding units that arrived from Reserves this turn), it can make a Desperate Pact. If it does, until the end of the phase, add 2 to the Move characteristic of models in that unit and add 2 to Charge rolls made for that unit. DESPERATE PACTS: Each time a unit makes a Desperate Pact, it must first take a Leadership test; if that test is failed, that unit suffers D3 mortal wounds before any effects of that Desperate Pact are resolved."
@@ -35899,6 +35908,9 @@ const DATA = {
        "eligible": {
         "factionsAll": [
          "Heretic Astartes"
+        ],
+        "keywordsAll": [
+         "Dark Apostle"
         ]
        }
       },
@@ -35911,6 +35923,10 @@ const DATA = {
        "eligible": {
         "factionsAll": [
          "Heretic Astartes"
+        ],
+        "keywordsAny": [
+         "Dark Apostle",
+         "Damned"
         ]
        }
       },
@@ -35923,6 +35939,10 @@ const DATA = {
        "eligible": {
         "factionsAll": [
          "Heretic Astartes"
+        ],
+        "keywordsAny": [
+         "Dark Apostle",
+         "Damned"
         ]
        }
       },
@@ -35935,6 +35955,10 @@ const DATA = {
        "eligible": {
         "factionsAll": [
          "Heretic Astartes"
+        ],
+        "keywordsAny": [
+         "Dark Apostle",
+         "Damned"
         ]
        }
       }
@@ -36031,7 +36055,7 @@ const DATA = {
      "name": "Creations of Bile",
      "dp": 3,
      "tags": [],
-     "summary": "At the start of the battle, select which augmentations are active for Heretic Astartes Infantry models (excluding Damned models) from your a",
+     "summary": "At the start of the battle choose, or roll for, two augmentations for your non-DAMNED Infantry.",
      "rule": {
       "name": "Experimental Augmentations",
       "text": "At the start of the battle, select which augmentations are active for HERETIC ASTARTES INFANTRY models (excluding DAMNED models) from your army until the end of the battle. To do so, either select one from the list below, or randomly determine two by rolling two D6. If Fabius Bile is your WARLORD, when randomly determining your augmentations, you can re-roll one or both of the dice. Duplicated augmentations have no additional effect. ■ 1 Cholinergic Accelerants: Add 1 to the Attacks characteristic of melee weapons equipped by this model. ■ 2 Hyperadrenal Infusion: Add 2\" to the Move characteristic of this model. ■ 3 Paraneural Reactions: Improve the Weapon Skill characteristic of melee weapons equipped by this model by 1. ■ 4 Supracutaneous Chitination: Improve the Toughness characteristic of this model by 1. ■ 5 Macrotensile Sinews: Add 1 to the Strength characteristic of melee weapons equipped by this model. ■ 6 Ophthalmic Enhancement: Improve the Ballistic Skill characteristic of ranged weapons equipped by this model by 1."
@@ -36047,6 +36071,9 @@ const DATA = {
        "eligible": {
         "factionsAll": [
          "Heretic Astartes"
+        ],
+        "keywordsNone": [
+         "Damned"
         ]
        }
       },
@@ -36059,6 +36086,9 @@ const DATA = {
        "eligible": {
         "factionsAll": [
          "Heretic Astartes"
+        ],
+        "keywordsAny": [
+         "Chaos Lord"
         ]
        }
       },
@@ -36071,6 +36101,12 @@ const DATA = {
        "eligible": {
         "factionsAll": [
          "Heretic Astartes"
+        ],
+        "keywordsAll": [
+         "Infantry"
+        ],
+        "keywordsNone": [
+         "Damned"
         ]
        }
       },
@@ -36083,6 +36119,12 @@ const DATA = {
        "eligible": {
         "factionsAll": [
          "Heretic Astartes"
+        ],
+        "keywordsAll": [
+         "Infantry"
+        ],
+        "keywordsNone": [
+         "Damned"
         ]
        }
       }
@@ -36209,7 +36251,7 @@ const DATA = {
      "name": "Cult of the Arkifane",
      "dp": 2,
      "tags": [],
-     "summary": "Heretic Astartes Vehicle units from your army gain the Daemon keyword. Heretic Astartes Vehicle, Lord Discordant and Vashtorr the Arkifane u",
+     "summary": "Vehicles gain DAEMON; Vehicles, Lord Discordant and Vashtorr gain SOUL FORGE and a 5+ invulnerable save.",
      "rule": {
       "name": "Soul Forge Boons",
       "text": "HERETIC ASTARTES VEHICLE units from your army gain the Daemon keyword. Heretic Astartes Vehicle, LORD DISCORDANT and VASHTORR THE ARKIFANE units from your army gain the SOUL FORGE keyword. SOUL FORGE units from your army have a 5+ invulnerable save."
@@ -36225,6 +36267,9 @@ const DATA = {
        "eligible": {
         "factionsAll": [
          "Heretic Astartes"
+        ],
+        "keywordsNone": [
+         "Damned"
         ]
        }
       },
@@ -36237,6 +36282,9 @@ const DATA = {
        "eligible": {
         "factionsAll": [
          "Heretic Astartes"
+        ],
+        "keywordsNone": [
+         "Damned"
         ]
        }
       },
@@ -36249,6 +36297,9 @@ const DATA = {
        "eligible": {
         "factionsAll": [
          "Heretic Astartes"
+        ],
+        "keywordsNone": [
+         "Damned"
         ]
        }
       },
@@ -36261,6 +36312,9 @@ const DATA = {
        "eligible": {
         "factionsAll": [
          "Heretic Astartes"
+        ],
+        "keywordsAll": [
+         "Warpsmith"
         ]
        }
       }
@@ -36520,7 +36574,7 @@ const DATA = {
      "name": "Deceptors",
      "dp": 2,
      "tags": [],
-     "summary": "In the Declare Battle Formations step, you can select a number of LEGIONARIES and CULTIST MOB units from your army: until the end of the bat",
+     "summary": "Chosen Legionaries and Cultist Mobs, and Characters attached to them, gain Infiltrators.",
      "rule": {
       "name": "Masters of Misdirection",
       "text": "In the Declare Battle Formations step, you can select a number of LEGIONARIES and CULTIST MOB units from your army: until the end of the battle, those units, and any CHARACTER units attached to them (excluding EPIC HEROES), have the Infiltrators ability. The maximum number of units you can select in this way depends on the battle size, as shown below. ■ Incursion – Up to 2 units – Up to 2 units ■ Strike Force – Up to 3 units – Up to 3 units ■ Onslaught – Up to 4 units – Up to 4 units"
@@ -36536,6 +36590,9 @@ const DATA = {
        "eligible": {
         "factionsAll": [
          "Heretic Astartes"
+        ],
+        "keywordsAll": [
+         "Infantry"
         ]
        }
       },
@@ -36548,6 +36605,13 @@ const DATA = {
        "eligible": {
         "factionsAll": [
          "Heretic Astartes"
+        ],
+        "keywordsAny": [
+         "Chaos Lord"
+        ],
+        "keywordsNone": [
+         "Terminator",
+         "Jump Pack"
         ]
        }
       },
@@ -36560,6 +36624,9 @@ const DATA = {
        "eligible": {
         "factionsAll": [
          "Heretic Astartes"
+        ],
+        "keywordsAll": [
+         "Infantry"
         ]
        }
       },
@@ -36572,6 +36639,9 @@ const DATA = {
        "eligible": {
         "factionsAll": [
          "Heretic Astartes"
+        ],
+        "keywordsAll": [
+         "Infantry"
         ]
        }
       }
@@ -36659,7 +36729,7 @@ const DATA = {
      "name": "Devotees of Destruction",
      "dp": 1,
      "tags": [],
-     "summary": "Friendly HAVOCS/OBLITERATORS units’ ranged attacks have [HEAVY].",
+     "summary": "Havocs and Obliterators’ ranged attacks have [HEAVY].",
      "rule": {
       "name": "Rain of Ruin",
       "text": "Friendly HAVOCS/OBLITERATORS units’ ranged attacks have [HEAVY]."
@@ -36675,6 +36745,9 @@ const DATA = {
        "eligible": {
         "factionsAll": [
          "Heretic Astartes"
+        ],
+        "keywordsAll": [
+         "Warpsmith"
         ]
        }
       },
@@ -36687,6 +36760,9 @@ const DATA = {
        "eligible": {
         "factionsAll": [
          "Heretic Astartes"
+        ],
+        "keywordsAll": [
+         "Warpsmith"
         ]
        }
       }
@@ -36738,7 +36814,7 @@ const DATA = {
      "name": "Dread Talons",
      "dp": 2,
      "tags": [],
-     "summary": "In the Battle-shock step of your opponent’s Command phase, if an enemy unit that is below its Starting Strength is within 12\" of one or more",
+     "summary": "Enemy units below Starting Strength within 12\" of your army take Battle-shock tests, at -1 to the result.",
      "rule": {
       "name": "Terror Descends (Aura)",
       "text": "In the Battle-shock step of your opponent’s Command phase, if an enemy unit that is below its Starting Strength is within 12\" of one or more HERETIC ASTARTES units from your army, that enemy unit must take a Battle-shock test. Each time an enemy unit within 12\" of one or more HERETIC ASTARTES units from your army takes a Battle-shock test, subtract 1 from the result. Enemy units affected by this Detachment rule do not need to take any other Battle-shock tests in the same phase."
@@ -36766,6 +36842,12 @@ const DATA = {
        "eligible": {
         "factionsAll": [
          "Heretic Astartes"
+        ],
+        "keywordsAny": [
+         "Chaos Lord"
+        ],
+        "keywordsNone": [
+         "Terminator"
         ]
        }
       },
@@ -36778,6 +36860,10 @@ const DATA = {
        "eligible": {
         "factionsAll": [
          "Heretic Astartes"
+        ],
+        "keywordsAll": [
+         "Chaos Lord",
+         "Jump Pack"
         ]
        }
       },
@@ -36877,7 +36963,7 @@ const DATA = {
      "name": "Fellhammer Siege-host",
      "dp": 2,
      "tags": [],
-     "summary": "Each time a ranged attack targets a HERETIC ASTARTES unit from your army (excluding DAMNED units), if the Strength characteristic of that at",
+     "summary": "Non-DAMNED units subtract 1 from the Wound roll of ranged attacks whose Strength beats their Toughness.",
      "rule": {
       "name": "Iron Fortitude",
       "text": "Each time a ranged attack targets a HERETIC ASTARTES unit from your army (excluding DAMNED units), if the Strength characteristic of that attack is greater than the Toughness characteristic of that unit, subtract 1 from the Wound roll."
@@ -36893,6 +36979,12 @@ const DATA = {
        "eligible": {
         "factionsAll": [
          "Heretic Astartes"
+        ],
+        "keywordsAny": [
+         "Chaos Lord"
+        ],
+        "keywordsNone": [
+         "Jump Pack"
         ]
        }
       },
@@ -36905,6 +36997,9 @@ const DATA = {
        "eligible": {
         "factionsAll": [
          "Heretic Astartes"
+        ],
+        "keywordsAll": [
+         "Infantry"
         ]
        }
       },
@@ -37016,7 +37111,7 @@ const DATA = {
      "name": "Huron’s Marauders",
      "dp": 3,
      "tags": [],
-     "summary": "In your Command phase, select one of the following abilities. Until the start of your next Command phase, each Heretic Astartes Infantry uni",
+     "summary": "Each Command phase pick an ability for your Infantry; those visible to Huron Blackheart gain both.",
      "rule": {
       "name": "Tyrannical Motivation",
       "text": "In your Command phase, select one of the following abilities. Until the start of your next Command phase, each HERETIC ASTARTES INFANTRY unit from your army has that ability. At the start of each phase, if such a unit is visible to a friendly HURON BLACKHEART model, until the end of the phase, it has both of the following abilities. HURON’S ELITE: Each time a model in this unit makes an attack, add 1 to the Hit roll. MOBILE MARAUDERS: This unit is eligible to shoot and declare a charge in a turn in which it Fell Back. Designer’s Note: If a unit is gaining eligibility to shoot and declare a charge in a turn in which it Fell Back as a result of being visible to Huron Blackheart, but after making a Fall Back move it is no longer visible to Huron Blackheart, that unit will not be eligible to shoot in your Shooting phase or to declare a charge in your Charge phase unless it is visible again at the start of the respective phase."
@@ -37032,6 +37127,9 @@ const DATA = {
        "eligible": {
         "factionsAll": [
          "Heretic Astartes"
+        ],
+        "keywordsNone": [
+         "Damned"
         ]
        }
       },
@@ -37044,6 +37142,9 @@ const DATA = {
        "eligible": {
         "factionsAll": [
          "Heretic Astartes"
+        ],
+        "keywordsNone": [
+         "Damned"
         ]
        }
       },
@@ -37056,6 +37157,9 @@ const DATA = {
        "eligible": {
         "factionsAll": [
          "Heretic Astartes"
+        ],
+        "keywordsNone": [
+         "Damned"
         ]
        }
       },
@@ -37174,7 +37278,7 @@ const DATA = {
      "tags": [
       "Nightmare"
      ],
-     "summary": "Friendly HERETIC ASTARTES INFANTRY FLY units’ attacks that target a battle-shocked unit or a unit at or below half-strength can re-roll hit ",
+     "summary": "Infantry Fly units re-roll Hit rolls of 1 against weakened enemies and are harder to hit by them.",
      "rule": {
       "name": "Prey on the Weak",
       "text": "■ Friendly HERETIC ASTARTES INFANTRY FLY units’ attacks that target a battle-shocked unit or a unit at or below half-strength can re-roll hit rolls of 1. ■ When an enemy unit’s attacks target a friendly HERETIC ASTARTES INFANTRY FLY unit, if that enemy unit is battle-shocked or at or below half-strength, those attacks have -1 to hit rolls. This detachment has the NIGHTMARE tag and cannot be taken with another NIGHTMARE detachment."
@@ -37190,6 +37294,10 @@ const DATA = {
        "eligible": {
         "factionsAll": [
          "Heretic Astartes"
+        ],
+        "keywordsAll": [
+         "Chaos Lord",
+         "Jump Pack"
         ]
        }
       },
@@ -37202,6 +37310,10 @@ const DATA = {
        "eligible": {
         "factionsAll": [
          "Heretic Astartes"
+        ],
+        "keywordsAll": [
+         "Chaos Lord",
+         "Jump Pack"
         ]
        }
       }
@@ -37255,7 +37367,7 @@ const DATA = {
      "tags": [
       "Nightmare"
      ],
-     "summary": "In the Battle-shock step of your opponent’s Command phase, if an enemy unit that is below its Starting Strength is within 12\" of one or more",
+     "summary": "Enemy units below Starting Strength near your army take Battle-shock at -1; +1 to Hit against Below Half-strength units.",
      "rule": {
       "name": "Terror Made Manifest",
       "text": "In the Battle-shock step of your opponent’s Command phase, if an enemy unit that is below its Starting Strength is within 12\" of one or more HERETIC ASTARTES units from your army, that enemy unit must take a Battle-shock test, subtracting 1 from the result. Enemy units affected by this Detachment rule do not need to take any other Battle-shock tests in the same phase. Each time a HERETIC ASTARTES model from your army makes an attack that targets a unit that is Below Half-strength, add 1 to the Hit roll. Each time an attack targets a HERETIC ASTARTES unit from your army, if the attacking model is Battle‐shocked, subtract 1 from the Hit roll. Each time a HERETIC ASTARTES model from your army makes an attack that targets a Battle‐shocked unit, add 1 to the Wound roll."
@@ -37271,6 +37383,9 @@ const DATA = {
        "eligible": {
         "factionsAll": [
          "Heretic Astartes"
+        ],
+        "keywordsAny": [
+         "Chaos Lord"
         ]
        }
       },
@@ -37283,6 +37398,10 @@ const DATA = {
        "eligible": {
         "factionsAll": [
          "Heretic Astartes"
+        ],
+        "keywordsAll": [
+         "Chaos Lord",
+         "Jump Pack"
         ]
        }
       },
@@ -37307,6 +37426,10 @@ const DATA = {
        "eligible": {
         "factionsAll": [
          "Heretic Astartes"
+        ],
+        "keywordsAll": [
+         "Chaos Lord",
+         "Jump Pack"
         ]
        }
       }
@@ -37396,7 +37519,7 @@ const DATA = {
      "name": "Pactbound Zealots",
      "dp": 3,
      "tags": [],
-     "summary": "When mustering your army, when you select a HERETIC ASTARTES unit to include in your army, if that unit is not an EPIC HERO and does not alr",
+     "summary": "Every unit takes a Mark of Chaos (a god or Undivided) that strengthens its Dark Pacts.",
      "rule": {
       "name": "Marks of Chaos",
       "text": "When mustering your army, when you select a HERETIC ASTARTES unit to include in your army, if that unit is not an EPIC HERO and does not already have one of the following keywords, you must select one for that unit and note it on your Army Roster: KHORNE. TZEENTCH, NURGLE, SLAANESH, CHAOS UNDIVIDED. Each time a unit with one of these keywords gains a weapon ability as the result of a Dark Pact and does not fail the resulting Leadership test, until the end of the phase, that unit gains the associated ability below. UNITS THAT GAINED [LETHAL HITS]: ■ KHORNE: Each time a model in this unit makes a melee attack, an unmodified Hit roll of 5+ scores a Critical Hit. ■ TZEENTCH: Each time a model in this unit makes a ranged attack, an unmodified Hit roll of 5+ scores a Critical Hit. ■ CHAOS UNDIVIDED: Each time a model in this unit makes an attack, re-roll a Hit roll of 1. UNITS THAT GAINED [SUSTAINED HITS 1]: ■ NURGLE: Each time a model in this unit makes a ranged attack, an unmodified Hit roll of 5+ scores a Critical Hit. ■ SLAANESH: Each time a model in this unit makes a melee attack, an unmodified Hit roll of 5+ scores a Critical Hit. ■ CHAOS UNDIVIDED: Each time a model in this unit makes an attack, re-roll a Hit roll of 1. RESTRICTIONS: ■ You cannot select the KHORNE keyword for a PSYKER unit. ■ A CHARACTER unit can only be attached to a unit if both units share the same keyword from the list above. ■ A unit can only embark within (or start the battle embarked within) a TRANSPORT if both of those units share the same keyword from the list above."
@@ -37412,6 +37535,9 @@ const DATA = {
        "eligible": {
         "factionsAll": [
          "Heretic Astartes"
+        ],
+        "keywordsAll": [
+         "Tzeentch"
         ]
        }
       },
@@ -37424,6 +37550,9 @@ const DATA = {
        "eligible": {
         "factionsAll": [
          "Heretic Astartes"
+        ],
+        "keywordsAll": [
+         "Slaanesh"
         ]
        }
       },
@@ -37436,6 +37565,9 @@ const DATA = {
        "eligible": {
         "factionsAll": [
          "Heretic Astartes"
+        ],
+        "keywordsAll": [
+         "Nurgle"
         ]
        }
       },
@@ -37448,6 +37580,9 @@ const DATA = {
        "eligible": {
         "factionsAll": [
          "Heretic Astartes"
+        ],
+        "keywordsAll": [
+         "Khorne"
         ]
        }
       }
@@ -37563,8 +37698,6 @@ const DATA = {
         "havocs",
         "helbrute",
         "heldrake",
-        "daemon_prince",
-        "daemon_prince_wings",
         "lord_of_skulls",
         "legionaries",
         "lord_discordant",
@@ -37588,7 +37721,7 @@ const DATA = {
         "warpsmith",
         "warp_talons"
        ],
-       "note": ""
+       "note": "Dark Pact [LETHAL HITS]: Each time a model in this unit makes a melee attack, an unmodified Hit roll of 5+ scores a Critical Hit."
       },
       {
        "id": "mk_nurgle",
@@ -37620,8 +37753,6 @@ const DATA = {
         "havocs",
         "helbrute",
         "heldrake",
-        "daemon_prince",
-        "daemon_prince_wings",
         "lord_of_skulls",
         "legionaries",
         "lord_discordant",
@@ -37645,7 +37776,7 @@ const DATA = {
         "warpsmith",
         "warp_talons"
        ],
-       "note": ""
+       "note": "Dark Pact [SUSTAINED HITS 1]: Each time a model in this unit makes a ranged attack, an unmodified Hit roll of 5+ scores a Critical Hit."
       },
       {
        "id": "mk_tzeentch",
@@ -37677,8 +37808,6 @@ const DATA = {
         "havocs",
         "helbrute",
         "heldrake",
-        "daemon_prince",
-        "daemon_prince_wings",
         "lord_of_skulls",
         "legionaries",
         "lord_discordant",
@@ -37702,7 +37831,7 @@ const DATA = {
         "warpsmith",
         "warp_talons"
        ],
-       "note": ""
+       "note": "Dark Pact [LETHAL HITS]: Each time a model in this unit makes a ranged attack, an unmodified Hit roll of 5+ scores a Critical Hit."
       },
       {
        "id": "mk_slaanesh",
@@ -37734,8 +37863,6 @@ const DATA = {
         "havocs",
         "helbrute",
         "heldrake",
-        "daemon_prince",
-        "daemon_prince_wings",
         "lord_of_skulls",
         "legionaries",
         "lord_discordant",
@@ -37759,7 +37886,7 @@ const DATA = {
         "warpsmith",
         "warp_talons"
        ],
-       "note": ""
+       "note": "Dark Pact [SUSTAINED HITS 1]: Each time a model in this unit makes a melee attack, an unmodified Hit roll of 5+ scores a Critical Hit."
       },
       {
        "id": "mk_undivided",
@@ -37791,8 +37918,6 @@ const DATA = {
         "havocs",
         "helbrute",
         "heldrake",
-        "daemon_prince",
-        "daemon_prince_wings",
         "lord_of_skulls",
         "legionaries",
         "lord_discordant",
@@ -37816,7 +37941,7 @@ const DATA = {
         "warpsmith",
         "warp_talons"
        ],
-       "note": "No god; the default Mark."
+       "note": "Dark Pact [LETHAL HITS] or [SUSTAINED HITS 1]: Each time a model in this unit makes an attack, re-roll a Hit roll of 1."
       }
      ]
     },
@@ -37825,7 +37950,7 @@ const DATA = {
      "name": "Renegade Raiders",
      "dp": 3,
      "tags": [],
-     "summary": "Ranged weapons equipped by HERETIC ASTARTES models from your army have the [ASSAULT] ability, and each time a HERETIC ASTARTES model from yo",
+     "summary": "Ranged weapons gain [ASSAULT], and attacks against units on objectives get +1 AP.",
      "rule": {
       "name": "Raiders and Reavers",
       "text": "Ranged weapons equipped by HERETIC ASTARTES models from your army have the [ASSAULT] ability, and each time a HERETIC ASTARTES model from your army makes an attack that targets a unit within range of an objective marker, improve the Armour Penetration characteristic of that attack by 1."
@@ -37967,7 +38092,7 @@ const DATA = {
      "name": "Renegade Warband",
      "dp": 2,
      "tags": [],
-     "summary": "HERETIC ASTARTES models from your army lose the Dark Pacts ability. Ranged weapons equipped by HERETIC ASTARTES models from your army have t",
+     "summary": "Units lose Dark Pacts; ranged weapons gain [ASSAULT]; no Cults of the Dark Gods.",
      "rule": {
       "name": "Slaves to None",
       "text": "HERETIC ASTARTES models from your army lose the Dark Pacts ability. Ranged weapons equipped by HERETIC ASTARTES models from your army have the [ASSAULT] ability. When mustering your army, you cannot use the Cults of the Dark Gods rule."
@@ -38007,6 +38132,9 @@ const DATA = {
        "eligible": {
         "factionsAll": [
          "Heretic Astartes"
+        ],
+        "keywordsAll": [
+         "Terminator"
         ]
        }
       },
@@ -38116,7 +38244,7 @@ const DATA = {
      "name": "Soulforged Warpack",
      "dp": 2,
      "tags": [],
-     "summary": "Each time a HERETIC ASTARTES DAEMON VEHICLE unit from your army makes a Dark Pact, it can invoke its contract. If it does, subtract 1 from t",
+     "summary": "Daemon Vehicles can invoke their contract on a Dark Pact: +1 to wound at range, +2 Attacks in melee.",
      "rule": {
       "name": "Debt to the Soul Forge",
       "text": "Each time a HERETIC ASTARTES DAEMON VEHICLE unit from your army makes a Dark Pact, it can invoke its contract. If it does, subtract 1 from the resulting Leadership test when making that Dark Pact, and until the end of the phase: ■ Each time a model in that unit makes a ranged attack, add 1 to the Wound roll. ■ Add 2 to the Attacks characteristic of melee weapons equipped by models in that unit."
@@ -38144,6 +38272,9 @@ const DATA = {
        "eligible": {
         "factionsAll": [
          "Heretic Astartes"
+        ],
+        "keywordsAll": [
+         "Warpsmith"
         ]
        }
       },
@@ -38257,7 +38388,7 @@ const DATA = {
      "name": "Veterans of the Long War",
      "dp": 2,
      "tags": [],
-     "summary": "At the start of your Command phase, select one unit from your opponents army to be your focus of hatred. Until the start of your next Comman",
+     "summary": "Each Command phase pick an enemy unit as your focus of hatred and re-roll Hit rolls against it.",
      "rule": {
       "name": "Focus of Hatred",
       "text": "At the start of your Command phase, select one unit from your opponents army to be your focus of hatred. Until the start of your next Command phase, each time a HERETIC ASTARTES model from your army (excluding DAMNED models) makes an attack that targets your focus of hatred, you can re-roll the Hit roll."
@@ -38273,6 +38404,9 @@ const DATA = {
        "eligible": {
         "factionsAll": [
          "Heretic Astartes"
+        ],
+        "keywordsNone": [
+         "Damned"
         ]
        }
       },
@@ -38285,6 +38419,9 @@ const DATA = {
        "eligible": {
         "factionsAll": [
          "Heretic Astartes"
+        ],
+        "keywordsNone": [
+         "Damned"
         ]
        }
       },
@@ -38297,6 +38434,9 @@ const DATA = {
        "eligible": {
         "factionsAll": [
          "Heretic Astartes"
+        ],
+        "keywordsNone": [
+         "Damned"
         ]
        }
       },
@@ -38309,6 +38449,9 @@ const DATA = {
        "eligible": {
         "factionsAll": [
          "Heretic Astartes"
+        ],
+        "keywordsAny": [
+         "Chaos Lord"
         ]
        }
       }
@@ -38404,7 +38547,7 @@ const DATA = {
      "name": "Warpstrike Champions",
      "dp": 2,
      "tags": [],
-     "summary": "At the end of your opponent’s turn, you can select a number of Heretic Astartes Terminator, Obliterators and Mutilators units from your army",
+     "summary": "At the end of your opponent’s turn, Terminators, Obliterators and Mutilators can return to Strategic Reserves.",
      "rule": {
       "name": "Warp Portals",
       "text": "At the end of your opponent’s turn, you can select a number of Heretic Astartes Terminator, OBLITERATORS and MUTILATORS units from your army (excluding units that are within Engagement Range of one or more enemy units). The maximum number of units you can select depends on the battle size, as follows: ■ Incursion: Up to 1 unit ■ Strike Force: Up to 2 units ■ Onslaught: Up to 3 units Once you have made your selections, remove those units from the battlefield and place them into Strategic Reserves."
@@ -38420,6 +38563,9 @@ const DATA = {
        "eligible": {
         "factionsAll": [
          "Heretic Astartes"
+        ],
+        "keywordsNone": [
+         "Damned"
         ]
        }
       },
@@ -38432,6 +38578,9 @@ const DATA = {
        "eligible": {
         "factionsAll": [
          "Heretic Astartes"
+        ],
+        "coreAll": [
+         "Deep Strike"
         ]
        }
       },
@@ -38444,6 +38593,9 @@ const DATA = {
        "eligible": {
         "factionsAll": [
          "Heretic Astartes"
+        ],
+        "coreAll": [
+         "Deep Strike"
         ]
        }
       },
@@ -38456,6 +38608,9 @@ const DATA = {
        "eligible": {
         "factionsAll": [
          "Heretic Astartes"
+        ],
+        "coreAll": [
+         "Deep Strike"
         ]
        }
       }
@@ -43255,6 +43410,11 @@ const DATA = {
        "name": "Lord of Chaos",
        "text": "While this model is within 3\" of a friendly Heretic Astartes Infantry unit, this model has Lone Operative.",
        "kind": "datasheet"
+      },
+      {
+       "name": "Daemonic Allegiance",
+       "text": "When you select this model to include in your army, you must select one of the keywords below. Until the end of the battle, this model has that keyword and the characteristic modifier stated for that keyword below. ■ KHORNE: Add 2 to the Strength characteristic of this model's hellforged weapons. ■ TZEENTCH: Add 3 to the Attacks characteristic of its infernal cannon. ■ NURGLE: Add 1 to its Toughness characteristic. ■ SLAANESH: Add 2\" to its Move characteristic.",
+       "kind": "datasheet"
       }
      ],
      "sizes": [
@@ -43267,7 +43427,45 @@ const DATA = {
      "leaderOf": [],
      "composition": "",
      "options": [],
-     "optionRules": []
+     "optionRules": [],
+     "instanceGrants": [
+      {
+       "id": "al_khorne",
+       "group": "allegiance",
+       "label": "Daemonic Allegiance: Khorne",
+       "keyword": "Khorne",
+       "tone": "blood",
+       "required": true,
+       "note": "Add 2 to the Strength characteristic of this model's hellforged weapons."
+      },
+      {
+       "id": "al_tzeentch",
+       "group": "allegiance",
+       "label": "Daemonic Allegiance: Tzeentch",
+       "keyword": "Tzeentch",
+       "tone": "arcane",
+       "required": true,
+       "note": "Add 3 to the Attacks characteristic of its infernal cannon."
+      },
+      {
+       "id": "al_nurgle",
+       "group": "allegiance",
+       "label": "Daemonic Allegiance: Nurgle",
+       "keyword": "Nurgle",
+       "tone": "green",
+       "required": true,
+       "note": "Add 1 to its Toughness characteristic."
+      },
+      {
+       "id": "al_slaanesh",
+       "group": "allegiance",
+       "label": "Daemonic Allegiance: Slaanesh",
+       "keyword": "Slaanesh",
+       "tone": "slaanesh",
+       "required": true,
+       "note": "Add 2\" to its Move characteristic."
+      }
+     ]
     },
     {
      "id": "daemon_prince_wings",
@@ -43347,6 +43545,11 @@ const DATA = {
        "name": "Daemonic Destruction",
        "text": "Each time this model ends a Charge move, select one enemy unit within Engagement Range of it and roll one D6 for each of this model’s remaining wounds: for each 4+, that enemy unit suffers 1 mortal wound (to a maximum of 6 mortal wounds).",
        "kind": "datasheet"
+      },
+      {
+       "name": "Daemonic Allegiance",
+       "text": "When you select this model to include in your army, you must select one of the keywords below. Until the end of the battle, this model has that keyword and the characteristic modifier stated for that keyword below. ■ KHORNE: Add 2 to the Strength characteristic of this model's hellforged weapons. ■ TZEENTCH: Add 3 to the Attacks characteristic of its infernal cannon. ■ NURGLE: Add 1 to its Toughness characteristic. ■ SLAANESH: Add 2\" to its Move characteristic.",
+       "kind": "datasheet"
       }
      ],
      "sizes": [
@@ -43359,7 +43562,45 @@ const DATA = {
      "leaderOf": [],
      "composition": "",
      "options": [],
-     "optionRules": []
+     "optionRules": [],
+     "instanceGrants": [
+      {
+       "id": "al_khorne",
+       "group": "allegiance",
+       "label": "Daemonic Allegiance: Khorne",
+       "keyword": "Khorne",
+       "tone": "blood",
+       "required": true,
+       "note": "Add 2 to the Strength characteristic of this model's hellforged weapons."
+      },
+      {
+       "id": "al_tzeentch",
+       "group": "allegiance",
+       "label": "Daemonic Allegiance: Tzeentch",
+       "keyword": "Tzeentch",
+       "tone": "arcane",
+       "required": true,
+       "note": "Add 3 to the Attacks characteristic of its infernal cannon."
+      },
+      {
+       "id": "al_nurgle",
+       "group": "allegiance",
+       "label": "Daemonic Allegiance: Nurgle",
+       "keyword": "Nurgle",
+       "tone": "green",
+       "required": true,
+       "note": "Add 1 to its Toughness characteristic."
+      },
+      {
+       "id": "al_slaanesh",
+       "group": "allegiance",
+       "label": "Daemonic Allegiance: Slaanesh",
+       "keyword": "Slaanesh",
+       "tone": "slaanesh",
+       "required": true,
+       "note": "Add 2\" to its Move characteristic."
+      }
+     ]
     },
     {
      "id": "huron",

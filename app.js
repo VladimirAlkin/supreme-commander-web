@@ -722,7 +722,9 @@
     const def = unitDef(r.factionId, inst.datasheetId), ctx = Engine.ctxFor(r, DATA);
     const isChar = Engine.hasKw(def, ctx, 'Character', inst);
     const ctxEnh = ctx.dets.flatMap(d => d.enhancements.map(e => ({ ...e, det: d.name })));
-    return { isChar, relevant: ctxEnh.filter(e => isChar ? !e.upgrade : (e.upgrade && !Engine.eligibleReason(e, inst, r, DATA))) };
+    /* an enhancement this model can never take (wrong keyword, wrong mark) is hidden, not greyed; the one already chosen stays visible */
+    const fits = e => e.id === inst.enhancementId || !Engine.eligibleReason(e, inst, r, DATA);
+    return { isChar, relevant: ctxEnh.filter(e => (isChar ? !e.upgrade : e.upgrade) && fits(e)) };
   }
   function enhPickList(r, inst) {
     const { relevant } = enhChoices(r, inst);
@@ -1866,6 +1868,7 @@
           ${def.factionAbilities.length ? `<div><b>Faction:</b> ${def.factionAbilities.map(a => `<button class="kwchip" data-act="tip" data-tip="${esc(abilityTip(fid, a))}" data-title="${esc(a)}">${esc(a)}</button>`).join('')}</div>` : ''}
           ${def.abilities.map(a => `<div class="abil"><b>${esc(a.name)}${a.kind === 'wargear' ? ' <span class="badge">Wargear</span>' : ''}</b>${prose(a.text)}</div>`).join('')}
           ${enh ? `<div class="abil"><b>${esc(enh.name)} <span class="badge gold">Enhancement</span></b>${esc(enh.text)}</div>` : ''}
+          ${inst ? Engine.instGrants(def, ctx, inst).filter(g => g.note).map(g => `<div class="abil"><b>${esc(g.label)}</b>${esc(g.note)}</div>`).join('') : ''}
           ${def.transport ? `<div class="abil"><b>Transport</b>${esc(def.transport)}</div>` : ''}</div>
         ${def.options.length ? `<div class="stack" style="gap:6px"><span class="eyebrow">Wargear options</span><ul style="margin:0;padding-left:20px">${def.options.map(o => `<li>${esc(o.label)}${o.type === 'choice' ? ': ' + esc(o.choices.map(c => c.label + (c.pts ? ` (+${c.pts})` : '')).join(' / ')) : o.per ? ` — ${o.n || 1} per ${o.per} models` : o.max === 'models' ? ' — any number' : ' — one model'}</li>`).join('')}</ul></div>` : ''}
         <div class="stack" style="gap:6px"><span class="eyebrow">Unit composition</span><div>${esc(def.composition)}</div></div>

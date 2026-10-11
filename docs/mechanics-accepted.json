@@ -6069,12 +6069,6 @@
    "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
   },
   {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[0].unitIds.length",
-   "change": "ADDED",
-   "value": "47",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
    "path": ".chaosSpaceMarines.detachments[11].instanceGrants[0].unitIds[0]",
    "change": "ADDED",
    "value": "\"accursed_cultists\"",
@@ -6213,150 +6207,6 @@
    "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
   },
   {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[0].unitIds[23]",
-   "change": "ADDED",
-   "value": "\"daemon_prince\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[0].unitIds[24]",
-   "change": "ADDED",
-   "value": "\"daemon_prince_wings\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[0].unitIds[25]",
-   "change": "ADDED",
-   "value": "\"lord_of_skulls\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[0].unitIds[26]",
-   "change": "ADDED",
-   "value": "\"legionaries\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[0].unitIds[27]",
-   "change": "ADDED",
-   "value": "\"lord_discordant\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[0].unitIds[28]",
-   "change": "ADDED",
-   "value": "\"master_executions\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[0].unitIds[29]",
-   "change": "ADDED",
-   "value": "\"master_possession\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[0].unitIds[30]",
-   "change": "ADDED",
-   "value": "\"masters_maelstrom\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[0].unitIds[31]",
-   "change": "ADDED",
-   "value": "\"maulerfiend\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[0].unitIds[32]",
-   "change": "ADDED",
-   "value": "\"mutilators\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[0].unitIds[33]",
-   "change": "ADDED",
-   "value": "\"nemesis_claw\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[0].unitIds[34]",
-   "change": "ADDED",
-   "value": "\"noctilith_crown\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[0].unitIds[35]",
-   "change": "ADDED",
-   "value": "\"obliterators\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[0].unitIds[36]",
-   "change": "ADDED",
-   "value": "\"possessed\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[0].unitIds[37]",
-   "change": "ADDED",
-   "value": "\"raptors\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[0].unitIds[38]",
-   "change": "ADDED",
-   "value": "\"red_corsairs_raiders\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[0].unitIds[39]",
-   "change": "ADDED",
-   "value": "\"reave_captain\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[0].unitIds[40]",
-   "change": "ADDED",
-   "value": "\"sorcerer\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[0].unitIds[41]",
-   "change": "ADDED",
-   "value": "\"sorcerer_term\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[0].unitIds[42]",
-   "change": "ADDED",
-   "value": "\"traitor_enforcer\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[0].unitIds[43]",
-   "change": "ADDED",
-   "value": "\"traitor_guardsmen\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[0].unitIds[44]",
-   "change": "ADDED",
-   "value": "\"venomcrawler\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[0].unitIds[45]",
-   "change": "ADDED",
-   "value": "\"warpsmith\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[0].unitIds[46]",
-   "change": "ADDED",
-   "value": "\"warp_talons\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
    "path": ".chaosSpaceMarines.detachments[11].instanceGrants[1].id",
    "change": "ADDED",
    "value": "\"mk_nurgle\"",
@@ -6384,12 +6234,6 @@
    "path": ".chaosSpaceMarines.detachments[11].instanceGrants[1].tone",
    "change": "ADDED",
    "value": "\"green\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[1].unitIds.length",
-   "change": "ADDED",
-   "value": "47",
    "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
   },
   {
@@ -6531,150 +6375,6 @@
    "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
   },
   {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[1].unitIds[23]",
-   "change": "ADDED",
-   "value": "\"daemon_prince\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[1].unitIds[24]",
-   "change": "ADDED",
-   "value": "\"daemon_prince_wings\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[1].unitIds[25]",
-   "change": "ADDED",
-   "value": "\"lord_of_skulls\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[1].unitIds[26]",
-   "change": "ADDED",
-   "value": "\"legionaries\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[1].unitIds[27]",
-   "change": "ADDED",
-   "value": "\"lord_discordant\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[1].unitIds[28]",
-   "change": "ADDED",
-   "value": "\"master_executions\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[1].unitIds[29]",
-   "change": "ADDED",
-   "value": "\"master_possession\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[1].unitIds[30]",
-   "change": "ADDED",
-   "value": "\"masters_maelstrom\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[1].unitIds[31]",
-   "change": "ADDED",
-   "value": "\"maulerfiend\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[1].unitIds[32]",
-   "change": "ADDED",
-   "value": "\"mutilators\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[1].unitIds[33]",
-   "change": "ADDED",
-   "value": "\"nemesis_claw\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[1].unitIds[34]",
-   "change": "ADDED",
-   "value": "\"noctilith_crown\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[1].unitIds[35]",
-   "change": "ADDED",
-   "value": "\"obliterators\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[1].unitIds[36]",
-   "change": "ADDED",
-   "value": "\"possessed\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[1].unitIds[37]",
-   "change": "ADDED",
-   "value": "\"raptors\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[1].unitIds[38]",
-   "change": "ADDED",
-   "value": "\"red_corsairs_raiders\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[1].unitIds[39]",
-   "change": "ADDED",
-   "value": "\"reave_captain\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[1].unitIds[40]",
-   "change": "ADDED",
-   "value": "\"sorcerer\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[1].unitIds[41]",
-   "change": "ADDED",
-   "value": "\"sorcerer_term\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[1].unitIds[42]",
-   "change": "ADDED",
-   "value": "\"traitor_enforcer\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[1].unitIds[43]",
-   "change": "ADDED",
-   "value": "\"traitor_guardsmen\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[1].unitIds[44]",
-   "change": "ADDED",
-   "value": "\"venomcrawler\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[1].unitIds[45]",
-   "change": "ADDED",
-   "value": "\"warpsmith\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[1].unitIds[46]",
-   "change": "ADDED",
-   "value": "\"warp_talons\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
    "path": ".chaosSpaceMarines.detachments[11].instanceGrants[2].id",
    "change": "ADDED",
    "value": "\"mk_tzeentch\"",
@@ -6702,12 +6402,6 @@
    "path": ".chaosSpaceMarines.detachments[11].instanceGrants[2].tone",
    "change": "ADDED",
    "value": "\"arcane\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[2].unitIds.length",
-   "change": "ADDED",
-   "value": "47",
    "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
   },
   {
@@ -6849,150 +6543,6 @@
    "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
   },
   {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[2].unitIds[23]",
-   "change": "ADDED",
-   "value": "\"daemon_prince\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[2].unitIds[24]",
-   "change": "ADDED",
-   "value": "\"daemon_prince_wings\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[2].unitIds[25]",
-   "change": "ADDED",
-   "value": "\"lord_of_skulls\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[2].unitIds[26]",
-   "change": "ADDED",
-   "value": "\"legionaries\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[2].unitIds[27]",
-   "change": "ADDED",
-   "value": "\"lord_discordant\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[2].unitIds[28]",
-   "change": "ADDED",
-   "value": "\"master_executions\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[2].unitIds[29]",
-   "change": "ADDED",
-   "value": "\"master_possession\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[2].unitIds[30]",
-   "change": "ADDED",
-   "value": "\"masters_maelstrom\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[2].unitIds[31]",
-   "change": "ADDED",
-   "value": "\"maulerfiend\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[2].unitIds[32]",
-   "change": "ADDED",
-   "value": "\"mutilators\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[2].unitIds[33]",
-   "change": "ADDED",
-   "value": "\"nemesis_claw\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[2].unitIds[34]",
-   "change": "ADDED",
-   "value": "\"noctilith_crown\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[2].unitIds[35]",
-   "change": "ADDED",
-   "value": "\"obliterators\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[2].unitIds[36]",
-   "change": "ADDED",
-   "value": "\"possessed\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[2].unitIds[37]",
-   "change": "ADDED",
-   "value": "\"raptors\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[2].unitIds[38]",
-   "change": "ADDED",
-   "value": "\"red_corsairs_raiders\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[2].unitIds[39]",
-   "change": "ADDED",
-   "value": "\"reave_captain\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[2].unitIds[40]",
-   "change": "ADDED",
-   "value": "\"sorcerer\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[2].unitIds[41]",
-   "change": "ADDED",
-   "value": "\"sorcerer_term\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[2].unitIds[42]",
-   "change": "ADDED",
-   "value": "\"traitor_enforcer\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[2].unitIds[43]",
-   "change": "ADDED",
-   "value": "\"traitor_guardsmen\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[2].unitIds[44]",
-   "change": "ADDED",
-   "value": "\"venomcrawler\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[2].unitIds[45]",
-   "change": "ADDED",
-   "value": "\"warpsmith\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[2].unitIds[46]",
-   "change": "ADDED",
-   "value": "\"warp_talons\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
    "path": ".chaosSpaceMarines.detachments[11].instanceGrants[3].id",
    "change": "ADDED",
    "value": "\"mk_slaanesh\"",
@@ -7020,12 +6570,6 @@
    "path": ".chaosSpaceMarines.detachments[11].instanceGrants[3].tone",
    "change": "ADDED",
    "value": "\"slaanesh\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[3].unitIds.length",
-   "change": "ADDED",
-   "value": "47",
    "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
   },
   {
@@ -7167,150 +6711,6 @@
    "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
   },
   {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[3].unitIds[23]",
-   "change": "ADDED",
-   "value": "\"daemon_prince\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[3].unitIds[24]",
-   "change": "ADDED",
-   "value": "\"daemon_prince_wings\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[3].unitIds[25]",
-   "change": "ADDED",
-   "value": "\"lord_of_skulls\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[3].unitIds[26]",
-   "change": "ADDED",
-   "value": "\"legionaries\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[3].unitIds[27]",
-   "change": "ADDED",
-   "value": "\"lord_discordant\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[3].unitIds[28]",
-   "change": "ADDED",
-   "value": "\"master_executions\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[3].unitIds[29]",
-   "change": "ADDED",
-   "value": "\"master_possession\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[3].unitIds[30]",
-   "change": "ADDED",
-   "value": "\"masters_maelstrom\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[3].unitIds[31]",
-   "change": "ADDED",
-   "value": "\"maulerfiend\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[3].unitIds[32]",
-   "change": "ADDED",
-   "value": "\"mutilators\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[3].unitIds[33]",
-   "change": "ADDED",
-   "value": "\"nemesis_claw\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[3].unitIds[34]",
-   "change": "ADDED",
-   "value": "\"noctilith_crown\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[3].unitIds[35]",
-   "change": "ADDED",
-   "value": "\"obliterators\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[3].unitIds[36]",
-   "change": "ADDED",
-   "value": "\"possessed\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[3].unitIds[37]",
-   "change": "ADDED",
-   "value": "\"raptors\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[3].unitIds[38]",
-   "change": "ADDED",
-   "value": "\"red_corsairs_raiders\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[3].unitIds[39]",
-   "change": "ADDED",
-   "value": "\"reave_captain\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[3].unitIds[40]",
-   "change": "ADDED",
-   "value": "\"sorcerer\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[3].unitIds[41]",
-   "change": "ADDED",
-   "value": "\"sorcerer_term\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[3].unitIds[42]",
-   "change": "ADDED",
-   "value": "\"traitor_enforcer\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[3].unitIds[43]",
-   "change": "ADDED",
-   "value": "\"traitor_guardsmen\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[3].unitIds[44]",
-   "change": "ADDED",
-   "value": "\"venomcrawler\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[3].unitIds[45]",
-   "change": "ADDED",
-   "value": "\"warpsmith\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[3].unitIds[46]",
-   "change": "ADDED",
-   "value": "\"warp_talons\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
    "path": ".chaosSpaceMarines.detachments[11].instanceGrants[4].id",
    "change": "ADDED",
    "value": "\"mk_undivided\"",
@@ -7338,12 +6738,6 @@
    "path": ".chaosSpaceMarines.detachments[11].instanceGrants[4].tone",
    "change": "ADDED",
    "value": "\"gold\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[4].unitIds.length",
-   "change": "ADDED",
-   "value": "47",
    "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
   },
   {
@@ -7482,150 +6876,6 @@
    "path": ".chaosSpaceMarines.detachments[11].instanceGrants[4].unitIds[22]",
    "change": "ADDED",
    "value": "\"heldrake\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[4].unitIds[23]",
-   "change": "ADDED",
-   "value": "\"daemon_prince\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[4].unitIds[24]",
-   "change": "ADDED",
-   "value": "\"daemon_prince_wings\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[4].unitIds[25]",
-   "change": "ADDED",
-   "value": "\"lord_of_skulls\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[4].unitIds[26]",
-   "change": "ADDED",
-   "value": "\"legionaries\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[4].unitIds[27]",
-   "change": "ADDED",
-   "value": "\"lord_discordant\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[4].unitIds[28]",
-   "change": "ADDED",
-   "value": "\"master_executions\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[4].unitIds[29]",
-   "change": "ADDED",
-   "value": "\"master_possession\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[4].unitIds[30]",
-   "change": "ADDED",
-   "value": "\"masters_maelstrom\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[4].unitIds[31]",
-   "change": "ADDED",
-   "value": "\"maulerfiend\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[4].unitIds[32]",
-   "change": "ADDED",
-   "value": "\"mutilators\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[4].unitIds[33]",
-   "change": "ADDED",
-   "value": "\"nemesis_claw\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[4].unitIds[34]",
-   "change": "ADDED",
-   "value": "\"noctilith_crown\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[4].unitIds[35]",
-   "change": "ADDED",
-   "value": "\"obliterators\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[4].unitIds[36]",
-   "change": "ADDED",
-   "value": "\"possessed\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[4].unitIds[37]",
-   "change": "ADDED",
-   "value": "\"raptors\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[4].unitIds[38]",
-   "change": "ADDED",
-   "value": "\"red_corsairs_raiders\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[4].unitIds[39]",
-   "change": "ADDED",
-   "value": "\"reave_captain\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[4].unitIds[40]",
-   "change": "ADDED",
-   "value": "\"sorcerer\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[4].unitIds[41]",
-   "change": "ADDED",
-   "value": "\"sorcerer_term\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[4].unitIds[42]",
-   "change": "ADDED",
-   "value": "\"traitor_enforcer\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[4].unitIds[43]",
-   "change": "ADDED",
-   "value": "\"traitor_guardsmen\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[4].unitIds[44]",
-   "change": "ADDED",
-   "value": "\"venomcrawler\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[4].unitIds[45]",
-   "change": "ADDED",
-   "value": "\"warpsmith\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[4].unitIds[46]",
-   "change": "ADDED",
-   "value": "\"warp_talons\"",
    "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
   },
   {
@@ -21183,12 +20433,6 @@
    "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
   },
   {
-   "path": ".chaosSpaceMarines.units[27].abilities.length",
-   "change": "ADDED",
-   "value": "3",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
    "path": ".chaosSpaceMarines.units[27].abilities[0].name",
    "change": "ADDED",
    "value": "\"Dark Blessing (Aura)\"",
@@ -21588,12 +20832,6 @@
    "path": ".chaosSpaceMarines.units[28].factionAbilities[0]",
    "change": "ADDED",
    "value": "\"Dark Pacts\"",
-   "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
-  },
-  {
-   "path": ".chaosSpaceMarines.units[28].abilities.length",
-   "change": "ADDED",
-   "value": "2",
    "why": "New army: Chaos Space Marines — Stage 2 build + style revisions. Reviewed 2026-10-08."
   },
   {
@@ -45889,6 +45127,1710 @@
    "change": "ADDED",
    "value": "0",
    "why": "Chaos engines rebuilt from CSM sources: BSData wh40k-11e \"Chaos - Chaos Space Marines.json\" rev 26 (weapons, abilities, profile, keywords, transport, Dark Pacts), cross-checked with Wahapedia CSM export (wh40k-11e). Foreign Inferno/Thousand Sons/Death Guard/World Eaters content removed. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[0].enhancements[0].eligible.keywordsNone.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[0].enhancements[0].eligible.keywordsNone[0]",
+   "change": "ADDED",
+   "value": "\"Khorne\"",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[0].enhancements[1].eligible.keywordsAll.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[0].enhancements[1].eligible.keywordsAll[0]",
+   "change": "ADDED",
+   "value": "\"Daemon\"",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[0].enhancements[1].eligible.keywordsNone.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[0].enhancements[1].eligible.keywordsNone[0]",
+   "change": "ADDED",
+   "value": "\"Khorne\"",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[1].enhancements[0].eligible.keywordsAll.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[1].enhancements[0].eligible.keywordsAll[0]",
+   "change": "ADDED",
+   "value": "\"Dark Apostle\"",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[1].enhancements[1].eligible.keywordsAny.length",
+   "change": "ADDED",
+   "value": "2",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[1].enhancements[1].eligible.keywordsAny[0]",
+   "change": "ADDED",
+   "value": "\"Dark Apostle\"",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[1].enhancements[1].eligible.keywordsAny[1]",
+   "change": "ADDED",
+   "value": "\"Damned\"",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[1].enhancements[2].eligible.keywordsAny.length",
+   "change": "ADDED",
+   "value": "2",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[1].enhancements[2].eligible.keywordsAny[0]",
+   "change": "ADDED",
+   "value": "\"Dark Apostle\"",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[1].enhancements[2].eligible.keywordsAny[1]",
+   "change": "ADDED",
+   "value": "\"Damned\"",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[1].enhancements[3].eligible.keywordsAny.length",
+   "change": "ADDED",
+   "value": "2",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[1].enhancements[3].eligible.keywordsAny[0]",
+   "change": "ADDED",
+   "value": "\"Dark Apostle\"",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[1].enhancements[3].eligible.keywordsAny[1]",
+   "change": "ADDED",
+   "value": "\"Damned\"",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[2].enhancements[0].eligible.keywordsNone.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[2].enhancements[0].eligible.keywordsNone[0]",
+   "change": "ADDED",
+   "value": "\"Damned\"",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[2].enhancements[1].eligible.keywordsAny.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[2].enhancements[1].eligible.keywordsAny[0]",
+   "change": "ADDED",
+   "value": "\"Chaos Lord\"",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[2].enhancements[2].eligible.keywordsAll.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[2].enhancements[2].eligible.keywordsAll[0]",
+   "change": "ADDED",
+   "value": "\"Infantry\"",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[2].enhancements[2].eligible.keywordsNone.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[2].enhancements[2].eligible.keywordsNone[0]",
+   "change": "ADDED",
+   "value": "\"Damned\"",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[2].enhancements[3].eligible.keywordsAll.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[2].enhancements[3].eligible.keywordsAll[0]",
+   "change": "ADDED",
+   "value": "\"Infantry\"",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[2].enhancements[3].eligible.keywordsNone.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[2].enhancements[3].eligible.keywordsNone[0]",
+   "change": "ADDED",
+   "value": "\"Damned\"",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[3].enhancements[0].eligible.keywordsNone.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[3].enhancements[0].eligible.keywordsNone[0]",
+   "change": "ADDED",
+   "value": "\"Damned\"",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[3].enhancements[1].eligible.keywordsNone.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[3].enhancements[1].eligible.keywordsNone[0]",
+   "change": "ADDED",
+   "value": "\"Damned\"",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[3].enhancements[2].eligible.keywordsNone.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[3].enhancements[2].eligible.keywordsNone[0]",
+   "change": "ADDED",
+   "value": "\"Damned\"",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[3].enhancements[3].eligible.keywordsAll.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[3].enhancements[3].eligible.keywordsAll[0]",
+   "change": "ADDED",
+   "value": "\"Warpsmith\"",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[4].enhancements[0].eligible.keywordsAll.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[4].enhancements[0].eligible.keywordsAll[0]",
+   "change": "ADDED",
+   "value": "\"Infantry\"",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[4].enhancements[1].eligible.keywordsAny.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[4].enhancements[1].eligible.keywordsAny[0]",
+   "change": "ADDED",
+   "value": "\"Chaos Lord\"",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[4].enhancements[1].eligible.keywordsNone.length",
+   "change": "ADDED",
+   "value": "2",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[4].enhancements[1].eligible.keywordsNone[0]",
+   "change": "ADDED",
+   "value": "\"Terminator\"",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[4].enhancements[1].eligible.keywordsNone[1]",
+   "change": "ADDED",
+   "value": "\"Jump Pack\"",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[4].enhancements[2].eligible.keywordsAll.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[4].enhancements[2].eligible.keywordsAll[0]",
+   "change": "ADDED",
+   "value": "\"Infantry\"",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[4].enhancements[3].eligible.keywordsAll.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[4].enhancements[3].eligible.keywordsAll[0]",
+   "change": "ADDED",
+   "value": "\"Infantry\"",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[5].enhancements[0].eligible.keywordsAll.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[5].enhancements[0].eligible.keywordsAll[0]",
+   "change": "ADDED",
+   "value": "\"Warpsmith\"",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[5].enhancements[1].eligible.keywordsAll.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[5].enhancements[1].eligible.keywordsAll[0]",
+   "change": "ADDED",
+   "value": "\"Warpsmith\"",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[6].enhancements[1].eligible.keywordsAny.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[6].enhancements[1].eligible.keywordsAny[0]",
+   "change": "ADDED",
+   "value": "\"Chaos Lord\"",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[6].enhancements[1].eligible.keywordsNone.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[6].enhancements[1].eligible.keywordsNone[0]",
+   "change": "ADDED",
+   "value": "\"Terminator\"",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[6].enhancements[2].eligible.keywordsAll.length",
+   "change": "ADDED",
+   "value": "2",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[6].enhancements[2].eligible.keywordsAll[0]",
+   "change": "ADDED",
+   "value": "\"Chaos Lord\"",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[6].enhancements[2].eligible.keywordsAll[1]",
+   "change": "ADDED",
+   "value": "\"Jump Pack\"",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[7].enhancements[0].eligible.keywordsAny.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[7].enhancements[0].eligible.keywordsAny[0]",
+   "change": "ADDED",
+   "value": "\"Chaos Lord\"",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[7].enhancements[0].eligible.keywordsNone.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[7].enhancements[0].eligible.keywordsNone[0]",
+   "change": "ADDED",
+   "value": "\"Jump Pack\"",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[7].enhancements[1].eligible.keywordsAll.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[7].enhancements[1].eligible.keywordsAll[0]",
+   "change": "ADDED",
+   "value": "\"Infantry\"",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[8].enhancements[0].eligible.keywordsNone.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[8].enhancements[0].eligible.keywordsNone[0]",
+   "change": "ADDED",
+   "value": "\"Damned\"",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[8].enhancements[1].eligible.keywordsNone.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[8].enhancements[1].eligible.keywordsNone[0]",
+   "change": "ADDED",
+   "value": "\"Damned\"",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[8].enhancements[2].eligible.keywordsNone.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[8].enhancements[2].eligible.keywordsNone[0]",
+   "change": "ADDED",
+   "value": "\"Damned\"",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[9].enhancements[0].eligible.keywordsAll.length",
+   "change": "ADDED",
+   "value": "2",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[9].enhancements[0].eligible.keywordsAll[0]",
+   "change": "ADDED",
+   "value": "\"Chaos Lord\"",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[9].enhancements[0].eligible.keywordsAll[1]",
+   "change": "ADDED",
+   "value": "\"Jump Pack\"",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[9].enhancements[1].eligible.keywordsAll.length",
+   "change": "ADDED",
+   "value": "2",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[9].enhancements[1].eligible.keywordsAll[0]",
+   "change": "ADDED",
+   "value": "\"Chaos Lord\"",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[9].enhancements[1].eligible.keywordsAll[1]",
+   "change": "ADDED",
+   "value": "\"Jump Pack\"",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[10].enhancements[0].eligible.keywordsAny.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[10].enhancements[0].eligible.keywordsAny[0]",
+   "change": "ADDED",
+   "value": "\"Chaos Lord\"",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[10].enhancements[1].eligible.keywordsAll.length",
+   "change": "ADDED",
+   "value": "2",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[10].enhancements[1].eligible.keywordsAll[0]",
+   "change": "ADDED",
+   "value": "\"Chaos Lord\"",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[10].enhancements[1].eligible.keywordsAll[1]",
+   "change": "ADDED",
+   "value": "\"Jump Pack\"",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[10].enhancements[3].eligible.keywordsAll.length",
+   "change": "ADDED",
+   "value": "2",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[10].enhancements[3].eligible.keywordsAll[0]",
+   "change": "ADDED",
+   "value": "\"Chaos Lord\"",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[10].enhancements[3].eligible.keywordsAll[1]",
+   "change": "ADDED",
+   "value": "\"Jump Pack\"",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].enhancements[0].eligible.keywordsAll.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].enhancements[0].eligible.keywordsAll[0]",
+   "change": "ADDED",
+   "value": "\"Tzeentch\"",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].enhancements[1].eligible.keywordsAll.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].enhancements[1].eligible.keywordsAll[0]",
+   "change": "ADDED",
+   "value": "\"Slaanesh\"",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].enhancements[2].eligible.keywordsAll.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].enhancements[2].eligible.keywordsAll[0]",
+   "change": "ADDED",
+   "value": "\"Nurgle\"",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].enhancements[3].eligible.keywordsAll.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].enhancements[3].eligible.keywordsAll[0]",
+   "change": "ADDED",
+   "value": "\"Khorne\"",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[0].unitIds.length",
+   "change": "ADDED",
+   "value": "45",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[0].unitIds[23]",
+   "change": "ADDED",
+   "value": "\"lord_of_skulls\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[0].unitIds[24]",
+   "change": "ADDED",
+   "value": "\"legionaries\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[0].unitIds[25]",
+   "change": "ADDED",
+   "value": "\"lord_discordant\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[0].unitIds[26]",
+   "change": "ADDED",
+   "value": "\"master_executions\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[0].unitIds[27]",
+   "change": "ADDED",
+   "value": "\"master_possession\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[0].unitIds[28]",
+   "change": "ADDED",
+   "value": "\"masters_maelstrom\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[0].unitIds[29]",
+   "change": "ADDED",
+   "value": "\"maulerfiend\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[0].unitIds[30]",
+   "change": "ADDED",
+   "value": "\"mutilators\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[0].unitIds[31]",
+   "change": "ADDED",
+   "value": "\"nemesis_claw\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[0].unitIds[32]",
+   "change": "ADDED",
+   "value": "\"noctilith_crown\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[0].unitIds[33]",
+   "change": "ADDED",
+   "value": "\"obliterators\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[0].unitIds[34]",
+   "change": "ADDED",
+   "value": "\"possessed\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[0].unitIds[35]",
+   "change": "ADDED",
+   "value": "\"raptors\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[0].unitIds[36]",
+   "change": "ADDED",
+   "value": "\"red_corsairs_raiders\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[0].unitIds[37]",
+   "change": "ADDED",
+   "value": "\"reave_captain\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[0].unitIds[38]",
+   "change": "ADDED",
+   "value": "\"sorcerer\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[0].unitIds[39]",
+   "change": "ADDED",
+   "value": "\"sorcerer_term\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[0].unitIds[40]",
+   "change": "ADDED",
+   "value": "\"traitor_enforcer\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[0].unitIds[41]",
+   "change": "ADDED",
+   "value": "\"traitor_guardsmen\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[0].unitIds[42]",
+   "change": "ADDED",
+   "value": "\"venomcrawler\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[0].unitIds[43]",
+   "change": "ADDED",
+   "value": "\"warpsmith\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[0].unitIds[44]",
+   "change": "ADDED",
+   "value": "\"warp_talons\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[1].unitIds.length",
+   "change": "ADDED",
+   "value": "45",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[1].unitIds[23]",
+   "change": "ADDED",
+   "value": "\"lord_of_skulls\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[1].unitIds[24]",
+   "change": "ADDED",
+   "value": "\"legionaries\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[1].unitIds[25]",
+   "change": "ADDED",
+   "value": "\"lord_discordant\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[1].unitIds[26]",
+   "change": "ADDED",
+   "value": "\"master_executions\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[1].unitIds[27]",
+   "change": "ADDED",
+   "value": "\"master_possession\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[1].unitIds[28]",
+   "change": "ADDED",
+   "value": "\"masters_maelstrom\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[1].unitIds[29]",
+   "change": "ADDED",
+   "value": "\"maulerfiend\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[1].unitIds[30]",
+   "change": "ADDED",
+   "value": "\"mutilators\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[1].unitIds[31]",
+   "change": "ADDED",
+   "value": "\"nemesis_claw\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[1].unitIds[32]",
+   "change": "ADDED",
+   "value": "\"noctilith_crown\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[1].unitIds[33]",
+   "change": "ADDED",
+   "value": "\"obliterators\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[1].unitIds[34]",
+   "change": "ADDED",
+   "value": "\"possessed\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[1].unitIds[35]",
+   "change": "ADDED",
+   "value": "\"raptors\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[1].unitIds[36]",
+   "change": "ADDED",
+   "value": "\"red_corsairs_raiders\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[1].unitIds[37]",
+   "change": "ADDED",
+   "value": "\"reave_captain\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[1].unitIds[38]",
+   "change": "ADDED",
+   "value": "\"sorcerer\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[1].unitIds[39]",
+   "change": "ADDED",
+   "value": "\"sorcerer_term\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[1].unitIds[40]",
+   "change": "ADDED",
+   "value": "\"traitor_enforcer\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[1].unitIds[41]",
+   "change": "ADDED",
+   "value": "\"traitor_guardsmen\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[1].unitIds[42]",
+   "change": "ADDED",
+   "value": "\"venomcrawler\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[1].unitIds[43]",
+   "change": "ADDED",
+   "value": "\"warpsmith\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[1].unitIds[44]",
+   "change": "ADDED",
+   "value": "\"warp_talons\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[2].unitIds.length",
+   "change": "ADDED",
+   "value": "45",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[2].unitIds[23]",
+   "change": "ADDED",
+   "value": "\"lord_of_skulls\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[2].unitIds[24]",
+   "change": "ADDED",
+   "value": "\"legionaries\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[2].unitIds[25]",
+   "change": "ADDED",
+   "value": "\"lord_discordant\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[2].unitIds[26]",
+   "change": "ADDED",
+   "value": "\"master_executions\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[2].unitIds[27]",
+   "change": "ADDED",
+   "value": "\"master_possession\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[2].unitIds[28]",
+   "change": "ADDED",
+   "value": "\"masters_maelstrom\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[2].unitIds[29]",
+   "change": "ADDED",
+   "value": "\"maulerfiend\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[2].unitIds[30]",
+   "change": "ADDED",
+   "value": "\"mutilators\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[2].unitIds[31]",
+   "change": "ADDED",
+   "value": "\"nemesis_claw\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[2].unitIds[32]",
+   "change": "ADDED",
+   "value": "\"noctilith_crown\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[2].unitIds[33]",
+   "change": "ADDED",
+   "value": "\"obliterators\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[2].unitIds[34]",
+   "change": "ADDED",
+   "value": "\"possessed\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[2].unitIds[35]",
+   "change": "ADDED",
+   "value": "\"raptors\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[2].unitIds[36]",
+   "change": "ADDED",
+   "value": "\"red_corsairs_raiders\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[2].unitIds[37]",
+   "change": "ADDED",
+   "value": "\"reave_captain\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[2].unitIds[38]",
+   "change": "ADDED",
+   "value": "\"sorcerer\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[2].unitIds[39]",
+   "change": "ADDED",
+   "value": "\"sorcerer_term\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[2].unitIds[40]",
+   "change": "ADDED",
+   "value": "\"traitor_enforcer\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[2].unitIds[41]",
+   "change": "ADDED",
+   "value": "\"traitor_guardsmen\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[2].unitIds[42]",
+   "change": "ADDED",
+   "value": "\"venomcrawler\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[2].unitIds[43]",
+   "change": "ADDED",
+   "value": "\"warpsmith\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[2].unitIds[44]",
+   "change": "ADDED",
+   "value": "\"warp_talons\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[3].unitIds.length",
+   "change": "ADDED",
+   "value": "45",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[3].unitIds[23]",
+   "change": "ADDED",
+   "value": "\"lord_of_skulls\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[3].unitIds[24]",
+   "change": "ADDED",
+   "value": "\"legionaries\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[3].unitIds[25]",
+   "change": "ADDED",
+   "value": "\"lord_discordant\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[3].unitIds[26]",
+   "change": "ADDED",
+   "value": "\"master_executions\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[3].unitIds[27]",
+   "change": "ADDED",
+   "value": "\"master_possession\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[3].unitIds[28]",
+   "change": "ADDED",
+   "value": "\"masters_maelstrom\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[3].unitIds[29]",
+   "change": "ADDED",
+   "value": "\"maulerfiend\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[3].unitIds[30]",
+   "change": "ADDED",
+   "value": "\"mutilators\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[3].unitIds[31]",
+   "change": "ADDED",
+   "value": "\"nemesis_claw\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[3].unitIds[32]",
+   "change": "ADDED",
+   "value": "\"noctilith_crown\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[3].unitIds[33]",
+   "change": "ADDED",
+   "value": "\"obliterators\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[3].unitIds[34]",
+   "change": "ADDED",
+   "value": "\"possessed\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[3].unitIds[35]",
+   "change": "ADDED",
+   "value": "\"raptors\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[3].unitIds[36]",
+   "change": "ADDED",
+   "value": "\"red_corsairs_raiders\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[3].unitIds[37]",
+   "change": "ADDED",
+   "value": "\"reave_captain\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[3].unitIds[38]",
+   "change": "ADDED",
+   "value": "\"sorcerer\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[3].unitIds[39]",
+   "change": "ADDED",
+   "value": "\"sorcerer_term\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[3].unitIds[40]",
+   "change": "ADDED",
+   "value": "\"traitor_enforcer\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[3].unitIds[41]",
+   "change": "ADDED",
+   "value": "\"traitor_guardsmen\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[3].unitIds[42]",
+   "change": "ADDED",
+   "value": "\"venomcrawler\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[3].unitIds[43]",
+   "change": "ADDED",
+   "value": "\"warpsmith\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[3].unitIds[44]",
+   "change": "ADDED",
+   "value": "\"warp_talons\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[4].unitIds.length",
+   "change": "ADDED",
+   "value": "45",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[4].unitIds[23]",
+   "change": "ADDED",
+   "value": "\"lord_of_skulls\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[4].unitIds[24]",
+   "change": "ADDED",
+   "value": "\"legionaries\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[4].unitIds[25]",
+   "change": "ADDED",
+   "value": "\"lord_discordant\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[4].unitIds[26]",
+   "change": "ADDED",
+   "value": "\"master_executions\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[4].unitIds[27]",
+   "change": "ADDED",
+   "value": "\"master_possession\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[4].unitIds[28]",
+   "change": "ADDED",
+   "value": "\"masters_maelstrom\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[4].unitIds[29]",
+   "change": "ADDED",
+   "value": "\"maulerfiend\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[4].unitIds[30]",
+   "change": "ADDED",
+   "value": "\"mutilators\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[4].unitIds[31]",
+   "change": "ADDED",
+   "value": "\"nemesis_claw\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[4].unitIds[32]",
+   "change": "ADDED",
+   "value": "\"noctilith_crown\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[4].unitIds[33]",
+   "change": "ADDED",
+   "value": "\"obliterators\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[4].unitIds[34]",
+   "change": "ADDED",
+   "value": "\"possessed\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[4].unitIds[35]",
+   "change": "ADDED",
+   "value": "\"raptors\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[4].unitIds[36]",
+   "change": "ADDED",
+   "value": "\"red_corsairs_raiders\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[4].unitIds[37]",
+   "change": "ADDED",
+   "value": "\"reave_captain\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[4].unitIds[38]",
+   "change": "ADDED",
+   "value": "\"sorcerer\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[4].unitIds[39]",
+   "change": "ADDED",
+   "value": "\"sorcerer_term\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[4].unitIds[40]",
+   "change": "ADDED",
+   "value": "\"traitor_enforcer\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[4].unitIds[41]",
+   "change": "ADDED",
+   "value": "\"traitor_guardsmen\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[4].unitIds[42]",
+   "change": "ADDED",
+   "value": "\"venomcrawler\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[4].unitIds[43]",
+   "change": "ADDED",
+   "value": "\"warpsmith\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[11].instanceGrants[4].unitIds[44]",
+   "change": "ADDED",
+   "value": "\"warp_talons\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[13].enhancements[2].eligible.keywordsAll.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[13].enhancements[2].eligible.keywordsAll[0]",
+   "change": "ADDED",
+   "value": "\"Terminator\"",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[14].enhancements[1].eligible.keywordsAll.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[14].enhancements[1].eligible.keywordsAll[0]",
+   "change": "ADDED",
+   "value": "\"Warpsmith\"",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[15].enhancements[0].eligible.keywordsNone.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[15].enhancements[0].eligible.keywordsNone[0]",
+   "change": "ADDED",
+   "value": "\"Damned\"",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[15].enhancements[1].eligible.keywordsNone.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[15].enhancements[1].eligible.keywordsNone[0]",
+   "change": "ADDED",
+   "value": "\"Damned\"",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[15].enhancements[2].eligible.keywordsNone.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[15].enhancements[2].eligible.keywordsNone[0]",
+   "change": "ADDED",
+   "value": "\"Damned\"",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[15].enhancements[3].eligible.keywordsAny.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[15].enhancements[3].eligible.keywordsAny[0]",
+   "change": "ADDED",
+   "value": "\"Chaos Lord\"",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[16].enhancements[0].eligible.keywordsNone.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[16].enhancements[0].eligible.keywordsNone[0]",
+   "change": "ADDED",
+   "value": "\"Damned\"",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[16].enhancements[1].eligible.coreAll.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[16].enhancements[1].eligible.coreAll[0]",
+   "change": "ADDED",
+   "value": "\"Deep Strike\"",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[16].enhancements[2].eligible.coreAll.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[16].enhancements[2].eligible.coreAll[0]",
+   "change": "ADDED",
+   "value": "\"Deep Strike\"",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[16].enhancements[3].eligible.coreAll.length",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.detachments[16].enhancements[3].eligible.coreAll[0]",
+   "change": "ADDED",
+   "value": "\"Deep Strike\"",
+   "why": "Enhancement eligibility parsed from each enhancement's restriction line (Wahapedia 11e: \"CHAOS LORD model only\", \"WARPSMITH model only\", \"excluding DAMNED\", \"with the Deep Strike ability\" …); BSData conditions agree where it has any (Conduit of Chaos, Pact of Destruction, Eye of Oblivion, Shadowcowl Talisman, Pact of Cursed Pinions); points and detachment membership match MFM v1.5. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[27].abilities.length",
+   "change": "ADDED",
+   "value": "4",
+   "why": "Daemonic Allegiance added to both Daemon Princes from Wahapedia Datasheets_abilities (type Primarch, datasheets 000000937 and 000002730). Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[27].abilities[3].name",
+   "change": "ADDED",
+   "value": "\"Daemonic Allegiance\"",
+   "why": "Daemonic Allegiance added to both Daemon Princes from Wahapedia Datasheets_abilities (type Primarch, datasheets 000000937 and 000002730). Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[27].abilities[3].kind",
+   "change": "ADDED",
+   "value": "\"datasheet\"",
+   "why": "Daemonic Allegiance added to both Daemon Princes from Wahapedia Datasheets_abilities (type Primarch, datasheets 000000937 and 000002730). Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[27].instanceGrants.length",
+   "change": "ADDED",
+   "value": "4",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[27].instanceGrants[0].id",
+   "change": "ADDED",
+   "value": "\"al_khorne\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[27].instanceGrants[0].group",
+   "change": "ADDED",
+   "value": "\"allegiance\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[27].instanceGrants[0].label",
+   "change": "ADDED",
+   "value": "\"Daemonic Allegiance: Khorne\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[27].instanceGrants[0].keyword",
+   "change": "ADDED",
+   "value": "\"Khorne\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[27].instanceGrants[0].tone",
+   "change": "ADDED",
+   "value": "\"blood\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[27].instanceGrants[0].required",
+   "change": "ADDED",
+   "value": "true",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[27].instanceGrants[1].id",
+   "change": "ADDED",
+   "value": "\"al_tzeentch\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[27].instanceGrants[1].group",
+   "change": "ADDED",
+   "value": "\"allegiance\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[27].instanceGrants[1].label",
+   "change": "ADDED",
+   "value": "\"Daemonic Allegiance: Tzeentch\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[27].instanceGrants[1].keyword",
+   "change": "ADDED",
+   "value": "\"Tzeentch\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[27].instanceGrants[1].tone",
+   "change": "ADDED",
+   "value": "\"arcane\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[27].instanceGrants[1].required",
+   "change": "ADDED",
+   "value": "true",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[27].instanceGrants[2].id",
+   "change": "ADDED",
+   "value": "\"al_nurgle\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[27].instanceGrants[2].group",
+   "change": "ADDED",
+   "value": "\"allegiance\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[27].instanceGrants[2].label",
+   "change": "ADDED",
+   "value": "\"Daemonic Allegiance: Nurgle\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[27].instanceGrants[2].keyword",
+   "change": "ADDED",
+   "value": "\"Nurgle\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[27].instanceGrants[2].tone",
+   "change": "ADDED",
+   "value": "\"green\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[27].instanceGrants[2].required",
+   "change": "ADDED",
+   "value": "true",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[27].instanceGrants[3].id",
+   "change": "ADDED",
+   "value": "\"al_slaanesh\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[27].instanceGrants[3].group",
+   "change": "ADDED",
+   "value": "\"allegiance\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[27].instanceGrants[3].label",
+   "change": "ADDED",
+   "value": "\"Daemonic Allegiance: Slaanesh\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[27].instanceGrants[3].keyword",
+   "change": "ADDED",
+   "value": "\"Slaanesh\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[27].instanceGrants[3].tone",
+   "change": "ADDED",
+   "value": "\"slaanesh\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[27].instanceGrants[3].required",
+   "change": "ADDED",
+   "value": "true",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[28].abilities.length",
+   "change": "ADDED",
+   "value": "3",
+   "why": "Daemonic Allegiance added to both Daemon Princes from Wahapedia Datasheets_abilities (type Primarch, datasheets 000000937 and 000002730). Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[28].abilities[2].name",
+   "change": "ADDED",
+   "value": "\"Daemonic Allegiance\"",
+   "why": "Daemonic Allegiance added to both Daemon Princes from Wahapedia Datasheets_abilities (type Primarch, datasheets 000000937 and 000002730). Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[28].abilities[2].kind",
+   "change": "ADDED",
+   "value": "\"datasheet\"",
+   "why": "Daemonic Allegiance added to both Daemon Princes from Wahapedia Datasheets_abilities (type Primarch, datasheets 000000937 and 000002730). Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[28].instanceGrants.length",
+   "change": "ADDED",
+   "value": "4",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[28].instanceGrants[0].id",
+   "change": "ADDED",
+   "value": "\"al_khorne\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[28].instanceGrants[0].group",
+   "change": "ADDED",
+   "value": "\"allegiance\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[28].instanceGrants[0].label",
+   "change": "ADDED",
+   "value": "\"Daemonic Allegiance: Khorne\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[28].instanceGrants[0].keyword",
+   "change": "ADDED",
+   "value": "\"Khorne\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[28].instanceGrants[0].tone",
+   "change": "ADDED",
+   "value": "\"blood\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[28].instanceGrants[0].required",
+   "change": "ADDED",
+   "value": "true",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[28].instanceGrants[1].id",
+   "change": "ADDED",
+   "value": "\"al_tzeentch\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[28].instanceGrants[1].group",
+   "change": "ADDED",
+   "value": "\"allegiance\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[28].instanceGrants[1].label",
+   "change": "ADDED",
+   "value": "\"Daemonic Allegiance: Tzeentch\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[28].instanceGrants[1].keyword",
+   "change": "ADDED",
+   "value": "\"Tzeentch\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[28].instanceGrants[1].tone",
+   "change": "ADDED",
+   "value": "\"arcane\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[28].instanceGrants[1].required",
+   "change": "ADDED",
+   "value": "true",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[28].instanceGrants[2].id",
+   "change": "ADDED",
+   "value": "\"al_nurgle\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[28].instanceGrants[2].group",
+   "change": "ADDED",
+   "value": "\"allegiance\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[28].instanceGrants[2].label",
+   "change": "ADDED",
+   "value": "\"Daemonic Allegiance: Nurgle\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[28].instanceGrants[2].keyword",
+   "change": "ADDED",
+   "value": "\"Nurgle\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[28].instanceGrants[2].tone",
+   "change": "ADDED",
+   "value": "\"green\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[28].instanceGrants[2].required",
+   "change": "ADDED",
+   "value": "true",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[28].instanceGrants[3].id",
+   "change": "ADDED",
+   "value": "\"al_slaanesh\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[28].instanceGrants[3].group",
+   "change": "ADDED",
+   "value": "\"allegiance\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[28].instanceGrants[3].label",
+   "change": "ADDED",
+   "value": "\"Daemonic Allegiance: Slaanesh\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[28].instanceGrants[3].keyword",
+   "change": "ADDED",
+   "value": "\"Slaanesh\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[28].instanceGrants[3].tone",
+   "change": "ADDED",
+   "value": "\"slaanesh\"",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
+  },
+  {
+   "path": ".chaosSpaceMarines.units[28].instanceGrants[3].required",
+   "change": "ADDED",
+   "value": "true",
+   "why": "Daemonic Allegiance (Wahapedia Datasheets_abilities, type Primarch; BSData rule) is a per-unit god keyword on both Daemon Princes; they do not take a Mark, the rule excluding units that already hold one of the god keywords. Reviewed 2026-10-11."
   }
  ]
 }

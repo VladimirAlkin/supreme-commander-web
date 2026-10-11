@@ -23,9 +23,10 @@ const Engine = (function () {
   /* Per-instance keyword grants offered by a detachment (e.g. up to 2 Trygons become CHARACTER). */
   function instGrants(def, ctx, inst) {
     if (!inst || !inst.grants || !inst.grants.length) return [];
-    return ctx.dets.flatMap(d => (d.instanceGrants || []).filter(g => inst.grants.includes(g.id) && g.unitIds.includes(def.id)));
+    return grantsFor(def, ctx).filter(g => inst.grants.includes(g.id));
   }
-  function grantsFor(def, ctx) { return ctx.dets.flatMap(d => (d.instanceGrants || []).filter(g => g.unitIds.includes(def.id))); }
+  /* a datasheet's own grants (e.g. Daemonic Allegiance) apply in every roster; a detachment's apply to the units it lists */
+  function grantsFor(def, ctx) { return [...(def.instanceGrants || []), ...ctx.dets.flatMap(d => (d.instanceGrants || []).filter(g => g.unitIds.includes(def.id)))]; }
   function keywordsOf(def, ctx, inst) {
     const kw = new Set(def.keywords);
     /* The faction keyword (WORLD EATERS, BLOOD LEGIONS, ...) is a keyword in
@@ -293,6 +294,7 @@ const Engine = (function () {
     }));
     roster.units.forEach(inst => {
       const def = ctx.unitById[inst.datasheetId];
+      if (def) { const gs = grantsFor(def, ctx); [...new Set(gs.filter(g => g.required).map(g => g.group))].forEach(grp => { if (!gs.some(g => g.group === grp && (inst.grants || []).includes(g.id))) W(`${nameOf(inst)}: choose its ${(gs.find(g => g.group === grp).label.split(':')[0])}.`, inst.instanceId); }); }
       if (def && (inst.grants || []).length && !instGrants(def, ctx, inst).length) W(`${nameOf(inst)} has a keyword choice from a detachment that is not in this roster; it is ignored.`, inst.instanceId);
     });
 
@@ -338,6 +340,7 @@ const Engine = (function () {
       const tdef = ctx.unitById[target.datasheetId];
       if (!can.length) E(`${nameOf(inst)} cannot lead other units.`, inst.instanceId);
       else if (!can.includes(target.datasheetId)) E(`${nameOf(inst)} can only lead ${can.map(id => (ctx.unitById[id] || {}).name || id).join(', ')}.`, inst.instanceId);
+      { const clash = markClash(inst, target, ctx); if (clash) E(`${nameOf(inst)} cannot lead ${nameOf(target)}. ${clash}`, inst.instanceId); }
       if (target.attachedTo) E(`${nameOf(target)} is itself attached; attach ${nameOf(inst)} to a bodyguard unit.`, inst.instanceId);
       const role = def.support ? 'support' : 'leader';
       const key = target.instanceId + ':' + role;
@@ -472,8 +475,22 @@ const Engine = (function () {
     return (da.coLeaderOf || []).includes(target.datasheetId) || (db.coLeaderOf || []).includes(target.datasheetId);
   }
   /* Why can't inst be attached to target right now (leader slots)? null = OK */
+  /* A detachment with a markGroup (Pactbound Zealots) lets a character join a unit only if both share one keyword of that group.
+     A unit that has not picked one yet is not blocked; the Mark reminder asks for the pick. null = fine. */
+  function markClash(inst, target, ctx) {
+    for (const d of ctx.dets) {
+      if (!d.markGroup) continue;
+      const set = new Set((d.instanceGrants || []).filter(g => g.group === d.markGroup).map(g => g.keyword.toLowerCase()));
+      const of = i => { const df = ctx.unitById[i.datasheetId]; return df ? [...keywordsOf(df, ctx, i)].filter(k => set.has(k.toLowerCase())) : []; };
+      const a = of(inst), b = of(target);
+      if (a.length && b.length && !a.some(k => b.includes(k))) return `Marks differ (${a.join('/')} vs ${b.join('/')}): ${d.name} lets a character join a unit only if both share the same Mark.`;
+    }
+    return null;
+  }
   function attachBlock(inst, target, roster, DATA) {
     const ctx = ctxFor(roster, DATA), def = ctx.unitById[inst.datasheetId] || {};
+    const clash = markClash(inst, target, ctx);
+    if (clash) return clash;
     const role = def.support ? 'support' : 'leader';
     const others = roster.units.filter(u => u.attachedTo === target.instanceId && u.instanceId !== inst.instanceId && !!(ctx.unitById[u.datasheetId] || {}).support === (role === 'support'));
     const nm = u => u.customName || (ctx.unitById[u.datasheetId] || {}).name || u.datasheetId;

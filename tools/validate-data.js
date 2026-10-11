@@ -162,7 +162,9 @@ for (const f of L.factions(data)) {
     for (const e of d.enhancements || []) {
       const roster = { factionId: f, battleSize: size, detachmentIds: [d.id], units: [] };
       let ok = false;
-      try { ok = fd.units.some(u => Engine.eligibleReason(e, { instanceId: 'x', datasheetId: u.id }, roster, data) === null); }
+      /* a unit can also pick up a keyword through a per-unit grant (a Mark, an Allegiance), so try each one */
+      const ctx = Engine.ctxFor(roster, data);
+      try { ok = fd.units.some(u => [[], ...Engine.grantsFor(u, ctx).map(g => [g.id])].some(grants => Engine.eligibleReason(e, { instanceId: 'x', datasheetId: u.id, grants }, roster, data) === null)); }
       catch (x) { err('E-CRASH', `${f}.${d.id}.${e.id}`, `eligibility check throws: ${x.message}`); continue; }
       if (!ok) err('E-MECH', `${f}.${d.id}.${e.id}`, `no unit in the faction can take ${e.name} (eligible: ${JSON.stringify(e.eligible || {})})`);
     }
