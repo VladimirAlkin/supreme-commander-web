@@ -1491,43 +1491,40 @@
      Plum cards; the active pick of a roundPick in style 'slaanesh' grows a vine of thorns along its edge and pulsing veins; picking throws the sign of
      Slaanesh across the screen in violet smoke with faint fanged mouths. A detachment can also carry a unit pick (pickUnits) and a pledge counter
      with thresholds (pledgeTracker). Effects use transform/opacity only and are off under prefers-reduced-motion. */
-  const SL_MOUTH = '<path class="mi" d="M3 30 Q50 -10 97 30 Q50 70 3 30Z"/><path class="mt" d="M13 25 L18 43 L25 21Z M29 17 L34 35 L40 14Z M44 13 L49 33 L54 12Z M58 15 L63 35 L69 17Z M73 21 L79 43 L86 25Z"/><path class="mt" d="M20 40 L26 29 L31 44Z M38 45 L44 32 L50 47Z M57 45 L62 32 L68 43Z M73 42 L79 31 L84 38Z"/>';
-  const SL_DECO = (() => {
-    const W = 300; let vine = '', thorn = '';
-    [[7, 0], [53, 2.4]].forEach(([y0, ph]) => [0, Math.PI].forEach((off, k) => {
-      let d = '';
-      for (let x = 0; x <= W; x += 5) d += (x ? ' L' : 'M') + x + ' ' + (y0 + 5.5 * Math.sin(x / 15 + ph + off)).toFixed(1);
-      vine += `<path d="${d}"/>`;
-      for (let x = 12 + k * 14; x < W - 6; x += 28) {
-        const y = y0 + 5.5 * Math.sin(x / 15 + ph + off), up = (((x / 28) | 0) + k) % 2 ? -1 : 1;
-        thorn += `<path d="M${x - 2.5} ${y.toFixed(1)} L${x + 2} ${(y + up * 10).toFixed(1)} L${x + 3} ${y.toFixed(1)}Z"/>`;
-      }
-    }));
-    const vein = '<path d="M0 22 C40 9 62 33 104 23 S162 6 204 21 S272 37 300 27"/><path d="M104 23 C112 38 132 42 140 60"/><path d="M204 21 C216 8 228 6 244 0"/><path d="M62 33 C58 44 50 50 42 60"/><path d="M240 24 C252 41 262 46 278 60"/><path d="M150 14 C146 6 140 3 132 0"/>';
-    return `<svg class="sl-vein" viewBox="0 0 300 60" preserveAspectRatio="none" aria-hidden="true">${vein}</svg><svg class="sl-thorn" viewBox="0 0 300 60" preserveAspectRatio="none" aria-hidden="true"><g class="sv">${vine}</g><g class="st">${thorn}</g></svg>`;
+  /* three kinds of fanged mouth for the sign of Slaanesh: open, smiling, kissing */
+  const SL_MOUTHS = ['<path class="mi" d="M3 30 Q50 -10 97 30 Q50 70 3 30Z"/><path class="mt" d="M13 25 L18 43 L25 21Z M29 17 L34 35 L40 14Z M44 13 L49 33 L54 12Z M58 15 L63 35 L69 17Z M73 21 L79 43 L86 25Z"/><path class="mt" d="M20 40 L26 29 L31 44Z M38 45 L44 32 L50 47Z M57 45 L62 32 L68 43Z M73 42 L79 31 L84 38Z"/>',
+    '<path class="mi" d="M4 12 Q50 34 96 12 Q92 58 50 58 Q8 58 4 12Z"/><path class="mt" d="M14 16 L19 38 L27 21Z M31 22 L36 34 L41 25Z M42 24 L46 32 L50 25Z M52 25 L56 32 L60 24Z M59 25 L64 34 L69 22Z M73 21 L81 38 L86 16Z"/><path class="mt" d="M36 56 L42 46 L47 57Z M53 57 L58 46 L64 56Z"/>',
+    '<path class="mi" d="M50 14 C60 2 86 8 84 26 C83 42 64 50 50 50 C36 50 17 42 16 26 C14 8 40 2 50 14Z"/><path class="ml" d="M21 28 Q50 37 79 28"/><path class="mt" d="M38 31 L42 48 L48 33Z M52 33 L58 48 L62 31Z"/>'];
+  /* veins creep in from both sides of a card, never across its middle (the text); two layers: a soft wide glow and a thin bright core */
+  const SL_VEINS = (() => {
+    const p = '<path d="M0 34 C14 30 22 40 36 33 S52 22 66 27"/><path d="M36 33 C40 44 37 50 44 60"/><path d="M22 38 C18 46 9 50 5 60"/><path d="M52 24 C56 14 51 8 58 0"/><path d="M12 32 C10 22 15 14 10 0"/><path d="M66 27 C72 25 76 29 82 28"/>';
+    const g = `<g>${p}</g><g transform="translate(300 0) scale(-1 1)">${p}</g>`;
+    return `<svg class="sl-vein" viewBox="0 0 300 60" preserveAspectRatio="none" aria-hidden="true"><g class="vg">${g}</g><g class="vc">${g}</g></svg>`;
   })();
-  const SL_VEINS = SL_DECO.match(/<svg class="sl-vein"[\s\S]*?<\/svg>/)[0];
+  /* a dark-violet briar wound round the outside of the card: four strips of thorned vine */
+  const SL_DECO = SL_VEINS + '<span class="sl-brier" aria-hidden="true"><i class="bt"></i><i class="bb"></i><i class="bl"></i><i class="br"></i></span>';
   const reducedMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const slPuff = st => `<i class="sl-puff p${1 + Math.floor(Math.random() * 4)}" style="${st}"></i>`;
   /* the sign of Slaanesh over the whole screen: violet vignette beats twice, smoke rolls in, faint fanged mouths open around the edges */
   function slaaneshFx(card) {
     if (reducedMotion() || !card) return;
     const R = (a, c) => a + Math.random() * (c - a);
     const fx = document.createElement('div'); fx.className = 'slfx'; fx.setAttribute('aria-hidden', 'true');
-    const puffs = Array.from({ length: 11 }, () => `<i class="sl-puff" style="left:${R(-5, 95).toFixed(0)}%;top:${R(35, 105).toFixed(0)}%;--x:${R(-70, 70).toFixed(0)}px;--y:${R(-170, -60).toFixed(0)}px;--z:${R(1.2, 2.4).toFixed(2)};--dl:${R(0, .9).toFixed(2)}s"></i>`).join('');
+    const puffs = Array.from({ length: 16 }, () => slPuff(`left:${R(-8, 98).toFixed(0)}%;top:${R(40, 112).toFixed(0)}%;--x:${R(-90, 90).toFixed(0)}px;--y:${R(-220, -70).toFixed(0)}px;--z:${R(1.4, 2.6).toFixed(2)};--rot:${R(-40, 40).toFixed(0)}deg;--dl:${R(0, 1.1).toFixed(2)}s`)).join('');
     const spots = [[4, 8], [70, 6], [84, 38], [2, 44], [76, 74], [10, 78], [40, 86], [44, 2]];
-    const mouths = spots.map(([x, y]) => `<svg class="sl-mouth" viewBox="0 0 100 60" style="left:${x}%;top:${y}%;--s:${R(.8, 1.5).toFixed(2)};--r:${R(-25, 25).toFixed(0)}deg;--dl:${R(.2, 1.1).toFixed(2)}s">${SL_MOUTH}</svg>`).join('');
+    const mouths = spots.map(([x, y], i) => `<svg class="sl-mouth" viewBox="0 0 100 60" style="left:${x}%;top:${y}%;--s:${R(.8, 1.5).toFixed(2)};--r:${R(-25, 25).toFixed(0)}deg;--dl:${R(.2, 1.1).toFixed(2)}s">${SL_MOUTHS[(i + Math.floor(R(0, 3))) % 3]}</svg>`).join('');
     fx.innerHTML = `<div class="sl-vig"></div>${puffs}${mouths}<div class="sl-sign"><div class="sl-sym" style="--sym:url('${IMG.ec_slaanesh}')"></div></div>`;
     document.body.appendChild(fx); setTimeout(() => fx.remove(), 3200);
     if (PL.android) { PL.haptic('confirm'); setTimeout(() => PL.haptic('confirm'), 300); }
   }
-  /* a small rising plume of violet smoke over one element (a Pact threshold, a chosen unit) */
+  /* a plume of violet smoke rising from one element (a Pact threshold, a chosen unit); not clipped to the element, the puffs fade out soft */
   function smokeFx(el) {
     if (reducedMotion() || !el) return;
     const b = el.getBoundingClientRect(), R = (a, c) => a + Math.random() * (c - a);
     const fx = document.createElement('div'); fx.className = 'slsmoke'; fx.setAttribute('aria-hidden', 'true');
     fx.style.cssText = `left:${b.left}px;top:${b.top}px;width:${b.width}px;height:${b.height}px`;
-    fx.innerHTML = Array.from({ length: 9 }, () => `<i class="sl-puff" style="left:${R(0, 92).toFixed(0)}%;top:${R(40, 100).toFixed(0)}%;--x:${R(-30, 30).toFixed(0)}px;--y:${R(-90, -40).toFixed(0)}px;--z:${R(.9, 1.7).toFixed(2)};--dl:${R(0, .7).toFixed(2)}s"></i>`).join('');
-    document.body.appendChild(fx); setTimeout(() => fx.remove(), 2600);
+    fx.innerHTML = Array.from({ length: 8 }, () => slPuff(`left:${R(6, 94).toFixed(0)}%;top:${R(35, 100).toFixed(0)}%;--x:${R(-40, 40).toFixed(0)}px;--y:${R(-110, -50).toFixed(0)}px;--z:${R(1.1, 1.9).toFixed(2)};--rot:${R(-30, 30).toFixed(0)}deg;--dl:${R(0, .7).toFixed(2)}s`)).join('');
+    document.body.appendChild(fx); setTimeout(() => fx.remove(), 2800);
   }
   const burst = el => { if (!el) return; el.classList.add('burst'); smokeFx(el); setTimeout(() => el.classList.remove('burst'), 3400); };
   /* which unit instances carry a play-time mark: this round's picks, or (Favoured Champions) the Warlord's unit until another is chosen */

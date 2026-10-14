@@ -499,19 +499,16 @@ const DATA = {
      }
     },
     {
-     "id": "empowered",
-     "label": "Empowered",
+     "id": "excess",
+     "label": "ICON OF EXCESS",
      "tone": "arcane",
-     "playSel": "empU",
-     "playOnly": true,
-     "noFilter": true,
-     "title": "Empowered: weapons have [Sustained Hits 1]; weapons that already have it Critical Hit on 5+.",
-     "detachments": {
-      "carnival_of_excess": {
-       "unitIds": [],
-       "note": ""
-      }
-     }
+     "title": "Icon of Excess: if the bearer’s unit destroyed an enemy unit this phase, it takes a Leadership test at the end of the Shooting or Fight phase; if passed, you gain 1CP.",
+     "none": "No Icon of Excess in this roster",
+     "wargear": {
+      "tormentors": "icon",
+      "infractors": "icon"
+     },
+     "condNote": "Only with the Icon of Excess (wargear option)."
     }
    ]
   },
@@ -54706,13 +54703,6 @@ const DATA = {
      ],
      "unlocks": {
       "faction": "Legions of Excess"
-     },
-     "pickUnits": {
-      "key": "empU",
-      "title": "Empowered units",
-      "style": "empowered",
-      "max": null,
-      "note": "An EMPEROR’S CHILDREN unit within 6\" of a friendly LEGIONS OF EXCESS unit (and the other way round) is Empowered: its weapons have [Sustained Hits 1]; a weapon that already has it scores a Critical Hit on an unmodified Hit roll of 5+. Tap the units that are Empowered now."
      }
     },
     {

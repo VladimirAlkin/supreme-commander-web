@@ -74709,30 +74709,6 @@
    "why": "Emperor's Children (new army, added 2026-10-14): DP and Force Dispositions from MFM v1.6 (captured 2026-10-14) and BSData 11e; rule text Wahapedia 11e; tags/unlocks per owner decision 2026-10-14"
   },
   {
-   "path": ".emperorsChildren.detachments[0].pickUnits.key",
-   "change": "ADDED",
-   "value": "\"empU\"",
-   "why": "Emperor's Children (new army, added 2026-10-14): Play helper from the ability / detachment rule text (Wahapedia 11e EC + BSData 11e + Faction Pack v1.2, checked 2026-10-14); presentation per owner decisions 2026-10-14"
-  },
-  {
-   "path": ".emperorsChildren.detachments[0].pickUnits.title",
-   "change": "ADDED",
-   "value": "\"Empowered units\"",
-   "why": "Emperor's Children (new army, added 2026-10-14): Play helper from the ability / detachment rule text (Wahapedia 11e EC + BSData 11e + Faction Pack v1.2, checked 2026-10-14); presentation per owner decisions 2026-10-14"
-  },
-  {
-   "path": ".emperorsChildren.detachments[0].pickUnits.style",
-   "change": "ADDED",
-   "value": "\"empowered\"",
-   "why": "Emperor's Children (new army, added 2026-10-14): Play helper from the ability / detachment rule text (Wahapedia 11e EC + BSData 11e + Faction Pack v1.2, checked 2026-10-14); presentation per owner decisions 2026-10-14"
-  },
-  {
-   "path": ".emperorsChildren.detachments[0].pickUnits.max",
-   "change": "ADDED",
-   "value": "null",
-   "why": "Emperor's Children (new army, added 2026-10-14): Play helper from the ability / detachment rule text (Wahapedia 11e EC + BSData 11e + Faction Pack v1.2, checked 2026-10-14); presentation per owner decisions 2026-10-14"
-  },
-  {
    "path": ".emperorsChildren.detachments[1].id",
    "change": "ADDED",
    "value": "\"coterie_of_the_conceited\"",
