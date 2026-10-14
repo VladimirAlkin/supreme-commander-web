@@ -2,12 +2,13 @@
 
 Applies to every army in the app: Chaos Space Marines, World Eaters, Death
 Guard, Thousand Sons, Tyranids, Adepta Sororitas (with Imperial Agents),
-Adeptus Mechanicus, and
+Adeptus Mechanicus, Emperor's Children (with Legions of Excess), and
 any army added later.
 
 Current to: the 30 Sep 2026 update (MFM v1.5; Faction Packs World Eaters,
 Death Guard, Thousand Sons v1.3; Tyranids and Adepta Sororitas v1.2 with no
-rules change; Imperial Agents profiles only). Last full rebuild 2026-10-08.
+rules change; Imperial Agents profiles only). Last full rebuild 2026-10-08. Emperor's Children (added 2026-10-14) is
+current to MFM v1.6 and Faction Pack v1.2.
 
 ## Order of precedence
 
@@ -105,3 +106,22 @@ Found by `bsdelta.py` across BSData's import (`374f505..HEAD`) plus reviews:
   Voltagheist Reliquary texts lack a final period (verbatim). Copy-tier counting for
   Pteraxii/Hastarii is per datasheet. RECON AUGURY is granted by Cohort Acquisitus,
   not on datasheets. Theme and emblem are provisional (design pass pending).
+- Emperor's Children (added 2026-10-14, MFM v1.6, Faction Pack v1.2 = Wahapedia
+  version; allies: Legions of Excess via Carnival of Excess only, 500/1000/1500 pts,
+  never Warlord): 23 datasheets (18 EC + 5 Legions of Excess), 10 detachments, 34
+  enhancements, 51 stratagems. Excluded, not in MFM v1.6: the Sublime Strike
+  detachment and six [Crucible] datasheets (Champion of Excess, Daemonic
+  Charioteer, Daemonic Herald, Excruciator, Flawless Champion, Immortal Champion).
+  Lord Exultant and Sorcerer have T5 (BSData; Wahapedia T4). Lord Exultant
+  pistols BS 3+ and Power fist A3 3+ come from BSData (Wahapedia BS 2+, A5 2+) —
+  the fist looks odd, confirm against the app. Precision on Tormentors' pistols
+  and Infractors' power sword / Rapture lash is Wahapedia only (BSData has none) —
+  not applied. Fulgrim's Serpentine (BSData only; MFM keyword update) is omitted.
+  Court of the Phoenician has two detachment rules in Wahapedia; the app shows
+  them as one text (`overrides.json`). Thrill Seekers / Daemonic Empowerment:
+  typography only (apostrophe, keyword case). Noise Marines here and in the CSM
+  Cult of the Dark Gods list may differ. Shalaxi and Keeper "Summoned" not applied.
+  Photos: every unit has one; Sorcerer, Terminators, Rhino, Land Raider, Defiler,
+  Spawn, Heldrake, Maulerfiend and the Daemon Princes use the Chaos kit photos;
+  Infractors use a second image from the shared Tormentors/Infractors box. The
+  Frenzied Host HOST tag is an interpretation — confirm.

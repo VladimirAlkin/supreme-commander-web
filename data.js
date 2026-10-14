@@ -8,7 +8,8 @@ const DATA = {
    "thousandSons": "2026-10-04-mfm15-fp13",
    "adeptaSororitas": "2026-10-05-mfm15-fp12",
    "chaosSpaceMarines": "2026-10-08-mfm15-csm",
-   "adeptusMechanicus": "2026-10-11-mfm15-fp12"
+   "adeptusMechanicus": "2026-10-11-mfm15-fp12",
+   "emperorsChildren": "2026-10-14-mfm16-fp12"
   },
   "stamp": "Data as of: MFM v1.5 (30/09/2026), Faction Packs World Eaters v1.3, Tyranids v1.2, Death Guard v1.3, Thousand Sons v1.3, Adepta Sororitas v1.2 and Imperial Agents v1.1. Rules text: official wording (Wahapedia export 28/09/2026 + 30/09/2026 Faction Pack changes). Checked 08.10.2026",
   "checked": "2026-10-05"
@@ -460,7 +461,59 @@ const DATA = {
   {
    "id": "emperorsChildren",
    "name": "Emperor's Children",
-   "enabled": false
+   "enabled": true,
+   "theme": {
+    "bg": "#2a0b26",
+    "bg2": "#c2358f",
+    "bgDeep": "#0d030c",
+    "accent": "#a8277c",
+    "accent2": "#e3b45c",
+    "panel": "rgba(13,3,12,.84)",
+    "card1": "#4a1642",
+    "card2": "#16060f",
+    "icon1": "#8a1f65",
+    "icon2": "#3a0d31",
+    "iconRim": "#c2358f",
+    "gloss": true
+   },
+   "emblemSvg": "<svg viewBox=\"0 0 64 64\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\"><circle cx=\"32\" cy=\"32\" r=\"30\" fill=\"#16060f\"/><circle cx=\"32\" cy=\"32\" r=\"27\" fill=\"none\" stroke=\"#c2358f\" stroke-width=\"1.5\"/><path d=\"M40 14c-9-4-19 0-19 8 0 10 22 8 22 19 0 8-11 11-20 6\" fill=\"none\" stroke=\"#e3b45c\" stroke-width=\"4\" stroke-linecap=\"round\"/><path d=\"M24 50c9 4 19 0 19-8 0-10-22-8-22-19 0-8 11-11 20-6\" fill=\"none\" stroke=\"#a8277c\" stroke-width=\"2\" stroke-linecap=\"round\" opacity=\".85\"/><circle cx=\"21\" cy=\"22\" r=\"2.4\" fill=\"#e3b45c\"/><circle cx=\"43\" cy=\"42\" r=\"2.4\" fill=\"#e3b45c\"/></svg>",
+   "logo": "ec_logo",
+   "rosterIcon": "ec_roster",
+   "abilityTips": {
+    "Thrill Seekers": "After Advancing or Falling Back this unit can still shoot and declare a charge, with target restrictions. See Army Rules."
+   },
+   "highlights": [
+    {
+     "id": "favoured",
+     "label": "Favoured Champion",
+     "tone": "gold",
+     "playSel": "favU",
+     "playOnly": true,
+     "noFilter": true,
+     "title": "Favoured Champions: re-roll the Wound roll for each attack.",
+     "detachments": {
+      "slaaneshs_chosen": {
+       "unitIds": [],
+       "note": ""
+      }
+     }
+    },
+    {
+     "id": "empowered",
+     "label": "Empowered",
+     "tone": "arcane",
+     "playSel": "empU",
+     "playOnly": true,
+     "noFilter": true,
+     "title": "Empowered: weapons have [Sustained Hits 1]; weapons that already have it Critical Hit on 5+.",
+     "detachments": {
+      "carnival_of_excess": {
+       "unitIds": [],
+       "note": ""
+      }
+     }
+    }
+   ]
   },
   {
    "id": "chaosDaemons",
@@ -54459,6 +54512,4615 @@ const DATA = {
     "RECON AUGURY",
     "Recon Augury",
     "analysed"
+   ]
+  },
+  "emperorsChildren": {
+   "armyFaction": "Emperor's Children",
+   "alliedFactions": [
+    {
+     "faction": "Legions of Excess",
+     "rule": "Legions of Excess",
+     "requiresDetachment": "carnival_of_excess",
+     "ptsCap": {
+      "incursion": 500,
+      "strike": 1000,
+      "onslaught": 1500
+     },
+     "cannotBeWarlord": true
+    }
+   ],
+   "armyRules": [
+    {
+     "id": "thrill_seekers",
+     "name": "Thrill Seekers",
+     "text": [
+      "If your Army Faction is EMPEROR’S CHILDREN, this unit is eligible to shoot and declare a charge in a turn in which it Advanced or Fell Back, but when doing so:",
+      "■ It cannot target a unit it was within Engagement Range of at the start of the turn.",
+      "■ It cannot target a unit that was the target of another unit’s charge or attack this phase."
+     ],
+     "refChoices": [
+      {
+       "name": "Shoot and charge after moving fast",
+       "effect": "This unit is eligible to shoot and declare a charge in a turn in which it Advanced or Fell Back."
+      },
+      {
+       "name": "Target restrictions",
+       "effect": "It cannot target a unit it was within Engagement Range of at the start of the turn, nor a unit that was the target of another unit’s charge or attack this phase."
+      }
+     ],
+     "refNote": "Applies when your Army Faction is Emperor’s Children. Legions of Excess units do not have it."
+    },
+    {
+     "id": "pact_of_excess",
+     "name": "Pact of Excess",
+     "text": [
+      "When mustering your army, unless specifically stated otherwise, you cannot select Legions of Excess as your Army Faction."
+     ]
+    }
+   ],
+   "detachments": [
+    {
+     "id": "carnival_of_excess",
+     "name": "Carnival of Excess",
+     "dp": 3,
+     "dispositions": [
+      "Disruption",
+      "Priority Assets"
+     ],
+     "tags": [],
+     "summary": "Unlocks Legions of Excess daemons; nearby Emperor's Children and Legions of Excess units become Empowered and gain Sustained Hits 1.",
+     "rule": {
+      "name": "Daemonic Empowerment",
+      "text": "■ While an EMPEROR’S CHILDREN unit from your army is within 6\" of one or more friendly LEGIONS OF EXCESS units, it is Empowered. ■ While a LEGIONS OF EXCESS unit from your army is within 6\" of one or more friendly EMPEROR’S CHILDREN units, it is Empowered. While a unit from your army is Empowered, weapons equipped by models in that unit have the [Sustained Hits 1] ability. If such a weapon already has that ability, each time an attack is made with that weapon, an unmodified Hit roll of 5+ scores a Critical Hit. LEGIONS OF EXCESS You can include LEGIONS OF EXCESS units in your army, even though they do not have the EMPEROR’S CHILDREN Faction keyword. The combined points cost of such units you can include in your army is: ■ Incursion: Up to 500 pts ■ Strike Force: Up to 1000 pts ■ Onslaught: Up to 1500 pts No LEGIONS OF EXCESS models from your army can be your WARLORD."
+     },
+     "buffs": [],
+     "enhancements": [
+      {
+       "id": "carnival_of_excess_dark_blessings",
+       "name": "Dark Blessings",
+       "pts": 10,
+       "upgrade": false,
+       "text": "EMPEROR’S CHILDREN INFANTRY model only. Once per battle, just after an enemy unit has selected its targets, the bearer can use this Enhancement. If it does, until the end of the phase, the bearer has a 3+ invulnerable save.",
+       "eligible": {
+        "factionsAll": [
+         "Emperor's Children"
+        ],
+        "keywordsAll": [
+         "Infantry"
+        ]
+       }
+      },
+      {
+       "id": "carnival_of_excess_empyric_suffusion",
+       "name": "Empyric Suffusion",
+       "pts": 15,
+       "upgrade": false,
+       "text": "EMPEROR’S CHILDREN model only. When you target this unit with the Heroic Intervention stratagem, that use is -1 CP.",
+       "eligible": {
+        "factionsAll": [
+         "Emperor's Children"
+        ]
+       }
+      },
+      {
+       "id": "carnival_of_excess_possessed_blade",
+       "name": "Possessed Blade",
+       "pts": 35,
+       "upgrade": false,
+       "text": "EMPEROR’S CHILDREN model only. At the start of the battle, select one melee weapon equipped by the bearer; add 1 to the Attacks characteristic of that weapon. In addition, each time the bearer is selected to fight, it can use this Enhancement. If it does, while resolving those attacks, add 1 to the Damage characteristic of that weapon and that weapon has the [devastating wounds] and [hazardous] abilities.",
+       "eligible": {
+        "factionsAll": [
+         "Emperor's Children"
+        ]
+       }
+      },
+      {
+       "id": "carnival_of_excess_warp_walker",
+       "name": "Warp Walker",
+       "pts": 35,
+       "upgrade": false,
+       "text": "EMPEROR’S CHILDREN or KEEPER OF SECRETS model only. Each time the bearer’s unit Advances, do not make an Advance roll. Instead, until the end of the phase, add 6\" to the Move characteristic of models in that unit. Each time a model in the bearer’s unit makes a Normal, Advance or Fall Back move, it can move through enemy models. When doing so, it can move within Engagement Range of such models but cannot end that move within Engagement Range of them, and any Desperate Escape test is automatically passed.",
+       "eligible": {
+        "factionsAll": [
+         "Emperor's Children"
+        ],
+        "orUnitIds": [
+         "keeper_of_secrets"
+        ]
+       }
+      }
+     ],
+     "stratagems": [
+      {
+       "id": "uncanny_reactions",
+       "name": "Uncanny Reactions",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Your opponent’s Shooting phase, just after an enemy unit has selected its targets.",
+       "target": "One SLAANESH unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+       "effect": "Until the end of the phase, each time an attack targets your unit, subtract 1 from the Hit roll."
+      },
+      {
+       "id": "sycophantic_surge",
+       "name": "Sycophantic Surge",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Charge"
+       ],
+       "when": "Your Charge phase.",
+       "target": "One LEGIONS OF EXCESS unit from your army.",
+       "effect": "Until the end of the phase, your unit is eligible to declare a charge in a turn in which it Advanced or Fell Back, provided at least one of the targets of that charge is within Engagement Range of one or more EMPEROR’S CHILDREN units from your army."
+      },
+      {
+       "id": "sustained_by_agony",
+       "name": "Sustained by Agony",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Fight phase, just after an EMPEROR’S CHILDREN unit from your army destroys an enemy unit.",
+       "target": "That EMPEROR’S CHILDREN unit.",
+       "effect": "Select one friendly LEGIONS OF EXCESS unit within 6\" of your unit. One model in that LEGIONS OF EXCESS unit recovers up to 3 lost wounds or, if it is a DAEMONETTES unit, return upto D3+3 destroyed models to it instead."
+      },
+      {
+       "id": "dark_apparitions",
+       "name": "Dark Apparitions",
+       "cp": 2,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Fight"
+       ],
+       "when": "End of your opponent’s Fight phase.",
+       "target": "One DAEMONETTES unit from your army that is not within Engagement Range of one or more enemy units.",
+       "effect": "Remove your unit from the battlefield and place it into Strategic Reserves. If it arrives back on the battlefield in the Reinforcements step of your next Movement phase using the Deep Strike ability, it can be set up anywhere that is more than 6\" horizontally away from all enemy units (instead of more than 8\"), provided it is also set up wholly within 8\" of one or more friendly EMPEROR’S CHILDREN units."
+      },
+      {
+       "id": "violent_crescendo",
+       "name": "Violent Crescendo",
+       "cp": 2,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Fight phase.",
+       "target": "One Slaanesh Beasts, Slaanesh Infantry or SLAANESH MOUNTED unit from your army that has not been selected to fight this phase.",
+       "effect": "Until the end of the phase, each time a model in your unit makes a Pile-in or Consolidation move, it can move up to 6\" instead of up to 3\". When doing so, it does not need to end that move closer to the closest enemy model, provided it ends that move as close as possible to the closest enemy unit."
+      },
+      {
+       "id": "ecstatic_slaughter",
+       "name": "Ecstatic Slaughter",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Fight phase, just after a LEGIONS OF EXCESS unit from your army destroys an enemy unit.",
+       "target": "That Legions OF Excess unit and one friendly EMPEROR’S CHILDREN unit within 6\" of it that is not within Engagement Range of one or more enemy units.",
+       "effect": "Your EMPEROR’S CHILDREN unit can declare a charge. If it does so and it has already been selected to fight this phase, it cannot fight again this phase."
+      }
+     ],
+     "unlocks": {
+      "faction": "Legions of Excess"
+     },
+     "pickUnits": {
+      "key": "empU",
+      "title": "Empowered units",
+      "style": "empowered",
+      "max": null,
+      "note": "An EMPEROR’S CHILDREN unit within 6\" of a friendly LEGIONS OF EXCESS unit (and the other way round) is Empowered: its weapons have [Sustained Hits 1]; a weapon that already has it scores a Critical Hit on an unmodified Hit roll of 5+. Tap the units that are Empowered now."
+     }
+    },
+    {
+     "id": "coterie_of_the_conceited",
+     "name": "Coterie of the Conceited",
+     "dp": 3,
+     "dispositions": [
+      "Priority Assets",
+      "Purge the Foe"
+     ],
+     "tags": [],
+     "summary": "Pledge a number of kills each round; meet it to earn Pact points, miss it and your Warlord suffers mortal wounds.",
+     "rule": {
+      "name": "Pledges to the Dark Prince",
+      "text": "At the start of the battle round, if your WARLORD is on the battlefield, you must pledge a number to Slaanesh representing how many enemy units will be destroyed this battle round. At the end of the battle round, if the number of enemy units destroyed this battle round is greater than or equal to your pledge, you gain a number of Pact points equal to your pledge. Otherwise, you do not gain any Pact points this battle round and your WARLORD model suffers D3 mortal wounds. EMPEROR’S CHILDREN units from your army gain a bonus depending on how many Pact points you have gained during the battle, as shown below (these are all cumulative). ■ 1+: Each time a model in this unit makes an attack, re-roll a Hit roll of 1. ■ 3+: Each time a model in this unit makes an attack, re-roll a Wound roll of 1. ■ 5+: Melee weapons equipped by models in this unit have the [LETHAL HITS] and [SUSTAINED HITS 1] abilities. ■ 7+: Each time a model in this unit makes an attack, a Critical Hit is scored on an unmodified Hit roll of 5+."
+     },
+     "buffs": [],
+     "enhancements": [
+      {
+       "id": "coterie_of_the_conceited_pledge_of_dark_glory",
+       "name": "Pledge of Dark Glory",
+       "pts": 25,
+       "upgrade": false,
+       "text": "EMPEROR’S CHILDREN model only. While the bearer is leading a unit, improve the Leadership and Objective Control characteristics of models in that unit by 1.",
+       "eligible": {
+        "factionsAll": [
+         "Emperor's Children"
+        ]
+       }
+      },
+      {
+       "id": "coterie_of_the_conceited_pledge_of_eternal_servitude",
+       "name": "Pledge of Eternal Servitude",
+       "pts": 25,
+       "upgrade": false,
+       "text": "EMPEROR’S CHILDREN model only. The first time the bearer is destroyed, take a Leadership test for the bearer at the end of the phase. If that test is passed, set the bearer back up on the battlefield, as close as possible to where it was destroyed and not within Engagement Range of one or more enemy units, with D6 wounds remaining (up to its Wounds characteristic).",
+       "eligible": {
+        "factionsAll": [
+         "Emperor's Children"
+        ]
+       }
+      },
+      {
+       "id": "coterie_of_the_conceited_pledge_of_mortal_pain",
+       "name": "Pledge of Mortal Pain",
+       "pts": 15,
+       "upgrade": false,
+       "text": "EMPEROR’S CHILDREN model only. At the start of your Shooting phase, select one enemy unit within 12\" of and visible to the bearer. That unit must take a Leadership test, subtracting 2 from the result if it is Battle-shocked: if failed, that enemy unit suffers 3 mortal wounds.",
+       "eligible": {
+        "factionsAll": [
+         "Emperor's Children"
+        ]
+       }
+      },
+      {
+       "id": "coterie_of_the_conceited_pledge_of_unholy_fortune",
+       "name": "Pledge of Unholy Fortune",
+       "pts": 30,
+       "upgrade": false,
+       "text": "EMPEROR’S CHILDREN model only. Once per turn, just after making a Hit roll, a Wound roll or a saving throw for a model in the bearer’s unit, if the bearer is not Battle-shocked, it can use this Enhancement. If it does, treat the result as an unmodified roll of 6 instead.",
+       "eligible": {
+        "factionsAll": [
+         "Emperor's Children"
+        ]
+       }
+      }
+     ],
+     "stratagems": [
+      {
+       "id": "martial_perfection",
+       "name": "Martial Perfection",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Fight phase.",
+       "target": "One EMPEROR’S CHILDREN unit from your army that has not been selected to fight this phase.",
+       "effect": "Until the end of the phase, each time a model in your unit makes an attack, you can re-roll the Hit roll."
+      },
+      {
+       "id": "unshakeable_opponents",
+       "name": "Unshakeable Opponents",
+       "cp": 1,
+       "type": "Epic Deed",
+       "phases": [
+        "Command"
+       ],
+       "when": "Command phase.",
+       "target": "One EMPEROR’S CHILDREN unit from your army.",
+       "effect": "Until the end of the turn, each time a model in your unit makes an attack, you can ignore any or all modifiers to the following: that attack’s Ballistic Skill or Weapon Skill characteristic; the Hit roll; the Wound roll."
+      },
+      {
+       "id": "unbound_arrogance",
+       "name": "Unbound Arrogance",
+       "cp": 1,
+       "type": "Epic Deed",
+       "phases": [
+        "Shooting",
+        "Fight"
+       ],
+       "when": "Your Shooting phase or the Fight phase, just after an EMPEROR’S CHILDREN unit from your army destroys an enemy unit.",
+       "target": "That EMPEROR’S CHILDREN unit.",
+       "effect": "Increase your pledge to Slaanesh by 1.",
+       "restrictions": "You can only use this Stratagem once per battle round."
+      },
+      {
+       "id": "embrace_the_pain",
+       "name": "Embrace the Pain",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Start of the Fight phase.",
+       "target": "One EMPEROR’S CHILDREN INFANTRY unit from your army.",
+       "effect": "Until the end of the phase, each time an enemy model within Engagement Range of your unit selects targets, it must select your unit as the target of its attacks."
+      },
+      {
+       "id": "protection_of_the_dark_prince",
+       "name": "Protection of the Dark Prince",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Any"
+       ],
+       "when": "Any phase, just after a mortal wound or attack is allocated to a model in an EMPEROR’S CHILDREN unit from your army.",
+       "target": "That EMPEROR’S CHILDREN unit.",
+       "effect": "Until the end of the phase, models in your unit have the Feel No Pain 6+ ability, and the Feel No Pain 4+ ability against mortal wounds."
+      },
+      {
+       "id": "armour_of_abhorrence",
+       "name": "Armour of Abhorrence",
+       "cp": 1,
+       "type": "Wargear",
+       "phases": [
+        "Shooting",
+        "Fight"
+       ],
+       "when": "Your opponent’s Shooting phase or the Fight phase, just after an enemy unit has selected its targets.",
+       "target": "One EMPEROR’S CHILDREN unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+       "effect": "Until the attacking unit has finished making its attacks, each time an attack targets a model in your unit, worsen the Armour Penetration characteristic of that attack by 1."
+      }
+     ],
+     "pledgeTracker": {
+      "key": "pact",
+      "title": "Pledges to the Dark Prince",
+      "note": "Start of each battle round: pledge how many enemy units will be destroyed this round (Warlord on the battlefield). End of the round: destroyed ≥ pledge, gain that many Pact points.",
+      "missNote": "No Pact points this round. Your WARLORD model suffers D3 mortal wounds.",
+      "thresholds": [
+       {
+        "at": 1,
+        "text": "Re-roll Hit rolls of 1."
+       },
+       {
+        "at": 3,
+        "text": "Re-roll Wound rolls of 1."
+       },
+       {
+        "at": 5,
+        "text": "Melee weapons have [Lethal Hits] and [Sustained Hits 1]."
+       },
+       {
+        "at": 7,
+        "text": "Critical Hit on an unmodified Hit roll of 5+."
+       }
+      ]
+     }
+    },
+    {
+     "id": "court_of_the_phoenician",
+     "name": "Court of the Phoenician",
+     "dp": 2,
+     "dispositions": [
+      "Purge the Foe"
+     ],
+     "tags": [],
+     "summary": "Units that charged can strike with improved Strength and AP; Fulgrim's Stratagems cost less.",
+     "rule": {
+      "name": "Sensational Performance",
+      "text": "EMPEROR’S CHILDREN units from your army have the following ability: Sensational Performance: Each time this unit is selected to fight, if this unit made a Charge move this turn, it can use this ability. If it does, until the end of the phase: ■ This unit cannot target a unit it was within Engagement Range of at the start of the turn. ■ This unit cannot target a unit that was the target of another unit’s attack this phase. ■ Improve the Strength and Armour Penetration characteristics of this unit’s melee weapons by 1. MASTER OF THE PAGEANT Once per battle round, when you target a FULGRIM unit from your army with the Sinuous Breach or Prideful Superiority Stratagem, you can reduce the CP cost of that use of that Stratagem by 1CP."
+     },
+     "buffs": [],
+     "enhancements": [
+      {
+       "id": "court_of_the_phoenician_exalted_patron",
+       "name": "Exalted Patron",
+       "pts": 15,
+       "upgrade": false,
+       "text": "LORD EXULTANT model only. Add 1\" to the Move characteristic of the bearer.",
+       "eligible": {
+        "unitIds": [
+         "lord_exultant"
+        ]
+       },
+       "leaderOf": [
+        "flawless_blades"
+       ]
+      },
+      {
+       "id": "court_of_the_phoenician_soulstain_made_manifest",
+       "name": "Soulstain Made Manifest",
+       "pts": 15,
+       "upgrade": false,
+       "text": "EMPEROR’S CHILDREN model only. At the start of the Fight phase, you can select one enemy unit within Engagement Range of the bearer; that unit must take a Battle-shock test, subtracting 1 from the result.",
+       "eligible": {
+        "factionsAll": [
+         "Emperor's Children"
+        ]
+       }
+      },
+      {
+       "id": "court_of_the_phoenician_spiritsliver",
+       "name": "Spiritsliver",
+       "pts": 20,
+       "upgrade": false,
+       "text": "EMPEROR’S CHILDREN DAEMON PRINCE model only. Add 1 to the Strength and Attacks characteristics of the bearer’s melee weapons.",
+       "eligible": {
+        "factionsAll": [
+         "Emperor's Children"
+        ],
+        "keywordsAny": [
+         "Daemon Prince",
+         "Daemon Prince with Wings"
+        ]
+       },
+       "mods": [
+        {
+         "target": "melee",
+         "stat": "S",
+         "add": 1
+        },
+        {
+         "target": "melee",
+         "stat": "A",
+         "add": 1
+        }
+       ]
+      },
+      {
+       "id": "court_of_the_phoenician_tears_of_the_phoenix",
+       "name": "Tears of the Phoenix",
+       "pts": 25,
+       "upgrade": false,
+       "text": "EMPEROR’S CHILDREN model only. Each time a model in the bearer’s unit makes a melee attack, you can ignore any or all modifiers to that attack’s Weapon Skill characteristic and any or all modifiers to the Hit roll and Wound roll.",
+       "eligible": {
+        "factionsAll": [
+         "Emperor's Children"
+        ]
+       }
+      }
+     ],
+     "stratagems": [
+      {
+       "id": "sinuous_breach",
+       "name": "Sinuous Breach",
+       "cp": 1,
+       "type": "Court of the Phoenician",
+       "phases": [
+        "Movement",
+        "Charge"
+       ],
+       "when": "Your Movement phase or your Charge phase.",
+       "target": "One EMPEROR’S CHILDREN DAEMON unit from your army that has not been selected to move or charge this phase.",
+       "effect": "Until the end of the phase, each time your unit makes a Normal, Advance or Charge move, it can move horizontally through terrain features."
+      },
+      {
+       "id": "prideful_superiority",
+       "name": "Prideful Superiority",
+       "cp": 2,
+       "type": "Court of the Phoenician",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Fight phase.",
+       "target": "One EMPEROR’S CHILDREN unit from your army that has not been selected to fight this phase.",
+       "effect": "Until the end of the phase, each time a model in your unit makes an attack that targets a CHARACTER unit, you can re-roll the Hit roll and you can re-roll the Wound roll."
+      },
+      {
+       "id": "euphoric_inspiration",
+       "name": "Euphoric Inspiration",
+       "cp": 1,
+       "type": "Court of the Phoenician",
+       "phases": [
+        "Charge"
+       ],
+       "when": "Your Charge phase.",
+       "target": "One EMPEROR’S CHILDREN DAEMON unit from your army.",
+       "effect": "Until the end of the phase, you can re-roll Charge rolls for friendly EMPEROR’S CHILDREN units within 6\" of your unit."
+      },
+      {
+       "id": "close_quarters_excruciation",
+       "name": "Close-Quarters Excruciation",
+       "cp": 1,
+       "type": "Court of the Phoenician",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Your Shooting phase.",
+       "target": "One EMPEROR’S CHILDREN unit from your army that has not been selected to shoot this phase.",
+       "effect": "Until the end of the phase, each time an EMPEROR’S CHILDREN model in your unit makes an attack that targets an eligible unit within 12\", improve the Strength and Armour Penetration characteristics of that attack by 1."
+      },
+      {
+       "id": "contemptuous_disregard",
+       "name": "Contemptuous Disregard",
+       "cp": 1,
+       "type": "Court of the Phoenician",
+       "phases": [
+        "Shooting",
+        "Fight"
+       ],
+       "when": "Your opponent’s Shooting phase or the Fight phase.",
+       "target": "One EMPEROR’S CHILDREN unit from your army.",
+       "effect": "Until the end of the phase, each time an attack targets your unit, if the Strength characteristic of that attack is greater than the Toughness characteristic of your unit, subtract 1 from the Wound roll."
+      },
+      {
+       "id": "catalytic_stimulus",
+       "name": "Catalytic Stimulus",
+       "cp": 1,
+       "type": "Court of the Phoenician",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Your opponent’s Shooting phase, just after an enemy unit has shot.",
+       "target": "One EMPEROR’S CHILDREN unit from your army that lost one or more wounds as a result of those attacks.",
+       "effect": "Your unit can make a surge move of up to D6\"."
+      }
+     ]
+    },
+    {
+     "id": "elegant_brutes",
+     "name": "Elegant Brutes",
+     "dp": 1,
+     "dispositions": [
+      "Take and Hold"
+     ],
+     "tags": [],
+     "summary": "Terminators charge better when they arrive; Lord Kakophonist and Frenzied Ferocity make them deadlier.",
+     "rule": {
+      "name": "Eager to Kill",
+      "text": "When a friendly EMPEROR’S CHILDREN TERMINATOR unit is set up, that unit has +1 to charge rolls until the end of the turn."
+     },
+     "buffs": [],
+     "enhancements": [
+      {
+       "id": "elegant_brutes_cacophonic_accompaniment",
+       "name": "Cacophonic Accompaniment",
+       "pts": 20,
+       "upgrade": false,
+       "text": "LORD KAKOPHONIST model only. ■ This model has Deep Strike. ■ This unit’s ranged attacks have [IGNORES COVER]",
+       "eligible": {
+        "unitIds": [
+         "lord_kakophonist"
+        ]
+       }
+      },
+      {
+       "id": "elegant_brutes_frenzied_ferocity",
+       "name": "Frenzied Ferocity",
+       "pts": 15,
+       "upgrade": true,
+       "text": "EMPEROR’S CHILDREN TERMINATOR SQUAD unit only. This unit’s attacks have [SUSTAINED HITS 1].",
+       "eligible": {
+        "factionsAll": [
+         "Emperor's Children"
+        ],
+        "keywordsAll": [
+         "Terminator Squad"
+        ]
+       }
+      }
+     ],
+     "stratagems": [
+      {
+       "id": "psychedelic_soulflame",
+       "name": "Psychedelic Soulflame",
+       "cp": 1,
+       "type": "Elegant Brutes",
+       "phases": [
+        "Shooting",
+        "Fight"
+       ],
+       "when": "Your Shooting phase or the Fight phase, when a friendly EMPEROR’S CHILDREN TERMINATOR unit is selected to attack.",
+       "target": "That EMPEROR’S CHILDREN TERMINATOR unit",
+       "effect": "Your unit’s attacks have +2 S."
+      },
+      {
+       "id": "warp_plunge",
+       "name": "Warp Plunge",
+       "cp": 1,
+       "type": "Elegant Brutes",
+       "phases": [
+        "Fight"
+       ],
+       "when": "End of your opponent’s Fight phase.",
+       "target": "One friendly unengaged EMPEROR’S CHILDREN TERMINATOR unit.",
+       "effect": "Place your unit in strategic reserves."
+      },
+      {
+       "id": "delight_in_agony",
+       "name": "Delight in Agony",
+       "cp": 1,
+       "type": "Elegant Brutes",
+       "phases": [
+        "Shooting",
+        "Fight"
+       ],
+       "when": "Your opponent’s Shooting phase or the Fight phase, when an enemy unit targets a friendly EMPEROR’S CHILDREN TERMINATOR unit.",
+       "target": "That EMPEROR’S CHILDREN TERMINATOR unit.",
+       "effect": "Attacks that target your unit with a S greater than your unit’s T have -1 to wound rolls."
+      }
+     ]
+    },
+    {
+     "id": "frenzied_host",
+     "name": "Frenzied Host",
+     "dp": 1,
+     "dispositions": [
+      "Reconnaissance"
+     ],
+     "tags": [
+      "HOST"
+     ],
+     "summary": "Battleline units that Advance or Fall Back gain Sustained Hits 1 for the turn.",
+     "rule": {
+      "name": "Frantic Focus",
+      "text": "When a friendly EMPEROR’S CHILDREN BATTLELINE unit is selected to make an advance/fall-back move, that unit’s BATTLELINE models’ attacks have [SUSTAINED HITS 1] until the end of the turn."
+     },
+     "buffs": [],
+     "enhancements": [
+      {
+       "id": "frenzied_host_euphoric_crown",
+       "name": "Euphoric Crown",
+       "pts": 20,
+       "upgrade": false,
+       "text": "LORD EXULTANT model only. This model’s melee attacks have +1 S.",
+       "eligible": {
+        "unitIds": [
+         "lord_exultant"
+        ]
+       },
+       "mods": [
+        {
+         "target": "melee",
+         "stat": "S",
+         "add": 1
+        }
+       ]
+      },
+      {
+       "id": "frenzied_host_howling_plate",
+       "name": "Howling Plate",
+       "pts": 20,
+       "upgrade": false,
+       "text": "LORD EXULTANT model only. This unit’s ranged attacks have +1 AP.",
+       "eligible": {
+        "unitIds": [
+         "lord_exultant"
+        ]
+       }
+      }
+     ],
+     "stratagems": [
+      {
+       "id": "absolute_sensory_overload",
+       "name": "Absolute Sensory Overload",
+       "cp": 1,
+       "type": "Frenzied Host",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Your Shooting phase, when a friendly EMPEROR’S CHILDREN BATTLELINE unit is selected to shoot.",
+       "target": "That EMPEROR’S CHILDREN BATTLELINE unit.",
+       "effect": "Those ranged attacks do not prevent your unit from being hidden."
+      },
+      {
+       "id": "agonised_cacophony",
+       "name": "Agonised Cacophony",
+       "cp": 1,
+       "type": "Frenzied Host",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Start of your Shooting phase.",
+       "target": "One friendly EMPEROR’S CHILDREN BATTLELINE unit.",
+       "effect": "Select one visible enemy unit within 12\" of your unit. That enemy unit has +6\" detection range."
+      },
+      {
+       "id": "possessive_mania",
+       "name": "Possessive Mania",
+       "cp": 1,
+       "type": "Frenzied Host",
+       "phases": [
+        "Shooting",
+        "Fight"
+       ],
+       "when": "Your opponent’s Shooting phase or the Fight phase, when an enemy unit targets a friendly EMPEROR’S CHILDREN BATTLELINE unit within range of an objective.",
+       "target": "That EMPEROR’S CHILDREN BATTLELINE unit.",
+       "effect": "Attacks that target your unit have -1 AP until that enemy unit has attacked."
+      }
+     ]
+    },
+    {
+     "id": "mercurial_host",
+     "name": "Mercurial Host",
+     "dp": 2,
+     "dispositions": [
+      "Reconnaissance"
+     ],
+     "tags": [],
+     "summary": "Re-roll Advance rolls for Emperor's Children units; enhancements favour speed and redeployment.",
+     "rule": {
+      "name": "Quicksilver Grace",
+      "text": "You can re-roll Advance rolls made for EMPEROR’S CHILDREN units from your army."
+     },
+     "buffs": [],
+     "enhancements": [
+      {
+       "id": "mercurial_host_intoxicating_musk",
+       "name": "Intoxicating Musk",
+       "pts": 20,
+       "upgrade": false,
+       "text": "EMPEROR’S CHILDREN model only. Each time a melee attack targets the bearer’s unit, if the Strength characteristic of that attack is greater than the Toughness characteristic of that unit, subtract 1 from the Wound roll.",
+       "eligible": {
+        "factionsAll": [
+         "Emperor's Children"
+        ]
+       }
+      },
+      {
+       "id": "mercurial_host_loathsome_dexterity",
+       "name": "Loathsome Dexterity",
+       "pts": 10,
+       "upgrade": false,
+       "text": "EMPEROR’S CHILDREN model only. Each time a model in the bearer’s unit makes a Normal, Advance or Fall Back move, it can move through enemy models. When doing so, it can move within Engagement Range of such models but cannot end that move within Engagement Range of them, and any Desperate Escape test is automatically passed.",
+       "eligible": {
+        "factionsAll": [
+         "Emperor's Children"
+        ]
+       }
+      },
+      {
+       "id": "mercurial_host_steeped_in_suffering",
+       "name": "Steeped in Suffering",
+       "pts": 20,
+       "upgrade": false,
+       "text": "EMPEROR’S CHILDREN model only. Each time a model in the bearer’s unit makes an attack that targets an enemy unit below its Starting Strength, add 1 to the Hit roll. If that target is also Below Half-strength, add 1 to the Wound roll as well.",
+       "eligible": {
+        "factionsAll": [
+         "Emperor's Children"
+        ]
+       }
+      },
+      {
+       "id": "mercurial_host_tactical_perfection",
+       "name": "Tactical Perfection",
+       "pts": 15,
+       "upgrade": false,
+       "text": "EMPEROR’S CHILDREN model only. After both players have deployed their armies, select up to two EMPEROR’S CHILDREN units from your army and redeploy them. When doing so, you can set those units up in Strategic Reserves if you wish, regardless of how many units are already in Strategic Reserves.",
+       "eligible": {
+        "factionsAll": [
+         "Emperor's Children"
+        ]
+       }
+      }
+     ],
+     "stratagems": [
+      {
+       "id": "combat_stimms",
+       "name": "Combat Stimms",
+       "cp": 2,
+       "type": "Battle Tactic",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Fight phase, just after an enemy unit has selected its targets.",
+       "target": "One Emperor’s Children iNFANTRY unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+       "effect": "Until the end of the phase, each time an attack targets your unit, subtract 1 from the Wound roll."
+      },
+      {
+       "id": "violent_excess",
+       "name": "Violent Excess",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Fight phase.",
+       "target": "One EMPEROR’S CHILDREN unit from your army that has not been selected to fight this phase.",
+       "effect": "Until the end of the phase, melee weapons equipped by models in your unit have the [SUSTAINED HITS 1] ability."
+      },
+      {
+       "id": "capricious_reactions",
+       "name": "Capricious Reactions",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Your opponent’s Shooting phase, just after an enemy unit has selected its targets.",
+       "target": "One EMPEROR’S CHILDREN unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+       "effect": "Until the end of the phase, each time an attack targets your unit, subtract 1 from the Hit roll."
+      },
+      {
+       "id": "honour_the_prince",
+       "name": "Honour the Prince",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Movement"
+       ],
+       "when": "Your Movement phase.",
+       "target": "One EMPEROR’S CHILDREN INFANTRY unit from your army that has not been selected to move this phase.",
+       "effect": "Until the end of the phase, if your unit Advances, do not make an Advance roll. Instead, until the end of the phase, add 6\" to the Move characteristic of models in your unit."
+      },
+      {
+       "id": "dark_vigour",
+       "name": "Dark Vigour",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Movement"
+       ],
+       "when": "Your opponent’s Movement phase, just after an enemy unit ends a Normal, Advance or Fall Back move.",
+       "target": "One EMPEROR’S CHILDREN unit from your army (excluding Beasts and Vehicles) that is within 8\" of the enemy unit that just ended that move.",
+       "effect": "Your unit can make a Normal move of up to 6\"."
+      },
+      {
+       "id": "cruel_raiders",
+       "name": "Cruel Raiders",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Fight"
+       ],
+       "when": "End of your opponent’s Fight phase.",
+       "target": "One EMPEROR’S CHILDREN unit from your army that is wholly within 9\" of one or more battlefield edges and not within 3\" horizontally of one or more enemy units.",
+       "effect": "Remove your unit from the battlefield and place it into Strategic Reserves."
+      }
+     ]
+    },
+    {
+     "id": "peerless_bladesmen",
+     "name": "Peerless Bladesmen",
+     "dp": 2,
+     "dispositions": [
+      "Priority Assets"
+     ],
+     "tags": [],
+     "summary": "Units that charged pick Lethal Hits or Sustained Hits 1 for their melee weapons.",
+     "rule": {
+      "name": "Exquisite Swordsmanship",
+      "text": "Each time an EMPEROR’S CHILDREN unit from your army is selected to fight, if it made a Charge move this turn, select one of the abilities below. While resolving those attacks, melee weapons equipped by models in that unit have that ability: ■ [LETHAL HITS] ■ [SUSTAINED HITS 1]"
+     },
+     "buffs": [],
+     "enhancements": [
+      {
+       "id": "peerless_bladesmen_blinding_speed",
+       "name": "Blinding Speed",
+       "pts": 25,
+       "upgrade": false,
+       "text": "EMPEROR’S CHILDREN model only. Once per battle, at the start of the Fight phase, the bearer can use this Enhancement. If it does, until the end of the phase, models in the bearer’s unit have the Fights First ability.",
+       "eligible": {
+        "factionsAll": [
+         "Emperor's Children"
+        ]
+       }
+      },
+      {
+       "id": "peerless_bladesmen_distortion",
+       "name": "Distortion",
+       "pts": 25,
+       "upgrade": false,
+       "text": "EMPEROR’S CHILDREN model only. Add 1 to the Attacks and Damage characteristics of melee weapons equipped by the bearer.",
+       "eligible": {
+        "factionsAll": [
+         "Emperor's Children"
+        ]
+       },
+       "mods": [
+        {
+         "target": "melee",
+         "stat": "A",
+         "add": 1
+        },
+        {
+         "target": "melee",
+         "stat": "D",
+         "add": 1
+        }
+       ]
+      },
+      {
+       "id": "peerless_bladesmen_faultless_opportunist",
+       "name": "Faultless Opportunist",
+       "pts": 15,
+       "upgrade": false,
+       "text": "EMPEROR’S CHILDREN model only. You can target this unit with the Heroic Intervention stratagem, regardless of any other uses of that stratagem this phase. If you do: ■ That use is -1 CP. ■ That use does not prevent any uses of that stratagem on other units this phase.",
+       "eligible": {
+        "factionsAll": [
+         "Emperor's Children"
+        ]
+       }
+      },
+      {
+       "id": "peerless_bladesmen_rise_to_the_challenge",
+       "name": "Rise to the Challenge",
+       "pts": 30,
+       "upgrade": false,
+       "text": "EMPEROR’S CHILDREN INFANTRY model only. Once per battle, at the end of the Fight phase, if the bearer is within Engagement Range of three or more enemy models, it can use this Enhancement. If it does, the bearer can fight one additional time. When doing so, you can select one ability using the Exquisite Swordsmanship Detachment rule to apply to those attacks.",
+       "eligible": {
+        "factionsAll": [
+         "Emperor's Children"
+        ],
+        "keywordsAll": [
+         "Infantry"
+        ]
+       }
+      }
+     ],
+     "stratagems": [
+      {
+       "id": "deft_parry",
+       "name": "Deft Parry",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Fight phase, just after an enemy unit has selected its targets.",
+       "target": "One EMPEROR’S CHILDREN unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+       "effect": "Until the end of the phase, each time an attack targets your unit, subtract 1 from the Hit roll."
+      },
+      {
+       "id": "cruel_bladesman",
+       "name": "Cruel Bladesman",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Fight phase.",
+       "target": "One EMPEROR’S CHILDREN unit from your army that made a Charge move this turn and has not been selected to fight this phase.",
+       "effect": "Until the end of the phase, improve the Armour Penetration characteristic of melee weapons equipped by models in your unit by 1."
+      },
+      {
+       "id": "incessant_violence",
+       "name": "Incessant Violence",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Fight phase, just before an EMPEROR’S CHILDREN unit from your army Consolidates.",
+       "target": "That EMPEROR’S CHILDREN unit.",
+       "effect": "Until the end of the phase, each time a model in your unit makes a Consolidation move, it can move up to 6\" instead of up to 3\", provided your unit ends that Consolidation move within Engagement Range of one or more enemy units."
+      },
+      {
+       "id": "death_ecstasy",
+       "name": "Death Ecstasy",
+       "cp": 2,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Fight phase, just after an enemy unit has selected its targets.",
+       "target": "One EMPEROR’S CHILDREN unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+       "effect": "Until the end of the phase, each time a model in your unit is destroyed, if that model has not fought this phase, do not remove it from play. The destroyed model can fight after the attacking unit has finished making its attacks, and is then removed from play."
+      },
+      {
+       "id": "terrifying_spectacle",
+       "name": "Terrifying Spectacle",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Command"
+       ],
+       "when": "Your opponent’s Command phase.",
+       "target": "One EMPEROR’S CHILDREN unit from your army that made a Charge move in the previous turn and destroyed one or more enemy units in the previous Fight phase.",
+       "effect": "Each enemy unit within 6\" of your unit must take a Battle-shock test, subtracting 1 from that test if they are Below Half-strength. Enemy units affected by this Stratagem do not need to take any other Battle-shock tests in the same phase."
+      },
+      {
+       "id": "cut_down_the_weak",
+       "name": "Cut Down the Weak",
+       "cp": 2,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Movement"
+       ],
+       "when": "Your opponent’s Movement phase, just after an enemy unit Falls Back.",
+       "target": "One EMPEROR’S CHILDREN unit from your army (you can only select a Vehicle if it is a Walker) that is within 6\" of that enemy unit and would be eligible to declare a charge against that enemy unit if it were your Charge phase.",
+       "effect": "Your unit can declare a charge. When doing so, you must select that enemy unit as a target of that charge, and your unit does not receive a Charge bonus this turn."
+      }
+     ]
+    },
+    {
+     "id": "rapid_evisceration",
+     "name": "Rapid Evisceration",
+     "dp": 2,
+     "dispositions": [
+      "Disruption"
+     ],
+     "tags": [],
+     "summary": "Transports and units that just disembarked re-roll Hit and Wound rolls of 1.",
+     "rule": {
+      "name": "Mechanised Murder",
+      "text": "Each time an EMPEROR’S CHILDREN model from your army makes an attack, if it is a TRANSPORT model or disembarked from a TRANSPORT this turn, re-roll a Hit roll of 1 and re-roll a Wound roll of 1."
+     },
+     "buffs": [],
+     "enhancements": [
+      {
+       "id": "rapid_evisceration_accomplished_tactician",
+       "name": "Accomplished Tactician",
+       "pts": 35,
+       "upgrade": false,
+       "text": "EMPEROR’S CHILDREN INFANTRY model only. Once per turn, in your opponent’s Shooting phase, just after an enemy unit has shot, you can select one friendly EMPEROR’S CHILDREN unit within 9\" of the bearer that was hit by one or more of those attacks, then select one friendly Transport that unit is wholly within 6\" of and is able to embark within. That EMPEROR’S CHILDREN unit can embark within that Transport.",
+       "eligible": {
+        "factionsAll": [
+         "Emperor's Children"
+        ],
+        "keywordsAll": [
+         "Infantry"
+        ]
+       }
+      },
+      {
+       "id": "rapid_evisceration_heretek_adept",
+       "name": "Heretek Adept",
+       "pts": 35,
+       "upgrade": false,
+       "text": "EMPEROR’S CHILDREN INFANTRY model only. Once per battle round, when a saving throw is failed for a friendly EMPEROR’S CHILDREN VEHICLE model within 6\" of the bearer, you can change the Damage characteristic of that attack to 0.",
+       "eligible": {
+        "factionsAll": [
+         "Emperor's Children"
+        ],
+        "keywordsAll": [
+         "Infantry"
+        ]
+       }
+      },
+      {
+       "id": "rapid_evisceration_spearhead_striker",
+       "name": "Spearhead Striker",
+       "pts": 20,
+       "upgrade": false,
+       "text": "EMPEROR’S CHILDREN INFANTRY model only. Each time the bearer disembarks from a Transport, until the end of the turn, you can re-roll Charge rolls made for the bearer’s unit and enemy units cannot use the Fire Overwatch Stratagem to shoot at the bearer’s unit.",
+       "eligible": {
+        "factionsAll": [
+         "Emperor's Children"
+        ],
+        "keywordsAll": [
+         "Infantry"
+        ]
+       }
+      },
+      {
+       "id": "rapid_evisceration_sublime_prescience",
+       "name": "Sublime Prescience",
+       "pts": 25,
+       "upgrade": false,
+       "text": "EMPEROR’S CHILDREN INFANTRY model only. Once per turn, in your Movement phase, the bearer can use this Enhancement. If it does, select one friendly Emperor’s Children Transport that is in Strategic Reserves. Until the end of the phase, for the purposes of setting up that TRANSPORT on the battlefield, treat the current battle round number as being one higher than it actually is.",
+       "eligible": {
+        "factionsAll": [
+         "Emperor's Children"
+        ],
+        "keywordsAll": [
+         "Infantry"
+        ]
+       }
+      }
+     ],
+     "stratagems": [
+      {
+       "id": "dynamic_breakthrough",
+       "name": "Dynamic Breakthrough",
+       "cp": 1,
+       "type": "Epic Deed",
+       "phases": [
+        "Movement"
+       ],
+       "when": "Your Movement phase.",
+       "target": "One EMPEROR’S CHILDREN VEHICLE unit from your army that has not been selected to move this phase.",
+       "effect": "Until the end of the phase, each time a model in your unit makes a move, it can move through enemy models (excluding MONSTERS and VEHICLES). When doing so, it can move within Engagement Range of such models but cannot end that move within Engagement Range of them, and any Desperate Escape test is automatically passed."
+      },
+      {
+       "id": "advance_and_claim",
+       "name": "Advance and Claim",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Command"
+       ],
+       "when": "Your Command phase.",
+       "target": "One Emperor’s Children Transport from your army that has one or more TORMENTORS units embarked within it (excluding Battle-shocked units).",
+       "effect": "Select one objective marker you control that your TRANSPORT is within range of. That objective marker remains under your control until your opponent’s Level of Control over that objective marker is greater than yours at the end of a phase."
+      },
+      {
+       "id": "ceaseless_onslaught",
+       "name": "Ceaseless Onslaught",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Charge"
+       ],
+       "when": "Your Charge phase.",
+       "target": "One EMPEROR’S CHILDREN unit from your army that disembarked from a Transport that made a Normal move this turn.",
+       "effect": "Until the end of the phase, your EMPEROR’S CHILDREN unit is eligible to declare a charge."
+      },
+      {
+       "id": "reactive_disembarkation",
+       "name": "Reactive Disembarkation",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Your opponent’s Shooting phase, just after an enemy unit has selected its targets.",
+       "target": "One Emperor’s Children Transport from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+       "effect": "One EMPEROR’S CHILDREN unit embarked within your TRANSPORT can disembark. When doing so, models in that unit can be set up anywhere on the battlefield wholly within 6\" of that TRANSPORT and not within Engagement Range of one or more enemy units."
+      },
+      {
+       "id": "outflanking_strike",
+       "name": "Outflanking Strike",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Fight"
+       ],
+       "when": "End of your opponent’s Fight phase.",
+       "target": "One Emperor’s Children Transport from your army, or up to two Emperor’s Children Dedicated Transports from your army.",
+       "effect": "For each of those TRANSPORTS wholly within 9\" of one or more battlefield edges, remove it from the battlefield and place it into Strategic Reserves."
+      },
+      {
+       "id": "on_to_the_next",
+       "name": "On to the Next",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Fight"
+       ],
+       "when": "End of the Fight phase.",
+       "target": "One EMPEROR’S CHILDREN unit from your army that destroyed an enemy unit this phase, and one friendly TRANSPORT it is able to embark within.",
+       "effect": "If your EMPEROR’S CHILDREN unit is wholly within 6\" of that TRANSPORT, it can embark within it. Your unit can embark within that TRANSPORT in a turn it disembarked from a TRANSPORT."
+      }
+     ]
+    },
+    {
+     "id": "slaaneshs_chosen",
+     "name": "Slaanesh’s Chosen",
+     "dp": 1,
+     "dispositions": [
+      "Purge the Foe"
+     ],
+     "tags": [],
+     "summary": "Characters ignore movement modifiers and the Favoured Champions bonus passes to whoever scores a kill.",
+     "rule": {
+      "name": "Internal Rivalries",
+      "text": "EMPEROR’S CHILDREN CHARACTER units from your army can ignore any or all modifiers to their Move characteristic and any or all modifiers to Advance and Charge rolls made for them. At the start of the battle, your WARLORD’s unit is your army’s Favoured Champions. The first time in each player’s turn that an EMPEROR’S CHILDREN CHARACTER unit from your army destroys an enemy unit, after resolving all of its attacks, that CHARACTER unit becomes your army’s new Favoured Champions, replacing the old one. Each time a model in your army’s Favoured Champions unit makes an attack, you can re-roll the Wound roll."
+     },
+     "buffs": [],
+     "enhancements": [
+      {
+       "id": "slaaneshs_chosen_eager_to_prove",
+       "name": "Eager to Prove",
+       "pts": 15,
+       "upgrade": false,
+       "text": "EMPEROR’S CHILDREN model only. You can re-roll Charge rolls made for the bearer’s unit. While the bearer’s unit is your army’s Favoured Champions, add 2\" to the Move characteristic of models in that unit.",
+       "eligible": {
+        "factionsAll": [
+         "Emperor's Children"
+        ]
+       }
+      },
+      {
+       "id": "slaaneshs_chosen_proud_and_vainglorious",
+       "name": "Proud and Vainglorious",
+       "pts": 20,
+       "upgrade": false,
+       "text": "EMPEROR’S CHILDREN model only. You can re-roll Battle-shock and Leadership tests taken for the bearer’s unit. While the bearer’s unit is your army’s Favoured Champions, add 1 to the Objective Control characteristic of models in that unit.",
+       "eligible": {
+        "factionsAll": [
+         "Emperor's Children"
+        ]
+       }
+      },
+      {
+       "id": "slaaneshs_chosen_repulsed_by_weakness",
+       "name": "Repulsed by Weakness",
+       "pts": 25,
+       "upgrade": false,
+       "text": "EMPEROR’S CHILDREN model only. Each time an enemy unit (excluding MONSTERS and VEHICLES) within Engagement Range of the bearer’s unit Falls Back, models in that enemy unit must take Desperate Escape tests. When doing so, if the bearer’s unit is your army’s Favoured Champions, subtract 1 from each of those Desperate Escape tests.",
+       "eligible": {
+        "factionsAll": [
+         "Emperor's Children"
+        ]
+       }
+      },
+      {
+       "id": "slaaneshs_chosen_slayer_of_champions",
+       "name": "Slayer of Champions",
+       "pts": 15,
+       "upgrade": false,
+       "text": "EMPEROR’S CHILDREN model only. The bearer’s melee weapons have the [PRECISION] ability, and each time the bearer makes a melee attack that targets a CHARACTER unit, improve the Strength and Armour Penetration characteristics of that attack by 1.",
+       "eligible": {
+        "factionsAll": [
+         "Emperor's Children"
+        ]
+       }
+      }
+     ],
+     "stratagems": [
+      {
+       "id": "devoted_duellists",
+       "name": "Devoted Duellists",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Fight phase.",
+       "target": "One or more EMPEROR’S CHILDREN CHARACTER units from your army that have not been selected to fight this phase.",
+       "effect": "Select one enemy unit. Until the end of the phase, melee weapons equipped by models in those CHARACTER units have the [SUSTAINED HITS 1] ability while targeting that enemy unit."
+      },
+      {
+       "id": "refusal_to_be_outdone",
+       "name": "Refusal to Be Outdone",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Charge"
+       ],
+       "when": "Your Charge phase, when a friendly EMPEROR’S CHILDREN CHARACTER unit within 12\" of an engaged enemy unit declares a charge.",
+       "target": "That EMPEROR’S CHILDREN CHARACTER unit.",
+       "effect": "Your unit can re-roll charge rolls. Your unit must end that charge move engaged with one or more of those enemy units."
+      },
+      {
+       "id": "heightened_jealousy",
+       "name": "Heightened Jealousy",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Shooting",
+        "Fight"
+       ],
+       "when": "Your Shooting phase or the Fight phase, just after an EMPEROR’S CHILDREN CHARACTER unit becomes your army’s Favoured Champions, or just after your army’s Favoured Champions unit destroys an enemy unit.",
+       "target": "Your army’s Favoured Champions unit.",
+       "effect": "Until the end of the phase, each time a model in an EMPEROR’S CHILDREN CHARACTER unit from your army that is not your army’s Favoured Champions makes an attack, add 1 to the Strength characteristic of that attack."
+      },
+      {
+       "id": "diabolic_majesty",
+       "name": "Diabolic Majesty",
+       "cp": 1,
+       "type": "Epic Deed",
+       "phases": [
+        "Shooting",
+        "Fight"
+       ],
+       "when": "Your Shooting phase or the Fight phase, just after an EMPEROR’S CHILDREN CHARACTER unit becomes your army’s Favoured Champions.",
+       "target": "That EMPEROR’S CHILDREN unit.",
+       "effect": "Each enemy unit within 6\" of your unit must take a Battle-shock test, subtracting 1 from the result.",
+       "restrictions": "You can only use this Stratagem once per battle round."
+      },
+      {
+       "id": "beautiful_death",
+       "name": "Beautiful Death",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Fight phase, just after an enemy unit has selected its targets.",
+       "target": "One EMPEROR’S CHILDREN CHARACTER unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+       "effect": "Until the end of the phase, each time a model in your unit is destroyed, if that model has not fought this phase, roll one D6, adding 1 to the result if your unit is your army’s Favoured Champions. On a 4+, do not remove the destroyed model from play; it can fight after the attacking unit has finished making its attacks, and is then removed from play."
+      },
+      {
+       "id": "vengeful_surge",
+       "name": "Vengeful Surge",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Your opponent’s Shooting phase, when an enemy unit that targeted a friendly unengaged EMPEROR’S CHILDREN CHARACTER unit this phase has shot.",
+       "target": "That EMPEROR’S CHILDREN CHARACTER unit.",
+       "effect": "Your unit can make a surge move of up to D6\". If your unit is not your army’s Favoured Champions, you can re-roll the dice to determine the distance of that surge move."
+      }
+     ],
+     "pickUnits": {
+      "key": "favU",
+      "title": "Favoured Champions",
+      "style": "favoured",
+      "max": 1,
+      "defaultWarlord": true,
+      "armyOnly": true,
+      "keyword": "Character",
+      "note": "Your Warlord's unit starts as the Favoured Champions. When an EMPEROR'S CHILDREN CHARACTER unit destroys an enemy unit (first time each player's turn) it becomes the new Favoured Champions. Re-roll the Wound roll for each of its attacks."
+     }
+    },
+    {
+     "id": "spectacle_of_slaughter",
+     "name": "Spectacle of Slaughter",
+     "dp": 1,
+     "dispositions": [
+      "Disruption"
+     ],
+     "tags": [],
+     "summary": "Flawless Blades gain Fights First.",
+     "rule": {
+      "name": "Entitled to Victory",
+      "text": "Friendly FLAWLESS BLADES units have Fights First"
+     },
+     "buffs": [],
+     "enhancements": [
+      {
+       "id": "spectacle_of_slaughter_beguiling_grotesquerie",
+       "name": "Beguiling Grotesquerie",
+       "pts": 15,
+       "upgrade": true,
+       "text": "FLAWLESS BLADES unit only. Enemy units cannot target this unit with snap shooting attacks.",
+       "eligible": {
+        "unitIds": [
+         "flawless_blades"
+        ]
+       }
+      },
+      {
+       "id": "spectacle_of_slaughter_eager_patrons",
+       "name": "Eager Patrons",
+       "pts": 20,
+       "upgrade": true,
+       "text": "FLAWLESS BLADES unit only. This unit has +2\" M.",
+       "eligible": {
+        "unitIds": [
+         "flawless_blades"
+        ]
+       }
+      }
+     ],
+     "stratagems": [
+      {
+       "id": "intoxicated_by_triumph",
+       "name": "Intoxicated by Triumph",
+       "cp": 1,
+       "type": "Spectacle of Slaughter",
+       "phases": [
+        "Movement"
+       ],
+       "when": "Your opponent’s Movement phase, when an enemy unit that was engaged with a friendly FLAWLESS BLADES unit ends a fall-back move, if that FLAWLESS BLADES unit is unengaged.",
+       "target": "That FLAWLESS BLADES unit.",
+       "effect": "Your unit can make a normal move of up to D3+3\"."
+      },
+      {
+       "id": "honour_is_for_fools",
+       "name": "Honour Is for Fools",
+       "cp": 1,
+       "type": "Spectacle of Slaughter",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Fight phase, when a friendly FLAWLESS BLADES unit is selected to fight.",
+       "target": "That FLAWLESS BLADES unit.",
+       "effect": "Your unit’s melee attacks have [PRECISION]."
+      },
+      {
+       "id": "single_minded_strike",
+       "name": "Single-Minded Strike",
+       "cp": 1,
+       "type": "Spectacle of Slaughter",
+       "phases": [
+        "Charge"
+       ],
+       "when": "Your Charge phase, when a friendly FLAWLESS BLADES unit starts a charge move.",
+       "target": "That FLAWLESS BLADES unit.",
+       "effect": "Your unit can move through models (excluding MONSTER/VEHICLE models)."
+      }
+     ]
+    }
+   ],
+   "units": [
+    {
+     "id": "fulgrim",
+     "name": "Fulgrim",
+     "role": "character",
+     "faction": "Emperor's Children",
+     "keywords": [
+      "Chaos",
+      "Character",
+      "Daemon",
+      "Epic Hero",
+      "Fly",
+      "Fulgrim",
+      "Mobile",
+      "Monster",
+      "Primarch",
+      "Slaanesh",
+      "Warlord"
+     ],
+     "image": "ec_fulgrim",
+     "baseSize": "130mm",
+     "profile": {
+      "M": "16\"",
+      "T": "11",
+      "Sv": "2+",
+      "InSv": "4+",
+      "W": "16",
+      "OC": "6",
+      "Ld": "5+"
+     },
+     "damaged": {
+      "threshold": 6,
+      "text": "While it has 1-6 wounds left: -1 to hit rolls."
+     },
+     "ranged": [
+      {
+       "name": "Malefic lash",
+       "range": "12\"",
+       "A": "6",
+       "skill": "2+",
+       "S": "8",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Sustained Hits 1"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Daemonic blades - strike",
+       "range": "Melee",
+       "A": "6",
+       "skill": "2+",
+       "S": "14",
+       "AP": "-3",
+       "D": "D6+1",
+       "kw": [
+        "Sustained Hits 1"
+       ]
+      },
+      {
+       "name": "Daemonic blades - sweep",
+       "range": "Melee",
+       "A": "12",
+       "skill": "2+",
+       "S": "8",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Sustained Hits 1"
+       ]
+      },
+      {
+       "name": "Serpentine tail",
+       "range": "Melee",
+       "A": "6",
+       "skill": "2+",
+       "S": "6",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Extra Attacks"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D6",
+      "Deep Strike"
+     ],
+     "factionAbilities": [
+      "Thrill Seekers"
+     ],
+     "abilities": [
+      {
+       "name": "Daemonic Poisons",
+       "text": "In your Shooting phase and the Fight phase, after this model has finished making its attacks, select one enemy unit hit by one or more of those attacks. Until the end of the battle, that enemy unit is poisoned. At the start of each player’s Command phase, roll one D6 for each poisoned enemy unit on the battlefield: on a 4+,that enemy unit suffers D3 mortal wounds.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Daemon Primarch of Slaanesh",
+       "text": "At the start of your opponent’s Command phase, select one of the abilities in the Daemon Primarch of Slaanesh section. Until the start of your opponent’s next Command phase, this model has that ability.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Beguiling Form",
+       "text": "Each time a model makes an attack that targets this model, subtract 1 from the Hit roll.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Daemonic Speed",
+       "text": "This model has the Fights First ability.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Enthralling Hypnosis (Aura)",
+       "text": "While an enemy unit is within 6\" of this model, each time that unit is selected to Fall Back, it must take a Leadership test. If that test is failed, that unit must Remain Stationary this phase instead.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Supreme Commander",
+       "text": "If this model is in your army, it must be your WARLORD.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 340
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 Fulgrim: malefic lash, daemonic blades, serpentine tail.",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "mustBeWarlord": "Supreme Commander: Fulgrim must be your Warlord.",
+     "roundPick": {
+      "title": "Daemon Primarch of Slaanesh",
+      "style": "slaanesh",
+      "who": "Fulgrim",
+      "note": "Start of your opponent's Command phase: Fulgrim takes one of these until the start of their next Command phase.",
+      "deadNote": "Fulgrim is dead. No ability to pick.",
+      "options": [
+       {
+        "id": "beguiling_form",
+        "name": "Beguiling Form",
+        "effect": "Attacks that target Fulgrim: subtract 1 from the Hit roll."
+       },
+       {
+        "id": "daemonic_speed",
+        "name": "Daemonic Speed",
+        "effect": "Fulgrim has Fights First."
+       },
+       {
+        "id": "enthralling_hypnosis",
+        "name": "Enthralling Hypnosis",
+        "effect": "Aura 6\": an enemy unit selected to Fall Back takes a Leadership test; if failed it must Remain Stationary instead."
+       }
+      ]
+     }
+    },
+    {
+     "id": "lucius_the_eternal",
+     "name": "Lucius the Eternal",
+     "role": "character",
+     "faction": "Emperor's Children",
+     "keywords": [
+      "Chaos",
+      "Character",
+      "Epic Hero",
+      "Infantry",
+      "Leader",
+      "Lucius the Eternal",
+      "Slaanesh",
+      "Warlord"
+     ],
+     "image": "ec_lucius_the_eternal",
+     "baseSize": "50mm",
+     "profile": {
+      "M": "8\"",
+      "T": "6",
+      "Sv": "2+",
+      "InSv": "4+",
+      "W": "6",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [],
+     "melee": [
+      {
+       "name": "Blade of the Laer",
+       "range": "Melee",
+       "A": "6",
+       "skill": "2+",
+       "S": "8",
+       "AP": "-3",
+       "D": "3",
+       "kw": [
+        "Precision"
+       ]
+      },
+      {
+       "name": "Lash of Torment",
+       "range": "Melee",
+       "A": "10",
+       "skill": "2+",
+       "S": "4",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Sustained Hits 1"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Feel No Pain 5+",
+      "Lone Operative"
+     ],
+     "factionAbilities": [
+      "Thrill Seekers"
+     ],
+     "abilities": [
+      {
+       "name": "A Challenge Worthy of Skill",
+       "text": "Each time this model makes an attack that targets a CHARACTER, MONSTER or WALKER unit, you can re-roll the Hit roll and you can re-roll the Wound roll.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Duellist’s Hubris",
+       "text": "At the start of the Fight phase; if this model is not leading a unit, until the end of the phase, it has the Fights First ability.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 130
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "flawless_blades"
+     ],
+     "composition": "1 Lucius the Eternal: Blade of the Laer, Lash of Torment.",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "lord_exultant",
+     "name": "Lord Exultant",
+     "role": "character",
+     "faction": "Emperor's Children",
+     "keywords": [
+      "Chaos",
+      "Character",
+      "Grenades",
+      "Infantry",
+      "Leader",
+      "Lord Exultant",
+      "Slaanesh",
+      "Warlord"
+     ],
+     "image": "ec_lord_exultant",
+     "baseSize": "40mm",
+     "profile": {
+      "M": "7\"",
+      "T": "5",
+      "Sv": "3+",
+      "InSv": "4+",
+      "W": "5",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Bolt pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Plasma pistol - standard",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "7",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Plasma pistol - supercharge",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-3",
+       "D": "2",
+       "kw": [
+        "Hazardous",
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Screamer pistol",
+       "range": "12\"",
+       "A": "3",
+       "skill": "2+",
+       "S": "5",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Ignores Cover",
+        "Pistol"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Close combat weapon",
+       "range": "Melee",
+       "A": "6",
+       "skill": "2+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Master-crafted power sword",
+       "range": "Melee",
+       "A": "5",
+       "skill": "2+",
+       "S": "5",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Precision"
+       ]
+      },
+      {
+       "name": "Phoenix power spear",
+       "range": "Melee",
+       "A": "5",
+       "skill": "2+",
+       "S": "7",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Lance"
+       ]
+      },
+      {
+       "name": "Power fist",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-2",
+       "D": "2",
+       "kw": []
+      },
+      {
+       "name": "Rapture lash",
+       "range": "Melee",
+       "A": "4",
+       "skill": "2+",
+       "S": "4",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Extra Attacks"
+       ]
+      }
+     ],
+     "coreAbilities": [],
+     "factionAbilities": [
+      "Thrill Seekers"
+     ],
+     "abilities": [
+      {
+       "name": "Perfectionists",
+       "text": "While this model is leading a unit, weapons equipped by models in that unit have the [LETHAL HITS] ability.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Euphoric Strikes",
+       "text": "Once per battle, at the start of the Fight phase, this model can use this ability. If it does, until the end of the phase, add 3 to the Attacks characteristic of melee weapons equipped by this model and improve the Armour Penetration characteristic of those weapons by 1.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Lord of the Host",
+       "text": "If this model is attached to an EMPEROR’S CHILDREN BATTLELINE unit during the Declare Battle Formations step, this model has the Infiltrators and Scouts 6\" abilities.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 95,
+       "ptsLater": 105
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [
+      "infractors",
+      "tormentors"
+     ],
+     "composition": "1 Lord Exultant: bolt pistol, plasma pistol, Phoenix power spear, close combat weapon.",
+     "options": [
+      {
+       "id": "pistol",
+       "type": "choice",
+       "label": "Plasma pistol replaced with",
+       "choices": [
+        {
+         "id": "plasma",
+         "label": "Plasma pistol",
+         "pts": 0
+        },
+        {
+         "id": "fist",
+         "label": "Power fist",
+         "pts": 0
+        },
+        {
+         "id": "lash",
+         "label": "Rapture lash",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "spear",
+       "type": "choice",
+       "label": "Phoenix power spear replaced with",
+       "choices": [
+        {
+         "id": "spear",
+         "label": "Phoenix power spear",
+         "pts": 0
+        },
+        {
+         "id": "sword",
+         "label": "Master-crafted power sword",
+         "pts": 0
+        },
+        {
+         "id": "screamer",
+         "label": "Screamer pistol",
+         "pts": 0
+        }
+       ]
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "lord_kakophonist",
+     "name": "Lord Kakophonist",
+     "role": "character",
+     "faction": "Emperor's Children",
+     "keywords": [
+      "Chaos",
+      "Character",
+      "Grenades",
+      "Infantry",
+      "Leader",
+      "Lord Kakophonist",
+      "Slaanesh",
+      "Warlord"
+     ],
+     "image": "ec_lord_kakophonist",
+     "baseSize": "40mm",
+     "profile": {
+      "M": "6\"",
+      "T": "6",
+      "Sv": "2+",
+      "InSv": "4+",
+      "W": "6",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Screamer pistol",
+       "range": "12\"",
+       "A": "3",
+       "skill": "2+",
+       "S": "5",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Ignores Cover",
+        "Pistol"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Close combat weapon",
+       "range": "Melee",
+       "A": "6",
+       "skill": "2+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Power sword",
+       "range": "Melee",
+       "A": "6",
+       "skill": "2+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [],
+     "factionAbilities": [
+      "Thrill Seekers"
+     ],
+     "abilities": [
+      {
+       "name": "Obsessive Annunciation",
+       "text": "While this model is leading a unit, ranged weapons equipped by models in that unit have the [SUSTAINED HITS 1] ability.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Doom Siren",
+       "text": "In your Shooting phase, after this model’s unit has shot, select one enemy INFANTRY unit hit by one or more of those attacks and roll three D6: for each 4+, that enemy unit suffers 1 mortal wound. If an enemy unit suffers one or more mortal wounds as a result of this ability, it must take a Battle-shock test.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 70
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "chaos_terminators",
+      "noise_marines"
+     ],
+     "composition": "1 Lord Kakophonist: screamer pistol, power sword.",
+     "options": [
+      {
+       "id": "alt",
+       "type": "toggle",
+       "label": "Screamer pistol and close combat weapon (replace power sword)"
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "sorcerer",
+     "name": "Sorcerer",
+     "role": "character",
+     "faction": "Emperor's Children",
+     "keywords": [
+      "Chaos",
+      "Character",
+      "Grenades",
+      "Infantry",
+      "Leader",
+      "Psyker",
+      "Slaanesh",
+      "Sorcerer",
+      "Warlord"
+     ],
+     "image": "ec_sorcerer",
+     "baseSize": "40mm",
+     "profile": {
+      "M": "7\"",
+      "T": "5",
+      "Sv": "3+",
+      "InSv": "—",
+      "W": "4",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Agonising Energies - focused witchfire",
+       "range": "18\"",
+       "A": "D6",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-2",
+       "D": "D3",
+       "kw": [
+        "Devastating Wounds",
+        "Hazardous",
+        "Psychic"
+       ]
+      },
+      {
+       "name": "Agonising Energies - witchfire",
+       "range": "18\"",
+       "A": "D6",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "D3",
+       "kw": [
+        "Psychic"
+       ]
+      },
+      {
+       "name": "Bolt pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Force weapon",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-2",
+       "D": "D3",
+       "kw": [
+        "Psychic"
+       ]
+      }
+     ],
+     "coreAbilities": [],
+     "factionAbilities": [
+      "Thrill Seekers"
+     ],
+     "abilities": [
+      {
+       "name": "Warped Interference (Psychic)",
+       "text": "While this model is leading a unit, each time a ranged attack targets that unit, models in it have the Benefit of Cover against that attack.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Wracking Agonies (Psychic)",
+       "text": "In your Shooting phase, after this model has shot, select one INFANTRY unit hit by one or more of those attacks made with its Agonising Energies. Until the start of your next turn, that unit is wracked with agonies. While a unit is wracked with agonies, subtract 2\" from its Move characteristic and subtract 2 from Charge rolls made for it.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 55
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "infractors",
+      "noise_marines",
+      "tormentors"
+     ],
+     "composition": "1 Sorcerer: Agonising Energies, bolt pistol, force weapon.",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "daemon_prince",
+     "name": "Daemon Prince of Slaanesh",
+     "role": "character",
+     "faction": "Emperor's Children",
+     "keywords": [
+      "Chaos",
+      "Character",
+      "Daemon",
+      "Daemon Prince",
+      "Monster",
+      "Slaanesh",
+      "Warlord"
+     ],
+     "image": "ec_daemon_prince",
+     "baseSize": "60mm",
+     "profile": {
+      "M": "10\"",
+      "T": "10",
+      "Sv": "2+",
+      "InSv": "4+",
+      "W": "10",
+      "OC": "3",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Infernal cannon",
+       "range": "24\"",
+       "A": "3",
+       "skill": "2+",
+       "S": "5",
+       "AP": "-1",
+       "D": "2",
+       "kw": []
+      }
+     ],
+     "melee": [
+      {
+       "name": "Hellforged weapons - strike",
+       "range": "Melee",
+       "A": "6",
+       "skill": "2+",
+       "S": "8",
+       "AP": "-2",
+       "D": "3",
+       "kw": []
+      },
+      {
+       "name": "Hellforged weapons - sweep",
+       "range": "Melee",
+       "A": "14",
+       "skill": "2+",
+       "S": "6",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D3"
+     ],
+     "factionAbilities": [
+      "Thrill Seekers"
+     ],
+     "abilities": [
+      {
+       "name": "Lord of Excess",
+       "text": "While this model is within 3\" of one or more friendly SLAANESH INFANTRY units, this model has the Lone Operative ability.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Excessive Vigour (Aura)",
+       "text": "While a friendly SLAANESH unit is within 6\" of this model, if that unit made a Charge move this turn, improve the Armour Penetration characteristic of melee weapons equipped by models in that unit by 1.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Ecstatic Death",
+       "text": "If this model is destroyed by a melee attack, if it has not fought this phase, roll one D6: on a 2+, do not remove it from play. This model can fight after the attacking unit has finished making its attacks, and is then removed from play.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 165,
+       "ptsLater": 180
+      }
+     ],
+     "stepFrom": 2,
+     "leaderOf": [],
+     "composition": "1 Daemon Prince of Slaanesh: infernal cannon, hellforged weapons.",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "daemon_prince_wings",
+     "name": "Daemon Prince of Slaanesh with Wings",
+     "role": "character",
+     "faction": "Emperor's Children",
+     "keywords": [
+      "Chaos",
+      "Character",
+      "Daemon",
+      "Daemon Prince with Wings",
+      "Fly",
+      "Monster",
+      "Slaanesh",
+      "Warlord"
+     ],
+     "image": "ec_daemon_prince_wings",
+     "baseSize": "60mm",
+     "profile": {
+      "M": "14\"",
+      "T": "9",
+      "Sv": "2+",
+      "InSv": "4+",
+      "W": "10",
+      "OC": "3",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Infernal cannon",
+       "range": "24\"",
+       "A": "3",
+       "skill": "2+",
+       "S": "5",
+       "AP": "-1",
+       "D": "2",
+       "kw": []
+      }
+     ],
+     "melee": [
+      {
+       "name": "Hellforged weapons - strike",
+       "range": "Melee",
+       "A": "6",
+       "skill": "2+",
+       "S": "8",
+       "AP": "-2",
+       "D": "3",
+       "kw": []
+      },
+      {
+       "name": "Hellforged weapons - sweep",
+       "range": "Melee",
+       "A": "14",
+       "skill": "2+",
+       "S": "6",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D3",
+      "Deep Strike"
+     ],
+     "factionAbilities": [
+      "Thrill Seekers"
+     ],
+     "abilities": [
+      {
+       "name": "Daemonic Destruction",
+       "text": "Each time this model ends a Charge move, select one enemy unit within Engagement Range of it and roll one D6 for each of this model’s remaining wounds: for each 4+, that enemy unit suffers 1 mortal wound (to a maximum of 6 mortal wounds).",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Stimulated by Pain",
+       "text": "Each time an attack is allocated to this model, subtract 1 from the Damage characteristic of that attack.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 205,
+       "ptsLater": 225
+      }
+     ],
+     "stepFrom": 2,
+     "leaderOf": [],
+     "composition": "1 Daemon Prince of Slaanesh with Wings: infernal cannon, hellforged weapons.",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "tormentors",
+     "name": "Tormentors",
+     "role": "battleline",
+     "faction": "Emperor's Children",
+     "keywords": [
+      "Battleline",
+      "Chaos",
+      "Grenades",
+      "Infantry",
+      "Slaanesh",
+      "Tormentors"
+     ],
+     "image": "ec_tormentors",
+     "baseSize": "32mm",
+     "profile": {
+      "M": "7\"",
+      "T": "5",
+      "Sv": "3+",
+      "InSv": "—",
+      "W": "2",
+      "OC": "2",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Bolt pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Boltgun",
+       "range": "24\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Precision"
+       ]
+      },
+      {
+       "name": "Meltagun",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "9",
+       "AP": "-4",
+       "D": "D6",
+       "kw": [
+        "Melta 2",
+        "Precision"
+       ]
+      },
+      {
+       "name": "Plasma gun - standard",
+       "range": "24\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "7",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Precision",
+        "Rapid Fire 1"
+       ]
+      },
+      {
+       "name": "Plasma gun - supercharge",
+       "range": "24\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-3",
+       "D": "2",
+       "kw": [
+        "Hazardous",
+        "Precision",
+        "Rapid Fire 1"
+       ]
+      },
+      {
+       "name": "Plasma pistol - standard",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "7",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Plasma pistol - supercharge",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-3",
+       "D": "2",
+       "kw": [
+        "Hazardous",
+        "Pistol"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Close combat weapon",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Power sword",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Rapture lash",
+       "range": "Melee",
+       "A": "6",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-1",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Infiltrators"
+     ],
+     "factionAbilities": [
+      "Thrill Seekers"
+     ],
+     "abilities": [
+      {
+       "name": "Objective Defiled",
+       "text": "At the end of your Command phase, if this unit is within range of an objective marker you control, that objective marker remains under your control until your opponent’s Level of Control over that objective marker is greater than yours at the end of a phase.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Icon of Excess",
+       "text": "At the end of your Shooting phase or the Fight phase, if the bearer’s unit destroyed one or more enemy units that phase, the bearer’s unit takes a Leadership test. If that test is passed, you gain 1CP.",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 5,
+       "pts": 85
+      },
+      {
+       "models": 10,
+       "pts": 170
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 Obsessionist and 4 or 9 Tormentors. Obsessionist: bolt pistol, power sword. Tormentors: boltgun, close combat weapon.",
+     "options": [
+      {
+       "id": "ob_pistol",
+       "type": "choice",
+       "label": "Obsessionist: bolt pistol replaced with",
+       "choices": [
+        {
+         "id": "bolt",
+         "label": "Bolt pistol",
+         "pts": 0
+        },
+        {
+         "id": "plasma",
+         "label": "Plasma pistol",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "ob_sword",
+       "type": "choice",
+       "label": "Obsessionist: power sword replaced with",
+       "choices": [
+        {
+         "id": "sword",
+         "label": "Power sword",
+         "pts": 0
+        },
+        {
+         "id": "lash",
+         "label": "Rapture lash",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "meltagun",
+       "type": "count",
+       "label": "Meltagun (replaces boltgun)",
+       "slots": [
+        "tm"
+       ],
+       "per": 5,
+       "n": 1
+      },
+      {
+       "id": "plasma_gun",
+       "type": "count",
+       "label": "Plasma gun (replaces boltgun)",
+       "slots": [
+        "tm"
+       ],
+       "per": 5,
+       "n": 1
+      },
+      {
+       "id": "icon",
+       "type": "toggle",
+       "label": "Icon of Excess"
+      }
+     ],
+     "optionRules": [],
+     "slots": [
+      {
+       "id": "tm",
+       "label": "Tormentor weapon",
+       "default": "Boltgun",
+       "size": {
+        "models": 1,
+        "minus": 1
+       },
+       "fixedNote": "All also have a close combat weapon."
+      }
+     ],
+     "optionGroups": []
+    },
+    {
+     "id": "infractors",
+     "name": "Infractors",
+     "role": "battleline",
+     "faction": "Emperor's Children",
+     "keywords": [
+      "Battleline",
+      "Chaos",
+      "Grenades",
+      "Infantry",
+      "Infractors",
+      "Slaanesh"
+     ],
+     "image": "ec_infractors",
+     "baseSize": "32mm",
+     "profile": {
+      "M": "7\"",
+      "T": "5",
+      "Sv": "3+",
+      "InSv": "—",
+      "W": "2",
+      "OC": "2",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Bolt pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Plasma pistol - standard",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "7",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Plasma pistol - supercharge",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-3",
+       "D": "2",
+       "kw": [
+        "Hazardous",
+        "Pistol"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Duelling sabre",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Precision"
+       ]
+      },
+      {
+       "name": "Power sword",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Rapture lash",
+       "range": "Melee",
+       "A": "6",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-1",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Scouts 6\""
+     ],
+     "factionAbilities": [
+      "Thrill Seekers"
+     ],
+     "abilities": [
+      {
+       "name": "Excessive Assault",
+       "text": "Each time a model in this unit targets an enemy unit with a melee attack, re-roll a Wound roll of 1. If that enemy unit is within range of an objective marker, you can re-roll the Wound roll instead.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Icon of Excess",
+       "text": "At the end of your Shooting phase or the Fight phase, if the bearer’s unit destroyed one or more enemy units that phase, the bearer’s unit takes a Leadership test. If that test is passed, you gain 1CP.",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 5,
+       "pts": 95
+      },
+      {
+       "models": 10,
+       "pts": 175
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 Obsessionist and 4 or 9 Infractors. Obsessionist: bolt pistol, power sword. Infractors: bolt pistol, duelling sabre.",
+     "options": [
+      {
+       "id": "ob_pistol",
+       "type": "choice",
+       "label": "Obsessionist: bolt pistol replaced with",
+       "choices": [
+        {
+         "id": "bolt",
+         "label": "Bolt pistol",
+         "pts": 0
+        },
+        {
+         "id": "plasma",
+         "label": "Plasma pistol",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "ob_sword",
+       "type": "choice",
+       "label": "Obsessionist: power sword replaced with",
+       "choices": [
+        {
+         "id": "sword",
+         "label": "Power sword",
+         "pts": 0
+        },
+        {
+         "id": "lash",
+         "label": "Rapture lash",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "icon",
+       "type": "toggle",
+       "label": "Icon of Excess"
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "noise_marines",
+     "name": "Noise Marines",
+     "role": "infantry",
+     "faction": "Emperor's Children",
+     "keywords": [
+      "Chaos",
+      "Infantry",
+      "Noise Marines",
+      "Slaanesh"
+     ],
+     "image": "ec_noise_marines",
+     "baseSize": "40mm",
+     "profile": {
+      "M": "6\"",
+      "T": "5",
+      "Sv": "3+",
+      "InSv": "—",
+      "W": "3",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Blastmaster - single frequency",
+       "range": "18\"",
+       "A": "3",
+       "skill": "3+",
+       "S": "10",
+       "AP": "-2",
+       "D": "3",
+       "kw": [
+        "Ignores Cover"
+       ]
+      },
+      {
+       "name": "Blastmaster - varied frequency",
+       "range": "18\"",
+       "A": "6",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Ignores Cover"
+       ]
+      },
+      {
+       "name": "Screamer pistol",
+       "range": "12\"",
+       "A": "3",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Ignores Cover",
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Sonic blaster",
+       "range": "18\"",
+       "A": "3",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Ignores Cover"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Close combat weapon",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Power sword",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [],
+     "factionAbilities": [
+      "Thrill Seekers"
+     ],
+     "abilities": [
+      {
+       "name": "Terrifying Crescendo",
+       "text": "In your Shooting phase, after this unit has shot, select one enemy unit hit by one or more of those attacks. Until the start of your next Shooting phase, each time a Battle-shock or Leadership test is taken for that enemy unit, subtract 1 from that test.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 6,
+       "pts": 160,
+       "ptsLater": 175
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [],
+     "composition": "1 Disharmonist and 5 Noise Marines. Default: sonic blaster, close combat weapon.",
+     "options": [
+      {
+       "id": "dh",
+       "type": "choice",
+       "label": "Disharmonist: sonic blaster replaced with",
+       "choices": [
+        {
+         "id": "blaster",
+         "label": "Sonic blaster",
+         "pts": 0
+        },
+        {
+         "id": "pistol_sword",
+         "label": "Screamer pistol and power sword",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "blastmaster",
+       "type": "count",
+       "label": "Blastmaster (replaces sonic blaster)",
+       "slots": [
+        "nm"
+       ],
+       "max": 2
+      }
+     ],
+     "optionRules": [],
+     "slots": [
+      {
+       "id": "nm",
+       "label": "Noise Marine weapon",
+       "default": "Sonic blaster",
+       "size": {
+        "models": 1,
+        "minus": 1
+       },
+       "fixedNote": "All also have a close combat weapon."
+      }
+     ],
+     "optionGroups": []
+    },
+    {
+     "id": "chaos_terminators",
+     "name": "Chaos Terminators",
+     "role": "infantry",
+     "faction": "Emperor's Children",
+     "keywords": [
+      "Chaos",
+      "Infantry",
+      "Slaanesh",
+      "Terminator",
+      "Terminator Squad"
+     ],
+     "image": "ec_chaos_terminators",
+     "baseSize": "40mm",
+     "profile": {
+      "M": "6\"",
+      "T": "6",
+      "Sv": "2+",
+      "InSv": "4+",
+      "W": "3",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Combi-bolter",
+       "range": "24\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Rapid Fire 2"
+       ]
+      },
+      {
+       "name": "Combi-weapon",
+       "range": "24\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Anti-Infantry 4+",
+        "Devastating Wounds",
+        "Rapid Fire 1"
+       ]
+      },
+      {
+       "name": "Heavy flamer",
+       "range": "12\"",
+       "A": "D6",
+       "skill": "—",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Ignores Cover",
+        "Torrent"
+       ]
+      },
+      {
+       "name": "Reaper autocannon",
+       "range": "36\"",
+       "A": "4",
+       "skill": "3+",
+       "S": "7",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Devastating Wounds",
+        "Sustained Hits 1"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Accursed weapon",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Chainfist",
+       "range": "Melee",
+       "A": "3",
+       "skill": "4+",
+       "S": "8",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Anti-Vehicle 3+"
+       ]
+      },
+      {
+       "name": "Paired accursed weapons",
+       "range": "Melee",
+       "A": "5",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Twin-linked"
+       ]
+      },
+      {
+       "name": "Power fist",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-2",
+       "D": "2",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deep Strike"
+     ],
+     "factionAbilities": [
+      "Thrill Seekers"
+     ],
+     "abilities": [
+      {
+       "name": "Lethal Obsession",
+       "text": "In your Shooting phase, after this unit has shot, you can use this ability. If you do, select one enemy unit hit by those ranged attacks. Until the end of the turn, when this unit declares a charge: ■ This unit can re-roll that charge roll. ■ This unit must end that charge move engaged with that enemy unit.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 5,
+       "pts": 155
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 Terminator Champion and 4 Chaos Terminators. Default: combi-bolter, accursed weapon.",
+     "options": [
+      {
+       "id": "heavy_flamer",
+       "type": "count",
+       "label": "Heavy flamer (replaces combi-bolter)",
+       "slots": [
+        "cb"
+       ],
+       "group": "heavy",
+       "max": 1
+      },
+      {
+       "id": "reaper",
+       "type": "count",
+       "label": "Reaper autocannon (replaces combi-bolter)",
+       "slots": [
+        "cb"
+       ],
+       "group": "heavy",
+       "max": 1
+      },
+      {
+       "id": "combi",
+       "type": "count",
+       "label": "Combi-weapon (replaces combi-bolter)",
+       "slots": [
+        "cb"
+       ],
+       "max": "models"
+      },
+      {
+       "id": "paired",
+       "type": "count",
+       "label": "Paired accursed weapons (replaces combi-bolter and accursed weapon)",
+       "slots": [
+        "cb",
+        "aw"
+       ],
+       "per": 5,
+       "n": 1
+      },
+      {
+       "id": "fist",
+       "type": "count",
+       "label": "Power fist (replaces accursed weapon)",
+       "slots": [
+        "aw"
+       ],
+       "max": 3
+      },
+      {
+       "id": "chainfist",
+       "type": "count",
+       "label": "Chainfist (replaces accursed weapon)",
+       "slots": [
+        "aw"
+       ],
+       "max": 1
+      }
+     ],
+     "optionRules": [],
+     "slots": [
+      {
+       "id": "cb",
+       "label": "Combi-bolter",
+       "default": "Combi-bolter",
+       "size": {
+        "models": 1
+       }
+      },
+      {
+       "id": "aw",
+       "label": "Accursed weapon",
+       "default": "Accursed weapon",
+       "size": {
+        "models": 1
+       }
+      }
+     ],
+     "optionGroups": [
+      {
+       "id": "heavy",
+       "per": 5,
+       "n": 1,
+       "label": "Heavy flamer / reaper autocannon (1 per 5 models)"
+      }
+     ]
+    },
+    {
+     "id": "flawless_blades",
+     "name": "Flawless Blades",
+     "role": "infantry",
+     "faction": "Emperor's Children",
+     "keywords": [
+      "Chaos",
+      "Flawless Blades",
+      "Grenades",
+      "Infantry",
+      "Slaanesh"
+     ],
+     "image": "ec_flawless_blades",
+     "baseSize": "40mm",
+     "profile": {
+      "M": "8\"",
+      "T": "5",
+      "Sv": "3+",
+      "InSv": "5+",
+      "W": "3",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Bolt pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Blissblade",
+       "range": "Melee",
+       "A": "4",
+       "skill": "2+",
+       "S": "6",
+       "AP": "-3",
+       "D": "2",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [],
+     "factionAbilities": [
+      "Thrill Seekers"
+     ],
+     "abilities": [
+      {
+       "name": "Daemonic Patrons",
+       "text": "Each time this unit is selected to fight, it can call upon daemonic patrons. If it does, until the end of the phase, each time a model in this unit makes an attack, an unmodified Wound roll of 3+ scores a Critical Wound. At the end of the Fight phase, if this unit called upon daemonic patrons this phase and no enemy models were destroyed by attacks made by models in this unit this phase, one model in this unit is destroyed.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 3,
+       "pts": 95
+      },
+      {
+       "models": 6,
+       "pts": 190
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "3 to 6 Flawless Blades. Every model: bolt pistol, blissblade.",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "chaos_spawn",
+     "name": "Chaos Spawn",
+     "role": "beast",
+     "faction": "Emperor's Children",
+     "keywords": [
+      "Beast",
+      "Chaos",
+      "Chaos Spawn",
+      "Slaanesh"
+     ],
+     "image": "ec_chaos_spawn",
+     "baseSize": "50mm",
+     "profile": {
+      "M": "10\"",
+      "T": "5",
+      "Sv": "4+",
+      "InSv": "—",
+      "W": "4",
+      "OC": "1",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [],
+     "melee": [
+      {
+       "name": "Hideous Mutations",
+       "range": "Melee",
+       "A": "D6+2",
+       "skill": "4+",
+       "S": "5",
+       "AP": "-1",
+       "D": "2",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Feel No Pain 5+"
+     ],
+     "factionAbilities": [
+      "Thrill Seekers"
+     ],
+     "abilities": [
+      {
+       "name": "Scuttling Horrors",
+       "text": "In your opponent's Movement phase, if an enemy unit ends a move within 8\" of this unit, if this unit is not within Engagement Range of one or more enemy units, this unit can make a Normal move of up to 6\".",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 2,
+       "pts": 70
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "2 Chaos Spawn: hideous mutations.",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "heldrake",
+     "name": "Heldrake",
+     "role": "vehicle",
+     "faction": "Emperor's Children",
+     "keywords": [
+      "Chaos",
+      "Daemon",
+      "Fly",
+      "Heldrake",
+      "Slaanesh",
+      "Vehicle"
+     ],
+     "image": "ec_heldrake",
+     "baseSize": "120x92mm (flying base)",
+     "profile": {
+      "M": "12\"",
+      "T": "10",
+      "Sv": "3+",
+      "InSv": "5+",
+      "W": "14",
+      "OC": "0",
+      "Ld": "7+"
+     },
+     "damaged": {
+      "threshold": 4,
+      "text": "While it has 1-4 wounds left: -1 to hit rolls."
+     },
+     "ranged": [
+      {
+       "name": "Baleflamer",
+       "range": "12\"",
+       "A": "D6+3",
+       "skill": "—",
+       "S": "6",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Ignores Cover",
+        "Torrent"
+       ]
+      },
+      {
+       "name": "Hades autocannon",
+       "range": "36\"",
+       "A": "6",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-1",
+       "D": "2",
+       "kw": []
+      }
+     ],
+     "melee": [
+      {
+       "name": "Heldrake claws",
+       "range": "Melee",
+       "A": "5",
+       "skill": "3+",
+       "S": "7",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Anti-Fly 2+",
+        "Devastating Wounds"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D3",
+      "Hover"
+     ],
+     "factionAbilities": [
+      "Thrill Seekers"
+     ],
+     "abilities": [
+      {
+       "name": "Airborne Predator",
+       "text": "Each time this model ends a Normal move, you can select one enemy unit that it moved over during that move and roll two D6, adding 1 to each result if that enemy unit can FLY: for each 4+, that enemy unit suffers D3 mortal wounds.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 175
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 Heldrake: Hades autocannon, Heldrake claws.",
+     "options": [
+      {
+       "id": "bale",
+       "type": "toggle",
+       "label": "Baleflamer (replaces Hades autocannon)"
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "maulerfiend",
+     "name": "Maulerfiend",
+     "role": "walker",
+     "faction": "Emperor's Children",
+     "keywords": [
+      "Chaos",
+      "Daemon",
+      "Maulerfiend",
+      "Slaanesh",
+      "Vehicle",
+      "Walker"
+     ],
+     "image": "ec_maulerfiend",
+     "baseSize": "120x92mm",
+     "profile": {
+      "M": "10\"",
+      "T": "10",
+      "Sv": "3+",
+      "InSv": "5+",
+      "W": "12",
+      "OC": "3",
+      "Ld": "6+"
+     },
+     "damaged": {
+      "threshold": 4,
+      "text": "While it has 1-4 wounds left: -1 to hit rolls."
+     },
+     "ranged": [
+      {
+       "name": "Magma cutter",
+       "range": "6\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "9",
+       "AP": "-4",
+       "D": "D6",
+       "kw": [
+        "Melta 2"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Lasher tendrils",
+       "range": "Melee",
+       "A": "6",
+       "skill": "3+",
+       "S": "7",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Extra Attacks"
+       ]
+      },
+      {
+       "name": "Maulerfiend fists",
+       "range": "Melee",
+       "A": "6",
+       "skill": "3+",
+       "S": "14",
+       "AP": "-2",
+       "D": "D6+1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D3"
+     ],
+     "factionAbilities": [
+      "Thrill Seekers"
+     ],
+     "abilities": [
+      {
+       "name": "Glutton for Punishment",
+       "text": "Each time this model makes an attack, if it is below its Starting Strength, add 1 to the Hit roll. If this model is also Below Half-strength, add 1 to the Wound roll as well.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 120,
+       "ptsLater": 130
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [],
+     "composition": "1 Maulerfiend: lasher tendrils, Maulerfiend fists.",
+     "options": [
+      {
+       "id": "magma",
+       "type": "toggle",
+       "label": "2 magma cutters (replace lasher tendrils)"
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "defiler",
+     "name": "Defiler",
+     "role": "walker",
+     "faction": "Emperor's Children",
+     "keywords": [
+      "Chaos",
+      "Daemon",
+      "Defiler",
+      "Slaanesh",
+      "Vehicle",
+      "Walker"
+     ],
+     "image": "ec_defiler",
+     "baseSize": "160mm",
+     "profile": {
+      "M": "12\"",
+      "T": "11",
+      "Sv": "3+",
+      "InSv": "5+",
+      "W": "18",
+      "OC": "5",
+      "Ld": "6+"
+     },
+     "damaged": {
+      "threshold": 6,
+      "text": "While it has 1-6 wounds left: -1 to hit rolls."
+     },
+     "ranged": [
+      {
+       "name": "Ectoplasma destructor",
+       "range": "36\"",
+       "A": "D6",
+       "skill": "3+",
+       "S": "12",
+       "AP": "-3",
+       "D": "3",
+       "kw": [
+        "Blast"
+       ]
+      },
+      {
+       "name": "Excruciator cannon",
+       "range": "36\"",
+       "A": "6",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-1",
+       "D": "2",
+       "kw": []
+      },
+      {
+       "name": "Hades battle cannon",
+       "range": "48\"",
+       "A": "D6+3",
+       "skill": "3+",
+       "S": "10",
+       "AP": "-1",
+       "D": "3",
+       "kw": [
+        "Blast"
+       ]
+      },
+      {
+       "name": "Hades lascannon",
+       "range": "48\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "12",
+       "AP": "-3",
+       "D": "D6+1",
+       "kw": []
+      },
+      {
+       "name": "Heavy baleflamer",
+       "range": "12\"",
+       "A": "D6+3",
+       "skill": "—",
+       "S": "7",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Ignores Cover",
+        "Torrent"
+       ]
+      },
+      {
+       "name": "Heavy missile launcher - frag",
+       "range": "48\"",
+       "A": "2D6",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Blast"
+       ]
+      },
+      {
+       "name": "Heavy missile launcher - krak",
+       "range": "48\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "10",
+       "AP": "-2",
+       "D": "D6+1",
+       "kw": []
+      },
+      {
+       "name": "Heavy reaper autocannon",
+       "range": "48\"",
+       "A": "4",
+       "skill": "3+",
+       "S": "9",
+       "AP": "-1",
+       "D": "3",
+       "kw": [
+        "Devastating Wounds",
+        "Sustained Hits 1"
+       ]
+      },
+      {
+       "name": "Magma cutter",
+       "range": "12\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "9",
+       "AP": "-4",
+       "D": "D6",
+       "kw": [
+        "Melta 2"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Electroscourge",
+       "range": "Melee",
+       "A": "5",
+       "skill": "3+",
+       "S": "12",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Extra Attacks",
+        "Sustained Hits 2"
+       ]
+      },
+      {
+       "name": "Shearing claws - strike",
+       "range": "Melee",
+       "A": "5",
+       "skill": "3+",
+       "S": "16",
+       "AP": "-3",
+       "D": "D6+1",
+       "kw": [
+        "Precision"
+       ]
+      },
+      {
+       "name": "Shearing claws - sweep",
+       "range": "Melee",
+       "A": "10",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-2",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D6"
+     ],
+     "factionAbilities": [
+      "Thrill Seekers"
+     ],
+     "abilities": [
+      {
+       "name": "Scuttling Walker",
+       "text": "Each time this unit makes a Normal, Advance or Fall Back move, it can move through models (excluding TITANIC models) and terrain features. When doing so, it can move within Engagement Range of enemy models, but cannot end that move within Engagement Range of them, and any Desperate Escape test is automatically passed.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Revel in Desecration",
+       "text": "Each time this model makes an attack that targets an enemy unit that is not below Half-strength, add 1 to the Hit roll.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 300,
+       "ptsLater": 350
+      }
+     ],
+     "stepFrom": 2,
+     "leaderOf": [],
+     "composition": "1 Defiler: Hades battle cannon, 2 excruciator cannons, heavy missile launcher, heavy baleflamer, shearing claws.",
+     "options": [
+      {
+       "id": "main",
+       "type": "choice",
+       "label": "Main gun",
+       "choices": [
+        {
+         "id": "hbc",
+         "label": "Hades battle cannon",
+         "pts": 0
+        },
+        {
+         "id": "ecto",
+         "label": "Ectoplasma destructor",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "excr",
+       "type": "choice",
+       "label": "Hull guns",
+       "choices": [
+        {
+         "id": "excr",
+         "label": "2 excruciator cannons",
+         "pts": 0
+        },
+        {
+         "id": "magma",
+         "label": "2 magma cutters",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "flamer",
+       "type": "choice",
+       "label": "Heavy baleflamer",
+       "choices": [
+        {
+         "id": "bale",
+         "label": "Heavy baleflamer",
+         "pts": 0
+        },
+        {
+         "id": "las",
+         "label": "Hades lascannon",
+         "pts": 15
+        },
+        {
+         "id": "reaper",
+         "label": "Heavy reaper autocannon",
+         "pts": 15
+        },
+        {
+         "id": "scourge",
+         "label": "Electroscourge",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "hml",
+       "type": "choice",
+       "label": "Heavy missile launcher",
+       "choices": [
+        {
+         "id": "hml",
+         "label": "Heavy missile launcher",
+         "pts": 0
+        },
+        {
+         "id": "las",
+         "label": "Hades lascannon",
+         "pts": 15
+        },
+        {
+         "id": "reaper",
+         "label": "Heavy reaper autocannon",
+         "pts": 15
+        },
+        {
+         "id": "scourge",
+         "label": "Electroscourge",
+         "pts": 0
+        }
+       ]
+      }
+     ],
+     "optionRules": [
+      {
+       "forbidAllOf": [
+        [
+         "flamer",
+         "scourge"
+        ],
+        [
+         "hml",
+         "scourge"
+        ]
+       ],
+       "message": "Only one electroscourge."
+      }
+     ],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "chaos_rhino",
+     "name": "Chaos Rhino",
+     "role": "transport",
+     "faction": "Emperor's Children",
+     "keywords": [
+      "Chaos",
+      "Dedicated Transport",
+      "Frame",
+      "Rhino",
+      "Slaanesh",
+      "Smoke",
+      "Transport",
+      "Vehicle"
+     ],
+     "image": "ec_chaos_rhino",
+     "baseSize": "Hull",
+     "profile": {
+      "M": "12\"",
+      "T": "9",
+      "Sv": "3+",
+      "InSv": "—",
+      "W": "10",
+      "OC": "2",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Combi-bolter",
+       "range": "24\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Rapid Fire 2"
+       ]
+      },
+      {
+       "name": "Combi-weapon",
+       "range": "24\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Anti-Infantry 4+",
+        "Devastating Wounds",
+        "Rapid Fire 1"
+       ]
+      },
+      {
+       "name": "Havoc launcher",
+       "range": "48\"",
+       "A": "D6",
+       "skill": "3+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Blast"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Armoured tracks",
+       "range": "Melee",
+       "A": "3",
+       "skill": "4+",
+       "S": "6",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D3",
+      "Firing Deck 2"
+     ],
+     "factionAbilities": [
+      "Thrill Seekers"
+     ],
+     "abilities": [
+      {
+       "name": "Assault Vehicle",
+       "text": "Units can disembark from this TRANSPORT after it has Advanced. Units that do so count as having made a Normal move that phase, and cannot declare a charge in the same turn, but can otherwise act normally.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 70,
+       "ptsLater": 80
+      }
+     ],
+     "stepFrom": 4,
+     "leaderOf": [],
+     "composition": "1 Chaos Rhino: combi-bolter, armoured tracks.",
+     "options": [
+      {
+       "id": "extra",
+       "type": "choice",
+       "label": "Extra pintle weapon",
+       "choices": [
+        {
+         "id": "none",
+         "label": "None",
+         "pts": 0
+        },
+        {
+         "id": "combib",
+         "label": "Combi-bolter",
+         "pts": 0
+        },
+        {
+         "id": "combiw",
+         "label": "Combi-weapon",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "havoc",
+       "type": "toggle",
+       "label": "Havoc launcher",
+       "note": "This model can be equipped with 1 havoc launcher or can replace 1 combi-bolter with 1 havoc launcher."
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "transport": "This model has a transport capacity of 12 Emperor’s Children Infantry models (excluding TERMiNATOR and Flawless Blade models)."
+    },
+    {
+     "id": "chaos_land_raider",
+     "name": "Chaos Land Raider",
+     "role": "transport",
+     "faction": "Emperor's Children",
+     "keywords": [
+      "Chaos",
+      "Frame",
+      "Land Raider",
+      "Slaanesh",
+      "Smoke",
+      "Transport",
+      "Vehicle"
+     ],
+     "image": "ec_chaos_land_raider",
+     "baseSize": "Hull",
+     "profile": {
+      "M": "10\"",
+      "T": "12",
+      "Sv": "2+",
+      "InSv": "—",
+      "W": "16",
+      "OC": "5",
+      "Ld": "6+"
+     },
+     "damaged": {
+      "threshold": 5,
+      "text": "While it has 1-5 wounds left: -1 to hit rolls."
+     },
+     "ranged": [
+      {
+       "name": "Combi-bolter",
+       "range": "24\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Rapid Fire 2"
+       ]
+      },
+      {
+       "name": "Combi-weapon",
+       "range": "24\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Anti-Infantry 4+",
+        "Devastating Wounds",
+        "Rapid Fire 1"
+       ]
+      },
+      {
+       "name": "Havoc launcher",
+       "range": "48\"",
+       "A": "D6",
+       "skill": "3+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Blast"
+       ]
+      },
+      {
+       "name": "Soulshatter lascannon",
+       "range": "48\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "12",
+       "AP": "-3",
+       "D": "D6+1",
+       "kw": []
+      },
+      {
+       "name": "Twin heavy bolter",
+       "range": "36\"",
+       "A": "3",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Sustained Hits 1",
+        "Twin-linked"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Armoured tracks",
+       "range": "Melee",
+       "A": "6",
+       "skill": "4+",
+       "S": "8",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D6"
+     ],
+     "factionAbilities": [
+      "Thrill Seekers"
+     ],
+     "abilities": [
+      {
+       "name": "Assault Ramp",
+       "text": "Each time a unit disembarks from this model after it has made a Normal move, that unit is still eligible to declare a charge this turn.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 210,
+       "ptsLater": 230
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [],
+     "composition": "1 Chaos Land Raider: 2 soulshatter lascannons, twin heavy bolter, armoured tracks.",
+     "options": [
+      {
+       "id": "pintle",
+       "type": "choice",
+       "label": "Pintle weapon",
+       "choices": [
+        {
+         "id": "none",
+         "label": "None",
+         "pts": 0
+        },
+        {
+         "id": "combib",
+         "label": "Combi-bolter",
+         "pts": 0
+        },
+        {
+         "id": "combiw",
+         "label": "Combi-weapon",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "havoc",
+       "type": "toggle",
+       "label": "Havoc launcher"
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "transport": "This model has a transport capacity of 14 Emperor’s Children Infantry models. Each Terminator and Flawless Blade model takes up the space of 2 models."
+    },
+    {
+     "id": "shalaxi_helbane",
+     "name": "Shalaxi Helbane",
+     "role": "allies",
+     "faction": "Legions of Excess",
+     "keywords": [
+      "Chaos",
+      "Character",
+      "Daemon",
+      "Epic Hero",
+      "Monster",
+      "Psyker",
+      "Shalaxi Helbane",
+      "Slaanesh"
+     ],
+     "image": "ec_shalaxi_helbane",
+     "baseSize": "100mm",
+     "profile": {
+      "M": "14\"",
+      "T": "10",
+      "Sv": "3+",
+      "InSv": "4+",
+      "W": "20",
+      "OC": "5",
+      "Ld": "6+"
+     },
+     "damaged": {
+      "threshold": 7,
+      "text": "While it has 1-7 wounds left: -1 to hit rolls."
+     },
+     "ranged": [
+      {
+       "name": "Lash of Slaanesh",
+       "range": "12\"",
+       "A": "6",
+       "skill": "2+",
+       "S": "6",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Assault"
+       ]
+      },
+      {
+       "name": "Pavane of Slaanesh - focused witchfire",
+       "range": "18\"",
+       "A": "D6",
+       "skill": "2+",
+       "S": "9",
+       "AP": "-2",
+       "D": "D3",
+       "kw": [
+        "Hazardous",
+        "Devastating Wounds",
+        "Psychic",
+        "Sustained Hits 3"
+       ]
+      },
+      {
+       "name": "Pavane of Slaanesh - witchfire",
+       "range": "18\"",
+       "A": "D6",
+       "skill": "2+",
+       "S": "9",
+       "AP": "-1",
+       "D": "D3",
+       "kw": [
+        "Devastating Wounds",
+        "Psychic"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Snapping claws",
+       "range": "Melee",
+       "A": "4",
+       "skill": "2+",
+       "S": "6",
+       "AP": "-2",
+       "D": "3",
+       "kw": [
+        "Devastating Wounds",
+        "Extra Attacks"
+       ]
+      },
+      {
+       "name": "Soulpiercer",
+       "range": "Melee",
+       "A": "6",
+       "skill": "2+",
+       "S": "12",
+       "AP": "-3",
+       "D": "D6+2",
+       "kw": [
+        "Precision"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D6",
+      "Deep Strike"
+     ],
+     "factionAbilities": [],
+     "abilities": [
+      {
+       "name": "No Prey Can Evade",
+       "text": "You can re-roll Advance and Charge rolls made for this model.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Monarch of the Hunt",
+       "text": "At the start of the first battle round, select one enemy unit to be this model’s quarry. Each time this model makes a melee attack that targets its quarry, you can re-roll the Hit roll and you can re-roll the Wound roll. Each time this model’s quarry is destroyed, select one new enemy unit to be this model’s quarry.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 315
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 Shalaxi Helbane: lash of Slaanesh, Pavane of Slaanesh, snapping claws, Soulpiercer.",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "keeper_of_secrets",
+     "name": "Keeper of Secrets",
+     "role": "allies",
+     "faction": "Legions of Excess",
+     "keywords": [
+      "Chaos",
+      "Character",
+      "Daemon",
+      "Keeper of Secrets",
+      "Monster",
+      "Psyker",
+      "Slaanesh"
+     ],
+     "image": "ec_keeper_of_secrets",
+     "baseSize": "100mm",
+     "profile": {
+      "M": "14\"",
+      "T": "10",
+      "Sv": "5+",
+      "InSv": "4+",
+      "W": "18",
+      "OC": "5",
+      "Ld": "6+"
+     },
+     "damaged": {
+      "threshold": 6,
+      "text": "While it has 1-6 wounds left: -1 to hit rolls."
+     },
+     "ranged": [
+      {
+       "name": "Living whip",
+       "range": "12\"",
+       "A": "6",
+       "skill": "2+",
+       "S": "6",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Assault"
+       ]
+      },
+      {
+       "name": "Phantasmagoria - focused witchfire",
+       "range": "18\"",
+       "A": "9",
+       "skill": "2+",
+       "S": "6",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Devastating Wounds",
+        "Hazardous",
+        "Psychic"
+       ]
+      },
+      {
+       "name": "Phantasmagoria - witchfire",
+       "range": "18\"",
+       "A": "6",
+       "skill": "2+",
+       "S": "6",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Devastating Wounds",
+        "Psychic"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Ritual knife",
+       "range": "Melee",
+       "A": "3",
+       "skill": "2+",
+       "S": "6",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Extra Attacks"
+       ]
+      },
+      {
+       "name": "Snapping claws",
+       "range": "Melee",
+       "A": "4",
+       "skill": "2+",
+       "S": "6",
+       "AP": "-2",
+       "D": "3",
+       "kw": [
+        "Devastating Wounds",
+        "Extra Attacks"
+       ]
+      },
+      {
+       "name": "Witstealer sword",
+       "range": "Melee",
+       "A": "6",
+       "skill": "2+",
+       "S": "8",
+       "AP": "-2",
+       "D": "3",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D6",
+      "Deep Strike"
+     ],
+     "factionAbilities": [],
+     "abilities": [
+      {
+       "name": "Daemon Lord of Slaanesh (Aura)",
+       "text": "While a friendly LEGIONS OF EXCESS unit is within 6\" of this model, improve the Armour Penetration characteristic of melee weapons equipped by models in that unit by 1.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Mesmerising Form",
+       "text": "Each time an attack targets this model, subtract 1 from the Hit roll.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Shining Aegis",
+       "text": "The bearer has a Save characteristic of 3+.",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 265,
+       "ptsLater": 280
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [],
+     "composition": "1 Keeper of Secrets: Phantasmagoria, snapping claws, witstealer sword.",
+     "options": [
+      {
+       "id": "kit",
+       "type": "choice",
+       "label": "Additional equipment (one)",
+       "choices": [
+        {
+         "id": "none",
+         "label": "None",
+         "pts": 0
+        },
+        {
+         "id": "whip",
+         "label": "Living whip",
+         "pts": 0
+        },
+        {
+         "id": "knife",
+         "label": "Ritual knife",
+         "pts": 0
+        },
+        {
+         "id": "aegis",
+         "label": "Shining aegis",
+         "pts": 0
+        }
+       ]
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "daemonettes",
+     "name": "Daemonettes",
+     "role": "allies",
+     "faction": "Legions of Excess",
+     "keywords": [
+      "Battleline",
+      "Chaos",
+      "Daemon",
+      "Daemonettes",
+      "Infantry",
+      "Slaanesh",
+      "Summoned"
+     ],
+     "image": "ec_daemonettes",
+     "baseSize": "25mm",
+     "profile": {
+      "M": "9\"",
+      "T": "3",
+      "Sv": "7+",
+      "InSv": "5+",
+      "W": "1",
+      "OC": "1",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [],
+     "melee": [
+      {
+       "name": "Slashing claws",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Devastating Wounds"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Deep Strike",
+      "Fights First"
+     ],
+     "factionAbilities": [],
+     "abilities": [
+      {
+       "name": "Horrifying Beauty",
+       "text": "At the start of the Fight phase, each enemy unit within Engagement Range of one or more units from your army with this ability must take a Battle-shock test, subtracting 1 from the result if that enemy unit is Below Half-strength.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Daemonic Icon",
+       "text": "Models in the bearer’s unit have a Leadership characteristic of 6+.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Instrument of Chaos",
+       "text": "Add 1 to Charge rolls made for the bearer’s unit.",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 10,
+       "pts": 100
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 Alluress and 9 Daemonettes: slashing claws.",
+     "options": [
+      {
+       "id": "icon",
+       "type": "toggle",
+       "label": "Daemonic icon"
+      },
+      {
+       "id": "instrument",
+       "type": "toggle",
+       "label": "Instrument of Chaos"
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "fiends",
+     "name": "Fiends",
+     "role": "allies",
+     "faction": "Legions of Excess",
+     "keywords": [
+      "Beast",
+      "Chaos",
+      "Daemon",
+      "Fiends",
+      "Slaanesh",
+      "Summoned"
+     ],
+     "image": "ec_fiends",
+     "baseSize": "75x42mm",
+     "profile": {
+      "M": "12\"",
+      "T": "5",
+      "Sv": "7+",
+      "InSv": "5+",
+      "W": "4",
+      "OC": "2",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [],
+     "melee": [
+      {
+       "name": "Barbed tail and dissecting claws",
+       "range": "Melee",
+       "A": "5",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Devastating Wounds"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Deep Strike"
+     ],
+     "factionAbilities": [],
+     "abilities": [
+      {
+       "name": "Soporific Musk",
+       "text": "Each time an enemy unit (excluding MONSTERS and VEHICLES) within Engagement Range of one or more units from your army with this ability Falls Back, models in that enemy unit must take Desperate Escape tests. When doing so, if that enemy unit is also Battle-shocked, subtract 1 from each of those Desperate Escape tests.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 3,
+       "pts": 90
+      },
+      {
+       "models": 6,
+       "pts": 190
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 Blissbringer and 2 to 5 Fiends: barbed tail and dissecting claws.",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "seekers",
+     "name": "Seekers",
+     "role": "allies",
+     "faction": "Legions of Excess",
+     "keywords": [
+      "Chaos",
+      "Daemon",
+      "Mounted",
+      "Seekers",
+      "Slaanesh",
+      "Summoned"
+     ],
+     "image": "ec_seekers",
+     "baseSize": "60x35.5mm",
+     "profile": {
+      "M": "14\"",
+      "T": "4",
+      "Sv": "7+",
+      "InSv": "5+",
+      "W": "2",
+      "OC": "1",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [],
+     "melee": [
+      {
+       "name": "Lashing tongues",
+       "range": "Melee",
+       "A": "2",
+       "skill": "4+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Extra Attacks",
+        "Lethal Hits"
+       ]
+      },
+      {
+       "name": "Slashing claws",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Devastating Wounds"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Deep Strike",
+      "Scouts 9\""
+     ],
+     "factionAbilities": [],
+     "abilities": [
+      {
+       "name": "Unholy Speed",
+       "text": "You can re-roll Advance and Charge rolls made for this unit.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Daemonic Icon",
+       "text": "Models in the bearer’s unit have a Leadership characteristic of 6+.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Instrument of Chaos",
+       "text": "Add 1 to Charge rolls made for the bearer’s unit.",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 5,
+       "pts": 85
+      },
+      {
+       "models": 10,
+       "pts": 155
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 Heartseeker and 4 or 9 Seekers: lashing tongues, slashing claws.",
+     "options": [
+      {
+       "id": "icon",
+       "type": "toggle",
+       "label": "Daemonic icon"
+      },
+      {
+       "id": "instrument",
+       "type": "toggle",
+       "label": "Instrument of Chaos"
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    }
+   ],
+   "terms": [
+    "Thrill Seekers",
+    "Empowered",
+    "Pledge",
+    "Pact points",
+    "Favoured Champions",
+    "Legions of Excess"
    ]
   }
  }

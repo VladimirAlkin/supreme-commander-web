@@ -116,7 +116,17 @@
     "restrictions": null
    },
    "why": "Wahapedia 11e row is truncated after the legend text (no phase, no rules). Adeptus Mechanicus Faction Pack v1.2 (read 2026-10-11): Eradication Cohort Wargear Stratagem, 1CP, Shooting phase, same fields as shown here."
-  }
+  },
+  {
+    "f": "emperorsChildren",
+    "cat": "det-rule",
+    "det": "Court of the Phoenician",
+    "name": "Sensational Performance",
+    "text": "EMPEROR’S CHILDREN units from your army have the following ability: Sensational Performance: Each time this unit is selected to fight, if this unit made a Charge move this turn, it can use this ability. If it does, until the end of the phase: ■ This unit cannot target a unit it was within Engagement Range of at the start of the turn. ■ This unit cannot target a unit that was the target of another unit’s attack this phase. ■ Improve the Strength and Armour Penetration characteristics of this unit’s melee weapons by 1. MASTER OF THE PAGEANT Once per battle round, when you target a FULGRIM unit from your army with the Sinuous Breach or Prideful Superiority Stratagem, you can reduce the CP cost of that use of that Stratagem by 1CP.",
+    "why": "Court of the Phoenician has two detachment rules (Sensational Performance and Master of the Pageant); the app holds one rule per detachment, so both are joined, the second under its inline heading. Wording of each: Wahapedia Detachment_abilities (EC, v1.2) and BSData, which agree; Faction Pack 11e v1.2 prints the detachment."
+  },
+  {"f": "emperorsChildren", "cat": "army-rule", "name": "Thrill Seekers", "text": ["If your Army Faction is EMPEROR’S CHILDREN, this unit is eligible to shoot and declare a charge in a turn in which it Advanced or Fell Back, but when doing so:", "■ It cannot target a unit it was within Engagement Range of at the start of the turn.", "■ It cannot target a unit that was the target of another unit’s charge or attack this phase."], "why": "Wahapedia 11e drops the apostrophe (\"another units charge\"); BSData 11e and the Court of the Phoenician rule print \"another unit’s charge\". Typography only."},
+  {"f": "emperorsChildren", "cat": "det-rule", "det": "Carnival of Excess", "name": "Daemonic Empowerment", "text": "■ While an EMPEROR’S CHILDREN unit from your army is within 6\" of one or more friendly LEGIONS OF EXCESS units, it is Empowered. ■ While a LEGIONS OF EXCESS unit from your army is within 6\" of one or more friendly EMPEROR’S CHILDREN units, it is Empowered. While a unit from your army is Empowered, weapons equipped by models in that unit have the [Sustained Hits 1] ability. If such a weapon already has that ability, each time an attack is made with that weapon, an unmodified Hit roll of 5+ scores a Critical Hit. LEGIONS OF EXCESS You can include LEGIONS OF EXCESS units in your army, even though they do not have the EMPEROR’S CHILDREN Faction keyword. The combined points cost of such units you can include in your army is: ■ Incursion: Up to 500 pts ■ Strike Force: Up to 1000 pts ■ Onslaught: Up to 1500 pts No LEGIONS OF EXCESS models from your army can be your WARLORD.", "why": "Wahapedia 11e lower-cases the keyword ([sustained hits 1]); BSData 11e and the rest of the rules print [Sustained Hits 1]. Typography only."}
  ],
  "useBsdata": [
   {
