@@ -1727,12 +1727,35 @@
   function voidScream(x, y) {
     const wavy = (k, amp, seed) => { let d = ''; for (let i = 0; i <= 120; i++) { const a = i / 120 * Math.PI * 2, rr = 50 + amp * Math.sin(k * a + seed) + amp * .45 * Math.sin((k + 3) * a - seed * 1.7); d += (i ? 'L' : 'M') + (60 + rr * Math.cos(a)).toFixed(2) + ' ' + (60 + rr * Math.sin(a)).toFixed(2); } return d + 'Z'; };
     const fx = document.createElement('div'); fx.className = 'voidfx'; fx.style.setProperty('--x', x + 'px'); fx.style.setProperty('--y', y + 'px');
-    const rings = [[7, 4.5, .3, 0], [11, 3.5, 1.9, .28], [9, 5, 3.1, .56], [13, 3, 4.4, .84], [8, 4, 5.6, 1.15]];
-    fx.innerHTML = '<div class="voidpulse"></div>' + rings.map(([k, a, sd, delay], i) => `<svg class="vring" viewBox="0 0 120 120" style="--dl:${delay}s;--rot:${i % 2 ? -1 : 1}"><path d="${wavy(k, a, sd)}"/></svg>`).join('');
+    const rings = [[7, 4.5, .3, 0], [11, 3.5, 1.9, .28], [9, 5, 3.1, .56], [13, 3, 4.4, .84], [8, 4, 5.6, 1.15], [6, 6, 2.2, .42], [12, 5, 6.1, .7], [10, 4.5, 4.8, 1.0]];
+    fx.innerHTML = '<div class="hf-dark"></div><div class="voidpulse"></div>' + rings.map(([k, a, sd, delay], i) => `<svg class="vring" viewBox="0 0 120 120" style="--dl:${delay}s;--rot:${i % 2 ? -1 : 1}"><path d="${wavy(k, a, sd)}"/></svg>`).join('') + HF_EYES;
     document.body.appendChild(fx);
     // the cards tremble (not <main>: a transform there would move the fixed bars inside it)
     const cards = document.querySelectorAll('main .panel, main .pcard, main .ucard'); cards.forEach(c => c.classList.add('quake')); setTimeout(() => cards.forEach(c => c.classList.remove('quake')), 1000);
     setTimeout(() => fx.remove(), 3300);
+  }
+  /* Tracker feedback for Tyranids (Hyper-adaptation and Tunnel Markers bite, Synaptic Imperative glow).
+     Overlays are fixed, sit on the body and only animate transform and opacity; reduced motion skips them. */
+  const HF_EYES = '<div class="hf-eyes" aria-hidden="true"><svg viewBox="0 0 300 140"><defs><radialGradient id="hfEyeG" cx="50%" cy="50%" r="60%"><stop offset="0" stop-color="#ff6a4a"/><stop offset=".55" stop-color="#e0101a"/><stop offset="1" stop-color="#5a0006"/></radialGradient></defs>' +
+    '<g><path d="M14 76 Q66 26 140 60 Q74 122 14 76 Z" fill="url(#hfEyeG)"/><ellipse cx="82" cy="68" rx="6" ry="22" fill="#060000"/><path d="M4 16 L144 42" stroke="#030000" stroke-width="9" stroke-linecap="round"/></g>' +
+    '<g transform="translate(300 0) scale(-1 1)"><path d="M14 76 Q66 26 140 60 Q74 122 14 76 Z" fill="url(#hfEyeG)"/><ellipse cx="82" cy="68" rx="6" ry="22" fill="#060000"/><path d="M4 16 L144 42" stroke="#030000" stroke-width="9" stroke-linecap="round"/></g></svg></div>';
+  const HF_TEETH = '<svg viewBox="0 0 36 18"><path d="M3 4 L7 13 L11 5 L15 14 L19 5 L23 14 L27 5 L31 13 L33 4" fill="none" stroke="#1a0004" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round"/><path d="M3 4 L7 13 L11 5 L15 14 L19 5 L23 14 L27 5 L31 13 L33 4" fill="none" stroke="#ff3b4e" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/></svg>';
+  const hfReduce = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function hfFx(box, inner, ms) {
+    const fx = document.createElement('div'); fx.className = 'hf-fx'; fx.setAttribute('aria-hidden', 'true');
+    fx.style.left = box.left + 'px'; fx.style.top = box.top + 'px'; fx.style.width = box.width + 'px'; fx.style.height = box.height + 'px';
+    fx.innerHTML = inner; document.body.appendChild(fx); setTimeout(() => fx.remove(), ms);
+  }
+  // bite marks from several sides at once, on the button's edge
+  function hfBite(box) {
+    if (!box || !box.width || hfReduce()) return;
+    const marks = [[6, 10, -30, 0], [50, -2, 0, 60], [94, 12, 30, 20], [94, 86, 150, 90], [50, 102, 180, 40], [6, 88, -150, 110]];
+    hfFx(box, marks.map(([x, y, r, d]) => `<i class="hf-bite" style="left:${x}%;top:${y}%;--r:${r}deg;animation-delay:${d}ms">${HF_TEETH}</i>`).join(''), 1000);
+  }
+  // blue synapse glow around the button
+  function hfSynapse(box) {
+    if (!box || !box.width || hfReduce()) return;
+    hfFx(box, '<i class="hf-syn"></i><i class="hf-syn hf-syn2"></i>', 1000);
   }
   function overHTML(p) {
     if (!p.over) return '';
@@ -2758,7 +2781,7 @@
       }, () => `${name} discarded${cp ? ': +1 CP' : ''}.`);
     },
     // play
-    pc: el => { const r = cur(), d = +el.dataset.d, k = el.dataset.k; playChange(r, p => {
+    pc: el => { const r = cur(), d = +el.dataset.d, k = el.dataset.k; if (k === 'tunnels') hfBite(el.getBoundingClientRect()); playChange(r, p => {
       if (k === 'cp') { if (p.cp + d < 0) return false; p.cp += d; }
       if (k === 'round') { const n = Math.min(5, Math.max(1, p.round + d)); if (n === p.round) return false; p.round = n; if (d > 0) { p.active = []; } }
       if (k === 'vp0' || k === 'vp1') { const i = k === 'vp0' ? 0 : 1; if (p.vp[i] + d < 0) return false; p.vp[i] += d; }
@@ -2772,9 +2795,9 @@
       if (PL.android) { [0, 260, 560, 900, 1300].forEach(t => setTimeout(() => PL.haptic('reject'), t)); } else { try { navigator.vibrate && navigator.vibrate([90, 60, 140, 60, 200, 80, 260]); } catch (e) { } }
       setTimeout(() => { S.shadowFx = false; document.querySelectorAll('.voidbtn.scream').forEach(b => b.classList.remove('scream')); }, 2600);
     },
-    tyrHyper: el => { if (el.getAttribute('aria-disabled') === 'true') { toast('The Hyper-adaptation was picked at the start of round 1.'); PL.haptic('reject'); return; } const r = cur(); playChange(r, p => { p.hyper = p.hyper === el.dataset.id ? null : el.dataset.id; if (p.hyperExtra && p.hyperExtra.id === p.hyper) p.hyperExtra = null; }); },
-    tyrHyperX: el => { const r = cur(); playChange(r, p => { p.hyperExtra = p.hyperExtra && p.hyperExtra.id === el.dataset.id ? null : { id: el.dataset.id, round: p.round }; }); },
-    tyrImp: el => { const r = cur(); playChange(r, p => { p.imp = p.imp || {}; if (p.imp[p.round] === el.dataset.id) delete p.imp[p.round]; else p.imp[p.round] = el.dataset.id; }, null, 'confirm'); },
+    tyrHyper: el => { if (el.getAttribute('aria-disabled') === 'true') { toast('The Hyper-adaptation was picked at the start of round 1.'); PL.haptic('reject'); return; } hfBite(el.getBoundingClientRect()); const r = cur(); playChange(r, p => { p.hyper = p.hyper === el.dataset.id ? null : el.dataset.id; if (p.hyperExtra && p.hyperExtra.id === p.hyper) p.hyperExtra = null; }); },
+    tyrHyperX: el => { hfBite(el.getBoundingClientRect()); const r = cur(); playChange(r, p => { p.hyperExtra = p.hyperExtra && p.hyperExtra.id === el.dataset.id ? null : { id: el.dataset.id, round: p.round }; }); },
+    tyrImp: el => { hfSynapse(el.getBoundingClientRect()); const r = cur(); playChange(r, p => { p.imp = p.imp || {}; if (p.imp[p.round] === el.dataset.id) delete p.imp[p.round]; else p.imp[p.round] = el.dataset.id; }, null, 'confirm'); },
     tyrProtean: el => { const r = cur(); playChange(r, p => { p.protean = p.protean || {}; if (p.protean[el.dataset.id]) delete p.protean[el.dataset.id]; else p.protean[el.dataset.id] = p.round; }); },
     plPhase: el => { const r = cur(); playChange(r, p => { p.phase = el.dataset.id; }); },
     plTurn: el => { const r = cur(); playChange(r, p => { p.turn = el.dataset.id; }); },

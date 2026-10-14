@@ -638,8 +638,8 @@ html:not(.m) .seg.wide { max-width: 560px; }
 .voidfx { position: fixed; inset: 0; z-index: 95; pointer-events: none; overflow: hidden; }
 .vring { position: absolute; left: var(--x); top: var(--y); width: 120px; height: 120px; margin: -60px 0 0 -60px; overflow: visible; opacity: 0;
   animation: vRing 2.4s cubic-bezier(.2, .6, .35, 1) var(--dl) forwards; will-change: transform, opacity; }
-.vring path { fill: none; stroke: rgba(170, 100, 255, .9); stroke-width: 2.2; vector-effect: non-scaling-stroke; filter: drop-shadow(0 0 4px rgba(150, 70, 255, .9)); }
-@keyframes vRing { 0% { opacity: 0; transform: scale(.25) rotate(0deg); } 10% { opacity: 1; } 70% { opacity: .55; } 100% { opacity: 0; transform: scale(11) rotate(calc(var(--rot) * 28deg)); } }
+.vring path { fill: none; stroke: rgba(190, 95, 255, 1); stroke-width: 3.4; vector-effect: non-scaling-stroke; filter: drop-shadow(0 0 6px rgba(160, 60, 255, .95)) drop-shadow(0 0 14px rgba(120, 40, 220, .6)); }
+@keyframes vRing { 0% { opacity: 0; transform: scale(.25) rotate(0deg); } 10% { opacity: 1; } 70% { opacity: .6; } 100% { opacity: 0; transform: scale(15) rotate(calc(var(--rot) * 28deg)); } }
 .voidpulse { position: absolute; inset: 0; animation: voidEdge 3s ease-out forwards; }
 @keyframes voidEdge {
   0% { box-shadow: inset 0 0 0 0 rgba(10, 0, 22, 0), inset 0 0 0 0 rgba(160, 90, 255, 0); }
@@ -649,7 +649,21 @@ html:not(.m) .seg.wide { max-width: 560px; }
   100% { box-shadow: inset 0 0 200px 80px rgba(10, 0, 22, 0), inset 0 0 50px 10px rgba(160, 90, 255, 0); } }
 .quake { animation: quake .9s cubic-bezier(.36, .07, .19, .97) both; }
 @keyframes quake { 10%, 90% { transform: translate(-1px, 0); } 20%, 80% { transform: translate(2px, 1px); } 30%, 50%, 70% { transform: translate(-3px, -1px); } 40%, 60% { transform: translate(3px, 1px); } }
-@media (prefers-reduced-motion: reduce) { .kbl.flare::after, .voidfx { display: none; } }
+/* screen darkens, red eyes open in the centre (inside .voidfx) */
+.hf-dark { position: absolute; inset: 0; background: #000; opacity: 0; animation: hfDark 2.8s ease-out forwards; }
+@keyframes hfDark { 0% { opacity: 0; } 12% { opacity: .85; } 45% { opacity: .78; } 100% { opacity: 0; } }
+.hf-eyes { position: fixed; left: 50%; top: 46%; width: min(80vw, 460px); opacity: 0; transform: translate(-50%, -50%); filter: drop-shadow(0 0 16px rgba(255, 30, 30, .85)); animation: hfEyes 2.6s ease-out forwards; }
+.hf-eyes svg { width: 100%; height: auto; display: block; }
+@keyframes hfEyes { 0% { opacity: 0; transform: translate(-50%, -50%) scale(.3); } 12% { opacity: 1; transform: translate(-50%, -50%) scale(1.08); } 18% { transform: translate(-50%, -50%) scale(1); } 40% { opacity: .7; } 46% { opacity: 1; } 70% { opacity: 1; } 100% { opacity: 0; transform: translate(-50%, -50%) scale(1.06); } }
+/* Tracker feedback overlays (JS adds .hf-fx to the body; fixed, pointer-events none) */
+.hf-fx { position: fixed; z-index: 96; pointer-events: none; }
+.hf-bite { position: absolute; width: 36px; height: 18px; margin: -9px 0 0 -18px; opacity: 0; transform: rotate(var(--r)) scale(.3); animation: hfBite .6s cubic-bezier(.2, 1.5, .4, 1) forwards; }
+.hf-bite svg { width: 100%; height: 100%; display: block; filter: drop-shadow(0 0 3px rgba(200, 0, 20, .9)); }
+@keyframes hfBite { 0% { opacity: 0; transform: rotate(var(--r)) scale(.3); } 35% { opacity: 1; transform: rotate(var(--r)) scale(1.15); } 70% { opacity: 1; transform: rotate(var(--r)) scale(1); } 100% { opacity: 0; transform: rotate(var(--r)) scale(1); } }
+.hf-syn { position: absolute; left: -12px; top: -12px; right: -12px; bottom: -12px; border-radius: 16px; opacity: 0; border: 2px solid rgba(120, 220, 255, .9); box-shadow: 0 0 18px 4px rgba(80, 190, 255, .8), inset 0 0 14px rgba(120, 220, 255, .5); animation: hfSyn .9s ease-out forwards; }
+.hf-syn2 { animation-delay: .18s; }
+@keyframes hfSyn { 0% { opacity: 0; transform: scale(.94); } 30% { opacity: 1; transform: scale(1.03); } 100% { opacity: 0; transform: scale(1.14); } }
+@media (prefers-reduced-motion: reduce) { .kbl.flare::after, .voidfx, .hf-fx { display: none; } }
 
 /* ---- faction highlight tones: Death Guard green (contagion), World Eaters blood (+1 die) ---- */
 .kwfx.tone-green { border-color: rgba(168, 204, 74, .5); color: #b8d65a;
