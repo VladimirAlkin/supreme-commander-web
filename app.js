@@ -384,7 +384,7 @@
     if (S.homeTab === 'armies') {
       body = `<div class="section-title"><h2>Choose an army</h2></div>
       <div class="fgrid">${DATA.factions.slice().sort((x, y) => (y.enabled ? 1 : 0) - (x.enabled ? 1 : 0)).map(f => f.enabled
-        ? `<button class="fcard on${f.theme && f.theme.gloss ? ' gloss' : ''}" style="${facVars(f)}" data-act="openFaction" data-id="${f.id}"><span class="emb">${logoOf(f.id) ? `<img class="emb" src="${logoOf(f.id)}" alt="">` : f.emblemSvg}</span><span><span class="fname">${esc(f.name)}</span><br><span class="dim">${(n => n + (n === 1 ? ' roster' : ' rosters'))(rosters.filter(r => r.factionId === f.id).length)}</span></span></button>`
+        ? `<button class="fcard on" style="${facVars(f)}" data-act="openFaction" data-id="${f.id}"><span class="emb">${logoOf(f.id) ? `<img class="emb" src="${logoOf(f.id)}" alt="">` : f.emblemSvg}</span><span><span class="fname">${esc(f.name)}</span><br><span class="dim">${(n => n + (n === 1 ? ' roster' : ' rosters'))(rosters.filter(r => r.factionId === f.id).length)}</span></span></button>`
         : `<div class="fcard off" aria-disabled="true"><span class="fname">${esc(f.name)}</span><span class="soon">Coming soon</span></div>`).join('')}</div>`;
     } else if (S.homeTab === 'glossary') {
       const items = glossFiltered();

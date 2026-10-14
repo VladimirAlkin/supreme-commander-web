@@ -1378,13 +1378,7 @@ html:not(.m) .seg.wide { max-width: 560px; }
 @keyframes slThrob { 0%, 100% { transform: scale(1); } 40% { transform: scale(1.03); } }
 .pthr.burst .sl-vein, .pact-count.burst .sl-vein { animation: slVein 1.7s ease-in-out 2 forwards; }
 
-/* theme.gloss: army card border sweep, detachment rows sweep on hover and glow when selected */
-.fcard.gloss { overflow: hidden; }
-.fcard.gloss::before { content: ''; position: absolute; inset: 0; border-radius: inherit; padding: 1px; pointer-events: none;
-  background: linear-gradient(110deg, transparent 38%, rgba(255, 232, 200, .85) 50%, transparent 62%) 150% 0 / 260% 100% no-repeat;
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0); mask-composite: exclude;
-  animation: glossRing 7s ease-in-out infinite; }
-@keyframes glossRing { 0%, 55% { background-position: 150% 0; } 100% { background-position: -50% 0; } }
+/* theme.gloss: detachment rows sweep on hover and glow when selected */
 .choice.gloss { position: relative; overflow: hidden; isolation: isolate; }
 .choice.gloss > * { position: relative; z-index: 1; }
 .choice.gloss::after { content: ''; position: absolute; top: 0; bottom: 0; left: 0; width: 45%; z-index: 0; pointer-events: none; opacity: 0;
@@ -1394,7 +1388,7 @@ html:not(.m) .seg.wide { max-width: 560px; }
 @keyframes slHalo { 0%, 100% { opacity: .45; } 50% { opacity: 1; } }
 @media (prefers-reduced-motion: reduce) {
   .slfx, .slsmoke { display: none; }
-  .rpk-slaanesh .rpk-mark, .rpk-slaanesh .sl-vein, .pthr, .pact-count, .fcard.gloss::before, .choice.gloss::before, .choice.gloss::after { animation: none !important; }
-  .rpk-slaanesh.on .sl-vein { opacity: .5; } .fcard.gloss::before { display: none; }
+  .rpk-slaanesh .rpk-mark, .rpk-slaanesh .sl-vein, .pthr, .pact-count, .choice.gloss::before, .choice.gloss::after { animation: none !important; }
+  .rpk-slaanesh.on .sl-vein { opacity: .5; }
 }
 .pact-count > :not(svg) { position: relative; z-index: 1; }

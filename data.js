@@ -501,7 +501,7 @@ const DATA = {
     {
      "id": "excess",
      "label": "ICON OF EXCESS",
-     "tone": "arcane",
+     "tone": "gold",
      "title": "Icon of Excess: if the bearer’s unit destroyed an enemy unit this phase, it takes a Leadership test at the end of the Shooting or Fight phase; if passed, you gain 1CP.",
      "none": "No Icon of Excess in this roster",
      "wargear": {
