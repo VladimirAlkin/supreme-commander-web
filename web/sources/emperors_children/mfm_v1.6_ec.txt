@@ -1,0 +1,260 @@
+EMPEROR’S CHILDREN
+v1.6
+Source: https://mfm.warhammer-community.com/en/emperors-children (captured 2026-10-14, built-in browser, main.innerText)
+FACTIONS
+UNITS
+CHAOS LAND RAIDER
+YOUR 1ST TO 2ND UNITS COST
+1 model
+210 pts
+YOUR 3RD + UNIT COSTS
+1 model
+230 pts
+CHAOS RHINO
+YOUR 1ST TO 3RD UNITS COST
+1 model
+70 pts
+YOUR 4TH + UNIT COSTS
+1 model
+80 pts
+CHAOS SPAWN
+YOUR UNIT COSTS
+2 models
+70 pts
+CHAOS TERMINATORS
+YOUR UNIT COSTS
+5 models
+155 pts
+DAEMON PRINCE OF SLAANESH
+YOUR 1ST UNIT COSTS
+1 model
+165 pts
+YOUR 2ND + UNIT COSTS
+1 model
+180 pts
+DAEMON PRINCE OF SLAANESH WITH WINGS
+YOUR 1ST UNIT COSTS
+1 model
+205 pts
+YOUR 2ND + UNIT COSTS
+1 model
+225 pts
+DEFILER
+YOUR 1ST UNIT COSTS
+1 model
+300 pts
+YOUR 2ND + UNIT COSTS
+1 model
+350 pts
+WARGEAR OPTIONS
+per Heavy Reaper Autocannon
+15 pts
+per Hades Lascannon
+15 pts
+FLAWLESS BLADES
+YOUR UNIT COSTS
+3 models
+95 pts
+6 models
+190 pts
+FULGRIM
+YOUR UNIT COSTS
+1 model
+340 pts
+HELDRAKE
+YOUR UNIT COSTS
+1 model
+175 pts
+INFRACTORS
+YOUR UNIT COSTS
+5 models
+95 pts
+10 models
+175 pts
+LORD EXULTANT
+YOUR 1ST TO 2ND UNITS COST
+1 model
+95 pts
+YOUR 3RD + UNIT COSTS
+1 model
+105 pts
+LEADER
+INFRACTORS, TORMENTORS
+LORD KAKOPHONIST
+YOUR UNIT COSTS
+1 model
+70 pts
+LEADER
+CHAOS TERMINATORS, NOISE MARINES
+LUCIUS THE ETERNAL
+YOUR UNIT COSTS
+1 model
+130 pts
+LEADER
+FLAWLESS BLADES
+MAULERFIEND
+YOUR 1ST TO 2ND UNITS COST
+1 model
+120 pts
+YOUR 3RD + UNIT COSTS
+1 model
+130 pts
+NOISE MARINES
+YOUR 1ST TO 2ND UNITS COST
+6 models
+160 pts
+YOUR 3RD + UNIT COSTS
+6 models
+175 pts
+SORCERER
+YOUR UNIT COSTS
+1 model
+55 pts
+LEADER
+INFRACTORS, NOISE MARINES, TORMENTORS
+TORMENTORS
+YOUR UNIT COSTS
+5 models
+85 pts
+10 models
+170 pts
+LEGIONS OF EXCESS
+DAEMONETTES
+YOUR UNIT COSTS
+10 models
+100 pts
+FIENDS
+YOUR UNIT COSTS
+3 models
+90 pts
+6 models
+190 pts
+KEEPER OF SECRETS
+YOUR 1ST TO 2ND UNITS COST
+1 model
+265 pts
+YOUR 3RD + UNIT COSTS
+1 model
+280 pts
+SEEKERS
+YOUR UNIT COSTS
+5 models
+85 pts
+10 models
+155 pts
+SHALAXI HELBANE
+YOUR UNIT COSTS
+1 model
+315 pts
+DETACHMENTS
+CARNIVAL OF EXCESS
+3DP
+DISRUPTION
+PRIORITY ASSETS
+ENHANCEMENTS
+Dark Blessings
+10 pts
+Empyric Suffusion
+15 pts
+Possessed Blade
+35 pts
+Warp Walker
+35 pts
+COTERIE OF THE CONCEITED
+3DP
+PRIORITY ASSETS
+PURGE THE FOE
+ENHANCEMENTS
+Pledge of Dark Glory
+25 pts
+Pledge of Eternal Servitude
+25 pts
+Pledge of Mortal Pain
+15 pts
+Pledge of Unholy Fortune
+30 pts
+COURT OF THE PHOENICIAN
+2DP
+PURGE THE FOE
+ENHANCEMENTS
+Exalted Patron
+15 pts
+LEADER:FLAWLESS BLADES
+Soulstain Made Manifest
+15 pts
+Spiritsliver
+20 pts
+Tears of the Phoenix
+25 pts
+ELEGANT BRUTES
+1DP
+TAKE AND HOLD
+ENHANCEMENTS
+Cacophonic Accompaniment
+20 pts
+Frenzied Ferocity (Upgrade)
+15 pts
+FRENZIED HOST
+1DP
+RECONNAISSANCE
+ENHANCEMENTS
+Euphoric Crown
+20 pts
+Howling Plate
+20 pts
+MERCURIAL HOST
+2DP
+RECONNAISSANCE
+ENHANCEMENTS
+Intoxicating Musk
+20 pts
+Loathsome Dexterity
+10 pts
+Steeped in Suffering
+20 pts
+Tactical Perfection
+15 pts
+PEERLESS BLADESMEN
+2DP
+PRIORITY ASSETS
+ENHANCEMENTS
+Blinding Speed
+25 pts
+Distortion
+25 pts
+Faultless Opportunist
+15 pts
+Rise to the Challenge
+30 pts
+RAPID EVISCERATION
+2DP
+DISRUPTION
+ENHANCEMENTS
+Accomplished Tactician
+35 pts
+Heretek Adept
+35 pts
+Spearhead Striker
+20 pts
+Sublime Prescience
+25 pts
+SLAANESH’S CHOSEN
+1DP
+PURGE THE FOE
+ENHANCEMENTS
+Eager to Prove
+15 pts
+Proud and Vainglorious
+20 pts
+Repulsed by Weakness
+25 pts
+Slayer of Champions
+15 pts
+SPECTACLE OF SLAUGHTER
+1DP
+DISRUPTION
+ENHANCEMENTS
+Beguiling Grotesquerie (Upgrade)
+15 pts
+Eager Patrons (Upgrade)
+20 pts
