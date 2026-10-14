@@ -1510,7 +1510,7 @@
     if (reducedMotion() || !card) return;
     const R = (a, c) => a + Math.random() * (c - a);
     const fx = document.createElement('div'); fx.className = 'slfx'; fx.setAttribute('aria-hidden', 'true');
-    const puffs = Array.from({ length: 16 }, () => slPuff(`left:${R(-8, 98).toFixed(0)}%;top:${R(40, 112).toFixed(0)}%;--x:${R(-90, 90).toFixed(0)}px;--y:${R(-220, -70).toFixed(0)}px;--z:${R(1.4, 2.6).toFixed(2)};--rot:${R(-40, 40).toFixed(0)}deg;--dl:${R(0, 1.1).toFixed(2)}s`)).join('');
+    const puffs = Array.from({ length: 9 }, () => slPuff(`left:${R(-5, 95).toFixed(0)}%;top:${R(45, 110).toFixed(0)}%;--x:${R(-70, 70).toFixed(0)}px;--y:${R(-170, -60).toFixed(0)}px;--z:${R(1.2, 2.1).toFixed(2)};--rot:${R(-30, 30).toFixed(0)}deg;--dl:${R(0, .8).toFixed(2)}s`)).join('');
     const spots = [[4, 8], [70, 6], [84, 38], [2, 44], [76, 74], [10, 78], [40, 86], [44, 2]];
     const mouths = spots.map(([x, y], i) => `<svg class="sl-mouth" viewBox="0 0 100 60" style="left:${x}%;top:${y}%;--s:${R(.8, 1.5).toFixed(2)};--r:${R(-25, 25).toFixed(0)}deg;--dl:${R(.2, 1.1).toFixed(2)}s">${SL_MOUTHS[(i + Math.floor(R(0, 3))) % 3]}</svg>`).join('');
     fx.innerHTML = `<div class="sl-vig"></div>${puffs}${mouths}<div class="sl-sign"><div class="sl-sym" style="--sym:url('${IMG.ec_slaanesh}')"></div></div>`;
@@ -1523,8 +1523,8 @@
     const b = el.getBoundingClientRect(), R = (a, c) => a + Math.random() * (c - a);
     const fx = document.createElement('div'); fx.className = 'slsmoke'; fx.setAttribute('aria-hidden', 'true');
     fx.style.cssText = `left:${b.left}px;top:${b.top}px;width:${b.width}px;height:${b.height}px`;
-    fx.innerHTML = Array.from({ length: 8 }, () => slPuff(`left:${R(6, 94).toFixed(0)}%;top:${R(35, 100).toFixed(0)}%;--x:${R(-40, 40).toFixed(0)}px;--y:${R(-110, -50).toFixed(0)}px;--z:${R(1.1, 1.9).toFixed(2)};--rot:${R(-30, 30).toFixed(0)}deg;--dl:${R(0, .7).toFixed(2)}s`)).join('');
-    document.body.appendChild(fx); setTimeout(() => fx.remove(), 2800);
+    fx.innerHTML = Array.from({ length: 5 }, () => slPuff(`left:${R(10, 90).toFixed(0)}%;top:${R(40, 100).toFixed(0)}%;--x:${R(-30, 30).toFixed(0)}px;--y:${R(-80, -40).toFixed(0)}px;--z:${R(1, 1.6).toFixed(2)};--rot:${R(-25, 25).toFixed(0)}deg;--dl:${R(0, .5).toFixed(2)}s`)).join('');
+    document.body.appendChild(fx); setTimeout(() => fx.remove(), 2200);
   }
   const burst = el => { if (!el) return; el.classList.add('burst'); smokeFx(el); setTimeout(() => el.classList.remove('burst'), 3400); };
   /* which unit instances carry a play-time mark: this round's picks, or (Favoured Champions) the Warlord's unit until another is chosen */
