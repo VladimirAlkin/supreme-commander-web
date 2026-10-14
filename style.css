@@ -652,14 +652,22 @@ html:not(.m) .seg.wide { max-width: 560px; }
 /* screen darkens, red eyes open in the centre (inside .voidfx) */
 .hf-dark { position: absolute; inset: 0; background: #000; opacity: 0; animation: hfDark 2.8s ease-out forwards; }
 @keyframes hfDark { 0% { opacity: 0; } 12% { opacity: .85; } 45% { opacity: .78; } 100% { opacity: 0; } }
-.hf-eyes { position: fixed; left: 50%; top: 46%; width: min(80vw, 460px); opacity: 0; transform: translate(-50%, -50%); filter: drop-shadow(0 0 16px rgba(255, 30, 30, .85)); animation: hfEyes 2.6s ease-out forwards; }
-.hf-eyes svg { width: 100%; height: auto; display: block; }
+.hf-eyes { position: fixed; left: 50%; top: 46%; width: min(86vw, 520px); opacity: 0; transform: translate(-50%, -50%); filter: drop-shadow(0 0 18px rgba(255, 40, 10, .75)); animation: hfEyes 2.6s ease-out forwards; }
+.hf-eyes img { width: 100%; height: auto; display: block; }
 @keyframes hfEyes { 0% { opacity: 0; transform: translate(-50%, -50%) scale(.3); } 12% { opacity: 1; transform: translate(-50%, -50%) scale(1.08); } 18% { transform: translate(-50%, -50%) scale(1); } 40% { opacity: .7; } 46% { opacity: 1; } 70% { opacity: 1; } 100% { opacity: 0; transform: translate(-50%, -50%) scale(1.06); } }
 /* Tracker feedback overlays (JS adds .hf-fx to the body; fixed, pointer-events none) */
 .hf-fx { position: fixed; z-index: 96; pointer-events: none; }
-.hf-bite { position: absolute; width: 36px; height: 18px; margin: -9px 0 0 -18px; opacity: 0; transform: rotate(var(--r)) scale(.3); animation: hfBite .6s cubic-bezier(.2, 1.5, .4, 1) forwards; }
-.hf-bite svg { width: 100%; height: 100%; display: block; filter: drop-shadow(0 0 3px rgba(200, 0, 20, .9)); }
-@keyframes hfBite { 0% { opacity: 0; transform: rotate(var(--r)) scale(.3); } 35% { opacity: 1; transform: rotate(var(--r)) scale(1.15); } 70% { opacity: 1; transform: rotate(var(--r)) scale(1); } 100% { opacity: 0; transform: rotate(var(--r)) scale(1); } }
+/* a bitten-out chunk: the edge point of the button sits at 50% / 9.5% of the svg (x=30, y=4 of the -8 0 76 42 viewBox) */
+.hf-bite { position: absolute; width: var(--hf-bw); height: calc(var(--hf-bw) * 42 / 76); margin: calc(var(--hf-bw) * -4 / 76) 0 0 calc(var(--hf-bw) / -2); transform-origin: 50% 9.5%; opacity: 0;
+  transform: rotate(var(--r)) scale(1.35); animation: hfBite 1.6s cubic-bezier(.3, 1.4, .5, 1) forwards; }
+.hf-bite svg { width: 100%; height: 100%; display: block; overflow: visible; }
+.hfb-chunk { fill: var(--hf-bg); }
+.hfb-tear { fill: none; stroke: rgba(255, 214, 190, .38); stroke-width: 1.4px; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.hfb-rim { fill: none; stroke: rgba(0, 0, 0, .8); stroke-width: 2.6px; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.hfb-raw { fill: none; stroke: rgba(190, 25, 35, .95); stroke-width: 1.2px; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.hfb-holes ellipse { fill: #070102; stroke: rgba(110, 12, 18, .55); stroke-width: .8px; vector-effect: non-scaling-stroke; }
+.hfb-crack { fill: none; stroke: rgba(0, 0, 0, .7); stroke-width: 1.1px; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+@keyframes hfBite { 0% { opacity: 0; transform: rotate(var(--r)) scale(1.35); } 6% { opacity: 1; transform: rotate(var(--r)) scale(.92); } 12% { transform: rotate(var(--r)) scale(1); } 75% { opacity: 1; } 100% { opacity: 0; transform: rotate(var(--r)) scale(1); } }
 .hf-syn { position: absolute; left: -12px; top: -12px; right: -12px; bottom: -12px; border-radius: 16px; opacity: 0; border: 2px solid rgba(120, 220, 255, .9); box-shadow: 0 0 18px 4px rgba(80, 190, 255, .8), inset 0 0 14px rgba(120, 220, 255, .5); animation: hfSyn .9s ease-out forwards; }
 .hf-syn2 { animation-delay: .18s; }
 @keyframes hfSyn { 0% { opacity: 0; transform: scale(.94); } 30% { opacity: 1; transform: scale(1.03); } 100% { opacity: 0; transform: scale(1.14); } }

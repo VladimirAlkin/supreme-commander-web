@@ -1268,6 +1268,7 @@
     if (fd.armyRules.some(a => a.shadow)) {
       const has = r.units.some(u => (unitDef(r.factionId, u.datasheetId).factionAbilities || []).some(a => a.startsWith('Shadow in the Warp')));
       const ready = has && !p.shadow && p.phase === 'Command';
+      if (ready && !hfEyesPre) { hfEyesPre = new Image(); hfEyesPre.src = HF_EYES_SRC; } // eyes are ready when the scream starts
       out.push(panel('Shadow in the Warp', p.shadow ? `<span class="badge">Unleashed · round ${p.shadow}</span>` : '<span class="badge gold">Ready</span>',
         `<div class="dim">Once per battle, in either player's Command phase: every enemy unit takes a battle-shock test, at -1 within 6" of your SYNAPSE units.</div>
         <div class="voidwrap"><button class="voidbtn ${p.shadow ? 'used' : ''} ${S.shadowFx ? 'scream' : ''}" data-act="tyrShadow" ${p.shadow || !ready ? 'aria-disabled="true"' : ''}>${p.shadow ? `Unleashed in round ${p.shadow}` : 'Unleash the Shadow in the Warp'}</button></div>
@@ -1736,25 +1737,53 @@
   }
   /* Tracker feedback for Tyranids (Hyper-adaptation and Tunnel Markers bite, Synaptic Imperative glow).
      Overlays are fixed, sit on the body and only animate transform and opacity; reduced motion skips them. */
-  const HF_EYES = '<div class="hf-eyes" aria-hidden="true"><svg viewBox="0 0 300 140"><defs><radialGradient id="hfEyeG" cx="50%" cy="50%" r="60%"><stop offset="0" stop-color="#ff6a4a"/><stop offset=".55" stop-color="#e0101a"/><stop offset="1" stop-color="#5a0006"/></radialGradient></defs>' +
-    '<g><path d="M14 76 Q66 26 140 60 Q74 122 14 76 Z" fill="url(#hfEyeG)"/><ellipse cx="82" cy="68" rx="6" ry="22" fill="#060000"/><path d="M4 16 L144 42" stroke="#030000" stroke-width="9" stroke-linecap="round"/></g>' +
-    '<g transform="translate(300 0) scale(-1 1)"><path d="M14 76 Q66 26 140 60 Q74 122 14 76 Z" fill="url(#hfEyeG)"/><ellipse cx="82" cy="68" rx="6" ry="22" fill="#060000"/><path d="M4 16 L144 42" stroke="#030000" stroke-width="9" stroke-linecap="round"/></g></svg></div>';
-  const HF_TEETH = '<svg viewBox="0 0 36 18"><path d="M3 4 L7 13 L11 5 L15 14 L19 5 L23 14 L27 5 L31 13 L33 4" fill="none" stroke="#1a0004" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round"/><path d="M3 4 L7 13 L11 5 L15 14 L19 5 L23 14 L27 5 L31 13 L33 4" fill="none" stroke="#ff3b4e" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/></svg>';
+  const HF_EYES_SRC = 'img/tyr_shadow_eyes.webp';
+  let hfEyesPre = null;
+  const HF_EYES = `<div class="hf-eyes" aria-hidden="true"><img src="${HF_EYES_SRC}" alt="" decoding="async"></div>`;
   const hfReduce = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
-  function hfFx(box, inner, ms) {
+  function hfFx(box, inner, ms, vars) {
     const fx = document.createElement('div'); fx.className = 'hf-fx'; fx.setAttribute('aria-hidden', 'true');
     fx.style.left = box.left + 'px'; fx.style.top = box.top + 'px'; fx.style.width = box.width + 'px'; fx.style.height = box.height + 'px';
+    Object.entries(vars || {}).forEach(([k, v]) => fx.style.setProperty(k, v));
     fx.innerHTML = inner; document.body.appendChild(fx); setTimeout(() => fx.remove(), ms);
   }
-  // bite marks from several sides at once, on the button's edge
-  function hfBite(box) {
-    if (!box || !box.width || hfReduce()) return;
-    const marks = [[6, 10, -30, 0], [50, -2, 0, 60], [94, 12, 30, 20], [94, 86, 150, 90], [50, 102, 180, 40], [6, 88, -150, 110]];
-    hfFx(box, marks.map(([x, y, r, d]) => `<i class="hf-bite" style="left:${x}%;top:${y}%;--r:${r}deg;animation-delay:${d}ms">${HF_TEETH}</i>`).join(''), 1000);
+  // colour of whatever is behind the button: the bitten-out chunk is painted with it, so it reads as a hole
+  // panels are translucent, so the layers are blended down to the first opaque one
+  function hfBehind(el) {
+    const layers = [];
+    for (let n = el.parentElement; n; n = n.parentElement) {
+      const m = (getComputedStyle(n).backgroundColor || '').match(/[\d.]+/g); if (!m) continue;
+      const c = { r: +m[0], g: +m[1], b: +m[2], a: m[3] === undefined ? 1 : +m[3] }; if (c.a > 0) layers.push(c); if (c.a >= 1) break;
+    }
+    let out = { r: 18, g: 5, b: 6 };
+    if (layers.length && layers[layers.length - 1].a >= 1) out = layers.pop();
+    layers.reverse().forEach(c => { out = { r: c.r * c.a + out.r * (1 - c.a), g: c.g * c.a + out.g * (1 - c.a), b: c.b * c.a + out.b * (1 - c.a) }; });
+    return `rgb(${Math.round(out.r)}, ${Math.round(out.g)}, ${Math.round(out.b)})`;
+  }
+  /* One bite, drawn with the button edge at y=4 and the chunk going down into the button:
+     a scalloped hole (one arc per tooth, cusps between them), a torn dark rim, tooth punctures past the rim and hairline cracks. */
+  const HF_BITE = (() => {
+    const cx = 30, cy = 4, rx = 26, ry = 19, n = 7, pt = (t, k) => [cx + rx * k * Math.cos(t), cy + ry * k * Math.sin(t)], f = v => v.toFixed(1);
+    const P = Array.from({ length: n + 1 }, (_, i) => pt(Math.PI * i / n, 1));
+    let rim = `M${f(P[0][0])} ${f(P[0][1])}`;
+    for (let i = 0; i < n; i++) { const c = pt(Math.PI * (i + .5) / n, 1.2); rim += ` Q${f(c[0])} ${f(c[1])} ${f(P[i + 1][0])} ${f(P[i + 1][1])}`; }
+    const holes = Array.from({ length: n }, (_, i) => { const t = Math.PI * (i + .5) / n, [x, y] = pt(t, 1.42); return `<ellipse cx="${f(x)}" cy="${f(y)}" rx="1.5" ry="2.6" transform="rotate(${f(t * 180 / Math.PI - 90)} ${f(x)} ${f(y)})"/>`; }).join('');
+    const cracks = [1, 3, 5, 6].map((i, j) => { const t = Math.PI * i / n, [x0, y0] = pt(t, 1.02), [x1, y1] = pt(t + (j % 2 ? .06 : -.07), 1.3), [x2, y2] = pt(t + (j % 2 ? -.03 : .05), 1.6); return `M${f(x0)} ${f(y0)} L${f(x1)} ${f(y1)} L${f(x2)} ${f(y2)}`; }).join(' ');
+    const out = `translate(${cx} ${cy}) scale(1.07) translate(${-cx} ${-cy})`; // the torn edge just outside the hole
+    return `<svg viewBox="-8 0 76 42" overflow="visible"><path class="hfb-crack" d="${cracks}"/><g class="hfb-holes">${holes}</g><path class="hfb-tear" d="${rim}" transform="${out}"/>` +
+      `<path class="hfb-chunk" d="M-4 0 H64 V${cy} L${f(P[0][0])} ${f(P[0][1])} ${rim.replace(/^M[^ ]+ [^ ]+ /, '')} L-4 ${cy} Z"/><path class="hfb-rim" d="${rim}"/><path class="hfb-raw" d="${rim}"/></svg>`;
+  })();
+  // the button gets bitten from several sides at once
+  function hfBite(el) {
+    const box = el && el.getBoundingClientRect(); if (!box || !box.width || hfReduce()) return;
+    const wide = box.width / box.height > 1.6, w = wide ? box.height * .95 : Math.min(box.height * 1.15, box.width * .72);
+    // [x%, y%, rotation (inward direction), delay ms, size]; on a wide chip the side bite stays small so the label stays readable
+    const spots = wide ? [[24, 0, 0, 0, 1], [64, 100, 180, 90, 1], [100, 50, 90, 170, .72]] : [[42, 0, 0, 0, 1], [100, 62, 90, 90, 1], [36, 100, 180, 170, 1]];
+    hfFx(box, spots.map(([x, y, r, d, k]) => `<i class="hf-bite" style="left:${x}%;top:${y}%;--r:${r}deg;--hf-bw:${Math.round(w * k)}px;animation-delay:${d}ms">${HF_BITE}</i>`).join(''), 1700, { '--hf-bg': hfBehind(el) });
   }
   // blue synapse glow around the button
-  function hfSynapse(box) {
-    if (!box || !box.width || hfReduce()) return;
+  function hfSynapse(el) {
+    const box = el && el.getBoundingClientRect(); if (!box || !box.width || hfReduce()) return;
     hfFx(box, '<i class="hf-syn"></i><i class="hf-syn hf-syn2"></i>', 1000);
   }
   function overHTML(p) {
@@ -2781,7 +2810,7 @@
       }, () => `${name} discarded${cp ? ': +1 CP' : ''}.`);
     },
     // play
-    pc: el => { const r = cur(), d = +el.dataset.d, k = el.dataset.k; if (k === 'tunnels') hfBite(el.getBoundingClientRect()); playChange(r, p => {
+    pc: el => { const r = cur(), d = +el.dataset.d, k = el.dataset.k; if (k === 'tunnels') { const t = (S.play && S.play.tunnels) || 0, n = Math.max(0, Math.min(20, t + d)); if (n !== t) hfBite(el); } playChange(r, p => {
       if (k === 'cp') { if (p.cp + d < 0) return false; p.cp += d; }
       if (k === 'round') { const n = Math.min(5, Math.max(1, p.round + d)); if (n === p.round) return false; p.round = n; if (d > 0) { p.active = []; } }
       if (k === 'vp0' || k === 'vp1') { const i = k === 'vp0' ? 0 : 1; if (p.vp[i] + d < 0) return false; p.vp[i] += d; }
@@ -2795,9 +2824,9 @@
       if (PL.android) { [0, 260, 560, 900, 1300].forEach(t => setTimeout(() => PL.haptic('reject'), t)); } else { try { navigator.vibrate && navigator.vibrate([90, 60, 140, 60, 200, 80, 260]); } catch (e) { } }
       setTimeout(() => { S.shadowFx = false; document.querySelectorAll('.voidbtn.scream').forEach(b => b.classList.remove('scream')); }, 2600);
     },
-    tyrHyper: el => { if (el.getAttribute('aria-disabled') === 'true') { toast('The Hyper-adaptation was picked at the start of round 1.'); PL.haptic('reject'); return; } hfBite(el.getBoundingClientRect()); const r = cur(); playChange(r, p => { p.hyper = p.hyper === el.dataset.id ? null : el.dataset.id; if (p.hyperExtra && p.hyperExtra.id === p.hyper) p.hyperExtra = null; }); },
-    tyrHyperX: el => { hfBite(el.getBoundingClientRect()); const r = cur(); playChange(r, p => { p.hyperExtra = p.hyperExtra && p.hyperExtra.id === el.dataset.id ? null : { id: el.dataset.id, round: p.round }; }); },
-    tyrImp: el => { hfSynapse(el.getBoundingClientRect()); const r = cur(); playChange(r, p => { p.imp = p.imp || {}; if (p.imp[p.round] === el.dataset.id) delete p.imp[p.round]; else p.imp[p.round] = el.dataset.id; }, null, 'confirm'); },
+    tyrHyper: el => { if (el.getAttribute('aria-disabled') === 'true') { toast('The Hyper-adaptation was picked at the start of round 1.'); PL.haptic('reject'); return; } hfBite(el); const r = cur(); playChange(r, p => { p.hyper = p.hyper === el.dataset.id ? null : el.dataset.id; if (p.hyperExtra && p.hyperExtra.id === p.hyper) p.hyperExtra = null; }); },
+    tyrHyperX: el => { hfBite(el); const r = cur(); playChange(r, p => { p.hyperExtra = p.hyperExtra && p.hyperExtra.id === el.dataset.id ? null : { id: el.dataset.id, round: p.round }; }); },
+    tyrImp: el => { if (!S.play || ((S.play.imp || {})[S.play.round]) !== el.dataset.id) hfSynapse(el); const r = cur(); playChange(r, p => { p.imp = p.imp || {}; if (p.imp[p.round] === el.dataset.id) delete p.imp[p.round]; else p.imp[p.round] = el.dataset.id; }, null, 'confirm'); },
     tyrProtean: el => { const r = cur(); playChange(r, p => { p.protean = p.protean || {}; if (p.protean[el.dataset.id]) delete p.protean[el.dataset.id]; else p.protean[el.dataset.id] = p.round; }); },
     plPhase: el => { const r = cur(); playChange(r, p => { p.phase = el.dataset.id; }); },
     plTurn: el => { const r = cur(); playChange(r, p => { p.turn = el.dataset.id; }); },
