@@ -1,0 +1,53 @@
+SOURCE: https://mfm.warhammer-community.com/en/drukhari (built-in browser; innerText of <main>, condensed to one line per unit/detachment, values unchanged)
+CAPTURED: 2026-10-17, page header "DRUKHARI v1.6" (task said v1.5; site shows v1.6)
+NOTE: "Show Legends" off = active list; Legends block appended at the end (toggle on).
+
+UNITS
+ARCHON: 1 model 80 | LEADER: HAND OF THE ARCHON, INCUBI, KABALITE WARRIORS
+CRONOS: 1 model 55; 2 models 100
+DRAZHAR: 1 model 85 | LEADER: INCUBI
+HAEMONCULUS: 1 model 50 | LEADER: WRACKS
+HAND OF THE ARCHON: 10 models 115
+HELLIONS: 1st-2nd units 5 models 90, 10 models 180 | 3rd+ unit 5 models 100, 10 models 190
+INCUBI: 1st-2nd units 5 models 90, 10 models 180 | 3rd+ unit 5 models 100, 10 models 190
+KABALITE WARRIORS: 10 models 110
+LADY MALYS: 1 model 100 | LEADER: HAND OF THE ARCHON, INCUBI, KABALITE WARRIORS
+LELITH HESPERAX: 1 model 80 | LEADER: WYCHES
+MANDRAKES: 1st-2nd units 5 models 80, 10 models 160 | 3rd+ unit 5 models 90, 10 models 170
+RAIDER: 1st-3rd units 1 model 75 | 4th+ unit 85
+RAVAGER: 1 model 110 | wargear: per Dark Lance 5
+RAZORWING JETFIGHTER: 1 model 170
+REAVERS: 1st-2nd units 3 models 75, 6 models 150 | 3rd+ unit 3 models 85, 6 models 160
+SCOURGES WITH HEAVY WEAPONS: 1st-2nd units 5 models 110 | 3rd+ unit 5 models 120 | wargear: per Haywire blaster 5, per Dark Lance 5
+SCOURGES WITH SHARDCARBINES: 1st-2nd units 5 models 75 | 3rd+ unit 5 models 85
+SUCCUBUS: 1 model 50 | LEADER: WYCHES
+TALOS: 1st-2nd units 1 model 70, 2 models 140 | 3rd+ unit 1 model 80, 2 models 150 | wargear: per Twin haywire blaster 5
+VENOM: 1st-3rd units 1 model 65 | 4th+ unit 75
+VOIDRAVEN BOMBER: 1 model 245
+WRACKS: 5 models 55; 8 models 90; 10 models 110
+WYCHES: 10 models 90
+
+DETACHMENTS (DP | Force Dispositions | enhancements)
+COVENITE COTERIE: 2DP | TAKE AND HOLD | Master Artisan 20; Master Nemesine 5; Master Regenesist 25; Master Repugnomancer 15
+EXHIBITION OF SLAUGHTER: 1DP | RECONNAISSANCE | Hyperstimm Trafficker 20; Periapt of Torments 20
+KABALITE AGONYSTS: 1DP | DISRUPTION | Contempt for Rivals 20; Towering Arrogance 15
+KABALITE CARTEL: 2DP | DISRUPTION | Informant Network 30; Leechbite Plate 5; Towering Arrogance 20; Webway Awl 25
+REALSPACE RAIDERS: 2DP | PRIORITY ASSETS | Crucible of Malediction 15; Dark Vitality 20; Eye of Spite 15; Labyrinthine Cunning 25
+REAPER'S WAGER: 3DP | PRIORITY ASSETS, PURGE THE FOE | Archraider 15; Conductor of Torment 20; Reaper's Cowl 25; Webway Walker 15
+SKYSPLINTER ASSAULT: 2DP | RECONNAISSANCE | NIGHTMARE SHROUD 20; Phantasmal Smoke 15; Sadistic Fulcrum 15; Spiteful Raider 10
+SPECTACLE OF SPITE: 2DP | PURGE THE FOE | Chronoshard 15; Morghenna's Curse 20; Periapt of Torments 25; Pharmacophex 15
+TOOLS OF TORMENT: 1DP | TAKE AND HOLD | Elixir of the Corpse Courts (Upgrade) 15; Gnarlskin Experimentor 20
+
+LEGENDS
+BEASTMASTER: 7 models 135
+COURT OF THE ARCHON: 4 models 95
+GROTESQUES: 3 models 80; 6 models 170
+RAVEN STRIKE FIGHTER: 1 model 170
+REAPER: 1 model 115
+TANTALUS: 1 model 230
+URIEN RAKARTH: 1 model 80 | LEADER: WRACKS
+
+ALLIED UNITS (not on the Drukhari MFM page; taken from https://mfm.warhammer-community.com/en/aeldari, same capture)
+HARLEQUINS: DEATH JESTER 1 model 65 | SHADOWSEER 1 model 50, LEADER: TROUPE | SOLITAIRE 1 model 105 | TROUPE MASTER 1 model 75, LEADER: TROUPE | TROUPE 5 models 85; 6 models 100; 11 models 190; 12 models 205 | SKYWEAVERS 2 models 90; 4 models 180 | STARWEAVER 1st-3rd units 70, 4th+ unit 80 | VOIDWEAVER 1 model 115
+ANHRATHE (Corsairs): CORSAIR VOIDREAVERS 5 models 65; 10 models 110 | CORSAIR VOIDSCARRED 5 models 70; 10 models 140 | CORSAIR SKYREAVERS 5 models 75; 10 models 140 | KHARSETH 1 model 80, LEADER: CORSAIR REAVER BAND, CORSAIR VOIDREAVERS, CORSAIR VOIDSCARRED | PRINCE YRIEL 1 model 95, LEADER: same three | STARFANGS 1 model 70; 2 models 140
+ALLIED LEGENDS (Aeldari MFM Legends block): CORSAIR CLOUD DANCER BAND 3 models 125; 4 models 150; 6 models 210; 7 models 245 | CORSAIR REAVER BAND 5 models 125; 6 models 150; 10 models 250; 11 models 275
