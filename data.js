@@ -11,7 +11,8 @@ const DATA = {
    "adeptusMechanicus": "2026-10-11-mfm15-fp12",
    "emperorsChildren": "2026-10-14-mfm16-fp12",
    "drukhari": "2026-10-17-mfm16-fp12",
-   "necrons": "2026-10-17-mfm16-fp12"
+   "necrons": "2026-10-17-mfm16-fp12",
+   "tauEmpire": "2026-10-17-mfm16-fp12"
   },
   "stamp": "Data as of: MFM v1.5 (30/09/2026), Faction Packs World Eaters v1.3, Tyranids v1.2, Death Guard v1.3, Thousand Sons v1.3, Adepta Sororitas v1.2 and Imperial Agents v1.1. Rules text: official wording (Wahapedia export 28/09/2026 + 30/09/2026 Faction Pack changes). Checked 08.10.2026",
   "checked": "2026-10-05"
@@ -220,7 +221,13 @@ const DATA = {
    "Psychic Test": "Roll 2D6 (plus one more D6 if you Channel the Warp). If you Channelled and rolled any double or triple, the model's unit suffers D3 mortal wounds. The total must equal or beat the Ritual's Warp Charge.",
    "Acts of Faith": "Adepta Sororitas army rule. Each unit with it can replace one dice roll per phase (Advance, Battle-shock, Charge, Damage, Hit, Save or Wound) with a Miracle dice from your pool. See Army Rules.",
    "Miracle dice": "Gained at the start of each turn and each time one of your ADEPTA SORORITAS units is destroyed: roll a D6, that is its fixed value. Spent by Acts of Faith; it counts as an unmodified roll of that value.",
-   "Assigned Agents": "An army whose models all have IMPERIUM can include AGENTS OF THE IMPERIUM units without a detachment: Incursion 1 RETINUE, 1 CHARACTER, 1 REQUISITIONED; Strike Force 2/2/1; Onslaught 3/3/2."
+   "Assigned Agents": "An army whose models all have IMPERIUM can include AGENTS OF THE IMPERIUM units without a detachment: Incursion 1 RETINUE, 1 CHARACTER, 1 REQUISITIONED; Strike Force 2/2/1; Onslaught 3/3/2.",
+   "For the Greater Good": "T’au Empire army rule. At the start of your Shooting phase pick Observer units; each marks one visible enemy unit as Spotted. Other units with the rule are Guided against it. See Army Rules.",
+   "Observer": "A unit with For the Greater Good that you pick at the start of your Shooting phase. It marks one visible enemy unit as Spotted until the end of the phase. It cannot be a Fortification or Battle-shocked.",
+   "Spotted": "An enemy unit marked by an Observer. Each enemy unit can only be Spotted once per phase. Guided units get +1 BS against it.",
+   "Guided": "A unit with For the Greater Good (not an Observer) while it targets a Spotted unit: improve its attacks’ Ballistic Skill by 1, and the attacks have [IGNORES COVER] if the Observer has MARKERLIGHT.",
+   "Markerlight": "Keyword. An Observer with MARKERLIGHT gives the attacks of Guided units against its Spotted unit [IGNORES COVER]. A Marker drone gives its unit the keyword.",
+   "Prey-marked": "Auxiliary Cadre: a KROOT or VESPID STINGWINGS unit can select a visible enemy within 12\" to be prey-marked. A prey-marked unit has +3\" detection range."
   }
  },
  "factions": [
@@ -855,6 +862,78 @@ const DATA = {
      "none": "No Dark Vitality bearer in this roster",
      "enhancements": {
       "realspace_raiders_dark_vitality": "Always Empowered: its Pain abilities always take effect."
+     }
+    }
+   ]
+  },
+  {
+   "id": "tauEmpire",
+   "name": "T’au Empire",
+   "enabled": true,
+   "theme": {
+    "bg": "#15110b",
+    "bg2": "#3a2a10",
+    "bgDeep": "#0b0905",
+    "accent": "#d9a441",
+    "accent2": "#5fa8d3",
+    "panel": "rgba(11,9,5,.84)",
+    "card1": "#4a3512",
+    "card2": "#15110b",
+    "icon1": "#3a2a10",
+    "icon2": "#0b0905",
+    "iconRim": "#d9a441",
+    "gloss": true
+   },
+   "emblemSvg": "<svg viewBox=\"0 0 64 64\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\"><circle cx=\"32\" cy=\"32\" r=\"30\" fill=\"#0b0905\"/><circle cx=\"32\" cy=\"32\" r=\"27\" fill=\"none\" stroke=\"#d9a441\" stroke-width=\"3\"/><circle cx=\"32\" cy=\"22\" r=\"9\" fill=\"none\" stroke=\"#f1e6c8\" stroke-width=\"3.5\"/><path d=\"M32 31v21M23 52h18\" stroke=\"#f1e6c8\" stroke-width=\"3.5\" stroke-linecap=\"round\" fill=\"none\"/></svg>",
+   "logo": "tau_logo",
+   "rosterIcon": "tau_roster",
+   "abilityTips": {
+    "For the Greater Good": "At the start of your Shooting phase pick Observer units; each marks one visible enemy unit as Spotted. Other units with this rule are Guided against it: +1 BS, and Ignores Cover from a Markerlight Observer. See Army Rules."
+   },
+   "highlights": [
+    {
+     "id": "tau_proto",
+     "label": "PROTOTYPE*",
+     "tone": "gold",
+     "noFilter": true,
+     "title": "Experimental Prototype Cadre: at Declare Battle Formations pick one of this model’s matching weapons; its attacks get the boost.",
+     "enhancements": {
+      "plasma_accelerator_rifle": "Plasma rifle weapon: +2 S, +1 A, AP and D.",
+      "supernova_launcher": "Airbursting fragmentation projector: +3 S, +1 AP and D.",
+      "thermoneutronic_projector": "T’au flamer: +2 S, +1 AP and D."
+     },
+     "enhLabels": {
+      "plasma_accelerator_rifle": "Prototype: Plasma rifle*",
+      "supernova_launcher": "Prototype: Fragmentation projector*",
+      "thermoneutronic_projector": "Prototype: T’au flamer*"
+     }
+    },
+    {
+     "id": "tau_upgrade",
+     "label": "UPGRADE*",
+     "tone": "arcane",
+     "noFilter": true,
+     "title": "Advanced Acquisition Cadre Upgrade: changes the unit’s detection range.",
+     "enhancements": {
+      "negation_emitters": "This unit has -3\" detection range.",
+      "unmasking_suite": "When this unit shoots, one enemy unit within 24\" has +9\" detection range until this unit has shot."
+     },
+     "enhLabels": {
+      "negation_emitters": "Upgrade: Negation Emitters*",
+      "unmasking_suite": "Upgrade: Unmasking Suite*"
+     }
+    },
+    {
+     "id": "tau_system",
+     "label": "PROTOTYPE SYSTEM*",
+     "tone": "blue",
+     "noFilter": true,
+     "title": "Prototype Weapon System: each time the bearer is selected to shoot, pick LETHAL HITS or SUSTAINED HITS 1 for its ranged weapons.",
+     "enhancements": {
+      "prototype_weapon_system": "Pick [LETHAL HITS] or [SUSTAINED HITS 1] each time the bearer shoots."
+     },
+     "enhLabels": {
+      "prototype_weapon_system": "Prototype system: Lethal/Sustained Hits*"
      }
     }
    ]
@@ -73936,6 +74015,8136 @@ const DATA = {
     "Unravelling",
     "Pinned",
     "Necrodermal Bindings?"
+   ]
+  },
+  "tauEmpire": {
+   "armyFaction": "T’au Empire",
+   "alliedFactions": [],
+   "armyRules": [
+    {
+     "id": "for_the_greater_good",
+     "name": "For the Greater Good",
+     "text": [
+      "If your Army Faction is T’AU EMPIRE, at the start of your Shooting phase you can select units from your army with this ability to become Observer units.",
+      "During your Shooting phase, for each Observer unit from your army that has not been selected to shoot this phase and is eligible to shoot (excluding Fortification and Battle-shocked units) select one enemy unit that is visible to be marked as their Spotted unit until the end of the phase. Each enemy unit can only be marked as a Spotted unit once per phase.",
+      "Units from your army with the For the Greater Good ability (excluding Observer units) are Guided units while targeting one or more Spotted units.",
+      "Until the end of the phase, each time a model from your army in a Guided unit makes an attack that targets a Spotted unit, improve the Ballistic Skill characteristic of that attack by 1 and, if the Spotted unit was marked by an Observer unit that has the Markerlight keyword, that attack has the [IGNORES COVER] ability."
+     ],
+     "markTracker": {
+      "title": "For the Greater Good",
+      "phase": "Shooting",
+      "ability": "For the Greater Good",
+      "markName": "Observer",
+      "targetName": "Spotted",
+      "subKeyword": "Markerlight",
+      "note": "Start of your Shooting phase: pick Observers. Each marks one visible enemy unit as Spotted until the end of the phase. Other units with the rule are Guided against it: +1 BS, and Ignores Cover when the Observer has MARKERLIGHT.",
+      "foot": "Each enemy unit can be Spotted once per phase. Fortifications and Battle-shocked units cannot be Observers. A Marker drone gives its unit MARKERLIGHT."
+     }
+    }
+   ],
+   "detachments": [
+    {
+     "id": "advanced_acquisition_cadre",
+     "name": "Advanced Acquisition Cadre",
+     "dp": 1,
+     "dispositions": [
+      "Reconnaissance"
+     ],
+     "tags": [],
+     "summary": "Pathfinder Teams and Stealth Battlesuits shoot without losing their hidden status; Negation Emitters and Unmasking Suite sharpen the ambush.",
+     "rule": {
+      "name": "Expert Fieldcraft",
+      "text": "In your Shooting phase, when a friendly PATHFINDER TEAM/STEALTH BATTLESUITS unit is selected to shoot, those ranged attacks do not prevent your unit from being hidden."
+     },
+     "buffs": [],
+     "enhancements": [
+      {
+       "id": "negation_emitters",
+       "name": "Negation Emitters",
+       "pts": 15,
+       "upgrade": true,
+       "text": "STEALTH BATTLESUITS unit only. This unit has -3\" detection range.",
+       "eligible": {
+        "unitIds": [
+         "stealth_battlesuits"
+        ]
+       }
+      },
+      {
+       "id": "unmasking_suite",
+       "name": "Unmasking Suite",
+       "pts": 15,
+       "upgrade": true,
+       "text": "GHOSTKEEL BATTLESUIT/PATHFINDER TEAM/STEALTH BATTLESUITS unit only. When this unit is selected to shoot, you can select one enemy unit within 24\" of this unit. That enemy unit has +9\" detection range until this unit has shot.",
+       "eligible": {
+        "unitIds": [
+         "ghostkeel_battlesuit",
+         "pathfinder_team",
+         "stealth_battlesuits"
+        ]
+       }
+      }
+     ],
+     "stratagems": [
+      {
+       "id": "marker_beacon",
+       "name": "Marker Beacon",
+       "cp": 1,
+       "type": "Advanced Acquisition Cadre",
+       "phases": [
+        "Movement"
+       ],
+       "when": "End of your Movement phase.",
+       "target": "One friendly PATHFINDER TEAM/STEALTH BATTLESUITS unit.",
+       "effect": "Select one objective your unit is controlling. That objective is secured."
+      },
+      {
+       "id": "microdrone_support",
+       "name": "Microdrone Support",
+       "cp": 1,
+       "type": "Advanced Acquisition Cadre",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Your Shooting phase, when a friendly PATHFINDER TEAM/ STEALTH BATTLESUITS unit starts an action.",
+       "target": "That PATHFINDER TEAM/STEALTH BATTLESUITS unit.",
+       "effect": "That action does not prevent your unit from being eligible to shoot."
+      },
+      {
+       "id": "autoreactive_camouflage",
+       "name": "Autoreactive Camouflage",
+       "cp": 1,
+       "type": "Advanced Acquisition Cadre",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Your opponent’s Shooting phase, when an enemy unit targets a friendly PATHFINDER TEAM/ STEALTH BATTLESUITS unit, if that friendly unit is hidden.",
+       "target": "That PATHFINDER TEAM/STEALTH BATTLESUITS unit.",
+       "effect": "Your unit has +1 Sv."
+      }
+     ],
+     "btnFx": "calm"
+    },
+    {
+     "id": "auxiliary_cadre",
+     "name": "Auxiliary Cadre",
+     "dp": 1,
+     "dispositions": [
+      "Disruption"
+     ],
+     "tags": [
+      "AUXILIARY"
+     ],
+     "summary": "Kroot and Vespid prey-mark enemies for +3\" detection range, while Ghostkeel and Stealth Battlesuits project stealth over nearby auxiliaries.",
+     "rule": {
+      "name": "Integrated Command Structure",
+      "text": "Friendly KROOT/VESPID STINGWINGS units have the following ability: Harnessed Alien Instincts: In your Shooting phase, this unit can select one visible enemy unit within 12\". That enemy unit is prey-marked: ■ While a unit is prey-marked, that unit has +3\" detection range Friendly GHOSTKEEL BATTLESUIT/STEALTH BATTLESUITS units have the following ability: Localised Stealth Projectors (Aura): When a friendly KROOT/VESPID STINGWINGS unit within 6\" of this unit has shot, those attacks do not prevent that unit from being hidden. This detachment has the AUXILIARIES tag and cannot be taken with another AUXILIARIES detachment."
+     },
+     "buffs": [],
+     "enhancements": [
+      {
+       "id": "student_of_kauyon",
+       "name": "Student of Kauyon",
+       "pts": 20,
+       "upgrade": false,
+       "text": "KROOT SHAPER model only. In the Declare Battle Formations step, you can select up to three friendly KROOT CARNIVORES/FARSTALKERS units. Those units have Deep Strike.",
+       "eligible": {
+        "keywordsAll": [
+         "Shaper"
+        ]
+       }
+      },
+      {
+       "id": "admired_leader",
+       "name": "Admired Leader",
+       "pts": 20,
+       "upgrade": false,
+       "text": "T’AU EMPIRE model only (excluding KROOT models). In your Command phase, you can select one KROOT/VESPID STINGWINGS unit within 12\" of this model. If you do, that unit has +1 Ld and OC until the start of your next Command phase.",
+       "eligible": {
+        "factionsAll": [
+         "T’au Empire"
+        ],
+        "keywordsNone": [
+         "Kroot"
+        ]
+       }
+      }
+     ],
+     "stratagems": [
+      {
+       "id": "guided_by_unity",
+       "name": "Guided by Unity",
+       "cp": 1,
+       "type": "Auxiliary Cadre",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Your Shooting phase, when a friendly T’AU EMPIRE unit (excluding KROOT/VESPID STINGWINGS) is selected to shoot.",
+       "target": "That T’AU EMPIRE unit.",
+       "effect": "Until the end of the phase, ranged attacks made by your unit that target an enemy unit within 9\" of a friendly KROOT/VESPID STINGWINGS unit have the [LETHAL HITS] ability."
+      },
+      {
+       "id": "alien_expertise",
+       "name": "Alien Expertise",
+       "cp": 1,
+       "type": "Auxiliary Cadre",
+       "phases": [
+        "Movement"
+       ],
+       "when": "Your Movement phase, when a friendly KROOT/VESPID STINGWINGS unit is selected to Advance.",
+       "target": "That KROOT/VESPID STINGWINGS unit.",
+       "effect": "Until the end of the turn, that unit is eligible to declare a charge in a turn in which it Advanced."
+      },
+      {
+       "id": "experimental_modifications",
+       "name": "Experimental Modifications",
+       "cp": 1,
+       "type": "Auxiliary Cadre",
+       "phases": [
+        "Shooting",
+        "Fight"
+       ],
+       "when": "Your Shooting phase or the Fight phase, when a friendly KROOT/VESPID STINGWINGS unit is selected to shoot or fight.",
+       "target": "That KROOT/VESPID STINGWINGS unit.",
+       "effect": "Until the end of the phase, add 1 to the Armour Penetration characteristic of attacks made by models in your unit."
+      }
+     ],
+     "btnFx": "calm"
+    },
+    {
+     "id": "experimental_prototype_cadre",
+     "name": "Experimental Prototype Cadre",
+     "dp": 1,
+     "dispositions": [
+      "Priority Assets"
+     ],
+     "tags": [
+      "BATTLESUIT"
+     ],
+     "summary": "Battlesuit Characters gain +6\" Range on ranged attacks and field prototype weapons.",
+     "rule": {
+      "name": "Superior Craftsmanship",
+      "text": "Friendly BATTLESUIT CHARACTER units’ ranged attacks have +6\" R. This detachment has the BATTLESUIT tag and cannot be taken with another BATTLESUIT detachment."
+     },
+     "buffs": [],
+     "enhancements": [
+      {
+       "id": "thermoneutronic_projector",
+       "name": "Thermoneutronic Projector",
+       "pts": 15,
+       "upgrade": false,
+       "text": "BATTLESUIT model only. In the Declare Battle Formations step, select one of this model’s T’au Flamer weapons. That weapon’s attacks have: ■ +2 S ■ +1 AP and D.",
+       "eligible": {
+        "keywordsAll": [
+         "Battlesuit"
+        ]
+       }
+      },
+      {
+       "id": "plasma_accelerator_rifle",
+       "name": "Plasma Accelerator Rifle",
+       "pts": 20,
+       "upgrade": false,
+       "text": "BATTLESUIT model only. In the Declare Battle Formations step, select one of this model’s Plasma Rifle weapons. That weapon’s attacks have: ■ +2 S ■ +1 A, AP and D.",
+       "eligible": {
+        "keywordsAll": [
+         "Battlesuit"
+        ]
+       }
+      },
+      {
+       "id": "supernova_launcher",
+       "name": "Supernova Launcher",
+       "pts": 15,
+       "upgrade": false,
+       "text": "BATTLESUIT model only. In the Declare Battle Formations step, select one of this model’s Airbursting Fragmentation Projector weapons. That weapon’s attacks have: ■ +3 S ■ +1 AP and D.",
+       "eligible": {
+        "keywordsAll": [
+         "Battlesuit"
+        ]
+       }
+      }
+     ],
+     "stratagems": [
+      {
+       "id": "experimental_ammunition",
+       "name": "Experimental Ammunition",
+       "cp": 1,
+       "type": "Experimental Prototype Cadre",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Your Shooting phase, when a friendly BATTLESUIT CHARACTER unit is selected to shoot.",
+       "target": "That BATTLESUIT CHARACTER unit.",
+       "effect": "Your unit’s ranged attacks have: ■ +1 S. ■ OR: +1 S, AP and [HAZARDOUS]."
+      }
+     ],
+     "btnFx": "calm"
+    },
+    {
+     "id": "kauyon",
+     "name": "Kauyon",
+     "dp": 2,
+     "dispositions": [
+      "Reconnaissance"
+     ],
+     "tags": [],
+     "summary": "The Patient Hunter: from battle round 3, all T’au ranged weapons gain Sustained Hits 1 and Guided units ignore hit and BS modifiers against Spotted targets.",
+     "rule": {
+      "name": "Patient Hunter",
+      "text": "During the third, fourth and fifth battle rounds, ranged weapons equipped by T’AU EMPIRE models from your army have the [SUSTAINED HITS 1] ability. During the third, fourth and fifth battle rounds, while a unit is a Guided unit (see For the Greater Good), each time a ranged attack is made by a model in that unit that targets a Spotted unit, you can ignore any or all modifiers to that attack’s Ballistic skill characteristics and/or all modifiers to the Hit roll."
+     },
+     "buffs": [],
+     "enhancements": [
+      {
+       "id": "exemplar_of_the_kauyon",
+       "name": "Exemplar of the Kauyon",
+       "pts": 20,
+       "upgrade": false,
+       "text": "T’AU EMPIRE model only (excluding KROOT SHAPER models). While the bearer is leading a unit, the Patient Hunter Detachment rule applies to that unit from the second battle round onwards instead of from the third.",
+       "eligible": {
+        "factionsAll": [
+         "T’au Empire"
+        ],
+        "keywordsNone": [
+         "Shaper"
+        ]
+       }
+      },
+      {
+       "id": "precision_of_the_patient_hunter",
+       "name": "Precision of the Patient Hunter",
+       "pts": 15,
+       "upgrade": false,
+       "text": "T’AU EMPIRE model only. Each time the bearer makes a ranged attack, add 1 to the Hit roll. From the third battle round onwards, add 1 to the Wound roll as well.",
+       "eligible": {
+        "factionsAll": [
+         "T’au Empire"
+        ]
+       }
+      },
+      {
+       "id": "solid_image_projection_unit",
+       "name": "Solid-image Projection Unit",
+       "pts": 20,
+       "upgrade": false,
+       "text": "T’AU EMPIRE model only. After both players have deployed their armies, select up to three T’AU EMPIRE units from your army and redeploy them. When doing so, you can set those units up in Strategic Reserves if you wish, regardless of how many units are already in Strategic Reserves.",
+       "eligible": {
+        "factionsAll": [
+         "T’au Empire"
+        ]
+       }
+      },
+      {
+       "id": "through_unity_devastation",
+       "name": "Through Unity, Devastation",
+       "pts": 30,
+       "upgrade": false,
+       "text": "T’AU EMPIRE model only (excluding KROOT SHAPER models). While the bearer is leading a unit, each time that unit is an Observer unit, until the end of the phase, ranged weapons equipped by models in a Guided unit have the [LETHAL HITS] ability while targeting their Spotted unit.",
+       "eligible": {
+        "factionsAll": [
+         "T’au Empire"
+        ],
+        "keywordsNone": [
+         "Shaper"
+        ]
+       }
+      }
+     ],
+     "stratagems": [
+      {
+       "id": "point_blank_ambush",
+       "name": "Point-blank Ambush",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Your Shooting phase.",
+       "target": "One T’AU EMPIRE unit from your army that has not been selected to shoot this phase.",
+       "effect": "Until the end of the phase, each time a model in your unit makes a ranged attack that targets an enemy unit within 9\", improve the Armour Penetration characteristic of that attack by 1.",
+       "restrictions": "You cannot use this Stratagem during the first or second battle rounds."
+      },
+      {
+       "id": "coordinate_to_engage",
+       "name": "Coordinate to Engage",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Your Shooting phase.",
+       "target": "One T’AU EMPIRE unit from your army that has just been selected as an Observer unit (see For the Greater Good).",
+       "effect": "Until the end of the phase, each time a model in your unit makes an attack that targets their Spotted unit, improve the Ballistic Skill characteristic of that attack by 1 and, if your unit has the Markerlight keyword, that attack has the [IGNORES COVER] ability."
+      },
+      {
+       "id": "wall_of_mirrors",
+       "name": "Wall of Mirrors",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Fight"
+       ],
+       "when": "End of your opponent’s Fight phase.",
+       "target": "One Stealth, GHOSTKEEL or COMMANDER SHADOWSUN unit from your army.",
+       "effect": "Remove your unit from the battlefield and place it into Strategic Reserves.",
+       "restrictions": "You cannot target a unit that is within Engagement Range of one or more enemy units."
+      },
+      {
+       "id": "a_tempting_trap",
+       "name": "A Tempting Trap",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Your Shooting phase.",
+       "target": "One T’AU EMPIRE unit from your army that has not been selected to shoot this phase. The first time you use this Stratagem, you must also select one objective marker that is not in your opponent’s deployment zone; until the end of the battle, this becomes your Trap objective marker.",
+       "effect": "Until the end of the phase, each time a model in your unit makes a ranged attack that targets an enemy unit within range of your Trap objective marker, add 1 to the Wound roll.",
+       "restrictions": "You cannot use this Stratagem during the first or second battle rounds."
+      },
+      {
+       "id": "combat_embarkation",
+       "name": "Combat Embarkation",
+       "cp": 1,
+       "type": "Wargear",
+       "phases": [
+        "Charge"
+       ],
+       "when": "Your opponent’s Charge phase, just after an enemy unit has declared a charge.",
+       "target": "One T’AU EMPIRE INFANTRY unit from your army that was selected as one of the targets of that charge, and one friendly Transport.",
+       "effect": "Your unit can embark within that TRANSPORT. If it does, your opponent can select new targets for that charge.",
+       "restrictions": "Every model in your T’AU EMPIRE INFANTRY unit must be within 3\" of that TRANSPORT and there must be sufficient transport capacity to embark the entire unit."
+      },
+      {
+       "id": "photon_grenades",
+       "name": "Photon Grenades",
+       "cp": 1,
+       "type": "Wargear",
+       "phases": [
+        "Charge"
+       ],
+       "when": "Your opponent's charge phase, just after an enemy unit has selected its charge target.",
+       "target": "One T’AU EMPIRE GRENADES unit from your army that was selected as one of the targets of that charge.",
+       "effect": "That enemy unit must immediately take a Battle-shock test, and until the end of the phase, subtract 2 from Charge rolls made for that enemy unit. RESTRICTION: You cannot target a unit that is within Engagement Range of one or more enemy units."
+      }
+     ],
+     "reminder": {
+      "title": "Patient Hunter",
+      "phase": "Shooting",
+      "turn": "mine",
+      "from": 3,
+      "to": 5,
+      "fx": "sonar",
+      "fromByEnh": {
+       "exemplar_of_the_kauyon": 2
+      },
+      "text": "Rounds 3–5: ranged weapons of T’AU EMPIRE models have [SUSTAINED HITS 1]. A Guided unit may ignore any or all BS modifiers and Hit roll modifiers against its Spotted unit.",
+      "extraByEnh": {
+       "exemplar_of_the_kauyon": "Exemplar of the Kauyon: the bearer’s unit gets Patient Hunter from round 2."
+      }
+     },
+     "btnFx": "kauyon"
+    },
+    {
+     "id": "kroot_hunting_pack",
+     "name": "Kroot Hunting Pack",
+     "dp": 2,
+     "dispositions": [
+      "Take and Hold"
+     ],
+     "tags": [
+      "AUXILIARY"
+     ],
+     "summary": "Kroot gain +1 to Hit against damaged prey (+1 to Wound against Below Half-strength), plus invulnerable saves; Kroot Carnivores become Battleline.",
+     "rule": {
+      "name": "Hunter’s Instincts",
+      "text": "Each time a KROOT model from your army makes an attack, add 1 to the Hit roll if the target of that attack is below its Starting Strength, and add 1 to the Wound roll as well if the target of that attack is Below Half-strength. ■ SKIRMISH FIGHTERS: KROOT models from your army have a 6+ invulnerable save against melee attacks and a 5+ invulnerable save against ranged attacks. If you select this Detachment, KROOT CARNIVORE units from your army have the BATTLELINE keyword."
+     },
+     "buffs": [],
+     "enhancements": [
+      {
+       "id": "borthrod_gland",
+       "name": "Borthrod Gland",
+       "pts": 15,
+       "upgrade": false,
+       "text": "Kroot Flesh Shaper only. While the bearer is leading a unit, each time a model in that unit makes a melee attack, an unmodified Hit roll of 5+ scores a Critical Hit.",
+       "eligible": {
+        "unitIds": [
+         "kroot_flesh_shaper"
+        ]
+       }
+      },
+      {
+       "id": "kroothawk_flock",
+       "name": "Kroothawk Flock",
+       "pts": 10,
+       "upgrade": false,
+       "text": "KROOT model only. Ranged weapons equipped by models in the bearer’s unit have the [IGNORES COVER] ability, and enemy units that are set up on the battlefield as Reinforcements cannot be set up within 12\" horizontally of the bearer.",
+       "eligible": {
+        "keywordsAll": [
+         "Kroot"
+        ]
+       }
+      },
+      {
+       "id": "nomadic_hunter",
+       "name": "Nomadic Hunter",
+       "pts": 20,
+       "upgrade": false,
+       "text": "KROOT TRAIL SHAPER model only. While the bearer is leading a unit, add 3\" to the Move characteristic of models in that unit and ranged weapons equipped by models in that unit have the [ASSAULT] ability.",
+       "eligible": {
+        "unitIds": [
+         "kroot_trail_shaper"
+        ]
+       }
+      },
+      {
+       "id": "root_carved_weapons",
+       "name": "Root-carved Weapons",
+       "pts": 10,
+       "upgrade": false,
+       "text": "Kroot War SHAPER model only. All weapons equipped by the bearer have the [PRECISION] and [DEVASTATING WOUNDS] abilities.",
+       "eligible": {
+        "unitIds": [
+         "kroot_war_shaper"
+        ]
+       }
+      }
+     ],
+     "stratagems": [
+      {
+       "id": "a_trap_well_laid",
+       "name": "A Trap Well Laid",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Shooting",
+        "Fight"
+       ],
+       "when": "Your Shooting phase or the Fight phase.",
+       "target": "One KROOT unit from your army that has not been selected to shoot or fight this phase.",
+       "effect": "After your unit has resolved its attacks this phase, select one enemy unit that was hit by one or more of those attacks. Until the end of the phase, each time a KROOT model from your army makes an attack that targets that enemy unit, unless the attacking unit is Battle-shocked, improve the Armour Penetration characteristic of that attack by 1."
+      },
+      {
+       "id": "join_the_hunt",
+       "name": "Join the Hunt",
+       "cp": 2,
+       "type": "Battle Tactic",
+       "phases": [
+        "Any"
+       ],
+       "when": "Any phase.",
+       "target": "One KROOT INFANTRY or KROOT HOUNDS unit from your army that was just destroyed. You can use this Stratagem on that unit even though it was just destroyed.",
+       "effect": "Add a new unit to your army identical to your destroyed unit, in Strategic Reserves, at its Starting Strength.",
+       "restrictions": "This Stratagem cannot be used to return destroyed CHARACTER units to Attached units. You can only use this Stratagem once per battle."
+      },
+      {
+       "id": "hidden_hunters",
+       "name": "Hidden Hunters",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Your opponent’s Shooting phase, just after an enemy unit has selected its targets.",
+       "target": "One KROOT unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+       "effect": "Until the end of the phase, your unit can only be selected as the target of a ranged attack if the attacking model is within 18\"."
+      },
+      {
+       "id": "guerrilla_warriors",
+       "name": "Guerrilla Warriors",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Movement"
+       ],
+       "when": "Your Movement phase, just after a KROOT unit from your army Falls Back.",
+       "target": "That KROOT unit.",
+       "effect": "Until the end of the turn, your unit is eligible to shoot and declare a charge."
+      },
+      {
+       "id": "the_grisly_feast",
+       "name": "The Grisly Feast",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Fight phase.",
+       "target": "One KROOT unit from your army that destroyed one or more enemy units this phase.",
+       "effect": "In your opponent’s next Command phase, each enemy unit within 6\" of your unit must take a Battle-shock test. If the unit taking that test is Below Half-strength, subtract 1 from that test. Enemy units affected by this Stratagem do not need to take any other Battle-shock tests in the same phase."
+      },
+      {
+       "id": "emp_grenades",
+       "name": "EMP Grenades",
+       "cp": 1,
+       "type": "Wargear",
+       "phases": [
+        "Shooting",
+        "Fight"
+       ],
+       "when": "Your opponent’s Shooting phase or the Fight phase, just after an enemy VEHICLE unit is selected to shoot or fight.",
+       "target": "One KROOT GRENADES unit from your army within 8\" of that enemy VEHICLE unit.",
+       "effect": "Until the end of the phase, worsen the Weapon Skill and Ballistic Skill characteristics of that enemy VEHICLE unit’s weapons by 1."
+      }
+     ],
+     "grantKeywords": [
+      {
+       "unitIds": [
+        "kroot_carnivores"
+       ],
+       "keyword": "Battleline"
+      }
+     ],
+     "btnFx": "claws"
+    },
+    {
+     "id": "montka",
+     "name": "Mont’ka",
+     "dp": 3,
+     "dispositions": [
+      "Take and Hold",
+      "Priority Assets"
+     ],
+     "tags": [],
+     "summary": "The Killing Blow: in battle rounds 1–3 all T’au ranged weapons gain Assault, and Guided units gain Lethal Hits.",
+     "rule": {
+      "name": "Killing Blow",
+      "text": "During the first, second and third battle rounds, ranged weapons equipped by T’AU EMPIRE models from your army have the [ASSAULT] ability. During the first, second and third battle rounds, while a unit is a Guided unit, its ranged weapons have the [LETHAL HITS] ability."
+     },
+     "buffs": [],
+     "enhancements": [
+      {
+       "id": "coordinated_exploitation",
+       "name": "Coordinated Exploitation",
+       "pts": 30,
+       "upgrade": false,
+       "text": "T’AU EMPIRE model only (excluding KROOT SHAPER models). While the bearer is leading a unit, each time that unit is an Observer unit, until the end of the phase, ranged weapons equipped by models in a Guided unit have the [SUSTAINED HITS 1] ability while targeting their Spotted unit.",
+       "eligible": {
+        "factionsAll": [
+         "T’au Empire"
+        ],
+        "keywordsNone": [
+         "Shaper"
+        ]
+       }
+      },
+      {
+       "id": "exemplar_of_the_montka",
+       "name": "Exemplar of the Mont’ka",
+       "pts": 10,
+       "upgrade": false,
+       "text": "T’AU EMPIRE model only (excluding KROOT SHAPER models). While the bearer is leading a unit, the Killing Blow Detachment rule applies to that unit during the fourth battle round as well.",
+       "eligible": {
+        "factionsAll": [
+         "T’au Empire"
+        ],
+        "keywordsNone": [
+         "Shaper"
+        ]
+       }
+      },
+      {
+       "id": "strategic_conqueror",
+       "name": "Strategic Conqueror",
+       "pts": 15,
+       "upgrade": false,
+       "text": "T’AU EMPIRE model only. At the start of the first battle round, before the first turn begins, select one objective marker on the battlefield. While a friendly T’AU EMPIRE model is within range of that objective marker and the bearer is on the battlefield, add 1 to that friendly model’s Objective Control characteristic.",
+       "eligible": {
+        "factionsAll": [
+         "T’au Empire"
+        ]
+       }
+      },
+      {
+       "id": "strike_swiftly",
+       "name": "Strike Swiftly",
+       "pts": 45,
+       "upgrade": false,
+       "text": "T’AU EMPIRE model only. In the Resolve Pre-battle Abilities step, you can select up to two friendly T’AU EMPIRE units within 6\" of this model that do not have the Scouts ability. Until the end of the battle, all models in the selected units have the Scouts 6\" ability.",
+       "eligible": {
+        "factionsAll": [
+         "T’au Empire"
+        ]
+       }
+      }
+     ],
+     "stratagems": [
+      {
+       "id": "aggressive_mobility",
+       "name": "Aggressive Mobility",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Movement"
+       ],
+       "when": "Your Movement phase.",
+       "target": "One T’AU EMPIRE unit from your army that has not been selected to move this phase.",
+       "effect": "Until the end of the phase, if your unit Advances, do not make an Advance roll for it. Instead, until the end of the phase, add 6\" to the Move characteristic of models in your unit."
+      },
+      {
+       "id": "focused_fire",
+       "name": "Focused Fire",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Start of your Shooting phase.",
+       "target": "Two T’AU EMPIRE units from your army that have not been selected to shoot this phase, and one enemy unit.",
+       "effect": "Until the end of the phase, each time a model in either of your units makes an attack, it can only target that enemy unit (and only if it is an eligible target for that attack), and when resolving that attack, improve the Armour Penetration characteristic by 1.",
+       "restrictions": "You cannot use this Stratagem during the fourth or fifth battle rounds."
+      },
+      {
+       "id": "combat_debarkation",
+       "name": "Combat Debarkation",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Your Shooting phase.",
+       "target": "One T’AU EMPIRE INFANTRY unit from your army that disembarked from a TRANSPORT this turn.",
+       "effect": "Until the end of the phase, each time a model in your unit makes an attack that targets the closest enemy unit, you can re-roll the Wound roll."
+      },
+      {
+       "id": "pinpoint_counter_offensive",
+       "name": "Pinpoint Counter-offensive",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Any"
+       ],
+       "when": "Any phase.",
+       "target": "One T’AU EMPIRE unit (excluding KROOT units) from your army that was just destroyed. You can use this Stratagem on that unit even though it was just destroyed.",
+       "effect": "Until the end of the battle, each time a T’AU EMPIRE unit (excluding KROOT units) from your army makes an attack that targets the enemy unit that just destroyed your unit, you can re-roll the Hit roll."
+      },
+      {
+       "id": "pulse_onslaught",
+       "name": "Pulse Onslaught",
+       "cp": 2,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Your Shooting phase.",
+       "target": "One T’AU EMPIRE INFANTRY unit (excluding KROOT units) from your army that has just shot, and one enemy unit (excluding MONSTERS and VEHICLES) hit by one or more of those attacks.",
+       "effect": "Until the end of your opponent’s next turn, that enemy unit is shaken. While a unit is shaken, subtract 2 from its Move characteristic and subtract 2 from Advance and Charge rolls made for it."
+      },
+      {
+       "id": "counterfire_defence_systems",
+       "name": "Counterfire Defence Systems",
+       "cp": 2,
+       "type": "Wargear",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Your opponent’s Shooting phase, just after an enemy unit has selected its targets.",
+       "target": "One T’AU EMPIRE unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+       "effect": "Until the end of the phase, each time an attack is allocated to your unit, subtract 1 from the Damage characteristic of that attack."
+      }
+     ],
+     "reminder": {
+      "title": "Killing Blow",
+      "phase": [
+       "Movement",
+       "Shooting"
+      ],
+      "turn": "mine",
+      "from": 1,
+      "to": 3,
+      "fx": "crosshair",
+      "toByEnh": {
+       "exemplar_of_the_montka": 4
+      },
+      "text": "Rounds 1–3: ranged weapons of T’AU EMPIRE models have [ASSAULT]. A Guided unit’s ranged weapons have [LETHAL HITS].",
+      "extraByEnh": {
+       "exemplar_of_the_montka": "Exemplar of the Mont’ka: the bearer’s unit gets Killing Blow in round 4 as well."
+      }
+     },
+     "btnFx": "montka"
+    },
+    {
+     "id": "retaliation_cadre",
+     "name": "Retaliation Cadre",
+     "dp": 3,
+     "dispositions": [
+      "Purge the Foe",
+      "Reconnaissance"
+     ],
+     "tags": [
+      "BATTLESUIT"
+     ],
+     "summary": "Battlesuits get +1 Strength within 12\" and +1 AP within 8\"; commanders carry experimental systems.",
+     "rule": {
+      "name": "Bonded Heroes",
+      "text": "Each time a T’AU EMPIRE BATTLESUIT model from your army makes a ranged attack that targets a unit within 12\", improve the Strength characteristic of that attack by 1. If that attack targets a unit within 8\", improve the Armour Penetration characteristic of that attack by 1 as well."
+     },
+     "buffs": [],
+     "enhancements": [
+      {
+       "id": "internal_grenade_racks",
+       "name": "Internal Grenade Racks",
+       "pts": 20,
+       "upgrade": false,
+       "text": "T’AU EMPIRE BATTLESUIT model only. The bearer has the GRENADES keyword, and each time the bearer ends a Normal move, you can select one enemy unit that it moved over during that move. If you do, roll six D6: for each 4+, that enemy unit suffers 1 mortal wound.",
+       "eligible": {
+        "factionsAll": [
+         "T’au Empire"
+        ],
+        "keywordsAll": [
+         "Battlesuit"
+        ]
+       }
+      },
+      {
+       "id": "prototype_weapon_system",
+       "name": "Prototype Weapon System",
+       "pts": 15,
+       "upgrade": false,
+       "text": "T’AU EMPIRE BATTLESUIT model only. Each time the bearer is selected to shoot, select either the [LETHAL HITS] or [SUSTAINED HITS 1] ability. Until those attacks are resolved, ranged weapons equipped by the bearer have the selected ability.",
+       "eligible": {
+        "factionsAll": [
+         "T’au Empire"
+        ],
+        "keywordsAll": [
+         "Battlesuit"
+        ]
+       }
+      },
+      {
+       "id": "puretide_engram_neurochip",
+       "name": "Puretide Engram Neurochip",
+       "pts": 15,
+       "upgrade": false,
+       "text": "T’AU EMPIRE BATTLESUIT model only. Each time you target the bearer’s unit with a Stratagem, roll one D6: on a 4+, you gain 1CP.",
+       "eligible": {
+        "factionsAll": [
+         "T’au Empire"
+        ],
+        "keywordsAll": [
+         "Battlesuit"
+        ]
+       }
+      },
+      {
+       "id": "starflare_ignition_system",
+       "name": "Starflare Ignition System",
+       "pts": 20,
+       "upgrade": false,
+       "text": "T’AU EMPIRE BATTLESUIT model only. At the end of your opponent’s turn, if the bearer’s unit is not within Engagement Range of one or more enemy units, you can remove that unit from the battlefield and place it into Strategic Reserves.",
+       "eligible": {
+        "factionsAll": [
+         "T’au Empire"
+        ],
+        "keywordsAll": [
+         "Battlesuit"
+        ]
+       }
+      }
+     ],
+     "stratagems": [
+      {
+       "id": "the_arrokon_protocol",
+       "name": "The Arro’kon Protocol",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Your Shooting phase.",
+       "target": "One T’AU EMPIRE BATTLESUIT unit from your army that has not been selected to shoot this phase.",
+       "effect": "Until the end of the phase, each time a model in your unit makes an attack that targets an enemy unit that contains 6 or more models, that attack has the [SUSTAINED HITS 1] ability. If that attack targets an enemy unit that contains 11 or more models, it has the [SUSTAINED HITS 2] ability instead."
+      },
+      {
+       "id": "fail_safe_detonator",
+       "name": "Fail-safe Detonator",
+       "cp": 2,
+       "type": "Epic Deed",
+       "phases": [
+        "Any"
+       ],
+       "when": "Any phase, just after a T’AU EMPIRE BATTLESUIT model from your army is destroyed.",
+       "target": "That destroyed model’s unit. You can use this Stratagem on that unit even if that unit was just destroyed.",
+       "effect": "Before removing your model from play, if it has the Deadly Demise ability, do not roll for that ability; instead, you can choose whether the result of that roll is a 1 or a 6. If your model does not have the Deadly Demise ability, roll one D6 for each unit within 6\" of it: on a 4+, that unit suffers D3 mortal wounds."
+      },
+      {
+       "id": "the_torchstar_gambit",
+       "name": "The Torchstar Gambit",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Your Shooting phase.",
+       "target": "One T’AU EMPIRE BATTLESUIT unit from your army that can FLY whose attacks have been resolved this phase.",
+       "effect": "If your unit is not within Engagement Range of one or more enemy units, it can make a Normal move. If it does, your unit cannot declare a charge this turn"
+      },
+      {
+       "id": "grav_inhibitor_field",
+       "name": "Grav-inhibitor Field",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Charge"
+       ],
+       "when": "Your opponent’s Charge phase, just after an enemy unit has declared a charge.",
+       "target": "One T’AU EMPIRE BATTLESUIT unit from your army that was selected as a target of that charge.",
+       "effect": "That enemy unit must immediately take a Battle-shock test and you must roll one D6 for each model in that enemy unit: for each 6, that enemy unit suffers 1 mortal wound."
+      },
+      {
+       "id": "the_shortened_blade",
+       "name": "The Shortened Blade",
+       "cp": 2,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Movement"
+       ],
+       "when": "Your Movement phase.",
+       "target": "One T’AU EMPIRE BATTLESUIT unit from your army that is arriving using the Deep Strike ability this phase.",
+       "effect": "Your unit can be set up anywhere on the battlefield that is more than 6\" horizontally away from all enemy models.",
+       "restrictions": "A unit targeted with this Stratagem is not eligible to declare a charge in the same turn."
+      },
+      {
+       "id": "stimm_injectors",
+       "name": "Stimm Injectors",
+       "cp": 1,
+       "type": "Wargear",
+       "phases": [
+        "Shooting",
+        "Fight"
+       ],
+       "when": "Your opponent’s Shooting phase or the Fight phase, just after an enemy unit has selected its targets.",
+       "target": "One T’AU EMPIRE BATTLESUIT unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+       "effect": "Until the end of the phase, models in your unit have the Feel No Pain 6+ ability."
+      }
+     ],
+     "btnFx": "retaliation"
+    }
+   ],
+   "units": [
+    {
+     "id": "commander_in_coldstar_battlesuit",
+     "name": "Commander in Coldstar Battlesuit",
+     "role": "character",
+     "faction": "T’au Empire",
+     "keywords": [
+      "Battlesuit",
+      "Character",
+      "Commander in Coldstar Battlesuit",
+      "Fly",
+      "T’au Empire",
+      "Vehicle",
+      "Walker"
+     ],
+     "image": "tau_commander_in_coldstar_battlesuit",
+     "baseSize": "60mm",
+     "profile": {
+      "M": "12\"",
+      "T": "5",
+      "Sv": "3+",
+      "W": "6",
+      "OC": "2",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Airbursting fragmentation projector",
+       "range": "24\"",
+       "A": "D6",
+       "skill": "3+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Blast",
+        "Indirect Fire"
+       ]
+      },
+      {
+       "name": "Burst cannon",
+       "range": "18\"",
+       "A": "4",
+       "skill": "3+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Cyclic ion blaster – standard",
+       "range": "18\"",
+       "A": "3",
+       "skill": "3+",
+       "S": "7",
+       "AP": "-1",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Cyclic ion blaster – overcharge",
+       "range": "18\"",
+       "A": "3",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Hazardous"
+       ]
+      },
+      {
+       "name": "Fusion blaster",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "9",
+       "AP": "-4",
+       "D": "D6",
+       "kw": [
+        "Melta 2"
+       ]
+      },
+      {
+       "name": "High-output burst cannon",
+       "range": "18\"",
+       "A": "8",
+       "skill": "3+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Missile pod",
+       "range": "30\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "7",
+       "AP": "-1",
+       "D": "2",
+       "kw": []
+      },
+      {
+       "name": "Plasma rifle",
+       "range": "18\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-3",
+       "D": "3",
+       "kw": []
+      },
+      {
+       "name": "T’au flamer",
+       "range": "12\"",
+       "A": "D6",
+       "skill": "N/A",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Ignores Cover",
+        "Torrent"
+       ]
+      },
+      {
+       "name": "Twin pulse carbine",
+       "range": "20\"",
+       "A": "2",
+       "skill": "4+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Twin-Linked",
+        "Assault"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Battlesuit fists",
+       "range": "Melee",
+       "A": "3",
+       "skill": "4+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deep Strike",
+      "Leader"
+     ],
+     "factionAbilities": [
+      "For the Greater Good"
+     ],
+     "abilities": [
+      {
+       "name": "Coldstar Commander",
+       "text": "While this model is leading a unit, models in that unit have a Move characteristic of 12\" and ranged weapons equipped by models in that unit have the [ASSAULT] ability.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Battlesuit Support System",
+       "text": "The bearer’s unit is eligible to shoot in a turn in which it Fell Back, but when doing so only models equipped with this wargear can make ranged attacks.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Shield Generator",
+       "text": "The bearer has a 4+ invulnerable save.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Weapon Support System",
+       "text": "Each time the bearer makes a ranged attack, you can ignore any or all modifiers to the Hit roll.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Marker Drone",
+       "text": "The bearer’s unit has the MARKERLIGHT keyword and can act as an Observer unit for another unit even if it Advanced this turn.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Shield Drone",
+       "text": "Add 1 to the bearer’s Wounds characteristic.",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 95
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "crisis_fireknife_battlesuits",
+      "crisis_starscythe_battlesuits",
+      "crisis_sunforge_battlesuits"
+     ],
+     "composition": "1 Commander in Coldstar Battlesuit",
+     "options": [
+      {
+       "id": "rep",
+       "type": "choice",
+       "label": "High-output burst cannon replaced with",
+       "choices": [
+        {
+         "id": "hocb",
+         "label": "High-output burst cannon",
+         "pts": 0
+        },
+        {
+         "id": "afp",
+         "label": "Airbursting fragmentation projector",
+         "pts": 0
+        },
+        {
+         "id": "bss",
+         "label": "Battlesuit support system",
+         "pts": 0
+        },
+        {
+         "id": "bc",
+         "label": "Burst cannon",
+         "pts": 0
+        },
+        {
+         "id": "ci",
+         "label": "Cyclic ion blaster",
+         "pts": 0
+        },
+        {
+         "id": "fb",
+         "label": "Fusion blaster",
+         "pts": 0
+        },
+        {
+         "id": "mp",
+         "label": "Missile pod",
+         "pts": 0
+        },
+        {
+         "id": "pr",
+         "label": "Plasma rifle",
+         "pts": 0
+        },
+        {
+         "id": "sg",
+         "label": "Shield generator",
+         "pts": 0
+        },
+        {
+         "id": "tf",
+         "label": "T’au flamer",
+         "pts": 0
+        },
+        {
+         "id": "wss",
+         "label": "Weapon support system",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "x_afp",
+       "type": "count",
+       "label": "Extra: Airbursting fragmentation projector",
+       "group": "extras",
+       "max": 1
+      },
+      {
+       "id": "x_bss",
+       "type": "count",
+       "label": "Extra: Battlesuit support system",
+       "group": "extras",
+       "max": 1
+      },
+      {
+       "id": "x_bc",
+       "type": "count",
+       "label": "Extra: Burst cannon",
+       "group": "extras",
+       "max": 3
+      },
+      {
+       "id": "x_ci",
+       "type": "count",
+       "label": "Extra: Cyclic ion blaster",
+       "group": "extras",
+       "max": 1
+      },
+      {
+       "id": "x_fb",
+       "type": "count",
+       "label": "Extra: Fusion blaster",
+       "group": "extras",
+       "max": 3
+      },
+      {
+       "id": "x_mp",
+       "type": "count",
+       "label": "Extra: Missile pod",
+       "group": "extras",
+       "max": 3
+      },
+      {
+       "id": "x_pr",
+       "type": "count",
+       "label": "Extra: Plasma rifle",
+       "group": "extras",
+       "max": 3
+      },
+      {
+       "id": "x_sg",
+       "type": "count",
+       "label": "Extra: Shield generator",
+       "group": "extras",
+       "max": 1
+      },
+      {
+       "id": "x_tf",
+       "type": "count",
+       "label": "Extra: T’au flamer",
+       "group": "extras",
+       "max": 3
+      },
+      {
+       "id": "x_wss",
+       "type": "count",
+       "label": "Extra: Weapon support system",
+       "group": "extras",
+       "max": 1
+      },
+      {
+       "id": "gun",
+       "type": "count",
+       "label": "Gun drone: twin pulse carbine",
+       "group": "drones",
+       "per": 1,
+       "n": 2
+      },
+      {
+       "id": "marker",
+       "type": "count",
+       "label": "Marker drone",
+       "group": "drones",
+       "per": 1,
+       "n": 2,
+       "grantKeyword": "Markerlight"
+      },
+      {
+       "id": "shield",
+       "type": "count",
+       "label": "Shield drone",
+       "group": "drones",
+       "per": 1,
+       "n": 2
+      }
+     ],
+     "optionRules": [
+      {
+       "forbidAllOf": [
+        [
+         "rep",
+         "afp"
+        ],
+        [
+         "x_afp",
+         1
+        ]
+       ],
+       "message": "Airbursting fragmentation projector cannot be taken twice (it cannot have duplicates)."
+      },
+      {
+       "forbidAllOf": [
+        [
+         "rep",
+         "bss"
+        ],
+        [
+         "x_bss",
+         1
+        ]
+       ],
+       "message": "Battlesuit support system cannot be taken twice (it cannot have duplicates)."
+      },
+      {
+       "forbidAllOf": [
+        [
+         "rep",
+         "ci"
+        ],
+        [
+         "x_ci",
+         1
+        ]
+       ],
+       "message": "Cyclic ion blaster cannot be taken twice (it cannot have duplicates)."
+      },
+      {
+       "forbidAllOf": [
+        [
+         "rep",
+         "sg"
+        ],
+        [
+         "x_sg",
+         1
+        ]
+       ],
+       "message": "Shield generator cannot be taken twice (it cannot have duplicates)."
+      },
+      {
+       "forbidAllOf": [
+        [
+         "rep",
+         "wss"
+        ],
+        [
+         "x_wss",
+         1
+        ]
+       ],
+       "message": "Weapon support system cannot be taken twice (it cannot have duplicates)."
+      }
+     ],
+     "slots": [],
+     "optionGroups": [
+      {
+       "id": "extras",
+       "label": "Extra weapons and systems",
+       "per": 1,
+       "n": 3
+      },
+      {
+       "id": "drones",
+       "label": "Drones",
+       "per": 1,
+       "n": 2
+      }
+     ]
+    },
+    {
+     "id": "ethereal",
+     "name": "Ethereal",
+     "role": "character",
+     "faction": "T’au Empire",
+     "keywords": [
+      "Character",
+      "Ethereal",
+      "Infantry",
+      "T’au Empire"
+     ],
+     "image": "tau_ethereal",
+     "baseSize": "40mm",
+     "profile": {
+      "M": "6\"",
+      "T": "3",
+      "Sv": "5+",
+      "InSv": "5+",
+      "W": "3",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Twin pulse carbine",
+       "range": "20\"",
+       "A": "2",
+       "skill": "4+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Twin-Linked",
+        "Assault"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Honour stave",
+       "range": "Melee",
+       "A": "2",
+       "skill": "4+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Leader"
+     ],
+     "factionAbilities": [
+      "For the Greater Good"
+     ],
+     "abilities": [
+      {
+       "name": "Hover Drone",
+       "text": "The bearer can FLY and has a Move characteristic of 10\".",
+       "kind": "wargear"
+      },
+      {
+       "name": "Failure Is Not an Option",
+       "text": "While this model is leading a unit, models in that unit have the Feel No Pain 5+ ability.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Coordinated Leadership",
+       "text": "At the end of your Command phase, roll one D6: on a 4+, you gain 1CP.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Marker Drone",
+       "text": "The bearer’s unit has the MARKERLIGHT keyword and can act as an Observer unit for another unit even if it Advanced this turn.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Shield Drone",
+       "text": "Add 1 to the bearer’s Wounds characteristic.",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 50
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "breacher_team",
+      "strike_team"
+     ],
+     "composition": "1 Ethereal",
+     "options": [
+      {
+       "id": "hover",
+       "type": "toggle",
+       "label": "Hover drone"
+      },
+      {
+       "id": "gun",
+       "type": "count",
+       "label": "Gun drone: twin pulse carbine",
+       "group": "drones",
+       "per": 1,
+       "n": 2
+      },
+      {
+       "id": "marker",
+       "type": "count",
+       "label": "Marker drone",
+       "group": "drones",
+       "per": 1,
+       "n": 2,
+       "grantKeyword": "Markerlight"
+      },
+      {
+       "id": "shield",
+       "type": "count",
+       "label": "Shield drone",
+       "group": "drones",
+       "per": 1,
+       "n": 2
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [
+      {
+       "id": "drones",
+       "label": "Drones",
+       "per": 1,
+       "n": 2
+      }
+     ]
+    },
+    {
+     "id": "cadre_fireblade",
+     "name": "Cadre Fireblade",
+     "role": "character",
+     "faction": "T’au Empire",
+     "keywords": [
+      "Cadre Fireblade",
+      "Character",
+      "Grenades",
+      "Infantry",
+      "T’au Empire"
+     ],
+     "image": "tau_cadre_fireblade",
+     "baseSize": "25mm",
+     "profile": {
+      "M": "6\"",
+      "T": "3",
+      "Sv": "4+",
+      "W": "3",
+      "OC": "1",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Fireblade pulse rifle",
+       "range": "30\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "5",
+       "AP": "0",
+       "D": "2",
+       "kw": [
+        "Rapid Fire 1"
+       ]
+      },
+      {
+       "name": "Twin pulse carbine",
+       "range": "20\"",
+       "A": "2",
+       "skill": "4+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Twin-Linked",
+        "Assault"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Close combat weapon",
+       "range": "Melee",
+       "A": "3",
+       "skill": "4+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Leader"
+     ],
+     "factionAbilities": [
+      "For the Greater Good"
+     ],
+     "abilities": [
+      {
+       "name": "Volley Fire",
+       "text": "While this model is leading a unit, add 1 to the Attacks characteristic of ranged weapons equipped by models in that unit.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Crack Shot",
+       "text": "Each time this model makes a ranged attack, on a Critical Wound, that attack has an Armour Penetration characteristic of -3.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Marker Drone",
+       "text": "The bearer’s unit has the MARKERLIGHT keyword and can act as an Observer unit for another unit even if it Advanced this turn.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Shield Drone",
+       "text": "Add 1 to the bearer’s Wounds characteristic.",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 50
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "breacher_team",
+      "strike_team"
+     ],
+     "composition": "1 Cadre Fireblade",
+     "options": [
+      {
+       "id": "gun",
+       "type": "count",
+       "label": "Gun drone: twin pulse carbine",
+       "group": "drones",
+       "per": 1,
+       "n": 2
+      },
+      {
+       "id": "marker",
+       "type": "count",
+       "label": "Marker drone",
+       "group": "drones",
+       "per": 1,
+       "n": 2,
+       "grantKeyword": "Markerlight"
+      },
+      {
+       "id": "shield",
+       "type": "count",
+       "label": "Shield drone",
+       "group": "drones",
+       "per": 1,
+       "n": 2
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [
+      {
+       "id": "drones",
+       "label": "Drones",
+       "per": 1,
+       "n": 2
+      }
+     ]
+    },
+    {
+     "id": "commander_farsight",
+     "name": "Commander Farsight",
+     "role": "epic hero",
+     "faction": "T’au Empire",
+     "keywords": [
+      "Battlesuit",
+      "Character",
+      "Commander Farsight",
+      "Epic Hero",
+      "Fly",
+      "T’au Empire",
+      "Vehicle",
+      "Walker"
+     ],
+     "image": "tau_commander_farsight",
+     "baseSize": "60mm",
+     "profile": {
+      "M": "10\"",
+      "T": "5",
+      "Sv": "2+",
+      "InSv": "4+",
+      "W": "8",
+      "OC": "2",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "High-intensity plasma rifle",
+       "range": "24\"",
+       "A": "2",
+       "skill": "2+",
+       "S": "8",
+       "AP": "-3",
+       "D": "3",
+       "kw": []
+      }
+     ],
+     "melee": [
+      {
+       "name": "Dawn Blade – strike",
+       "range": "Melee",
+       "A": "4",
+       "skill": "2+",
+       "S": "10",
+       "AP": "-2",
+       "D": "3",
+       "kw": []
+      },
+      {
+       "name": "Dawn Blade – sweep",
+       "range": "Melee",
+       "A": "8",
+       "skill": "2+",
+       "S": "6",
+       "AP": "-1",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deep Strike",
+      "Leader"
+     ],
+     "factionAbilities": [
+      "For the Greater Good"
+     ],
+     "abilities": [
+      {
+       "name": "Way of the Short Blade",
+       "text": "While this model is leading a unit, each time a model in that unit makes an attack that targets an enemy unit within 9\", add 1 to the Wound roll.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Puretide's Teachings",
+       "text": "Once per battle round, you can target this model’s unit with a Stratagem. If it does, reduce the CP cost of that use of that Stratagem by 1CP.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Independent Power",
+       "text": "If your army includes COMMANDER FARSIGHT, it cannot include any ETHEREAL units. If your army includes any ETHEREAL units, it cannot include COMMANDER FARSIGHT.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 70
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "crisis_fireknife_battlesuits",
+      "crisis_starscythe_battlesuits",
+      "crisis_sunforge_battlesuits"
+     ],
+     "composition": "1 Commander Farsight – EPIC HERO",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "excludesUnits": {
+      "ids": [
+       "ethereal"
+      ],
+      "message": "Independent Power: an army with Commander Farsight cannot include Ethereal units."
+     }
+    },
+    {
+     "id": "commander_shadowsun",
+     "name": "Commander Shadowsun",
+     "role": "epic hero",
+     "faction": "T’au Empire",
+     "keywords": [
+      "Battlesuit",
+      "Character",
+      "Commander Shadowsun",
+      "Epic Hero",
+      "Fly",
+      "Infantry",
+      "T’au Empire"
+     ],
+     "image": "tau_commander_shadowsun",
+     "baseSize": "50mm",
+     "profile": {
+      "M": "10\"",
+      "T": "4",
+      "Sv": "3+",
+      "InSv": "5+",
+      "W": "6",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Flechette launcher",
+       "range": "18\"",
+       "A": "5",
+       "skill": "2+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "High-energy fusion blaster",
+       "range": "18\"",
+       "A": "1",
+       "skill": "2+",
+       "S": "10",
+       "AP": "-4",
+       "D": "D6",
+       "kw": [
+        "Melta 2"
+       ]
+      },
+      {
+       "name": "Light missile pod",
+       "range": "24\"",
+       "A": "2",
+       "skill": "2+",
+       "S": "7",
+       "AP": "0",
+       "D": "2",
+       "kw": []
+      },
+      {
+       "name": "Pulse pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Battlesuit fists",
+       "range": "Melee",
+       "A": "3",
+       "skill": "4+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Infiltrators",
+      "Lone Operative",
+      "Stealth"
+     ],
+     "factionAbilities": [
+      "For the Greater Good"
+     ],
+     "abilities": [
+      {
+       "name": "Advanced Guardian Drone",
+       "text": "Each time a ranged attack targets the bearer, subtract 1 from the Wound roll.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Agile Combatant",
+       "text": "This model is eligible to shoot in a turn in which it Fell Back.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Command-link Drone (Aura)",
+       "text": "While a friendly T’AU EMPIRE unit is within 6\" of the bearer, each time you select that unit as the target of a Stratagem, roll one D6: on a 5+, you gain 1CP.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Hero of the Empire (Aura)",
+       "text": "While a friendly T’AU EMPIRE unit is within 6\" of this model, each time a model in that unit makes a ranged attack, re-roll a Hit roll of 1.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Supreme Commander",
+       "text": "If this model is in your army, it must be your Warlord.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 100
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 Commander Shadowsun – EPIC HERO",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "mustBeWarlord": "Supreme Commander: Commander Shadowsun must be your Warlord."
+    },
+    {
+     "id": "darkstrider",
+     "name": "Darkstrider",
+     "role": "epic hero",
+     "faction": "T’au Empire",
+     "keywords": [
+      "Character",
+      "Darkstrider",
+      "Epic Hero",
+      "Infantry",
+      "Markerlight",
+      "T’au Empire"
+     ],
+     "image": "tau_darkstrider",
+     "baseSize": "32mm",
+     "profile": {
+      "M": "7\"",
+      "T": "3",
+      "Sv": "4+",
+      "W": "3",
+      "OC": "1",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Shade",
+       "range": "18\"",
+       "A": "2",
+       "skill": "2+",
+       "S": "5",
+       "AP": "0",
+       "D": "2",
+       "kw": [
+        "Assault"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Close combat weapon",
+       "range": "Melee",
+       "A": "3",
+       "skill": "4+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Infiltrators",
+      "Leader",
+      "Scouts 7\""
+     ],
+     "factionAbilities": [
+      "For the Greater Good"
+     ],
+     "abilities": [
+      {
+       "name": "Structural Analyser",
+       "text": "While this model is leading a unit, each time a model in that unit makes a ranged attack, add 1 to the Wound roll.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Jammer Array",
+       "text": "Enemy units that are set up on the battlefield from Reserves cannot be set up within 12\" of this model.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 60
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "pathfinder_team"
+     ],
+     "composition": "1 Darkstrider – EPIC HERO",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "strike_team",
+     "name": "Strike Team",
+     "role": "battleline",
+     "faction": "T’au Empire",
+     "keywords": [
+      "Battleline",
+      "Fire Warrior",
+      "Grenades",
+      "Infantry",
+      "Markerlight",
+      "Strike Team",
+      "T’au Empire"
+     ],
+     "image": "tau_strike_team",
+     "baseSize": "25mm",
+     "profile": {
+      "M": "6\"",
+      "T": "3",
+      "Sv": "4+",
+      "W": "1",
+      "OC": "2",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Pulse carbine",
+       "range": "20\"",
+       "A": "2",
+       "skill": "4+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Pulse pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Pulse rifle",
+       "range": "30\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Rapid Fire 1"
+       ]
+      },
+      {
+       "name": "Support turret",
+       "range": "30\"",
+       "A": "2",
+       "skill": "5+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Indirect Fire",
+        "Twin-Linked"
+       ]
+      },
+      {
+       "name": "Twin pulse carbine",
+       "range": "20\"",
+       "A": "2",
+       "skill": "4+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Twin-Linked",
+        "Assault"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Close combat weapon",
+       "range": "Melee",
+       "A": "1",
+       "skill": "5+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [],
+     "factionAbilities": [
+      "For the Greater Good"
+     ],
+     "abilities": [
+      {
+       "name": "Suppression Volley",
+       "text": "In your Shooting phase, after this unit has shot, select one enemy INFANTRY unit hit by one or more of those attacks. Until the start of your next turn, while this unit is on the battlefield, that enemy unit is suppressed. While a unit is suppressed, each time a model in that unit makes an attack, subtract 1 from the Hit roll.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "DS8 Support Turret",
+       "text": "In your Movement phase, if this unit Remains Stationary, until the start of your next Movement phase, its Fire Warrior Shas’ui model is equipped with the support turret missile system weapon. Designer’s Note: Place a Support Turret token next to this unit to remind you.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Marker Drone",
+       "text": "The bearer’s unit has the MARKERLIGHT keyword and can act as an Observer unit for another unit even if it Advanced this turn.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Shield Drone",
+       "text": "Add 1 to the bearer’s Wounds characteristic.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Guardian Drone",
+       "text": "Each time a model makes a ranged attack that targets the bearer’s unit, subtract 1 from the Wound roll.",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 10,
+       "pts": 70
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 Fire Warrior Shas’ui; 9 Fire Warriors",
+     "options": [
+      {
+       "id": "guardian",
+       "type": "count",
+       "label": "Guardian drone",
+       "max": 1,
+       "group": "drones"
+      },
+      {
+       "id": "gun",
+       "type": "count",
+       "label": "Gun drone: twin pulse carbine",
+       "group": "drones",
+       "per": 10,
+       "n": 2
+      },
+      {
+       "id": "marker",
+       "type": "count",
+       "label": "Marker drone",
+       "group": "drones",
+       "per": 10,
+       "n": 2,
+       "grantKeyword": "Markerlight"
+      },
+      {
+       "id": "shield",
+       "type": "count",
+       "label": "Shield drone",
+       "group": "drones",
+       "per": 10,
+       "n": 2
+      },
+      {
+       "id": "carbine",
+       "type": "count",
+       "label": "Pulse carbine",
+       "slots": [
+        "rifle"
+       ],
+       "max": "slot"
+      }
+     ],
+     "optionRules": [],
+     "slots": [
+      {
+       "id": "rifle",
+       "label": "Fire Warrior ranged weapon",
+       "default": "Pulse rifle",
+       "size": {
+        "models": 1
+       },
+       "fixedNote": "All also carry a pulse pistol and a close combat weapon."
+      }
+     ],
+     "optionGroups": [
+      {
+       "id": "drones",
+       "label": "Drones",
+       "per": 10,
+       "n": 2
+      }
+     ]
+    },
+    {
+     "id": "breacher_team",
+     "name": "Breacher Team",
+     "role": "battleline",
+     "faction": "T’au Empire",
+     "keywords": [
+      "Battleline",
+      "Breacher Team",
+      "Fire Warrior",
+      "Grenades",
+      "Infantry",
+      "Markerlight",
+      "T’au Empire"
+     ],
+     "image": "tau_breacher_team",
+     "baseSize": "25mm",
+     "profile": {
+      "M": "6\"",
+      "T": "3",
+      "Sv": "4+",
+      "W": "1",
+      "OC": "2",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Pulse blaster",
+       "range": "10\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Assault"
+       ]
+      },
+      {
+       "name": "Pulse pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Support turret",
+       "range": "30\"",
+       "A": "2",
+       "skill": "5+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Indirect Fire",
+        "Twin-Linked"
+       ]
+      },
+      {
+       "name": "Twin pulse carbine",
+       "range": "20\"",
+       "A": "2",
+       "skill": "4+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Twin-Linked",
+        "Assault"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Close combat weapon",
+       "range": "Melee",
+       "A": "1",
+       "skill": "5+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [],
+     "factionAbilities": [
+      "For the Greater Good"
+     ],
+     "abilities": [
+      {
+       "name": "Breach and Clear",
+       "text": "Each time a model in this unit makes a ranged attack that targets an enemy unit within range of an objective marker, you can re-roll the Wound roll.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "DS8 Support Turret",
+       "text": "In your Movement phase, if this unit Remains Stationary, until the start of your next Movement phase, its Fire Warrior Shas’ui model is equipped with the support turret missile system weapon. Designer’s Note: Place a Support Turret token next to this unit to remind you.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Marker Drone",
+       "text": "The bearer’s unit has the MARKERLIGHT keyword and can act as an Observer unit for another unit even if it Advanced this turn.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Shield Drone",
+       "text": "Add 1 to the bearer’s Wounds characteristic.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Guardian Drone",
+       "text": "Each time a model makes a ranged attack that targets the bearer’s unit, subtract 1 from the Wound roll.",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 10,
+       "pts": 80
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 Breacher Fire Warrior Shas’ui; 9 Breacher Fire Warriors",
+     "options": [
+      {
+       "id": "guardian",
+       "type": "count",
+       "label": "Guardian drone",
+       "max": 1,
+       "group": "drones"
+      },
+      {
+       "id": "gun",
+       "type": "count",
+       "label": "Gun drone: twin pulse carbine",
+       "group": "drones",
+       "per": 10,
+       "n": 2
+      },
+      {
+       "id": "marker",
+       "type": "count",
+       "label": "Marker drone",
+       "group": "drones",
+       "per": 10,
+       "n": 2,
+       "grantKeyword": "Markerlight"
+      },
+      {
+       "id": "shield",
+       "type": "count",
+       "label": "Shield drone",
+       "group": "drones",
+       "per": 10,
+       "n": 2
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [
+      {
+       "id": "drones",
+       "label": "Drones",
+       "per": 10,
+       "n": 2
+      }
+     ]
+    },
+    {
+     "id": "kroot_carnivores",
+     "name": "Kroot Carnivores",
+     "role": "infantry",
+     "faction": "T’au Empire",
+     "keywords": [
+      "Carnivores",
+      "Grenades",
+      "Infantry",
+      "Kroot",
+      "T’au Empire"
+     ],
+     "image": "tau_kroot_carnivores",
+     "baseSize": "28.5mm",
+     "profile": {
+      "M": "7\"",
+      "T": "3",
+      "Sv": "6+",
+      "W": "1",
+      "OC": "2",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Tanglebomb launcher",
+       "range": "24\"",
+       "A": "D3",
+       "skill": "4+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Blast"
+       ]
+      },
+      {
+       "name": "Kroot pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Kroot rifle",
+       "range": "24\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Rapid Fire 1"
+       ]
+      },
+      {
+       "name": "Kroot carbine",
+       "range": "18\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "4",
+       "AP": "0",
+       "D": "2",
+       "kw": []
+      }
+     ],
+     "melee": [
+      {
+       "name": "Close combat weapon",
+       "range": "Melee",
+       "A": "2",
+       "skill": "3+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Scouts 7\"",
+      "Stealth"
+     ],
+     "factionAbilities": [],
+     "abilities": [
+      {
+       "name": "Fieldcraft",
+       "text": "At the end of your Command phase, if this unit is within range of an objective marker you control, that objective marker remains under your control, even if you have no models within range of it, until your opponent controls it at the start or end of any turn.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Bodyguard",
+       "text": "If this unit has a Starting Strength of 20, you can attach up to two Leader units to it instead of one, provided those Leaders are not duplicates (e.g. you cannot attach two WAR SHAPERS to this unit). If you do, and this unit is destroyed, the Leader units attached to it become separate units with their original Starting Strengths.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 10,
+       "pts": 65
+      },
+      {
+       "models": 20,
+       "pts": 130
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 Long-quill; 9-19 Kroot Carnivores",
+     "options": [
+      {
+       "id": "carbine",
+       "type": "count",
+       "label": "Kroot carbine (Long-quill)",
+       "slots": [
+        "rifle"
+       ],
+       "max": 1
+      },
+      {
+       "id": "tanglebomb",
+       "type": "count",
+       "label": "Tanglebomb launcher",
+       "slots": [
+        "rifle"
+       ],
+       "per": 10,
+       "n": 1
+      }
+     ],
+     "optionRules": [],
+     "slots": [
+      {
+       "id": "rifle",
+       "label": "Kroot ranged weapon",
+       "default": "Kroot rifle",
+       "size": {
+        "models": 1
+       },
+       "fixedNote": "The Long-quill also has a Kroot pistol; everyone has a close combat weapon."
+      }
+     ],
+     "optionGroups": [],
+     "twoLeaders": {
+      "size": 20
+     }
+    },
+    {
+     "id": "krootox_riders",
+     "name": "Krootox Riders",
+     "role": "mounted",
+     "faction": "T’au Empire",
+     "keywords": [
+      "Grenades",
+      "Kroot",
+      "Krootox Riders",
+      "Mounted",
+      "T’au Empire"
+     ],
+     "image": "tau_krootox_riders",
+     "baseSize": "50mm",
+     "profile": {
+      "M": "7\"",
+      "T": "6",
+      "Sv": "5+",
+      "W": "5",
+      "OC": "2",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Repeater cannon",
+       "range": "36\"",
+       "A": "2",
+       "skill": "4+",
+       "S": "7",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Rapid Fire 2"
+       ]
+      },
+      {
+       "name": "Tanglecannon",
+       "range": "36\"",
+       "A": "D6+1",
+       "skill": "4+",
+       "S": "6",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Blast",
+        "Heavy"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Close combat weapon",
+       "range": "Melee",
+       "A": "2",
+       "skill": "3+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Krootox fists",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Extra Attacks"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Scouts 7\""
+     ],
+     "factionAbilities": [],
+     "abilities": [
+      {
+       "name": "Kroot Packmates",
+       "text": "Once per turn, in your opponent’s Shooting phase, when a friendly KROOT INFANTRY unit within 6\" of this unit is selected as the target of an attack, one unit from your army with this ability can use it. If it does, after that enemy unit has finished making its attacks, that unit with this ability can shoot as if it were your Shooting phase, but when resolving those attacks it can only target that enemy unit (and only if it is an eligible target).",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 45
+      },
+      {
+       "models": 2,
+       "pts": 60
+      },
+      {
+       "models": 3,
+       "pts": 90
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1-3 Krootox Riders",
+     "options": [
+      {
+       "id": "tangle",
+       "type": "count",
+       "label": "Tanglecannon",
+       "slots": [
+        "cannon"
+       ],
+       "max": "slot"
+      }
+     ],
+     "optionRules": [],
+     "slots": [
+      {
+       "id": "cannon",
+       "label": "Krootox Rider weapon",
+       "default": "Repeater cannon",
+       "size": {
+        "models": 1
+       },
+       "fixedNote": "All also have a close combat weapon and Krootox fists."
+      }
+     ],
+     "optionGroups": []
+    },
+    {
+     "id": "kroot_hounds",
+     "name": "Kroot Hounds",
+     "role": "beast",
+     "faction": "T’au Empire",
+     "keywords": [
+      "Beasts",
+      "Hounds",
+      "Kroot",
+      "T’au Empire"
+     ],
+     "image": "tau_kroot_hounds",
+     "baseSize": "28.5mm",
+     "profile": {
+      "M": "12\"",
+      "T": "3",
+      "Sv": "6+",
+      "W": "1",
+      "OC": "0",
+      "Ld": "8+"
+     },
+     "damaged": null,
+     "ranged": [],
+     "melee": [
+      {
+       "name": "Ripping fangs",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Scouts 7\"",
+      "Stealth"
+     ],
+     "factionAbilities": [],
+     "abilities": [
+      {
+       "name": "Loping Pounce",
+       "text": "At the start of your Command phase, if this unit is within 6\" of one or more friendly KROOT INFANTRY units, then until the end of the turn, this unit is eligible to declare a charge in a turn in which it Advanced.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Hunting Hounds",
+       "text": "While this unit is within 12\" of one or more friendly KROOT CHARACTER models, the Objective Control characteristic of models in this unit is 1.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 5,
+       "pts": 45
+      },
+      {
+       "models": 10,
+       "pts": 65
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "5-10 Kroot Hounds",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "stealth_battlesuits",
+     "name": "Stealth Battlesuits",
+     "role": "infantry",
+     "faction": "T’au Empire",
+     "keywords": [
+      "Battlesuit",
+      "Fly",
+      "Grenades",
+      "Infantry",
+      "Markerlight",
+      "Stealth",
+      "T’au Empire"
+     ],
+     "image": "tau_stealth_battlesuits",
+     "baseSize": "32mm",
+     "profile": {
+      "M": "8\"",
+      "T": "4",
+      "Sv": "3+",
+      "W": "2",
+      "OC": "1",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Burst cannon",
+       "range": "18\"",
+       "A": "4",
+       "skill": "4+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Fusion blaster",
+       "range": "12\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "9",
+       "AP": "-4",
+       "D": "D6",
+       "kw": [
+        "Melta 2"
+       ]
+      },
+      {
+       "name": "Pulse pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Twin pulse carbine",
+       "range": "20\"",
+       "A": "2",
+       "skill": "4+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Twin-Linked",
+        "Assault"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Battlesuit fists",
+       "range": "Melee",
+       "A": "2",
+       "skill": "5+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Infiltrators",
+      "Stealth"
+     ],
+     "factionAbilities": [
+      "For the Greater Good"
+     ],
+     "abilities": [
+      {
+       "name": "Forward Observers",
+       "text": "Each time this unit is an Observer unit, until the end of the phase, each time a ranged attack is made by a model in a Guided unit that targets their Spotted unit, re-roll a Hit roll of 1 and re-roll a Wound roll of 1.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Homing Beacon",
+       "text": "Once per battle, you can use the Rapid Ingress Stratagem for 0CP. The target must be set up within 3\" of the bearer’s unit and more than 8\" away from all enemy units. Designer’s Note: Place a Homing Beacon token next to this unit, removing it once this ability is used.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Marker Drone",
+       "text": "The bearer’s unit has the MARKERLIGHT keyword and can act as an Observer unit for another unit even if it Advanced this turn.",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 5,
+       "pts": 100,
+       "ptsLater": 110
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [],
+     "composition": "1 Stealth Shas’vre; 4 Stealth Shas’ui",
+     "options": [
+      {
+       "id": "gun",
+       "type": "count",
+       "label": "Gun drone: twin pulse carbine",
+       "max": 1
+      },
+      {
+       "id": "marker",
+       "type": "count",
+       "label": "Marker drone",
+       "max": 1,
+       "grantKeyword": "Markerlight"
+      },
+      {
+       "id": "pistol",
+       "type": "count",
+       "label": "Pulse pistol",
+       "max": 1
+      },
+      {
+       "id": "beacon",
+       "type": "count",
+       "label": "Homing beacon",
+       "max": 1
+      },
+      {
+       "id": "fusion",
+       "type": "count",
+       "label": "Fusion blaster",
+       "slots": [
+        "bc"
+       ],
+       "max": 2
+      }
+     ],
+     "optionRules": [],
+     "slots": [
+      {
+       "id": "bc",
+       "label": "Stealth Battlesuit weapon",
+       "default": "Burst cannon",
+       "size": {
+        "models": 1
+       },
+       "fixedNote": "Every model also has battlesuit fists."
+      }
+     ],
+     "optionGroups": []
+    },
+    {
+     "id": "ghostkeel_battlesuit",
+     "name": "Ghostkeel Battlesuit",
+     "role": "walker",
+     "faction": "T’au Empire",
+     "keywords": [
+      "Battlesuit",
+      "Fly",
+      "Ghostkeel",
+      "Smoke",
+      "T’au Empire",
+      "Vehicle",
+      "Walker"
+     ],
+     "image": "tau_ghostkeel_battlesuit",
+     "baseSize": "105 x 70mm",
+     "profile": {
+      "M": "10\"",
+      "T": "8",
+      "Sv": "2+",
+      "W": "12",
+      "OC": "3",
+      "Ld": "7+"
+     },
+     "damaged": {
+      "threshold": 4,
+      "text": "While this model has 1-4 wounds remaining, each time this model makes an attack, subtract 1 from the Hit roll."
+     },
+     "ranged": [
+      {
+       "name": "Cyclic ion raker – standard",
+       "range": "36\"",
+       "A": "6",
+       "skill": "4+",
+       "S": "7",
+       "AP": "-1",
+       "D": "2",
+       "kw": []
+      },
+      {
+       "name": "Cyclic ion raker – overcharge",
+       "range": "36\"",
+       "A": "6",
+       "skill": "4+",
+       "S": "8",
+       "AP": "-2",
+       "D": "3",
+       "kw": [
+        "Hazardous"
+       ]
+      },
+      {
+       "name": "Fusion collider",
+       "range": "18\"",
+       "A": "2",
+       "skill": "4+",
+       "S": "12",
+       "AP": "-4",
+       "D": "D6",
+       "kw": [
+        "Melta 2"
+       ]
+      },
+      {
+       "name": "Twin burst cannon",
+       "range": "18\"",
+       "A": "4",
+       "skill": "4+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Twin-Linked"
+       ]
+      },
+      {
+       "name": "Twin fusion blaster",
+       "range": "12\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "9",
+       "AP": "-4",
+       "D": "D6",
+       "kw": [
+        "Melta 2",
+        "Twin-Linked"
+       ]
+      },
+      {
+       "name": "Twin T’au flamer",
+       "range": "12\"",
+       "A": "D6",
+       "skill": "N/A",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Ignores Cover",
+        "Torrent",
+        "Twin-Linked"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Ghostkeel fists",
+       "range": "Melee",
+       "A": "3",
+       "skill": "5+",
+       "S": "6",
+       "AP": "0",
+       "D": "2",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D3",
+      "Infiltrators",
+      "Lone Operative",
+      "Stealth"
+     ],
+     "factionAbilities": [
+      "For the Greater Good"
+     ],
+     "abilities": [
+      {
+       "name": "Battlesuit Support System",
+       "text": "The bearer is eligible to shoot in a turn in which it Fell Back but it loses the SMOKE keyword.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Stealth Drones",
+       "text": "Twice per battle, after an attack has been allocated to this model, you can change the Damage characteristic of that attack to 0. Designer’s Note: Place two Stealth Drone tokens next to the unit, removing one each time this ability has been used.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 150,
+       "ptsLater": 165
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [],
+     "composition": "1 Ghostkeel Battlesuit",
+     "options": [
+      {
+       "id": "col",
+       "type": "choice",
+       "label": "Fusion collider replaced with",
+       "choices": [
+        {
+         "id": "fc",
+         "label": "Fusion collider",
+         "pts": 0
+        },
+        {
+         "id": "raker",
+         "label": "Cyclic ion raker",
+         "pts": 15
+        }
+       ]
+      },
+      {
+       "id": "flm",
+       "type": "choice",
+       "label": "Twin T’au flamer replaced with",
+       "choices": [
+        {
+         "id": "tf",
+         "label": "Twin T’au flamer",
+         "pts": 0
+        },
+        {
+         "id": "tfb",
+         "label": "Twin fusion blaster",
+         "pts": 0
+        },
+        {
+         "id": "tbc",
+         "label": "Twin burst cannon",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "bss",
+       "type": "toggle",
+       "label": "Battlesuit support system"
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "riptide_battlesuit",
+     "name": "Riptide Battlesuit",
+     "role": "walker",
+     "faction": "T’au Empire",
+     "keywords": [
+      "Battlesuit",
+      "Fly",
+      "Riptide",
+      "T’au Empire",
+      "Vehicle",
+      "Walker"
+     ],
+     "image": "tau_riptide_battlesuit",
+     "baseSize": "120 x 92mm",
+     "profile": {
+      "M": "10\"",
+      "T": "9",
+      "Sv": "2+",
+      "InSv": "4+",
+      "W": "14",
+      "OC": "4",
+      "Ld": "7+"
+     },
+     "damaged": {
+      "threshold": 4,
+      "text": "While this model has 1-4 wounds remaining, each time this model makes an attack, subtract 1 from the Hit roll."
+     },
+     "ranged": [
+      {
+       "name": "Heavy burst cannon",
+       "range": "36\"",
+       "A": "12",
+       "skill": "4+",
+       "S": "6",
+       "AP": "-1",
+       "D": "2",
+       "kw": []
+      },
+      {
+       "name": "Ion accelerator – standard",
+       "range": "72\"",
+       "A": "6",
+       "skill": "4+",
+       "S": "9",
+       "AP": "-2",
+       "D": "3",
+       "kw": []
+      },
+      {
+       "name": "Ion accelerator – supercharge",
+       "range": "72\"",
+       "A": "6",
+       "skill": "4+",
+       "S": "10",
+       "AP": "-3",
+       "D": "4",
+       "kw": [
+        "Hazardous"
+       ]
+      },
+      {
+       "name": "Twin fusion blaster",
+       "range": "12\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "9",
+       "AP": "-4",
+       "D": "D6",
+       "kw": [
+        "Melta 2",
+        "Twin-Linked"
+       ]
+      },
+      {
+       "name": "Twin plasma rifle",
+       "range": "18\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "8",
+       "AP": "-3",
+       "D": "3",
+       "kw": [
+        "Twin-Linked"
+       ]
+      },
+      {
+       "name": "Twin smart missile system",
+       "range": "30\"",
+       "A": "3",
+       "skill": "4+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Indirect Fire",
+        "Twin-Linked"
+       ]
+      },
+      {
+       "name": "Missile pod",
+       "range": "30\"",
+       "A": "2",
+       "skill": "4+",
+       "S": "7",
+       "AP": "-1",
+       "D": "2",
+       "kw": []
+      }
+     ],
+     "melee": [
+      {
+       "name": "Riptide fists",
+       "range": "Melee",
+       "A": "6",
+       "skill": "5+",
+       "S": "6",
+       "AP": "0",
+       "D": "2",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D6"
+     ],
+     "factionAbilities": [
+      "For the Greater Good"
+     ],
+     "abilities": [
+      {
+       "name": "Battlesuit Support System",
+       "text": "The bearer is eligible to shoot in a turn in which it Fell Back.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Nova Charge",
+       "text": "Once per battle, when this unit is selected to shoot in your Shooting phase, select one ranged weapon equipped by this model. Until the end of the phase, that weapon has the [DEVASTATING WOUNDS] ability.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Weapon Support System",
+       "text": "Each time the bearer makes a ranged attack, you can ignore any or all modifiers to the Hit roll.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 190,
+       "ptsLater": 220
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [],
+     "composition": "1 Riptide Battlesuit",
+     "options": [
+      {
+       "id": "hbc",
+       "type": "choice",
+       "label": "Heavy burst cannon replaced with",
+       "choices": [
+        {
+         "id": "hbc",
+         "label": "Heavy burst cannon",
+         "pts": 0
+        },
+        {
+         "id": "ia",
+         "label": "Ion accelerator",
+         "pts": 25
+        }
+       ]
+      },
+      {
+       "id": "tp",
+       "type": "choice",
+       "label": "Twin plasma rifle replaced with",
+       "choices": [
+        {
+         "id": "tpr",
+         "label": "Twin plasma rifle",
+         "pts": 0
+        },
+        {
+         "id": "tfb",
+         "label": "Twin fusion blaster",
+         "pts": 0
+        },
+        {
+         "id": "tsms",
+         "label": "Twin smart missile system",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "md",
+       "type": "count",
+       "label": "Missile drone: missile pod",
+       "max": 2
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "pathfinder_team",
+     "name": "Pathfinder Team",
+     "role": "infantry",
+     "faction": "T’au Empire",
+     "keywords": [
+      "Grenades",
+      "Infantry",
+      "Markerlight",
+      "Pathfinder Team",
+      "T’au Empire"
+     ],
+     "image": "tau_pathfinder_team",
+     "baseSize": "25mm",
+     "profile": {
+      "M": "7\"",
+      "T": "3",
+      "Sv": "4+",
+      "W": "1",
+      "OC": "1",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Drone burst cannon",
+       "range": "18\"",
+       "A": "4",
+       "skill": "5+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Ion rifle – standard",
+       "range": "30\"",
+       "A": "3",
+       "skill": "5+",
+       "S": "7",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Heavy"
+       ]
+      },
+      {
+       "name": "Ion rifle – overcharge",
+       "range": "30\"",
+       "A": "3",
+       "skill": "5+",
+       "S": "8",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Hazardous",
+        "Heavy"
+       ]
+      },
+      {
+       "name": "Pulse carbine",
+       "range": "20\"",
+       "A": "2",
+       "skill": "4+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Pulse pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Rail rifle",
+       "range": "30\"",
+       "A": "1",
+       "skill": "5+",
+       "S": "10",
+       "AP": "-4",
+       "D": "3",
+       "kw": [
+        "Devastating Wounds",
+        "Heavy"
+       ]
+      },
+      {
+       "name": "Semi-automatic grenade launcher – EMP",
+       "range": "18\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Anti-Vehicle 4+",
+        "Devastating Wounds"
+       ]
+      },
+      {
+       "name": "Semi-automatic grenade launcher – fusion",
+       "range": "18\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "6",
+       "AP": "-1",
+       "D": "3",
+       "kw": []
+      },
+      {
+       "name": "Twin pulse carbine",
+       "range": "20\"",
+       "A": "2",
+       "skill": "4+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Twin-Linked",
+        "Assault"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Close combat weapon",
+       "range": "Melee",
+       "A": "1",
+       "skill": "5+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Scouts 7\""
+     ],
+     "factionAbilities": [
+      "For the Greater Good"
+     ],
+     "abilities": [
+      {
+       "name": "Target Uploaded",
+       "text": "Each time a model in this unit makes an attack that targets their Spotted unit, improve the Ballistic Skill characteristic of that attack by 1 and that attack has the [IGNORES COVER] ability.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Grav-inhibitor Drone",
+       "text": "Subtract 2 from Charge rolls made for any enemy unit that declares a charge against the bearer’s unit (this is not cumulative with any other reductions to that Charge roll).",
+       "kind": "wargear"
+      },
+      {
+       "name": "Pulse Accelerator Drone",
+       "text": "Add 6\" to the Range characteristic of pulse carbines equipped by models in the bearer’s unit.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Recon Drone",
+       "text": "The bearer is equipped with 1 drone burst cannon and the bearer’s unit has the Infiltrators ability.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Marker Drone",
+       "text": "The bearer’s unit has the MARKERLIGHT keyword and can act as an Observer unit for another unit even if it Advanced this turn.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Shield Drone",
+       "text": "Add 1 to the bearer’s Wounds characteristic.",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 10,
+       "pts": 85,
+       "ptsLater": 100
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [],
+     "composition": "1 Pathfinder Shas’ui; 9 Pathfinders",
+     "options": [
+      {
+       "id": "pdrone",
+       "type": "choice",
+       "label": "Pathfinder Shas’ui drone",
+       "choices": [
+        {
+         "id": "none",
+         "label": "None",
+         "pts": 0
+        },
+        {
+         "id": "grav",
+         "label": "Grav-inhibitor drone",
+         "pts": 0
+        },
+        {
+         "id": "acc",
+         "label": "Pulse accelerator drone",
+         "pts": 0
+        },
+        {
+         "id": "recon",
+         "label": "Recon drone: drone burst cannon",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "gun",
+       "type": "count",
+       "label": "Gun drone: twin pulse carbine",
+       "group": "drones",
+       "per": 10,
+       "n": 2
+      },
+      {
+       "id": "marker",
+       "type": "count",
+       "label": "Marker drone",
+       "group": "drones",
+       "per": 10,
+       "n": 2,
+       "grantKeyword": "Markerlight"
+      },
+      {
+       "id": "shield",
+       "type": "count",
+       "label": "Shield drone",
+       "group": "drones",
+       "per": 10,
+       "n": 2
+      },
+      {
+       "id": "ion",
+       "type": "count",
+       "label": "Ion rifle (+5 pts each)",
+       "slots": [
+        "carbine"
+       ],
+       "group": "rifles",
+       "max": 3,
+       "pts": 5
+      },
+      {
+       "id": "rail",
+       "type": "count",
+       "label": "Rail rifle",
+       "slots": [
+        "carbine"
+       ],
+       "group": "rifles",
+       "max": 3
+      },
+      {
+       "id": "sagl",
+       "type": "toggle",
+       "label": "Semi-automatic grenade launcher"
+      }
+     ],
+     "optionRules": [],
+     "slots": [
+      {
+       "id": "carbine",
+       "label": "Pathfinder weapon",
+       "default": "Pulse carbine",
+       "size": {
+        "models": 1
+       },
+       "fixedNote": "Every model also has a pulse pistol and a close combat weapon."
+      }
+     ],
+     "optionGroups": [
+      {
+       "id": "drones",
+       "label": "Drones",
+       "per": 10,
+       "n": 2
+      },
+      {
+       "id": "rifles",
+       "label": "Ion rifles and rail rifles",
+       "per": 10,
+       "n": 3
+      }
+     ]
+    },
+    {
+     "id": "piranhas",
+     "name": "Piranhas",
+     "role": "vehicle",
+     "faction": "T’au Empire",
+     "keywords": [
+      "Fly",
+      "Frame",
+      "Piranhas",
+      "T’au Empire",
+      "Vehicle"
+     ],
+     "image": "tau_piranhas",
+     "baseSize": "60mm flying base",
+     "profile": {
+      "M": "14\"",
+      "T": "7",
+      "Sv": "4+",
+      "W": "7",
+      "OC": "2",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Piranha burst cannon",
+       "range": "18\"",
+       "A": "4",
+       "skill": "4+",
+       "S": "6",
+       "AP": "-1",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Piranha fusion blaster",
+       "range": "12\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "9",
+       "AP": "-4",
+       "D": "D6",
+       "kw": [
+        "Melta 4"
+       ]
+      },
+      {
+       "name": "Seeker missile",
+       "range": "48\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "14",
+       "AP": "-3",
+       "D": "D6+1",
+       "kw": [
+        "One Shot"
+       ]
+      },
+      {
+       "name": "Twin pulse carbine",
+       "range": "20\"",
+       "A": "2",
+       "skill": "4+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Twin-Linked",
+        "Assault"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Armoured hull",
+       "range": "Melee",
+       "A": "2",
+       "skill": "5+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise 1",
+      "Scouts 9\""
+     ],
+     "factionAbilities": [
+      "For the Greater Good"
+     ],
+     "abilities": [
+      {
+       "name": "Drone Harassment Tactics",
+       "text": "At the end of your Movement phase, select one enemy unit within 12\" of this unit; that enemy unit must take a Battle-shock test.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 65,
+       "ptsLater": 75
+      },
+      {
+       "models": 2,
+       "pts": 110,
+       "ptsLater": 120
+      },
+      {
+       "models": 3,
+       "pts": 165,
+       "ptsLater": 175
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [],
+     "composition": "1-3 Piranhas",
+     "options": [
+      {
+       "id": "fb",
+       "type": "count",
+       "label": "Piranha fusion blaster",
+       "slots": [
+        "bc"
+       ],
+       "max": "slot"
+      },
+      {
+       "id": "seeker",
+       "type": "count",
+       "label": "Seeker missile",
+       "per": 1,
+       "n": 2
+      }
+     ],
+     "optionRules": [],
+     "slots": [
+      {
+       "id": "bc",
+       "label": "Piranha main weapon",
+       "default": "Piranha burst cannon",
+       "size": {
+        "models": 1
+       },
+       "fixedNote": "Every model also has 2 twin pulse carbines and an armoured hull."
+      }
+     ],
+     "optionGroups": []
+    },
+    {
+     "id": "devilfish",
+     "name": "Devilfish",
+     "role": "transport",
+     "faction": "T’au Empire",
+     "keywords": [
+      "Dedicated Transport",
+      "Devilfish",
+      "Fly",
+      "Frame",
+      "Transport",
+      "T’au Empire",
+      "Vehicle"
+     ],
+     "image": "tau_devilfish",
+     "baseSize": "60mm flying base",
+     "profile": {
+      "M": "12\"",
+      "T": "9",
+      "Sv": "3+",
+      "W": "13",
+      "OC": "2",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Accelerator burst cannon",
+       "range": "18\"",
+       "A": "4",
+       "skill": "4+",
+       "S": "6",
+       "AP": "-1",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Seeker missile",
+       "range": "48\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "14",
+       "AP": "-3",
+       "D": "D6+1",
+       "kw": [
+        "One Shot"
+       ]
+      },
+      {
+       "name": "Twin pulse carbine",
+       "range": "20\"",
+       "A": "2",
+       "skill": "4+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Assault",
+        "Twin-Linked"
+       ]
+      },
+      {
+       "name": "Smart missile system",
+       "range": "30\"",
+       "A": "3",
+       "skill": "4+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Indirect Fire"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Armoured hull",
+       "range": "Melee",
+       "A": "3",
+       "skill": "5+",
+       "S": "6",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D3"
+     ],
+     "factionAbilities": [
+      "For the Greater Good"
+     ],
+     "abilities": [
+      {
+       "name": "Rapid Deployment",
+       "text": "Units can disembark from this TRANSPORT after it has Advanced. Units that do so make a shock disembark move for that disembarkation.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 75,
+       "ptsLater": 85
+      }
+     ],
+     "stepFrom": 4,
+     "leaderOf": [],
+     "composition": "1 Devilfish",
+     "options": [
+      {
+       "id": "car",
+       "type": "choice",
+       "label": "2 twin pulse carbines replaced with",
+       "choices": [
+        {
+         "id": "tpc",
+         "label": "2 twin pulse carbines",
+         "pts": 0
+        },
+        {
+         "id": "sms",
+         "label": "2 smart missile systems",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "seeker",
+       "type": "count",
+       "label": "Seeker missile",
+       "max": 2
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "transport": "This model has a transport capacity of 12 T’au Empire Infantry models. It cannot transport Battlesuit, Kroot or Vespid Stingwings models."
+    },
+    {
+     "id": "razorshark_strike_fighter",
+     "name": "Razorshark Strike Fighter",
+     "role": "aircraft",
+     "faction": "T’au Empire",
+     "keywords": [
+      "Aircraft",
+      "Fly",
+      "Frame",
+      "Razorshark Strike Fighter",
+      "T’au Empire",
+      "Vehicle"
+     ],
+     "image": "tau_razorshark_strike_fighter",
+     "baseSize": "120 x 92mm flying base",
+     "profile": {
+      "M": "-",
+      "T": "10",
+      "Sv": "3+",
+      "W": "12",
+      "OC": "-",
+      "Ld": "7+"
+     },
+     "damaged": {
+      "threshold": 4,
+      "text": "While this model has 1-4 wounds remaining, each time this model makes an attack, subtract 1 from the Hit roll."
+     },
+     "ranged": [
+      {
+       "name": "Accelerator burst cannon",
+       "range": "18\"",
+       "A": "4",
+       "skill": "4+",
+       "S": "6",
+       "AP": "-1",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Missile pod",
+       "range": "30\"",
+       "A": "2",
+       "skill": "4+",
+       "S": "7",
+       "AP": "-1",
+       "D": "2",
+       "kw": []
+      },
+      {
+       "name": "Quad ion turret – standard",
+       "range": "30\"",
+       "A": "8",
+       "skill": "4+",
+       "S": "7",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Twin-Linked"
+       ]
+      },
+      {
+       "name": "Quad ion turret – overcharge",
+       "range": "30\"",
+       "A": "8",
+       "skill": "4+",
+       "S": "8",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Hazardous",
+        "Twin-Linked"
+       ]
+      },
+      {
+       "name": "Seeker missile",
+       "range": "48\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "14",
+       "AP": "-3",
+       "D": "D6+1",
+       "kw": [
+        "One Shot"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Armoured hull",
+       "range": "Melee",
+       "A": "3",
+       "skill": "5+",
+       "S": "6",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D3"
+     ],
+     "factionAbilities": [
+      "For the Greater Good"
+     ],
+     "abilities": [
+      {
+       "name": "Ground Strike Fighter",
+       "text": "Each time this model makes a ranged attack that targets an enemy unit that cannot FLY, add 1 to the Hit roll.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 160
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 Razorshark Strike Fighter",
+     "options": [
+      {
+       "id": "abc",
+       "type": "choice",
+       "label": "Accelerator burst cannon replaced with",
+       "choices": [
+        {
+         "id": "abc",
+         "label": "Accelerator burst cannon",
+         "pts": 0
+        },
+        {
+         "id": "mp",
+         "label": "Missile pod",
+         "pts": 0
+        }
+       ]
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "sun_shark_bomber",
+     "name": "Sun Shark Bomber",
+     "role": "aircraft",
+     "faction": "T’au Empire",
+     "keywords": [
+      "Aircraft",
+      "Fly",
+      "Frame",
+      "Sun Shark Bomber",
+      "T’au Empire",
+      "Vehicle"
+     ],
+     "image": "tau_sun_shark_bomber",
+     "baseSize": "120 x 92mm flying base",
+     "profile": {
+      "M": "-",
+      "T": "9",
+      "Sv": "3+",
+      "W": "12",
+      "OC": "-",
+      "Ld": "7+"
+     },
+     "damaged": {
+      "threshold": 4,
+      "text": "While this model has 1-4 wounds remaining, each time this model makes an attack, subtract 1 from the Hit roll."
+     },
+     "ranged": [
+      {
+       "name": "Missile pod",
+       "range": "30\"",
+       "A": "2",
+       "skill": "4+",
+       "S": "7",
+       "AP": "-1",
+       "D": "2",
+       "kw": []
+      },
+      {
+       "name": "Twin missile pod",
+       "range": "30\"",
+       "A": "2",
+       "skill": "4+",
+       "S": "7",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Twin-Linked"
+       ]
+      },
+      {
+       "name": "Seeker missile",
+       "range": "48\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "14",
+       "AP": "-3",
+       "D": "D6+1",
+       "kw": [
+        "One Shot"
+       ]
+      },
+      {
+       "name": "Twin ion rifle – standard",
+       "range": "30\"",
+       "A": "3",
+       "skill": "4+",
+       "S": "7",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Twin-Linked"
+       ]
+      },
+      {
+       "name": "Twin ion rifle – overcharge",
+       "range": "30\"",
+       "A": "3",
+       "skill": "4+",
+       "S": "8",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Hazardous",
+        "Twin-Linked"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Armoured hull",
+       "range": "Melee",
+       "A": "3",
+       "skill": "5+",
+       "S": "6",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D3"
+     ],
+     "factionAbilities": [
+      "For the Greater Good"
+     ],
+     "abilities": [
+      {
+       "name": "Pulse Bombs",
+       "text": "At the end of your opponent’s Fight phase, select one visible enemy unit (excluding Lone Operative units) within 24\" of this unit, and roll six D6 for that unit: For each 4+, that unit suffers 1 mortal wound.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 150
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 Sun Shark Bomber",
+     "options": [
+      {
+       "id": "mp",
+       "type": "choice",
+       "label": "Missile pod replaced with",
+       "choices": [
+        {
+         "id": "mp",
+         "label": "Missile pod",
+         "pts": 0
+        },
+        {
+         "id": "tmp",
+         "label": "Twin missile pod",
+         "pts": 0
+        }
+       ]
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "vespid_stingwings",
+     "name": "Vespid Stingwings",
+     "role": "infantry",
+     "faction": "T’au Empire",
+     "keywords": [
+      "Fly",
+      "Infantry",
+      "T’au Empire",
+      "Vespid Stingwings"
+     ],
+     "image": "tau_vespid_stingwings",
+     "baseSize": "28.5mm",
+     "profile": {
+      "M": "12\"",
+      "T": "4",
+      "Sv": "4+",
+      "W": "1",
+      "OC": "1",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Neutron blaster",
+       "range": "18\"",
+       "A": "2",
+       "skill": "4+",
+       "S": "5",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Assault"
+       ]
+      },
+      {
+       "name": "Neutron grenade launcher",
+       "range": "18\"",
+       "A": "D6",
+       "skill": "4+",
+       "S": "4",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Anti-Infantry 3+",
+        "Blast"
+       ]
+      },
+      {
+       "name": "Neutron rail rifle",
+       "range": "30\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "10",
+       "AP": "-4",
+       "D": "3",
+       "kw": [
+        "Devastating Wounds"
+       ]
+      },
+      {
+       "name": "T’au flamer",
+       "range": "12\"",
+       "A": "D6",
+       "skill": "N/A",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Ignores Cover",
+        "Torrent"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Stingwing claws",
+       "range": "Melee",
+       "A": "1",
+       "skill": "4+",
+       "S": "4",
+       "AP": "-1",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deep Strike"
+     ],
+     "factionAbilities": [],
+     "abilities": [
+      {
+       "name": "Airborne Agility",
+       "text": "At the end of your opponent’s turn, if this unit is not within Engagement Range of one or more enemy units, you can remove it from the battlefield and place it into Strategic Reserves.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Oversight Drone",
+       "text": "Once per battle, when the bearer’s unit is selected to shoot, until the end of the phase, ranged weapons equipped by models in this unit have the [IGNORES COVER] ability. Designer’s Note: Place an Oversight Drone token next to the bearer, removing it once this ability has been used.",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 5,
+       "pts": 70
+      },
+      {
+       "models": 10,
+       "pts": 115
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 Vespid Strain Leader; 4-9 Vespid Stingwings",
+     "options": [
+      {
+       "id": "oversight",
+       "type": "count",
+       "label": "Oversight drone",
+       "maxBySize": {
+        "10": 1
+       }
+      },
+      {
+       "id": "flamer",
+       "type": "count",
+       "label": "T’au flamer",
+       "slots": [
+        "nb"
+       ],
+       "maxBySize": {
+        "10": 1
+       }
+      },
+      {
+       "id": "ngl",
+       "type": "count",
+       "label": "Neutron grenade launcher",
+       "slots": [
+        "nb"
+       ],
+       "maxBySize": {
+        "10": 1
+       }
+      },
+      {
+       "id": "nrr",
+       "type": "count",
+       "label": "Neutron rail rifle",
+       "slots": [
+        "nb"
+       ],
+       "maxBySize": {
+        "10": 1
+       }
+      }
+     ],
+     "optionRules": [],
+     "slots": [
+      {
+       "id": "nb",
+       "label": "Vespid weapon",
+       "default": "Neutron blaster",
+       "size": {
+        "models": 1
+       },
+       "fixedNote": "These options need a 10-model unit. Every model also has stingwing claws."
+      }
+     ],
+     "optionGroups": []
+    },
+    {
+     "id": "firesight_team",
+     "name": "Firesight Team",
+     "role": "character",
+     "faction": "T’au Empire",
+     "keywords": [
+      "Character",
+      "Firesight Team",
+      "Infantry",
+      "Markerlight",
+      "T’au Empire"
+     ],
+     "image": "tau_firesight_team",
+     "baseSize": "40mm",
+     "profile": {
+      "M": "6\"",
+      "T": "3",
+      "Sv": "4+",
+      "W": "4",
+      "OC": "3",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Longshot pulse rifles",
+       "range": "36\"",
+       "A": "3",
+       "skill": "4+",
+       "S": "5",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Heavy",
+        "Precision"
+       ]
+      },
+      {
+       "name": "Pulse pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Close combat weapons",
+       "range": "Melee",
+       "A": "4",
+       "skill": "5+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Infiltrators",
+      "Lone Operative",
+      "Stealth"
+     ],
+     "factionAbilities": [
+      "For the Greater Good"
+     ],
+     "abilities": [
+      {
+       "name": "Precise Targeting",
+       "text": "Each time a model in this unit makes an attack that targets a Spotted unit, you can re-roll the Hit roll.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 55
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 Firesight Marksman",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "sky_ray_gunship",
+     "name": "Sky Ray Gunship",
+     "role": "vehicle",
+     "faction": "T’au Empire",
+     "keywords": [
+      "Fly",
+      "Frame",
+      "Markerlight",
+      "Sky Ray Gunship",
+      "T’au Empire",
+      "Vehicle"
+     ],
+     "image": "tau_sky_ray_gunship",
+     "baseSize": "60mm flying base",
+     "profile": {
+      "M": "10\"",
+      "T": "10",
+      "Sv": "3+",
+      "W": "14",
+      "OC": "3",
+      "Ld": "7+"
+     },
+     "damaged": {
+      "threshold": 5,
+      "text": "While this model has 1-5 wounds remaining, each time this model makes an attack, subtract 1 from the Hit roll."
+     },
+     "ranged": [
+      {
+       "name": "Accelerator burst cannon",
+       "range": "18\"",
+       "A": "4",
+       "skill": "4+",
+       "S": "6",
+       "AP": "-1",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Seeker missile rack",
+       "range": "48\"",
+       "A": "3",
+       "skill": "4+",
+       "S": "14",
+       "AP": "-3",
+       "D": "D6+1",
+       "kw": [
+        "Twin-Linked"
+       ]
+      },
+      {
+       "name": "Twin pulse carbine",
+       "range": "20\"",
+       "A": "2",
+       "skill": "4+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Assault",
+        "Twin-Linked"
+       ]
+      },
+      {
+       "name": "Smart missile system",
+       "range": "30\"",
+       "A": "3",
+       "skill": "4+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Indirect Fire"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Armoured hull",
+       "range": "Melee",
+       "A": "3",
+       "skill": "5+",
+       "S": "6",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D3"
+     ],
+     "factionAbilities": [
+      "For the Greater Good"
+     ],
+     "abilities": [
+      {
+       "name": "Velocity Tracker",
+       "text": "Each time this model makes a ranged attack that targets a unit that can FLY, you can re-roll the Hit roll.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Targeting Array",
+       "text": "Each time this unit is selected to shoot, you can re-roll one Hit roll or you can re-roll one Wound roll when resolving those attacks.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 140
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 Sky Ray Gunship",
+     "options": [
+      {
+       "id": "car",
+       "type": "choice",
+       "label": "2 twin pulse carbines replaced with",
+       "choices": [
+        {
+         "id": "tpc",
+         "label": "2 twin pulse carbines",
+         "pts": 0
+        },
+        {
+         "id": "abc",
+         "label": "2 accelerator burst cannons",
+         "pts": 0
+        },
+        {
+         "id": "sms",
+         "label": "2 smart missile systems",
+         "pts": 0
+        }
+       ]
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "hammerhead_gunship",
+     "name": "Hammerhead Gunship",
+     "role": "vehicle",
+     "faction": "T’au Empire",
+     "keywords": [
+      "Fly",
+      "Frame",
+      "Hammerhead Gunship",
+      "T’au Empire",
+      "Vehicle"
+     ],
+     "image": "tau_hammerhead_gunship",
+     "baseSize": "60mm flying base",
+     "profile": {
+      "M": "10\"",
+      "T": "10",
+      "Sv": "3+",
+      "W": "14",
+      "OC": "3",
+      "Ld": "7+"
+     },
+     "damaged": {
+      "threshold": 5,
+      "text": "While this model has 1-5 wounds remaining, each time this model makes an attack, subtract 1 from the Hit roll."
+     },
+     "ranged": [
+      {
+       "name": "Accelerator burst cannon",
+       "range": "18\"",
+       "A": "4",
+       "skill": "4+",
+       "S": "6",
+       "AP": "-1",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Ion cannon – standard",
+       "range": "60\"",
+       "A": "D6+3",
+       "skill": "4+",
+       "S": "7",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Blast"
+       ]
+      },
+      {
+       "name": "Ion cannon – overcharge",
+       "range": "60\"",
+       "A": "D6+3",
+       "skill": "4+",
+       "S": "8",
+       "AP": "-2",
+       "D": "3",
+       "kw": [
+        "Blast",
+        "Hazardous"
+       ]
+      },
+      {
+       "name": "Railgun",
+       "range": "72\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "20",
+       "AP": "-5",
+       "D": "D6+6",
+       "kw": [
+        "Heavy",
+        "Devastating Wounds"
+       ]
+      },
+      {
+       "name": "Seeker missile",
+       "range": "48\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "14",
+       "AP": "-3",
+       "D": "D6+1",
+       "kw": [
+        "One Shot"
+       ]
+      },
+      {
+       "name": "Twin pulse carbine",
+       "range": "20\"",
+       "A": "2",
+       "skill": "4+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Twin-Linked"
+       ]
+      },
+      {
+       "name": "Smart missile system",
+       "range": "30\"",
+       "A": "3",
+       "skill": "4+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Indirect Fire"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Armoured hull",
+       "range": "Melee",
+       "A": "3",
+       "skill": "5+",
+       "S": "6",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D3"
+     ],
+     "factionAbilities": [
+      "For the Greater Good"
+     ],
+     "abilities": [
+      {
+       "name": "Armour Hunter",
+       "text": "Each time this model makes an attack that targets a MONSTER or VEHICLE, add 1 to the Hit roll.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Targeting Array",
+       "text": "Each time this model is selected to shoot, you can re-roll one Hit roll or you can re-roll one Wound roll when resolving those attacks.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 150,
+       "ptsLater": 160
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [],
+     "composition": "1 Hammerhead Gunship",
+     "options": [
+      {
+       "id": "gun",
+       "type": "choice",
+       "label": "Railgun replaced with",
+       "choices": [
+        {
+         "id": "rg",
+         "label": "Railgun",
+         "pts": 0
+        },
+        {
+         "id": "ic",
+         "label": "Ion cannon",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "car",
+       "type": "choice",
+       "label": "2 twin pulse carbines replaced with",
+       "choices": [
+        {
+         "id": "tpc",
+         "label": "2 twin pulse carbines",
+         "pts": 0
+        },
+        {
+         "id": "abc",
+         "label": "2 accelerator burst cannons",
+         "pts": 0
+        },
+        {
+         "id": "sms",
+         "label": "2 smart missile systems",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "seeker",
+       "type": "count",
+       "label": "Seeker missile",
+       "max": 2
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "broadside_battlesuits",
+     "name": "Broadside Battlesuits",
+     "role": "walker",
+     "faction": "T’au Empire",
+     "keywords": [
+      "Battlesuit",
+      "Broadside",
+      "T’au Empire",
+      "Vehicle",
+      "Walker"
+     ],
+     "image": "tau_broadside_battlesuits",
+     "baseSize": "60mm",
+     "profile": {
+      "M": "5\"",
+      "T": "6",
+      "Sv": "2+",
+      "W": "8",
+      "OC": "2",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Heavy rail rifle",
+       "range": "60\"",
+       "A": "2",
+       "skill": "4+",
+       "S": "12",
+       "AP": "-4",
+       "D": "D6+1",
+       "kw": [
+        "Heavy",
+        "Devastating Wounds"
+       ]
+      },
+      {
+       "name": "High-yield missile pods",
+       "range": "30\"",
+       "A": "6",
+       "skill": "4+",
+       "S": "7",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Twin-Linked"
+       ]
+      },
+      {
+       "name": "Seeker missile",
+       "range": "48\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "14",
+       "AP": "-3",
+       "D": "D6+1",
+       "kw": [
+        "One Shot"
+       ]
+      },
+      {
+       "name": "Twin plasma rifle",
+       "range": "18\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "8",
+       "AP": "-3",
+       "D": "3",
+       "kw": [
+        "Twin-Linked"
+       ]
+      },
+      {
+       "name": "Twin smart missile system",
+       "range": "30\"",
+       "A": "4",
+       "skill": "4+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Indirect Fire",
+        "Twin-Linked"
+       ]
+      },
+      {
+       "name": "Twin pulse carbine",
+       "range": "20\"",
+       "A": "2",
+       "skill": "4+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Twin-Linked",
+        "Assault"
+       ]
+      },
+      {
+       "name": "Missile pod",
+       "range": "30\"",
+       "A": "2",
+       "skill": "4+",
+       "S": "7",
+       "AP": "-1",
+       "D": "2",
+       "kw": []
+      }
+     ],
+     "melee": [
+      {
+       "name": "Crushing bulk",
+       "range": "Melee",
+       "A": "3",
+       "skill": "5+",
+       "S": "6",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [],
+     "factionAbilities": [
+      "For the Greater Good"
+     ],
+     "abilities": [
+      {
+       "name": "Advanced Armour",
+       "text": "Models in this unit have the Feel No Pain 4+ ability against mortal wounds.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Weapon Support System",
+       "text": "Each time the bearer makes a ranged attack, you can ignore any or all modifiers to the Hit roll.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Marker Drone",
+       "text": "The bearer’s unit has the MARKERLIGHT keyword and can act as an Observer unit for another unit even if it Advanced this turn.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Shield Drone",
+       "text": "Add 1 to the bearer’s Wounds characteristic.",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 75,
+       "ptsLater": 95
+      },
+      {
+       "models": 2,
+       "pts": 150,
+       "ptsLater": 170
+      },
+      {
+       "models": 3,
+       "pts": 255,
+       "ptsLater": 275
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [],
+     "composition": "1 Broadside Shas’vre; 0-2 Broadside Shas’ui",
+     "options": [
+      {
+       "id": "hymp",
+       "type": "count",
+       "label": "High-yield missile pods (+5 pts each)",
+       "slots": [
+        "hrr"
+       ],
+       "max": "slot",
+       "pts": 5
+      },
+      {
+       "id": "seeker",
+       "type": "count",
+       "label": "Seeker missile",
+       "group": "support",
+       "max": "models"
+      },
+      {
+       "id": "twinplasma",
+       "type": "count",
+       "label": "Twin plasma rifle",
+       "group": "support",
+       "max": "models"
+      },
+      {
+       "id": "tsms",
+       "type": "count",
+       "label": "Twin smart missile system",
+       "group": "support",
+       "max": "models"
+      },
+      {
+       "id": "wss",
+       "type": "count",
+       "label": "Weapon support system",
+       "group": "support",
+       "max": "models"
+      },
+      {
+       "id": "gun",
+       "type": "count",
+       "label": "Gun drone: twin pulse carbine",
+       "group": "drones",
+       "per": 1,
+       "n": 2
+      },
+      {
+       "id": "marker",
+       "type": "count",
+       "label": "Marker drone",
+       "group": "drones",
+       "per": 1,
+       "n": 2,
+       "grantKeyword": "Markerlight"
+      },
+      {
+       "id": "missile",
+       "type": "count",
+       "label": "Missile drone: missile pod",
+       "group": "drones",
+       "per": 1,
+       "n": 2
+      },
+      {
+       "id": "shield",
+       "type": "count",
+       "label": "Shield drone",
+       "group": "drones",
+       "per": 1,
+       "n": 2
+      }
+     ],
+     "optionRules": [
+      {
+       "sumOf": [
+        "twinplasma",
+        "tsms"
+       ],
+       "atMost": {
+        "per": 1,
+        "n": 1
+       },
+       "message": "No model can have both a twin plasma rifle and a twin smart missile system."
+      }
+     ],
+     "slots": [
+      {
+       "id": "hrr",
+       "label": "Broadside main weapon",
+       "default": "Heavy rail rifle",
+       "size": {
+        "models": 1
+       },
+       "fixedNote": "Every model also has crushing bulk."
+      }
+     ],
+     "optionGroups": [
+      {
+       "id": "support",
+       "label": "Support systems",
+       "per": 1,
+       "n": 2
+      },
+      {
+       "id": "drones",
+       "label": "Drones",
+       "per": 1,
+       "n": 2
+      }
+     ]
+    },
+    {
+     "id": "stormsurge",
+     "name": "Stormsurge",
+     "role": "titanic",
+     "faction": "T’au Empire",
+     "keywords": [
+      "Stormsurge",
+      "Titanic",
+      "Towering",
+      "T’au Empire",
+      "Vehicle",
+      "Walker"
+     ],
+     "image": "tau_stormsurge",
+     "baseSize": "170 x 109mm",
+     "profile": {
+      "M": "8\"",
+      "T": "11",
+      "Sv": "2+",
+      "InSv": "4+",
+      "W": "20",
+      "OC": "6",
+      "Ld": "7+"
+     },
+     "damaged": {
+      "threshold": 5,
+      "text": "While this model has 1-5 wounds remaining, subtract 3 from this model’s Objective Control characteristic, and each time this model makes an attack, subtract 1 from the Hit roll."
+     },
+     "ranged": [
+      {
+       "name": "Cluster rocket system",
+       "range": "48\"",
+       "A": "4D6",
+       "skill": "4+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Blast",
+        "Heavy"
+       ]
+      },
+      {
+       "name": "Destroyer missiles",
+       "range": "72\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "16",
+       "AP": "-4",
+       "D": "D6+2",
+       "kw": [
+        "Heavy"
+       ]
+      },
+      {
+       "name": "Pulse blast cannon – focused",
+       "range": "24\"",
+       "A": "2",
+       "skill": "4+",
+       "S": "24",
+       "AP": "-6",
+       "D": "12",
+       "kw": [
+        "Heavy"
+       ]
+      },
+      {
+       "name": "Pulse blast cannon – dispersed",
+       "range": "48\"",
+       "A": "6",
+       "skill": "4+",
+       "S": "10",
+       "AP": "-2",
+       "D": "4",
+       "kw": [
+        "Heavy"
+       ]
+      },
+      {
+       "name": "Pulse driver cannon",
+       "range": "72\"",
+       "A": "D6+3",
+       "skill": "4+",
+       "S": "12",
+       "AP": "-3",
+       "D": "3",
+       "kw": [
+        "Blast",
+        "Heavy"
+       ]
+      },
+      {
+       "name": "Twin airbursting fragmentation projector",
+       "range": "24\"",
+       "A": "D6",
+       "skill": "4+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Blast",
+        "Heavy",
+        "Indirect Fire",
+        "Twin-Linked"
+       ]
+      },
+      {
+       "name": "Twin burst cannon",
+       "range": "18\"",
+       "A": "4",
+       "skill": "4+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Heavy",
+        "Twin-Linked"
+       ]
+      },
+      {
+       "name": "Twin smart missile system",
+       "range": "30\"",
+       "A": "3",
+       "skill": "4+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Heavy",
+        "Indirect Fire",
+        "Twin-Linked"
+       ]
+      },
+      {
+       "name": "Twin T’au flamer",
+       "range": "12\"",
+       "A": "D6",
+       "skill": "N/A",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Ignores Cover",
+        "Torrent",
+        "Twin-Linked"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Thunderous footfalls",
+       "range": "Melee",
+       "A": "3",
+       "skill": "5+",
+       "S": "8",
+       "AP": "-1",
+       "D": "2",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D6+2"
+     ],
+     "factionAbilities": [
+      "For the Greater Good"
+     ],
+     "abilities": [
+      {
+       "name": "Heavy Walker",
+       "text": "Each time this model makes a Normal, Advance or Fall Back move, it can move over models (excluding TITANIC models) and terrain features that are 4\" or less in height as if they were not there.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Support System",
+       "text": "Each time this model makes a ranged attack, you can ignore any or all modifiers to the Hit roll.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Titan-killer",
+       "text": "Each time this model makes a ranged attack that targets a Titanic or TOWERING unit, you can re-roll the Hit roll.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 375,
+       "ptsLater": 400
+      }
+     ],
+     "stepFrom": 2,
+     "leaderOf": [],
+     "composition": "1 Stormsurge",
+     "options": [
+      {
+       "id": "psc",
+       "type": "choice",
+       "label": "Pulse driver cannon replaced with",
+       "choices": [
+        {
+         "id": "pdc",
+         "label": "Pulse driver cannon",
+         "pts": 0
+        },
+        {
+         "id": "pbc",
+         "label": "Pulse blast cannon",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "flm",
+       "type": "choice",
+       "label": "Twin T’au flamer replaced with",
+       "choices": [
+        {
+         "id": "tf",
+         "label": "Twin T’au flamer",
+         "pts": 0
+        },
+        {
+         "id": "tafp",
+         "label": "Twin airbursting fragmentation projector",
+         "pts": 0
+        },
+        {
+         "id": "tbc",
+         "label": "Twin burst cannon",
+         "pts": 0
+        }
+       ]
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "tidewall_droneport",
+     "name": "Tidewall Droneport",
+     "role": "fortification",
+     "faction": "T’au Empire",
+     "keywords": [
+      "Fly",
+      "Fortification",
+      "Frame",
+      "Tidewall Droneport",
+      "Transport",
+      "T’au Empire",
+      "Vehicle"
+     ],
+     "image": "tau_tidewall_droneport",
+     "baseSize": "Use model",
+     "profile": {
+      "M": "4\"",
+      "T": "8",
+      "Sv": "3+",
+      "W": "10",
+      "OC": "0",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Drone defenders",
+       "range": "20\"",
+       "A": "8",
+       "skill": "5+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Assault",
+        "Twin-Linked"
+       ]
+      }
+     ],
+     "melee": [],
+     "coreAbilities": [
+      "Deadly Demise D3",
+      "Firing Deck 11"
+     ],
+     "factionAbilities": [],
+     "abilities": [
+      {
+       "name": "Droneport",
+       "text": "Each time this FORTIFICATION is selected to shoot, its drone defender’s weapon will target and resolve attacks against every enemy unit that is an eligible target to this FORTIFICATION.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Fortification",
+       "text": "While an enemy unit is only within Engagement Range of one or more Fortifications from your army: ■ That unit can still be selected as the target of ranged attacks, but each time such an attack is made, unless it is made with a Pistol, subtract 1 from the Hit roll. ■ Models in that unit do not need to take Desperate Escape tests due to Falling Back while Battle-shocked, except for those that will move over enemy models when doing so.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Tidewall Cover",
+       "text": "Each time a ranged attack is allocated to a model, if that model is not fully visible to every model in the attacking unit because of this Fortification, that model has the Benefit of Cover against that attack.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 85
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 Tidewall Droneport",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "transport": "This model has a transport capacity of 11 T’au Empire Infantry models. It cannot transport Battlesuit, Kroot or Vespid Stingwings models."
+    },
+    {
+     "id": "tidewall_shieldline",
+     "name": "Tidewall Shieldline",
+     "role": "fortification",
+     "faction": "T’au Empire",
+     "keywords": [
+      "Fly",
+      "Fortification",
+      "Frame",
+      "Tidewall Shieldline",
+      "Transport",
+      "T’au Empire",
+      "Vehicle"
+     ],
+     "image": "tau_tidewall_shieldline",
+     "baseSize": "Use model",
+     "profile": {
+      "M": "4\"",
+      "T": "8",
+      "Sv": "3+",
+      "InSv": "5+",
+      "W": "10",
+      "OC": "0",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "",
+       "range": "\"",
+       "A": "0",
+       "skill": "-",
+       "S": "-",
+       "AP": "0",
+       "D": "-",
+       "kw": []
+      }
+     ],
+     "melee": [],
+     "coreAbilities": [
+      "Deadly Demise D3",
+      "Firing Deck 20"
+     ],
+     "factionAbilities": [],
+     "abilities": [
+      {
+       "name": "Fortification",
+       "text": "While an enemy unit is only within Engagement Range of one or more Fortifications from your army: ■ That unit can still be selected as the target of ranged attacks, but each time such an attack is made, unless it is made with a Pistol, subtract 1 from the Hit roll. ■ Models in that unit do not need to take Desperate Escape tests due to Falling Back while Battle-shocked, except for those that will move over enemy models when doing so.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Tidewall Cover",
+       "text": "Each time a ranged attack is allocated to a model, if that model is not fully visible to every model in the attacking unit because of this FORTIFICATION, that model has the Benefit of Cover against that attack.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Tidewall Defence Platform",
+       "text": "If equipped with a Tidewall defence platform, this FORTIFICATION has a Wounds characteristic of 15.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 85
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 Tidewall Shieldline",
+     "options": [
+      {
+       "id": "platform",
+       "type": "toggle",
+       "label": "Tidewall defence platform (+20 pts)",
+       "pts": 20
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "transport": "This model has a transport capacity of 11 T’au Empire Infantry models. It cannot transport Battlesuit, Kroot or Vespid Stingwings models. If this model is equipped with a Tidewall defence platform, it has a transport capacity of 22 T’au Infantry models instead."
+    },
+    {
+     "id": "tidewall_gunrig",
+     "name": "Tidewall Gunrig",
+     "role": "fortification",
+     "faction": "T’au Empire",
+     "keywords": [
+      "Fly",
+      "Fortification",
+      "Frame",
+      "Tidewall Gunrig",
+      "Transport",
+      "T’au Empire",
+      "Vehicle"
+     ],
+     "image": "tau_tidewall_gunrig",
+     "baseSize": "Use model",
+     "profile": {
+      "M": "4\"",
+      "T": "8",
+      "Sv": "3+",
+      "W": "14",
+      "OC": "0",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Supremacy railgun",
+       "range": "72\"",
+       "A": "1",
+       "skill": "5+",
+       "S": "20",
+       "AP": "-5",
+       "D": "D6+6",
+       "kw": [
+        "Devastating Wounds",
+        "Twin-Linked"
+       ]
+      }
+     ],
+     "melee": [],
+     "coreAbilities": [
+      "Deadly Demise D3",
+      "Firing Deck 11"
+     ],
+     "factionAbilities": [],
+     "abilities": [
+      {
+       "name": "Fortification",
+       "text": "While an enemy unit is only within Engagement Range of one or more Fortifications from your army: ■ That unit can still be selected as the target of ranged attacks, but each time such an attack is made, unless it is made with a Pistol, subtract 1 from the Hit roll. ■ Models in that unit do not need to take Desperate Escape tests due to Falling Back while Battle-shocked, except for those that will move over enemy models when doing so.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Tidewall Cover",
+       "text": "Each time a ranged attack is allocated to a model, if that model is not fully visible to every model in the attacking unit because of this FORTIFICATION, that model has the Benefit of Cover against that attack.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 90
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 Tidewall Gunrig",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "transport": "This model has a transport capacity of 11 T’au Empire Infantry models. It cannot transport Battlesuit, Kroot or Vespid Stingwings models."
+    },
+    {
+     "id": "taunar_supremacy_armour",
+     "name": "Ta’unar Supremacy Armour",
+     "role": "titanic",
+     "faction": "T’au Empire",
+     "keywords": [
+      "Frame",
+      "Ta’unar Supremacy Armour",
+      "Titanic",
+      "Towering",
+      "T’au Empire",
+      "Vehicle",
+      "Walker"
+     ],
+     "image": "tau_taunar_supremacy_armour",
+     "baseSize": "160mm",
+     "profile": {
+      "M": "8\"",
+      "T": "13",
+      "Sv": "2+",
+      "InSv": "5+",
+      "W": "30",
+      "OC": "10",
+      "Ld": "7+"
+     },
+     "damaged": {
+      "threshold": 10,
+      "text": "While this model has 1-10 wounds remaining, subtract 5 from this model’s Objective Control characteristic and each time this model makes an attack, subtract 1 from the Hit roll."
+     },
+     "ranged": [
+      {
+       "name": "Burst cannon",
+       "range": "18\"",
+       "A": "4",
+       "skill": "4+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Fragmentation cluster shell launcher",
+       "range": "24\"",
+       "A": "2D6+6",
+       "skill": "4+",
+       "S": "6",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Blast"
+       ]
+      },
+      {
+       "name": "Fusion eradicator",
+       "range": "24\"",
+       "A": "5",
+       "skill": "4+",
+       "S": "10",
+       "AP": "-4",
+       "D": "D6",
+       "kw": [
+        "Melta 3"
+       ]
+      },
+      {
+       "name": "Heavy rail cannon array",
+       "range": "120\"",
+       "A": "2",
+       "skill": "4+",
+       "S": "26",
+       "AP": "-5",
+       "D": "16",
+       "kw": [
+        "Devastating Wounds",
+        "Heavy"
+       ]
+      },
+      {
+       "name": "Nexus missile launcher",
+       "range": "36\"",
+       "A": "8",
+       "skill": "4+",
+       "S": "8",
+       "AP": "-3",
+       "D": "2",
+       "kw": []
+      },
+      {
+       "name": "Pulse ordnance driver",
+       "range": "60\"",
+       "A": "8",
+       "skill": "4+",
+       "S": "5",
+       "AP": "-1",
+       "D": "3",
+       "kw": [
+        "Anti-Infantry 2+"
+       ]
+      },
+      {
+       "name": "Smart missile system",
+       "range": "30\"",
+       "A": "3",
+       "skill": "4+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Indirect Fire"
+       ]
+      },
+      {
+       "name": "Tri-axis ion cannon – standard",
+       "range": "36\"",
+       "A": "D6+3",
+       "skill": "4+",
+       "S": "8",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Blast"
+       ]
+      },
+      {
+       "name": "Tri-axis ion cannon – supercharge",
+       "range": "36\"",
+       "A": "D6+3",
+       "skill": "4+",
+       "S": "9",
+       "AP": "-3",
+       "D": "3",
+       "kw": [
+        "Blast",
+        "Hazardous"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Crushing feet",
+       "range": "Melee",
+       "A": "6",
+       "skill": "5+",
+       "S": "8",
+       "AP": "-1",
+       "D": "2",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D6+3",
+      "Super-heavy Walker"
+     ],
+     "factionAbilities": [
+      "For the Greater Good"
+     ],
+     "abilities": [
+      {
+       "name": "Coordinated Strike",
+       "text": "While this model is a Guided unit, each time it makes an attack that targets its Spotted unit, re-roll a Hit roll of 1.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 790,
+       "ptsLater": 890
+      }
+     ],
+     "stepFrom": 2,
+     "leaderOf": [],
+     "composition": "1 Ta’unar Supremacy Armour",
+     "options": [
+      {
+       "id": "g1",
+       "type": "choice",
+       "label": "Tri-axis ion cannon replaced with",
+       "choices": [
+        {
+         "id": "tri",
+         "label": "Tri-axis ion cannon",
+         "pts": 0
+        },
+        {
+         "id": "fe",
+         "label": "Fusion eradicator",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "g2",
+       "type": "choice",
+       "label": "Fusion eradicator replaced with",
+       "choices": [
+        {
+         "id": "fe",
+         "label": "Fusion eradicator",
+         "pts": 0
+        },
+        {
+         "id": "tri",
+         "label": "Tri-axis ion cannon",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "pod",
+       "type": "choice",
+       "label": "3 pulse ordnance drivers replaced with",
+       "choices": [
+        {
+         "id": "pod",
+         "label": "3 pulse ordnance drivers",
+         "pts": 0
+        },
+        {
+         "id": "nml",
+         "label": "2 nexus missile launchers",
+         "pts": 0
+        },
+        {
+         "id": "hrc",
+         "label": "Heavy rail cannon array and fragmentation cluster shell launcher",
+         "pts": 0
+        }
+       ]
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "tiger_shark",
+     "name": "Tiger Shark",
+     "role": "aircraft",
+     "faction": "T’au Empire",
+     "keywords": [
+      "Aircraft",
+      "Fly",
+      "Tiger Shark",
+      "T’au Empire",
+      "Vehicle"
+     ],
+     "image": "tau_tiger_shark",
+     "baseSize": "160mm",
+     "profile": {
+      "M": "-",
+      "T": "11",
+      "Sv": "3+",
+      "InSv": "5+",
+      "W": "18",
+      "OC": "-",
+      "Ld": "7+"
+     },
+     "damaged": {
+      "threshold": 6,
+      "text": "While this model has 1-6 wounds remaining, each time this model makes an attack, subtract 1 from the Hit roll."
+     },
+     "ranged": [
+      {
+       "name": "Burst cannon",
+       "range": "18\"",
+       "A": "4",
+       "skill": "4+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Cyclic ion blaster – standard",
+       "range": "18\"",
+       "A": "3",
+       "skill": "4+",
+       "S": "7",
+       "AP": "-1",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Cyclic ion blaster – overcharge",
+       "range": "18\"",
+       "A": "3",
+       "skill": "4+",
+       "S": "8",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Hazardous"
+       ]
+      },
+      {
+       "name": "Ion cannon – standard",
+       "range": "60\"",
+       "A": "D6+3",
+       "skill": "4+",
+       "S": "7",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Blast"
+       ]
+      },
+      {
+       "name": "Ion cannon – overcharge",
+       "range": "60\"",
+       "A": "D6+3",
+       "skill": "4+",
+       "S": "8",
+       "AP": "-2",
+       "D": "3",
+       "kw": [
+        "Blast",
+        "Hazardous"
+       ]
+      },
+      {
+       "name": "Missile pod",
+       "range": "30\"",
+       "A": "2",
+       "skill": "4+",
+       "S": "7",
+       "AP": "-1",
+       "D": "2",
+       "kw": []
+      },
+      {
+       "name": "Seeker missile",
+       "range": "48\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "14",
+       "AP": "-3",
+       "D": "D6+1",
+       "kw": [
+        "One Shot"
+       ]
+      },
+      {
+       "name": "Skyspear missile rack",
+       "range": "72\"",
+       "A": "D6+1",
+       "skill": "4+",
+       "S": "6",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Anti-Fly 3+",
+        "Blast"
+       ]
+      },
+      {
+       "name": "Swiftstrike burst cannon",
+       "range": "36\"",
+       "A": "16",
+       "skill": "4+",
+       "S": "6",
+       "AP": "-1",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Swiftstrike railgun",
+       "range": "72\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "20",
+       "AP": "-5",
+       "D": "D6+6",
+       "kw": [
+        "Devastating Wounds"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Armoured hull",
+       "range": "Melee",
+       "A": "3",
+       "skill": "5+",
+       "S": "6",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D6+2"
+     ],
+     "factionAbilities": [
+      "For the Greater Good"
+     ],
+     "abilities": [
+      {
+       "name": "Transport Bay",
+       "text": "The bearer has the TRANSPORT keyword and has a transport capacity of 12 TACTICAL DRONES models.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Strafing Run",
+       "text": "In your Shooting phase, after this model has shot, select one enemy unit hit by one or more of those attacks that cannot FLY. That enemy unit must take a Battle-shock test.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 395,
+       "ptsLater": 445
+      }
+     ],
+     "stepFrom": 2,
+     "leaderOf": [],
+     "composition": "1 Tiger Shark",
+     "options": [
+      {
+       "id": "bc",
+       "type": "choice",
+       "label": "2 burst cannons replaced with",
+       "choices": [
+        {
+         "id": "bc",
+         "label": "2 burst cannons",
+         "pts": 0
+        },
+        {
+         "id": "cib",
+         "label": "2 cyclic ion blasters",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "ic",
+       "type": "choice",
+       "label": "2 ion cannons replaced with",
+       "choices": [
+        {
+         "id": "ic",
+         "label": "2 ion cannons",
+         "pts": 0
+        },
+        {
+         "id": "sbc",
+         "label": "2 swiftstrike burst cannons",
+         "pts": 0
+        },
+        {
+         "id": "srg",
+         "label": "2 swiftstrike railguns",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "seeker",
+       "type": "count",
+       "label": "Seeker missile",
+       "max": 6
+      },
+      {
+       "id": "bay",
+       "type": "choice",
+       "label": "Transport bay replaced with",
+       "choices": [
+        {
+         "id": "tb",
+         "label": "Transport bay",
+         "pts": 0
+        },
+        {
+         "id": "ssr",
+         "label": "2 skyspear missile racks",
+         "pts": 0
+        }
+       ]
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "ax_1_0_tiger_shark",
+     "name": "AX-1-0 Tiger Shark",
+     "role": "aircraft",
+     "faction": "T’au Empire",
+     "keywords": [
+      "Aircraft",
+      "AX-1-0 Tiger Shark",
+      "Fly",
+      "T’au Empire",
+      "Vehicle"
+     ],
+     "image": "tau_ax_1_0_tiger_shark",
+     "baseSize": "160mm",
+     "profile": {
+      "M": "-",
+      "T": "11",
+      "Sv": "3+",
+      "InSv": "5+",
+      "W": "18",
+      "OC": "-",
+      "Ld": "7+"
+     },
+     "damaged": {
+      "threshold": 6,
+      "text": "While this model has 1-6 wounds remaining, each time this model makes an attack, subtract 1 from the Hit roll."
+     },
+     "ranged": [
+      {
+       "name": "Burst cannon",
+       "range": "18\"",
+       "A": "4",
+       "skill": "4+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Cyclic ion blaster – standard",
+       "range": "18\"",
+       "A": "3",
+       "skill": "4+",
+       "S": "7",
+       "AP": "-1",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Cyclic ion blaster – overcharge",
+       "range": "18\"",
+       "A": "3",
+       "skill": "4+",
+       "S": "8",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Hazardous"
+       ]
+      },
+      {
+       "name": "Missile pod",
+       "range": "30\"",
+       "A": "2",
+       "skill": "4+",
+       "S": "7",
+       "AP": "-1",
+       "D": "2",
+       "kw": []
+      },
+      {
+       "name": "Seeker missile",
+       "range": "48\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "14",
+       "AP": "-3",
+       "D": "D6+1",
+       "kw": [
+        "One Shot"
+       ]
+      },
+      {
+       "name": "Twin heavy rail cannon",
+       "range": "120\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "26",
+       "AP": "-5",
+       "D": "12",
+       "kw": [
+        "Devastating Wounds",
+        "Twin-Linked"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Armoured hull",
+       "range": "Melee",
+       "A": "3",
+       "skill": "5+",
+       "S": "6",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D6+2"
+     ],
+     "factionAbilities": [
+      "For the Greater Good"
+     ],
+     "abilities": [
+      {
+       "name": "Titan Hunter",
+       "text": "This model’s twin heavy rail cannon and seeker missiles have the [ANTI-TITANIC 3+] ability while targeting a unit within half range.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 315,
+       "ptsLater": 375
+      }
+     ],
+     "stepFrom": 2,
+     "leaderOf": [],
+     "composition": "1 AX-1-0 Tiger Shark",
+     "options": [
+      {
+       "id": "bc",
+       "type": "choice",
+       "label": "2 burst cannons replaced with",
+       "choices": [
+        {
+         "id": "bc",
+         "label": "2 burst cannons",
+         "pts": 0
+        },
+        {
+         "id": "cib",
+         "label": "2 cyclic ion blasters",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "seeker",
+       "type": "count",
+       "label": "Seeker missile",
+       "max": 6
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "manta",
+     "name": "Manta",
+     "role": "aircraft",
+     "faction": "T’au Empire",
+     "keywords": [
+      "Aircraft",
+      "Fly",
+      "Frame",
+      "Manta",
+      "Markerlight",
+      "Titanic",
+      "Transport",
+      "T’au Empire",
+      "Vehicle"
+     ],
+     "image": "tau_manta",
+     "baseSize": "Unique",
+     "profile": {
+      "M": "40\"",
+      "T": "14",
+      "Sv": "2+",
+      "InSv": "5+",
+      "W": "60",
+      "OC": "-",
+      "Ld": "7+"
+     },
+     "damaged": {
+      "threshold": 20,
+      "text": "While this model has 1-20 wounds remaining, each time this model makes an attack, subtract 1 from the Hit roll."
+     },
+     "ranged": [
+      {
+       "name": "Heavy rail cannon",
+       "range": "120\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "26",
+       "AP": "-5",
+       "D": "12",
+       "kw": [
+        "Devastating Wounds"
+       ]
+      },
+      {
+       "name": "Ion cannon – standard",
+       "range": "60\"",
+       "A": "D6+3",
+       "skill": "4+",
+       "S": "7",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Blast"
+       ]
+      },
+      {
+       "name": "Ion cannon – overcharge",
+       "range": "60\"",
+       "A": "D6+3",
+       "skill": "4+",
+       "S": "8",
+       "AP": "-2",
+       "D": "3",
+       "kw": [
+        "Blast",
+        "Hazardous"
+       ]
+      },
+      {
+       "name": "Long-barrelled burst cannon array",
+       "range": "24\"",
+       "A": "32",
+       "skill": "4+",
+       "S": "6",
+       "AP": "-1",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Missile pod",
+       "range": "30\"",
+       "A": "2",
+       "skill": "4+",
+       "S": "7",
+       "AP": "-1",
+       "D": "2",
+       "kw": []
+      },
+      {
+       "name": "Seeker missile",
+       "range": "48\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "14",
+       "AP": "-3",
+       "D": "D6+1",
+       "kw": [
+        "One Shot"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Armoured hull",
+       "range": "Melee",
+       "A": "8",
+       "skill": "5+",
+       "S": "6",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise 3D6",
+      "Hover"
+     ],
+     "factionAbilities": [
+      "For the Greater Good"
+     ],
+     "abilities": [
+      {
+       "name": "Aggressive Deployment",
+       "text": "In your Shooting phase, after this model has shot, select one enemy unit hit by one or more of those attacks. Until the end of the phase, each time a friendly model that disembarked from this TRANSPORT this turn makes an attack that targets that enemy unit, you can re-roll the Wound roll.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Air Caste Colossus",
+       "text": "Each time you target this model with a Stratagem, you must spend three times that Stratagem’s stated CP cost to do so.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 2100
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 Manta",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "transport": "This model has a transport capacity of all of the following: 200 T’au Empire Infantry or TACTICAL DRONE models 4 Devilfish, Sky Ray Gunship or Hammerhead models 8 Battlesuit models with a Wounds characteristic of 9 or less"
+    },
+    {
+     "id": "commander_in_enforcer_battlesuit",
+     "name": "Commander in Enforcer Battlesuit",
+     "role": "character",
+     "faction": "T’au Empire",
+     "keywords": [
+      "Battlesuit",
+      "Character",
+      "Commander in Enforcer Battlesuit",
+      "Fly",
+      "T’au Empire",
+      "Vehicle",
+      "Walker"
+     ],
+     "image": "tau_commander_in_enforcer_battlesuit",
+     "baseSize": "60mm",
+     "profile": {
+      "M": "8\"",
+      "T": "5",
+      "Sv": "2+",
+      "W": "6",
+      "OC": "2",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Airbursting fragmentation projector",
+       "range": "24\"",
+       "A": "D6",
+       "skill": "3+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Blast",
+        "Indirect Fire"
+       ]
+      },
+      {
+       "name": "Burst cannon",
+       "range": "18\"",
+       "A": "4",
+       "skill": "3+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Cyclic ion blaster – standard",
+       "range": "18\"",
+       "A": "3",
+       "skill": "3+",
+       "S": "7",
+       "AP": "-1",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Cyclic ion blaster – overcharge",
+       "range": "18\"",
+       "A": "3",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Hazardous"
+       ]
+      },
+      {
+       "name": "Fusion blaster",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "9",
+       "AP": "-4",
+       "D": "D6",
+       "kw": [
+        "Melta 2"
+       ]
+      },
+      {
+       "name": "Missile pod",
+       "range": "30\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "7",
+       "AP": "-1",
+       "D": "2",
+       "kw": []
+      },
+      {
+       "name": "Plasma rifle",
+       "range": "18\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-3",
+       "D": "3",
+       "kw": []
+      },
+      {
+       "name": "T’au flamer",
+       "range": "12\"",
+       "A": "D6",
+       "skill": "N/A",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Ignores Cover",
+        "Torrent"
+       ]
+      },
+      {
+       "name": "Twin pulse carbine",
+       "range": "20\"",
+       "A": "2",
+       "skill": "4+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Twin-Linked",
+        "Assault"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Battlesuit fists",
+       "range": "Melee",
+       "A": "3",
+       "skill": "4+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deep Strike",
+      "Leader"
+     ],
+     "factionAbilities": [
+      "For the Greater Good"
+     ],
+     "abilities": [
+      {
+       "name": "Enforcer Commander",
+       "text": "While this model is leading a unit, each time a ranged attack targets that unit, worsen the Armour Penetration characteristic of that attack by 1.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Battlesuit Support System",
+       "text": "The bearer’s unit is eligible to shoot in a turn in which it Fell Back, but when doing so only models equipped with this wargear can make ranged attacks.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Shield Generator",
+       "text": "The bearer has a 4+ invulnerable save.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Weapon Support System",
+       "text": "Each time the bearer makes a ranged attack, you can ignore any or all modifiers to the Hit roll.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Marker Drone",
+       "text": "The bearer’s unit has the MARKERLIGHT keyword and can act as an Observer unit for another unit even if it Advanced this turn.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Shield Drone",
+       "text": "Add 1 to the bearer’s Wounds characteristic.",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 80
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "crisis_fireknife_battlesuits",
+      "crisis_starscythe_battlesuits",
+      "crisis_sunforge_battlesuits"
+     ],
+     "composition": "1 Commander in Enforcer Battlesuit",
+     "options": [
+      {
+       "id": "rep",
+       "type": "choice",
+       "label": "Burst cannon replaced with",
+       "choices": [
+        {
+         "id": "bc0",
+         "label": "Burst cannon",
+         "pts": 0
+        },
+        {
+         "id": "afp",
+         "label": "Airbursting fragmentation projector",
+         "pts": 0
+        },
+        {
+         "id": "bss",
+         "label": "Battlesuit support system",
+         "pts": 0
+        },
+        {
+         "id": "ci",
+         "label": "Cyclic ion blaster",
+         "pts": 0
+        },
+        {
+         "id": "fb",
+         "label": "Fusion blaster",
+         "pts": 0
+        },
+        {
+         "id": "mp",
+         "label": "Missile pod",
+         "pts": 0
+        },
+        {
+         "id": "pr",
+         "label": "Plasma rifle",
+         "pts": 0
+        },
+        {
+         "id": "sg",
+         "label": "Shield generator",
+         "pts": 0
+        },
+        {
+         "id": "tf",
+         "label": "T’au flamer",
+         "pts": 0
+        },
+        {
+         "id": "wss",
+         "label": "Weapon support system",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "x_afp",
+       "type": "count",
+       "label": "Extra: Airbursting fragmentation projector",
+       "group": "extras",
+       "max": 1
+      },
+      {
+       "id": "x_bss",
+       "type": "count",
+       "label": "Extra: Battlesuit support system",
+       "group": "extras",
+       "max": 1
+      },
+      {
+       "id": "x_bc",
+       "type": "count",
+       "label": "Extra: Burst cannon",
+       "group": "extras",
+       "max": 3
+      },
+      {
+       "id": "x_ci",
+       "type": "count",
+       "label": "Extra: Cyclic ion blaster",
+       "group": "extras",
+       "max": 1
+      },
+      {
+       "id": "x_fb",
+       "type": "count",
+       "label": "Extra: Fusion blaster",
+       "group": "extras",
+       "max": 3
+      },
+      {
+       "id": "x_mp",
+       "type": "count",
+       "label": "Extra: Missile pod",
+       "group": "extras",
+       "max": 3
+      },
+      {
+       "id": "x_pr",
+       "type": "count",
+       "label": "Extra: Plasma rifle",
+       "group": "extras",
+       "max": 3
+      },
+      {
+       "id": "x_sg",
+       "type": "count",
+       "label": "Extra: Shield generator",
+       "group": "extras",
+       "max": 1
+      },
+      {
+       "id": "x_tf",
+       "type": "count",
+       "label": "Extra: T’au flamer",
+       "group": "extras",
+       "max": 3
+      },
+      {
+       "id": "x_wss",
+       "type": "count",
+       "label": "Extra: Weapon support system",
+       "group": "extras",
+       "max": 1
+      },
+      {
+       "id": "gun",
+       "type": "count",
+       "label": "Gun drone: twin pulse carbine",
+       "group": "drones",
+       "per": 1,
+       "n": 2
+      },
+      {
+       "id": "marker",
+       "type": "count",
+       "label": "Marker drone",
+       "group": "drones",
+       "per": 1,
+       "n": 2,
+       "grantKeyword": "Markerlight"
+      },
+      {
+       "id": "shield",
+       "type": "count",
+       "label": "Shield drone",
+       "group": "drones",
+       "per": 1,
+       "n": 2
+      }
+     ],
+     "optionRules": [
+      {
+       "forbidAllOf": [
+        [
+         "rep",
+         "afp"
+        ],
+        [
+         "x_afp",
+         1
+        ]
+       ],
+       "message": "Airbursting fragmentation projector cannot be taken twice (it cannot have duplicates)."
+      },
+      {
+       "forbidAllOf": [
+        [
+         "rep",
+         "bss"
+        ],
+        [
+         "x_bss",
+         1
+        ]
+       ],
+       "message": "Battlesuit support system cannot be taken twice (it cannot have duplicates)."
+      },
+      {
+       "forbidAllOf": [
+        [
+         "rep",
+         "ci"
+        ],
+        [
+         "x_ci",
+         1
+        ]
+       ],
+       "message": "Cyclic ion blaster cannot be taken twice (it cannot have duplicates)."
+      },
+      {
+       "forbidAllOf": [
+        [
+         "rep",
+         "sg"
+        ],
+        [
+         "x_sg",
+         1
+        ]
+       ],
+       "message": "Shield generator cannot be taken twice (it cannot have duplicates)."
+      },
+      {
+       "forbidAllOf": [
+        [
+         "rep",
+         "wss"
+        ],
+        [
+         "x_wss",
+         1
+        ]
+       ],
+       "message": "Weapon support system cannot be taken twice (it cannot have duplicates)."
+      }
+     ],
+     "slots": [],
+     "optionGroups": [
+      {
+       "id": "extras",
+       "label": "Extra weapons and systems",
+       "per": 1,
+       "n": 3
+      },
+      {
+       "id": "drones",
+       "label": "Drones",
+       "per": 1,
+       "n": 2
+      }
+     ]
+    },
+    {
+     "id": "kroot_farstalkers",
+     "name": "Kroot Farstalkers",
+     "role": "infantry",
+     "faction": "T’au Empire",
+     "keywords": [
+      "Farstalkers",
+      "Grenades",
+      "Infantry",
+      "Kroot",
+      "T’au Empire"
+     ],
+     "image": "tau_kroot_farstalkers",
+     "baseSize": "28.5mm",
+     "profile": {
+      "M": "7\"",
+      "T": "3",
+      "Sv": "6+",
+      "W": "1",
+      "OC": "1",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Dvorgite skinner",
+       "range": "12\"",
+       "A": "D6",
+       "skill": "N/A",
+       "S": "4",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Ignores Cover",
+        "Torrent"
+       ]
+      },
+      {
+       "name": "Farstalker firearm",
+       "range": "24\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Rapid Fire 1"
+       ]
+      },
+      {
+       "name": "Kroot pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Londaxi tribalest",
+       "range": "18\"",
+       "A": "3",
+       "skill": "5+",
+       "S": "7",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Anti-Vehicle 4+",
+        "Devastating Wounds",
+        "Heavy"
+       ]
+      },
+      {
+       "name": "T’au-tech rifle",
+       "range": "30\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Rapid Fire 1"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Close combat weapon",
+       "range": "Melee",
+       "A": "2",
+       "skill": "3+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Ripping fangs",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Ritual blade",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Infiltrators",
+      "Stealth"
+     ],
+     "factionAbilities": [],
+     "abilities": [
+      {
+       "name": "Pech’ra",
+       "text": "Ranged weapons equipped by the bearer’s unit have the [IGNORES COVER] ability.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Bounty Hunters",
+       "text": "At the start of the battle, select one unit from your opponent’s army. Each time a model in this unit makes an attack that targets that unit, that attack has the [LETHAL HITS] and [PRECISION] abilities.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 12,
+       "pts": 75,
+       "ptsLater": 85
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [],
+     "composition": "1 Kroot Kill-broker; 9 Kroot Farstalkers; 2 Kroot Hounds",
+     "options": [
+      {
+       "id": "tt",
+       "type": "toggle",
+       "label": "T’au-tech rifle (Kill-broker)"
+      },
+      {
+       "id": "dvorgite",
+       "type": "count",
+       "label": "Dvorgite skinner",
+       "group": "fs",
+       "max": 1
+      },
+      {
+       "id": "londaxi",
+       "type": "count",
+       "label": "Londaxi tribalest",
+       "group": "fs",
+       "max": 1
+      },
+      {
+       "id": "pechra",
+       "type": "toggle",
+       "label": "Pech’ra"
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [
+      {
+       "id": "fs",
+       "label": "Dvorgite skinner or Londaxi tribalest",
+       "per": 12,
+       "n": 1
+      }
+     ]
+    },
+    {
+     "id": "crisis_sunforge_battlesuits",
+     "name": "Crisis Sunforge Battlesuits",
+     "role": "walker",
+     "faction": "T’au Empire",
+     "keywords": [
+      "Battlesuit",
+      "Crisis",
+      "Fly",
+      "Sunforge",
+      "T’au Empire",
+      "Vehicle",
+      "Walker"
+     ],
+     "image": "tau_crisis_sunforge_battlesuits",
+     "baseSize": "50mm",
+     "profile": {
+      "M": "10\"",
+      "T": "5",
+      "Sv": "3+",
+      "InSv": "4+",
+      "W": "4",
+      "OC": "2",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Fusion blaster",
+       "range": "12\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "9",
+       "AP": "-4",
+       "D": "D6",
+       "kw": [
+        "Melta 2"
+       ]
+      },
+      {
+       "name": "Twin pulse carbine",
+       "range": "20\"",
+       "A": "2",
+       "skill": "4+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Twin-Linked",
+        "Assault"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Battlesuit fists",
+       "range": "Melee",
+       "A": "3",
+       "skill": "5+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deep Strike"
+     ],
+     "factionAbilities": [
+      "For the Greater Good"
+     ],
+     "abilities": [
+      {
+       "name": "Sunforge",
+       "text": "Each time a model in this unit makes a ranged attack that targets a MONSTER or VEHICLE unit, you can re-roll the Wound roll and you can re-roll the Damage roll.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Marker Drone",
+       "text": "The bearer’s unit has the MARKERLIGHT keyword and can act as an Observer unit for another unit even if it Advanced this turn.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Shield Drone",
+       "text": "Add 1 to the bearer’s Wounds characteristic.",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 3,
+       "pts": 125,
+       "ptsLater": 135
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [],
+     "composition": "1 Crisis Sunforge Shas’vre; 2 Crisis Sunforge Shas’ui",
+     "options": [
+      {
+       "id": "gun",
+       "type": "count",
+       "label": "Gun drone: twin pulse carbine",
+       "group": "drones",
+       "max": "models"
+      },
+      {
+       "id": "marker",
+       "type": "count",
+       "label": "Marker drone",
+       "group": "drones",
+       "max": "models",
+       "grantKeyword": "Markerlight"
+      },
+      {
+       "id": "shield",
+       "type": "count",
+       "label": "Shield drone",
+       "group": "drones",
+       "max": "models"
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [
+      {
+       "id": "drones",
+       "label": "Drones",
+       "per": 1,
+       "n": 2
+      }
+     ]
+    },
+    {
+     "id": "crisis_fireknife_battlesuits",
+     "name": "Crisis Fireknife Battlesuits",
+     "role": "walker",
+     "faction": "T’au Empire",
+     "keywords": [
+      "Battlesuit",
+      "Crisis",
+      "Fireknife",
+      "Fly",
+      "T’au Empire",
+      "Vehicle",
+      "Walker"
+     ],
+     "image": "tau_crisis_fireknife_battlesuits",
+     "baseSize": "50mm",
+     "profile": {
+      "M": "10\"",
+      "T": "5",
+      "Sv": "3+",
+      "W": "4",
+      "OC": "2",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Missile pod",
+       "range": "30\"",
+       "A": "2",
+       "skill": "4+",
+       "S": "7",
+       "AP": "-1",
+       "D": "2",
+       "kw": []
+      },
+      {
+       "name": "Plasma rifle",
+       "range": "18\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "8",
+       "AP": "-3",
+       "D": "3",
+       "kw": []
+      },
+      {
+       "name": "Twin pulse carbine",
+       "range": "20\"",
+       "A": "2",
+       "skill": "4+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Twin-Linked",
+        "Assault"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Battlesuit fists",
+       "range": "Melee",
+       "A": "3",
+       "skill": "5+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deep Strike"
+     ],
+     "factionAbilities": [
+      "For the Greater Good"
+     ],
+     "abilities": [
+      {
+       "name": "Fireknife",
+       "text": "Each time a model in this unit makes a ranged attack, re-roll a Hit roll of 1. If that attack targets a unit that is at its Starting Strength, you can re-roll the Hit roll instead.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Weapon Support System",
+       "text": "Each time a model in this unit makes a ranged attack, you can ignore any or all modifiers to the Hit roll.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Marker Drone",
+       "text": "The bearer’s unit has the MARKERLIGHT keyword and can act as an Observer unit for another unit even if it Advanced this turn.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Shield Drone",
+       "text": "Add 1 to the bearer’s Wounds characteristic.",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 3,
+       "pts": 100,
+       "ptsLater": 110
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [],
+     "composition": "1 Crisis Fireknife Shas’vre; 2 Crisis Fireknife Shas’ui",
+     "options": [
+      {
+       "id": "mp",
+       "type": "count",
+       "label": "Missile pod (replaces plasma rifle, +5 pts each)",
+       "slots": [
+        "rifle"
+       ],
+       "max": "slot",
+       "pts": 5
+      },
+      {
+       "id": "pr",
+       "type": "count",
+       "label": "Plasma rifle (replaces missile pod)",
+       "slots": [
+        "pod"
+       ],
+       "max": "slot"
+      },
+      {
+       "id": "gun",
+       "type": "count",
+       "label": "Gun drone: twin pulse carbine",
+       "group": "drones",
+       "max": "models"
+      },
+      {
+       "id": "marker",
+       "type": "count",
+       "label": "Marker drone",
+       "group": "drones",
+       "max": "models",
+       "grantKeyword": "Markerlight"
+      },
+      {
+       "id": "shield",
+       "type": "count",
+       "label": "Shield drone",
+       "group": "drones",
+       "max": "models"
+      }
+     ],
+     "optionRules": [],
+     "slots": [
+      {
+       "id": "rifle",
+       "label": "Plasma rifle slot",
+       "default": "Plasma rifle",
+       "size": {
+        "models": 1
+       },
+       "fixedNote": "Every model also has battlesuit fists."
+      },
+      {
+       "id": "pod",
+       "label": "Missile pod slot",
+       "default": "Missile pod",
+       "size": {
+        "models": 1
+       }
+      }
+     ],
+     "optionGroups": [
+      {
+       "id": "drones",
+       "label": "Drones",
+       "per": 1,
+       "n": 2
+      }
+     ]
+    },
+    {
+     "id": "crisis_starscythe_battlesuits",
+     "name": "Crisis Starscythe Battlesuits",
+     "role": "walker",
+     "faction": "T’au Empire",
+     "keywords": [
+      "Battlesuit",
+      "Crisis",
+      "Fly",
+      "Starscythe",
+      "T’au Empire",
+      "Vehicle",
+      "Walker"
+     ],
+     "image": "tau_crisis_starscythe_battlesuits",
+     "baseSize": "50mm",
+     "profile": {
+      "M": "10\"",
+      "T": "5",
+      "Sv": "3+",
+      "W": "4",
+      "OC": "2",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Burst cannon",
+       "range": "18\"",
+       "A": "4",
+       "skill": "4+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "T’au flamer",
+       "range": "12\"",
+       "A": "D6",
+       "skill": "N/A",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Ignores Cover",
+        "Torrent"
+       ]
+      },
+      {
+       "name": "Twin pulse carbine",
+       "range": "20\"",
+       "A": "2",
+       "skill": "4+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Twin-Linked",
+        "Assault"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Battlesuit fists",
+       "range": "Melee",
+       "A": "3",
+       "skill": "5+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deep Strike"
+     ],
+     "factionAbilities": [
+      "For the Greater Good"
+     ],
+     "abilities": [
+      {
+       "name": "Starscythe",
+       "text": "Each time a model in this unit makes a ranged attack (excluding attacks that target MONSTERS and VEHICLES), improve the Armour Penetration characteristic of that attack by 1.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Battlesuit Support System",
+       "text": "This unit is eligible to shoot in a turn in which it Fell Back.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Marker Drone",
+       "text": "The bearer’s unit has the MARKERLIGHT keyword and can act as an Observer unit for another unit even if it Advanced this turn.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Shield Drone",
+       "text": "Add 1 to the bearer’s Wounds characteristic.",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 3,
+       "pts": 100,
+       "ptsLater": 110
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [],
+     "composition": "1 Crisis Starscythe Shas’vre; 2 Crisis Starscythe Shas’ui",
+     "options": [
+      {
+       "id": "tf",
+       "type": "count",
+       "label": "T’au flamer (replaces burst cannon, +5 pts each)",
+       "slots": [
+        "bc"
+       ],
+       "max": "slot",
+       "pts": 5
+      },
+      {
+       "id": "bc2",
+       "type": "count",
+       "label": "Burst cannon (replaces T’au flamer)",
+       "slots": [
+        "fl"
+       ],
+       "max": "slot"
+      },
+      {
+       "id": "gun",
+       "type": "count",
+       "label": "Gun drone: twin pulse carbine",
+       "group": "drones",
+       "max": "models"
+      },
+      {
+       "id": "marker",
+       "type": "count",
+       "label": "Marker drone",
+       "group": "drones",
+       "max": "models",
+       "grantKeyword": "Markerlight"
+      },
+      {
+       "id": "shield",
+       "type": "count",
+       "label": "Shield drone",
+       "group": "drones",
+       "max": "models"
+      }
+     ],
+     "optionRules": [],
+     "slots": [
+      {
+       "id": "bc",
+       "label": "Burst cannon slot",
+       "default": "Burst cannon",
+       "size": {
+        "models": 1
+       },
+       "fixedNote": "Every model also has battlesuit fists."
+      },
+      {
+       "id": "fl",
+       "label": "T’au flamer slot",
+       "default": "T’au flamer",
+       "size": {
+        "models": 1
+       }
+      }
+     ],
+     "optionGroups": [
+      {
+       "id": "drones",
+       "label": "Drones",
+       "per": 1,
+       "n": 2
+      }
+     ]
+    },
+    {
+     "id": "kroot_trail_shaper",
+     "name": "Kroot Trail Shaper",
+     "role": "character",
+     "faction": "T’au Empire",
+     "keywords": [
+      "Character",
+      "Infantry",
+      "Kroot",
+      "Shaper",
+      "Trail Shaper",
+      "T’au Empire"
+     ],
+     "image": "tau_kroot_trail_shaper",
+     "baseSize": "32mm",
+     "profile": {
+      "M": "7\"",
+      "T": "3",
+      "Sv": "6+",
+      "W": "3",
+      "OC": "1",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Kroot rifle",
+       "range": "24\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Rapid Fire 1"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Shaper’s blade",
+       "range": "Melee",
+       "A": "4",
+       "skill": "2+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Infiltrators",
+      "Leader",
+      "Scouts 7\"",
+      "Stealth"
+     ],
+     "factionAbilities": [],
+     "abilities": [
+      {
+       "name": "Trail Finding",
+       "text": "In your opponent's Movement phase, if an enemy unit ends a move within 8” of this unit, if this unit is not within Engagement Range of one or more enemy units, this unit can make a Normal move of up to D6”.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Kroot Ambush",
+       "text": "After both players have deployed their armies, you can redeploy this model’s unit and one other friendly KROOT unit. When doing so, any of those units can be placed into Strategic Reserves, regardless of how many units are already in Strategic Reserves.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 50
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "kroot_carnivores",
+      "kroot_farstalkers"
+     ],
+     "composition": "1 Kroot Trail Shaper",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "kroot_war_shaper",
+     "name": "Kroot War Shaper",
+     "role": "character",
+     "faction": "T’au Empire",
+     "keywords": [
+      "Character",
+      "Infantry",
+      "Kroot",
+      "Shaper",
+      "T’au Empire",
+      "War Shaper"
+     ],
+     "image": "tau_kroot_war_shaper",
+     "baseSize": "32mm",
+     "profile": {
+      "M": "7\"",
+      "T": "3",
+      "Sv": "6+",
+      "W": "3",
+      "OC": "1",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Dart-bow and tri-blade",
+       "range": "24\"",
+       "A": "D3+1",
+       "skill": "4+",
+       "S": "4",
+       "AP": "0",
+       "D": "2",
+       "kw": [
+        "Anti-Infantry 3+",
+        "Assault",
+        "Heavy"
+       ]
+      },
+      {
+       "name": "Kroot pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Bladestave and prey-hook",
+       "range": "Melee",
+       "A": "4",
+       "skill": "2+",
+       "S": "5",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Lethal Hits"
+       ]
+      },
+      {
+       "name": "Shaper’s blade",
+       "range": "Melee",
+       "A": "4",
+       "skill": "2+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Infiltrators",
+      "Leader",
+      "Scouts 7\"",
+      "Stealth"
+     ],
+     "factionAbilities": [],
+     "abilities": [
+      {
+       "name": "War Leader",
+       "text": "Once per battle round, one unit from your army with this ability can use it when its unit is targeted with a Stratagem. If it does, reduce the CP cost of that use of that Stratagem by 1CP.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Root of Honour",
+       "text": "Once per battle, at the start of any phase, you can select one friendly KROOT unit that is Battle-shocked and within 12\" of this model. That unit is no longer Battle-shocked.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 60
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "kroot_carnivores",
+      "kroot_farstalkers"
+     ],
+     "composition": "1 Kroot War Shaper",
+     "options": [
+      {
+       "id": "w",
+       "type": "choice",
+       "label": "Dart-bow and tri-blade replaced with",
+       "choices": [
+        {
+         "id": "db",
+         "label": "Dart-bow and tri-blade",
+         "pts": 0
+        },
+        {
+         "id": "bs",
+         "label": "Bladestave and prey-hook",
+         "pts": 0
+        }
+       ]
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "kroot_flesh_shaper",
+     "name": "Kroot Flesh Shaper",
+     "role": "character",
+     "faction": "T’au Empire",
+     "keywords": [
+      "Character",
+      "Flesh Shaper",
+      "Infantry",
+      "Kroot",
+      "Shaper",
+      "T’au Empire"
+     ],
+     "image": "tau_kroot_flesh_shaper",
+     "baseSize": "32mm",
+     "profile": {
+      "M": "7\"",
+      "T": "3",
+      "Sv": "6+",
+      "W": "3",
+      "OC": "1",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Kroot scattergun",
+       "range": "12\"",
+       "A": "2",
+       "skill": "4+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Assault"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Twin ritualistic blades",
+       "range": "Melee",
+       "A": "4",
+       "skill": "2+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Twin-Linked"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Infiltrators",
+      "Leader",
+      "Scouts 7\"",
+      "Stealth"
+     ],
+     "factionAbilities": [],
+     "abilities": [
+      {
+       "name": "Ritual Butchery",
+       "text": "While this model is leading a unit, melee weapons equipped by models in that unit have the [SUSTAINED HITS 1] ability.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Rites of Feasting",
+       "text": "While this model is leading a unit, models in that unit have the Feel No Pain 6+ ability. If that unit destroys one or more enemy units in the Fight phase, until the end of the battle, models in that unit have the Feel No Pain 5+ ability instead.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 45
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "kroot_carnivores",
+      "kroot_farstalkers"
+     ],
+     "composition": "1 Kroot Flesh Shaper",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "kroot_lone_spear",
+     "name": "Kroot Lone-Spear",
+     "role": "character",
+     "faction": "T’au Empire",
+     "keywords": [
+      "Character",
+      "Kroot",
+      "Lone-Spear",
+      "Mounted",
+      "T’au Empire"
+     ],
+     "image": "tau_kroot_lone_spear",
+     "baseSize": "90 x 52mm",
+     "profile": {
+      "M": "12\"",
+      "T": "5",
+      "Sv": "5+",
+      "W": "6",
+      "OC": "2",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Blast javelin",
+       "range": "18\"",
+       "A": "D6",
+       "skill": "4+",
+       "S": "10",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Assault",
+        "Blast"
+       ]
+      },
+      {
+       "name": "Kroot long gun",
+       "range": "36\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-2",
+       "D": "3",
+       "kw": [
+        "Heavy",
+        "Precision"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Close combat weapon",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Hunting javelin",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Lance"
+       ]
+      },
+      {
+       "name": "Kalamandra’s bite",
+       "range": "Melee",
+       "A": "4",
+       "skill": "4+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Extra Attacks"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Lone Operative",
+      "Scouts 7\"",
+      "Stealth"
+     ],
+     "factionAbilities": [],
+     "abilities": [
+      {
+       "name": "Advanced Scouting",
+       "text": "Each time this model makes a ranged attack that hits an enemy unit, until the end of the turn, each time another KROOT model from your army makes an attack that targets that enemy unit, you can re-roll the Hit roll.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Fire and Fade",
+       "text": "In your Shooting phase, after this model has shot, if it is not within Engagement Range of one or more enemy units, it can make a Normal move of up to 6\". If it does, until the end of the turn, this model is not eligible to declare a charge.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 80
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 Kroot Lone-Spear",
+     "options": [
+      {
+       "id": "g",
+       "type": "choice",
+       "label": "Kroot long gun replaced with",
+       "choices": [
+        {
+         "id": "klg",
+         "label": "Kroot long gun",
+         "pts": 0
+        },
+        {
+         "id": "jav",
+         "label": "Blast javelin and hunting javelin",
+         "pts": 0
+        }
+       ]
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "krootox_rampagers",
+     "name": "Krootox Rampagers",
+     "role": "mounted",
+     "faction": "T’au Empire",
+     "keywords": [
+      "Grenades",
+      "Kroot",
+      "Krootox Rampagers",
+      "Mounted",
+      "T’au Empire"
+     ],
+     "image": "tau_krootox_rampagers",
+     "baseSize": "50mm",
+     "profile": {
+      "M": "7\"",
+      "T": "6",
+      "Sv": "5+",
+      "W": "5",
+      "OC": "2",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Kroot pistol and hunting javelins",
+       "range": "12\"",
+       "A": "2",
+       "skill": "4+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Assault",
+        "Pistol"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Close combat weapon",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Lance"
+       ]
+      },
+      {
+       "name": "Krootox fists",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Extra Attacks",
+        "Sustained Hits 1"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Scouts 7\""
+     ],
+     "factionAbilities": [],
+     "abilities": [
+      {
+       "name": "Kroot Linebreakers",
+       "text": "Each time this unit ends a Charge move, select one enemy unit within Engagement Range of it, then roll one D6 for each model in this unit that is within Engagement Range of that enemy unit: for each 4+, that enemy unit suffers D3 mortal wounds. If one or more enemy models are destroyed as a result of these mortal wounds, that enemy unit must take a Battle-shock test.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 3,
+       "pts": 85,
+       "ptsLater": 95
+      },
+      {
+       "models": 6,
+       "pts": 170,
+       "ptsLater": 180
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [],
+     "composition": "3-6 Krootox Rampagers",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "the_twin_lance",
+     "name": "The Twin Lance",
+     "role": "epic hero",
+     "faction": "T’au Empire",
+     "keywords": [
+      "Battlesuit",
+      "Character",
+      "Epic Hero",
+      "Fly",
+      "The Twin Lance",
+      "T’au Empire",
+      "Vehicle",
+      "Walker"
+     ],
+     "image": "tau_the_twin_lance",
+     "baseSize": "60mm",
+     "profile": {
+      "M": "10\"",
+      "T": "6",
+      "Sv": "2+",
+      "InSv": "4+",
+      "W": "8",
+      "OC": "2",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Fusion eliminator",
+       "range": "18\"",
+       "A": "2",
+       "skill": "2+",
+       "S": "10",
+       "AP": "-4",
+       "D": "D6",
+       "kw": [
+        "Melta 2"
+       ]
+      },
+      {
+       "name": "Ion scattercannon – standard",
+       "range": "18\"",
+       "A": "4",
+       "skill": "2+",
+       "S": "7",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Rapid Fire 2"
+       ]
+      },
+      {
+       "name": "Ion scattercannon – overcharge",
+       "range": "18\"",
+       "A": "4",
+       "skill": "2+",
+       "S": "8",
+       "AP": "-3",
+       "D": "3",
+       "kw": [
+        "Hazardous",
+        "Rapid Fire 2"
+       ]
+      },
+      {
+       "name": "Shardstorm burst system",
+       "range": "18\"",
+       "A": "D6",
+       "skill": "2+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Twin pulse blaster",
+       "range": "10\"",
+       "A": "2",
+       "skill": "5+",
+       "S": "6",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Assault",
+        "Twin-Linked"
+       ]
+      },
+      {
+       "name": "XV pulse pistol",
+       "range": "12\"",
+       "A": "2",
+       "skill": "2+",
+       "S": "6",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Rapid Fire 2"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Fusion eliminator",
+       "range": "Melee",
+       "A": "1",
+       "skill": "4+",
+       "S": "10",
+       "AP": "-4",
+       "D": "D6+2",
+       "kw": [
+        "Extra Attacks"
+       ]
+      },
+      {
+       "name": "Ion scattercannon",
+       "range": "Melee",
+       "A": "3",
+       "skill": "4+",
+       "S": "7",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Extra Attacks"
+       ]
+      },
+      {
+       "name": "XV pulse pistol",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-1",
+       "D": "2",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deep Strike",
+      "Scouts 8\""
+     ],
+     "factionAbilities": [
+      "For the Greater Good"
+     ],
+     "abilities": [
+      {
+       "name": "Exemplars of Mont’ka",
+       "text": "Each time a model in this unit makes a ranged attack that targets the closest eligible target, that attack has the [SUSTAINED HITS 1] and [IGNORES COVER] abilities.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Neocapacitor Shields",
+       "text": "At the start of your opponent’s Charge phase, you can select one visible enemy unit (excluding MONSTER and VEHICLE units) within 12\" of this unit. That unit must take a Battle-shock test and, until the end of the turn, subtract 1 from Charge rolls made for that unit.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Retro-thrusters",
+       "text": "At the end of the Fight phase, if this unit was eligible to fight this phase, this unit can either make a Normal move of up to 6\" or a Fall Back move.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "MV15 Gun Drone",
+       "text": "The bearer is equipped with 1 twin pulse blaster.",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 2,
+       "pts": 240
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 Ri’Lantar – EPIC HERO; 1 Ri’Locai – EPIC HERO",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    }
+   ],
+   "terms": [
+    "Observer(?:s)?",
+    "Spotted",
+    "Guided",
+    "Prey-marked",
+    "Markerlights?"
    ]
   }
  }

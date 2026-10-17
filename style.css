@@ -1695,3 +1695,49 @@ html:not(.m) .seg.wide { max-width: 560px; }
 @keyframes kfMote { 0% { opacity: 0; transform: translateY(0); } 20% { opacity: .7; } 100% { opacity: 0; transform: translateY(calc(var(--h) * -3)); } }
 @media (prefers-reduced-motion: reduce) { .rpk-gauss.on::after, .holofx, .kingfx { display: none; } }
 .hop-gauss .hop-stain { display: none; }
+
+/* ---- T'au Empire: For the Greater Good tracker (armyRule.markTracker), reticle effect, detachment button effects (btnFx) ---- */
+.mt-obs { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.mt-ob { position: relative; display: flex; align-items: center; gap: 9px; min-height: 48px; padding: 8px 10px; border-radius: 9px; border: 1px solid var(--line); background: var(--panel-2); color: var(--fg-dim); font: inherit; font-weight: 600; text-align: left; cursor: pointer; }
+.mt-ob > i { flex: none; width: 17px; height: 17px; border-radius: 50%; border: 2px solid var(--fg-faint); }
+.mt-ob small { display: block; font-weight: 400; font-size: .72rem; color: var(--fg-faint); }
+.mt-ob.on { color: var(--fg); border-color: color-mix(in srgb, var(--accent2) 75%, transparent); background: linear-gradient(180deg, color-mix(in srgb, var(--accent2) 17%, transparent), color-mix(in srgb, var(--accent2) 7%, transparent)); box-shadow: 0 0 14px color-mix(in srgb, var(--accent2) 28%, transparent); }
+.mt-ob.on > i { border-color: var(--accent2); background: radial-gradient(circle, var(--accent2) 0 3px, transparent 3.5px); box-shadow: 0 0 8px var(--accent2); }
+.mt-ob.on small { color: var(--accent2); }
+.mt-cnt { display: flex; gap: 8px; }
+.mt-cnt > div { flex: 1; padding: 7px 10px; border: 1px solid var(--line); border-radius: 9px; background: var(--panel); }
+.mt-cnt b { display: block; font-size: 1.5rem; line-height: 1; }
+.mt-cnt span { font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--fg-faint); font-weight: 600; }
+.mt-o b { color: var(--accent2); } .mt-s b { color: #e4685a; } .mt-s.over b { color: var(--err); }
+.mt-sp { display: flex; flex-wrap: wrap; gap: 7px; }
+.mt-spot { display: inline-flex; align-items: center; gap: 8px; min-height: 36px; padding: 4px 8px 4px 28px; position: relative; border-radius: 99px; border: 1px solid rgba(192, 57, 43, .7); background: rgba(192, 57, 43, .14); color: #f0b8b0; font: inherit; font-weight: 600; font-size: .85rem; cursor: pointer; }
+.mt-spot::before { content: ''; position: absolute; left: 8px; top: 50%; width: 13px; height: 13px; margin-top: -6.5px; border-radius: 50%; border: 2px solid #e4685a; box-shadow: 0 0 0 3px rgba(192, 57, 43, .2); }
+.mt-spot b { opacity: .7; font-size: 1.1rem; line-height: 1; }
+.mt-add { gap: 8px; } .mt-add .search { flex: 1; min-width: 0; }
+.mf-ret { left: 17px; top: 50%; width: 34px; height: 34px; margin: -17px 0 0 -17px; border-radius: 50%; border: 2px solid var(--accent2); box-shadow: 0 0 10px var(--accent2); opacity: 0; animation: mfRet 1s ease-out forwards; }
+.mf-ret.r2 { animation-delay: .18s; }
+@keyframes mfRet { 0% { opacity: .9; transform: scale(.35); } 100% { opacity: 0; transform: scale(2.4); } }
+
+.choice > .detfx { position: absolute !important; inset: 0; z-index: 0; pointer-events: none; border-radius: inherit; opacity: 0; }
+.choice[aria-checked=true] > .detfx { opacity: 1; }
+.fx-calm > .detfx { background: radial-gradient(ellipse 70% 120% at 92% 0%, color-mix(in srgb, var(--accent2) 22%, transparent), transparent 65%); }
+.fx-calm[aria-checked=true] > .detfx { animation: tauCalm 7s ease-in-out infinite; }
+.fx-kauyon > .detfx { background: radial-gradient(ellipse 60% 110% at 50% 50%, color-mix(in srgb, var(--accent2) 26%, transparent), transparent 70%); }
+.fx-kauyon[aria-checked=true] > .detfx { animation: tauCalm 5.5s ease-in-out infinite; }
+.fx-retaliation > .detfx { box-shadow: inset 0 0 26px 2px rgba(192, 57, 43, .55); }
+.fx-retaliation[aria-checked=true] > .detfx { animation: tauCalm 2.6s ease-in-out infinite; }
+.fx-montka > .detfx::before { content: ''; position: absolute; top: 0; bottom: 0; left: 0; width: 28%; background: linear-gradient(100deg, transparent, color-mix(in srgb, var(--accent) 45%, transparent), transparent); transform: translateX(-130%) skewX(-18deg); }
+.fx-montka[aria-checked=true] > .detfx::before { animation: tauStrike 3s cubic-bezier(.7, 0, .2, 1) infinite; }
+.fx-claws > .detfx { background:
+  linear-gradient(112deg, transparent 47.6%, color-mix(in srgb, var(--accent) 60%, transparent) 48.8%, transparent 50%) 14% 0 / 120px 100% no-repeat,
+  linear-gradient(112deg, transparent 47.6%, color-mix(in srgb, var(--accent) 60%, transparent) 48.8%, transparent 50%) 22% 0 / 120px 100% no-repeat,
+  linear-gradient(112deg, transparent 47.6%, color-mix(in srgb, var(--accent) 60%, transparent) 48.8%, transparent 50%) 30% 0 / 120px 100% no-repeat; }
+.fx-claws[aria-checked=true] > .detfx { animation: tauClaw 4.5s ease-in-out infinite; }
+@keyframes tauCalm { 0%, 100% { opacity: .3; } 50% { opacity: .95; } }
+@keyframes tauStrike { 0% { transform: translateX(-130%) skewX(-18deg); opacity: 0; } 12% { opacity: 1; } 55%, 100% { transform: translateX(480%) skewX(-18deg); opacity: 0; } }
+@keyframes tauClaw { 0%, 62%, 100% { opacity: 0; } 70% { opacity: 1; } 90% { opacity: .5; } }
+@media (prefers-reduced-motion: reduce) {
+  .mfx .mf-ret { display: none; }
+  .fx-calm[aria-checked=true] > .detfx, .fx-kauyon[aria-checked=true] > .detfx, .fx-retaliation[aria-checked=true] > .detfx, .fx-claws[aria-checked=true] > .detfx { animation: none; opacity: .6; }
+  .fx-montka[aria-checked=true] > .detfx::before { animation: none; transform: translateX(120%) skewX(-18deg); opacity: .6; }
+}

@@ -14,5 +14,6 @@
  "adeptusMechanicus": { "wahapedia": ["AdM"],     "bsdata": ["Imperium - Adeptus Mechanicus.json"], "packVersion": "1.2", "wahapediaVersion": "1.2" },
  "emperorsChildren": { "wahapedia": ["EC"],       "bsdata": ["Chaos - Emperor's Children.json"], "packVersion": "1.2", "wahapediaVersion": "1.2" },
  "drukhari":        { "wahapedia": ["DRU"],      "bsdata": ["Aeldari - Drukhari.json", "Aeldari - Aeldari Library.json"], "packVersion": "1.2", "wahapediaVersion": "1.2" },
- "necrons":         { "wahapedia": ["NEC"],      "bsdata": ["Necrons.json"], "packVersion": "1.2", "wahapediaVersion": "1.2" }
+ "necrons":         { "wahapedia": ["NEC"],      "bsdata": ["Necrons.json"], "packVersion": "1.2", "wahapediaVersion": "1.2" },
+ "tauEmpire":        { "wahapedia": ["TAU"],      "bsdata": ["T'au Empire.json"], "packVersion": "1.2", "wahapediaVersion": "1.2" }
 }

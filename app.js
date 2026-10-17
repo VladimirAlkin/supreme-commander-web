@@ -511,7 +511,7 @@
       <section class="stack"><div class="eyebrow">Roster name</div><input type="text" id="wiz-name" data-inp="draftName" value="${esc(dr.name)}" aria-label="Roster name" style="max-width:520px"></section>
       <section class="stack"><div class="eyebrow">Battle size</div><div class="cards3">${GR.battleSizes.map(b => `<button class="choice" aria-pressed="${dr.battleSize === b.id}" data-act="draftSize" data-id="${b.id}"><span class="big">${b.name}</span><dl><dt>Points</dt><dd>${b.points}</dd><dt>DP budget</dt><dd>${b.dp}</dd><dt>Enhancements</dt><dd>${b.enhancements}</dd><dt>Copies per datasheet</dt><dd>${b.copyLimit} (Battleline / Transport ${b.copyLimit * 2})</dd></dl>${b.loneThreeDp ? '<span class="dim" style="font-size:.85rem">A single 3 DP detachment may be taken on its own.</span>' : ''}</button>`).join('')}</div></section>
       <section class="stack"><div class="row"><div class="eyebrow grow">Detachments</div><b class="num">${used} / ${bs.dp} DP</b></div><div class="bar ${used > bs.dp ? 'over' : ''}"><i style="width:${Math.min(100, used / bs.dp * 100)}%"></i></div>
-        <div class="stack" style="gap:8px">${fd.detachments.map(d => { const why = detBlock(d, dr); const on = dr.detachmentIds.includes(d.id); return `<button class="choice detrow${f.theme && f.theme.gloss ? ' gloss' : ''}${f.theme && f.theme.lift ? ' lift' : ''}" role="checkbox" aria-checked="${on}" ${why ? 'aria-disabled="true"' : ''} data-act="draftDet" data-id="${d.id}"><span class="check">${on ? '✓' : ''}</span><span class="stack" style="gap:4px"><span class="row"><span class="big">${esc(d.name)}</span><span class="badge gold">${d.dp} DP</span>${Engine.dispositionsOf(d).map(x => `<span class="badge">${esc(x)}</span>`).join('')}${(d.tags || []).map(t => `<span class="badge red">${esc(t)}</span>`).join('')}</span><span class="dim">${hl(d.summary)}</span>${why ? `<span class="why">⚠ ${esc(why)}</span>` : ''}</span></button>`; }).join('')}</div></section>
+        <div class="stack" style="gap:8px">${fd.detachments.map(d => { const why = detBlock(d, dr); const on = dr.detachmentIds.includes(d.id); return `<button class="choice detrow${f.theme && f.theme.gloss ? ' gloss' : ''}${f.theme && f.theme.lift ? ' lift' : ''}${d.btnFx ? ' fx-' + d.btnFx : ''}" role="checkbox" aria-checked="${on}" ${why ? 'aria-disabled="true"' : ''} data-act="draftDet" data-id="${d.id}">${d.btnFx ? '<i class="detfx" aria-hidden="true"></i>' : ''}<span class="check">${on ? '✓' : ''}</span><span class="stack" style="gap:4px"><span class="row"><span class="big">${esc(d.name)}</span><span class="badge gold">${d.dp} DP</span>${Engine.dispositionsOf(d).map(x => `<span class="badge">${esc(x)}</span>`).join('')}${(d.tags || []).map(t => `<span class="badge red">${esc(t)}</span>`).join('')}</span><span class="dim">${hl(d.summary)}</span>${why ? `<span class="why">⚠ ${esc(why)}</span>` : ''}</span></button>`; }).join('')}</div></section>
       <section class="stack"><div class="eyebrow">Force Disposition</div>${disps.length ? `<div class="row">${disps.map(x => `<button class="chip" aria-pressed="${dr.forceDisposition === x}" data-act="draftDisp" data-id="${esc(x)}">${esc(x)}</button>`).join('')}</div>${disps.length === 1 ? '<span class="dim">Set automatically: only one disposition is available.</span>' : '<span class="dim">Pick one of your detachments\' dispositions.</span>'}` : '<span class="dim">Choose a detachment first.</span>'}</section>
       <div class="row"><button class="btn primary" data-act="wizDone" ${ok ? '' : 'disabled'}>${dr.editing ? 'Save setup' : 'Create roster'}</button>${ok ? '' : '<span class="dim">Pick a detachment and a disposition to continue.</span>'}</div>
       </main>`;
@@ -643,7 +643,9 @@
       }
       // in Play a pick-based highlight (Righteous) shows only on the units picked this turn
       const st = p && h.playSel && inst ? (pickSelFor(r, p, h.playSel).includes(inst.attachedTo || inst.instanceId) ? { on: true, note: h.title } : (h.playOr ? hiState(r, def, inst, h) : null)) : hiState(r, def, inst, h); if (!st) return '';
-      return `<span class="kwfx ${h.tone ? 'tone-' + h.tone : ''} ${st.cond ? 'cond' : ''}" style="--d:${d}s" title="${esc(st.note || h.title || '')}">${esc(hiLabel(h, st))}${st.cond ? '*' : ''}</span>`;
+      // enhLabels: the badge text follows the enhancement the unit carries (Prototype: Plasma rifle*, Upgrade: Negation Emitters*)
+      const eLab = inst && h.enhLabels ? Engine.enhIds(inst).map(id => h.enhLabels[id]).find(Boolean) : null;
+      return `<span class="kwfx ${h.tone ? 'tone-' + h.tone : ''} ${st.cond ? 'cond' : ''}" style="--d:${d}s" title="${esc(st.note || h.title || '')}">${esc(eLab || hiLabel(h, st))}${st.cond ? '*' : ''}</span>`;
     }).join('');
   }
   function meleeBonus(r, def, inst) {
@@ -1299,6 +1301,7 @@
     r.units.forEach(u => { const def = unitDef(r.factionId, u.datasheetId); if (def && def.roundPick) out.unshift(roundPickHTML(r, p, u, def)); if (def && def.phaseTrigger) out.unshift(phaseTriggerHTML(r, p, u, def)); if (def && def.oncePerBattle && onceNeeds(u, def.oncePerBattle)) out.push(oncePanelHTML(r, p, u, def)); });
     fd.armyRules.filter(a => a.imperatives).forEach(a => out.unshift(doctrinaHTML(p, a)));
     fd.armyRules.filter(a => a.counter).forEach(a => out.unshift(tokenPoolHTML(r, p, a, dets)));
+    fd.armyRules.filter(a => a.markTracker).forEach(a => out.unshift(markTrackerHTML(r, p, a)));
     fd.armyRules.filter(a => a.reminder).forEach(a => { const h = remindHTML(r, p, a); if (h) out.push(h); });
     fd.armyRules.filter(a => a.cpNote).forEach(a => {
       const names = new Set(a.cpNote.abilities), has = r.units.filter(u => (unitDef(r.factionId, u.datasheetId).abilities || []).some(x => names.has(x.name)));
@@ -1550,6 +1553,26 @@
       <div class="chips pu-chips" role="group" aria-label="${esc(pu.title)}">${list.map(u => `<button class="chip puc puc-${pu.style || 'plain'}" aria-pressed="${sel.includes(u.instanceId)}" ${pu.style === 'favoured' && IMG.ec_slaanesh ? `style="--sym:url('${IMG.ec_slaanesh}')"` : ''} data-act="puPick" data-key="${pu.key}" data-id="${u.instanceId}">${esc(lbl(u))}</button>`).join('') || '<span class="faint">No units to mark.</span>'}</div>
       ${pu.foot ? `<div class="faint" style="font-size:.85rem">${esc(pu.foot)}</div>` : ''}`);
   }
+  /* Army-rule mark tracker (T'au Observer / Spotted): units with the rule's ability mark enemy units at the start of a phase.
+     State p.mt[round] = { o: [instanceId of the marking units], s: [enemy unit names] }. Config: armyRule.markTracker. */
+  function markTrackerHTML(r, p, a) {
+    const t = a.markTracker, ctx = Engine.ctxFor(r, DATA), st = (p.mt || {})[p.round] || {}, obs = st.o || [], spot = st.s || [];
+    const grp = u => [u, ...r.units.filter(x => x.attachedTo === u.instanceId)];
+    const has = (g, fn) => g.some(x => { const d = unitDef(r.factionId, x.datasheetId); return d && fn(d, x); });
+    const list = r.units.filter(u => !u.attachedTo && !unitDead(p, u) && has(grp(u), d => (d.factionAbilities || []).includes(t.ability))
+      && !has(grp(u), (d, x) => Engine.hasKw(d, ctx, 'Fortification', x)));
+    const now = p.turn !== 'opp' && p.phase === t.phase;
+    const nObs = list.filter(u => obs.includes(u.instanceId)).length;
+    const chip = u => { const on = obs.includes(u.instanceId), sub = has(grp(u), (d, x) => Engine.hasKw(d, ctx, t.subKeyword, x)) ? t.subKeyword : '';
+      return `<button class="mt-ob ${on ? 'on' : ''}" aria-pressed="${on}" data-act="mtObs" data-id="${u.instanceId}"><i aria-hidden="true"></i><span>${esc(grp(u).map(x => dispName(r, x)).join(' + '))}${sub ? `<small>${esc(sub)}</small>` : ''}</span></button>`; };
+    return panel2(t.title, now ? '<span class="badge gold">Now</span>' : `<span class="badge">${esc(t.phase)} phase</span>`,
+      `<div class="dim" style="font-size:.9rem">${esc(t.note)}</div>
+      <div class="mt-obs" role="group" aria-label="${esc(t.markName)} units">${list.map(chip).join('') || `<div class="empty">No unit with ${esc(t.ability)} in this roster.</div>`}</div>
+      <div class="mt-cnt"><div class="mt-o"><b class="num">${nObs}</b><span>${esc(t.markName)}s</span></div><div class="mt-s ${spot.length > nObs ? 'over' : ''}"><b class="num">${spot.length}</b><span>${esc(t.targetName)}</span></div></div>
+      <div class="mt-sp" role="list" aria-label="${esc(t.targetName)} enemy units">${spot.map((n, i) => `<button class="mt-spot" role="listitem" data-act="mtDel" data-i="${i}" aria-label="Clear ${esc(n)}"><span>${esc(n)}</span><b aria-hidden="true">×</b></button>`).join('')}</div>
+      <div class="row mt-add"><input class="search" id="mt-in" type="text" maxlength="40" placeholder="Enemy unit, e.g. Terminator Squad" aria-label="Enemy unit to mark ${esc(t.targetName)}" ${nObs ? '' : 'disabled'}><button class="btn sm" data-act="mtAdd" ${nObs && spot.length < nObs ? '' : 'disabled'}>Mark ${esc(t.targetName)}</button></div>
+      <div class="faint" style="font-size:.85rem">${esc(t.foot)}</div>`);
+  }
   /* Detachment pledgeTracker: pledge a number each round, bank it as points on success; thresholds light up as the points grow
      (Coterie of the Conceited). State p.pact, p.pledge[round], p.pledgeDone[round] = 'met' | 'miss'. */
   function pledgeHTML(r, p, d) {
@@ -1663,6 +1686,7 @@
     }
     if (k === 'runes') return n(5).map(i => `<svg class="mf-rune" viewBox="0 0 24 24" style="left:${8 + i * 20}%;--dl:${(i * .16).toFixed(2)}s"><path d="${['M12 3v18M12 8l6-4M12 13l6-4','M7 4v16M7 4l9 6-9 6','M5 5l14 14M19 5L5 19M12 3v18','M12 3l8 9-8 9-8-9zM12 8v8','M6 4h12M12 4v16M6 20h12'][i]}"/></svg>`).join('');
     if (k === 'halo') return '<i class="mf-halo"></i><i class="mf-halo h2"></i>';
+    if (k === 'reticle') return '<i class="mf-ret"></i><i class="mf-ret r2"></i>';
     if (k === 'geiger') return '<i class="mf-gpulse"></i>' + n(9).map(() => `<i class="mf-tick" style="left:${R(6, 94).toFixed(0)}%;top:${R(14, 84).toFixed(0)}%;--dl:${R(0, 1.6).toFixed(2)}s"></i>`).join('');
     if (k === 'sonar') return '<i class="mf-ping"></i><i class="mf-ping p2"></i><i class="mf-ping p3"></i>';
     if (k === 'crosshair') return '<svg class="mf-cross" viewBox="0 0 60 60"><circle cx="30" cy="30" r="17"/><path d="M30 4v14M30 42v14M4 30h14M42 30h14"/></svg>';
@@ -1925,9 +1949,12 @@
   const gaussFx = () => `<span class="rem-gauss" aria-hidden="true"><i></i><i></i>${IMG.nec_roster ? `<img class="rem-glyph" src="${IMG.nec_roster}" alt="">` : ''}</span>`;
   function remindHTML(r, p, d) {
       const rm = d.reminder, dismissed = ((p.rem || {})[p.round] || {})[d.id];
-      const inRange = (!rm.from || p.round >= rm.from) && (!rm.to || p.round <= rm.to), firstNow = !!rm.first && p.round === 1;
-      const active = inRange && (firstNow || ((rm.turn !== 'mine' || p.turn !== 'opp') && [].concat(rm.phase || 'Command').includes(p.phase)));
       const enhHave = new Set(r.units.flatMap(x => Engine.enhIds(x)));
+      /* fromByEnh / toByEnh: an enhancement that starts the rule earlier or ends it later (Exemplar of the Kauyon: from round 2) */
+      const from = Math.min(...[rm.from].concat(Object.keys(rm.fromByEnh || {}).filter(id => enhHave.has(id)).map(id => rm.fromByEnh[id])).filter(x => x != null && x !== 0), Infinity);
+      const to = Math.max(...[rm.to].concat(Object.keys(rm.toByEnh || {}).filter(id => enhHave.has(id)).map(id => rm.toByEnh[id])).filter(x => x != null), 0);
+      const inRange = (from === Infinity || p.round >= from) && (!to || p.round <= to), firstNow = !!rm.first && p.round === 1;
+      const active = inRange && (firstNow || ((rm.turn !== 'mine' || p.turn !== 'opp') && [].concat(rm.phase || 'Command').includes(p.phase)));
       const impNow = rm.byImp && ((p.imp || {})[p.round]);
       const rmText = [firstNow ? rm.first : (impNow && rm.byImp[impNow]) || rm.text].concat(Object.keys(rm.extraByEnh || {}).filter(id => enhHave.has(id)).map(id => rm.extraByEnh[id])).filter(Boolean);
       const fxEl = rm.fx === 'gauss' ? gaussFx() : rm.fx === 'warp'
@@ -3218,6 +3245,17 @@
       playChange(r, p => { p.haloU = sel.includes(id) ? sel.filter(x => x !== id) : sel.concat(id); }, null, 'confirm');
       if (!sel.includes(id)) mechFx(document.querySelector(`[data-act="asHalo"][data-id="${id}"]`), 'halo');
     },
+    mtObs: el => {
+      const r = cur(), id = el.dataset.id, on = (((playState(r).mt || {})[playState(r).round] || {}).o || []).includes(id);
+      playChange(r, p => { p.mt = p.mt || {}; const st = p.mt[p.round] = p.mt[p.round] || { o: [], s: [] }; st.o = on ? st.o.filter(x => x !== id) : st.o.concat(id); }, null, 'confirm');
+      if (!on) mechFx(document.querySelector(`[data-act="mtObs"][data-id="${id}"]`), 'reticle');
+    },
+    mtAdd: () => {
+      const r = cur(), inp = document.getElementById('mt-in'), name = ((inp && inp.value) || '').trim().replace(/\s+/g, ' ').slice(0, 40), p0 = playState(r), st0 = (p0.mt || {})[p0.round] || {};
+      if (!name || (st0.s || []).some(x => x.toLowerCase() === name.toLowerCase()) || (st0.s || []).length >= (st0.o || []).length) { PL.haptic('reject'); return; }
+      playChange(r, p => { p.mt = p.mt || {}; const st = p.mt[p.round] = p.mt[p.round] || { o: [], s: [] }; st.s = (st.s || []).concat(name); }, null, 'confirm');
+    },
+    mtDel: el => { const r = cur(), i = +el.dataset.i; playChange(r, p => { const st = (p.mt || {})[p.round]; if (st && st.s) st.s = st.s.filter((_, k) => k !== i); }, null, 'tick'); },
     puPick: el => {
       const r = cur(), id = el.dataset.id, key = el.dataset.key, fd = fdata(r.factionId), d = r.detachmentIds.map(x => fd.detachments.find(y => y.id === x)).find(y => y && y.pickUnits && y.pickUnits.key === key); if (!d) return;
       const pu = d.pickUnits, sel = pickSelFor(r, playState(r), key), on = sel.includes(id);

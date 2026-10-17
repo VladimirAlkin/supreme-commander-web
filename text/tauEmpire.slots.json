@@ -1,0 +1,1193 @@
+{
+ "_meta": {
+  "faction": "tauEmpire",
+  "factionName": "T’au Empire",
+  "dataVersion": "2026-10-17-mfm16-fp12",
+  "generatedAt": "2026-10-17",
+  "howTo": "docs/RULES-SOURCES.md",
+  "rules": [
+   "Edit ONLY the plain text fields. Keys starting with _ are context and are ignored.",
+   "Plain text only: no HTML, no markdown, no ** or [] markup. Highlighting is automatic.",
+   "Keep ALL-CAPS keywords, dice notation (D3, D6, 2D6, D6+3) and quotes/inches as written.",
+   "armyRules text is a list: one entry per paragraph.",
+   "Leave a field unchanged if you have not done it yet. Never delete a key."
+  ],
+  "counts": {
+   "armyRules": 1,
+   "detachmentRules": 7,
+   "stratagems": 31,
+   "enhancements": 23,
+   "unitAbilities": 93
+  }
+ },
+ "armyRules": {
+  "for_the_greater_good": {
+   "_name": "For the Greater Good",
+   "text": [
+    "If your Army Faction is T’AU EMPIRE, at the start of your Shooting phase you can select units from your army with this ability to become Observer units.",
+    "During your Shooting phase, for each Observer unit from your army that has not been selected to shoot this phase and is eligible to shoot (excluding Fortification and Battle-shocked units) select one enemy unit that is visible to be marked as their Spotted unit until the end of the phase. Each enemy unit can only be marked as a Spotted unit once per phase.",
+    "Units from your army with the For the Greater Good ability (excluding Observer units) are Guided units while targeting one or more Spotted units.",
+    "Until the end of the phase, each time a model from your army in a Guided unit makes an attack that targets a Spotted unit, improve the Ballistic Skill characteristic of that attack by 1 and, if the Spotted unit was marked by an Observer unit that has the Markerlight keyword, that attack has the [IGNORES COVER] ability."
+   ]
+  }
+ },
+ "detachments": {
+  "advanced_acquisition_cadre": {
+   "_name": "Advanced Acquisition Cadre",
+   "rule": {
+    "_name": "Expert Fieldcraft",
+    "text": "In your Shooting phase, when a friendly PATHFINDER TEAM/STEALTH BATTLESUITS unit is selected to shoot, those ranged attacks do not prevent your unit from being hidden."
+   },
+   "stratagems": {
+    "marker_beacon": {
+     "_name": "Marker Beacon",
+     "_cp": 1,
+     "_type": "Advanced Acquisition Cadre",
+     "_phases": [
+      "Movement"
+     ],
+     "when": "End of your Movement phase.",
+     "target": "One friendly PATHFINDER TEAM/STEALTH BATTLESUITS unit.",
+     "effect": "Select one objective your unit is controlling. That objective is secured.",
+     "restrictions": null
+    },
+    "microdrone_support": {
+     "_name": "Microdrone Support",
+     "_cp": 1,
+     "_type": "Advanced Acquisition Cadre",
+     "_phases": [
+      "Shooting"
+     ],
+     "when": "Your Shooting phase, when a friendly PATHFINDER TEAM/ STEALTH BATTLESUITS unit starts an action.",
+     "target": "That PATHFINDER TEAM/STEALTH BATTLESUITS unit.",
+     "effect": "That action does not prevent your unit from being eligible to shoot.",
+     "restrictions": null
+    },
+    "autoreactive_camouflage": {
+     "_name": "Autoreactive Camouflage",
+     "_cp": 1,
+     "_type": "Advanced Acquisition Cadre",
+     "_phases": [
+      "Shooting"
+     ],
+     "when": "Your opponent’s Shooting phase, when an enemy unit targets a friendly PATHFINDER TEAM/ STEALTH BATTLESUITS unit, if that friendly unit is hidden.",
+     "target": "That PATHFINDER TEAM/STEALTH BATTLESUITS unit.",
+     "effect": "Your unit has +1 Sv.",
+     "restrictions": null
+    }
+   },
+   "enhancements": {
+    "negation_emitters": {
+     "_name": "Negation Emitters",
+     "_pts": 15,
+     "text": "STEALTH BATTLESUITS unit only. This unit has -3\" detection range."
+    },
+    "unmasking_suite": {
+     "_name": "Unmasking Suite",
+     "_pts": 15,
+     "text": "GHOSTKEEL BATTLESUIT/PATHFINDER TEAM/STEALTH BATTLESUITS unit only. When this unit is selected to shoot, you can select one enemy unit within 24\" of this unit. That enemy unit has +9\" detection range until this unit has shot."
+    }
+   }
+  },
+  "auxiliary_cadre": {
+   "_name": "Auxiliary Cadre",
+   "rule": {
+    "_name": "Integrated Command Structure",
+    "text": "Friendly KROOT/VESPID STINGWINGS units have the following ability: Harnessed Alien Instincts: In your Shooting phase, this unit can select one visible enemy unit within 12\". That enemy unit is prey-marked: ■ While a unit is prey-marked, that unit has +3\" detection range Friendly GHOSTKEEL BATTLESUIT/STEALTH BATTLESUITS units have the following ability: Localised Stealth Projectors (Aura): When a friendly KROOT/VESPID STINGWINGS unit within 6\" of this unit has shot, those attacks do not prevent that unit from being hidden. This detachment has the AUXILIARIES tag and cannot be taken with another AUXILIARIES detachment."
+   },
+   "stratagems": {
+    "guided_by_unity": {
+     "_name": "Guided by Unity",
+     "_cp": 1,
+     "_type": "Auxiliary Cadre",
+     "_phases": [
+      "Shooting"
+     ],
+     "when": "Your Shooting phase, when a friendly T’AU EMPIRE unit (excluding KROOT/VESPID STINGWINGS) is selected to shoot.",
+     "target": "That T’AU EMPIRE unit.",
+     "effect": "Until the end of the phase, ranged attacks made by your unit that target an enemy unit within 9\" of a friendly KROOT/VESPID STINGWINGS unit have the [LETHAL HITS] ability.",
+     "restrictions": null
+    },
+    "alien_expertise": {
+     "_name": "Alien Expertise",
+     "_cp": 1,
+     "_type": "Auxiliary Cadre",
+     "_phases": [
+      "Movement"
+     ],
+     "when": "Your Movement phase, when a friendly KROOT/VESPID STINGWINGS unit is selected to Advance.",
+     "target": "That KROOT/VESPID STINGWINGS unit.",
+     "effect": "Until the end of the turn, that unit is eligible to declare a charge in a turn in which it Advanced.",
+     "restrictions": null
+    },
+    "experimental_modifications": {
+     "_name": "Experimental Modifications",
+     "_cp": 1,
+     "_type": "Auxiliary Cadre",
+     "_phases": [
+      "Shooting",
+      "Fight"
+     ],
+     "when": "Your Shooting phase or the Fight phase, when a friendly KROOT/VESPID STINGWINGS unit is selected to shoot or fight.",
+     "target": "That KROOT/VESPID STINGWINGS unit.",
+     "effect": "Until the end of the phase, add 1 to the Armour Penetration characteristic of attacks made by models in your unit.",
+     "restrictions": null
+    }
+   },
+   "enhancements": {
+    "student_of_kauyon": {
+     "_name": "Student of Kauyon",
+     "_pts": 20,
+     "text": "KROOT SHAPER model only. In the Declare Battle Formations step, you can select up to three friendly KROOT CARNIVORES/FARSTALKERS units. Those units have Deep Strike."
+    },
+    "admired_leader": {
+     "_name": "Admired Leader",
+     "_pts": 20,
+     "text": "T’AU EMPIRE model only (excluding KROOT models). In your Command phase, you can select one KROOT/VESPID STINGWINGS unit within 12\" of this model. If you do, that unit has +1 Ld and OC until the start of your next Command phase."
+    }
+   }
+  },
+  "experimental_prototype_cadre": {
+   "_name": "Experimental Prototype Cadre",
+   "rule": {
+    "_name": "Superior Craftsmanship",
+    "text": "Friendly BATTLESUIT CHARACTER units’ ranged attacks have +6\" R. This detachment has the BATTLESUIT tag and cannot be taken with another BATTLESUIT detachment."
+   },
+   "stratagems": {
+    "experimental_ammunition": {
+     "_name": "Experimental Ammunition",
+     "_cp": 1,
+     "_type": "Experimental Prototype Cadre",
+     "_phases": [
+      "Shooting"
+     ],
+     "when": "Your Shooting phase, when a friendly BATTLESUIT CHARACTER unit is selected to shoot.",
+     "target": "That BATTLESUIT CHARACTER unit.",
+     "effect": "Your unit’s ranged attacks have: ■ +1 S. ■ OR: +1 S, AP and [HAZARDOUS].",
+     "restrictions": null
+    }
+   },
+   "enhancements": {
+    "thermoneutronic_projector": {
+     "_name": "Thermoneutronic Projector",
+     "_pts": 15,
+     "text": "BATTLESUIT model only. In the Declare Battle Formations step, select one of this model’s T’au Flamer weapons. That weapon’s attacks have: ■ +2 S ■ +1 AP and D."
+    },
+    "plasma_accelerator_rifle": {
+     "_name": "Plasma Accelerator Rifle",
+     "_pts": 20,
+     "text": "BATTLESUIT model only. In the Declare Battle Formations step, select one of this model’s Plasma Rifle weapons. That weapon’s attacks have: ■ +2 S ■ +1 A, AP and D."
+    },
+    "supernova_launcher": {
+     "_name": "Supernova Launcher",
+     "_pts": 15,
+     "text": "BATTLESUIT model only. In the Declare Battle Formations step, select one of this model’s Airbursting Fragmentation Projector weapons. That weapon’s attacks have: ■ +3 S ■ +1 AP and D."
+    }
+   }
+  },
+  "kauyon": {
+   "_name": "Kauyon",
+   "rule": {
+    "_name": "Patient Hunter",
+    "text": "During the third, fourth and fifth battle rounds, ranged weapons equipped by T’AU EMPIRE models from your army have the [SUSTAINED HITS 1] ability. During the third, fourth and fifth battle rounds, while a unit is a Guided unit (see For the Greater Good), each time a ranged attack is made by a model in that unit that targets a Spotted unit, you can ignore any or all modifiers to that attack’s Ballistic skill characteristics and/or all modifiers to the Hit roll."
+   },
+   "stratagems": {
+    "point_blank_ambush": {
+     "_name": "Point-blank Ambush",
+     "_cp": 1,
+     "_type": "Battle Tactic",
+     "_phases": [
+      "Shooting"
+     ],
+     "when": "Your Shooting phase.",
+     "target": "One T’AU EMPIRE unit from your army that has not been selected to shoot this phase.",
+     "effect": "Until the end of the phase, each time a model in your unit makes a ranged attack that targets an enemy unit within 9\", improve the Armour Penetration characteristic of that attack by 1.",
+     "restrictions": "You cannot use this Stratagem during the first or second battle rounds."
+    },
+    "coordinate_to_engage": {
+     "_name": "Coordinate to Engage",
+     "_cp": 1,
+     "_type": "Battle Tactic",
+     "_phases": [
+      "Shooting"
+     ],
+     "when": "Your Shooting phase.",
+     "target": "One T’AU EMPIRE unit from your army that has just been selected as an Observer unit (see For the Greater Good).",
+     "effect": "Until the end of the phase, each time a model in your unit makes an attack that targets their Spotted unit, improve the Ballistic Skill characteristic of that attack by 1 and, if your unit has the Markerlight keyword, that attack has the [IGNORES COVER] ability.",
+     "restrictions": null
+    },
+    "wall_of_mirrors": {
+     "_name": "Wall of Mirrors",
+     "_cp": 1,
+     "_type": "Battle Tactic",
+     "_phases": [
+      "Fight"
+     ],
+     "when": "End of your opponent’s Fight phase.",
+     "target": "One Stealth, GHOSTKEEL or COMMANDER SHADOWSUN unit from your army.",
+     "effect": "Remove your unit from the battlefield and place it into Strategic Reserves.",
+     "restrictions": "You cannot target a unit that is within Engagement Range of one or more enemy units."
+    },
+    "a_tempting_trap": {
+     "_name": "A Tempting Trap",
+     "_cp": 1,
+     "_type": "Battle Tactic",
+     "_phases": [
+      "Shooting"
+     ],
+     "when": "Your Shooting phase.",
+     "target": "One T’AU EMPIRE unit from your army that has not been selected to shoot this phase. The first time you use this Stratagem, you must also select one objective marker that is not in your opponent’s deployment zone; until the end of the battle, this becomes your Trap objective marker.",
+     "effect": "Until the end of the phase, each time a model in your unit makes a ranged attack that targets an enemy unit within range of your Trap objective marker, add 1 to the Wound roll.",
+     "restrictions": "You cannot use this Stratagem during the first or second battle rounds."
+    },
+    "combat_embarkation": {
+     "_name": "Combat Embarkation",
+     "_cp": 1,
+     "_type": "Wargear",
+     "_phases": [
+      "Charge"
+     ],
+     "when": "Your opponent’s Charge phase, just after an enemy unit has declared a charge.",
+     "target": "One T’AU EMPIRE INFANTRY unit from your army that was selected as one of the targets of that charge, and one friendly Transport.",
+     "effect": "Your unit can embark within that TRANSPORT. If it does, your opponent can select new targets for that charge.",
+     "restrictions": "Every model in your T’AU EMPIRE INFANTRY unit must be within 3\" of that TRANSPORT and there must be sufficient transport capacity to embark the entire unit."
+    },
+    "photon_grenades": {
+     "_name": "Photon Grenades",
+     "_cp": 1,
+     "_type": "Wargear",
+     "_phases": [
+      "Charge"
+     ],
+     "when": "Your opponent's charge phase, just after an enemy unit has selected its charge target.",
+     "target": "One T’AU EMPIRE GRENADES unit from your army that was selected as one of the targets of that charge.",
+     "effect": "That enemy unit must immediately take a Battle-shock test, and until the end of the phase, subtract 2 from Charge rolls made for that enemy unit. RESTRICTION: You cannot target a unit that is within Engagement Range of one or more enemy units.",
+     "restrictions": null
+    }
+   },
+   "enhancements": {
+    "exemplar_of_the_kauyon": {
+     "_name": "Exemplar of the Kauyon",
+     "_pts": 20,
+     "text": "T’AU EMPIRE model only (excluding KROOT SHAPER models). While the bearer is leading a unit, the Patient Hunter Detachment rule applies to that unit from the second battle round onwards instead of from the third."
+    },
+    "precision_of_the_patient_hunter": {
+     "_name": "Precision of the Patient Hunter",
+     "_pts": 15,
+     "text": "T’AU EMPIRE model only. Each time the bearer makes a ranged attack, add 1 to the Hit roll. From the third battle round onwards, add 1 to the Wound roll as well."
+    },
+    "solid_image_projection_unit": {
+     "_name": "Solid-image Projection Unit",
+     "_pts": 20,
+     "text": "T’AU EMPIRE model only. After both players have deployed their armies, select up to three T’AU EMPIRE units from your army and redeploy them. When doing so, you can set those units up in Strategic Reserves if you wish, regardless of how many units are already in Strategic Reserves."
+    },
+    "through_unity_devastation": {
+     "_name": "Through Unity, Devastation",
+     "_pts": 30,
+     "text": "T’AU EMPIRE model only (excluding KROOT SHAPER models). While the bearer is leading a unit, each time that unit is an Observer unit, until the end of the phase, ranged weapons equipped by models in a Guided unit have the [LETHAL HITS] ability while targeting their Spotted unit."
+    }
+   }
+  },
+  "kroot_hunting_pack": {
+   "_name": "Kroot Hunting Pack",
+   "rule": {
+    "_name": "Hunter’s Instincts",
+    "text": "Each time a KROOT model from your army makes an attack, add 1 to the Hit roll if the target of that attack is below its Starting Strength, and add 1 to the Wound roll as well if the target of that attack is Below Half-strength. ■ SKIRMISH FIGHTERS: KROOT models from your army have a 6+ invulnerable save against melee attacks and a 5+ invulnerable save against ranged attacks. If you select this Detachment, KROOT CARNIVORE units from your army have the BATTLELINE keyword."
+   },
+   "stratagems": {
+    "a_trap_well_laid": {
+     "_name": "A Trap Well Laid",
+     "_cp": 1,
+     "_type": "Battle Tactic",
+     "_phases": [
+      "Shooting",
+      "Fight"
+     ],
+     "when": "Your Shooting phase or the Fight phase.",
+     "target": "One KROOT unit from your army that has not been selected to shoot or fight this phase.",
+     "effect": "After your unit has resolved its attacks this phase, select one enemy unit that was hit by one or more of those attacks. Until the end of the phase, each time a KROOT model from your army makes an attack that targets that enemy unit, unless the attacking unit is Battle-shocked, improve the Armour Penetration characteristic of that attack by 1.",
+     "restrictions": null
+    },
+    "join_the_hunt": {
+     "_name": "Join the Hunt",
+     "_cp": 2,
+     "_type": "Battle Tactic",
+     "_phases": [
+      "Any"
+     ],
+     "when": "Any phase.",
+     "target": "One KROOT INFANTRY or KROOT HOUNDS unit from your army that was just destroyed. You can use this Stratagem on that unit even though it was just destroyed.",
+     "effect": "Add a new unit to your army identical to your destroyed unit, in Strategic Reserves, at its Starting Strength.",
+     "restrictions": "This Stratagem cannot be used to return destroyed CHARACTER units to Attached units. You can only use this Stratagem once per battle."
+    },
+    "hidden_hunters": {
+     "_name": "Hidden Hunters",
+     "_cp": 1,
+     "_type": "Strategic Ploy",
+     "_phases": [
+      "Shooting"
+     ],
+     "when": "Your opponent’s Shooting phase, just after an enemy unit has selected its targets.",
+     "target": "One KROOT unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+     "effect": "Until the end of the phase, your unit can only be selected as the target of a ranged attack if the attacking model is within 18\".",
+     "restrictions": null
+    },
+    "guerrilla_warriors": {
+     "_name": "Guerrilla Warriors",
+     "_cp": 1,
+     "_type": "Strategic Ploy",
+     "_phases": [
+      "Movement"
+     ],
+     "when": "Your Movement phase, just after a KROOT unit from your army Falls Back.",
+     "target": "That KROOT unit.",
+     "effect": "Until the end of the turn, your unit is eligible to shoot and declare a charge.",
+     "restrictions": null
+    },
+    "the_grisly_feast": {
+     "_name": "The Grisly Feast",
+     "_cp": 1,
+     "_type": "Strategic Ploy",
+     "_phases": [
+      "Fight"
+     ],
+     "when": "Fight phase.",
+     "target": "One KROOT unit from your army that destroyed one or more enemy units this phase.",
+     "effect": "In your opponent’s next Command phase, each enemy unit within 6\" of your unit must take a Battle-shock test. If the unit taking that test is Below Half-strength, subtract 1 from that test. Enemy units affected by this Stratagem do not need to take any other Battle-shock tests in the same phase.",
+     "restrictions": null
+    },
+    "emp_grenades": {
+     "_name": "EMP Grenades",
+     "_cp": 1,
+     "_type": "Wargear",
+     "_phases": [
+      "Shooting",
+      "Fight"
+     ],
+     "when": "Your opponent’s Shooting phase or the Fight phase, just after an enemy VEHICLE unit is selected to shoot or fight.",
+     "target": "One KROOT GRENADES unit from your army within 8\" of that enemy VEHICLE unit.",
+     "effect": "Until the end of the phase, worsen the Weapon Skill and Ballistic Skill characteristics of that enemy VEHICLE unit’s weapons by 1.",
+     "restrictions": null
+    }
+   },
+   "enhancements": {
+    "borthrod_gland": {
+     "_name": "Borthrod Gland",
+     "_pts": 15,
+     "text": "Kroot Flesh Shaper only. While the bearer is leading a unit, each time a model in that unit makes a melee attack, an unmodified Hit roll of 5+ scores a Critical Hit."
+    },
+    "kroothawk_flock": {
+     "_name": "Kroothawk Flock",
+     "_pts": 10,
+     "text": "KROOT model only. Ranged weapons equipped by models in the bearer’s unit have the [IGNORES COVER] ability, and enemy units that are set up on the battlefield as Reinforcements cannot be set up within 12\" horizontally of the bearer."
+    },
+    "nomadic_hunter": {
+     "_name": "Nomadic Hunter",
+     "_pts": 20,
+     "text": "KROOT TRAIL SHAPER model only. While the bearer is leading a unit, add 3\" to the Move characteristic of models in that unit and ranged weapons equipped by models in that unit have the [ASSAULT] ability."
+    },
+    "root_carved_weapons": {
+     "_name": "Root-carved Weapons",
+     "_pts": 10,
+     "text": "Kroot War SHAPER model only. All weapons equipped by the bearer have the [PRECISION] and [DEVASTATING WOUNDS] abilities."
+    }
+   }
+  },
+  "montka": {
+   "_name": "Mont’ka",
+   "rule": {
+    "_name": "Killing Blow",
+    "text": "During the first, second and third battle rounds, ranged weapons equipped by T’AU EMPIRE models from your army have the [ASSAULT] ability. During the first, second and third battle rounds, while a unit is a Guided unit, its ranged weapons have the [LETHAL HITS] ability."
+   },
+   "stratagems": {
+    "aggressive_mobility": {
+     "_name": "Aggressive Mobility",
+     "_cp": 1,
+     "_type": "Battle Tactic",
+     "_phases": [
+      "Movement"
+     ],
+     "when": "Your Movement phase.",
+     "target": "One T’AU EMPIRE unit from your army that has not been selected to move this phase.",
+     "effect": "Until the end of the phase, if your unit Advances, do not make an Advance roll for it. Instead, until the end of the phase, add 6\" to the Move characteristic of models in your unit.",
+     "restrictions": null
+    },
+    "focused_fire": {
+     "_name": "Focused Fire",
+     "_cp": 1,
+     "_type": "Battle Tactic",
+     "_phases": [
+      "Shooting"
+     ],
+     "when": "Start of your Shooting phase.",
+     "target": "Two T’AU EMPIRE units from your army that have not been selected to shoot this phase, and one enemy unit.",
+     "effect": "Until the end of the phase, each time a model in either of your units makes an attack, it can only target that enemy unit (and only if it is an eligible target for that attack), and when resolving that attack, improve the Armour Penetration characteristic by 1.",
+     "restrictions": "You cannot use this Stratagem during the fourth or fifth battle rounds."
+    },
+    "combat_debarkation": {
+     "_name": "Combat Debarkation",
+     "_cp": 1,
+     "_type": "Battle Tactic",
+     "_phases": [
+      "Shooting"
+     ],
+     "when": "Your Shooting phase.",
+     "target": "One T’AU EMPIRE INFANTRY unit from your army that disembarked from a TRANSPORT this turn.",
+     "effect": "Until the end of the phase, each time a model in your unit makes an attack that targets the closest enemy unit, you can re-roll the Wound roll.",
+     "restrictions": null
+    },
+    "pinpoint_counter_offensive": {
+     "_name": "Pinpoint Counter-offensive",
+     "_cp": 1,
+     "_type": "Battle Tactic",
+     "_phases": [
+      "Any"
+     ],
+     "when": "Any phase.",
+     "target": "One T’AU EMPIRE unit (excluding KROOT units) from your army that was just destroyed. You can use this Stratagem on that unit even though it was just destroyed.",
+     "effect": "Until the end of the battle, each time a T’AU EMPIRE unit (excluding KROOT units) from your army makes an attack that targets the enemy unit that just destroyed your unit, you can re-roll the Hit roll.",
+     "restrictions": null
+    },
+    "pulse_onslaught": {
+     "_name": "Pulse Onslaught",
+     "_cp": 2,
+     "_type": "Strategic Ploy",
+     "_phases": [
+      "Shooting"
+     ],
+     "when": "Your Shooting phase.",
+     "target": "One T’AU EMPIRE INFANTRY unit (excluding KROOT units) from your army that has just shot, and one enemy unit (excluding MONSTERS and VEHICLES) hit by one or more of those attacks.",
+     "effect": "Until the end of your opponent’s next turn, that enemy unit is shaken. While a unit is shaken, subtract 2 from its Move characteristic and subtract 2 from Advance and Charge rolls made for it.",
+     "restrictions": null
+    },
+    "counterfire_defence_systems": {
+     "_name": "Counterfire Defence Systems",
+     "_cp": 2,
+     "_type": "Wargear",
+     "_phases": [
+      "Shooting"
+     ],
+     "when": "Your opponent’s Shooting phase, just after an enemy unit has selected its targets.",
+     "target": "One T’AU EMPIRE unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+     "effect": "Until the end of the phase, each time an attack is allocated to your unit, subtract 1 from the Damage characteristic of that attack.",
+     "restrictions": null
+    }
+   },
+   "enhancements": {
+    "coordinated_exploitation": {
+     "_name": "Coordinated Exploitation",
+     "_pts": 30,
+     "text": "T’AU EMPIRE model only (excluding KROOT SHAPER models). While the bearer is leading a unit, each time that unit is an Observer unit, until the end of the phase, ranged weapons equipped by models in a Guided unit have the [SUSTAINED HITS 1] ability while targeting their Spotted unit."
+    },
+    "exemplar_of_the_montka": {
+     "_name": "Exemplar of the Mont’ka",
+     "_pts": 10,
+     "text": "T’AU EMPIRE model only (excluding KROOT SHAPER models). While the bearer is leading a unit, the Killing Blow Detachment rule applies to that unit during the fourth battle round as well."
+    },
+    "strategic_conqueror": {
+     "_name": "Strategic Conqueror",
+     "_pts": 15,
+     "text": "T’AU EMPIRE model only. At the start of the first battle round, before the first turn begins, select one objective marker on the battlefield. While a friendly T’AU EMPIRE model is within range of that objective marker and the bearer is on the battlefield, add 1 to that friendly model’s Objective Control characteristic."
+    },
+    "strike_swiftly": {
+     "_name": "Strike Swiftly",
+     "_pts": 45,
+     "text": "T’AU EMPIRE model only. In the Resolve Pre-battle Abilities step, you can select up to two friendly T’AU EMPIRE units within 6\" of this model that do not have the Scouts ability. Until the end of the battle, all models in the selected units have the Scouts 6\" ability."
+    }
+   }
+  },
+  "retaliation_cadre": {
+   "_name": "Retaliation Cadre",
+   "rule": {
+    "_name": "Bonded Heroes",
+    "text": "Each time a T’AU EMPIRE BATTLESUIT model from your army makes a ranged attack that targets a unit within 12\", improve the Strength characteristic of that attack by 1. If that attack targets a unit within 8\", improve the Armour Penetration characteristic of that attack by 1 as well."
+   },
+   "stratagems": {
+    "the_arrokon_protocol": {
+     "_name": "The Arro’kon Protocol",
+     "_cp": 1,
+     "_type": "Battle Tactic",
+     "_phases": [
+      "Shooting"
+     ],
+     "when": "Your Shooting phase.",
+     "target": "One T’AU EMPIRE BATTLESUIT unit from your army that has not been selected to shoot this phase.",
+     "effect": "Until the end of the phase, each time a model in your unit makes an attack that targets an enemy unit that contains 6 or more models, that attack has the [SUSTAINED HITS 1] ability. If that attack targets an enemy unit that contains 11 or more models, it has the [SUSTAINED HITS 2] ability instead.",
+     "restrictions": null
+    },
+    "fail_safe_detonator": {
+     "_name": "Fail-safe Detonator",
+     "_cp": 2,
+     "_type": "Epic Deed",
+     "_phases": [
+      "Any"
+     ],
+     "when": "Any phase, just after a T’AU EMPIRE BATTLESUIT model from your army is destroyed.",
+     "target": "That destroyed model’s unit. You can use this Stratagem on that unit even if that unit was just destroyed.",
+     "effect": "Before removing your model from play, if it has the Deadly Demise ability, do not roll for that ability; instead, you can choose whether the result of that roll is a 1 or a 6. If your model does not have the Deadly Demise ability, roll one D6 for each unit within 6\" of it: on a 4+, that unit suffers D3 mortal wounds.",
+     "restrictions": null
+    },
+    "the_torchstar_gambit": {
+     "_name": "The Torchstar Gambit",
+     "_cp": 1,
+     "_type": "Strategic Ploy",
+     "_phases": [
+      "Shooting"
+     ],
+     "when": "Your Shooting phase.",
+     "target": "One T’AU EMPIRE BATTLESUIT unit from your army that can FLY whose attacks have been resolved this phase.",
+     "effect": "If your unit is not within Engagement Range of one or more enemy units, it can make a Normal move. If it does, your unit cannot declare a charge this turn",
+     "restrictions": null
+    },
+    "grav_inhibitor_field": {
+     "_name": "Grav-inhibitor Field",
+     "_cp": 1,
+     "_type": "Strategic Ploy",
+     "_phases": [
+      "Charge"
+     ],
+     "when": "Your opponent’s Charge phase, just after an enemy unit has declared a charge.",
+     "target": "One T’AU EMPIRE BATTLESUIT unit from your army that was selected as a target of that charge.",
+     "effect": "That enemy unit must immediately take a Battle-shock test and you must roll one D6 for each model in that enemy unit: for each 6, that enemy unit suffers 1 mortal wound.",
+     "restrictions": null
+    },
+    "the_shortened_blade": {
+     "_name": "The Shortened Blade",
+     "_cp": 2,
+     "_type": "Strategic Ploy",
+     "_phases": [
+      "Movement"
+     ],
+     "when": "Your Movement phase.",
+     "target": "One T’AU EMPIRE BATTLESUIT unit from your army that is arriving using the Deep Strike ability this phase.",
+     "effect": "Your unit can be set up anywhere on the battlefield that is more than 6\" horizontally away from all enemy models.",
+     "restrictions": "A unit targeted with this Stratagem is not eligible to declare a charge in the same turn."
+    },
+    "stimm_injectors": {
+     "_name": "Stimm Injectors",
+     "_cp": 1,
+     "_type": "Wargear",
+     "_phases": [
+      "Shooting",
+      "Fight"
+     ],
+     "when": "Your opponent’s Shooting phase or the Fight phase, just after an enemy unit has selected its targets.",
+     "target": "One T’AU EMPIRE BATTLESUIT unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+     "effect": "Until the end of the phase, models in your unit have the Feel No Pain 6+ ability.",
+     "restrictions": null
+    }
+   },
+   "enhancements": {
+    "internal_grenade_racks": {
+     "_name": "Internal Grenade Racks",
+     "_pts": 20,
+     "text": "T’AU EMPIRE BATTLESUIT model only. The bearer has the GRENADES keyword, and each time the bearer ends a Normal move, you can select one enemy unit that it moved over during that move. If you do, roll six D6: for each 4+, that enemy unit suffers 1 mortal wound."
+    },
+    "prototype_weapon_system": {
+     "_name": "Prototype Weapon System",
+     "_pts": 15,
+     "text": "T’AU EMPIRE BATTLESUIT model only. Each time the bearer is selected to shoot, select either the [LETHAL HITS] or [SUSTAINED HITS 1] ability. Until those attacks are resolved, ranged weapons equipped by the bearer have the selected ability."
+    },
+    "puretide_engram_neurochip": {
+     "_name": "Puretide Engram Neurochip",
+     "_pts": 15,
+     "text": "T’AU EMPIRE BATTLESUIT model only. Each time you target the bearer’s unit with a Stratagem, roll one D6: on a 4+, you gain 1CP."
+    },
+    "starflare_ignition_system": {
+     "_name": "Starflare Ignition System",
+     "_pts": 20,
+     "text": "T’AU EMPIRE BATTLESUIT model only. At the end of your opponent’s turn, if the bearer’s unit is not within Engagement Range of one or more enemy units, you can remove that unit from the battlefield and place it into Strategic Reserves."
+    }
+   }
+  }
+ },
+ "units": {
+  "commander_in_coldstar_battlesuit": {
+   "_name": "Commander in Coldstar Battlesuit",
+   "abilities": {
+    "Coldstar Commander": {
+     "_kind": "datasheet",
+     "text": "While this model is leading a unit, models in that unit have a Move characteristic of 12\" and ranged weapons equipped by models in that unit have the [ASSAULT] ability."
+    },
+    "Battlesuit Support System": {
+     "_kind": "wargear",
+     "text": "The bearer’s unit is eligible to shoot in a turn in which it Fell Back, but when doing so only models equipped with this wargear can make ranged attacks."
+    },
+    "Shield Generator": {
+     "_kind": "wargear",
+     "text": "The bearer has a 4+ invulnerable save."
+    },
+    "Weapon Support System": {
+     "_kind": "wargear",
+     "text": "Each time the bearer makes a ranged attack, you can ignore any or all modifiers to the Hit roll."
+    }
+   }
+  },
+  "ethereal": {
+   "_name": "Ethereal",
+   "abilities": {
+    "Hover Drone": {
+     "_kind": "wargear",
+     "text": "The bearer can FLY and has a Move characteristic of 10\"."
+    },
+    "Failure Is Not an Option": {
+     "_kind": "datasheet",
+     "text": "While this model is leading a unit, models in that unit have the Feel No Pain 5+ ability."
+    },
+    "Coordinated Leadership": {
+     "_kind": "datasheet",
+     "text": "At the end of your Command phase, roll one D6: on a 4+, you gain 1CP."
+    }
+   }
+  },
+  "cadre_fireblade": {
+   "_name": "Cadre Fireblade",
+   "abilities": {
+    "Volley Fire": {
+     "_kind": "datasheet",
+     "text": "While this model is leading a unit, add 1 to the Attacks characteristic of ranged weapons equipped by models in that unit."
+    },
+    "Crack Shot": {
+     "_kind": "datasheet",
+     "text": "Each time this model makes a ranged attack, on a Critical Wound, that attack has an Armour Penetration characteristic of -3."
+    }
+   }
+  },
+  "commander_farsight": {
+   "_name": "Commander Farsight",
+   "abilities": {
+    "Way of the Short Blade": {
+     "_kind": "datasheet",
+     "text": "While this model is leading a unit, each time a model in that unit makes an attack that targets an enemy unit within 9\", add 1 to the Wound roll."
+    },
+    "Puretide's Teachings": {
+     "_kind": "datasheet",
+     "text": "Once per battle round, you can target this model’s unit with a Stratagem. If it does, reduce the CP cost of that use of that Stratagem by 1CP."
+    },
+    "Independent Power": {
+     "_kind": "datasheet",
+     "text": "If your army includes COMMANDER FARSIGHT, it cannot include any ETHEREAL units. If your army includes any ETHEREAL units, it cannot include COMMANDER FARSIGHT."
+    }
+   }
+  },
+  "commander_shadowsun": {
+   "_name": "Commander Shadowsun",
+   "abilities": {
+    "Advanced Guardian Drone": {
+     "_kind": "wargear",
+     "text": "Each time a ranged attack targets the bearer, subtract 1 from the Wound roll."
+    },
+    "Agile Combatant": {
+     "_kind": "datasheet",
+     "text": "This model is eligible to shoot in a turn in which it Fell Back."
+    },
+    "Command-link Drone (Aura)": {
+     "_kind": "wargear",
+     "text": "While a friendly T’AU EMPIRE unit is within 6\" of the bearer, each time you select that unit as the target of a Stratagem, roll one D6: on a 5+, you gain 1CP."
+    },
+    "Hero of the Empire (Aura)": {
+     "_kind": "datasheet",
+     "text": "While a friendly T’AU EMPIRE unit is within 6\" of this model, each time a model in that unit makes a ranged attack, re-roll a Hit roll of 1."
+    },
+    "Supreme Commander": {
+     "_kind": "datasheet",
+     "text": "If this model is in your army, it must be your Warlord."
+    }
+   }
+  },
+  "darkstrider": {
+   "_name": "Darkstrider",
+   "abilities": {
+    "Structural Analyser": {
+     "_kind": "datasheet",
+     "text": "While this model is leading a unit, each time a model in that unit makes a ranged attack, add 1 to the Wound roll."
+    },
+    "Jammer Array": {
+     "_kind": "datasheet",
+     "text": "Enemy units that are set up on the battlefield from Reserves cannot be set up within 12\" of this model."
+    }
+   }
+  },
+  "strike_team": {
+   "_name": "Strike Team",
+   "abilities": {
+    "Suppression Volley": {
+     "_kind": "datasheet",
+     "text": "In your Shooting phase, after this unit has shot, select one enemy INFANTRY unit hit by one or more of those attacks. Until the start of your next turn, while this unit is on the battlefield, that enemy unit is suppressed. While a unit is suppressed, each time a model in that unit makes an attack, subtract 1 from the Hit roll."
+    },
+    "DS8 Support Turret": {
+     "_kind": "datasheet",
+     "text": "In your Movement phase, if this unit Remains Stationary, until the start of your next Movement phase, its Fire Warrior Shas’ui model is equipped with the support turret missile system weapon. Designer’s Note: Place a Support Turret token next to this unit to remind you."
+    }
+   }
+  },
+  "breacher_team": {
+   "_name": "Breacher Team",
+   "abilities": {
+    "Breach and Clear": {
+     "_kind": "datasheet",
+     "text": "Each time a model in this unit makes a ranged attack that targets an enemy unit within range of an objective marker, you can re-roll the Wound roll."
+    },
+    "DS8 Support Turret": {
+     "_kind": "datasheet",
+     "text": "In your Movement phase, if this unit Remains Stationary, until the start of your next Movement phase, its Fire Warrior Shas’ui model is equipped with the support turret missile system weapon. Designer’s Note: Place a Support Turret token next to this unit to remind you."
+    }
+   }
+  },
+  "kroot_carnivores": {
+   "_name": "Kroot Carnivores",
+   "abilities": {
+    "Fieldcraft": {
+     "_kind": "datasheet",
+     "text": "At the end of your Command phase, if this unit is within range of an objective marker you control, that objective marker remains under your control, even if you have no models within range of it, until your opponent controls it at the start or end of any turn."
+    },
+    "Bodyguard": {
+     "_kind": "datasheet",
+     "text": "If this unit has a Starting Strength of 20, you can attach up to two Leader units to it instead of one, provided those Leaders are not duplicates (e.g. you cannot attach two WAR SHAPERS to this unit). If you do, and this unit is destroyed, the Leader units attached to it become separate units with their original Starting Strengths."
+    }
+   }
+  },
+  "krootox_riders": {
+   "_name": "Krootox Riders",
+   "abilities": {
+    "Kroot Packmates": {
+     "_kind": "datasheet",
+     "text": "Once per turn, in your opponent’s Shooting phase, when a friendly KROOT INFANTRY unit within 6\" of this unit is selected as the target of an attack, one unit from your army with this ability can use it. If it does, after that enemy unit has finished making its attacks, that unit with this ability can shoot as if it were your Shooting phase, but when resolving those attacks it can only target that enemy unit (and only if it is an eligible target)."
+    }
+   }
+  },
+  "kroot_hounds": {
+   "_name": "Kroot Hounds",
+   "abilities": {
+    "Loping Pounce": {
+     "_kind": "datasheet",
+     "text": "At the start of your Command phase, if this unit is within 6\" of one or more friendly KROOT INFANTRY units, then until the end of the turn, this unit is eligible to declare a charge in a turn in which it Advanced."
+    },
+    "Hunting Hounds": {
+     "_kind": "datasheet",
+     "text": "While this unit is within 12\" of one or more friendly KROOT CHARACTER models, the Objective Control characteristic of models in this unit is 1."
+    }
+   }
+  },
+  "stealth_battlesuits": {
+   "_name": "Stealth Battlesuits",
+   "abilities": {
+    "Forward Observers": {
+     "_kind": "datasheet",
+     "text": "Each time this unit is an Observer unit, until the end of the phase, each time a ranged attack is made by a model in a Guided unit that targets their Spotted unit, re-roll a Hit roll of 1 and re-roll a Wound roll of 1."
+    },
+    "Homing Beacon": {
+     "_kind": "wargear",
+     "text": "Once per battle, you can use the Rapid Ingress Stratagem for 0CP. The target must be set up within 3\" of the bearer’s unit and more than 8\" away from all enemy units. Designer’s Note: Place a Homing Beacon token next to this unit, removing it once this ability is used."
+    }
+   }
+  },
+  "ghostkeel_battlesuit": {
+   "_name": "Ghostkeel Battlesuit",
+   "abilities": {
+    "Battlesuit Support System": {
+     "_kind": "wargear",
+     "text": "The bearer is eligible to shoot in a turn in which it Fell Back but it loses the SMOKE keyword."
+    },
+    "Stealth Drones": {
+     "_kind": "datasheet",
+     "text": "Twice per battle, after an attack has been allocated to this model, you can change the Damage characteristic of that attack to 0. Designer’s Note: Place two Stealth Drone tokens next to the unit, removing one each time this ability has been used."
+    }
+   }
+  },
+  "riptide_battlesuit": {
+   "_name": "Riptide Battlesuit",
+   "abilities": {
+    "Battlesuit Support System": {
+     "_kind": "datasheet",
+     "text": "The bearer is eligible to shoot in a turn in which it Fell Back."
+    },
+    "Nova Charge": {
+     "_kind": "datasheet",
+     "text": "Once per battle, when this unit is selected to shoot in your Shooting phase, select one ranged weapon equipped by this model. Until the end of the phase, that weapon has the [DEVASTATING WOUNDS] ability."
+    },
+    "Weapon Support System": {
+     "_kind": "datasheet",
+     "text": "Each time the bearer makes a ranged attack, you can ignore any or all modifiers to the Hit roll."
+    }
+   }
+  },
+  "pathfinder_team": {
+   "_name": "Pathfinder Team",
+   "abilities": {
+    "Target Uploaded": {
+     "_kind": "datasheet",
+     "text": "Each time a model in this unit makes an attack that targets their Spotted unit, improve the Ballistic Skill characteristic of that attack by 1 and that attack has the [IGNORES COVER] ability."
+    },
+    "Grav-inhibitor Drone": {
+     "_kind": "wargear",
+     "text": "Subtract 2 from Charge rolls made for any enemy unit that declares a charge against the bearer’s unit (this is not cumulative with any other reductions to that Charge roll)."
+    },
+    "Pulse Accelerator Drone": {
+     "_kind": "wargear",
+     "text": "Add 6\" to the Range characteristic of pulse carbines equipped by models in the bearer’s unit."
+    },
+    "Recon Drone": {
+     "_kind": "wargear",
+     "text": "The bearer is equipped with 1 drone burst cannon and the bearer’s unit has the Infiltrators ability."
+    }
+   }
+  },
+  "piranhas": {
+   "_name": "Piranhas",
+   "abilities": {
+    "Drone Harassment Tactics": {
+     "_kind": "datasheet",
+     "text": "At the end of your Movement phase, select one enemy unit within 12\" of this unit; that enemy unit must take a Battle-shock test."
+    }
+   }
+  },
+  "devilfish": {
+   "_name": "Devilfish",
+   "abilities": {
+    "Rapid Deployment": {
+     "_kind": "datasheet",
+     "text": "Units can disembark from this TRANSPORT after it has Advanced. Units that do so make a shock disembark move for that disembarkation."
+    }
+   }
+  },
+  "razorshark_strike_fighter": {
+   "_name": "Razorshark Strike Fighter",
+   "abilities": {
+    "Ground Strike Fighter": {
+     "_kind": "datasheet",
+     "text": "Each time this model makes a ranged attack that targets an enemy unit that cannot FLY, add 1 to the Hit roll."
+    }
+   }
+  },
+  "sun_shark_bomber": {
+   "_name": "Sun Shark Bomber",
+   "abilities": {
+    "Pulse Bombs": {
+     "_kind": "datasheet",
+     "text": "At the end of your opponent’s Fight phase, select one visible enemy unit (excluding Lone Operative units) within 24\" of this unit, and roll six D6 for that unit: For each 4+, that unit suffers 1 mortal wound."
+    }
+   }
+  },
+  "vespid_stingwings": {
+   "_name": "Vespid Stingwings",
+   "abilities": {
+    "Airborne Agility": {
+     "_kind": "datasheet",
+     "text": "At the end of your opponent’s turn, if this unit is not within Engagement Range of one or more enemy units, you can remove it from the battlefield and place it into Strategic Reserves."
+    },
+    "Oversight Drone": {
+     "_kind": "wargear",
+     "text": "Once per battle, when the bearer’s unit is selected to shoot, until the end of the phase, ranged weapons equipped by models in this unit have the [IGNORES COVER] ability. Designer’s Note: Place an Oversight Drone token next to the bearer, removing it once this ability has been used."
+    }
+   }
+  },
+  "firesight_team": {
+   "_name": "Firesight Team",
+   "abilities": {
+    "Precise Targeting": {
+     "_kind": "datasheet",
+     "text": "Each time a model in this unit makes an attack that targets a Spotted unit, you can re-roll the Hit roll."
+    }
+   }
+  },
+  "sky_ray_gunship": {
+   "_name": "Sky Ray Gunship",
+   "abilities": {
+    "Velocity Tracker": {
+     "_kind": "datasheet",
+     "text": "Each time this model makes a ranged attack that targets a unit that can FLY, you can re-roll the Hit roll."
+    },
+    "Targeting Array": {
+     "_kind": "datasheet",
+     "text": "Each time this unit is selected to shoot, you can re-roll one Hit roll or you can re-roll one Wound roll when resolving those attacks."
+    }
+   }
+  },
+  "hammerhead_gunship": {
+   "_name": "Hammerhead Gunship",
+   "abilities": {
+    "Armour Hunter": {
+     "_kind": "datasheet",
+     "text": "Each time this model makes an attack that targets a MONSTER or VEHICLE, add 1 to the Hit roll."
+    },
+    "Targeting Array": {
+     "_kind": "datasheet",
+     "text": "Each time this model is selected to shoot, you can re-roll one Hit roll or you can re-roll one Wound roll when resolving those attacks."
+    }
+   }
+  },
+  "broadside_battlesuits": {
+   "_name": "Broadside Battlesuits",
+   "abilities": {
+    "Advanced Armour": {
+     "_kind": "datasheet",
+     "text": "Models in this unit have the Feel No Pain 4+ ability against mortal wounds."
+    },
+    "Weapon Support System": {
+     "_kind": "wargear",
+     "text": "Each time the bearer makes a ranged attack, you can ignore any or all modifiers to the Hit roll."
+    }
+   }
+  },
+  "stormsurge": {
+   "_name": "Stormsurge",
+   "abilities": {
+    "Heavy Walker": {
+     "_kind": "datasheet",
+     "text": "Each time this model makes a Normal, Advance or Fall Back move, it can move over models (excluding TITANIC models) and terrain features that are 4\" or less in height as if they were not there."
+    },
+    "Support System": {
+     "_kind": "datasheet",
+     "text": "Each time this model makes a ranged attack, you can ignore any or all modifiers to the Hit roll."
+    },
+    "Titan-killer": {
+     "_kind": "datasheet",
+     "text": "Each time this model makes a ranged attack that targets a Titanic or TOWERING unit, you can re-roll the Hit roll."
+    }
+   }
+  },
+  "tidewall_droneport": {
+   "_name": "Tidewall Droneport",
+   "abilities": {
+    "Droneport": {
+     "_kind": "datasheet",
+     "text": "Each time this FORTIFICATION is selected to shoot, its drone defender’s weapon will target and resolve attacks against every enemy unit that is an eligible target to this FORTIFICATION."
+    },
+    "Fortification": {
+     "_kind": "datasheet",
+     "text": "While an enemy unit is only within Engagement Range of one or more Fortifications from your army: ■ That unit can still be selected as the target of ranged attacks, but each time such an attack is made, unless it is made with a Pistol, subtract 1 from the Hit roll. ■ Models in that unit do not need to take Desperate Escape tests due to Falling Back while Battle-shocked, except for those that will move over enemy models when doing so."
+    },
+    "Tidewall Cover": {
+     "_kind": "datasheet",
+     "text": "Each time a ranged attack is allocated to a model, if that model is not fully visible to every model in the attacking unit because of this Fortification, that model has the Benefit of Cover against that attack."
+    }
+   }
+  },
+  "tidewall_shieldline": {
+   "_name": "Tidewall Shieldline",
+   "abilities": {
+    "Fortification": {
+     "_kind": "datasheet",
+     "text": "While an enemy unit is only within Engagement Range of one or more Fortifications from your army: ■ That unit can still be selected as the target of ranged attacks, but each time such an attack is made, unless it is made with a Pistol, subtract 1 from the Hit roll. ■ Models in that unit do not need to take Desperate Escape tests due to Falling Back while Battle-shocked, except for those that will move over enemy models when doing so."
+    },
+    "Tidewall Cover": {
+     "_kind": "datasheet",
+     "text": "Each time a ranged attack is allocated to a model, if that model is not fully visible to every model in the attacking unit because of this FORTIFICATION, that model has the Benefit of Cover against that attack."
+    },
+    "Tidewall Defence Platform": {
+     "_kind": "datasheet",
+     "text": "If equipped with a Tidewall defence platform, this FORTIFICATION has a Wounds characteristic of 15."
+    }
+   }
+  },
+  "tidewall_gunrig": {
+   "_name": "Tidewall Gunrig",
+   "abilities": {
+    "Fortification": {
+     "_kind": "datasheet",
+     "text": "While an enemy unit is only within Engagement Range of one or more Fortifications from your army: ■ That unit can still be selected as the target of ranged attacks, but each time such an attack is made, unless it is made with a Pistol, subtract 1 from the Hit roll. ■ Models in that unit do not need to take Desperate Escape tests due to Falling Back while Battle-shocked, except for those that will move over enemy models when doing so."
+    },
+    "Tidewall Cover": {
+     "_kind": "datasheet",
+     "text": "Each time a ranged attack is allocated to a model, if that model is not fully visible to every model in the attacking unit because of this FORTIFICATION, that model has the Benefit of Cover against that attack."
+    }
+   }
+  },
+  "taunar_supremacy_armour": {
+   "_name": "Ta’unar Supremacy Armour",
+   "abilities": {
+    "Coordinated Strike": {
+     "_kind": "datasheet",
+     "text": "While this model is a Guided unit, each time it makes an attack that targets its Spotted unit, re-roll a Hit roll of 1."
+    }
+   }
+  },
+  "tiger_shark": {
+   "_name": "Tiger Shark",
+   "abilities": {
+    "Transport Bay": {
+     "_kind": "wargear",
+     "text": "The bearer has the TRANSPORT keyword and has a transport capacity of 12 TACTICAL DRONES models."
+    },
+    "Strafing Run": {
+     "_kind": "datasheet",
+     "text": "In your Shooting phase, after this model has shot, select one enemy unit hit by one or more of those attacks that cannot FLY. That enemy unit must take a Battle-shock test."
+    }
+   }
+  },
+  "ax_1_0_tiger_shark": {
+   "_name": "AX-1-0 Tiger Shark",
+   "abilities": {
+    "Titan Hunter": {
+     "_kind": "datasheet",
+     "text": "This model’s twin heavy rail cannon and seeker missiles have the [ANTI-TITANIC 3+] ability while targeting a unit within half range."
+    }
+   }
+  },
+  "manta": {
+   "_name": "Manta",
+   "abilities": {
+    "Aggressive Deployment": {
+     "_kind": "datasheet",
+     "text": "In your Shooting phase, after this model has shot, select one enemy unit hit by one or more of those attacks. Until the end of the phase, each time a friendly model that disembarked from this TRANSPORT this turn makes an attack that targets that enemy unit, you can re-roll the Wound roll."
+    },
+    "Air Caste Colossus": {
+     "_kind": "datasheet",
+     "text": "Each time you target this model with a Stratagem, you must spend three times that Stratagem’s stated CP cost to do so."
+    }
+   }
+  },
+  "commander_in_enforcer_battlesuit": {
+   "_name": "Commander in Enforcer Battlesuit",
+   "abilities": {
+    "Enforcer Commander": {
+     "_kind": "datasheet",
+     "text": "While this model is leading a unit, each time a ranged attack targets that unit, worsen the Armour Penetration characteristic of that attack by 1."
+    },
+    "Battlesuit Support System": {
+     "_kind": "wargear",
+     "text": "The bearer’s unit is eligible to shoot in a turn in which it Fell Back, but when doing so only models equipped with this wargear can make ranged attacks."
+    },
+    "Shield Generator": {
+     "_kind": "wargear",
+     "text": "The bearer has a 4+ invulnerable save."
+    },
+    "Weapon Support System": {
+     "_kind": "wargear",
+     "text": "Each time the bearer makes a ranged attack, you can ignore any or all modifiers to the Hit roll."
+    }
+   }
+  },
+  "kroot_farstalkers": {
+   "_name": "Kroot Farstalkers",
+   "abilities": {
+    "Pech’ra": {
+     "_kind": "wargear",
+     "text": "Ranged weapons equipped by the bearer’s unit have the [IGNORES COVER] ability."
+    },
+    "Bounty Hunters": {
+     "_kind": "datasheet",
+     "text": "At the start of the battle, select one unit from your opponent’s army. Each time a model in this unit makes an attack that targets that unit, that attack has the [LETHAL HITS] and [PRECISION] abilities."
+    }
+   }
+  },
+  "crisis_sunforge_battlesuits": {
+   "_name": "Crisis Sunforge Battlesuits",
+   "abilities": {
+    "Sunforge": {
+     "_kind": "datasheet",
+     "text": "Each time a model in this unit makes a ranged attack that targets a MONSTER or VEHICLE unit, you can re-roll the Wound roll and you can re-roll the Damage roll."
+    }
+   }
+  },
+  "crisis_fireknife_battlesuits": {
+   "_name": "Crisis Fireknife Battlesuits",
+   "abilities": {
+    "Fireknife": {
+     "_kind": "datasheet",
+     "text": "Each time a model in this unit makes a ranged attack, re-roll a Hit roll of 1. If that attack targets a unit that is at its Starting Strength, you can re-roll the Hit roll instead."
+    },
+    "Weapon Support System": {
+     "_kind": "datasheet",
+     "text": "Each time a model in this unit makes a ranged attack, you can ignore any or all modifiers to the Hit roll."
+    }
+   }
+  },
+  "crisis_starscythe_battlesuits": {
+   "_name": "Crisis Starscythe Battlesuits",
+   "abilities": {
+    "Starscythe": {
+     "_kind": "datasheet",
+     "text": "Each time a model in this unit makes a ranged attack (excluding attacks that target MONSTERS and VEHICLES), improve the Armour Penetration characteristic of that attack by 1."
+    },
+    "Battlesuit Support System": {
+     "_kind": "datasheet",
+     "text": "This unit is eligible to shoot in a turn in which it Fell Back."
+    }
+   }
+  },
+  "kroot_trail_shaper": {
+   "_name": "Kroot Trail Shaper",
+   "abilities": {
+    "Trail Finding": {
+     "_kind": "datasheet",
+     "text": "In your opponent's Movement phase, if an enemy unit ends a move within 8” of this unit, if this unit is not within Engagement Range of one or more enemy units, this unit can make a Normal move of up to D6”."
+    },
+    "Kroot Ambush": {
+     "_kind": "datasheet",
+     "text": "After both players have deployed their armies, you can redeploy this model’s unit and one other friendly KROOT unit. When doing so, any of those units can be placed into Strategic Reserves, regardless of how many units are already in Strategic Reserves."
+    }
+   }
+  },
+  "kroot_war_shaper": {
+   "_name": "Kroot War Shaper",
+   "abilities": {
+    "War Leader": {
+     "_kind": "datasheet",
+     "text": "Once per battle round, one unit from your army with this ability can use it when its unit is targeted with a Stratagem. If it does, reduce the CP cost of that use of that Stratagem by 1CP."
+    },
+    "Root of Honour": {
+     "_kind": "datasheet",
+     "text": "Once per battle, at the start of any phase, you can select one friendly KROOT unit that is Battle-shocked and within 12\" of this model. That unit is no longer Battle-shocked."
+    }
+   }
+  },
+  "kroot_flesh_shaper": {
+   "_name": "Kroot Flesh Shaper",
+   "abilities": {
+    "Ritual Butchery": {
+     "_kind": "datasheet",
+     "text": "While this model is leading a unit, melee weapons equipped by models in that unit have the [SUSTAINED HITS 1] ability."
+    },
+    "Rites of Feasting": {
+     "_kind": "datasheet",
+     "text": "While this model is leading a unit, models in that unit have the Feel No Pain 6+ ability. If that unit destroys one or more enemy units in the Fight phase, until the end of the battle, models in that unit have the Feel No Pain 5+ ability instead."
+    }
+   }
+  },
+  "kroot_lone_spear": {
+   "_name": "Kroot Lone-Spear",
+   "abilities": {
+    "Advanced Scouting": {
+     "_kind": "datasheet",
+     "text": "Each time this model makes a ranged attack that hits an enemy unit, until the end of the turn, each time another KROOT model from your army makes an attack that targets that enemy unit, you can re-roll the Hit roll."
+    },
+    "Fire and Fade": {
+     "_kind": "datasheet",
+     "text": "In your Shooting phase, after this model has shot, if it is not within Engagement Range of one or more enemy units, it can make a Normal move of up to 6\". If it does, until the end of the turn, this model is not eligible to declare a charge."
+    }
+   }
+  },
+  "krootox_rampagers": {
+   "_name": "Krootox Rampagers",
+   "abilities": {
+    "Kroot Linebreakers": {
+     "_kind": "datasheet",
+     "text": "Each time this unit ends a Charge move, select one enemy unit within Engagement Range of it, then roll one D6 for each model in this unit that is within Engagement Range of that enemy unit: for each 4+, that enemy unit suffers D3 mortal wounds. If one or more enemy models are destroyed as a result of these mortal wounds, that enemy unit must take a Battle-shock test."
+    }
+   }
+  },
+  "the_twin_lance": {
+   "_name": "The Twin Lance",
+   "abilities": {
+    "Exemplars of Mont’ka": {
+     "_kind": "datasheet",
+     "text": "Each time a model in this unit makes a ranged attack that targets the closest eligible target, that attack has the [SUSTAINED HITS 1] and [IGNORES COVER] abilities."
+    },
+    "Neocapacitor Shields": {
+     "_kind": "datasheet",
+     "text": "At the start of your opponent’s Charge phase, you can select one visible enemy unit (excluding MONSTER and VEHICLE units) within 12\" of this unit. That unit must take a Battle-shock test and, until the end of the turn, subtract 1 from Charge rolls made for that unit."
+    },
+    "Retro-thrusters": {
+     "_kind": "datasheet",
+     "text": "At the end of the Fight phase, if this unit was eligible to fight this phase, this unit can either make a Normal move of up to 6\" or a Fall Back move."
+    },
+    "MV15 Gun Drone": {
+     "_kind": "wargear",
+     "text": "The bearer is equipped with 1 twin pulse blaster."
+    }
+   }
+  }
+ }
+}

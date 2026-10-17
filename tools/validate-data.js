@@ -134,6 +134,12 @@ for (const f of L.factions(data)) {
     };
     (u.optionRules || []).forEach((r, i) => {
       const w = `${f}.${u.id}.optionRules[${i}]`;
+      if (r && Array.isArray(r.sumOf)) {   // {sumOf:[optionIds], atMost:{per,n}, message}
+        if (!r.message) err('E-MECH', w, 'optionRule has no message to show the player');
+        if (!r.atMost || !(r.atMost.n > 0)) err('E-MECH', w, 'sumOf needs atMost {per, n}');
+        r.sumOf.forEach(k => { if (!opts.has(k)) err('E-MECH', w, `no option "${k}" on ${u.name}`); });
+        return;
+      }
       const shape = r && ['forbidAllOf', 'requireAnyOf', 'requireAllOf'].filter(k => Array.isArray(r[k]));
       if (!shape || shape.length !== 1) { err('E-MECH', w, `unknown optionRule shape {${Object.keys(r || {}).join(', ')}} — use forbidAllOf, requireAnyOf or requireAllOf; the engine skips anything else`); return; }
       if (!r.message) err('E-MECH', w, 'optionRule has no message to show the player');

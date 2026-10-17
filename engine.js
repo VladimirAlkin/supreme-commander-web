@@ -38,6 +38,8 @@ const Engine = (function () {
     if (fac) kw.add(keywordAsOf(ctx, fac));
     ctx.dets.forEach(d => (d.grantKeywords || []).forEach(g => { if (g.unitIds.includes(def.id)) kw.add(g.keyword); }));
     instGrants(def, ctx, inst).forEach(g => kw.add(g.keyword));
+    // a wargear pick that gives its unit a keyword (T'au Marker drone: MARKERLIGHT)
+    if (inst && inst.wargear) (def.options || []).forEach(o => { if (o.grantKeyword && (+inst.wargear[o.id] || 0) > 0) kw.add(o.grantKeyword); });
     if (inst) enhIds(inst).forEach(id => { const e = ctx.allEnh[id]; ((e && e.addKeywords) || []).forEach(k => kw.add(k)); });
     return kw;
   }
@@ -337,6 +339,8 @@ const Engine = (function () {
     roster.units.forEach(inst => {
       const def = ctx.unitById[inst.datasheetId];
       if (def && def.warlordHint && roster.warlordUnitId !== inst.instanceId) W(def.warlordHint, inst.instanceId);
+      // excludesUnits: this unit and the listed datasheets cannot be in one army (T'au Independent Power: Farsight / Ethereal)
+      if (def && def.excludesUnits && roster.units.some(o => def.excludesUnits.ids.includes(o.datasheetId))) E(def.excludesUnits.message, inst.instanceId);
       if (def && def.mustBeWarlord && roster.warlordUnitId !== inst.instanceId) {
         // units sharing a warlordGroup (Cawl and Ghuld: Supreme Commander) can both be in the army: one of them being the Warlord is enough
         const wl = roster.units.find(o => o.instanceId === roster.warlordUnitId), peer = def.warlordGroup && wl && (ctx.unitById[wl.datasheetId] || {}).warlordGroup === def.warlordGroup;
@@ -436,6 +440,8 @@ const Engine = (function () {
         /* A rule of a shape this engine does not know is skipped, not thrown:
            validate() runs inside render(), so one bad row would freeze the UI.
            tools/validate-data.js reports it as an error before deploy. */
+        // sumOf: the picks listed together may not exceed atMost {per, n} (Broadside: no model has both a twin plasma rifle and a twin smart missile system)
+        if (r && Array.isArray(r.sumOf) && r.atMost) { if (r.sumOf.reduce((t, k) => t + (+val(k) || 0), 0) > Math.floor(inst.size / (r.atMost.per || 1)) * (r.atMost.n || 1)) E(`${def.name}: ${r.message}`, inst.instanceId); return; }
         if (!r || !(Array.isArray(r.forbidAllOf) || Array.isArray(r.requireAnyOf) || Array.isArray(r.requireAllOf))) return;
         if (r.forbidAllOf) { if (r.forbidAllOf.every(([k, v]) => val(k) === v)) E(`${def.name}: ${r.message}`, inst.instanceId); return; }
         if (String(val(r.if)) === String(r.notValue)) return;
@@ -528,6 +534,8 @@ const Engine = (function () {
      a unit that already has a Leader (Death Guard champions: coLeaderOf). */
   function coLeadOk(a, b, target, ctx) {
     if (!target || a.datasheetId === b.datasheetId) return false;
+    const dt = ctx.unitById[target.datasheetId] || {};
+    if (dt.twoLeaders && target.size >= dt.twoLeaders.size) return true;     // Kroot Carnivores' Bodyguard: two different Leaders at Starting Strength 20
     const da = ctx.unitById[a.datasheetId] || {}, db = ctx.unitById[b.datasheetId] || {};
     return (da.coLeaderOf || []).includes(target.datasheetId) || (db.coLeaderOf || []).includes(target.datasheetId);
   }
