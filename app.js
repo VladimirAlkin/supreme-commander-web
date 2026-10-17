@@ -1620,9 +1620,9 @@
     if (matchMedia('(prefers-reduced-motion: reduce)').matches || !IMG.nec_king_head) return;
     const R = (a, c) => a + Math.random() * (c - a);
     const fx = document.createElement('div'); fx.className = 'kingfx'; fx.setAttribute('aria-hidden', 'true');
-    fx.innerHTML = '<div class="kf-wash"></div><div class="kf-scan"></div>'
-      + `<div class="kf-box"><img class="kf-head" src="${IMG.nec_king_head}" alt="">${IMG.nec_king_eyes ? `<img class="kf-eyes" src="${IMG.nec_king_eyes}" alt="">` : ''}</div>`
-      + Array.from({ length: 16 }, () => `<u style="left:${R(8, 92).toFixed(0)}%;--h:${R(120, 380).toFixed(0)}px;--t:${R(1.6, 2.8).toFixed(2)}s;--dl:${R(.1, 1).toFixed(2)}s;--s:${R(2, 5).toFixed(0)}px"></u>`).join('');
+    fx.innerHTML = '<div class="kf-wash"></div>'
+      + `<div class="kf-box"><img class="kf-head" src="${IMG.nec_king_head}" alt="">${IMG.nec_king_eyes ? `<img class="kf-eyes" src="${IMG.nec_king_eyes}" alt=""><img class="kf-eyes kf-hot" src="${IMG.nec_king_eyes}" alt="">` : ''}</div>`
+      + Array.from({ length: 12 }, () => `<u style="left:${R(8, 92).toFixed(0)}%;--h:${R(120, 380).toFixed(0)}px;--t:${R(1.6, 2.8).toFixed(2)}s;--dl:${R(.1, 1).toFixed(2)}s;--s:${R(2, 4).toFixed(0)}px"></u>`).join('');
     document.body.appendChild(fx); setTimeout(() => fx.remove(), 3700);
     if (PL.android) { PL.haptic('confirm'); setTimeout(() => PL.haptic('confirm'), 700); }
   }
