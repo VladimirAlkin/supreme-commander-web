@@ -759,6 +759,59 @@ const DATA = {
    "abilityTips": {},
    "logo": "admech_logo",
    "rosterIcon": "admech_roster"
+  },
+  {
+   "id": "drukhari",
+   "name": "Drukhari",
+   "enabled": true,
+   "theme": {
+    "bg": "#07161a",
+    "bg2": "#178a94",
+    "bgDeep": "#020a0c",
+    "accent": "#ff4d73",
+    "accent2": "#8a5bd6",
+    "panel": "rgba(2,10,12,.84)",
+    "card1": "#0e3036",
+    "card2": "#041114",
+    "icon1": "#0f5a63",
+    "icon2": "#06242a",
+    "iconRim": "#178a94",
+    "gloss": true
+   },
+   "emblemSvg": "<svg viewBox=\"0 0 64 64\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\"><circle cx=\"32\" cy=\"32\" r=\"30\" fill=\"#041114\"/><circle cx=\"32\" cy=\"32\" r=\"27\" fill=\"none\" stroke=\"#178a94\" stroke-width=\"1.5\"/><path d=\"M14 49c13-3 27-15 36-35-2 13-10 29-30 41z\" fill=\"#ff4d73\"/><path d=\"M50 49c-13-3-27-15-36-35 2 13 10 29 30 41z\" fill=\"#efe4d2\" opacity=\".9\"/><path d=\"M32 24l5 8-5 8-5-8z\" fill=\"#8a5bd6\" stroke=\"#041114\" stroke-width=\"1.5\"/></svg>",
+   "logo": "drk_logo",
+   "rosterIcon": "drk_roster",
+   "abilityTips": {
+    "Power from Pain": "Gain Pain tokens (start of your Command phase, enemy unit destroyed, enemy fails Battle-shock). Spend them to Empower a unit so its Pain abilities take effect until the end of the phase. See Army Rules."
+   },
+   "highlights": [
+    {
+     "id": "vanguard",
+     "label": "VANGUARD",
+     "tone": "blue",
+     "title": "Vanguard of the Dark City: the ability this Raider has until your next Command phase.",
+     "none": "No Raider in this roster",
+     "pickLabels": {
+      "raider": {
+       "shadowed": "VANGUARD: SHADOWED SKY",
+       "speed": "VANGUARD: SPEED OF THE KILL",
+       "visions": "VANGUARD: VISIONS",
+       "aethersails": "VANGUARD: AETHERSAILS"
+      }
+     }
+    },
+    {
+     "id": "empowered",
+     "label": "ALWAYS EMPOWERED*",
+     "tone": "pain",
+     "noFilter": true,
+     "title": "Dark Vitality: the bearer’s unit is always Empowered — no Pain tokens to spend.",
+     "none": "No Dark Vitality bearer in this roster",
+     "enhancements": {
+      "realspace_raiders_dark_vitality": "Always Empowered: its Pain abilities always take effect."
+     }
+    }
+   ]
   }
  ],
  "factionData": {
@@ -59111,6 +59164,7537 @@ const DATA = {
     "Pact points",
     "Favoured Champions",
     "Legions of Excess"
+   ]
+  },
+  "drukhari": {
+   "armyFaction": "Drukhari",
+   "alliedFactions": [
+    {
+     "faction": "Harlequins",
+     "rule": "Corsairs and Travelling Players",
+     "capGroup": "ctp",
+     "ptsCap": {
+      "incursion": 250,
+      "strike": 500,
+      "onslaught": 750
+     },
+     "cannotBeWarlord": true,
+     "overrides": {
+      "reapers_wager": {
+       "rule": "Reaper’s Wager",
+       "ptsCap": {
+        "incursion": 500,
+        "strike": 1000,
+        "onslaught": 1500
+       }
+      }
+     }
+    },
+    {
+     "faction": "Anhrathe",
+     "rule": "Corsairs and Travelling Players",
+     "capGroup": "ctp",
+     "ptsCap": {
+      "incursion": 250,
+      "strike": 500,
+      "onslaught": 750
+     },
+     "cannotBeWarlord": true,
+     "overrides": {
+      "reapers_wager": {
+       "forbid": true
+      }
+     }
+    }
+   ],
+   "armyRules": [
+    {
+     "id": "power_from_pain",
+     "name": "Power from Pain",
+     "text": [
+      "All DRUKHARI units have a Pain ability, tagged with the word ‘Pain’. Pain abilities only apply to a unit while it is Empowered. If your Army Faction is DRUKHARI, you can Empower units from your army with Pain abilities by spending Pain tokens (see below).",
+      "Designer’s Note: You can also spend Pain tokens to activate additional effects in certain other rules such as Enhancements and Stratagems.",
+      "GAINING PAIN TOKENS: If your Army Faction is DRUKHARI, you gain Pain tokens as follows: ■ 1 Pain token at the start of your Command phase. ■ 1 Pain token each time an enemy unit is destroyed. ■ 1 Pain token each time an enemy unit fails a Battle-shock test. Each time you gain a Pain token, keep it to one side - this is your Pain token pool. Each time you spend a Pain token, reduce your Pain token pool by the same amount.",
+      "EMPOWERED THROUGH PAIN: Each Pain ability will state when you can spend Pain tokens to Empower that unit. When you do, until the end of the phase, that unit is Empowered and all Pain abilities it has take effect. While an Attached unit is Empowered, the Pain abilities of all Leader and Bodyguard units in that unit take effect - you do not need to spend additional Pain tokens to activate each of those Pain abilities."
+     ],
+     "counter": {
+      "key": "pain",
+      "title": "Pain tokens",
+      "note": "+1 at the start of your Command phase, +1 for each enemy unit destroyed, +1 for each enemy Battle-shock test failed. Spend 1 to Empower a unit (its Pain abilities apply until the end of the phase).",
+      "fx": "whip",
+      "max": 30
+     }
+    },
+    {
+     "id": "corsairs_and_travelling_players",
+     "name": "Corsairs and Travelling Players",
+     "text": [
+      "If your Army Faction is DRUKHARI, you can include HARLEQUINS and ANHRATHE units in your army, even though they do not have the DRUKHARI Faction keyword. The combined points value of HARLEQUINS and/or ANHRATHE units you can include in your army depends on the battle size, as follows:",
+      "■ Incursion: Up to 250 pts",
+      "■ Strike Force: Up to 500 pts",
+      "■ Onslaught: Up to 750 pts",
+      "No HARLEQUINS or ANHRATHE models included in your army in this way can be your WARLORD, and they cannot be given Enhancements."
+     ]
+    }
+   ],
+   "detachments": [
+    {
+     "id": "covenite_coterie",
+     "name": "Covenite Coterie",
+     "dp": 2,
+     "dispositions": [
+      "Take and Hold"
+     ],
+     "tags": [],
+     "summary": "Haemonculus Covens units take -1 to wound from attacks that out-Strength their Toughness; four Haemonculus enhancements.",
+     "rule": {
+      "name": "Stitchflesh Abominations",
+      "text": "Each time an attack targets a HAEMONCULUS COVENS unit from your army, if the Strength characteristic of that attack is greater than the Toughness characteristic of your unit, subtract 1 from the Wound roll."
+     },
+     "buffs": [],
+     "enhancements": [
+      {
+       "id": "covenite_coterie_master_regenesist",
+       "name": "Master Regenesist",
+       "pts": 25,
+       "upgrade": false,
+       "text": "HAEMONCULUS model only. Each time the bearer uses its Fleshcraft ability, you can return up to D3+3 destroyed Bodyguard models to the bearer’s unit instead of D3+1.",
+       "eligible": {
+        "keywordsAll": [
+         "Haemonculus"
+        ]
+       }
+      },
+      {
+       "id": "covenite_coterie_master_nemesine",
+       "name": "Master Nemesine",
+       "pts": 5,
+       "upgrade": false,
+       "text": "HAEMONCULUS model only. The bearer’s weapons have the [anti-beast 2+] and [anti-monster 4+] abilities.",
+       "eligible": {
+        "keywordsAll": [
+         "Haemonculus"
+        ]
+       }
+      },
+      {
+       "id": "covenite_coterie_master_artisan",
+       "name": "Master Artisan",
+       "pts": 20,
+       "upgrade": false,
+       "text": "HAEMONCULUS model only. Add 1 to the bearers Wounds characteristic and add 1 to the Toughness characteristic of models in the bearer’s unit.",
+       "eligible": {
+        "keywordsAll": [
+         "Haemonculus"
+        ]
+       }
+      },
+      {
+       "id": "covenite_coterie_master_repugnomancer",
+       "name": "Master Repugnomancer (Aura)",
+       "pts": 15,
+       "upgrade": false,
+       "text": "HAEMONCULUS model only. Add 3\" to the range of the bearer’s Fear Incarnate ability, and each time a friendly DRUKHARI unit within 9\" of the bearer fails a Battle-shock test or is destroyed, roll one D6: on a 4+, you gain 1 Pain token.",
+       "eligible": {
+        "keywordsAll": [
+         "Haemonculus"
+        ]
+       }
+      }
+     ],
+     "stratagems": [
+      {
+       "id": "connoisseurs_of_pain",
+       "name": "Connoisseurs of Pain",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Shooting",
+        "Fight"
+       ],
+       "when": "Your opponent’s Shooting phase or the Fight phase, just after an enemy unit has selected its targets.",
+       "target": "One DRUKHARI unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+       "effect": "Spend 1 Pain token. Until the attacking unit has finished making its attacks, each time an attack targets your unit, worsen the Armour Penetration characteristic of that attack by 1. At the end of the phase, if your unit is still on the battlefield and it is a HAEMONCULUS COVENS unit, you gain 1 Pain token."
+      },
+      {
+       "id": "symphony_of_suffering",
+       "name": "Symphony of Suffering",
+       "cp": 1,
+       "type": "Epic Deed",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Fight phase, just after a DRUKHARI unit from your army destroys an enemy unit.",
+       "target": "That DRUKHARI unit.",
+       "effect": "Each enemy unit within 9\" of and visible to your unit must take a Battle-shock test, subtracting 1 from that test if your unit is a HAEMONCULUS COVENS unit."
+      },
+      {
+       "id": "poisoners_art",
+       "name": "Poisoner’s Art",
+       "cp": 1,
+       "type": "Epic Deed",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Fight phase, just after a HAEMONCULUS COVENS unit from your army has fought.",
+       "target": "That HAEMONCULUS COVENS unit.",
+       "effect": "Select one enemy unit (excluding VEHICLES) hit by one or more of your unit’s attacks this phase. Until the end of the battle, that enemy unit is poisoned. At the start of each Command phase, roll one D6 for each poisoned unit on the battlefield: on a 4+, that unit suffers D3 mortal wounds."
+      },
+      {
+       "id": "postmortality",
+       "name": "Postmortality",
+       "cp": 1,
+       "type": "Epic Deed",
+       "phases": [
+        "Any"
+       ],
+       "when": "Any phase.",
+       "target": "One HAEMONCULUS model from your army that was just destroyed. You can use this Stratagem on that model even though it was just destroyed.",
+       "effect": "Spend 1-3 Pain tokens. At the end of the phase, set up the destroyed model on the battlefield, unengaged and as close as possible to where it was destroyed. That model is not part of an attached unit and its unit has a starting strength of 1. That model has a number of wounds remaining equal to the number of Pain tokens you just spent. RESTRICTION: You cannot use this Stratagem if you have 0 Pain tokens, and you cannot target the same HAEMONCULUS model with this Stratagem more than once per battle."
+      },
+      {
+       "id": "enfolding_nightmare",
+       "name": "Enfolding Nightmare",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Your opponent’s Shooting phase, just after an enemy unit has shot.",
+       "target": "One HAEMONCULUS COVENS unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+       "effect": "Your unit can make a surge move of up to D6\"."
+      },
+      {
+       "id": "distillers_of_fear",
+       "name": "Distillers of Fear",
+       "cp": 2,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Fight phase.",
+       "target": "One HAEMONCULUS COVENS unit from your army that has not been selected to fight this phase.",
+       "effect": "Until the end of the phase, each time a model in your unit makes an attack that targets an enemy unit that is Battle-shocked, that attack has the [DEVASTATING WOUNDS] ability."
+      }
+     ]
+    },
+    {
+     "id": "exhibition_of_slaughter",
+     "name": "Exhibition of Slaughter",
+     "dp": 1,
+     "dispositions": [
+      "Reconnaissance"
+     ],
+     "tags": [
+      "WYCH CULT"
+     ],
+     "summary": "WYCH CULT melee attacks gain Lethal Hits against non-Monster/Vehicle targets. WYCH CULT tag: cannot be taken with another WYCH CULT detachment.",
+     "rule": {
+      "name": "Exacting Cruelty",
+      "text": "Friendly WYCH CULT units’ melee attacks have [LETHAL HITS: non-MONSTER/VEHICLE]. This detachment has the WYCH CULT tag and cannot be taken with another WYCH CULT detachment."
+     },
+     "buffs": [],
+     "enhancements": [
+      {
+       "id": "exhibition_of_slaughter_periapt_of_torments",
+       "name": "Periapt of Torments",
+       "pts": 20,
+       "upgrade": false,
+       "text": "SUCCUBUS model only. Enemy units cannot target this unit with snap shooting attacks.",
+       "eligible": {
+        "keywordsAll": [
+         "Succubus"
+        ]
+       }
+      },
+      {
+       "id": "exhibition_of_slaughter_hyperstimm_trafficker",
+       "name": "Hyperstimm Trafficker",
+       "pts": 20,
+       "upgrade": false,
+       "text": "SUCCUBUS model only. This unit has +1 T.",
+       "eligible": {
+        "keywordsAll": [
+         "Succubus"
+        ]
+       }
+      }
+     ],
+     "stratagems": [
+      {
+       "id": "planned_strikes",
+       "name": "Planned Strikes",
+       "cp": 1,
+       "type": "Exhibition of Slaughter",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Fight phase, when a friendly WYCH CULT unit is selected to fight.",
+       "target": "That WYCH CULT unit.",
+       "effect": "Your unit’s melee attacks have [LETHAL HITS]."
+      },
+      {
+       "id": "acrobatic_display",
+       "name": "Acrobatic Display",
+       "cp": 1,
+       "type": "Exhibition of Slaughter",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Your opponent’s Shooting phase, when an enemy unit targets a friendly WYCH CULT unit.",
+       "target": "That WYCH CULT unit.",
+       "effect": "Your unit has 5+ InSv."
+      },
+      {
+       "id": "sculpting_the_stage",
+       "name": "Sculpting the Stage",
+       "cp": 1,
+       "type": "Exhibition of Slaughter",
+       "phases": [
+        "Movement"
+       ],
+       "when": "Your Movement phase, when a friendly WYCH CULT unit is selected to make an advance/fall-back move.",
+       "target": "That WYCH CULT unit.",
+       "effect": "That move does not prevent your unit from being eligible to start an action."
+      }
+     ]
+    },
+    {
+     "id": "kabalite_agonysts",
+     "name": "Kabalite Agonysts",
+     "dp": 1,
+     "dispositions": [
+      "Disruption"
+     ],
+     "tags": [
+      "KABAL"
+     ],
+     "summary": "KABAL and BLADES FOR HIRE ranged attacks gain Sustained Hits 1 against non-Monster/Vehicle targets. KABAL tag: cannot be taken with another KABAL detachment.",
+     "rule": {
+      "name": "Contracted Harvest",
+      "text": "Friendly BLADES FOR HIRE/KABAL units’ ranged attacks have [SUSTAINED HITS 1: non-MONSTER/VEHICLE]. This detachment has the KABAL tag and cannot be taken with another KABAL detachment."
+     },
+     "buffs": [],
+     "enhancements": [
+      {
+       "id": "kabalite_agonysts_towering_arrogance",
+       "name": "Towering Arrogance",
+       "pts": 15,
+       "upgrade": false,
+       "text": "ARCHON model only. This unit has: ■ +1 Ld and OC.",
+       "eligible": {
+        "keywordsAll": [
+         "Archon"
+        ]
+       }
+      },
+      {
+       "id": "kabalite_agonysts_contempt_for_rivals",
+       "name": "Contempt for Rivals",
+       "pts": 20,
+       "upgrade": false,
+       "text": "ARCHON model only. This unit’s attacks have [PRECISION].",
+       "eligible": {
+        "keywordsAll": [
+         "Archon"
+        ]
+       }
+      }
+     ],
+     "stratagems": [
+      {
+       "id": "killers_from_the_dark_spires",
+       "name": "Killers From the Dark Spires",
+       "cp": 1,
+       "type": "Kabalite Agonysts",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Your Shooting phase, when a friendly KABALITE WARRIORS unit is selected to shoot.",
+       "target": "That KABALITE WARRIORS unit.",
+       "effect": "Your unit’s ranged attacks have [IGNORES COVER]."
+      },
+      {
+       "id": "shadows_reach",
+       "name": "Shadows’ Reach",
+       "cp": 1,
+       "type": "Kabalite Agonysts",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Your Shooting phase, when a friendly BLADES FOR HIRE/KABAL unit has shot.",
+       "target": "That BLADES FOR HIRE/KABAL unit.",
+       "effect": "Those attacks do not prevent your unit from being hidden."
+      },
+      {
+       "id": "prioritised_victim",
+       "name": "Prioritised Victim",
+       "cp": 1,
+       "type": "Kabalite Agonysts",
+       "phases": [
+        "Shooting",
+        "Fight"
+       ],
+       "when": "Your Shooting phase or the Fight phase, when a friendly BLADES FOR HIRE/KABAL unit targets a CHARACTER unit.",
+       "target": "That BLADES FOR HIRE/KABAL unit.",
+       "effect": "Your unit’s attacks that target a CHARACTER unit can: ■ Re-roll hit rolls of 1. ■ Re-roll wound rolls of 1."
+      }
+     ]
+    },
+    {
+     "id": "kabalite_cartel",
+     "name": "Kabalite Cartel",
+     "dp": 2,
+     "dispositions": [
+      "Disruption"
+     ],
+     "tags": [],
+     "summary": "Pick a Contract and a target; Kabal and Blades for Hire units gain a bonus against it, and completing the Contract earns 3 Pain tokens.",
+     "rule": {
+      "name": "Murderous Agenda",
+      "text": "At the start of the first battle round, select one of the Contracts below, then select one unit from your opponent’s army that matches the ‘Contract’ description in that Contract. Until that Contract is completed, that unit is your Contract unit and KABAL and BLADES FOR HIRE units from your army have the ability stated in that Contract. At the start of your Command phase, if your Contract unit is destroyed, that Contract is completed and you gain 3 Pain tokens. TROPHY HUNTERS: Contract: One CHARACTER unit. Ability: Each time a KABAL or BLADES FOR HIRE model in this unit makes an attack that targets the Contract unit, that attack has the [precision] ability. SOW FEAR AND TERROR: Contract: One INFANTRY or MOUNTED unit (excluding units containing only CHARACTER models). At the start of your Command phase, this Contract is completed if all non-CHARACTER models in that unit are destroyed. Ability: Each time a KABAL or BLADES FOR HIRE model in this unit makes an attack that targets an INFANTRY or MOUNTED unit, that attack has the [sustained hits 1] ability. SHOW OF STRENGTH: Contract: One MONSTER or VEHICLE unit. Ability: Each time a KABAL or BLADES FOR HIRE model in this unit makes an attack that targets a MONSTER or VEHICLE unit, that attack has the [lethal hits] ability."
+     },
+     "buffs": [],
+     "enhancements": [
+      {
+       "id": "kabalite_cartel_leechbite_plate",
+       "name": "Leechbite Plate",
+       "pts": 5,
+       "upgrade": false,
+       "text": "ARCHON model only. The bearer has a Save characteristic of 3+. At the start of either player’s Command phase, you can spend 1 Pain token: if you do, the bearer regains all of its lost wounds.",
+       "eligible": {
+        "keywordsAll": [
+         "Archon"
+        ]
+       }
+      },
+      {
+       "id": "kabalite_cartel_webway_awl",
+       "name": "Webway Awl",
+       "pts": 25,
+       "upgrade": false,
+       "text": "ARCHON model only. Models in the bearer’s unit have the Deep Strike ability, and you can target the bearer’s unit with the Rapid Ingress Stratagem for 0CP.",
+       "eligible": {
+        "keywordsAll": [
+         "Archon"
+        ]
+       }
+      },
+      {
+       "id": "kabalite_cartel_informant_network",
+       "name": "Informant Network",
+       "pts": 30,
+       "upgrade": false,
+       "text": "ARCHON model only. At the start of the Declare Battle Formations step, select up to three Kabalite Warriors and/or HAND OF THE ARCHON units from your army; those units gain the Infiltrators ability.",
+       "eligible": {
+        "keywordsAll": [
+         "Archon"
+        ]
+       }
+      },
+      {
+       "id": "kabalite_cartel_towering_arrogance",
+       "name": "Towering Arrogance",
+       "pts": 20,
+       "upgrade": false,
+       "text": "ARCHON model only. While the bearer is leading a unit, improve the Leadership and Objective Control characteristics of models in that unit by 1.",
+       "eligible": {
+        "keywordsAll": [
+         "Archon"
+        ]
+       }
+      }
+     ],
+     "stratagems": [
+      {
+       "id": "making_a_point",
+       "name": "Making a Point",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Your Shooting phase.",
+       "target": "One KABALITE WARRIORS or HAND OF THE ARCHON unit from your army that has not been selected to shoot this phase.",
+       "effect": "Until the end of the phase, improve the Ballistic Skill and Armour Penetration characteristics of ranged weapons equipped by models in your unit by 1."
+      },
+      {
+       "id": "taken_alive",
+       "name": "Taken Alive",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Fight phase.",
+       "target": "One DRUKHARI unit from your army that has not been selected to fight this phase.",
+       "effect": "Until the end of the phase, each time a model in your unit makes an attack, add 1 to the Hit roll. If your Contract unit is destroyed as a result of those attacks, every unit in your opponent’s army must take a Battle-shock test. You cannot gain more than 3 Pain tokens as a result of failed Battle-shock tests caused by this Stratagem."
+      },
+      {
+       "id": "tailored_toxins",
+       "name": "Tailored Toxins",
+       "cp": 1,
+       "type": "Epic Deed",
+       "phases": [
+        "Shooting",
+        "Fight"
+       ],
+       "when": "Your Shooting phase or the Fight phase.",
+       "target": "One KABAL or BLADES FOR HIRE unit from your army that has not been selected to shoot or fight this phase.",
+       "effect": "Until the end of the phase, each time a model in your unit makes an attack that targets your Contract unit, an unmodified Hit roll of 5+ scores a Critical Hit."
+      },
+      {
+       "id": "enemies_without_number",
+       "name": "Enemies Without Number",
+       "cp": 1,
+       "type": "Epic Deed",
+       "phases": [
+        "Command"
+       ],
+       "when": "Your Command phase, just after you complete a Contract.",
+       "target": "One Archon WARLORD from your army.",
+       "effect": "Select one new Contract (this can be one you have already completed), then select one unit from your opponent’s army that is on the battlefield and matches the ‘Contract’ description in that Contract. Until that Contract is completed, that unit is your Contract unit and the Murderous Agenda Detachment rule applies as normal."
+      },
+      {
+       "id": "deadly_deceivers",
+       "name": "Deadly Deceivers",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Your opponent’s Shooting phase, just after an enemy unit has selected its targets.",
+       "target": "One KABAL or BLADES FOR HIRE unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+       "effect": "Until the end of the phase, your unit can only be selected as the target of a ranged attack if the attacking model is within 18\"."
+      },
+      {
+       "id": "double_cross",
+       "name": "Double-cross",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Fight phase, just after an enemy unit has selected its targets.",
+       "target": "One KABAL or BLADES FOR HIRE unit from your army that was selected as the target of one or more of the attacking unit’s attacks, and one friendly DRUKHARI unit (excluding Vehicles).",
+       "effect": "Until the end of the phase, each time you would allocate an attack to a model in your KABAL or BLADES FOR HIRE unit, if your DRUKHARI unit is within Engagement Range of the attacking model, no saving throw is made for that attack; instead, your DRUKHARI unit suffers a number of mortal wounds equal to the Damage characteristic of that attack."
+      }
+     ],
+     "battlePick": {
+      "title": "Murderous Agenda",
+      "count": 1,
+      "fx": "contract",
+      "contract": {
+       "pain": 3
+      },
+      "note": "Start of the first battle round: pick a Contract and one enemy unit that fits it (your Contract unit). KABAL and BLADES FOR HIRE units get the Contract ability. When your Contract unit is destroyed (checked at the start of your Command phase), the Contract is completed and you gain 3 Pain tokens.",
+      "options": [
+       {
+        "id": "trophy",
+        "name": "Trophy Hunters",
+        "effect": "Contract unit: one CHARACTER unit. KABAL and BLADES FOR HIRE attacks against it have [PRECISION]."
+       },
+       {
+        "id": "sow",
+        "name": "Sow Fear and Terror",
+        "effect": "Contract unit: one INFANTRY or MOUNTED unit (not only CHARACTERS); completed when all its non-CHARACTER models are destroyed. KABAL and BLADES FOR HIRE attacks against INFANTRY or MOUNTED units have [SUSTAINED HITS 1]."
+       },
+       {
+        "id": "strength",
+        "name": "Show of Strength",
+        "effect": "Contract unit: one MONSTER or VEHICLE unit. KABAL and BLADES FOR HIRE attacks against MONSTER or VEHICLE units have [LETHAL HITS]."
+       }
+      ]
+     }
+    },
+    {
+     "id": "realspace_raiders",
+     "name": "Realspace Raiders",
+     "dp": 2,
+     "dispositions": [
+      "Priority Assets"
+     ],
+     "tags": [],
+     "summary": "Start the battle with 2 Pain tokens for each Archon + Kabalite Warriors, Succubus + Wyches and Haemonculus + Wracks pairing in your army.",
+     "rule": {
+      "name": "Alliance of Agony",
+      "text": "At the start of the battle, you gain 2 Pain tokens for each of the following combinations your army contains (these do not need to be in the same Attached unit): ■ One or more ARCHON models and one or more KABALITE WARRIORS units. ■ One or more SUCCUBUS models and one or more WYCHES units. ■ One or more HAEMONCULUS models and one or more WRACKS units. Designer’s Note: These are all cumulative, so if your army contains at least one of all of the combinations listed above, you start the battle with 6 Pain tokens."
+     },
+     "buffs": [],
+     "enhancements": [
+      {
+       "id": "realspace_raiders_dark_vitality",
+       "name": "Dark Vitality",
+       "pts": 20,
+       "upgrade": false,
+       "text": "DRUKHARI model only. The bearer’s unit is always Empowered - you do not need to spend any Pain tokens to activate that unit’s Pain abilities.",
+       "eligible": {
+        "factionsAll": [
+         "Drukhari"
+        ]
+       }
+      },
+      {
+       "id": "realspace_raiders_labyrinthine_cunning",
+       "name": "Labyrinthine Cunning",
+       "pts": 25,
+       "upgrade": false,
+       "text": "ARCHON model only. At the start of your Command phase, if the bearer is on the battlefield, you can do one of the following: ■ Spend 1 Pain token and gain 1CP. ■ Roll one D6: on a 4+, you gain 1CP.",
+       "eligible": {
+        "keywordsAll": [
+         "Archon"
+        ]
+       }
+      },
+      {
+       "id": "realspace_raiders_eye_of_spite",
+       "name": "Eye of Spite",
+       "pts": 15,
+       "upgrade": false,
+       "text": "SUCCUBUS model only. Improve the Attacks and Armour Penetration characteristics of the bearer’s melee weapons by 1. Each time the bearer’s unit is selected to fight, you can spend 1 Pain token; if you do, until the end of the phase, improve the Attacks and Armour Penetration characteristics of the bearer’s melee weapons by 2 instead.",
+       "eligible": {
+        "keywordsAll": [
+         "Succubus"
+        ]
+       }
+      },
+      {
+       "id": "realspace_raiders_crucible_of_malediction",
+       "name": "Crucible of Malediction",
+       "pts": 15,
+       "upgrade": false,
+       "text": "HAEMONCULUS model only. Once per battle, in your Shooting phase, the bearer can use this Enhancement. If it does, you can spend 1 Pain token. Then, each enemy unit within 12\" of the bearer must take a Battle-shock test, subtracting 1 from that test if you spent 1 Pain token. Each time a PSYKER unit fails that test, it suffers 3 mortal wounds.",
+       "eligible": {
+        "keywordsAll": [
+         "Haemonculus"
+        ]
+       }
+      }
+     ],
+     "stratagems": [
+      {
+       "id": "eager_for_the_kill",
+       "name": "Eager For the Kill",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Movement"
+       ],
+       "when": "Start of your Movement phase.",
+       "target": "Up to two WYCHES units from your army, or one other DRUKHARI unit from your army, that have not been selected to move this phase.",
+       "effect": "Until the end of the phase, each time one of those units Advances, do not make an Advance roll for it. Instead, until the end of the phase, add 6\" to the Move characteristic of models in that unit (this is not cumulative with the Reavers’ Matchless Swiftness ability)."
+      },
+      {
+       "id": "instinctive_spite",
+       "name": "Instinctive Spite",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Shooting",
+        "Fight"
+       ],
+       "when": "Start of your Shooting phase or the start of the Fight phase.",
+       "target": "Up to two DRUKHARI BATTLELINE units from your army, or one other DRUKHARI unit from your army.",
+       "effect": "You can spend 1 Pain token. Until the end of the phase, each time a model in each of those units makes an attack that targets an enemy unit that is Below Half-strength, add 1 to the Hit roll. If you spent 1 Pain token, add 1 to the Wound roll as well."
+      },
+      {
+       "id": "fighting_shadows",
+       "name": "Fighting Shadows",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Shooting",
+        "Fight"
+       ],
+       "when": "Your opponent’s Shooting phase or the Fight phase, just after an enemy unit has selected its targets.",
+       "target": "One DRUKHARI unit from your army (excluding HAEMONCULUS COVENS units) that was selected as the target of one or more of the attacking unit’s attacks.",
+       "effect": "Until the end of the phase, each time an attack targets your unit, subtract 1 from the Hit roll."
+      },
+      {
+       "id": "insensible_to_pain",
+       "name": "Insensible To Pain",
+       "cp": 2,
+       "type": "Battle Tactic",
+       "phases": [
+        "Shooting",
+        "Fight"
+       ],
+       "when": "Your opponent’s Shooting phase or the Fight phase, just after an enemy unit has selected its targets.",
+       "target": "One HAEMONCULUS COVENS unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+       "effect": "Until the end of the phase, each time an attack is allocated to a model in your unit, subtract 1 from the Damage characteristic of that attack."
+      },
+      {
+       "id": "raid_and_fade",
+       "name": "Raid and Fade",
+       "cp": 2,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "End of your Shooting phase.",
+       "target": "Up to two KABALITE WARRIORS units from your army, or one other DRUKHARI unit from your army (excluding ScouRGES and Aircraft).",
+       "effect": "Each of those units can make a Normal move of up to 6\".",
+       "restrictions": "You cannot select units that are within Engagement Range of one or more enemy units. Until the end of the turn, those units are not eligible to declare a charge."
+      },
+      {
+       "id": "dark_harvest",
+       "name": "Dark Harvest",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Start of the Fight phase.",
+       "target": "Up to two WRACKS units from your army, or one other DRUKHARI unit from your army.",
+       "effect": "Until the end of the phase, melee weapons equipped by models in each of those units have the [LETHAL HITS] ability."
+      }
+     ],
+     "painStart": {
+      "pairs": [
+       [
+        "archon",
+        "kabalite_warriors"
+       ],
+       [
+        "succubus",
+        "wyches"
+       ],
+       [
+        "haemonculus",
+        "wracks"
+       ]
+      ],
+      "per": 2,
+      "note": "Start of the battle: 2 Pain tokens for each pairing in your army (Archon + Kabalite Warriors, Succubus + Wyches, Haemonculus + Wracks)."
+     }
+    },
+    {
+     "id": "reapers_wager",
+     "name": "Reaper’s Wager",
+     "dp": 3,
+     "dispositions": [
+      "Priority Assets",
+      "Purge the Foe"
+     ],
+     "tags": [],
+     "summary": "Drukhari and Harlequins compete in a wager: the side that last destroyed an enemy unit is winning and re-rolls Hit rolls of 1, the loser also re-rolls Wound rolls of 1. Replaces the Corsairs and Travelling Players rule.",
+     "rule": {
+      "name": "Callous Competition",
+      "text": "At the start of the battle, DRUKHARI units from your army are winning the wager. Each time a DRUKHARI unit from your army destroys an enemy unit, DRUKHARI units from your army are winning the wager. Each time a HARLEQUINS unit from your army destroys an enemy unit, HARLEQUIN units from your army are winning the wager. While DRUKHARI units from your army are winning the wager, HARLEQUIN units from your army are losing the wager, and vice versa. Each time a DRUKHARI or HARLEQUINS model from your army makes an attack, if that model’s unit is winning the wager, re-roll a Hit roll of 1. If that model’s unit is losing the wager, re-roll a Hit roll of 1 and re-roll a Wound roll of 1 instead. HARLEQUINS: You can include HARLEQUINS units in your army (see Codex: Aeldari). The combined points cost of such units depends on your battle size: ■ Incursion: Up to 500 pts ■ Strike Force: Up to 1000 pts ■ Onslaught: Up to 1500 pts No HARLEQUINS models from your army can be your WARLORD. If you select this Detachment, you cannot use the Corsairs and Travelling Players army rule."
+     },
+     "buffs": [],
+     "enhancements": [
+      {
+       "id": "reapers_wager_archraider",
+       "name": "Archraider",
+       "pts": 15,
+       "upgrade": false,
+       "text": "HARLEQUINS or DRUKHARI model only. In the Declare Battle Formations step, if the bearer starts the battle embarked within a Dedicated Transport, that DEDICATED TRANSPORT has the Scouts 9\" ability.",
+       "eligible": {
+        "keywordsAny": [
+         "Drukhari",
+         "Harlequins"
+        ]
+       }
+      },
+      {
+       "id": "reapers_wager_webway_walker",
+       "name": "Webway Walker",
+       "pts": 15,
+       "upgrade": false,
+       "text": "HARLEQUINS or DRUKHARI model only. Models in the bearer’s unit have the Deep Strike ability. Each time the bearer’s unit is set up on the battlefield using the Deep Strike ability, if that unit is currently losing the wager, until the end of the turn, you can re-roll Charge rolls made for that unit.",
+       "eligible": {
+        "keywordsAny": [
+         "Drukhari",
+         "Harlequins"
+        ]
+       }
+      },
+      {
+       "id": "reapers_wager_reapers_cowl",
+       "name": "Reaper’s Cowl",
+       "pts": 25,
+       "upgrade": false,
+       "text": "HARLEQUINS model only. Models in the bearer’s unit have the Stealth and Infiltrators abilities.",
+       "eligible": {
+        "keywordsAll": [
+         "Harlequins"
+        ]
+       }
+      },
+      {
+       "id": "reapers_wager_conductor_of_torment",
+       "name": "Conductor of Torment",
+       "pts": 20,
+       "upgrade": false,
+       "text": "DRUKHARI model only. In your Command phase, you can do one of the following: ■ If your DRUKHARI units are currently losing the wager, you can gain 1 Pain token. If you do, DRUKHARI units from your army are now winning the wager. ■ If your DRUKHARI units are currently winning the wager, you can discard 1 Pain token. If you do, HARLEQUINS units from your army are now winning the wager.",
+       "eligible": {
+        "factionsAll": [
+         "Drukhari"
+        ]
+       }
+      }
+     ],
+     "stratagems": [
+      {
+       "id": "malicious_frenzy",
+       "name": "Malicious Frenzy",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Shooting",
+        "Fight"
+       ],
+       "when": "Your Shooting phase or the Fight phase.",
+       "target": "One DRUKHARI or HARLEQUINS unit from your army that has not been selected to shoot or fight this phase.",
+       "effect": "Select [LETHAL HITS] or [SUSTAINED HITS 1]. Until the end of the phase, weapons equipped by models in your unit have the selected ability."
+      },
+      {
+       "id": "murderers_circus",
+       "name": "Murderer’s Circus",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Fight phase, just after an enemy unit has selected its targets.",
+       "target": "One DRUKHARI or HARLEQUINS unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+       "effect": "Until the end of the phase, each time an attack targets your unit, subtract 1 from the Hit roll."
+      },
+      {
+       "id": "dance_macabre",
+       "name": "Dance Macabre",
+       "cp": 2,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Movement"
+       ],
+       "when": "Your opponent’s Movement phase, just after an enemy unit ends a Normal, Advance or Fall Back move.",
+       "target": "One DRUKHARI INFANTRY or HARLEQUINS INFANTRY unit from your army that is within 8\" of that enemy unit.",
+       "effect": "Your unit can make a Normal move of up to D6\". If your unit is currently losing the wager, it can make a Normal move of up to 6\" instead."
+      },
+      {
+       "id": "scintillating_tempo",
+       "name": "Scintillating Tempo",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Movement",
+        "Charge"
+       ],
+       "when": "Your Movement phase or your Charge phase, just after a DRUKHARI or HARLEQUINS unit from your army is selected to make a Normal, Advance or Fall Back move, is set up on the battlefield, or declares a charge.",
+       "target": "That unit.",
+       "effect": "Until the end of the turn, enemy units cannot use the Fire Overwatch Stratagem to shoot at your unit."
+      },
+      {
+       "id": "fateful_role",
+       "name": "Fateful Role",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Fight phase, just after an enemy unit has selected its targets.",
+       "target": "One DRUKHARI or HARLEQUINS unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+       "effect": "Until the end of the phase, each time a model in your unit is destroyed, if that model has not fought this phase, roll one D6, adding 1 to the result if that unit is losing the wager: on a 4+, do not remove it from play. That destroyed model can fight after the attacking model’s unit has finished making its attacks, and is then removed from play."
+      },
+      {
+       "id": "shorten_the_odds",
+       "name": "Shorten the Odds",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Movement"
+       ],
+       "when": "Your Movement phase, just after a DRUKHARI or HARLEQUINS unit from your army has Advanced.",
+       "target": "That unit.",
+       "effect": "Until the end of the turn, your unit is eligible to shoot and declare a charge in a turn in which it Advanced."
+      }
+     ]
+    },
+    {
+     "id": "skysplinter_assault",
+     "name": "Skysplinter Assault",
+     "dp": 2,
+     "dispositions": [
+      "Reconnaissance"
+     ],
+     "tags": [],
+     "summary": "Drukhari units that disembark from a Transport gain Ignores Cover on ranged weapons and Lance on melee weapons for the turn.",
+     "rule": {
+      "name": "Rain of Cruelty",
+      "text": "Each time a DRUKHARI unit from your army disembarks from a Transport, until the end of the turn: ■ Ranged weapons equipped by models in that disembarking unit have the [ignores cover] ability. ■ Melee weapons equipped by models in that disembarking unit have the [lance] ability."
+     },
+     "buffs": [],
+     "enhancements": [
+      {
+       "id": "skysplinter_assault_phantasmal_smoke",
+       "name": "Phantasmal Smoke",
+       "pts": 15,
+       "upgrade": false,
+       "text": "DRUKHARI model only. While the bearer’s unit is wholly within 6\" of a friendly Drukhari Transport: ■ Models in the bearer’s unit have the Stealth ability. ■ Each time a ranged attack targets the bearer’s unit, models in that unit have the Benefit of Cover against that attack.",
+       "eligible": {
+        "factionsAll": [
+         "Drukhari"
+        ]
+       }
+      },
+      {
+       "id": "skysplinter_assault_sadistic_fulcrum",
+       "name": "Sadistic Fulcrum",
+       "pts": 15,
+       "upgrade": false,
+       "text": "DRUKHARI model only. Each time you spend 1 Pain token to Empower the bearer’s unit in the Shooting phase, select one friendly Drukhari Transport within 6\" of the bearer’s unit; until the end of the phase, each time that TRANSPORT makes an attack, you can re-roll the Hit roll.",
+       "eligible": {
+        "factionsAll": [
+         "Drukhari"
+        ]
+       }
+      },
+      {
+       "id": "skysplinter_assault_spiteful_raider",
+       "name": "Spiteful Raider",
+       "pts": 10,
+       "upgrade": false,
+       "text": "DRUKHARI model only. Each time the bearer’s unit destroys an enemy unit in the Fight phase, if that enemy unit was within range of one or more objective markers when the bearer’s unit was selected to fight, you gain 1 additional Pain token.",
+       "eligible": {
+        "factionsAll": [
+         "Drukhari"
+        ]
+       }
+      },
+      {
+       "id": "skysplinter_assault_nightmare_shroud",
+       "name": "Nightmare Shroud",
+       "pts": 20,
+       "upgrade": false,
+       "text": "DRUKHARI model only. Each time the bearer’s unit disembarks from a Transport, until the end of the turn, enemy units cannot use the Fire Overwatch Stratagem to shoot at the bearer’s unit.",
+       "eligible": {
+        "factionsAll": [
+         "Drukhari"
+        ]
+       }
+      }
+     ],
+     "stratagems": [
+      {
+       "id": "skyborne_annihilation",
+       "name": "Skyborne Annihilation",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Your Shooting phase.",
+       "target": "One DRUKHARI unit from your army that has not been selected to shoot this phase and that disembarked from a Transport this turn.",
+       "effect": "Until the end of the phase, ranged weapons equipped by models in your unit have the [SUSTAINED HITS 1] ability, or the [SUSTAINED HITS 2] ability if your unit is a KABALITE WARRIORS or HAND OF THE ARCHON unit."
+      },
+      {
+       "id": "vicious_blades",
+       "name": "Vicious Blades",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Fight phase, just after a Drukhari Transport from your army has selected its targets.",
+       "target": "That TRANSPORT.",
+       "effect": "After your TRANSPORT has fought, select one enemy unit that was the target of one or more of those attacks and roll one D6 for each model embarked within your TRANSPORT, adding 1 to the result if that embarked model is a WRACKS model: for each 5+, that enemy unit suffers 1 mortal wound (to a maximum of 6 mortal wounds)."
+      },
+      {
+       "id": "wraithlike_retreat",
+       "name": "Wraithlike Retreat",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Fight"
+       ],
+       "when": "End of the Fight phase.",
+       "target": "One DRUKHARI INFANTRY unit from your army that fought this phase.",
+       "effect": "Your unit can make a Normal or Fall Back move, but unless it is a WYCHES unit, it must end that move wholly within 3\" horizontally and 5\" vertically of a friendly DRUKHARI TRANSPORT and must embark within that TRANSPORT at the end of that move (otherwise, it cannot make that move). Your unit can embark within that TRANSPORT in a turn it disembarked from that TRANSPORT."
+      },
+      {
+       "id": "pounce_on_the_prey",
+       "name": "Pounce on the Prey",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Movement"
+       ],
+       "when": "Your Movement phase, just after a DRUKHARI INFANTRY unit from your army disembarks from a Transport that made a Normal move this phase.",
+       "target": "That INFANTRY unit.",
+       "effect": "Your unit makes an assault disembark move for that disembarkation."
+      },
+      {
+       "id": "swooping_mockery",
+       "name": "Swooping Mockery",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Movement"
+       ],
+       "when": "Your opponent’s Movement phase, just after an enemy unit ends a Normal, Advance or Fall Back move.",
+       "target": "One Drukhari Transport from your army that is within 8\" of that enemy unit.",
+       "effect": "Your TRANSPORT can make a Normal move of up to 6\"."
+      },
+      {
+       "id": "night_shield",
+       "name": "Night Shield",
+       "cp": 1,
+       "type": "Wargear",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Your opponent’s Shooting phase, just after an enemy unit has selected its targets.",
+       "target": "One DRUKHARI VEHICLE unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+       "effect": "Until the end of the phase, models in your unit have a 4+ invulnerable save."
+      }
+     ]
+    },
+    {
+     "id": "spectacle_of_spite",
+     "name": "Spectacle of Spite",
+     "dp": 2,
+     "dispositions": [
+      "Purge the Foe"
+     ],
+     "tags": [],
+     "summary": "Each Command phase pick a Combat Drug (not repeating one in a battle) or roll two D6 for WYCH CULT units.",
+     "rule": {
+      "name": "Combat Drugs",
+      "text": "At the start of your Command phase, select which Combat Drugs will be active for your army until the start of your next Command phase. To do so, either select one from the list below (you cannot select the same Combat Drug more than once per battle), or randomly select two by rolling two D6. When doing so randomly, Combat Drugs you have previously selected can become active again, but if you randomly select one that is already active for your army, it has no additional effect. 1. ADRENALIGHT: Add 1 to the Attacks characteristic of melee weapons equipped by WYCH CULT models from your army. 2. HYPEX: Add 2\" to the Move characteristic of WYCH CULT models from your army. 3. SERPENTIN: Improve the Weapon Skill characteristic of melee weapons equipped by WYCH CULT models from your army by 1. 4. PAINBRINGER: Add 1 to the Toughness characteristic of WYCH CULT models from your army. 5. GRAVE LOTUS: Add 1 to the Strength characteristic of melee weapons equipped by WYCH CULT models from your army. 6. SPLINTERMIND: Improve the Leadership characteristic of WYCH CULT models from your army by 1, and improve the Ballistic Skill characteristic of ranged weapons equipped by WYCH CULT models from your army by 1."
+     },
+     "buffs": [],
+     "enhancements": [
+      {
+       "id": "spectacle_of_spite_pharmacophex",
+       "name": "Pharmacophex",
+       "pts": 15,
+       "upgrade": false,
+       "text": "SUCCUBUS model only. At the start of your Command phase, after selecting which Combat Drugs will be active for your army, roll one D6 and consult the Combat Drugs list. The result rolled applies to the bearer’s unit until the start of your next Command phase in addition to any other Combat Drugs that are active for your army. If you randomly select one that is already active for your army, it has no additional effect.",
+       "eligible": {
+        "keywordsAll": [
+         "Succubus"
+        ]
+       }
+      },
+      {
+       "id": "spectacle_of_spite_chronoshard",
+       "name": "Chronoshard",
+       "pts": 15,
+       "upgrade": false,
+       "text": "SUCCUBUS model only. Once per battle, at the start of the Fight phase, the bearer can use this Enhancement. If it does, until the end of the phase, models in the bearer’s unit have the Fights First ability.",
+       "eligible": {
+        "keywordsAll": [
+         "Succubus"
+        ]
+       }
+      },
+      {
+       "id": "spectacle_of_spite_periapt_of_torments",
+       "name": "Periapt of Torments",
+       "pts": 25,
+       "upgrade": false,
+       "text": "SUCCUBUS model only. Enemy units cannot use the Fire Overwatch Stratagem to shoot at the bearer’s unit.",
+       "eligible": {
+        "keywordsAll": [
+         "Succubus"
+        ]
+       }
+      },
+      {
+       "id": "spectacle_of_spite_morghennas_curse",
+       "name": "Morghenna’s Curse",
+       "pts": 20,
+       "upgrade": false,
+       "text": "SUCCUBUS model only. Improve the Armour Penetration and Damage characteristics of the bearers melee weapons by 1.",
+       "eligible": {
+        "keywordsAll": [
+         "Succubus"
+        ]
+       }
+      }
+     ],
+     "stratagems": [
+      {
+       "id": "deadly_debut",
+       "name": "Deadly Debut",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Fight phase.",
+       "target": "One DRUKHARI unit from your army that made a Charge move this turn and has not been selected to fight this phase.",
+       "effect": "Until the end of the phase, melee weapons equipped by models in your unit have the [LETHAL HITS] ability. If your unit is a WYCHES unit, until the end of the phase, improve the Armour Penetration characteristic of melee weapons equipped by models in your unit by 1 as well."
+      },
+      {
+       "id": "a_challenge_met",
+       "name": "A Challenge Met",
+       "cp": 2,
+       "type": "Battle Tactic",
+       "phases": [
+        "Movement"
+       ],
+       "when": "Your opponent’s Movement phase, when an enemy unit ends a fall-back move.",
+       "target": "One friendly unengaged WYCH CULT unit that is within 6\" of that enemy unit.",
+       "effect": "Declare a charge with your unit. When selecting charge targets, you can only select enemy units that made a fall-back move this phase and are within the maximum distance."
+      },
+      {
+       "id": "acrobatic_display",
+       "name": "Acrobatic Display",
+       "cp": 1,
+       "type": "Battle Tactic",
+       "phases": [
+        "Shooting"
+       ],
+       "when": "Your opponent’s Shooting phase, just after an enemy unit has selected its targets.",
+       "target": "One WYCH CULT unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+       "effect": "Until the end of the phase, models in your unit have a 5+ invulnerable save."
+      },
+      {
+       "id": "berserk_fugue",
+       "name": "Berserk Fugue",
+       "cp": 2,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Fight phase, just after an enemy unit has selected its targets.",
+       "target": "One WYCH CULT unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
+       "effect": "Until the end of the phase, each time a model in your unit is destroyed, if that model has not fought this phase, do not remove it from play. The destroyed model can fight after the attacking unit has finished making its attacks, and is then removed from play."
+      },
+      {
+       "id": "feigned_weakness",
+       "name": "Feigned Weakness",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Movement"
+       ],
+       "when": "Your Movement phase, just after a DRUKHARI unit from your army Falls Back.",
+       "target": "That DRUKHARI unit.",
+       "effect": "Until the end of the turn, your unit is eligible to shoot and declare a charge in turn in which it Fell Back."
+      },
+      {
+       "id": "preternatural_agility",
+       "name": "Preternatural Agility",
+       "cp": 1,
+       "type": "Strategic Ploy",
+       "phases": [
+        "Movement",
+        "Charge"
+       ],
+       "when": "Start of your Movement or Charge phase.",
+       "target": "One WYCH CULT unit from your army.",
+       "effect": "Until the end of the phase, each time your unit makes a Normal, Advance or Charge move, you can ignore any or all modifiers to its Move characteristic and to Advance and Charge rolls made for it and, until the end of the turn, each time a model in your unit makes such a move, it can move horizontally through models (when doing so, such a model can move within Engagement Range of such models but cannot end a Normal or Advance move within Engagement Range of them)."
+      }
+     ],
+     "imperatives": [
+      {
+       "id": "adrenalight",
+       "name": "Adrenalight",
+       "tone": "adrenalight",
+       "effect": "+1 Attacks on melee weapons of WYCH CULT models."
+      },
+      {
+       "id": "hypex",
+       "name": "Hypex",
+       "tone": "hypex",
+       "effect": "+2\" Move for WYCH CULT models."
+      },
+      {
+       "id": "serpentin",
+       "name": "Serpentin",
+       "tone": "serpentin",
+       "effect": "Improve the Weapon Skill of melee weapons of WYCH CULT models by 1."
+      },
+      {
+       "id": "painbringer",
+       "name": "Painbringer",
+       "tone": "painbringer",
+       "effect": "+1 Toughness for WYCH CULT models."
+      },
+      {
+       "id": "grave_lotus",
+       "name": "Grave Lotus",
+       "tone": "lotus",
+       "effect": "+1 Strength on melee weapons of WYCH CULT models."
+      },
+      {
+       "id": "splintermind",
+       "name": "Splintermind",
+       "tone": "splintermind",
+       "effect": "Improve Leadership of WYCH CULT models by 1 and Ballistic Skill of their ranged weapons by 1."
+      }
+     ],
+     "impTitle": "Combat Drugs",
+     "impStyle": "doctrina",
+     "impFx": "syringe",
+     "impOnce": true,
+     "impNote": "Start of your Command phase: pick one Combat Drug (not one you already picked this battle), or roll two D6 for two random ones — a rolled drug can repeat. Rolled drugs are not tracked here."
+    },
+    {
+     "id": "tools_of_torment",
+     "name": "Tools of Torment",
+     "dp": 1,
+     "dispositions": [
+      "Take and Hold"
+     ],
+     "tags": [
+      "COVENS"
+     ],
+     "summary": "Attacks with Strength above the Toughness of a CRONOS or TALOS unit get -1 to wound. COVENS tag: cannot be taken with another COVENS detachment.",
+     "rule": {
+      "name": "Darkest Artifice",
+      "text": "Attacks that target friendly CRONOS/TALOS units with a S greater than that unit’s T have -1 to wound rolls. This detachment has the COVENS tag and cannot be taken with another COVENS detachment."
+     },
+     "buffs": [],
+     "enhancements": [
+      {
+       "id": "tools_of_torment_gnarlskin_experimentor",
+       "name": "Gnarlskin Experimentor",
+       "pts": 20,
+       "upgrade": false,
+       "text": "HAEMONCULUS model only. Attacks that target this unit with a S greater than your unit’s T have -1 to wound rolls.",
+       "eligible": {
+        "keywordsAll": [
+         "Haemonculus"
+        ]
+       }
+      },
+      {
+       "id": "tools_of_torment_elixir_of_the_corpse_courts",
+       "name": "Elixir of the Corpse Courts",
+       "pts": 15,
+       "upgrade": true,
+       "text": "CRONOS/TALOS unit only. This unit has 5+ InSv.",
+       "eligible": {
+        "keywordsAny": [
+         "Cronos",
+         "Talos"
+        ]
+       }
+      }
+     ],
+     "stratagems": [
+      {
+       "id": "dividends_of_agony",
+       "name": "Dividends of Agony",
+       "cp": 1,
+       "type": "Tools of Torment",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Fight phase, when a friendly HAEMONCULUS COVENS unit destroys an enemy unit.",
+       "target": "That HAEMONCULUS COVENS unit.",
+       "effect": "Select one visible enemy unit within 12\" of your unit. That enemy unit makes a battle-shock roll, with -1 to that battle-shock roll."
+      },
+      {
+       "id": "salting_the_wound",
+       "name": "Salting the Wound",
+       "cp": 1,
+       "type": "Tools of Torment",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Fight phase, when a friendly CRONOS/TALOS unit is selected to fight.",
+       "target": "That CRONOS/TALOS unit.",
+       "effect": "Your unit’s attacks that target a battle-shocked unit have [DEVASTATING WOUNDS]."
+      },
+      {
+       "id": "urgent_metamorphosis",
+       "name": "Urgent Metamorphosis",
+       "cp": 1,
+       "type": "Tools of Torment",
+       "phases": [
+        "Movement"
+       ],
+       "when": "Your Movement phase, when a friendly HAEMONCULUS COVENS unit is selected to make a fall-back move.",
+       "target": "That HAEMONCULUS COVENS unit.",
+       "effect": "That move does not prevent your unit from being eligible to declare a charge."
+      }
+     ]
+    }
+   ],
+   "units": [
+    {
+     "id": "archon",
+     "name": "Archon",
+     "role": "character",
+     "faction": "Drukhari",
+     "keywords": [
+      "Aeldari",
+      "Archon",
+      "Character",
+      "Infantry",
+      "Kabal"
+     ],
+     "image": "drk_archon",
+     "baseSize": "32mm",
+     "profile": {
+      "M": "7\"",
+      "T": "3",
+      "Sv": "4+",
+      "InSv": "2+",
+      "W": "4",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Blast pistol",
+       "range": "6\"",
+       "A": "1",
+       "skill": "2+",
+       "S": "8",
+       "AP": "-3",
+       "D": "D3",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Splinter pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "2+",
+       "S": "2",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Anti-Infantry 3+",
+        "Assault",
+        "Pistol"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Agoniser",
+       "range": "Melee",
+       "A": "6",
+       "skill": "2+",
+       "S": "3",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Anti-Infantry 3+"
+       ]
+      },
+      {
+       "name": "Huskblade",
+       "range": "Melee",
+       "A": "4",
+       "skill": "2+",
+       "S": "3",
+       "AP": "-2",
+       "D": "3",
+       "kw": [
+        "Devastating Wounds"
+       ]
+      },
+      {
+       "name": "Master-crafted power weapon",
+       "range": "Melee",
+       "A": "5",
+       "skill": "2+",
+       "S": "4",
+       "AP": "-2",
+       "D": "2",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Leader"
+     ],
+     "factionAbilities": [
+      "Power from Pain"
+     ],
+     "abilities": [
+      {
+       "name": "Hatred Eternal (Pain)",
+       "text": "In your Shooting phase or the Fight phase, when you select this model’s unit to shoot or fight, you can spend 1 Pain token to Empower that unit. While that unit is Empowered, each time a model in that unit makes an attack, you can re-roll the Hit roll.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Overlord",
+       "text": "Once per battle, at the start of any phase, you can select one friendly DRUKHARI unit that is Battle-shocked and within 12\" of this model. That unit is no longer Battle-shocked.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Devious Mastermind",
+       "text": "Once per battle round, one model from your army with this ability can use it when its unit is targeted with a Stratagem. If it does, reduce the CP cost of that use of that Stratagem by 1CP.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Shadowfield",
+       "text": "While this model has an InSv, this unit cannot re-roll save rolls. When this model loses a wound (excluding from mortal wounds), this model has no InSv until the end of the battle.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Soul Trap",
+       "text": "Add 1 to the Attacks and Strength characteristics of the bearer’s melee weapons. The first time the bearer makes a melee attack that destroys an enemy model, after all the bearer’s attacks have been resolved, until the end of the battle, add an additional 1 to the Attacks and Strength characteristics of the bearer’s melee weapons.",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 80
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "hand_of_the_archon",
+      "incubi",
+      "kabalite_warriors"
+     ],
+     "composition": "1 A r c h o n This model is equipped with: splinter pistol; huskblade; shadowfield.",
+     "options": [
+      {
+       "id": "pistol",
+       "type": "choice",
+       "label": "Splinter pistol replaced with",
+       "choices": [
+        {
+         "id": "spl",
+         "label": "Splinter pistol",
+         "pts": 0
+        },
+        {
+         "id": "blast",
+         "label": "Blast pistol",
+         "pts": 0
+        },
+        {
+         "id": "soul",
+         "label": "Soul Trap",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "melee",
+       "type": "choice",
+       "label": "Huskblade replaced with",
+       "choices": [
+        {
+         "id": "husk",
+         "label": "Huskblade",
+         "pts": 0
+        },
+        {
+         "id": "agon",
+         "label": "Agoniser",
+         "pts": 0
+        },
+        {
+         "id": "mcpw",
+         "label": "Master-crafted power weapon",
+         "pts": 0
+        }
+       ]
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "succubus",
+     "name": "Succubus",
+     "role": "character",
+     "faction": "Drukhari",
+     "keywords": [
+      "Aeldari",
+      "Character",
+      "Infantry",
+      "Succubus",
+      "Wych Cult"
+     ],
+     "image": "drk_succubus",
+     "baseSize": "25mm",
+     "profile": {
+      "M": "8\"",
+      "T": "3",
+      "Sv": "6+",
+      "InSv": "4+",
+      "W": "4",
+      "OC": "1",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [],
+     "melee": [
+      {
+       "name": "Archite glaive and agoniser",
+       "range": "Melee",
+       "A": "7",
+       "skill": "2+",
+       "S": "3",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Anti-Infantry 3+",
+        "Precision"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Leader"
+     ],
+     "factionAbilities": [
+      "Power from Pain"
+     ],
+     "abilities": [
+      {
+       "name": "Lithe Agility (Pain)",
+       "text": "In your Movement phase when you select this model’s unit to Advance, or in your Charge phase before you make a Charge roll for this model’s unit, you can spend 1 Pain token to Empower that unit. While that unit is Empowered, you can re-roll Advance and Charge rolls made for that unit.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Storm of Blades",
+       "text": "While this model is leading a unit, melee weapons equipped by models in that unit have the [SUSTAINED HITS 1] ability.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Bloody Spectacle",
+       "text": "Each time this model makes a melee attack that targets a CHARACTER unit, you can re-roll the Hit roll and you can re-roll the Wound roll. Each time this model’s unit destroys a CHARACTER model, you gain 1CP.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 50
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "wyches"
+     ],
+     "composition": "1 S u c c u b u s This model is equipped with: Archite glaive and agoniser.",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "haemonculus",
+     "name": "Haemonculus",
+     "role": "character",
+     "faction": "Drukhari",
+     "keywords": [
+      "Aeldari",
+      "Character",
+      "Haemonculus",
+      "Haemonculus Covens",
+      "Infantry"
+     ],
+     "image": "drk_haemonculus",
+     "baseSize": "25mm",
+     "profile": {
+      "M": "7\"",
+      "T": "4",
+      "Sv": "5+",
+      "InSv": "6+",
+      "W": "5",
+      "OC": "1",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Stinger pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "2+",
+       "S": "2",
+       "AP": "-1",
+       "D": "D3",
+       "kw": [
+        "Anti-infantry 2+",
+        "Pistol",
+        "Precision"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Haemonculus tools and scissorhands",
+       "range": "Melee",
+       "A": "5",
+       "skill": "2+",
+       "S": "3",
+       "AP": "-1",
+       "D": "D3",
+       "kw": [
+        "Anti-Infantry 2+",
+        "Precision"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Feel No Pain 5+",
+      "Leader"
+     ],
+     "factionAbilities": [
+      "Power from Pain"
+     ],
+     "abilities": [
+      {
+       "name": "Fleshcraft (Pain)",
+       "text": "In your Command phase, you can spend 1 Pain token to Empower this model’s unit. Each time you do, you can return up to D3+1 destroyed Bodyguard models to that unit.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Fear Incarnate (Aura)",
+       "text": "While an enemy unit is within 6\" of this model, worsen the Leadership characteristic of models in that unit by 1. In addition, in the Battle-shock step of your opponent’s Command phase, if such an enemy unit is below its Starting Strength, it must take a Battle-shock test.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Pain Adept",
+       "text": "In your Command phase, if one or more models from your army with this ability are on the battlefield, roll one D6: on a 4+, you gain 1 Pain token.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 50
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "wracks"
+     ],
+     "composition": "1 H a e m o n c u l u s This model is equipped with: stinger pistol; Haemonculus tools and scissorhands.",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "lady_malys",
+     "name": "Lady Malys",
+     "role": "epic hero",
+     "faction": "Drukhari",
+     "keywords": [
+      "Aeldari",
+      "Archon",
+      "Character",
+      "Epic Hero",
+      "Infantry",
+      "Kabal",
+      "Lady Malys"
+     ],
+     "image": "drk_lady_malys",
+     "baseSize": "32mm",
+     "profile": {
+      "M": "7\"",
+      "T": "3",
+      "Sv": "4+",
+      "InSv": "4+",
+      "W": "5",
+      "OC": "2",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [],
+     "melee": [
+      {
+       "name": "Lady’s Blade",
+       "range": "Melee",
+       "A": "6",
+       "skill": "2+",
+       "S": "5",
+       "AP": "-3",
+       "D": "3",
+       "kw": [
+        "Devastating Wounds",
+        "Hazardous"
+       ]
+      },
+      {
+       "name": "Razor fan",
+       "range": "Melee",
+       "A": "6",
+       "skill": "2+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Extra Attacks"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Feel No Pain 5+",
+      "Leader"
+     ],
+     "factionAbilities": [
+      "Power from Pain"
+     ],
+     "abilities": [
+      {
+       "name": "Archon of the Poisoned Tongue (Pain)",
+       "text": "In your Shooting phase or the Fight phase, when you select this model’s unit to shoot or fight, you can spend 1 Pain token to Empower that unit. If you do, select one of the following abilities: [SUSTAINED HITS 1]; [LETHAL HITS]. Until the end of the phase, while that unit is Empowered, weapons equipped by models in that unit have that selected ability.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Precognisant",
+       "text": "If your army includes this model, after both players have deployed their armies, select up to three DRUKHARI units from your army and redeploy them. When doing so, you can set those units up in Strategic Reserves if you wish, regardless of how many units are already in Strategic Reserves.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Mind Like a Steel Trap (Aura)",
+       "text": "Once per turn, when your opponent targets a unit from their army within 12\" of this model with a stratagem, you can use this ability. If you do increase the CP cost of that use of that stratagem by 1CP.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 100
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "hand_of_the_archon",
+      "incubi",
+      "kabalite_warriors"
+     ],
+     "composition": "1 L a d y M a l y s – E P I C H E R O This model is equipped with: Lady’s Blade; razor fan.",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "lelith_hesperax",
+     "name": "Lelith Hesperax",
+     "role": "epic hero",
+     "faction": "Drukhari",
+     "keywords": [
+      "Aeldari",
+      "Character",
+      "Epic Hero",
+      "Infantry",
+      "Lelith Hesperax",
+      "Succubus",
+      "Wych Cult"
+     ],
+     "image": "drk_lelith_hesperax",
+     "baseSize": "32mm",
+     "profile": {
+      "M": "8\"",
+      "T": "3",
+      "Sv": "6+",
+      "InSv": "4+",
+      "W": "4",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [],
+     "melee": [
+      {
+       "name": "Lelith’s blades",
+       "range": "Melee",
+       "A": "8",
+       "skill": "2+",
+       "S": "3",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Anti-Infantry 2+",
+        "Precision",
+        "Sustained Hits 2"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Fights First",
+      "Leader"
+     ],
+     "factionAbilities": [
+      "Power from Pain"
+     ],
+     "abilities": [
+      {
+       "name": "Brides of Death (Pain)",
+       "text": "In the Fight phase, when you select this model’s unit to fight, you can spend 1 Pain token to Empower that unit. While that unit is Empowered, each time a model in that unit makes a melee attack, improve the Strength and Armour Penetration characteristics of that attack by 1.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Blur of Blades",
+       "text": "While this model is leading a unit, models in that unit have the Fights First ability.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Thrilling Spectacle",
+       "text": "Once per battle, at the start of the Fight phase, this model can use this ability. If it does, until the end of the phase, this model has a 3+ invulnerable save and change the Attacks characteristic of melee weapons equipped by this model to 12.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 80
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "wyches"
+     ],
+     "composition": "1 L e l i t h H e s p e r a x – E P I C H E R O This model is equipped with: Lelith’s blades.",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "drazhar",
+     "name": "Drazhar",
+     "role": "epic hero",
+     "faction": "Drukhari",
+     "keywords": [
+      "Aeldari",
+      "Blades for Hire",
+      "Character",
+      "Drazhar",
+      "Epic Hero",
+      "Infantry"
+     ],
+     "image": "drk_drazhar",
+     "baseSize": "40mm",
+     "profile": {
+      "M": "7\"",
+      "T": "3",
+      "Sv": "2+",
+      "InSv": "4+",
+      "W": "5",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [],
+     "melee": [
+      {
+       "name": "Executioner’s demiklaives – single blade",
+       "range": "Melee",
+       "A": "6",
+       "skill": "2+",
+       "S": "6",
+       "AP": "-2",
+       "D": "3",
+       "kw": [
+        "Devastating wounds"
+       ]
+      },
+      {
+       "name": "Executioner’s demiklaives – dual blades",
+       "range": "Melee",
+       "A": "8",
+       "skill": "2+",
+       "S": "5",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Devastating wounds"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Leader"
+     ],
+     "factionAbilities": [
+      "Power from Pain"
+     ],
+     "abilities": [
+      {
+       "name": "Master of Blades (Pain)",
+       "text": "In the Fight phase, when you select this model’s unit to fight, you can spend 1 Pain token to Empower that unit. While that unit is Empowered, each time a model in that unit makes a melee attack, add 1 to the Wound roll.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Onslaught",
+       "text": "While this model is leading a unit, each time a model in that unit makes a Pile-in or Consolidation move, it can move up to 6\" instead of up to 3\".",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Silent Executioner",
+       "text": "Each time this model makes an attack that targets a unit that is below its Starting Strength, you can re-roll the Hit roll. If that target is Below Half-strength, you can re-roll the Wound roll as well.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 85
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "incubi"
+     ],
+     "composition": "1 D r a z h a r – E P I C H E R O This model is equipped with: Executioner’s demiklaives.",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "kabalite_warriors",
+     "name": "Kabalite Warriors",
+     "role": "battleline",
+     "faction": "Drukhari",
+     "keywords": [
+      "Aeldari",
+      "Battleline",
+      "Infantry",
+      "Kabal",
+      "Kabalite Warriors"
+     ],
+     "image": "drk_kabalite_warriors",
+     "baseSize": "25mm",
+     "profile": {
+      "M": "7\"",
+      "T": "3",
+      "Sv": "4+",
+      "InSv": "6+",
+      "W": "1",
+      "OC": "2",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Blast pistol",
+       "range": "6\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-3",
+       "D": "D3",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Blaster",
+       "range": "18\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-4",
+       "D": "D6+1",
+       "kw": [
+        "Assault"
+       ]
+      },
+      {
+       "name": "Dark lance",
+       "range": "36\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "12",
+       "AP": "-3",
+       "D": "D6+2",
+       "kw": [
+        "Heavy"
+       ]
+      },
+      {
+       "name": "Shredder",
+       "range": "18\"",
+       "A": "D6",
+       "skill": "N/A",
+       "S": "6",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Assault",
+        "Torrent"
+       ]
+      },
+      {
+       "name": "Splinter cannon",
+       "range": "36\"",
+       "A": "3",
+       "skill": "4+",
+       "S": "3",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Anti-Infantry 3+",
+        "Heavy",
+        "Sustained Hits 1"
+       ]
+      },
+      {
+       "name": "Splinter pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "2",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Anti-Infantry 3+",
+        "Assault",
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Splinter rifle",
+       "range": "24\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "2",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Anti-Infantry 3+",
+        "Assault"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Close combat weapon",
+       "range": "Melee",
+       "A": "2",
+       "skill": "3+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Power weapon",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "3",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Anti-Infantry 3+"
+       ]
+      }
+     ],
+     "coreAbilities": [],
+     "factionAbilities": [
+      "Power from Pain"
+     ],
+     "abilities": [
+      {
+       "name": "Sadistic Raiders (Pain)",
+       "text": "In your Shooting phase or the Fight phase, when you select this unit to shoot or fight, you can spend 1 Pain token to Empower this unit. While Empowered, each time a model in this unit makes an attack, re-roll a Wound roll of 1. If the target is within range of an objective marker, you can re-roll the Wound roll instead.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Cruel Enforcers",
+       "text": "At the end of your Command phase, if this unit is within range of an objective marker you control, that objective marker remains under your control until your opponent’s Level of Control over that objective marker is greater than yours at the end of a phase.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Kabalite Icon",
+       "text": "While the bearer’s unit is not Battle-shocked, add 1 to the bearer’s Objective Control characteristic.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Phantasm Grenade Launcher",
+       "text": "The bearer’s unit has the Smoke and Grenades keywords.",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 10,
+       "pts": 110
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 S y b a r i t e , 9 K a b a l i t e W a r r i o r s Every model is equipped with: splinter rifle; close combat weapon.",
+     "options": [
+      {
+       "id": "syb_ranged",
+       "type": "choice",
+       "label": "Sybarite: splinter rifle replaced with",
+       "choices": [
+        {
+         "id": "rifle",
+         "label": "Splinter rifle",
+         "pts": 0
+        },
+        {
+         "id": "blast",
+         "label": "Blast pistol",
+         "pts": 0
+        },
+        {
+         "id": "pistol",
+         "label": "Splinter pistol",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "syb_melee",
+       "type": "choice",
+       "label": "Sybarite: close combat weapon replaced with",
+       "choices": [
+        {
+         "id": "ccw",
+         "label": "Close combat weapon",
+         "pts": 0
+        },
+        {
+         "id": "pw",
+         "label": "Power weapon",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "syb_equip",
+       "type": "choice",
+       "label": "Sybarite: equipment",
+       "choices": [
+        {
+         "id": "none",
+         "label": "None",
+         "pts": 0
+        },
+        {
+         "id": "icon",
+         "label": "Kabalite icon",
+         "pts": 0
+        },
+        {
+         "id": "pgl",
+         "label": "Phantasm grenade launcher",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "blaster",
+       "type": "count",
+       "label": "Blaster (replaces splinter rifle)",
+       "slots": [
+        "kw"
+       ],
+       "max": 1
+      },
+      {
+       "id": "dark_lance",
+       "type": "count",
+       "label": "Dark lance (replaces splinter rifle)",
+       "slots": [
+        "kw"
+       ],
+       "max": 1
+      },
+      {
+       "id": "shredder",
+       "type": "count",
+       "label": "Shredder (replaces splinter rifle)",
+       "slots": [
+        "kw"
+       ],
+       "max": 1
+      },
+      {
+       "id": "splinter_cannon",
+       "type": "count",
+       "label": "Splinter cannon (replaces splinter rifle)",
+       "slots": [
+        "kw"
+       ],
+       "max": 1
+      }
+     ],
+     "optionRules": [],
+     "slots": [
+      {
+       "id": "kw",
+       "label": "Kabalite Warrior weapon",
+       "default": "Splinter rifle",
+       "size": {
+        "models": 1,
+        "minus": 1
+       },
+       "fixedNote": "All also carry a close combat weapon."
+      }
+     ],
+     "optionGroups": []
+    },
+    {
+     "id": "wyches",
+     "name": "Wyches",
+     "role": "battleline",
+     "faction": "Drukhari",
+     "keywords": [
+      "Aeldari",
+      "Battleline",
+      "Grenades",
+      "Infantry",
+      "Wych Cult",
+      "Wyches"
+     ],
+     "image": "drk_wyches",
+     "baseSize": "25mm",
+     "profile": {
+      "M": "8\"",
+      "T": "3",
+      "Sv": "6+",
+      "InSv": "6+*",
+      "W": "1",
+      "OC": "2",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Blast pistol",
+       "range": "6\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-4",
+       "D": "D3",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Splinter pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "2",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Anti-Infantry 3+",
+        "Assault",
+        "Pistol"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Gladiatorial weapons",
+       "range": "Melee",
+       "A": "5",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-2",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Hekatarii blade",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "3",
+       "AP": "-1",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Power weapon",
+       "range": "Melee",
+       "A": "5",
+       "skill": "3+",
+       "S": "3",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Anti-Infantry 3+"
+       ]
+      }
+     ],
+     "coreAbilities": [],
+     "factionAbilities": [
+      "Power from Pain"
+     ],
+     "abilities": [
+      {
+       "name": "Acrobatic Gladiators (Pain)",
+       "text": "At the start of your Charge phase, you can spend 1 Pain token to Empower this unit. While Empowered, this unit is eligible to declare a charge in a turn in which it Advanced or Fell Back.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "No Escape",
+       "text": "Each time an enemy unit (excluding MONSTERS and VEHICLES) within Engagement Range of one or more units from your army with this ability Falls Back, all models in that enemy unit must take a Desperate Escape test. When doing so, if that enemy unit is Battle-shocked, subtract 1 from each of those tests.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Invulnerable save",
+       "text": "6+ invulnerable save, or 4+ against melee attacks.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 10,
+       "pts": 90
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 H e k a t r i x , 9 W y c h e s Every model is equipped with: splinter pistol; Hekatarii blade.",
+     "options": [
+      {
+       "id": "hek_pistol",
+       "type": "choice",
+       "label": "Hekatrix: splinter pistol replaced with",
+       "choices": [
+        {
+         "id": "spl",
+         "label": "Splinter pistol",
+         "pts": 0
+        },
+        {
+         "id": "blast",
+         "label": "Blast pistol",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "hek_blade",
+       "type": "choice",
+       "label": "Hekatrix: Hekatarii blade replaced with",
+       "choices": [
+        {
+         "id": "blade",
+         "label": "Hekatarii blade",
+         "pts": 0
+        },
+        {
+         "id": "pw",
+         "label": "Power weapon",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "gladiatorial",
+       "type": "count",
+       "label": "Gladiatorial weapons (replace splinter pistol and Hekatarii blade)",
+       "slots": [
+        "wy"
+       ],
+       "max": 3
+      }
+     ],
+     "optionRules": [],
+     "slots": [
+      {
+       "id": "wy",
+       "label": "Wych weapons",
+       "default": "Splinter pistol and Hekatarii blade",
+       "size": {
+        "models": 1,
+        "minus": 1
+       }
+      }
+     ],
+     "optionGroups": []
+    },
+    {
+     "id": "wracks",
+     "name": "Wracks",
+     "role": "battleline",
+     "faction": "Drukhari",
+     "keywords": [
+      "Aeldari",
+      "Battleline",
+      "Haemonculus Covens",
+      "Infantry",
+      "Wracks"
+     ],
+     "image": "drk_wracks",
+     "baseSize": "25mm",
+     "profile": {
+      "M": "7\"",
+      "T": "4",
+      "Sv": "5+",
+      "InSv": "6+",
+      "W": "2",
+      "OC": "2",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Hexrifle",
+       "range": "36\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-2",
+       "D": "3",
+       "kw": [
+        "Heavy",
+        "Precision"
+       ]
+      },
+      {
+       "name": "Liquifier gun",
+       "range": "12\"",
+       "A": "D6",
+       "skill": "N/A",
+       "S": "4",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Anti-Infantry 3+",
+        "Torrent"
+       ]
+      },
+      {
+       "name": "Ossefactor",
+       "range": "24\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "2",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Anti-Infantry 4+",
+        "Devastating Wounds"
+       ]
+      },
+      {
+       "name": "Stinger pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "2",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Anti-infantry 2+",
+        "Pistol"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Power weapon",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Anti-Infantry 3+"
+       ]
+      },
+      {
+       "name": "Torturer’s tools",
+       "range": "Melee",
+       "A": "2",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Anti-infantry 4+"
+       ]
+      },
+      {
+       "name": "Twin torturer’s tools",
+       "range": "Melee",
+       "A": "2",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Anti-Infantry 4+",
+        "Twin-Linked"
+       ]
+      }
+     ],
+     "coreAbilities": [],
+     "factionAbilities": [
+      "Power from Pain"
+     ],
+     "abilities": [
+      {
+       "name": "Experimental Enhancements (Pain)",
+       "text": "In the Fight phase, when you select this unit to fight, you can spend 1 Pain token to Empower this unit. Each time you do, select one of the following to apply to this unit until the end of the phase: ■ Melee weapons equipped by non-CHARACTER models in this unit have an Attacks characteristic of 3. ■ Melee weapons equipped by non-CHARACTER models in this unit have an Attacks characteristic of 4 and the [HAZARDOUS] ability.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Torturer’s Craft",
+       "text": "In your Shooting phase and the Fight phase, after this unit has shot or fought, select one enemy unit (excluding VEHICLES) hit by one or more of those attacks. That unit must take a Battle-shock test.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 5,
+       "pts": 55
+      },
+      {
+       "models": 8,
+       "pts": 90
+      },
+      {
+       "models": 10,
+       "pts": 110
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 A c o t h y s t , 4 - 9 W r a c k s Every model is equipped with: twin torturer’s tools.",
+     "options": [
+      {
+       "id": "acothyst",
+       "type": "choice",
+       "label": "Acothyst: twin torturer’s tools replaced with",
+       "choices": [
+        {
+         "id": "tools",
+         "label": "Twin torturer’s tools",
+         "pts": 0
+        },
+        {
+         "id": "pw",
+         "label": "Power weapon and torturer’s tool",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "hexrifle",
+       "type": "count",
+       "label": "Hexrifle and torturer’s tool",
+       "slots": [
+        "wk"
+       ],
+       "group": "spec",
+       "max": 2
+      },
+      {
+       "id": "liquifier",
+       "type": "count",
+       "label": "Liquifier gun and torturer’s tool",
+       "slots": [
+        "wk"
+       ],
+       "group": "spec",
+       "max": 2
+      },
+      {
+       "id": "ossefactor",
+       "type": "count",
+       "label": "Ossefactor and torturer’s tool",
+       "slots": [
+        "wk"
+       ],
+       "group": "spec",
+       "max": 2
+      },
+      {
+       "id": "stinger",
+       "type": "count",
+       "label": "Stinger pistol and torturer’s tool",
+       "slots": [
+        "wk"
+       ],
+       "group": "spec",
+       "max": 2
+      }
+     ],
+     "optionRules": [],
+     "slots": [
+      {
+       "id": "wk",
+       "label": "Wrack weapon",
+       "default": "Twin torturer’s tools",
+       "size": {
+        "models": 1,
+        "minus": 1
+       }
+      }
+     ],
+     "optionGroups": [
+      {
+       "id": "spec",
+       "label": "Hexrifle, liquifier gun, ossefactor or stinger pistol",
+       "per": 5,
+       "n": 1
+      }
+     ]
+    },
+    {
+     "id": "incubi",
+     "name": "Incubi",
+     "role": "infantry",
+     "faction": "Drukhari",
+     "keywords": [
+      "Aeldari",
+      "Blades for Hire",
+      "Incubi",
+      "Infantry"
+     ],
+     "image": "drk_incubi",
+     "baseSize": "28.5mm",
+     "profile": {
+      "M": "7\"",
+      "T": "3",
+      "Sv": "3+",
+      "InSv": "5+",
+      "W": "1",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [],
+     "melee": [
+      {
+       "name": "Demiklaives – single blade",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-2",
+       "D": "2",
+       "kw": []
+      },
+      {
+       "name": "Demiklaives – dual blades",
+       "range": "Melee",
+       "A": "6",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-2",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Klaive",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-2",
+       "D": "2",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [],
+     "factionAbilities": [
+      "Power from Pain"
+     ],
+     "abilities": [
+      {
+       "name": "Decapitating Strikes (Pain)",
+       "text": "In the Fight phase, when you select this unit to fight, you can spend 1 Pain token to Empower this unit. While Empowered, each time a model in this unit makes a melee attack that targets an INFANTRY unit, that attack has the [DEVASTATING WOUNDS] ability.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Tormentors",
+       "text": "At the start of the Fight phase, each enemy unit within Engagement Range of one or more units with this ability must take a Battle-shock test. Each time a model in this unit makes a melee attack that targets a Battle-shocked unit, add 1 to the Hit roll.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Incubi Shrine Token",
+       "text": "Once per battle for each Incubi Shrine token this unit has, you can change the result of one Hit roll or one Wound roll made for a Klaivex or INCUBI model in this unit to an unmodified 6. Designer's Note: Place an Incubi Shrine token next to the unit for each Incubi Shrine token it has, removing one each time this ability is used.",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 5,
+       "pts": 90,
+       "ptsLater": 100
+      },
+      {
+       "models": 10,
+       "pts": 180,
+       "ptsLater": 190
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [],
+     "composition": "1 K l a i v e x , 4 - 9 I n c u b i Every model is equipped with: klaive.",
+     "options": [
+      {
+       "id": "klaivex",
+       "type": "choice",
+       "label": "Klaivex: klaive replaced with",
+       "choices": [
+        {
+         "id": "klaive",
+         "label": "Klaive",
+         "pts": 0
+        },
+        {
+         "id": "demi",
+         "label": "Demiklaives",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "shrine",
+       "type": "count",
+       "label": "Incubi Shrine token",
+       "per": 5,
+       "n": 1
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "mandrakes",
+     "name": "Mandrakes",
+     "role": "infantry",
+     "faction": "Drukhari",
+     "keywords": [
+      "Aeldari",
+      "Blades for Hire",
+      "Infantry",
+      "Mandrakes"
+     ],
+     "image": "drk_mandrakes",
+     "baseSize": "28.5mm",
+     "profile": {
+      "M": "8\"",
+      "T": "3",
+      "Sv": "7+",
+      "InSv": "5+",
+      "W": "1",
+      "OC": "1",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Baleblast",
+       "range": "18\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Assault",
+        "Devastating Wounds",
+        "Ignores Cover"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Glimmersteel blade",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Devastating Wounds"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Deep Strike",
+      "Infiltrators",
+      "Stealth"
+     ],
+     "factionAbilities": [
+      "Power from Pain"
+     ],
+     "abilities": [
+      {
+       "name": "Fade Away (Pain)",
+       "text": "At the end of your opponent’s Fight phase, if this unit is not within Engagement Range of one or more enemy units, you can spend 1 Pain token to Empower this unit. Each time you do, remove this unit from the battlefield and place it into Strategic Reserves.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Shade Weavers",
+       "text": "This unit cannot be targeted by ranged attacks unless the attacking model is within 18\".",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 5,
+       "pts": 80,
+       "ptsLater": 90
+      },
+      {
+       "models": 10,
+       "pts": 160,
+       "ptsLater": 170
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [],
+     "composition": "1 N i g h t f i e n d , 4 - 9 M a n d r a k e s Every model is equipped with: baleblast; glimmersteel blade.",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "hand_of_the_archon",
+     "name": "Hand of the Archon",
+     "role": "infantry",
+     "faction": "Drukhari",
+     "keywords": [
+      "Aeldari",
+      "Grenades",
+      "Hand of the Archon",
+      "Infantry",
+      "Kabal"
+     ],
+     "image": "drk_hand_of_the_archon",
+     "baseSize": "25mm",
+     "profile": {
+      "M": "7\"",
+      "T": "3",
+      "Sv": "4+",
+      "InSv": "6+",
+      "W": "1",
+      "OC": "1",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Blast pistol",
+       "range": "6\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-3",
+       "D": "D3",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Blaster",
+       "range": "18\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-4",
+       "D": "D6+1",
+       "kw": [
+        "Assault"
+       ]
+      },
+      {
+       "name": "Dark lance",
+       "range": "36\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "12",
+       "AP": "-3",
+       "D": "D6+2",
+       "kw": [
+        "Heavy"
+       ]
+      },
+      {
+       "name": "Shardcarbine",
+       "range": "18\"",
+       "A": "3",
+       "skill": "3+",
+       "S": "2",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Anti-Infantry 3+",
+        "Assault"
+       ]
+      },
+      {
+       "name": "Shredder",
+       "range": "18\"",
+       "A": "D6",
+       "skill": "N/A",
+       "S": "6",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Assault",
+        "Torrent"
+       ]
+      },
+      {
+       "name": "Splinter cannon",
+       "range": "36\"",
+       "A": "3",
+       "skill": "4+",
+       "S": "3",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Anti-Infantry 3+",
+        "Heavy",
+        "Sustained Hits 1"
+       ]
+      },
+      {
+       "name": "Splinter pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "2",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Anti-Infantry 3+",
+        "Assault",
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Splinter rifle",
+       "range": "24\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "2",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Anti-Infantry 3+",
+        "Assault"
+       ]
+      },
+      {
+       "name": "Stinger pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "2",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Anti-Infantry 2+",
+        "Pistol"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Close combat weapon",
+       "range": "Melee",
+       "A": "2",
+       "skill": "3+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Pain sculptors",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Anti-Infantry 4+",
+        "Twin-Linked"
+       ]
+      },
+      {
+       "name": "Power weapon",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "3",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Anti-Infantry 3+"
+       ]
+      },
+      {
+       "name": "Razorflail",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-2",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Scouts 7\""
+     ],
+     "factionAbilities": [
+      "Power from Pain"
+     ],
+     "abilities": [
+      {
+       "name": "Assassins’ Poisons (Pain)",
+       "text": "In your Shooting phase or the Fight phase, when you select this unit to shoot or fight, you can spend 1 Pain token to Empower this unit. While Empowered, weapons equipped by models in this unit (excluding blast pistols, blasters and dark lances) have the [LETHAL HITS] and [PRECISION] abilities.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Archon’s Will",
+       "text": "At the start of the first battle round, select one objective marker on the battlefield. Until the end of the battle, while this unit is within range of that objective marker, unless this unit is Battle-shocked, models in this unit have a 5+ invulnerable save and an Objective Control characteristic of 3.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Kabalite Icon",
+       "text": "While the bearer’s unit is not Battle-shocked, add 1 to the bearer’s Objective Control characteristic.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Phantasm Grenade Launcher",
+       "text": "The bearer’s unit has the Smoke keyword.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Stimm-needler",
+       "text": "Once per turn, the first time a saving throw is failed for a model in the bearer’s unit, change the Damage characteristic of that attack to 0.",
+       "kind": "wargear"
+      },
+      {
+       "name": "ARCHON’S RETINUE",
+       "text": "If this unit has a Leader unit attached to it during the Declare Battle Formations step, that Leader unit gains the Scouts 7\" ability.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 10,
+       "pts": 115
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 K a b a l i t e A r c h s y b a r i t e , 9 K a b a l i t e A g e n t s Every model is equipped with: splinter rifle; close combat weapon.",
+     "options": [
+      {
+       "id": "arch_ranged",
+       "type": "choice",
+       "label": "Archsybarite: splinter rifle replaced with",
+       "choices": [
+        {
+         "id": "rifle",
+         "label": "Splinter rifle",
+         "pts": 0
+        },
+        {
+         "id": "blast",
+         "label": "Blast pistol",
+         "pts": 0
+        },
+        {
+         "id": "pistol",
+         "label": "Splinter pistol",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "arch_melee",
+       "type": "choice",
+       "label": "Archsybarite: close combat weapon replaced with",
+       "choices": [
+        {
+         "id": "ccw",
+         "label": "Close combat weapon",
+         "pts": 0
+        },
+        {
+         "id": "pw",
+         "label": "Power weapon",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "arch_equip",
+       "type": "choice",
+       "label": "Archsybarite: equipment",
+       "choices": [
+        {
+         "id": "none",
+         "label": "None",
+         "pts": 0
+        },
+        {
+         "id": "icon",
+         "label": "Kabalite icon",
+         "pts": 0
+        },
+        {
+         "id": "pgl",
+         "label": "Phantasm grenade launcher",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "blaster",
+       "type": "count",
+       "label": "Blaster (replaces splinter rifle)",
+       "slots": [
+        "ag"
+       ],
+       "group": "g1",
+       "max": 1
+      },
+      {
+       "id": "shredder",
+       "type": "count",
+       "label": "Shredder (replaces splinter rifle)",
+       "slots": [
+        "ag"
+       ],
+       "group": "g1",
+       "max": 1
+      },
+      {
+       "id": "dark_lance",
+       "type": "count",
+       "label": "Dark lance (replaces splinter rifle)",
+       "slots": [
+        "ag"
+       ],
+       "group": "g2",
+       "max": 1
+      },
+      {
+       "id": "splinter_cannon",
+       "type": "count",
+       "label": "Splinter cannon (replaces splinter rifle)",
+       "slots": [
+        "ag"
+       ],
+       "group": "g2",
+       "max": 1
+      },
+      {
+       "id": "stinger",
+       "type": "count",
+       "label": "Stinger pistol (replaces splinter rifle)",
+       "slots": [
+        "ag"
+       ],
+       "max": 1
+      },
+      {
+       "id": "shardcarbine",
+       "type": "count",
+       "label": "Shardcarbine (replaces splinter rifle)",
+       "slots": [
+        "ag"
+       ],
+       "max": 1
+      },
+      {
+       "id": "pain_sculptors",
+       "type": "count",
+       "label": "Pain sculptors (replaces splinter rifle)",
+       "slots": [
+        "ag"
+       ],
+       "max": 1
+      },
+      {
+       "id": "razorflail",
+       "type": "count",
+       "label": "Splinter pistol and razorflail (replaces splinter rifle)",
+       "slots": [
+        "ag"
+       ],
+       "max": 1
+      },
+      {
+       "id": "stimm",
+       "type": "count",
+       "label": "Stimm-needler (splinter rifle kept)",
+       "max": 1
+      }
+     ],
+     "optionRules": [],
+     "slots": [
+      {
+       "id": "ag",
+       "label": "Kabalite Agent weapon",
+       "default": "Splinter rifle",
+       "size": {
+        "models": 1,
+        "minus": 1
+       },
+       "fixedNote": "All also carry a close combat weapon."
+      }
+     ],
+     "optionGroups": [
+      {
+       "id": "g1",
+       "label": "Blaster or shredder",
+       "per": 10,
+       "n": 1
+      },
+      {
+       "id": "g2",
+       "label": "Dark lance or splinter cannon",
+       "per": 10,
+       "n": 1
+      }
+     ]
+    },
+    {
+     "id": "scourges_with_heavy_weapons",
+     "name": "Scourges with Heavy Weapons",
+     "role": "infantry",
+     "faction": "Drukhari",
+     "keywords": [
+      "Aeldari",
+      "Blades for Hire",
+      "Fly",
+      "Grenades",
+      "Infantry",
+      "Jump Pack",
+      "Scourges",
+      "Scourges with Heavy Weapons"
+     ],
+     "image": "drk_scourges_with_heavy_weapons",
+     "baseSize": "32mm",
+     "profile": {
+      "M": "14\"",
+      "T": "3",
+      "Sv": "4+",
+      "InSv": "5+",
+      "W": "1",
+      "OC": "1",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Blast pistol",
+       "range": "6\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-3",
+       "D": "D3",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Blaster",
+       "range": "18\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-4",
+       "D": "D6+1",
+       "kw": [
+        "Assault"
+       ]
+      },
+      {
+       "name": "Dark lance",
+       "range": "36\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "12",
+       "AP": "-3",
+       "D": "D6+2",
+       "kw": [
+        "Heavy"
+       ]
+      },
+      {
+       "name": "Haywire blaster",
+       "range": "24\"",
+       "A": "2",
+       "skill": "4+",
+       "S": "3",
+       "AP": "-1",
+       "D": "3",
+       "kw": [
+        "Anti-Vehicle 4+",
+        "Devastating Wounds",
+        "Heavy"
+       ]
+      },
+      {
+       "name": "Heat lance",
+       "range": "18\"",
+       "A": "1",
+       "skill": "4+",
+       "S": "14",
+       "AP": "-4",
+       "D": "D6",
+       "kw": [
+        "Assault",
+        "Heavy",
+        "Melta 3"
+       ]
+      },
+      {
+       "name": "Shardcarbine",
+       "range": "18\"",
+       "A": "3",
+       "skill": "3+",
+       "S": "2",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Anti-Infantry 3+",
+        "Assault"
+       ]
+      },
+      {
+       "name": "Shredder",
+       "range": "18\"",
+       "A": "D6",
+       "skill": "N/A",
+       "S": "6",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Assault",
+        "Torrent"
+       ]
+      },
+      {
+       "name": "Splinter cannon",
+       "range": "36\"",
+       "A": "3",
+       "skill": "4+",
+       "S": "3",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Anti-Infantry 3+",
+        "Heavy",
+        "Sustained Hits 1"
+       ]
+      },
+      {
+       "name": "Splinter pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "2",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Anti-Infantry 3+",
+        "Assault",
+        "Pistol"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Close combat weapon",
+       "range": "Melee",
+       "A": "2",
+       "skill": "3+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Power weapon",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "3",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Anti-Infantry 3+"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Deep Strike"
+     ],
+     "factionAbilities": [
+      "Power from Pain"
+     ],
+     "abilities": [
+      {
+       "name": "Winged Strike (Pain)",
+       "text": "In your Shooting phase, when you select this unit to shoot, you can spend 1 Pain token to Empower this unit. While Empowered, each time a model in this unit makes a ranged attack, you can re-roll the Hit roll.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Airborne Evasion",
+       "text": "In your Shooting phase, after this unit has shot, if it is not within Engagement Range of one or more enemy units, it can make a Normal move of up to 6\". If it does, until the end of the turn, this unit is not eligible to declare a charge.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 5,
+       "pts": 110,
+       "ptsLater": 120
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [],
+     "composition": "1 S o l a r i t e , 4 S c o u r g e s The Solarite is equipped with: shardcarbine; close combat weapon. Every Scourge is equipped with: splinter cannon; close combat weapon.",
+     "options": [
+      {
+       "id": "solarite",
+       "type": "choice",
+       "label": "Solarite: shardcarbine replaced with",
+       "choices": [
+        {
+         "id": "shard",
+         "label": "Shardcarbine",
+         "pts": 0
+        },
+        {
+         "id": "blast",
+         "label": "Blast pistol and power weapon",
+         "pts": 0
+        },
+        {
+         "id": "pistol",
+         "label": "Splinter pistol and power weapon",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "blaster",
+       "type": "count",
+       "label": "Blaster (replaces splinter cannon)",
+       "slots": [
+        "sc"
+       ],
+       "max": "slot"
+      },
+      {
+       "id": "dark_lance",
+       "type": "count",
+       "label": "Dark lance (+5 pts each, replaces splinter cannon)",
+       "slots": [
+        "sc"
+       ],
+       "max": "slot",
+       "pts": 5
+      },
+      {
+       "id": "haywire",
+       "type": "count",
+       "label": "Haywire blaster (+5 pts each, replaces splinter cannon)",
+       "slots": [
+        "sc"
+       ],
+       "max": "slot",
+       "pts": 5
+      },
+      {
+       "id": "heat_lance",
+       "type": "count",
+       "label": "Heat lance (replaces splinter cannon)",
+       "slots": [
+        "sc"
+       ],
+       "max": "slot"
+      },
+      {
+       "id": "shredder",
+       "type": "count",
+       "label": "Shredder (replaces splinter cannon)",
+       "slots": [
+        "sc"
+       ],
+       "max": "slot"
+      }
+     ],
+     "optionRules": [],
+     "slots": [
+      {
+       "id": "sc",
+       "label": "Scourge weapon",
+       "default": "Splinter cannon",
+       "size": {
+        "models": 1,
+        "minus": 1
+       },
+       "fixedNote": "All also carry a close combat weapon."
+      }
+     ],
+     "optionGroups": []
+    },
+    {
+     "id": "scourges_with_shardcarbines",
+     "name": "Scourges with Shardcarbines",
+     "role": "infantry",
+     "faction": "Drukhari",
+     "keywords": [
+      "Aeldari",
+      "Blades for Hire",
+      "Fly",
+      "Grenades",
+      "Infantry",
+      "Jump Pack",
+      "Scourges",
+      "Scourges with Shardcarbines"
+     ],
+     "image": "drk_scourges_with_shardcarbines",
+     "baseSize": "32mm",
+     "profile": {
+      "M": "14\"",
+      "T": "3",
+      "Sv": "4+",
+      "InSv": "5+",
+      "W": "1",
+      "OC": "1",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Blast pistol",
+       "range": "6\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-3",
+       "D": "D3",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Blaster",
+       "range": "18\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-4",
+       "D": "D6+1",
+       "kw": [
+        "Assault"
+       ]
+      },
+      {
+       "name": "Shardcarbine",
+       "range": "18\"",
+       "A": "3",
+       "skill": "3+",
+       "S": "2",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Anti-Infantry 3+",
+        "Assault"
+       ]
+      },
+      {
+       "name": "Shredder",
+       "range": "18\"",
+       "A": "D6",
+       "skill": "N/A",
+       "S": "6",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Assault",
+        "Torrent"
+       ]
+      },
+      {
+       "name": "Splinter pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "2",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Anti-Infantry 3+",
+        "Assault",
+        "Pistol"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Close combat weapon",
+       "range": "Melee",
+       "A": "2",
+       "skill": "3+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Power weapon",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "3",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Anti-Infantry 3+"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Deep Strike"
+     ],
+     "factionAbilities": [
+      "Power from Pain"
+     ],
+     "abilities": [
+      {
+       "name": "Swooping Descent (Pain)",
+       "text": "In your Movement phase, you can spend 1 Pain token to Empower this unit. While Empowered, each time a model in this unit is set up on the battlefield using the Deep Strike ability, it can be set up anywhere on the battlefield that is more than 6\" horizontally away from all enemy units. When doing so, if this unit is set up within 8\" of one or more enemy units, until the end of the turn, it is not eligible to declare a charge.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Murderous Crossfire",
+       "text": "After this unit has shot, select one enemy unit hit by one or more of those attacks. Until the end of the phase, each time a friendly DRUKHARI unit makes a ranged attack that targets that enemy unit, improve the Armour Penetration characteristic of that attack by 1. The same enemy unit can only be affected by this ability once per turn.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 5,
+       "pts": 75,
+       "ptsLater": 85
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [],
+     "composition": "1 S o l a r i t e , 4 S c o u r g e s Every model is equipped with: shardcarbine; close combat weapon.",
+     "options": [
+      {
+       "id": "solarite",
+       "type": "choice",
+       "label": "Solarite: shardcarbine replaced with",
+       "choices": [
+        {
+         "id": "shard",
+         "label": "Shardcarbine",
+         "pts": 0
+        },
+        {
+         "id": "blast",
+         "label": "Blast pistol and power weapon",
+         "pts": 0
+        },
+        {
+         "id": "pistol",
+         "label": "Splinter pistol and power weapon",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "blaster",
+       "type": "count",
+       "label": "Blaster (replaces shardcarbine)",
+       "slots": [
+        "sc"
+       ],
+       "group": "spec",
+       "max": 1
+      },
+      {
+       "id": "shredder",
+       "type": "count",
+       "label": "Shredder (replaces shardcarbine)",
+       "slots": [
+        "sc"
+       ],
+       "group": "spec",
+       "max": 1
+      }
+     ],
+     "optionRules": [],
+     "slots": [
+      {
+       "id": "sc",
+       "label": "Scourge weapon",
+       "default": "Shardcarbine",
+       "size": {
+        "models": 1,
+        "minus": 1
+       },
+       "fixedNote": "All also carry a close combat weapon."
+      }
+     ],
+     "optionGroups": [
+      {
+       "id": "spec",
+       "label": "Blaster or shredder",
+       "per": 5,
+       "n": 1
+      }
+     ]
+    },
+    {
+     "id": "reavers",
+     "name": "Reavers",
+     "role": "mounted",
+     "faction": "Drukhari",
+     "keywords": [
+      "Aeldari",
+      "Fly",
+      "Mounted",
+      "Reavers",
+      "Wych Cult"
+     ],
+     "image": "drk_reavers",
+     "baseSize": "32mm flying base",
+     "profile": {
+      "M": "16\"",
+      "T": "4",
+      "Sv": "4+",
+      "InSv": "6+",
+      "W": "2",
+      "OC": "2",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Blaster",
+       "range": "18\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-4",
+       "D": "D6+1",
+       "kw": [
+        "Assault"
+       ]
+      },
+      {
+       "name": "Heat lance",
+       "range": "18\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "14",
+       "AP": "-4",
+       "D": "D6",
+       "kw": [
+        "Assault",
+        "Melta 3"
+       ]
+      },
+      {
+       "name": "Splinter pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "2",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Anti-Infantry 3+",
+        "Assault",
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Splinter rifle",
+       "range": "24\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "2",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Anti-Infantry 3+",
+        "Assault"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Bladevanes",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Lance"
+       ]
+      }
+     ],
+     "coreAbilities": [],
+     "factionAbilities": [
+      "Power from Pain"
+     ],
+     "abilities": [
+      {
+       "name": "Matchless Swiftness (Pain)",
+       "text": "In your Movement phase, when you select this unit to Advance, you can spend 1 Pain token to Empower this unit. While Empowered, each time this unit Advances, do not make an Advance roll. Instead, until the end of the phase, add 8\" to the Move characteristic of models in this unit.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Eviscerating Fly-by",
+       "text": "Each time this unit ends a Normal or Advance move, you can select one enemy unit (excluding MONSTERS and VEHICLES) that it moved over during that move, then roll one D6 for each model in this unit: for each 4+, that enemy unit suffers 1 mortal wound.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Cluster Caltrops",
+       "text": "Each time you roll to inflict wounds using this unit’s Eviscerating Fly-by ability, you can re-roll one D6 for each model in this unit equipped with cluster caltrops.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Grav-talon",
+       "text": "The bearer’s melee weapons have an Armour Penetration characteristic of -2 and the [LETHAL HITS] ability.",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 3,
+       "pts": 75,
+       "ptsLater": 85
+      },
+      {
+       "models": 6,
+       "pts": 150,
+       "ptsLater": 160
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [],
+     "composition": "1 A r e n a C h a m p i o n , 2 - 5 R e a v e r s Every model is equipped with: splinter pistol; splinter rifle; bladevanes.",
+     "options": [
+      {
+       "id": "blaster",
+       "type": "count",
+       "label": "Blaster (replaces splinter rifle)",
+       "slots": [
+        "rv"
+       ],
+       "group": "spec",
+       "max": 2
+      },
+      {
+       "id": "heat_lance",
+       "type": "count",
+       "label": "Heat lance (replaces splinter rifle)",
+       "slots": [
+        "rv"
+       ],
+       "group": "spec",
+       "max": 2
+      },
+      {
+       "id": "caltrops",
+       "type": "count",
+       "label": "Cluster caltrops",
+       "group": "kit",
+       "max": 2
+      },
+      {
+       "id": "grav_talon",
+       "type": "count",
+       "label": "Grav-talon",
+       "group": "kit",
+       "max": 2
+      }
+     ],
+     "optionRules": [],
+     "slots": [
+      {
+       "id": "rv",
+       "label": "Splinter rifle",
+       "default": "Splinter rifle",
+       "size": {
+        "models": 1
+       },
+       "fixedNote": "All also carry a splinter pistol and bladevanes."
+      }
+     ],
+     "optionGroups": [
+      {
+       "id": "spec",
+       "label": "Blaster or heat lance",
+       "per": 3,
+       "n": 1
+      },
+      {
+       "id": "kit",
+       "label": "Cluster caltrops or grav-talon",
+       "per": 3,
+       "n": 1
+      }
+     ]
+    },
+    {
+     "id": "hellions",
+     "name": "Hellions",
+     "role": "mounted",
+     "faction": "Drukhari",
+     "keywords": [
+      "Aeldari",
+      "Fly",
+      "Hellions",
+      "Mounted",
+      "Wych Cult"
+     ],
+     "image": "drk_hellions",
+     "baseSize": "32mm flying base",
+     "profile": {
+      "M": "14\"",
+      "T": "4",
+      "Sv": "4+",
+      "InSv": "6+",
+      "W": "2",
+      "OC": "1",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Splinter pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "2",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Anti-infantry 3+",
+        "Assault",
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Splinter pods",
+       "range": "18\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "2",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Anti-Infantry 3+",
+        "Assault",
+        "Twin Linked"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Hellglaive",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Lance",
+        "Sustained Hits 1"
+       ]
+      },
+      {
+       "name": "Power weapon",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "3",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Anti-Infantry 3+",
+        "Lance",
+        "Sustained Hits 1"
+       ]
+      },
+      {
+       "name": "Stunclaw",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "3",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Devastating Wounds",
+        "Lance",
+        "Precision"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Deep Strike"
+     ],
+     "factionAbilities": [
+      "Power from Pain"
+     ],
+     "abilities": [
+      {
+       "name": "Battlefield Butchery (Pain)",
+       "text": "In the Fight phase, when you select this unit to fight, you can spend 1 Pain token to Empower this unit. While Empowered, add 1 to the Attacks and Strength characteristics of this unit’s melee weapons.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Skyboard Evasion",
+       "text": "In your opponent's Movement phase, if an enemy unit ends a move within 8\" of this unit, if this unit is not within Engagement Range of one or more enemy units, this unit can make a Normal move of up to D6\".",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Phantasm Grenade Launcher",
+       "text": "The bearer’s unit has the Smoke and Grenades keywords.",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 5,
+       "pts": 90,
+       "ptsLater": 100
+      },
+      {
+       "models": 10,
+       "pts": 180,
+       "ptsLater": 190
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [],
+     "composition": "1 H e l l i a r c h , 4 - 9 H e l l i o n s Every model is equipped with: splinter pods; hellglaive.",
+     "options": [
+      {
+       "id": "helliarch",
+       "type": "choice",
+       "label": "Helliarch: hellglaive replaced with",
+       "choices": [
+        {
+         "id": "glaive",
+         "label": "Hellglaive",
+         "pts": 0
+        },
+        {
+         "id": "pw",
+         "label": "Splinter pistol and power weapon",
+         "pts": 0
+        },
+        {
+         "id": "claw",
+         "label": "Splinter pistol and stunclaw",
+         "pts": 0
+        },
+        {
+         "id": "pw_g",
+         "label": "Splinter pistol, power weapon and hellglaive",
+         "pts": 0
+        },
+        {
+         "id": "claw_g",
+         "label": "Splinter pistol, stunclaw and hellglaive",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "pgl",
+       "type": "toggle",
+       "label": "Helliarch: phantasm grenade launcher"
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "talos",
+     "name": "Talos",
+     "role": "monster",
+     "faction": "Drukhari",
+     "keywords": [
+      "Aeldari",
+      "Fly",
+      "Haemonculus Covens",
+      "Monster",
+      "Talos"
+     ],
+     "image": "drk_talos",
+     "baseSize": "60mm flying base",
+     "profile": {
+      "M": "7\"",
+      "T": "7",
+      "Sv": "3+",
+      "InSv": "6+",
+      "W": "7",
+      "OC": "2",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Stinger pod",
+       "range": "24\"",
+       "A": "2D6",
+       "skill": "3+",
+       "S": "5",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Twin haywire blaster",
+       "range": "24\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "3",
+       "AP": "-1",
+       "D": "3",
+       "kw": [
+        "Anti-Vehicle 4+",
+        "Devastating Wounds",
+        "Twin-Linked"
+       ]
+      },
+      {
+       "name": "Twin heat lance",
+       "range": "18\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "14",
+       "AP": "-4",
+       "D": "D6",
+       "kw": [
+        "Assault",
+        "Melta 3",
+        "Twin-Linked"
+       ]
+      },
+      {
+       "name": "Twin liquifier gun",
+       "range": "12\"",
+       "A": "D6",
+       "skill": "N/A",
+       "S": "4",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Anti-Infantry 3+",
+        "Torrent",
+        "Twin-Linked"
+       ]
+      },
+      {
+       "name": "Twin splinter cannon",
+       "range": "36\"",
+       "A": "3",
+       "skill": "3+",
+       "S": "3",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Anti-Infantry 3+",
+        "Sustained hits 1",
+        "Twin-Linked"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Chain-flails",
+       "range": "Melee",
+       "A": "8",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-1",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Macro-scalpel",
+       "range": "Melee",
+       "A": "5",
+       "skill": "3+",
+       "S": "7",
+       "AP": "-2",
+       "D": "2",
+       "kw": []
+      },
+      {
+       "name": "Talos gauntlet",
+       "range": "Melee",
+       "A": "5",
+       "skill": "4+",
+       "S": "9",
+       "AP": "-2",
+       "D": "3",
+       "kw": []
+      },
+      {
+       "name": "Talos ichor injector",
+       "range": "Melee",
+       "A": "1",
+       "skill": "2+",
+       "S": "8",
+       "AP": "-2",
+       "D": "D6",
+       "kw": [
+        "Extra Attacks"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise 1",
+      "Feel No Pain 5+"
+     ],
+     "factionAbilities": [
+      "Power from Pain"
+     ],
+     "abilities": [
+      {
+       "name": "Mindless Killing Machines (Pain)",
+       "text": "At the start of the Fight phase, you can spend 1 Pain token to Empower this unit. While Empowered, each time a model in this unit is destroyed by a melee attack, if that model has not fought this phase, roll one D6. On a 2+, do not remove it from play; that destroyed model can fight after the attacking unit has finished making its attacks, and it is then removed from play.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Devoted to Pain",
+       "text": "If a model in this unit is equipped with 2 macro-scalpels, those weapons have the [TWIN-LINKED] ability.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Torture Device",
+       "text": "Each time this unit destroys an enemy unit, you gain 1 additional Pain token.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 70,
+       "ptsLater": 80
+      },
+      {
+       "models": 2,
+       "pts": 140,
+       "ptsLater": 150
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [],
+     "composition": "1 - 2 T a l o s Every model is equipped with: twin splinter cannon; 2 macro-scalpels.",
+     "options": [
+      {
+       "id": "stinger_pod",
+       "type": "count",
+       "label": "Stinger pod (replaces twin splinter cannon)",
+       "slots": [
+        "tail"
+       ],
+       "max": "slot"
+      },
+      {
+       "id": "twin_haywire",
+       "type": "count",
+       "label": "Twin haywire blaster (+5 pts each, replaces twin splinter cannon)",
+       "slots": [
+        "tail"
+       ],
+       "max": "slot",
+       "pts": 5
+      },
+      {
+       "id": "twin_heat",
+       "type": "count",
+       "label": "Twin heat lance (replaces twin splinter cannon)",
+       "slots": [
+        "tail"
+       ],
+       "max": "slot"
+      },
+      {
+       "id": "ichor",
+       "type": "count",
+       "label": "Talos ichor injector (replaces a macro-scalpel)",
+       "slots": [
+        "arm1"
+       ],
+       "max": "slot"
+      },
+      {
+       "id": "twin_liq",
+       "type": "count",
+       "label": "Twin liquifier gun (replaces a macro-scalpel)",
+       "slots": [
+        "arm1"
+       ],
+       "max": "slot"
+      },
+      {
+       "id": "flails",
+       "type": "count",
+       "label": "Chain-flails (replaces a macro-scalpel)",
+       "slots": [
+        "arm2"
+       ],
+       "max": "slot"
+      },
+      {
+       "id": "gauntlet",
+       "type": "count",
+       "label": "Talos gauntlet (replaces a macro-scalpel)",
+       "slots": [
+        "arm2"
+       ],
+       "max": "slot"
+      }
+     ],
+     "optionRules": [],
+     "slots": [
+      {
+       "id": "tail",
+       "label": "Tail weapon",
+       "default": "Twin splinter cannon",
+       "size": {
+        "models": 1
+       }
+      },
+      {
+       "id": "arm1",
+       "label": "Macro-scalpel (first)",
+       "default": "Macro-scalpel",
+       "size": {
+        "models": 1
+       }
+      },
+      {
+       "id": "arm2",
+       "label": "Macro-scalpel (second)",
+       "default": "Macro-scalpel",
+       "size": {
+        "models": 1
+       }
+      }
+     ],
+     "optionGroups": []
+    },
+    {
+     "id": "cronos",
+     "name": "Cronos",
+     "role": "monster",
+     "faction": "Drukhari",
+     "keywords": [
+      "Aeldari",
+      "Cronos",
+      "Fly",
+      "Haemonculus Covens",
+      "Monster"
+     ],
+     "image": "drk_cronos",
+     "baseSize": "60mm flying base",
+     "profile": {
+      "M": "7\"",
+      "T": "7",
+      "Sv": "3+",
+      "InSv": "6+",
+      "W": "7",
+      "OC": "2",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Spirit syphon",
+       "range": "12\"",
+       "A": "D6",
+       "skill": "N/A",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Ignores Cover",
+        "Torrent"
+       ]
+      },
+      {
+       "name": "Spirit vortex",
+       "range": "18\"",
+       "A": "D6",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Blast",
+        "Ignores Cover"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Spirit-leech tentacles",
+       "range": "Melee",
+       "A": "6",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Anti-Infantry 2+"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise 1",
+      "Feel No Pain 5+"
+     ],
+     "factionAbilities": [
+      "Power from Pain"
+     ],
+     "abilities": [
+      {
+       "name": "Pain Parasite (Pain)",
+       "text": "In your Shooting phase or the Fight phase, when you select this unit to shoot or fight, you can spend 1 Pain token to Empower this unit. While Empowered, each time this unit shoots or fights, after it has resolved its attacks, if one or more enemy models were destroyed as a result of those attacks, one model in this unit regains up to 3 lost wounds (if all models in this unit have their starting number of wounds and this unit is below its Starting Strength, 1 model is returned to this unit with 3 wounds remaining).",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Pain Engine (Aura)",
+       "text": "Each time you spend 1 Pain token to Empower a friendly unit within 9\" of this unit, roll one D6, adding 1 to the result if one or more models in this unit are not equipped with a spirit vortex: on a 5+, you gain 1 Pain token. Designer’s Note: Pain tokens you spend for reasons other than Empowering a unit do not trigger this ability.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 55
+      },
+      {
+       "models": 2,
+       "pts": 100
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 - 2 C r o n o s Every Cronos is equipped with: spirit syphon; spirit-leech tentacles.",
+     "options": [
+      {
+       "id": "vortex",
+       "type": "count",
+       "label": "Spirit vortex",
+       "max": "models"
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "raider",
+     "name": "Raider",
+     "role": "transport",
+     "faction": "Drukhari",
+     "keywords": [
+      "Aeldari",
+      "Dedicated Transport",
+      "Fly",
+      "Frame",
+      "Raider",
+      "Transport",
+      "Vehicle"
+     ],
+     "image": "drk_raider",
+     "baseSize": "60mm flying base",
+     "profile": {
+      "M": "14\"",
+      "T": "8",
+      "Sv": "4+",
+      "InSv": "6+",
+      "W": "10",
+      "OC": "2",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Dark lance",
+       "range": "36\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "12",
+       "AP": "-3",
+       "D": "D6+2",
+       "kw": []
+      },
+      {
+       "name": "Disintegrator cannon",
+       "range": "36\"",
+       "A": "3",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-3",
+       "D": "2",
+       "kw": []
+      }
+     ],
+     "melee": [
+      {
+       "name": "Bladevanes and chainsnares",
+       "range": "Melee",
+       "A": "D3+3",
+       "skill": "4+",
+       "S": "6",
+       "AP": "-1",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D3",
+      "Deep Strike",
+      "Firing Deck 11"
+     ],
+     "factionAbilities": [
+      "Power from Pain"
+     ],
+     "abilities": [
+      {
+       "name": "Splinter Racks (Pain)",
+       "text": "In your Shooting phase, when you select this model to shoot, you can spend 1 Pain token to Empower this model. While Empowered, if one or more units are embarked within this model, each time this model makes an attack with a ranged weapon that has the [ANTI] ability, you can re-roll the Hit roll.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Vanguard of the Dark City",
+       "text": "At the start of your Command phase, select one of the abilities in the Vanguard of the Dark City section for this model. Until the start of your next Command phase, this model has that ability.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Masters of the Shadowed Sky",
+       "text": "At the end of your Command phase, if this model is within range of an objective marker you control, and if one or more KABALITE WARRIORS units are embarked within it, that objective marker remains under your control until your opponent’s Level of Control over that objective marker is greater than yours at the end of a phase.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Speed of the Kill",
+       "text": "Each time a WYCHES unit disembarks from this model (excluding Emergency Disembarkations), models in that WYCHES unit must be set up wholly within 6\" of this model.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Visions of Butchery",
+       "text": "While one or more WRACKS units are embarked within this model, for each WRACKS model embarked within this model, add 1 to the Attacks characteristic of this model’s bladevanes and chainsnares.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Aethersails",
+       "text": "While one or more DRUKHARI units are embarked within this model, you can re-roll Advance and Charge rolls made for this model.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 75,
+       "ptsLater": 85
+      }
+     ],
+     "stepFrom": 4,
+     "leaderOf": [],
+     "composition": "1 R a i d e r This model is equipped with: dark lance; bladevanes and chainsnares.",
+     "options": [
+      {
+       "id": "weapon",
+       "type": "choice",
+       "label": "Dark lance replaced with",
+       "choices": [
+        {
+         "id": "lance",
+         "label": "Dark lance",
+         "pts": 0
+        },
+        {
+         "id": "dc",
+         "label": "Disintegrator cannon",
+         "pts": 0
+        }
+       ]
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "transport": "This model has a transport capacity of 11 Drukhari Infantry models (excluding Jump Pack models).",
+     "roundPick": {
+      "title": "Vanguard of the Dark City",
+      "style": "pain",
+      "who": "the Raider",
+      "note": "Start of your Command phase: this Raider takes one of these abilities until your next Command phase.",
+      "deadNote": "This Raider is destroyed.",
+      "options": [
+       {
+        "id": "shadowed",
+        "name": "Masters of the Shadowed Sky",
+        "effect": "End of your Command phase: if within range of an objective you control and Kabalite Warriors are embarked, that objective stays under your control."
+       },
+       {
+        "id": "speed",
+        "name": "Speed of the Kill",
+        "effect": "A Wyches unit that disembarks (not Emergency) is set up wholly within 6\" of this Raider."
+       },
+       {
+        "id": "visions",
+        "name": "Visions of Butchery",
+        "effect": "With Wracks embarked: +1 Attacks on bladevanes and chainsnares per embarked WRACKS model."
+       },
+       {
+        "id": "aethersails",
+        "name": "Aethersails",
+        "effect": "With Drukhari embarked: re-roll Advance and Charge rolls made for this Raider."
+       }
+      ]
+     }
+    },
+    {
+     "id": "venom",
+     "name": "Venom",
+     "role": "transport",
+     "faction": "Drukhari",
+     "keywords": [
+      "Aeldari",
+      "Dedicated Transport",
+      "Fly",
+      "Frame",
+      "Transport",
+      "Vehicle",
+      "Venom"
+     ],
+     "image": "drk_venom",
+     "baseSize": "60mm flying base",
+     "profile": {
+      "M": "14\"",
+      "T": "6",
+      "Sv": "4+",
+      "InSv": "6+",
+      "W": "6",
+      "OC": "1",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Splinter cannon",
+       "range": "36\"",
+       "A": "3",
+       "skill": "3+",
+       "S": "3",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Anti-Infantry 3+",
+        "Sustained hits 1"
+       ]
+      },
+      {
+       "name": "Twin splinter rifle",
+       "range": "24\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "2",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Anti-Infantry 3+",
+        "Assault",
+        "Rapid Fire 2",
+        "Twin Linked"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Bladevanes",
+       "range": "Melee",
+       "A": "3",
+       "skill": "4+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise 1",
+      "Deep Strike",
+      "Firing Deck 6",
+      "Stealth"
+     ],
+     "factionAbilities": [
+      "Power from Pain"
+     ],
+     "abilities": [
+      {
+       "name": "Rapid Deployment (Pain)",
+       "text": "In your Movement phase, when you select this model to Advance, you can spend 1 Pain token to Empower this model. While Empowered, units can disembark from this model after it has Advanced. Units that do so make a shock disembark move for that disembarkation.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Aerialists",
+       "text": "At the end of the Fight phase, if there are no models currently embarked within this TRANSPORT, you can select one friendly DRUKHARI INFANTRY unit that has 6 or fewer models that is wholly within 6\" of this TRANSPORT (you cannot select a unit that can FLY). Unless that unit is within Engagement Range of one or more enemy units, it can embark within this TRANSPORT. That unit can embark within this TRANSPORT in a turn it disembarked from a TRANSPORT.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 65,
+       "ptsLater": 75
+      }
+     ],
+     "stepFrom": 4,
+     "leaderOf": [],
+     "composition": "1 V e n o m This model is equipped with: splinter cannon; twin splinter rifle; bladevanes.",
+     "options": [
+      {
+       "id": "weapon",
+       "type": "choice",
+       "label": "Twin splinter rifle replaced with",
+       "choices": [
+        {
+         "id": "rifle",
+         "label": "Twin splinter rifle",
+         "pts": 0
+        },
+        {
+         "id": "cannon",
+         "label": "Splinter cannon",
+         "pts": 0
+        }
+       ]
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "transport": "This model has a transport capacity of 6 Drukhari Infantry models (excluding Jump Pack models).\nBefore the battle, at the start of the Declare Battle Formations step, you can select one Kabalite Warriors, Hand of the Archon or Wyches unit from your army that has not already been split. If you do, that unit is split into two units, each containing as equal a number of models as possible (when splitting a unit in this way, make a note of which models form each of the two new units]. One of these units must start the battle embarked within this model; the other can start the battle embarked within another TRANSPORT, or it can be deployed as a separate unit."
+    },
+    {
+     "id": "ravager",
+     "name": "Ravager",
+     "role": "vehicle",
+     "faction": "Drukhari",
+     "keywords": [
+      "Aeldari",
+      "Fly",
+      "Frame",
+      "Kabal",
+      "Ravager",
+      "Vehicle"
+     ],
+     "image": "drk_ravager",
+     "baseSize": "60mm flying base",
+     "profile": {
+      "M": "14\"",
+      "T": "9",
+      "Sv": "4+",
+      "InSv": "6+",
+      "W": "11",
+      "OC": "3",
+      "Ld": "7+"
+     },
+     "damaged": {
+      "threshold": 4,
+      "text": "While this model has 1-4 wounds remaining, each time it makes an attack, subtract 1 from the Hit roll."
+     },
+     "ranged": [
+      {
+       "name": "Dark lance",
+       "range": "36\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "12",
+       "AP": "-3",
+       "D": "D6+2",
+       "kw": []
+      },
+      {
+       "name": "Disintegrator cannon",
+       "range": "36\"",
+       "A": "3",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-3",
+       "D": "2",
+       "kw": []
+      }
+     ],
+     "melee": [
+      {
+       "name": "Bladevanes",
+       "range": "Melee",
+       "A": "3",
+       "skill": "4+",
+       "S": "6",
+       "AP": "-1",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D3",
+      "Deep Strike"
+     ],
+     "factionAbilities": [
+      "Power from Pain"
+     ],
+     "abilities": [
+      {
+       "name": "Agonising Suppression (Pain)",
+       "text": "In your Shooting phase, when you select this model to shoot, you can spend 1 Pain token to Empower this model. While Empowered, after this model has shot, select one enemy unit hit by one or more of those attacks. Until the start of your next turn, that enemy unit is suppressed. While a unit is suppressed, each time a model in that unit makes an attack, subtract 1 from the Hit roll.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Eradicate the Foe",
+       "text": "Each time this model makes an attack that targets an enemy unit that is at its Starting Strength, you can re-roll the Hit roll.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 110
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 R a v a g e r This model is equipped with: 3 dark lances; bladevanes.",
+     "options": [
+      {
+       "id": "weapon1",
+       "type": "choice",
+       "label": "Weapon 1",
+       "choices": [
+        {
+         "id": "dl",
+         "label": "Dark lance (+5 pts)",
+         "pts": 5
+        },
+        {
+         "id": "dc",
+         "label": "Disintegrator cannon",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "weapon2",
+       "type": "choice",
+       "label": "Weapon 2",
+       "choices": [
+        {
+         "id": "dl",
+         "label": "Dark lance (+5 pts)",
+         "pts": 5
+        },
+        {
+         "id": "dc",
+         "label": "Disintegrator cannon",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "weapon3",
+       "type": "choice",
+       "label": "Weapon 3",
+       "choices": [
+        {
+         "id": "dl",
+         "label": "Dark lance (+5 pts)",
+         "pts": 5
+        },
+        {
+         "id": "dc",
+         "label": "Disintegrator cannon",
+         "pts": 0
+        }
+       ]
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "razorwing_jetfighter",
+     "name": "Razorwing Jetfighter",
+     "role": "vehicle",
+     "faction": "Drukhari",
+     "keywords": [
+      "Aeldari",
+      "Aircraft",
+      "Fly",
+      "Razorwing Jetfighter",
+      "Vehicle"
+     ],
+     "image": "drk_razorwing_jetfighter",
+     "baseSize": "120 x 92mm flying base",
+     "profile": {
+      "M": "-",
+      "T": "8",
+      "Sv": "4+",
+      "InSv": "6+",
+      "W": "10",
+      "OC": "-",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Dark Lance",
+       "range": "36\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "12",
+       "AP": "-3",
+       "D": "D6+2",
+       "kw": []
+      },
+      {
+       "name": "Disintegrator cannon",
+       "range": "36\"",
+       "A": "3",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-3",
+       "D": "2",
+       "kw": []
+      },
+      {
+       "name": "Razorwing missiles – monoscythe missiles",
+       "range": "48\"",
+       "A": "D6",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Blast"
+       ]
+      },
+      {
+       "name": "Razorwing missiles – neurotoxin missiles",
+       "range": "48\"",
+       "A": "D6+3",
+       "skill": "3+",
+       "S": "2",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Anti-Infantry 2+",
+        "Blast"
+       ]
+      },
+      {
+       "name": "Razorwing missiles – shatterfield missiles",
+       "range": "48\"",
+       "A": "D6",
+       "skill": "3+",
+       "S": "7",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Blast"
+       ]
+      },
+      {
+       "name": "Splinter cannon",
+       "range": "36\"",
+       "A": "3",
+       "skill": "3+",
+       "S": "3",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Anti-Infantry 3+",
+        "Sustained Hits 1"
+       ]
+      },
+      {
+       "name": "Twin splinter rifle",
+       "range": "24\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "2",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Anti-Infantry 3+",
+        "Assault",
+        "Rapid Fire 2",
+        "Twin Linked"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Bladed wings",
+       "range": "Melee",
+       "A": "3",
+       "skill": "4+",
+       "S": "6",
+       "AP": "-1",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D3",
+      "Stealth"
+     ],
+     "factionAbilities": [
+      "Power from Pain"
+     ],
+     "abilities": [
+      {
+       "name": "Nowhere to Run (Pain)",
+       "text": "In your Shooting phase, when you select this unit to shoot, you can spend 1 Pain token to Empower this unit. While Empowered, after this unit has shot, select one enemy unit (excluding MONSTERS and VEHICLES) hit by one or more of those attacks; until the start of your next turn, that enemy unit is pinned. While a unit is pinned, subtract 2 from that unit’s Move characteristic and subtract 2 from Charge rolls made for that unit.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Ground Attack Craft",
+       "text": "Each time a model in this unit makes a ranged attack that targets an enemy unit (excluding units that can FLY), add 1 to the Hit roll.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 170
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 R a z o r w i n g J e t f i g h t e r This model is equipped with: 2 dark lances; Razorwing missiles; twin splinter rifle; bladed wings.",
+     "options": [
+      {
+       "id": "main",
+       "type": "choice",
+       "label": "Two dark lances replaced with",
+       "choices": [
+        {
+         "id": "dl",
+         "label": "2 dark lances",
+         "pts": 0
+        },
+        {
+         "id": "dc",
+         "label": "2 disintegrator cannons",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "gun",
+       "type": "choice",
+       "label": "Twin splinter rifle replaced with",
+       "choices": [
+        {
+         "id": "twin",
+         "label": "Twin splinter rifle",
+         "pts": 0
+        },
+        {
+         "id": "cannon",
+         "label": "Splinter cannon",
+         "pts": 0
+        }
+       ]
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "voidraven_bomber",
+     "name": "Voidraven Bomber",
+     "role": "vehicle",
+     "faction": "Drukhari",
+     "keywords": [
+      "Aeldari",
+      "Aircraft",
+      "Fly",
+      "Vehicle",
+      "Voidraven Bomber"
+     ],
+     "image": "drk_voidraven_bomber",
+     "baseSize": "120 x 92mm flying base",
+     "profile": {
+      "M": "-",
+      "T": "9",
+      "Sv": "4+",
+      "InSv": "6+",
+      "W": "12",
+      "OC": "-",
+      "Ld": "7+"
+     },
+     "damaged": {
+      "threshold": 4,
+      "text": "While this model has 1-4 wounds remaining, each time this model makes an attack, subtract 1 from the Hit roll."
+     },
+     "ranged": [
+      {
+       "name": "Dark scythe",
+       "range": "24\"",
+       "A": "6",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-4",
+       "D": "2",
+       "kw": []
+      },
+      {
+       "name": "Void lance",
+       "range": "36\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "14",
+       "AP": "-4",
+       "D": "D6+2",
+       "kw": []
+      },
+      {
+       "name": "Voidraven missiles – implosion missiles",
+       "range": "48\"",
+       "A": "D3",
+       "skill": "3+",
+       "S": "9",
+       "AP": "-2",
+       "D": "3",
+       "kw": [
+        "Blast"
+       ]
+      },
+      {
+       "name": "Voidraven missiles – shatterfield missiles",
+       "range": "48\"",
+       "A": "D6",
+       "skill": "3+",
+       "S": "7",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Blast"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Bladed wings",
+       "range": "Melee",
+       "A": "3",
+       "skill": "4+",
+       "S": "6",
+       "AP": "-1",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D3",
+      "Stealth"
+     ],
+     "factionAbilities": [
+      "Power from Pain"
+     ],
+     "abilities": [
+      {
+       "name": "Nowhere to Hide (Pain)",
+       "text": "In your Shooting phase, when you select this unit to shoot, you can spend 1 Pain token to Empower this unit. While Empowered, after this unit has shot, select one enemy unit hit by one or more of those attacks. Until the end of the phase, that enemy unit cannot have the Benefit of Cover.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Void Mine",
+       "text": "At the end of your opponent’s Fight phase, select one visible enemy model (excluding Lone Operative units) within 24\" of this unit, and roll one D6 for each enemy unit within D6\" of that model: For each 4+, that unit suffers D6 mortal wounds.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 245
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 V o i d r a v e n B o m b e r This model is equipped with: 2 void lances; bladed wings.",
+     "options": [
+      {
+       "id": "main",
+       "type": "choice",
+       "label": "Two void lances replaced with",
+       "choices": [
+        {
+         "id": "vl",
+         "label": "2 void lances",
+         "pts": 0
+        },
+        {
+         "id": "ds",
+         "label": "2 dark scythes",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "missiles",
+       "type": "toggle",
+       "label": "Voidraven missiles"
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "death_jester",
+     "name": "Death Jester",
+     "role": "allies",
+     "faction": "Harlequins",
+     "keywords": [
+      "Aeldari",
+      "Character",
+      "Death Jester",
+      "Infantry"
+     ],
+     "image": "drk_death_jester",
+     "baseSize": "25mm",
+     "profile": {
+      "M": "8\"",
+      "T": "3",
+      "Sv": "6+",
+      "InSv": "4+",
+      "W": "4",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Shrieker cannon",
+       "range": "24\"",
+       "A": "3",
+       "skill": "2+",
+       "S": "6",
+       "AP": "-2",
+       "D": "2",
+       "kw": []
+      }
+     ],
+     "melee": [
+      {
+       "name": "Jester’s blade",
+       "range": "Melee",
+       "A": "4",
+       "skill": "2+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Lone Operative"
+     ],
+     "factionAbilities": [
+      "Battle Focus",
+      "Disparate Paths"
+     ],
+     "abilities": [
+      {
+       "name": "Death is Not Enough",
+       "text": "In your Shooting phase, after this model has shot, select one enemy unit (excluding MONSTERS and VEHICLES) hit by one or more of those attacks. That enemy unit must take a Battle-shock test. If one or more of those attacks destroyed a model in that enemy unit, subtract 1 from that test.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Cruel Amusement",
+       "text": "In your Shooting phase, each time this model is selected to shoot, select one of the abilities below. Until the end of the phase, this model’s shrieker cannon has that ability. ■ [IGNORES COVER] ■ [PRECISION] ■ [SUSTAINED HITS 3]",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Flip Belt",
+       "text": "Each time the bearer’s unit makes a Normal, Advance, Fall Back or Charge move, ignore any vertical distance when determining the total distance the bearer can be moved during that move.",
+       "kind": "wargear"
+      },
+      {
+       "name": "TRAVELLING PLAYERS",
+       "text": "Unless otherwise stated, you cannot include more than one of this model in your army.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 65
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 D e a t h J e s t e r This model is equipped with: shrieker cannon; Jester’s blade; flip belt.",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "copyMax": 1
+    },
+    {
+     "id": "shadowseer",
+     "name": "Shadowseer",
+     "role": "allies",
+     "faction": "Harlequins",
+     "keywords": [
+      "Aeldari",
+      "Character",
+      "Grenades",
+      "Infantry",
+      "Psyker",
+      "Shadowseer"
+     ],
+     "image": "drk_shadowseer",
+     "baseSize": "25mm",
+     "profile": {
+      "M": "8\"",
+      "T": "3",
+      "Sv": "6+",
+      "InSv": "4+",
+      "W": "4",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Neuro disruptor",
+       "range": "12\"",
+       "A": "1",
+       "skill": "2+",
+       "S": "4",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Anti-infantry 2+",
+        "Assault",
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Shuriken pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "2+",
+       "S": "4",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Assault",
+        "Pistol"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Miststave",
+       "range": "Melee",
+       "A": "4",
+       "skill": "2+",
+       "S": "5",
+       "AP": "-1",
+       "D": "D3",
+       "kw": [
+        "Psychic"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Leader",
+      "Stealth"
+     ],
+     "factionAbilities": [
+      "Battle Focus",
+      "Disparate Paths"
+     ],
+     "abilities": [
+      {
+       "name": "Fog of Dreams (Psychic)",
+       "text": "While this model is leading a unit, that unit can only be selected as the target of a ranged attack if the attacking model is within 18\".",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Treacherous Illusion (Psychic)",
+       "text": "Melee weapons equipped by enemy models have the [HAZARDOUS] ability while targeting this model’s unit.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Flip Belt",
+       "text": "Each time the bearer’s unit makes a Normal, Advance, Fall Back or Charge move, ignore any vertical distance when determining the total distance the bearer can be moved during that move.",
+       "kind": "wargear"
+      },
+      {
+       "name": "TRAVELLING PLAYERS",
+       "text": "Unless otherwise stated, you cannot include more than one of this model in your army.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 50
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "troupe"
+     ],
+     "composition": "1 S h a d o w s e e r This model is equipped with: shuriken pistol; miststave; flip belt.",
+     "options": [
+      {
+       "id": "pistol",
+       "type": "choice",
+       "label": "Shuriken pistol replaced with",
+       "choices": [
+        {
+         "id": "shuriken",
+         "label": "Shuriken pistol",
+         "pts": 0
+        },
+        {
+         "id": "neuro",
+         "label": "Neuro disruptor",
+         "pts": 0
+        }
+       ]
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "copyMax": 1
+    },
+    {
+     "id": "solitaire",
+     "name": "Solitaire",
+     "role": "allies",
+     "faction": "Harlequins",
+     "keywords": [
+      "Aeldari",
+      "Character",
+      "Epic Hero",
+      "Infantry",
+      "Solitaire"
+     ],
+     "image": "drk_solitaire",
+     "baseSize": "25mm",
+     "profile": {
+      "M": "12\"",
+      "T": "3",
+      "Sv": "6+",
+      "InSv": "4+",
+      "W": "4",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [],
+     "melee": [
+      {
+       "name": "Solitaire weapons",
+       "range": "Melee",
+       "A": "9",
+       "skill": "2+",
+       "S": "6",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Precision"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Fights First",
+      "Lone Operative",
+      "Stealth"
+     ],
+     "factionAbilities": [
+      "Battle Focus",
+      "Disparate Paths"
+     ],
+     "abilities": [
+      {
+       "name": "Blitz",
+       "text": "Once per battle, in your Movement phase, before this model makes a Normal move, it can use this ability. If it does, until the end of the turn, add 2D6\" to this model’s Move characteristic and add 3 to the Attacks characteristic of this model’s Solitaire weapons.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Blur of Movement",
+       "text": "This model is eligible to declare a charge in a turn in which it Advanced.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "PATH OF DAMNATION",
+       "text": "This model cannot be your WARLORD.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Flip Belt",
+       "text": "Each time the bearer’s unit makes a Normal, Advance, Fall Back or Charge move, ignore any vertical distance when determining the total distance the bearer can be moved during that move.",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 105
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 S o l i t a i r e – E P I C H E R O This model is equipped with: Solitaire weapons, flip belt.",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "cannotBeWarlord": true
+    },
+    {
+     "id": "troupe_master",
+     "name": "Troupe Master",
+     "role": "allies",
+     "faction": "Harlequins",
+     "keywords": [
+      "Aeldari",
+      "Character",
+      "Grenades",
+      "Infantry",
+      "Troupe Master"
+     ],
+     "image": "drk_troupe_master",
+     "baseSize": "25mm",
+     "profile": {
+      "M": "8\"",
+      "T": "3",
+      "Sv": "6+",
+      "InSv": "4+",
+      "W": "4",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Neuro disruptor",
+       "range": "12\"",
+       "A": "1",
+       "skill": "2+",
+       "S": "4",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Anti-infantry 2+",
+        "Assault",
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Fusion pistol",
+       "range": "6\"",
+       "A": "1",
+       "skill": "2+",
+       "S": "8",
+       "AP": "-4",
+       "D": "D6",
+       "kw": [
+        "Assault",
+        "Melta 2",
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Shuriken pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "2+",
+       "S": "4",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Assault",
+        "Pistol"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Troupe Master’s blade",
+       "range": "Melee",
+       "A": "5",
+       "skill": "2+",
+       "S": "5",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Devastating Wounds"
+       ]
+      },
+      {
+       "name": "Harlequin’s special weapon",
+       "range": "Melee",
+       "A": "6",
+       "skill": "2+",
+       "S": "4",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Devastating Wounds"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Leader"
+     ],
+     "factionAbilities": [
+      "Battle Focus",
+      "Disparate Paths"
+     ],
+     "abilities": [
+      {
+       "name": "Choreographer of War",
+       "text": "While this model is leading a unit, each time a model in that unit makes a Pile-in or Consolidation move, it can move up to 6\" instead of up to 3\". In addition, it does not need to end that move closer to the closest enemy model, provided it ends it as close as possible to the closest enemy unit.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Cegorach’s Favour",
+       "text": "Each time this model makes a melee attack, you can re-roll a Hit roll of 1 and add 1 to the Wound roll.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "TRAVELLING PLAYERS",
+       "text": "Unless otherwise stated, you cannot include more than one of this model in your army.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Flip Belt",
+       "text": "Each time the bearer’s unit makes a Normal, Advance, Fall Back or Charge move, ignore any vertical distance when determining the total distance the bearer can be moved during that move.",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 75
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "troupe"
+     ],
+     "composition": "1 T r o u p e M a s t e r This model is equipped with: shuriken pistol; Troupe Master’s blade; flip belt.",
+     "options": [
+      {
+       "id": "pistol",
+       "type": "choice",
+       "label": "Shuriken pistol replaced with",
+       "choices": [
+        {
+         "id": "shuriken",
+         "label": "Shuriken pistol",
+         "pts": 0
+        },
+        {
+         "id": "fusion",
+         "label": "Fusion pistol",
+         "pts": 0
+        },
+        {
+         "id": "neuro",
+         "label": "Neuro disruptor",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "blade",
+       "type": "choice",
+       "label": "Troupe Master’s blade replaced with",
+       "choices": [
+        {
+         "id": "blade",
+         "label": "Troupe Master’s blade",
+         "pts": 0
+        },
+        {
+         "id": "special",
+         "label": "Harlequin’s special weapon",
+         "pts": 0
+        }
+       ]
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "copyMax": 1
+    },
+    {
+     "id": "troupe",
+     "name": "Troupe",
+     "role": "allies",
+     "faction": "Harlequins",
+     "keywords": [
+      "Aeldari",
+      "Grenades",
+      "Infantry",
+      "Troupe"
+     ],
+     "image": "drk_troupe",
+     "baseSize": "25mm",
+     "profile": {
+      "M": "8\"",
+      "T": "3",
+      "Sv": "6+",
+      "InSv": "4+",
+      "W": "1",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Neuro disruptor",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Anti-infantry 2+",
+        "Assault",
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Shuriken pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Assault",
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Fusion pistol",
+       "range": "6\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-4",
+       "D": "D6",
+       "kw": [
+        "Assault",
+        "Melta 2",
+        "Pistol"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Harlequin’s special weapon",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Devastating Wounds"
+       ]
+      },
+      {
+       "name": "Harlequin’s blade",
+       "range": "Melee",
+       "A": "5",
+       "skill": "3+",
+       "S": "3",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Devastating Wounds"
+       ]
+      },
+      {
+       "name": "Power sword",
+       "range": "Melee",
+       "A": "5",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Devastating Wounds"
+       ]
+      }
+     ],
+     "coreAbilities": [],
+     "factionAbilities": [
+      "Battle Focus",
+      "Disparate Paths"
+     ],
+     "abilities": [
+      {
+       "name": "Dance of Death",
+       "text": "At the start of the Fight phase, select one of the following abilities for this unit to gain until the end of the phase: ■ Hero’s Prowess: Each time a model in this unit makes an attack, re-roll a Hit roll of 1. ■ Villain’s Doom: Each time a model in this unit makes an attack, add 1 to the Wound roll. ■ Trickster’s Grace: Each time an attack targets this unit, subtract 1 from the Hit roll.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Flip Belt",
+       "text": "Each time the bearer’s unit makes a Normal, Advance, Fall Back or Charge move, ignore any vertical distance when determining the total distance the bearer can be moved during that move.",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 5,
+       "pts": 85
+      },
+      {
+       "models": 6,
+       "pts": 100
+      },
+      {
+       "models": 11,
+       "pts": 190
+      },
+      {
+       "models": 12,
+       "pts": 205
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 L e a d P l a y e r , 4 - 1 1 P l a y e r s Every model is equipped with: shuriken pistol; Harlequin’s blade, flip belt.",
+     "options": [
+      {
+       "id": "lead",
+       "type": "choice",
+       "label": "Lead Player: Harlequin’s blade replaced with",
+       "choices": [
+        {
+         "id": "blade",
+         "label": "Harlequin’s blade",
+         "pts": 0
+        },
+        {
+         "id": "sword",
+         "label": "Power sword",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "special",
+       "type": "count",
+       "label": "Harlequin’s special weapon (replaces Harlequin’s blade)",
+       "slots": [
+        "tb"
+       ],
+       "max": "slot"
+      },
+      {
+       "id": "neuro",
+       "type": "count",
+       "label": "Neuro disruptor (replaces shuriken pistol)",
+       "slots": [
+        "tp"
+       ],
+       "maxBySize": {
+        "5": 2,
+        "6": 2,
+        "11": 4,
+        "12": 4
+       }
+      },
+      {
+       "id": "fusion",
+       "type": "count",
+       "label": "Fusion pistol (replaces shuriken pistol)",
+       "slots": [
+        "tp"
+       ],
+       "maxBySize": {
+        "5": 2,
+        "6": 2,
+        "11": 4,
+        "12": 4
+       }
+      }
+     ],
+     "optionRules": [],
+     "slots": [
+      {
+       "id": "tb",
+       "label": "Player blade",
+       "default": "Harlequin’s blade",
+       "size": {
+        "models": 1,
+        "minus": 1
+       },
+       "fixedNote": "All also carry a shuriken pistol and flip belt."
+      },
+      {
+       "id": "tp",
+       "label": "Shuriken pistol",
+       "default": "Shuriken pistol",
+       "size": {
+        "models": 1
+       }
+      }
+     ],
+     "optionGroups": []
+    },
+    {
+     "id": "skyweavers",
+     "name": "Skyweavers",
+     "role": "allies",
+     "faction": "Harlequins",
+     "keywords": [
+      "Aeldari",
+      "Fly",
+      "Mounted",
+      "Skyweavers",
+      "Smoke"
+     ],
+     "image": "drk_skyweavers",
+     "baseSize": "60mm flying base",
+     "profile": {
+      "M": "14\"",
+      "T": "4",
+      "Sv": "4+",
+      "InSv": "4+",
+      "W": "3",
+      "OC": "2",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Skyweaver haywire cannon",
+       "range": "24\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "3",
+       "AP": "-1",
+       "D": "3",
+       "kw": [
+        "Anti-Vehicle 4+",
+        "Devastating Wounds"
+       ]
+      },
+      {
+       "name": "Shuriken cannon",
+       "range": "24\"",
+       "A": "3",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Lethal Hits"
+       ]
+      },
+      {
+       "name": "Star bolas",
+       "range": "12\"",
+       "A": "D3",
+       "skill": "3+",
+       "S": "7",
+       "AP": "-2",
+       "D": "2",
+       "kw": []
+      }
+     ],
+     "melee": [
+      {
+       "name": "Zephyrglaive",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-2",
+       "D": "2",
+       "kw": []
+      },
+      {
+       "name": "Close combat weapon",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [],
+     "factionAbilities": [
+      "Battle Focus",
+      "Disparate Paths"
+     ],
+     "abilities": [
+      {
+       "name": "Acrobatic Grace",
+       "text": "■ This unit has Stealth. ■ Melee attacks that target this unit have -1 to hit rolls.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 2,
+       "pts": 90
+      },
+      {
+       "models": 4,
+       "pts": 180
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "2 - 4 S k y w e a v e r s Every model is equipped with: shuriken cannon; star bolas; close combat weapon.",
+     "options": [
+      {
+       "id": "haywire",
+       "type": "count",
+       "label": "Skyweaver haywire cannon (replaces shuriken cannon)",
+       "slots": [
+        "sg"
+       ],
+       "max": "slot"
+      },
+      {
+       "id": "zephyr",
+       "type": "count",
+       "label": "Zephyrglaive (replaces star bolas)",
+       "slots": [
+        "sb"
+       ],
+       "max": "slot"
+      }
+     ],
+     "optionRules": [],
+     "slots": [
+      {
+       "id": "sg",
+       "label": "Shuriken cannon",
+       "default": "Shuriken cannon",
+       "size": {
+        "models": 1
+       }
+      },
+      {
+       "id": "sb",
+       "label": "Star bolas",
+       "default": "Star bolas",
+       "size": {
+        "models": 1
+       }
+      }
+     ],
+     "optionGroups": []
+    },
+    {
+     "id": "starweaver",
+     "name": "Starweaver",
+     "role": "allies",
+     "faction": "Harlequins",
+     "keywords": [
+      "Aeldari",
+      "Dedicated Transport",
+      "Fly",
+      "Frame",
+      "Smoke",
+      "Starweaver",
+      "Transport",
+      "Vehicle"
+     ],
+     "image": "drk_starweaver",
+     "baseSize": "60mm flying base",
+     "profile": {
+      "M": "14\"",
+      "T": "6",
+      "Sv": "4+",
+      "InSv": "4+",
+      "W": "6",
+      "OC": "2",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Shuriken cannon",
+       "range": "24\"",
+       "A": "3",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Lethal Hits"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Close combat weapon",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise 1",
+      "Firing Deck 6"
+     ],
+     "factionAbilities": [
+      "Battle Focus",
+      "Disparate Paths"
+     ],
+     "abilities": [
+      {
+       "name": "Rapid Embarkation",
+       "text": "At the end of the Fight phase, if there are no models currently embarked within this TRANSPORT, you can select one friendly HARLEQUINS INFANTRY unit that has 6 or fewer models that is wholly within 6\" of this TRANSPORT. Unless that unit is within Engagement Range of one or more enemy units, it can embark within this TRANSPORT. That unit can embark within this TRANSPORT in a turn it disembarked from this TRANSPORT.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 70,
+       "ptsLater": 80
+      }
+     ],
+     "stepFrom": 4,
+     "leaderOf": [],
+     "composition": "1 S t a r w e a v e r This model is equipped with: 2 shuriken cannons; close combat weapon.",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "transport": "This model has a transport capacity of 6 Harlequins Infantry models."
+    },
+    {
+     "id": "voidweaver",
+     "name": "Voidweaver",
+     "role": "allies",
+     "faction": "Harlequins",
+     "keywords": [
+      "Aeldari",
+      "Fly",
+      "Frame",
+      "Vehicle",
+      "Voidweaver"
+     ],
+     "image": "drk_voidweaver",
+     "baseSize": "60mm flying base",
+     "profile": {
+      "M": "14\"",
+      "T": "6",
+      "Sv": "4+",
+      "InSv": "4+",
+      "W": "6",
+      "OC": "2",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Voidweaver haywire cannon",
+       "range": "24\"",
+       "A": "3",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-1",
+       "D": "3",
+       "kw": [
+        "Anti-vehicle 4+",
+        "Devastating Wounds"
+       ]
+      },
+      {
+       "name": "Prismatic cannon – focused lances",
+       "range": "24\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "12",
+       "AP": "-3",
+       "D": "4",
+       "kw": []
+      },
+      {
+       "name": "Prismatic cannon – dispersed pulse",
+       "range": "24\"",
+       "A": "2D6",
+       "skill": "3+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Blast"
+       ]
+      },
+      {
+       "name": "Shuriken cannon",
+       "range": "24\"",
+       "A": "3",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Lethal Hits"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Close combat weapon",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise 1",
+      "Stealth"
+     ],
+     "factionAbilities": [
+      "Battle Focus",
+      "Disparate Paths"
+     ],
+     "abilities": [
+      {
+       "name": "Polychromatic Camouflage",
+       "text": "This unit can only be selected as the target of a ranged attack if the attacking model is within 18\".",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 115
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 V o i d w e a v e r This model is equipped with: 2 shuriken cannons; Voidweaver haywire cannon; close combat weapon.",
+     "options": [
+      {
+       "id": "main",
+       "type": "choice",
+       "label": "Voidweaver haywire cannon replaced with",
+       "choices": [
+        {
+         "id": "haywire",
+         "label": "Voidweaver haywire cannon",
+         "pts": 0
+        },
+        {
+         "id": "prismatic",
+         "label": "Prismatic cannon",
+         "pts": 0
+        }
+       ]
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "corsair_voidreavers",
+     "name": "Corsair Voidreavers",
+     "role": "allies",
+     "faction": "Anhrathe",
+     "keywords": [
+      "Aeldari",
+      "Asuryani",
+      "Battleline",
+      "Corsair Voidreavers",
+      "Grenades",
+      "Infantry",
+      "Ynnari"
+     ],
+     "image": "drk_corsair_voidreavers",
+     "baseSize": "28.5mm",
+     "profile": {
+      "M": "7\"",
+      "T": "3",
+      "Sv": "4+",
+      "InSv": "—",
+      "W": "1",
+      "OC": "2",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Neuro disruptor",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Anti-Infantry 2+",
+        "Assault",
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Blaster",
+       "range": "18\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-4",
+       "D": "D6+1",
+       "kw": [
+        "Assault"
+       ]
+      },
+      {
+       "name": "Wraithcannon",
+       "range": "18\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "14",
+       "AP": "-4",
+       "D": "D6+1",
+       "kw": []
+      },
+      {
+       "name": "Shredder",
+       "range": "18\"",
+       "A": "D6",
+       "skill": "N/A",
+       "S": "6",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Assault",
+        "Torrent"
+       ]
+      },
+      {
+       "name": "Shuriken pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Assault",
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Shuriken cannon",
+       "range": "24\"",
+       "A": "3",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Lethal Hits"
+       ]
+      },
+      {
+       "name": "Shuriken rifle",
+       "range": "24\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Assault",
+        "Rapid Fire 1"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Power sword",
+       "range": "Melee",
+       "A": "2",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-2",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Close combat weapon",
+       "range": "Melee",
+       "A": "2",
+       "skill": "3+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Scouts 7\""
+     ],
+     "factionAbilities": [
+      "Battle Focus"
+     ],
+     "abilities": [
+      {
+       "name": "Reavers of the Void",
+       "text": "Each time a model in this unit makes an attack, re-roll a Hit roll of 1. If the target of that attack is within range of an objective marker, you can re-roll the Hit roll instead.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Mistshield",
+       "text": "The bearer has a 4+ invulnerable save.",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 5,
+       "pts": 65
+      },
+      {
+       "models": 10,
+       "pts": 110
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 V o i d r e a v e r F e l a r c h , 4 - 9 C o r s a i r V o i d r e a v e r s Every model is equipped with: shuriken pistol; power sword; close combat weapon.",
+     "options": [
+      {
+       "id": "felarch",
+       "type": "choice",
+       "label": "Felarch: shuriken pistol replaced with",
+       "choices": [
+        {
+         "id": "pistol",
+         "label": "Shuriken pistol",
+         "pts": 0
+        },
+        {
+         "id": "neuro",
+         "label": "Neuro disruptor",
+         "pts": 0
+        },
+        {
+         "id": "rifle",
+         "label": "Shuriken rifle",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "mistshield",
+       "type": "toggle",
+       "label": "Felarch: mistshield"
+      },
+      {
+       "id": "rifle",
+       "type": "count",
+       "label": "Shuriken rifle (replaces shuriken pistol and power sword)",
+       "slots": [
+        "vr"
+       ],
+       "max": "slot"
+      },
+      {
+       "id": "blaster",
+       "type": "count",
+       "label": "Blaster (replaces power sword or shuriken rifle)",
+       "slots": [
+        "vr"
+       ],
+       "group": "spec",
+       "max": 2
+      },
+      {
+       "id": "shredder",
+       "type": "count",
+       "label": "Shredder (replaces power sword or shuriken rifle)",
+       "slots": [
+        "vr"
+       ],
+       "group": "spec",
+       "max": 2
+      },
+      {
+       "id": "cannon",
+       "type": "count",
+       "label": "Shuriken cannon (replaces shuriken rifle; 10-model unit)",
+       "slots": [
+        "vr"
+       ],
+       "max": 1,
+       "group": "heavy"
+      },
+      {
+       "id": "wraithcannon",
+       "type": "count",
+       "label": "Wraithcannon (replaces shuriken rifle; 10-model unit)",
+       "slots": [
+        "vr"
+       ],
+       "max": 1,
+       "group": "heavy"
+      }
+     ],
+     "optionRules": [],
+     "slots": [
+      {
+       "id": "vr",
+       "label": "Voidreaver weapon",
+       "default": "Shuriken pistol and power sword",
+       "size": {
+        "models": 1,
+        "minus": 1
+       },
+       "fixedNote": "All also carry a close combat weapon."
+      }
+     ],
+     "optionGroups": [
+      {
+       "id": "spec",
+       "label": "Blaster or shredder",
+       "per": 5,
+       "n": 1
+      },
+      {
+       "id": "heavy",
+       "label": "Shuriken cannon or wraithcannon",
+       "per": 10,
+       "n": 1
+      }
+     ]
+    },
+    {
+     "id": "corsair_voidscarred",
+     "name": "Corsair Voidscarred",
+     "role": "allies",
+     "faction": "Anhrathe",
+     "keywords": [
+      "Aeldari",
+      "Asuryani",
+      "Corsair Voidscarred",
+      "Grenades",
+      "Infantry",
+      "Psyker",
+      "Ynnari"
+     ],
+     "image": "drk_corsair_voidscarred",
+     "baseSize": "28.5mm",
+     "profile": {
+      "M": "7\"",
+      "T": "3",
+      "Sv": "4+",
+      "InSv": "—",
+      "W": "1",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Executioner",
+       "range": "18\"",
+       "A": "3",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-2",
+       "D": "D3",
+       "kw": [
+        "Anti-Infantry 2+",
+        "Psychic"
+       ]
+      },
+      {
+       "name": "Fusion pistol",
+       "range": "6\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-4",
+       "D": "D6",
+       "kw": [
+        "Assault",
+        "Melta 2",
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Neuro disruptor",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Anti-Infantry 2+",
+        "Assault",
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Shredder",
+       "range": "18\"",
+       "A": "D6",
+       "skill": "N/A",
+       "S": "6",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Assault",
+        "Torrent"
+       ]
+      },
+      {
+       "name": "Blaster",
+       "range": "18\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-4",
+       "D": "D6+1",
+       "kw": [
+        "Assault"
+       ]
+      },
+      {
+       "name": "Shuriken pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Assault",
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Shuriken rifle",
+       "range": "24\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Assault",
+        "Rapid Fire 1"
+       ]
+      },
+      {
+       "name": "Shuriken cannon",
+       "range": "24\"",
+       "A": "3",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Lethal Hits"
+       ]
+      },
+      {
+       "name": "Wraithcannon",
+       "range": "18\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "14",
+       "AP": "-4",
+       "D": "D6+1",
+       "kw": []
+      },
+      {
+       "name": "Long rifle",
+       "range": "36\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Heavy",
+        "Precision"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Close combat weapon",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Witch staff",
+       "range": "Melee",
+       "A": "2",
+       "skill": "2+",
+       "S": "3",
+       "AP": "0",
+       "D": "D3",
+       "kw": [
+        "Anti-Infantry 2+",
+        "Psychic"
+       ]
+      },
+      {
+       "name": "Power sword",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-2",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Paired Hekatarii blades",
+       "range": "Melee",
+       "A": "4",
+       "skill": "2+",
+       "S": "3",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Twin-Linked"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Scouts 7\""
+     ],
+     "factionAbilities": [
+      "Battle Focus"
+     ],
+     "abilities": [
+      {
+       "name": "Piratical Raiders",
+       "text": "At the start of the battle, select one unit from your opponent’s army. Weapons equipped by models in this unit have the [LETHAL HITS] and [PRECISION] abilities while targeting that unit.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Channeller Stones",
+       "text": "Once per turn, the first time a saving throw is failed for the bearer’s unit, change the Damage characteristic of that attack to 0.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Faolchú",
+       "text": "Ranged weapons equipped by models in the bearer’s unit have the [IGNORES COVER] ability.",
+       "kind": "wargear"
+      },
+      {
+       "name": "Mistshield",
+       "text": "The bearer has a 4+ invulnerable save.",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 5,
+       "pts": 70
+      },
+      {
+       "models": 10,
+       "pts": 140
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 V o i d s c a r r e d F e l a r c h , 4 - 9 C o r s a i r V o i d s c a r r e d , 0 - 1 S h a d e R u n n e r , 0 - 1 S o u l W e a v e r , 0 - 1 W a y S e e k e r Every Corsair Voidscarred and Voidscarred Felarch is equipped with: shuriken pistol; power sword; close combat weapon. A Shade Runner is equipped with: shuriken pistol; paired Hekatarii blades. A Soul Weaver is equipped with: shuriken pistol; power sword; channeller stones. A Way Seeker is equipped with: shuriken pistol; Executioner; witch staff.",
+     "options": [
+      {
+       "id": "felarch",
+       "type": "choice",
+       "label": "Felarch: shuriken pistol replaced with",
+       "choices": [
+        {
+         "id": "pistol",
+         "label": "Shuriken pistol",
+         "pts": 0
+        },
+        {
+         "id": "neuro",
+         "label": "Neuro disruptor",
+         "pts": 0
+        },
+        {
+         "id": "rifle",
+         "label": "Shuriken rifle",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "mistshield",
+       "type": "toggle",
+       "label": "Felarch: mistshield"
+      },
+      {
+       "id": "shade",
+       "type": "toggle",
+       "label": "Shade Runner (replaces a Voidscarred)",
+       "slots": [
+        "vs"
+       ]
+      },
+      {
+       "id": "soul",
+       "type": "toggle",
+       "label": "Soul Weaver (replaces a Voidscarred)",
+       "slots": [
+        "vs"
+       ]
+      },
+      {
+       "id": "way",
+       "type": "toggle",
+       "label": "Way Seeker (replaces a Voidscarred)",
+       "slots": [
+        "vs"
+       ]
+      },
+      {
+       "id": "rifle",
+       "type": "count",
+       "label": "Shuriken rifle (replaces shuriken pistol and power sword)",
+       "slots": [
+        "vs"
+       ],
+       "max": "slot"
+      },
+      {
+       "id": "blaster",
+       "type": "count",
+       "label": "Blaster (replaces shuriken rifle)",
+       "slots": [
+        "vs"
+       ],
+       "group": "spec",
+       "max": 2
+      },
+      {
+       "id": "shredder",
+       "type": "count",
+       "label": "Shredder (replaces shuriken rifle)",
+       "slots": [
+        "vs"
+       ],
+       "group": "spec",
+       "max": 2
+      },
+      {
+       "id": "cannon",
+       "type": "count",
+       "label": "Shuriken cannon (replaces shuriken rifle; 10-model unit)",
+       "slots": [
+        "vs"
+       ],
+       "max": 1,
+       "group": "heavy"
+      },
+      {
+       "id": "wraithcannon",
+       "type": "count",
+       "label": "Wraithcannon (replaces shuriken rifle; 10-model unit)",
+       "slots": [
+        "vs"
+       ],
+       "max": 1,
+       "group": "heavy"
+      },
+      {
+       "id": "long_rifle",
+       "type": "count",
+       "label": "Long rifle (replaces shuriken rifle; 10-model unit)",
+       "slots": [
+        "vs"
+       ],
+       "per": 10,
+       "n": 1
+      },
+      {
+       "id": "fusion",
+       "type": "count",
+       "label": "Fusion pistol (replaces power sword; 10-model unit)",
+       "slots": [
+        "vs"
+       ],
+       "per": 10,
+       "n": 1
+      },
+      {
+       "id": "faolchu",
+       "type": "count",
+       "label": "Faolchú",
+       "max": 1
+      }
+     ],
+     "optionRules": [],
+     "slots": [
+      {
+       "id": "vs",
+       "label": "Voidscarred weapon",
+       "default": "Shuriken pistol and power sword",
+       "size": {
+        "models": 1,
+        "minus": 1
+       },
+       "fixedNote": "All also carry a close combat weapon."
+      }
+     ],
+     "optionGroups": [
+      {
+       "id": "spec",
+       "label": "Blaster or shredder",
+       "per": 5,
+       "n": 1
+      },
+      {
+       "id": "heavy",
+       "label": "Shuriken cannon or wraithcannon",
+       "per": 10,
+       "n": 1
+      }
+     ]
+    },
+    {
+     "id": "corsair_skyreavers",
+     "name": "Corsair Skyreavers",
+     "role": "allies",
+     "faction": "Anhrathe",
+     "keywords": [
+      "Aeldari",
+      "Asuryani",
+      "Corsair Skyreavers",
+      "Fly",
+      "Grenades",
+      "Infantry",
+      "Jump Pack",
+      "Ynnari"
+     ],
+     "image": "drk_corsair_skyreavers",
+     "baseSize": "28.5mm",
+     "profile": {
+      "M": "12\"",
+      "T": "3",
+      "Sv": "5+",
+      "InSv": "—",
+      "W": "1",
+      "OC": "1",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Shredder",
+       "range": "18\"",
+       "A": "D6",
+       "skill": "N/A",
+       "S": "6",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Assault",
+        "Torrent"
+       ]
+      },
+      {
+       "name": "Neuro disruptor",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Anti-Infantry 2+",
+        "Assault",
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Fusion gun",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-4",
+       "D": "D6",
+       "kw": [
+        "Assault",
+        "Melta 2"
+       ]
+      },
+      {
+       "name": "Flamer",
+       "range": "12\"",
+       "A": "D6",
+       "skill": "N/A",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Assault",
+        "Ignores Cover",
+        "Torrent"
+       ]
+      },
+      {
+       "name": "Blast pistol",
+       "range": "6\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-3",
+       "D": "D3",
+       "kw": [
+        "Assault",
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Shuriken pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Assault",
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Blaster",
+       "range": "18\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-4",
+       "D": "D6+1",
+       "kw": [
+        "Assault"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Close combat weapon",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Corsair blade",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-2",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deep Strike",
+      "Scouts 7\""
+     ],
+     "factionAbilities": [
+      "Battle Focus"
+     ],
+     "abilities": [
+      {
+       "name": "Raid and Run",
+       "text": "At the end of the Fight phase, if this unit was eligible to fight this phase, and is not within Engagement Range of one or more enemy units, it can make a Normal move of up to D3+3\". Otherwise, if this unit was eligible to fight this phase, this unit can make a Fall Back move of up to D3+3\".",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 5,
+       "pts": 75
+      },
+      {
+       "models": 10,
+       "pts": 140
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 S k y r e a v e r F e l a r c h , 4 - 9 S k y r e a v e r s Every model is equipped with: shuriken pistol; Corsair blade.",
+     "options": [
+      {
+       "id": "felarch",
+       "type": "choice",
+       "label": "Felarch: shuriken pistol replaced with",
+       "choices": [
+        {
+         "id": "pistol",
+         "label": "Shuriken pistol",
+         "pts": 0
+        },
+        {
+         "id": "blast",
+         "label": "Blast pistol",
+         "pts": 0
+        },
+        {
+         "id": "neuro",
+         "label": "Neuro disruptor",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "blaster",
+       "type": "count",
+       "label": "Blaster and close combat weapon",
+       "slots": [
+        "sk"
+       ],
+       "group": "spec",
+       "per": 5,
+       "n": 1
+      },
+      {
+       "id": "flamer",
+       "type": "count",
+       "label": "Flamer and close combat weapon",
+       "slots": [
+        "sk"
+       ],
+       "group": "spec",
+       "per": 5,
+       "n": 1
+      },
+      {
+       "id": "fusion",
+       "type": "count",
+       "label": "Fusion gun and close combat weapon",
+       "slots": [
+        "sk"
+       ],
+       "group": "spec",
+       "per": 5,
+       "n": 1
+      },
+      {
+       "id": "shredder",
+       "type": "count",
+       "label": "Shredder and close combat weapon",
+       "slots": [
+        "sk"
+       ],
+       "group": "spec",
+       "per": 5,
+       "n": 1
+      }
+     ],
+     "optionRules": [],
+     "slots": [
+      {
+       "id": "sk",
+       "label": "Skyreaver weapons",
+       "default": "Shuriken pistol and Corsair blade",
+       "size": {
+        "models": 1,
+        "minus": 1
+       }
+      }
+     ],
+     "optionGroups": [
+      {
+       "id": "spec",
+       "label": "Blaster, flamer, fusion gun or shredder",
+       "per": 5,
+       "n": 2
+      }
+     ]
+    },
+    {
+     "id": "kharseth",
+     "name": "Kharseth",
+     "role": "allies",
+     "faction": "Anhrathe",
+     "keywords": [
+      "Aeldari",
+      "Asuryani",
+      "Character",
+      "Epic Hero",
+      "Infantry",
+      "Kharseth",
+      "Psyker"
+     ],
+     "image": "drk_kharseth",
+     "baseSize": "32mm",
+     "profile": {
+      "M": "7\"",
+      "T": "3",
+      "Sv": "6+",
+      "InSv": "4+",
+      "W": "4",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Dread of the Deep Void",
+       "range": "24\"",
+       "A": "D6+2",
+       "skill": "3+",
+       "S": "3",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Anti-Infantry 2+",
+        "Blast",
+        "Hazardous",
+        "Ignores Cover",
+        "Psychic"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Waystave",
+       "range": "Melee",
+       "A": "3",
+       "skill": "2+",
+       "S": "3",
+       "AP": "0",
+       "D": "3",
+       "kw": [
+        "Anti-Infantry 2+",
+        "Psychic"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Leader",
+      "Scouts 7\""
+     ],
+     "factionAbilities": [
+      "Battle Focus"
+     ],
+     "abilities": [
+      {
+       "name": "Aethersense (Psychic)",
+       "text": "Enemy units that are set up on the battlefield from Reserves cannot be set up within 12\" of this model.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Fury of the Void (Psychic)",
+       "text": "In your Shooting phase, after this model’s unit has shot, select one enemy unit hit by one or more attacks made with this model’s Dread of the Deep Void. Until the end of the turn, that unit is riven. Each time an AELDARI model from your army makes an attack that targets a riven unit, add 1 to the Strength characteristic of that attack.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 80
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "corsair_voidreavers",
+      "corsair_voidscarred"
+     ],
+     "composition": "1 K h a r s e t h – E P I C H E R O This model is equipped with: Dread of the Deep Void; Waystave.",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "prince_yriel",
+     "name": "Prince Yriel",
+     "role": "allies",
+     "faction": "Anhrathe",
+     "keywords": [
+      "Aeldari",
+      "Asuryani",
+      "Character",
+      "Epic Hero",
+      "Infantry",
+      "Prince Yriel"
+     ],
+     "image": "drk_prince_yriel",
+     "baseSize": "40mm",
+     "profile": {
+      "M": "7\"",
+      "T": "3",
+      "Sv": "3+",
+      "InSv": "4+",
+      "W": "5",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Eye of Wrath",
+       "range": "6\"",
+       "A": "3",
+       "skill": "2+",
+       "S": "6",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Assault",
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Shuriken pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "2+",
+       "S": "4",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Assault",
+        "Pistol"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Spear of Twilight",
+       "range": "Melee",
+       "A": "5",
+       "skill": "2+",
+       "S": "7",
+       "AP": "-3",
+       "D": "3",
+       "kw": [
+        "Lance"
+       ]
+      }
+     ],
+     "coreAbilities": [
+      "Leader",
+      "Scouts 7\""
+     ],
+     "factionAbilities": [
+      "Battle Focus"
+     ],
+     "abilities": [
+      {
+       "name": "Piratical Hero",
+       "text": "While this model is leading a unit, each time a model in that unit makes an attack, that attack has the [SUSTAINED HITS 1] ability and add 1 to the Hit roll.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Prince of Corsairs",
+       "text": "After both players have deployed their armies, if this unit is on the battlefield (or any Transport it is embarked within is on the battlefield), select up to three AELDARI units from your army and redeploy them. When doing so, you can set those units up in Strategic Reserves, regardless of how many units are already in Strategic Reserves.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 95
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "corsair_voidreavers",
+      "corsair_voidscarred"
+     ],
+     "composition": "1 P r i n c e Y r i e l – E P I C H E R O This model is equipped with: Eye of Wrath; shuriken pistol; Spear of Twilight.",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "starfangs",
+     "name": "Starfangs",
+     "role": "allies",
+     "faction": "Anhrathe",
+     "keywords": [
+      "Aeldari",
+      "Asuryani",
+      "Fly",
+      "Grenades",
+      "Smoke",
+      "Starfangs",
+      "Vehicle",
+      "Ynnari"
+     ],
+     "image": "drk_starfangs",
+     "baseSize": "105 x 70mm",
+     "profile": {
+      "M": "14\"",
+      "T": "6",
+      "Sv": "3+",
+      "InSv": "—",
+      "W": "6",
+      "OC": "2",
+      "Ld": "7+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Starfang grenade launcher",
+       "range": "36\"",
+       "A": "D3",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-3",
+       "D": "2",
+       "kw": [
+        "Assault",
+        "Blast"
+       ]
+      },
+      {
+       "name": "Disintegrator cannon",
+       "range": "36\"",
+       "A": "3",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-3",
+       "D": "2",
+       "kw": [
+        "Assault"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Wraithbone hull",
+       "range": "Melee",
+       "A": "3",
+       "skill": "4+",
+       "S": "6",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise 1",
+      "Scouts 7\""
+     ],
+     "factionAbilities": [
+      "Battle Focus"
+     ],
+     "abilities": [
+      {
+       "name": "Hallucinogen Grenades",
+       "text": "At the start of your opponent’s Shooting phase, this unit can use this ability. If it does, select one AELDARI INFANTRY unit from your army visible to and within 36\" of this unit: until the end of the phase, that unit has the Stealth ability.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 70
+      },
+      {
+       "models": 2,
+       "pts": 140
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 - 2 S t a r f a n g s Every model is equipped with: disintegrator cannon; Starfang grenade launcher; wraithbone hull.",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    }
+   ],
+   "terms": [
+    "Pain tokens?",
+    "Pain abilit(?:y|ies)",
+    "Empowered",
+    "Power from Pain",
+    "Combat Drugs?",
+    "Contract units?",
+    "Contracts?",
+    "(?:winning|losing) the wager",
+    "Vanguard of the Dark City",
+    "Fleshcraft",
+    "Fear Incarnate"
    ]
   }
  }

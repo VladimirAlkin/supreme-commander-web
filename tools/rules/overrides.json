@@ -126,7 +126,38 @@
     "why": "Court of the Phoenician has two detachment rules (Sensational Performance and Master of the Pageant); the app holds one rule per detachment, so both are joined, the second under its inline heading. Wording of each: Wahapedia Detachment_abilities (EC, v1.2) and BSData, which agree; Faction Pack 11e v1.2 prints the detachment."
   },
   {"f": "emperorsChildren", "cat": "army-rule", "name": "Thrill Seekers", "text": ["If your Army Faction is EMPEROR’S CHILDREN, this unit is eligible to shoot and declare a charge in a turn in which it Advanced or Fell Back, but when doing so:", "■ It cannot target a unit it was within Engagement Range of at the start of the turn.", "■ It cannot target a unit that was the target of another unit’s charge or attack this phase."], "why": "Wahapedia 11e drops the apostrophe (\"another units charge\"); BSData 11e and the Court of the Phoenician rule print \"another unit’s charge\". Typography only."},
-  {"f": "emperorsChildren", "cat": "det-rule", "det": "Carnival of Excess", "name": "Daemonic Empowerment", "text": "■ While an EMPEROR’S CHILDREN unit from your army is within 6\" of one or more friendly LEGIONS OF EXCESS units, it is Empowered. ■ While a LEGIONS OF EXCESS unit from your army is within 6\" of one or more friendly EMPEROR’S CHILDREN units, it is Empowered. While a unit from your army is Empowered, weapons equipped by models in that unit have the [Sustained Hits 1] ability. If such a weapon already has that ability, each time an attack is made with that weapon, an unmodified Hit roll of 5+ scores a Critical Hit. LEGIONS OF EXCESS You can include LEGIONS OF EXCESS units in your army, even though they do not have the EMPEROR’S CHILDREN Faction keyword. The combined points cost of such units you can include in your army is: ■ Incursion: Up to 500 pts ■ Strike Force: Up to 1000 pts ■ Onslaught: Up to 1500 pts No LEGIONS OF EXCESS models from your army can be your WARLORD.", "why": "Wahapedia 11e lower-cases the keyword ([sustained hits 1]); BSData 11e and the rest of the rules print [Sustained Hits 1]. Typography only."}
+  {"f": "emperorsChildren", "cat": "det-rule", "det": "Carnival of Excess", "name": "Daemonic Empowerment", "text": "■ While an EMPEROR’S CHILDREN unit from your army is within 6\" of one or more friendly LEGIONS OF EXCESS units, it is Empowered. ■ While a LEGIONS OF EXCESS unit from your army is within 6\" of one or more friendly EMPEROR’S CHILDREN units, it is Empowered. While a unit from your army is Empowered, weapons equipped by models in that unit have the [Sustained Hits 1] ability. If such a weapon already has that ability, each time an attack is made with that weapon, an unmodified Hit roll of 5+ scores a Critical Hit. LEGIONS OF EXCESS You can include LEGIONS OF EXCESS units in your army, even though they do not have the EMPEROR’S CHILDREN Faction keyword. The combined points cost of such units you can include in your army is: ■ Incursion: Up to 500 pts ■ Strike Force: Up to 1000 pts ■ Onslaught: Up to 1500 pts No LEGIONS OF EXCESS models from your army can be your WARLORD.", "why": "Wahapedia 11e lower-cases the keyword ([sustained hits 1]); BSData 11e and the rest of the rules print [Sustained Hits 1]. Typography only."},
+  {
+    "f": "drukhari",
+    "cat": "army-rule",
+    "name": "Power from Pain",
+    "text": [
+      "All DRUKHARI units have a Pain ability, tagged with the word ‘Pain’. Pain abilities only apply to a unit while it is Empowered. If your Army Faction is DRUKHARI, you can Empower units from your army with Pain abilities by spending Pain tokens (see below).",
+      "Designer’s Note: You can also spend Pain tokens to activate additional effects in certain other rules such as Enhancements and Stratagems.",
+      "GAINING PAIN TOKENS: If your Army Faction is DRUKHARI, you gain Pain tokens as follows: ■ 1 Pain token at the start of your Command phase. ■ 1 Pain token each time an enemy unit is destroyed. ■ 1 Pain token each time an enemy unit fails a Battle-shock test. Each time you gain a Pain token, keep it to one side - this is your Pain token pool. Each time you spend a Pain token, reduce your Pain token pool by the same amount.",
+      "EMPOWERED THROUGH PAIN: Each Pain ability will state when you can spend Pain tokens to Empower that unit. When you do, until the end of the phase, that unit is Empowered and all Pain abilities it has take effect. While an Attached unit is Empowered, the Pain abilities of all Leader and Bodyguard units in that unit take effect - you do not need to spend additional Pain tokens to activate each of those Pain abilities."
+    ],
+    "why": "Wahapedia 11e (DRU Power from Pain) opens with an illustration marked [[IMG]]; all rule wording is in the text body below it (Pain abilities, three ways to gain tokens, Empowered Through Pain). Copied that text verbatim without the image marker; the image itself was not viewable from the export."
+  },
+  {
+    "f": "drukhari",
+    "cat": "strat",
+    "det": "Skysplinter Assault",
+    "name": "Pounce on the Prey",
+    "text": {
+      "when": "Your Movement phase, just after a DRUKHARI INFANTRY unit from your army disembarks from a Transport that made a Normal move this phase.",
+      "effect": "Your unit makes an assault disembark move for that disembarkation."
+    },
+    "why": "Wahapedia 11e: \"assault disembark move (Core Rules, 18.06)\"; the pipeline fell back to the 10e codex wording (eligible to declare a charge). Kept the 11e mechanic and dropped the citation, as for Raid Leader (CSM) — owner decision 2026-10-17 to add the stratagem as printed on Wahapedia (may be removed later)."
+  },
+  {
+    "f": "drukhari",
+    "cat": "unit-abil",
+    "unit": "Venom",
+    "name": "Rapid Deployment (Pain)",
+    "text": "In your Movement phase, when you select this model to Advance, you can spend 1 Pain token to Empower this model. While Empowered, units can disembark from this model after it has Advanced. Units that do so make a shock disembark move for that disembarkation.",
+    "why": "Wahapedia 11e: \"shock disembark move (Core Rules, 18.07)\" — a cross-reference the validator rejects; the 10e codex text is the old mechanic. BSData 11e prints \"shock disembark move\" for the same rule on other Transports (Space Marines, Custodes). Kept the 11e mechanic, dropped the citation."
+  }
  ],
  "useBsdata": [
   {
