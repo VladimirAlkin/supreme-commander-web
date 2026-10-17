@@ -2,7 +2,7 @@
 
 Applies to every army in the app: Chaos Space Marines, World Eaters, Death
 Guard, Thousand Sons, Tyranids, Adepta Sororitas (with Imperial Agents),
-Adeptus Mechanicus, Emperor's Children (with Legions of Excess), Drukhari (with Harlequins and Anhrathe allies), Necrons, and
+Adeptus Mechanicus, Emperor's Children (with Legions of Excess), Drukhari (with Harlequins and Anhrathe allies), Necrons, T'au Empire, and
 any army added later.
 
 Current to: the 30 Sep 2026 update (MFM v1.5; Faction Packs World Eaters,
@@ -10,7 +10,8 @@ Death Guard, Thousand Sons v1.3; Tyranids and Adepta Sororitas v1.2 with no
 rules change; Imperial Agents profiles only). Last full rebuild 2026-10-08. Emperor's Children (added 2026-10-14) is
 current to MFM v1.6 and Faction Pack v1.2. Drukhari (added 2026-10-17) is
 current to MFM v1.6 and Faction Pack v1.2. Necrons (added 2026-10-17) is current to MFM v1.6;
-its Faction Pack v1.2 PDF was not read (rules text follows Wahapedia 1.2 and BSData).
+its Faction Pack v1.2 PDF was not read (rules text follows Wahapedia 1.2 and BSData). T'au Empire (added 2026-10-18) is current to MFM v1.6 and
+Faction Pack v1.2 (= Wahapedia version).
 
 ## Order of precedence
 
@@ -148,3 +149,15 @@ Found by `bsdelta.py` across BSData's import (`374f505..HEAD`) plus reviews:
   Cryptothralls, Canoptek Reanimator, Canoptek Scarab Swarms, Lokhust Lord, Canoptek Macrocytes,
   Canoptek Tomb Crawlers and Geomancer: faction logo placeholder. Technomancer uses the Cryptek
   kit photo.
+- T'au Empire (added 2026-10-18, MFM v1.6; Faction Pack v1.2 = Wahapedia version;
+  BSData 14.10.2026; no allies, no Legends, no Boarding Actions): 43 datasheets
+  (incl. the Imperial Armour Tiger Shark, AX-1-0 Tiger Shark, Manta and Ta'unar
+  Supremacy Armour), 7 detachments, 23 enhancements, 31 stratagems. Check against the
+  app: Devilfish (Rapid Deployment; Wahapedia 11e wording kept without the
+  "(Core Rules, 18.07)" citation), the copy limit of the Advanced Acquisition Cadre
+  Upgrades (BSData 1 per unit / 3 per army, the pack names none), the +5 swap price
+  at Crisis Fireknife and Crisis Starscythe, the profiles of Crisis Sunforge and The
+  Twin Lance, the profiles of Gun drone and Missile drone, and the texts of the three
+  Auxiliary Cadre stratagems (not verbatim; Wahapedia has them empty, Guided Fire =
+  Guided by Unity in the old pack). Details: `audit/tau_empire_rules.md`,
+  `audit/tau_empire_units.md`, `data/tau_empire_build.md`.
