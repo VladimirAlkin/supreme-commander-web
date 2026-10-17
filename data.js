@@ -474,7 +474,7 @@ const DATA = {
     "card2": "#16060f",
     "icon1": "#8a1f65",
     "icon2": "#3a0d31",
-    "iconRim": "#c2358f",
+    "iconRim": "#ecd48c",
     "gloss": true
    },
    "emblemSvg": "<svg viewBox=\"0 0 64 64\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\"><circle cx=\"32\" cy=\"32\" r=\"30\" fill=\"#16060f\"/><circle cx=\"32\" cy=\"32\" r=\"27\" fill=\"none\" stroke=\"#c2358f\" stroke-width=\"1.5\"/><path d=\"M40 14c-9-4-19 0-19 8 0 10 22 8 22 19 0 8-11 11-20 6\" fill=\"none\" stroke=\"#e3b45c\" stroke-width=\"4\" stroke-linecap=\"round\"/><path d=\"M24 50c9 4 19 0 19-8 0-10-22-8-22-19 0-8 11-11 20-6\" fill=\"none\" stroke=\"#a8277c\" stroke-width=\"2\" stroke-linecap=\"round\" opacity=\".85\"/><circle cx=\"21\" cy=\"22\" r=\"2.4\" fill=\"#e3b45c\"/><circle cx=\"43\" cy=\"42\" r=\"2.4\" fill=\"#e3b45c\"/></svg>",
@@ -776,7 +776,6 @@ const DATA = {
     "card2": "#041114",
     "icon1": "#0f5a63",
     "icon2": "#06242a",
-    "iconRim": "#178a94",
     "gloss": true
    },
    "emblemSvg": "<svg viewBox=\"0 0 64 64\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\"><circle cx=\"32\" cy=\"32\" r=\"30\" fill=\"#041114\"/><circle cx=\"32\" cy=\"32\" r=\"27\" fill=\"none\" stroke=\"#178a94\" stroke-width=\"1.5\"/><path d=\"M14 49c13-3 27-15 36-35-2 13-10 29-30 41z\" fill=\"#ff4d73\"/><path d=\"M50 49c-13-3-27-15-36-35 2 13 10 29 30 41z\" fill=\"#efe4d2\" opacity=\".9\"/><path d=\"M32 24l5 8-5 8-5-8z\" fill=\"#8a5bd6\" stroke=\"#041114\" stroke-width=\"1.5\"/></svg>",
