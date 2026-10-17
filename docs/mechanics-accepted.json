@@ -149401,6 +149401,24 @@
    "change": "ADDED",
    "value": "\"Necrodermal Bindings?\"",
    "why": "Necrons (new army, added 2026-10-17): highlighted terms / Play highlights / theme: owner decision 2026-10-17"
+  },
+  {
+   "path": ".necrons.units[3].phaseTrigger.fx",
+   "change": "ADDED",
+   "value": "\"holo\"",
+   "why": "Necrons (new army, added 2026-10-17): Play helpers (round pick, once-per-battle, phase triggers, reminders, Power Matrix zones, Hyperphasing limit): rules text of the same abilities in Wahapedia 11e NEC / BSData; owner decisions 2026-10-17 (necrons_decisions.md); effect names (hologram, Silent King sigil) per owner request 2026-10-17"
+  },
+  {
+   "path": ".necrons.units[38].phaseTrigger.fx",
+   "change": "ADDED",
+   "value": "\"holo\"",
+   "why": "Necrons (new army, added 2026-10-17): Play helpers (round pick, once-per-battle, phase triggers, reminders, Power Matrix zones, Hyperphasing limit): rules text of the same abilities in Wahapedia 11e NEC / BSData; owner decisions 2026-10-17 (necrons_decisions.md); effect names (hologram, Silent King sigil) per owner request 2026-10-17"
+  },
+  {
+   "path": ".necrons.units[45].roundPick.fx",
+   "change": "ADDED",
+   "value": "\"king\"",
+   "why": "Necrons (new army, added 2026-10-17): Play helpers (round pick, once-per-battle, phase triggers, reminders, Power Matrix zones, Hyperphasing limit): rules text of the same abilities in Wahapedia 11e NEC / BSData; owner decisions 2026-10-17 (necrons_decisions.md); effect names (hologram, Silent King sigil) per owner request 2026-10-17"
   }
  ]
 }

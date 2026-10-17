@@ -68850,7 +68850,8 @@ const DATA = {
       "when": "Start of your Command phase",
       "text": "Select one other friendly NECRONS INFANTRY CHARACTER model (not SKORPEKH LORD or EPIC HERO): it is destroyed and Trazyn takes its place with all his wounds remaining.",
       "button": "Swap hosts",
-      "done": "Swapped"
+      "done": "Swapped",
+      "fx": "holo"
      }
     },
     {
@@ -72574,7 +72575,8 @@ const DATA = {
       "when": "End of your Movement phase",
       "text": "Select one friendly NECRONS model within 6″ of the bearer: it regains up to D3 lost wounds. Each model can be selected once per turn.",
       "button": "Mend a model",
-      "done": "Mended"
+      "done": "Mended",
+      "fx": "holo"
      }
     },
     {
@@ -73305,7 +73307,8 @@ const DATA = {
         "name": "Relentless March",
         "effect": "Aura 6″ (Szarekh): friendly NECRONS units (not MONSTER) add 2″ to the Move characteristic."
        }
-      ]
+      ],
+      "fx": "king"
      }
     },
     {

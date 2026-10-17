@@ -1600,6 +1600,32 @@
     if (PL.android) setTimeout(() => PL.haptic('confirm'), 220);
   }
 
+  /* Necron hologram: green outlines of geometric figures (triangles, hexagons, diamonds, glyph rings) and thin lines run across the button,
+     flicker and fade; a scan beam sweeps once. transform/opacity only; off under prefers-reduced-motion. */
+  function holoFx(btn) {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches || !btn) return;
+    const R = (a, c) => a + Math.random() * (c - a);
+    const shapes = ['<path d="M20 4 L36 34 L4 34 Z"/>', '<path d="M12 4 L28 4 L38 20 L28 36 L12 36 L2 20 Z"/>', '<path d="M20 2 L38 20 L20 38 L2 20 Z"/>',
+      '<circle cx="20" cy="20" r="15"/><circle cx="20" cy="20" r="6"/><path d="M20 2v8M20 30v8M2 20h8M30 20h8"/>', '<path d="M4 8 L20 20 L4 32 M16 8 L32 20 L16 32"/>', '<path d="M6 6 H34 V34 H6 Z M6 6 L34 34 M34 6 L6 34"/>'];
+    const fx = document.createElement('span'); fx.className = 'holofx'; fx.setAttribute('aria-hidden', 'true');
+    fx.innerHTML = '<i class="hf-scan"></i>'
+      + Array.from({ length: 9 }, (_, i) => `<svg class="hf-sh" viewBox="0 0 40 40" style="top:${R(-8, 62).toFixed(0)}%;--s:${R(22, 44).toFixed(0)}px;--t:${R(.9, 1.5).toFixed(2)}s;--dl:${R(0, .45).toFixed(2)}s;--r:${R(-25, 25).toFixed(0)}deg">${shapes[i % shapes.length]}</svg>`).join('')
+      + Array.from({ length: 6 }, () => `<i class="hf-ln" style="top:${R(6, 94).toFixed(0)}%;--w:${R(24, 60).toFixed(0)}%;--t:${R(.6, 1.1).toFixed(2)}s;--dl:${R(0, .5).toFixed(2)}s"></i>`).join('');
+    fx.style.setProperty('--hw', btn.offsetWidth + 'px');
+    btn.appendChild(fx); setTimeout(() => fx.remove(), 2200);
+    if (PL.android) PL.haptic('confirm');
+  }
+  /* The Silent King speaks: the green sigil of his head fills the screen, the screen floods with gauss light, the eyes flare and outlast the head. */
+  function kingFx(card) {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches || !IMG.nec_king_head) return;
+    const R = (a, c) => a + Math.random() * (c - a);
+    const fx = document.createElement('div'); fx.className = 'kingfx'; fx.setAttribute('aria-hidden', 'true');
+    fx.innerHTML = '<div class="kf-wash"></div><div class="kf-scan"></div>'
+      + `<div class="kf-box"><img class="kf-head" src="${IMG.nec_king_head}" alt="">${IMG.nec_king_eyes ? `<img class="kf-eyes" src="${IMG.nec_king_eyes}" alt="">` : ''}</div>`
+      + Array.from({ length: 16 }, () => `<u style="left:${R(8, 92).toFixed(0)}%;--h:${R(120, 380).toFixed(0)}px;--t:${R(1.6, 2.8).toFixed(2)}s;--dl:${R(.1, 1).toFixed(2)}s;--s:${R(2, 5).toFixed(0)}px"></u>`).join('');
+    document.body.appendChild(fx); setTimeout(() => fx.remove(), 3700);
+    if (PL.android) { PL.haptic('confirm'); setTimeout(() => PL.haptic('confirm'), 700); }
+  }
   /* A roll a unit makes in one of your phases every turn (Mortarion's Host of Plagues). Dice stay at the table:
      the card lights up in that phase and the player marks it done. State p.trig[instanceId][round] = true. */
   function phaseTriggerHTML(r, p, u, def) {
@@ -1895,7 +1921,8 @@
       <div class="chips" role="group" aria-label="Halo Override units">${list.map(u => `<button class="chip" aria-pressed="${sel.includes(u.instanceId)}" data-act="asHalo" data-id="${u.instanceId}">${esc(lbl(u))}</button>`).join('')}</div>`);
   }
   /* A detachment's or army rule's Play reminder: shows in its phase (rm.phase may be a list) until dismissed for the round. */
-  const GAUSS_FX = '<span class="rem-gauss" aria-hidden="true"><i></i><i></i><svg viewBox="0 0 64 64"><ellipse cx="32" cy="20" rx="9" ry="11"/><path d="M32 31v26M20 41h24"/></svg></span>';
+  /* Necrons reminder card: rings pulse out of the roster-icon glyph (the army's own mark) */
+  const gaussFx = () => `<span class="rem-gauss" aria-hidden="true"><i></i><i></i>${IMG.nec_roster ? `<img class="rem-glyph" src="${IMG.nec_roster}" alt="">` : ''}</span>`;
   function remindHTML(r, p, d) {
       const rm = d.reminder, dismissed = ((p.rem || {})[p.round] || {})[d.id];
       const inRange = (!rm.from || p.round >= rm.from) && (!rm.to || p.round <= rm.to), firstNow = !!rm.first && p.round === 1;
@@ -1903,7 +1930,7 @@
       const enhHave = new Set(r.units.flatMap(x => Engine.enhIds(x)));
       const impNow = rm.byImp && ((p.imp || {})[p.round]);
       const rmText = [firstNow ? rm.first : (impNow && rm.byImp[impNow]) || rm.text].concat(Object.keys(rm.extraByEnh || {}).filter(id => enhHave.has(id)).map(id => rm.extraByEnh[id])).filter(Boolean);
-      const fxEl = rm.fx === 'gauss' ? GAUSS_FX : rm.fx === 'warp'
+      const fxEl = rm.fx === 'gauss' ? gaussFx() : rm.fx === 'warp'
         ? `<span class="rem-warp" aria-hidden="true"><i></i><i></i><i></i><svg viewBox="0 0 100 60" class="rem-bolt"><path d="M54 2 L40 26 L52 26 L42 58 L70 22 L56 22 L66 2 Z"/><path d="M30 8 L22 28 L31 28 L24 52 L44 24 L34 24 L41 8 Z"/></svg></span>`
         : rm.fx === 'slash'
         ? `<span class="rem-slash" aria-hidden="true"><i class="rs-line"></i><i class="rs-spark"></i><i class="rs-spark"></i><i class="rs-spark"></i><i class="rs-spark"></i><i class="rs-spark"></i><i class="rs-spark"></i></span>`
@@ -3231,14 +3258,17 @@
       if (el.getAttribute('aria-disabled') === 'true') { toast('Dead. Bring the model back first.'); PL.haptic('reject'); return; }
       const r = cur(), iid = el.dataset.u, on = !((playState(r).trig || {})[iid] || {})[playState(r).round];
       playChange(r, p => { p.trig = p.trig || {}; const m = p.trig[iid] = p.trig[iid] || {}; if (m[p.round]) delete m[p.round]; else m[p.round] = true; }, on ? null : 'Marked as not done.', 'confirm');
-      if (on) rotFx(document.querySelector(`.hop[data-u="${iid}"]`));
+      if (on) {
+        const hb = document.querySelector(`.hop[data-u="${iid}"]`), tx = (unitDef(r.factionId, (inst(iid) || {}).datasheetId) || {}).phaseTrigger || {};
+        if (tx.fx === 'holo') holoFx(hb); else rotFx(hb);
+      }
     },
     rpPick: el => {
       if (el.getAttribute('aria-disabled') === 'true') { toast('Dead. Bring the model back first.'); PL.haptic('reject'); return; }
       const r = cur(), iid = el.dataset.u, id = el.dataset.id, u = inst(iid), def = unitDef(r.factionId, u.datasheetId);
       const on = rpCur(playState(r), u, def.roundPick) !== id || !!def.roundPick.persist && !((playState(r).rpick || {})[iid] || {})[playState(r).round];
       playChange(r, p => { p.rpick = p.rpick || {}; const m = p.rpick[iid] = p.rpick[iid] || {}; if (m[p.round] === id) delete m[p.round]; else m[p.round] = id; }, null, 'confirm');
-      if (on) { const c = document.querySelector(`.rpk[data-u="${iid}"][data-id="${id}"]`); if (def.roundPick.style === 'wrath') wrathFx(c); else if (def.roundPick.style === 'slaanesh') slaaneshFx(c); else { const ox = def.roundPick.options.find(o => o.id === id) || {}, fk = ox.fx || def.roundPick.fx; if (fk && fk.startsWith('canticle')) canticleFx(c, fk.split('-')[1]); else if (fk) mechFx(c, fk); else eyeFx(c); } }
+      if (on) { const c = document.querySelector(`.rpk[data-u="${iid}"][data-id="${id}"]`); if (def.roundPick.style === 'wrath') wrathFx(c); else if (def.roundPick.style === 'slaanesh') slaaneshFx(c); else { const ox = def.roundPick.options.find(o => o.id === id) || {}, fk = ox.fx || def.roundPick.fx; if (fk === 'king') kingFx(c); else if (fk && fk.startsWith('canticle')) canticleFx(c, fk.split('-')[1]); else if (fk) mechFx(c, fk); else eyeFx(c); } }
     },
     asGain: el => { const r = cur(), v = +el.dataset.v; playChange(r, p => { p.miracle = (p.miracle || []).concat(v); S.mNew = p.miracle.length - 1; }, `Miracle dice ${v} added.`, 'confirm'); holyFx(document.querySelector('.mdie.new'), 'die'); setTimeout(() => { S.mNew = null; }, 50); },
     asSpend: el => {
