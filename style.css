@@ -1481,10 +1481,11 @@ html:not(.m) .seg.wide { max-width: 560px; }
 .pain-st[data-lv="4"] { background: linear-gradient(180deg, rgba(255, 77, 115, .16), rgba(255, 77, 115, .05)); }
 @keyframes painBreath { 0%, 100% { opacity: var(--lo, .1); } 50% { opacity: var(--hi, .4); } }
 .pain-marks { position: absolute; inset: 0; z-index: 1; overflow: hidden; border-radius: inherit; pointer-events: none; }
-.welt { position: absolute; display: block; transform: rotate(var(--r, 0deg)); transform-origin: 50% 50%; filter: drop-shadow(0 0 3px rgba(255, 40, 80, .45)); }
+.welt { position: absolute; display: block; transform: rotate(var(--r, 0deg)); transform-origin: 50% 50%; opacity: .85; filter: drop-shadow(0 0 2px rgba(255, 40, 80, .35)); }
+.welt.edge { --op: .5; opacity: .5; }
 .welt svg { display: block; width: 100%; height: auto; overflow: visible; }
 .welt.fresh { animation: weltIn .5s cubic-bezier(.2, .8, .3, 1) var(--dl, .4s) both; }
-@keyframes weltIn { 0% { opacity: 0; transform: rotate(var(--r, 0deg)) scale(.15, .6); } 35% { opacity: 1; } 100% { opacity: 1; transform: rotate(var(--r, 0deg)) scale(1, 1); } }
+@keyframes weltIn { 0% { opacity: 0; transform: rotate(var(--r, 0deg)) scale(.15, .6); } 35% { opacity: 1; } 100% { opacity: var(--op, .85); transform: rotate(var(--r, 0deg)) scale(1, 1); } }
 .pain-st.hit { animation: painRecoil .4s cubic-bezier(.2, .9, .3, 1); }
 @keyframes painRecoil { 0% { transform: translate(0, 0) rotate(0); } 14% { transform: translate(5px, 1px) rotate(1.3deg); } 36% { transform: translate(-2px, -1px) rotate(-.6deg); } 100% { transform: translate(0, 0) rotate(0); } }
 .pain-cv { position: absolute; z-index: 5; pointer-events: none; }

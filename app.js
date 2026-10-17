@@ -1683,14 +1683,21 @@
      leaves one scratch on its top/bottom edge (never over the number); taking a token away removes a scratch. */
   /* welt i on the plate: placement (% of the plate), length, tilt and bend are fixed per index, so a re-render never moves a mark */
   const pnRand = s => { let t = (s + 0x6D2B79F5) | 0; t = Math.imul(t ^ t >>> 15, t | 1); t ^= t + Math.imul(t ^ t >>> 7, t | 61); return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+  /* plate zones in % of its width: [−] button, centre (number), [+] button. A welt may creep onto a button but its centre stays off it (mostly). */
+  const PN_BTN = [[2, 24], [76, 98]], pnOnBtn = x => PN_BTN.some(([a, b]) => x > a && x < b);
   function weltSpec(i) {
-    const R = k => pnRand(i * 977 + k * 131 + 7), sg = R(1) < .5 ? -1 : 1;
-    return { x: 4 + R(2) * 54, y: 6 + R(3) * 58, w: 30 + R(4) * 18, rot: sg * (12 + R(5) * 32), bend: (R(6) - .5) * 6, th: 2.2 + R(7) * 1.6, drop: R(8) > .45 };
+    let sp;
+    for (let k = 0; k < 6; k++) {
+      const R = j => pnRand(i * 977 + k * 61 + j * 131 + 7), sg = R(1) < .5 ? -1 : 1, w = 17 + R(4) * 11, cx = 6 + R(2) * 88;
+      sp = { x: cx - w / 2, cx, y: 8 + R(3) * 56, w, rot: sg * (12 + R(5) * 30), bend: (R(6) - .5) * 5, th: 1.5 + R(7) * 1.1, drop: R(8) > .5, edge: PN_BTN.some(([a, b]) => cx + w / 2 > a && cx - w / 2 < b) };
+      if (!pnOnBtn(cx) || R(9) < .12) break;
+    }
+    return sp;
   }
   function weltHTML(i) {
     const s = weltSpec(i), t = s.th, b = s.bend, lens = (k) => `M${1 + (1 - k) * 29} 7Q30 ${7 - 2 * t * k - b} ${59 - (1 - k) * 29} 7Q30 ${7 + 2 * t * k - b} ${1 + (1 - k) * 29} 7Z`;
     const drop = s.drop ? `<path d="M${44 + (i % 3) * 3} ${7 + t - b * .4}c.4 2 .2 3.6 1.1 5" stroke="#d3103f" stroke-width=".7" fill="none" opacity=".8"/><circle cx="${45.4 + (i % 3) * 3}" cy="${7 + t - b * .4 + 6.2}" r="1" fill="#d3103f"/>` : '';
-    return `<i class="welt" style="left:${s.x.toFixed(1)}%;top:${s.y.toFixed(1)}%;width:${s.w.toFixed(1)}%;--r:${s.rot.toFixed(1)}deg"><svg viewBox="0 0 60 14"><g filter="url(#pnRough)"><path d="${lens(1.35)}" fill="rgba(255,77,115,.22)"/><path d="${lens(1)}" fill="#3a0818" stroke="rgba(255,77,115,.8)" stroke-width=".6"/><path d="${lens(.55)}" fill="#c0184a" opacity=".85"/><path d="M8 ${7 - b * .45}H52" stroke="#ffc9d5" stroke-width=".55" stroke-dasharray="7 2.2 11 3 5 2" opacity=".75"/>${drop}</g></svg></i>`;
+    return `<i class="welt${s.edge ? ' edge' : ''}" style="left:${s.x.toFixed(1)}%;top:${s.y.toFixed(1)}%;width:${s.w.toFixed(1)}%;--r:${s.rot.toFixed(1)}deg"><svg viewBox="0 0 60 14"><g filter="url(#pnRough)"><path d="${lens(1.35)}" fill="rgba(255,77,115,.14)"/><path d="${lens(1)}" fill="rgba(58,8,24,.6)" stroke="rgba(255,77,115,.6)" stroke-width=".5"/><path d="${lens(.55)}" fill="#c0184a" opacity=".55"/><path d="M8 ${7 - b * .45}H52" stroke="#ffc9d5" stroke-width=".5" stroke-dasharray="7 2.2 11 3 5 2" opacity=".7"/>${drop}</g></svg></i>`;
   }
   function tokenPoolHTML(r, p, a, dets) {
     const c = a.counter, n = p[c.key] || 0, lv = n <= 0 ? 0 : n < 5 ? 1 : n < 10 ? 2 : n < 15 ? 3 : 4, pl = Math.min(n, 15) / 15;
@@ -1739,7 +1746,7 @@
   function lashFx() {
     const st = document.querySelector('.pain-st'); if (!st || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const out = st.querySelector('output'), n = Math.max(1, +(out && out.textContent) || 1), W = st.offsetWidth, H = st.offsetHeight, sp = weltSpec(Math.min(n, 12) - 1);
-    const T = [(sp.x + sp.w / 2) / 100 * W, sp.y / 100 * H + sp.w / 100 * W * 14 / 60 / 2];
+    const T = [sp.cx / 100 * W, sp.y / 100 * H + sp.w / 100 * W * 14 / 60 / 2];
     const marks = st.querySelectorAll('.welt'), last = marks[marks.length - 1];
     if (n <= 12 && last) { last.style.setProperty('--dl', (PN.D * .5 / 1000).toFixed(2) + 's'); last.classList.add('fresh'); }
     const cv = document.createElement('canvas'), dpr = Math.min(window.devicePixelRatio || 1, 2), cw = W + PN.padL + PN.padR, ch = H + PN.padT + PN.padB;
