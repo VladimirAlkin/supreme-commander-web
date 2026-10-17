@@ -1714,16 +1714,18 @@
   }
   /* The lash: a 24-point chain drawn on one short-lived canvas. A loop runs down it from the handle (the crack), the tip lands where the
      new welt will appear, a flash and sparks mark the hit, then it snaps back. Plate coordinates; the canvas reaches past the plate. */
-  const PN = { D: 860, N: 30, padL: 60, padR: 80, padT: 160, padB: 40 };
+  const PN = { D: 820, N: 30, padL: 60, padR: 90, padT: 210, padB: 40 };
   function drawWhip(g, u, W, H, T, seed) {
     const lerp = (a, b, k) => a + (b - a) * k, eo = x => 1 - Math.pow(1 - x, 3), ei = x => x * x, cl = x => Math.max(0, Math.min(1, x));
-    const H0 = [W + 34, -60], Hw = [W + 60, -108], Hs = [W + 2, -30];
-    let hp, tp, amp, wv, w1 = 0, w2 = 0, alpha = 1, lw = .17;
-    if (u < .27) { const k = eo(u / .27); hp = [lerp(H0[0], Hw[0], k), lerp(H0[1], Hw[1], k)]; tp = [hp[0] - 36 + 86 * k, hp[1] + 130 - 40 * k]; amp = 0; wv = 0; w1 = 70 * k; w2 = -26 * k; }
-    else if (u < .5) { const k = (u - .27) / .23, e = ei(k), m = eo(k); hp = [lerp(Hw[0], Hs[0], m), lerp(Hw[1], Hs[1], m)]; const t0 = [Hw[0] + 50, Hw[1] + 90]; tp = [lerp(t0[0], T[0], e), lerp(t0[1], T[1], e)]; amp = 56 * (1 - .5 * e); wv = .08 + .92 * e; w1 = 70 * (1 - e) * (1 - e); w2 = -26 * (1 - e); lw = .2 - .06 * e; }
-    else { const k = cl((u - .5) / .5), kk = cl((k - .16) / .62); hp = [lerp(Hs[0], H0[0], eo(k)), lerp(Hs[1], H0[1], eo(k))]; const back = [T[0] + 70, T[1] - 80]; tp = [lerp(T[0], back[0], eo(kk)), lerp(T[1], back[1], eo(kk))]; amp = 0; wv = 1; w1 = 26 * Math.sin(k * 20) * (1 - k); w2 = 0; alpha = 1 - cl((k - .45) / .55); }
-    const P = [], dx = tp[0] - hp[0], dy = tp[1] - hp[1], L = Math.hypot(dx, dy) || 1, nx = -dy / L, ny = dx / L;
-    for (let i = 0; i <= PN.N; i++) { const s = i / PN.N, o = amp * Math.exp(-Math.pow((s - wv) / lw, 2)) + w1 * Math.sin(Math.PI * s) + w2 * Math.sin(2 * Math.PI * s); P.push([hp[0] + dx * s + nx * o, hp[1] + dy * s + ny * o]); }
+    /* the lash comes from above: it is thrown back over the shoulder, then the tip is brought down along an arc onto the target; no wobble after the hit */
+    const H0 = [W + 34, -60], Hs = [Math.min(W + 4, T[0] + 62), -42], Hw = [Hs[0] + 56, -124], C = [Hs[0] + 30, -190], t0 = [Hw[0] + 46, Hw[1] - 40], back = [T[0] + 50, T[1] - 124];
+    const qd = (a, c, b, k) => [(1 - k) * (1 - k) * a[0] + 2 * (1 - k) * k * c[0] + k * k * b[0], (1 - k) * (1 - k) * a[1] + 2 * (1 - k) * k * c[1] + k * k * b[1]];
+    let hp, tp, amp = 0, wv = 0, bulge = 0, alpha = 1, lw = .17;
+    if (u < .28) { const k = eo(u / .28); hp = [lerp(H0[0], Hw[0], k), lerp(H0[1], Hw[1], k)]; tp = [lerp(hp[0] + 20, t0[0], k), lerp(hp[1] - 16, t0[1], k)]; bulge = 78 * k; }
+    else if (u < .5) { const k = (u - .28) / .22, e = ei(k), m = eo(k); hp = [lerp(Hw[0], Hs[0], m), lerp(Hw[1], Hs[1], m)]; tp = qd(t0, C, T, e); amp = 50 * (1 - .4 * e); wv = .08 + .92 * e; bulge = 78 * (1 - e) * (1 - e); lw = .2 - .06 * e; }
+    else { const kh = cl((u - .5) / .3), kk = cl((u - .5) / .22); hp = [lerp(Hs[0], H0[0], eo(kh)), lerp(Hs[1], H0[1], eo(kh))]; tp = [lerp(T[0], back[0], eo(kk)), lerp(T[1], back[1], eo(kk))]; wv = 1; bulge = 34 * Math.sin(Math.PI * kk); alpha = 1 - cl((u - .56) / .2); }
+    const P = [], dx = tp[0] - hp[0], dy = tp[1] - hp[1], L = Math.hypot(dx, dy) || 1, nx = -dy / L, ny = dx / L, up = ny > 0 ? -1 : 1;
+    for (let i = 0; i <= PN.N; i++) { const s = i / PN.N, o = up * (amp * Math.exp(-Math.pow((s - wv) / lw, 2)) + bulge * Math.sin(Math.PI * s)); P.push([hp[0] + dx * s + nx * o, hp[1] + dy * s + ny * o]); }
     g.save(); g.globalAlpha = alpha; g.lineCap = 'round'; g.lineJoin = 'round';
     const seg = (a, b, w, col) => { g.strokeStyle = col; g.lineWidth = w; g.beginPath(); g.moveTo(a[0], a[1]); g.lineTo(b[0], b[1]); g.stroke(); };
     const wd = i => 6.6 * Math.pow(1 - i / PN.N, 1.15) + 1.3;
