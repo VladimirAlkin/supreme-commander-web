@@ -157,7 +157,8 @@
     "name": "Rapid Deployment (Pain)",
     "text": "In your Movement phase, when you select this model to Advance, you can spend 1 Pain token to Empower this model. While Empowered, units can disembark from this model after it has Advanced. Units that do so make a shock disembark move for that disembarkation.",
     "why": "Wahapedia 11e: \"shock disembark move (Core Rules, 18.07)\" — a cross-reference the validator rejects; the 10e codex text is the old mechanic. BSData 11e prints \"shock disembark move\" for the same rule on other Transports (Space Marines, Custodes). Kept the 11e mechanic, dropped the citation."
-  }
+  },
+  {"f": "necrons", "cat": "enh", "det": "The Phaeron’s Armoury", "name": "Prelocational Optimiser", "text": "NECRONS model only. When this unit is selected to shoot, if this unit was set up using a Monolith’s Eternity Gate ability this turn, this unit’s ranged attacks have: ■ [LETHAL HITS]. ■ Or: [SUSTAINED HITS 1].", "why": "MFM v1.6 names it Prelocational Optimiser; Wahapedia (NEC, v1.2) names it Relocational Optimiser and carries the restriction line 'NECRONS model only.', which BSData drops. Wording of the rule: Wahapedia and BSData agree; name from MFM, restriction line from Wahapedia."}
  ],
  "useBsdata": [
   {

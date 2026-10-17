@@ -2,14 +2,15 @@
 
 Applies to every army in the app: Chaos Space Marines, World Eaters, Death
 Guard, Thousand Sons, Tyranids, Adepta Sororitas (with Imperial Agents),
-Adeptus Mechanicus, Emperor's Children (with Legions of Excess), Drukhari (with Harlequins and Anhrathe allies), and
+Adeptus Mechanicus, Emperor's Children (with Legions of Excess), Drukhari (with Harlequins and Anhrathe allies), Necrons, and
 any army added later.
 
 Current to: the 30 Sep 2026 update (MFM v1.5; Faction Packs World Eaters,
 Death Guard, Thousand Sons v1.3; Tyranids and Adepta Sororitas v1.2 with no
 rules change; Imperial Agents profiles only). Last full rebuild 2026-10-08. Emperor's Children (added 2026-10-14) is
 current to MFM v1.6 and Faction Pack v1.2. Drukhari (added 2026-10-17) is
-current to MFM v1.6 and Faction Pack v1.2.
+current to MFM v1.6 and Faction Pack v1.2. Necrons (added 2026-10-17) is current to MFM v1.6;
+its Faction Pack v1.2 PDF was not read (rules text follows Wahapedia 1.2 and BSData).
 
 ## Order of precedence
 
@@ -135,3 +136,15 @@ Found by `bsdelta.py` across BSData's import (`374f505..HEAD`) plus reviews:
   Pounce on the Prey kept at the owner's request. No product photo on
   warhammer.com for Hand of the Archon, Scourges with Heavy Weapons (shares the
   Scourges box), Corsair Voidscarred and Troupe Master: faction logo placeholder.
+- Necrons (added 2026-10-17, MFM v1.6): 52 datasheets (no Legends), 12 detachments, 63 stratagems,
+  42 enhancements; Pantheon of Woe's Necrodermal Bindings are applied automatically with their
+  surcharge (owner decision). Check against the app: Canoptek Reanimator Leadership (Wahapedia 7+,
+  BSData 8+, not applied), TRIARCH keyword on Triarch Praetorians (Wahapedia only, not applied),
+  Seraptek FRAME (BSData only, not applied), Geomancer and Trazyn base sizes (BSData differs),
+  wording of Cursed Circlet, Targeting Relay, Plasmacyte and Timesplinter Mantle (Wahapedia kept),
+  Prelocational Optimiser name (MFM) with Wahapedia text, Murdermind attach targets (from the MFM
+  SUPPORT line), and the unit type of the 1-DP detachment stratagems (Wahapedia gives none).
+  No product photo on warhammer.com for Transcendent C'tan, Plasmancer, Skorpekh Lord,
+  Cryptothralls, Canoptek Reanimator, Canoptek Scarab Swarms, Lokhust Lord, Canoptek Macrocytes,
+  Canoptek Tomb Crawlers and Geomancer: faction logo placeholder. Technomancer uses the Cryptek
+  kit photo.

@@ -466,10 +466,11 @@
       ${r.blessings ? `<div class="stack" style="gap:6px">${r.blessings.map(b => `<div class="blessing"><div><b>${esc(b.name)}</b><div class="dim">${hl(b.effect)}</div></div><span class="badge gold">${esc(b.reqText)}</span></div>`).join('')}</div>` : ''}</div>`).join('')}</div>`;
   }
   function enhLine(e, carriers) {
-    return `<div class="abil"><div class="row nowrap"><b class="grow">${esc(e.name)}${e.upgrade ? ' <span class="badge gold">Upgrade</span>' : ''}</b><span class="num" style="font-weight:700">${e.pts} pts</span></div><div>${prose(e.text)}</div>${carriers ? `<div class="dim" style="margin-top:4px">Carried by: ${esc(carriers)}</div>` : ''}</div>`;
+    return `<div class="abil"><div class="row nowrap"><b class="grow">${esc(e.name)}${e.upgrade ? ' <span class="badge gold">Upgrade</span>' : ''}${e.binding ? ' <span class="badge gold">Automatic binding</span>' : ''}</b><span class="num" style="font-weight:700">${e.pts} pts</span></div><div>${prose(e.text)}</div>${carriers ? `<div class="dim" style="margin-top:4px">Carried by: ${esc(carriers)}</div>` : ''}</div>`;
   }
   function detachmentHTML(d, r) {
-    const carriers = e => r ? r.units.filter(u => Engine.enhIds(u).includes(e.id)).map(u => dispName(r, u)).join(', ') : '';
+    const rctx = r ? Engine.ctxFor(r, DATA) : null;
+    const carriers = e => r ? r.units.filter(u => Engine.enhIds(u).includes(e.id) || (e.binding && Engine.bindingsFor(unitDef(r.factionId, u.datasheetId), u, rctx).some(b => b.id === e.id))).map(u => dispName(r, u)).join(', ') : '';
     const enhs = r ? d.enhancements.filter(e => carriers(e)) : d.enhancements;
     return `<details class="panel pad" ${r ? 'open' : ''}><summary style="cursor:pointer;list-style:none"><div class="row"><h3 class="grow">${esc(d.name)}</h3><span class="badge gold">${d.dp} DP</span>${Engine.dispositionsOf(d).map(x => `<span class="badge">${esc(x)}</span>`).join('')}${(d.tags || []).map(t => `<span class="badge red">${esc(t)}</span>`).join('')}</div><div class="dim" style="margin-top:4px">${hl(d.summary || '')}</div></summary>
       <div class="stack" style="margin-top:12px"><div class="abil"><b>${esc(d.rule.name)}</b>${paras(d.rule.text).map((p, i) => i ? `<p style="margin:8px 0 0">${hl(p)}</p>` : hl(p)).join('')}</div>
@@ -510,7 +511,7 @@
       <section class="stack"><div class="eyebrow">Roster name</div><input type="text" id="wiz-name" data-inp="draftName" value="${esc(dr.name)}" aria-label="Roster name" style="max-width:520px"></section>
       <section class="stack"><div class="eyebrow">Battle size</div><div class="cards3">${GR.battleSizes.map(b => `<button class="choice" aria-pressed="${dr.battleSize === b.id}" data-act="draftSize" data-id="${b.id}"><span class="big">${b.name}</span><dl><dt>Points</dt><dd>${b.points}</dd><dt>DP budget</dt><dd>${b.dp}</dd><dt>Enhancements</dt><dd>${b.enhancements}</dd><dt>Copies per datasheet</dt><dd>${b.copyLimit} (Battleline / Transport ${b.copyLimit * 2})</dd></dl>${b.loneThreeDp ? '<span class="dim" style="font-size:.85rem">A single 3 DP detachment may be taken on its own.</span>' : ''}</button>`).join('')}</div></section>
       <section class="stack"><div class="row"><div class="eyebrow grow">Detachments</div><b class="num">${used} / ${bs.dp} DP</b></div><div class="bar ${used > bs.dp ? 'over' : ''}"><i style="width:${Math.min(100, used / bs.dp * 100)}%"></i></div>
-        <div class="stack" style="gap:8px">${fd.detachments.map(d => { const why = detBlock(d, dr); const on = dr.detachmentIds.includes(d.id); return `<button class="choice detrow${f.theme && f.theme.gloss ? ' gloss' : ''}" role="checkbox" aria-checked="${on}" ${why ? 'aria-disabled="true"' : ''} data-act="draftDet" data-id="${d.id}"><span class="check">${on ? '✓' : ''}</span><span class="stack" style="gap:4px"><span class="row"><span class="big">${esc(d.name)}</span><span class="badge gold">${d.dp} DP</span>${Engine.dispositionsOf(d).map(x => `<span class="badge">${esc(x)}</span>`).join('')}${(d.tags || []).map(t => `<span class="badge red">${esc(t)}</span>`).join('')}</span><span class="dim">${hl(d.summary)}</span>${why ? `<span class="why">⚠ ${esc(why)}</span>` : ''}</span></button>`; }).join('')}</div></section>
+        <div class="stack" style="gap:8px">${fd.detachments.map(d => { const why = detBlock(d, dr); const on = dr.detachmentIds.includes(d.id); return `<button class="choice detrow${f.theme && f.theme.gloss ? ' gloss' : ''}${f.theme && f.theme.lift ? ' lift' : ''}" role="checkbox" aria-checked="${on}" ${why ? 'aria-disabled="true"' : ''} data-act="draftDet" data-id="${d.id}"><span class="check">${on ? '✓' : ''}</span><span class="stack" style="gap:4px"><span class="row"><span class="big">${esc(d.name)}</span><span class="badge gold">${d.dp} DP</span>${Engine.dispositionsOf(d).map(x => `<span class="badge">${esc(x)}</span>`).join('')}${(d.tags || []).map(t => `<span class="badge red">${esc(t)}</span>`).join('')}</span><span class="dim">${hl(d.summary)}</span>${why ? `<span class="why">⚠ ${esc(why)}</span>` : ''}</span></button>`; }).join('')}</div></section>
       <section class="stack"><div class="eyebrow">Force Disposition</div>${disps.length ? `<div class="row">${disps.map(x => `<button class="chip" aria-pressed="${dr.forceDisposition === x}" data-act="draftDisp" data-id="${esc(x)}">${esc(x)}</button>`).join('')}</div>${disps.length === 1 ? '<span class="dim">Set automatically: only one disposition is available.</span>' : '<span class="dim">Pick one of your detachments\' dispositions.</span>'}` : '<span class="dim">Choose a detachment first.</span>'}</section>
       <div class="row"><button class="btn primary" data-act="wizDone" ${ok ? '' : 'disabled'}>${dr.editing ? 'Save setup' : 'Create roster'}</button>${ok ? '' : '<span class="dim">Pick a detachment and a disposition to continue.</span>'}</div>
       </main>`;
@@ -634,6 +635,12 @@
         const pk = p ? rpCur(p, src, rp) : (rp.persist ? rp.default : null), lab = (pk && pl[pk]) || h.label;
         return `<span class="kwfx ${h.tone ? 'tone-' + h.tone : ''} ${pk ? '' : 'cond'}" style="--d:${d}s" title="${esc(h.title || '')}">${esc(lab)}${pk ? '' : '*'}</span>`;
       }
+      // a badge that lights once a unit (or the unit it leads) has spent its once-per-battle ability of that title
+      if (h.onceSpent) {
+        if (!p || !inst) return '';
+        const hit = [inst].concat(r.units.filter(x => x.attachedTo === inst.instanceId)).some(x => { const o = (unitDef(r.factionId, x.datasheetId) || {}).oncePerBattle; return o && o.title === h.onceSpent && onceNeeds(x, o) && (p.once || {})[x.instanceId]; });
+        return hit ? `<span class="kwfx ${h.tone ? 'tone-' + h.tone : ''} cond" style="--d:${d}s" title="${esc(h.title || '')}">${esc(h.label)}*</span>` : '';
+      }
       // in Play a pick-based highlight (Righteous) shows only on the units picked this turn
       const st = p && h.playSel && inst ? (pickSelFor(r, p, h.playSel).includes(inst.attachedTo || inst.instanceId) ? { on: true, note: h.title } : (h.playOr ? hiState(r, def, inst, h) : null)) : hiState(r, def, inst, h); if (!st) return '';
       return `<span class="kwfx ${h.tone ? 'tone-' + h.tone : ''} ${st.cond ? 'cond' : ''}" style="--d:${d}s" title="${esc(st.note || h.title || '')}">${esc(hiLabel(h, st))}${st.cond ? '*' : ''}</span>`;
@@ -683,6 +690,7 @@
     if (ai.to) out.push(`<span class="rl"><span class="rl-k">${ICON_LINK}Leads</span><span class="rl-v">${nm(ai.to)}</span></span>`);
     if (ai.by.length) out.push(`<span class="rl"><span class="rl-k">${ICON_LINK}Led by</span><span class="rl-v">${ai.by.map(nm).join(', ')}</span></span>`);
     if (enh) out.push(`<span class="rl"><span class="enhchip ${enh.upgrade ? 'up' : ''}"><span class="enh-k">${enh.upgrade ? 'Upgrade' : 'Enhancement'}</span><b>${esc(enh.name)}</b>${hero && enh.pts ? `<span class="num">+${enh.pts}</span>` : ''}</span></span>`);
+    Engine.bindingsFor(unitDef(r.factionId, u.datasheetId), u, ctx).forEach(b => out.push(`<span class="rl"><span class="enhchip bind"><span class="enh-k">Binding</span><b>${esc(b.name)}</b>${hero && b.pts ? `<span class="num">+${b.pts}</span>` : ''}</span></span>`));
     return out.length ? `<span class="rlines">${out.join('')}</span>` : '';
   }
   const ICON_LINK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg>';
@@ -730,7 +738,7 @@
   function enhChoices(r, inst) {
     const def = unitDef(r.factionId, inst.datasheetId), ctx = Engine.ctxFor(r, DATA);
     const isChar = Engine.hasKw(def, ctx, 'Character', inst);
-    const ctxEnh = ctx.dets.flatMap(d => d.enhancements.map(e => ({ ...e, det: d.name })));
+    const ctxEnh = ctx.dets.flatMap(d => d.enhancements.filter(e => !e.binding).map(e => ({ ...e, det: d.name })));
     /* an enhancement this model can never take (wrong keyword, wrong mark) is hidden, not greyed; the one already chosen stays visible */
     const fits = e => e.id === inst.enhancementId || !Engine.eligibleReason(e, inst, r, DATA);
     return { isChar, relevant: ctxEnh.filter(e => (isChar ? !e.upgrade : e.upgrade) && fits(e)) };
@@ -795,6 +803,7 @@
     { const k = kwBadges(r, unitDef(r.factionId, inst.datasheetId), inst); if (k) badges.unshift(k); }
     Engine.instGrants(unitDef(r.factionId, inst.datasheetId), ctx, inst).forEach(g => badges.push(`<span class="badge">${esc(g.keyword)}</span>`));
     if (enh && !noRel) badges.push(`<span class="badge gold">${esc(enh.name)}</span>`);
+    if (!noRel) Engine.bindingsFor(unitDef(r.factionId, inst.datasheetId), inst, ctx).forEach(b => badges.push(`<span class="badge gold">${esc(b.name)}</span>`));
     if (p.surcharge) badges.push(`<span class="badge red">${ORD(p.copyNo)} copy +${p.surcharge}</span>`);
     if (noRel) return badges;
     if (att) badges.push(`<span class="badge link">Attached to ${esc(dispName(r, att))}</span>`);
@@ -1287,9 +1296,10 @@
         <div class="dpchoices">${dp.refChoices.map(c => `<div class="dpchoice"><b>${esc(c.name)}</b><span class="dim">${esc(c.effect)}</span></div>`).join('')}</div>
         ${off ? `<div class="faint" style="font-size:.85rem">${esc(off.note)}</div>` : `<div class="faint" style="font-size:.85rem">${esc(dp.refNote || '')}</div>`}</div>`));
     }
-    r.units.forEach(u => { const def = unitDef(r.factionId, u.datasheetId); if (def && def.roundPick) out.unshift(roundPickHTML(r, p, u, def)); if (def && def.phaseTrigger) out.unshift(phaseTriggerHTML(r, p, u, def)); if (def && def.oncePerBattle) out.push(oncePanelHTML(r, p, u, def)); });
+    r.units.forEach(u => { const def = unitDef(r.factionId, u.datasheetId); if (def && def.roundPick) out.unshift(roundPickHTML(r, p, u, def)); if (def && def.phaseTrigger) out.unshift(phaseTriggerHTML(r, p, u, def)); if (def && def.oncePerBattle && onceNeeds(u, def.oncePerBattle)) out.push(oncePanelHTML(r, p, u, def)); });
     fd.armyRules.filter(a => a.imperatives).forEach(a => out.unshift(doctrinaHTML(p, a)));
     fd.armyRules.filter(a => a.counter).forEach(a => out.unshift(tokenPoolHTML(r, p, a, dets)));
+    fd.armyRules.filter(a => a.reminder).forEach(a => { const h = remindHTML(r, p, a); if (h) out.push(h); });
     fd.armyRules.filter(a => a.cpNote).forEach(a => {
       const names = new Set(a.cpNote.abilities), has = r.units.filter(u => (unitDef(r.factionId, u.datasheetId).abilities || []).some(x => names.has(x.name)));
       if (has.length) out.push(panel2(a.cpNote.title, '<span class="badge">Reminder</span>', `<div class="dim" style="font-size:.9rem">${esc(a.cpNote.text)}</div><div class="faint" style="font-size:.85rem">${esc(has.map(u => dispName(r, u)).join(', '))}</div>`));
@@ -1298,21 +1308,10 @@
       if (d.halo) out.push(haloUnitsHTML(r, p, d));
       if (d.pickUnits) out.push(pickUnitsHTML(r, p, d));
       if (d.pledgeTracker) out.push(pledgeHTML(r, p, d));
+      if (d.zones) out.push(zonesHTML(r, p, d));
+      if (d.useLimit) out.push(useLimitHTML(r, p, d));
       if (d.imperatives && d.impStyle === 'doctrina') { out.push(doctrinaHTML(p, d)); return; }
-      if (d.reminder) {
-        const rm = d.reminder, dismissed = ((p.rem || {})[p.round] || {})[d.id];
-        const inRange = (!rm.from || p.round >= rm.from) && (!rm.to || p.round <= rm.to), firstNow = !!rm.first && p.round === 1;
-        const active = inRange && (firstNow || ((rm.turn !== 'mine' || p.turn !== 'opp') && p.phase === (rm.phase || 'Command')));
-        const enhHave = new Set(r.units.flatMap(x => Engine.enhIds(x)));
-        const impNow = rm.byImp && ((p.imp || {})[p.round]);
-        const rmText = [firstNow ? rm.first : (impNow && rm.byImp[impNow]) || rm.text].concat(Object.keys(rm.extraByEnh || {}).filter(id => enhHave.has(id)).map(id => rm.extraByEnh[id])).filter(Boolean);
-        const fxEl = rm.fx === 'warp'
-          ? `<span class="rem-warp" aria-hidden="true"><i></i><i></i><i></i><svg viewBox="0 0 100 60" class="rem-bolt"><path d="M54 2 L40 26 L52 26 L42 58 L70 22 L56 22 L66 2 Z"/><path d="M30 8 L22 28 L31 28 L24 52 L44 24 L34 24 L41 8 Z"/></svg></span>`
-          : rm.fx === 'slash'
-          ? `<span class="rem-slash" aria-hidden="true"><i class="rs-line"></i><i class="rs-spark"></i><i class="rs-spark"></i><i class="rs-spark"></i><i class="rs-spark"></i><i class="rs-spark"></i><i class="rs-spark"></i></span>`
-          : rm.fx ? `<span class="mfx loop m-${rm.fx}" aria-hidden="true">${mfxHTML(rm.fx)}</span>` : '';
-        if (active && !dismissed) out.push(`<div class="panel pad stack trk remind ${rm.fx ? 'fx-' + rm.fx : ''}" data-remcard="${d.id}">${fxEl}<div class="row"><h3 class="grow">${esc(rm.title)}</h3><span class="badge gold">This round</span></div>${rmText.map(t => `<div class="dim">${esc(t)}</div>`).join('')}<div class="row"><button class="btn sm primary" data-act="csmRemind" data-id="${d.id}">Done — dismiss</button></div></div>`);
-      }
+      if (d.reminder) out.push(remindHTML(r, p, d) || '');
       if (d.battlePick && d.battlePick.contract) out.push(contractHTML(r, p, d));
       else if (d.battlePick) {
         const bp = d.battlePick, picked = p.aug || [];
@@ -1895,13 +1894,53 @@
       `<div class="dim" style="font-size:.9rem">${esc(d.halo.note)}</div>
       <div class="chips" role="group" aria-label="Halo Override units">${list.map(u => `<button class="chip" aria-pressed="${sel.includes(u.instanceId)}" data-act="asHalo" data-id="${u.instanceId}">${esc(lbl(u))}</button>`).join('')}</div>`);
   }
+  /* A detachment's or army rule's Play reminder: shows in its phase (rm.phase may be a list) until dismissed for the round. */
+  const GAUSS_FX = '<span class="rem-gauss" aria-hidden="true"><i></i><i></i><svg viewBox="0 0 64 64"><ellipse cx="32" cy="20" rx="9" ry="11"/><path d="M32 31v26M20 41h24"/></svg></span>';
+  function remindHTML(r, p, d) {
+      const rm = d.reminder, dismissed = ((p.rem || {})[p.round] || {})[d.id];
+      const inRange = (!rm.from || p.round >= rm.from) && (!rm.to || p.round <= rm.to), firstNow = !!rm.first && p.round === 1;
+      const active = inRange && (firstNow || ((rm.turn !== 'mine' || p.turn !== 'opp') && [].concat(rm.phase || 'Command').includes(p.phase)));
+      const enhHave = new Set(r.units.flatMap(x => Engine.enhIds(x)));
+      const impNow = rm.byImp && ((p.imp || {})[p.round]);
+      const rmText = [firstNow ? rm.first : (impNow && rm.byImp[impNow]) || rm.text].concat(Object.keys(rm.extraByEnh || {}).filter(id => enhHave.has(id)).map(id => rm.extraByEnh[id])).filter(Boolean);
+      const fxEl = rm.fx === 'gauss' ? GAUSS_FX : rm.fx === 'warp'
+        ? `<span class="rem-warp" aria-hidden="true"><i></i><i></i><i></i><svg viewBox="0 0 100 60" class="rem-bolt"><path d="M54 2 L40 26 L52 26 L42 58 L70 22 L56 22 L66 2 Z"/><path d="M30 8 L22 28 L31 28 L24 52 L44 24 L34 24 L41 8 Z"/></svg></span>`
+        : rm.fx === 'slash'
+        ? `<span class="rem-slash" aria-hidden="true"><i class="rs-line"></i><i class="rs-spark"></i><i class="rs-spark"></i><i class="rs-spark"></i><i class="rs-spark"></i><i class="rs-spark"></i><i class="rs-spark"></i></span>`
+        : rm.fx ? `<span class="mfx loop m-${rm.fx}" aria-hidden="true">${mfxHTML(rm.fx)}</span>` : '';
+      if (active && !dismissed) return (`<div class="panel pad stack trk remind ${rm.fx ? 'fx-' + rm.fx : ''}" data-remcard="${d.id}">${fxEl}<div class="row"><h3 class="grow">${esc(rm.title)}</h3><span class="badge gold">This round</span></div>${rmText.map(t => `<div class="dim">${esc(t)}</div>`).join('')}<div class="row"><button class="btn sm primary" data-act="csmRemind" data-id="${d.id}">Done — dismiss</button></div></div>`);
+    return '';
+  }
   const panel2 = (title, badge, body) => `<div class="panel pad stack trk"><div class="row"><h3 class="grow">${esc(title)}</h3>${badge || ''}</div>${body}</div>`;
+  /* Detachment zones (Canoptek Court's Power Matrix): zones that count only while you hold them, toggled by hand. State p.zn[id] = true. */
+  function zonesHTML(r, p, d) {
+    const z = d.zones, on = z.toggles.filter(t => (p.zn || {})[t.id]).length + (z.always || []).length, all = z.toggles.length + (z.always || []).length;
+    return panel2(z.title, `<span class="badge ${on > (z.always || []).length ? 'gold' : ''}">${on}/${all} zones</span>`,
+      `<div class="dim" style="font-size:.9rem">${esc(z.note)}</div>
+      <div class="chips zn-list" role="group" aria-label="${esc(z.title)}">${(z.always || []).map(n => `<button class="chip zn on" aria-pressed="true" aria-disabled="true" tabindex="-1">${esc(n)} · always</button>`).join('')}${z.toggles.map(t => `<button class="chip zn ${(p.zn || {})[t.id] ? 'on' : ''}" aria-pressed="${!!(p.zn || {})[t.id]}" data-act="znTog" data-id="${t.id}">${esc(t.name)}</button>`).join('')}</div>
+      <div class="faint" style="font-size:.85rem">${esc(z.hint)}</div>`);
+  }
+  /* A per-round allowance (Hypercrypt Legion's Hyperphasing): used of a limit that depends on battle size (+ enhancements). State p.lim[round] = used. */
+  function limitMax(r, d) {
+    const u = d.useLimit, have = new Set(r.units.flatMap(x => Engine.enhIds(x)));
+    return (u.max[r.battleSize] || 1) + Object.keys(u.plusByEnh || {}).filter(id => have.has(id)).reduce((n, id) => n + u.plusByEnh[id], 0);
+  }
+  function useLimitHTML(r, p, d) {
+    const u = d.useLimit, max = limitMax(r, d), n = Math.min(max, (p.lim || {})[p.round] || 0), nowT = p.turn === 'opp';
+    return panel2(u.title, `<span class="badge ${n >= max ? '' : nowT ? 'gold' : ''}">${n}/${max} used</span>`,
+      `<div class="dim" style="font-size:.9rem">${esc(u.note)}</div>
+      <div class="row"><div class="panel counter lim-count ${n ? 'phased' : ''}"><div class="eyebrow">Round ${p.round} · ${esc(u.unit)}</div><div class="row nowrap"><button data-act="limStep" data-d="-1" aria-label="One fewer">−</button><span class="val num">${n}</span><button data-act="limStep" data-d="1" aria-label="One more">+</button></div></div></div>
+      <div class="faint" style="font-size:.85rem">${esc(u.hint)}</div>`);
+  }
   /* Once per battle: a unit's one-shot ability (Servo-skull Uplink, Defend the Divine Work). State p.once[instanceId] = round used. */
+  /* a once-per-battle ability that only some copies have (needs: {opt, is}) shows only for a unit whose option matches */
+  const onceNeeds = (u, o) => !o.needs || [].concat(o.needs.is).map(String).includes(String((u.wargear || {})[o.needs.opt]));
   function oncePanelHTML(r, p, u, def) {
     const o = def.oncePerBattle, used = (p.once || {})[u.instanceId], dead = unitDead(p, u);
-    return panel2(o.title, dead ? '<span class="badge">Dead</span>' : used ? `<span class="badge">Used · round ${used}</span>` : '<span class="badge gold">Ready</span>',
+    const dup = r.units.filter(x => { const d2 = unitDef(r.factionId, x.datasheetId); return d2 && d2.oncePerBattle && d2.oncePerBattle.title === o.title && onceNeeds(x, d2.oncePerBattle); }).length > 1;
+    return panel2(dup ? `${o.title} · ${dispName(r, u)}` : o.title, dead ? '<span class="badge">Dead</span>' : used ? `<span class="badge">Used · round ${used}</span>` : '<span class="badge gold">Ready</span>',
       `<div class="dim" style="font-size:.9rem">${esc(o.text)}</div>
-      <button class="hop hop-mech ${used ? 'done' : 'now'}" data-act="onceUse" data-u="${u.instanceId}" aria-pressed="${!!used}" ${dead ? 'aria-disabled="true"' : ''}><span class="hop-t"><b>${esc(o.when)}</b></span><span class="hop-s">${used ? 'Used ✓' : esc(o.button)}</span></button>`);
+      <button class="hop hop-${o.style || 'mech'} ${used ? 'done' : 'now'}" data-act="onceUse" data-u="${u.instanceId}" aria-pressed="${!!used}" ${dead ? 'aria-disabled="true"' : ''}><span class="hop-t"><b>${esc(o.when)}</b></span><span class="hop-s">${used ? 'Used ✓' : esc(o.button)}</span></button>`);
   }
   function roundHint(r, p) {
     const fd = fdata(r.factionId), dets = r.detachmentIds.map(id => fd.detachments.find(d => d.id === id)).filter(Boolean);
@@ -2321,6 +2360,7 @@
           ${def.factionAbilities.length ? `<div><b>Faction:</b> ${def.factionAbilities.map(a => `<button class="kwchip" data-act="tip" data-tip="${esc(abilityTip(fid, a))}" data-title="${esc(a)}">${esc(a)}</button>`).join('')}</div>` : ''}
           ${def.abilities.map(a => `<div class="abil"><b>${esc(a.name)}${a.kind === 'wargear' ? ' <span class="badge">Wargear</span>' : ''}</b>${prose(a.text)}</div>`).join('')}
           ${enh ? `<div class="abil"><b>${esc(enh.name)} <span class="badge gold">Enhancement</span></b>${esc(enh.text)}</div>` : ''}
+          ${inst ? Engine.bindingsFor(def, inst, ctx).map(b => `<div class="abil"><b>${esc(b.name)} <span class="badge gold">Binding${b.pts ? ` · +${b.pts} pts` : ''}</span></b>${prose(b.text)}</div>`).join('') : ''}
           ${inst ? Engine.instGrants(def, ctx, inst).filter(g => g.note).map(g => `<div class="abil"><b>${esc(g.label)}</b>${esc(g.note)}</div>`).join('') : ''}
           ${def.transport ? `<div class="abil"><b>Transport</b>${esc(def.transport)}</div>` : ''}</div>
         ${def.options.length ? `<div class="stack" style="gap:6px"><span class="eyebrow">Wargear options</span><ul style="margin:0;padding-left:20px">${def.options.map(o => `<li>${esc(o.label)}${o.type === 'choice' ? ': ' + esc(o.choices.map(c => c.label + (c.pts ? ` (+${c.pts})` : '')).join(' / ')) : o.per ? ` — ${o.n || 1} per ${o.per} models` : o.max === 'models' ? ' — any number' : ' — one model'}</li>`).join('')}</ul></div>` : ''}
@@ -2350,7 +2390,7 @@
       const def = unitDef(r.factionId, inst.datasheetId), p = pts.per[inst.instanceId];
       const enh = inst.enhancementId ? ctx.allEnh[inst.enhancementId] : null;
       const att = inst.attachedTo ? r.units.find(u => u.instanceId === inst.attachedTo) : null;
-      return { def, p, enh, att, ws: wargearSummary(def, inst), name: dispName(r, inst), wl: r.warlordUnitId === inst.instanceId, size: inst.size };
+      return { def, p, enh, bind: Engine.bindingsFor(def, inst, ctx), att, ws: wargearSummary(def, inst), name: dispName(r, inst), wl: r.warlordUnitId === inst.instanceId, size: inst.size };
     };
     const order = Object.keys(CAT_NAME).concat('other');
     const byCat = {};
@@ -2359,7 +2399,7 @@
       let t = `${r.name} (${pts.total} points)\n\n${faction(r.factionId).name}\n${dets.join(', ')}\n${bs.name} (${bs.points} points)\nForce Disposition: ${r.forceDisposition || '-'}\n`;
       order.filter(c => byCat[c]).forEach(c => {
         t += `\n${CAT_NAME[c].toUpperCase()}\n\n`;
-        byCat[c].forEach(l => { t += `${l.name} (${l.p.total} points)\n`; if (l.wl) t += '  • Warlord\n'; if (l.size > 1) t += `  • ${l.size} models\n`; l.ws.forEach(w => (t += `  • ${w}\n`)); if (l.enh) t += `  • Enhancement: ${l.enh.name} (+${l.enh.pts} points)\n`; if (l.att) t += `  • Attached to: ${dispName(r, l.att)}\n`; t += '\n'; });
+        byCat[c].forEach(l => { t += `${l.name} (${l.p.total} points)\n`; if (l.wl) t += '  • Warlord\n'; if (l.size > 1) t += `  • ${l.size} models\n`; l.ws.forEach(w => (t += `  • ${w}\n`)); if (l.enh) t += `  • Enhancement: ${l.enh.name} (+${l.enh.pts} points)\n`; l.bind.forEach(b => (t += `  • ${b.name} (+${b.pts} points)\n`)); if (l.att) t += `  • Attached to: ${dispName(r, l.att)}\n`; t += '\n'; });
       });
       return t + 'Exported with Supreme Commander (approximate GW app format)\n';
     }
@@ -3147,6 +3187,16 @@
       const set = v => p => { p.pledgeDone = p.pledgeDone || {}; if (v) p.pledgeDone[rd] = v; else delete p.pledgeDone[rd]; };
       if (was === want) { pactChange(r, want === 'met' ? -pl : 0, null, set(null)); return; }
       pactChange(r, (want === 'met' ? pl : 0) - (was === 'met' ? pl : 0), want === 'miss' ? 'Pledge missed: your Warlord suffers D3 mortal wounds.' : null, set(want));
+    },
+    znTog: el => {
+      if (el.getAttribute('aria-disabled') === 'true') return;
+      const id = el.dataset.id; playChange(cur(), p => { p.zn = p.zn || {}; if (p.zn[id]) delete p.zn[id]; else p.zn[id] = true; }, null, 'tick');
+    },
+    limStep: el => {
+      const r = cur(), d = fdata(r.factionId).detachments.find(x => x.useLimit && r.detachmentIds.includes(x.id)); if (!d) return;
+      const v = ((playState(r).lim || {})[playState(r).round] || 0) + +el.dataset.d;
+      if (v < 0 || v > limitMax(r, d)) { PL.haptic('reject'); return; }
+      playChange(r, p => { p.lim = p.lim || {}; if (v) p.lim[p.round] = v; else delete p.lim[p.round]; }, null, 'confirm');
     },
     onceUse: el => {
       if (el.getAttribute('aria-disabled') === 'true') { PL.haptic('reject'); return; }

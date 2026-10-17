@@ -12,7 +12,9 @@ const Engine = (function () {
     dets.forEach(d => d.enhancements.forEach(e => (enhById[e.id] = { ...e, detachmentId: d.id })));
     const allEnh = {};
     fd.detachments.forEach(d => d.enhancements.forEach(e => (allEnh[e.id] = { ...e, detachmentId: d.id })));
-    return { DATA, fd, bs, dets, unitById, enhById, allEnh, roster };
+    /* Add-ons a detachment gives to every eligible unit and charges for (Pantheon of Woe: Necrodermal Binding): enhancements flagged `binding`. */
+    const bindings = dets.flatMap(d => (d.enhancements || []).filter(e => e.binding).map(e => ({ ...e, detachmentId: d.id })));
+    return { DATA, fd, bs, dets, unitById, enhById, allEnh, bindings, roster };
   }
 
   function enhIds(inst) {
@@ -124,8 +126,9 @@ const Engine = (function () {
       });
       let enh = 0;
       enhIds(inst).forEach(id => { const e = ctx.allEnh[id]; if (e) enh += e.pts; });
-      const sum = base + wargear + enh;
-      per[inst.instanceId] = { base, wargear, enh, total: sum, copyNo, surcharge: later ? sz.ptsLater - sz.pts : 0 };
+      const bind = bindingsFor(def, inst, ctx).reduce((n, e) => n + e.pts, 0);
+      const sum = base + wargear + enh + bind;
+      per[inst.instanceId] = { base, wargear, enh, bind, total: sum, copyNo, surcharge: later ? sz.ptsLater - sz.pts : 0 };
       total += sum;
       const fac = factionOf(inst, def, ctx);
       if (fac !== ctx.fd.armyFaction) allied[fac] = (allied[fac] || 0) + sum;
@@ -167,8 +170,12 @@ const Engine = (function () {
     return null;
   }
 
+  /* Binding add-ons this unit gets from the selected detachments (automatic, paid for, not counted as enhancements). */
+  function bindingsFor(def, inst, ctx) { return (ctx.bindings || []).filter(e => !eligible(e, def, inst, ctx)); }
+
   /* Why can't this enhancement go on this unit right now (for the picker)? null = OK */
   function enhancementBlock(e, inst, roster, DATA) {
+    if (e.binding) return 'Given automatically by its detachment.';
     const ctx = ctxFor(roster, DATA);
     const def = ctx.unitById[inst.datasheetId];
     if (!ctx.enhById[e.id]) return 'Its detachment is not in this roster.';
@@ -270,6 +277,12 @@ const Engine = (function () {
     // ---- Points
     const pts = points(roster, DATA);
     if (pts.total > bs.points) E(`Army is ${pts.total} pts, over the ${bs.points} pts limit by ${pts.total - bs.points}.`);
+    // a unit whose detachment add-on pushes the army over the limit cannot be included (Pantheon of Woe)
+    const bindTotal = Object.values(pts.per).reduce((n, x) => n + (x.bind || 0), 0);
+    if (bindTotal && pts.total > bs.points && pts.total - bindTotal <= bs.points) roster.units.forEach(inst => {
+      const def = ctx.unitById[inst.datasheetId];
+      if (def) bindingsFor(def, inst, ctx).forEach(e => E(`${def.name}: ${e.name} (+${e.pts} pts) is required by ${(fd.detachments.find(d => d.id === e.detachmentId) || {}).name} and takes the army over the points limit. Remove this unit or drop the detachment.`, inst.instanceId));
+    });
 
     // ---- Allied factions
     (fd.alliedFactions || []).forEach(a0 => {
@@ -549,6 +562,6 @@ const Engine = (function () {
   }
 
   function eligibleReason(e, inst, roster, DATA) { const ctx = ctxFor(roster, DATA); const def = ctx.unitById[inst.datasheetId]; return eligible(e, def, inst, ctx); }
-  return { alliedCaps, alliedPtsCap, alliedEff, alliedPtsInfo, warlordBlock, grantsFor, instGrants, dispositionsOf, dataVersionFor, eligibleReason, ctxFor, points, validate, copyLimit, nextCopyInfo, enhancementCount, enhancementBlock, optionMax, slotSize, slotUsed, ownCap, keywordsOf, hasKw, factionOf, buffed, attachedGroup, canLead, attachBlock, carries, enhIds, addStat, ORD };
+  return { alliedCaps, alliedPtsCap, alliedEff, alliedPtsInfo, warlordBlock, grantsFor, instGrants, dispositionsOf, dataVersionFor, eligibleReason, ctxFor, points, validate, copyLimit, nextCopyInfo, enhancementCount, enhancementBlock, bindingsFor, optionMax, slotSize, slotUsed, ownCap, keywordsOf, hasKw, factionOf, buffed, attachedGroup, canLead, attachBlock, carries, enhIds, addStat, ORD };
 })();
 if (typeof module !== 'undefined') module.exports = Engine;
