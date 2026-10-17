@@ -1440,47 +1440,108 @@ html:not(.m) .seg.wide { max-width: 560px; }
 @keyframes drugPulse { 0%, 100% { opacity: .25; } 50% { opacity: .85; } }
 .dct[aria-disabled="true"] { opacity: .5; cursor: not-allowed; }
 .mfx.m-syringe { --fx: var(--cb, #7fd6e8); overflow: hidden; }
-.mf-fill { inset: 0; background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--fx) 60%, transparent)); opacity: 0; transform-origin: 100% 50%; animation: mfFill 1.5s ease-out .35s forwards; }
-@keyframes mfFill { 0% { opacity: 0; transform: scaleX(0); } 35% { opacity: .75; transform: scaleX(1); } 100% { opacity: 0; transform: scaleX(1); } }
-.mf-syrw { right: 4px; top: 4px; width: 70px; height: 24px; transform: rotate(-16deg); transform-origin: 100% 50%; }
-.mf-syr { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; opacity: 0; animation: mfSyr 2.2s ease-in-out forwards; }
-@keyframes mfSyr { 0% { opacity: 0; transform: translate(26px, -14px); } 14% { opacity: .62; transform: translate(0, 0); } 78% { opacity: .62; transform: translate(0, 0); } 100% { opacity: 0; transform: translate(26px, -14px); } }
+.mf-fill { inset: 0; background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--fx) 62%, transparent)); opacity: 0; transform-origin: 100% 50%; animation: mfFill 1.5s ease-out .2s forwards; }
+@keyframes mfFill { 0% { opacity: 0; transform: scaleX(0); } 30% { opacity: .8; transform: scaleX(1); } 100% { opacity: 0; transform: scaleX(1); } }
+.mf-syrw { left: 30%; top: 56%; width: 104px; height: 31px; margin-top: -15px; transform: rotate(-19deg); transform-origin: 1% 50%; }
+.mf-syr { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; opacity: 0; animation: mfSyr 1.6s linear forwards; }
+/* the stab is 5% of the run (~80 ms) and overshoots by a few px; then the plunger is driven home; then it pulls out */
+@keyframes mfSyr { 0% { opacity: 0; transform: translateX(86px); animation-timing-function: ease-in; } 4% { opacity: 1; transform: translateX(64px); animation-timing-function: cubic-bezier(.55, 0, 1, .6); }
+  9% { opacity: 1; transform: translateX(-6px); animation-timing-function: ease-out; } 13% { transform: translateX(0); } 80% { opacity: 1; transform: translateX(0); animation-timing-function: ease-in; } 94%, 100% { opacity: 0; transform: translateX(80px); } }
 .mf-syr path, .mf-syr rect { vector-effect: non-scaling-stroke; }
-.mf-syr .sy-barrel { fill: rgba(230, 240, 245, .22); stroke: rgba(230, 240, 245, .75); stroke-width: 1.2; }
-.mf-syr .sy-liq { fill: var(--fx); opacity: .9; transform-box: fill-box; transform-origin: 0 50%; animation: mfLiq 1.2s ease-in .35s forwards; }
-@keyframes mfLiq { from { transform: scaleX(1); } to { transform: scaleX(.12); } }
-.mf-syr .sy-plunger { fill: none; stroke: rgba(230, 240, 245, .8); stroke-width: 1.6; stroke-linecap: round; animation: mfPlunge 1.2s ease-in .35s forwards; }
-@keyframes mfPlunge { from { transform: translateX(0); } to { transform: translateX(-22px); } }
-.mf-syr .sy-needle { stroke: rgba(230, 240, 245, .85); stroke-width: 1.4; stroke-linecap: round; fill: none; }
-@media (prefers-reduced-motion: reduce) { .mfx.m-syringe, .dct.on::after { display: none; } }
+.mf-syr .sy-barrel { fill: rgba(225, 238, 245, .1); stroke: rgba(235, 245, 250, .85); stroke-width: 1.1; }
+.mf-syr .sy-gloss { fill: none; stroke: rgba(255, 255, 255, .4); stroke-width: 1; stroke-linecap: round; }
+.mf-syr .sy-ticks { fill: none; stroke: rgba(235, 245, 250, .9); stroke-width: .9; }
+.mf-syr .sy-liq { fill: var(--fx); opacity: .95; transform-box: fill-box; transform-origin: 0 50%; animation: mfLiq 1.6s linear forwards; }
+@keyframes mfLiq { 0%, 14% { transform: scaleX(1); } 60%, 100% { transform: scaleX(.04); } }
+.mf-syr .sy-plg { animation: mfPlunge 1.6s linear forwards; }
+@keyframes mfPlunge { 0%, 14% { transform: translateX(0); animation-timing-function: cubic-bezier(.5, 0, .3, 1); } 60%, 100% { transform: translateX(-38px); } }
+.mf-syr .sy-stop { fill: #161b20; stroke: rgba(235, 245, 250, .75); stroke-width: .9; }
+.mf-syr .sy-rod { fill: none; stroke: rgba(235, 245, 250, .8); stroke-width: 1; stroke-linecap: round; }
+.mf-syr .sy-thumb, .mf-syr .sy-flange { fill: rgba(235, 245, 250, .28); stroke: rgba(235, 245, 250, .85); stroke-width: 1; }
+.mf-syr .sy-needle { fill: rgba(235, 245, 250, .9); stroke: rgba(255, 255, 255, .9); stroke-width: .6; stroke-linejoin: round; }
+.mf-syr .sy-hub { fill: rgba(235, 245, 250, .35); stroke: rgba(235, 245, 250, .85); stroke-width: 1; stroke-linejoin: round; }
+/* the card is shaken while the liquid is pumped in */
+.dct.shake { animation: drugShake 1s linear .09s; }
+@keyframes drugShake { 0% { transform: none; } 4% { transform: translate(-3px, 1.4px) rotate(-.55deg); } 8% { transform: translate(3px, -1.4px) rotate(.55deg); } 12% { transform: translate(-3.2px, -1px) rotate(-.5deg); } 16% { transform: translate(3.2px, 1.2px) rotate(.5deg); }
+  22% { transform: translate(-2.8px, .8px) rotate(-.45deg); } 28% { transform: translate(2.8px, -1px) rotate(.45deg); } 34% { transform: translate(-2.4px, -.8px) rotate(-.4deg); } 40% { transform: translate(2.4px, .8px) rotate(.4deg); }
+  48% { transform: translate(-1.8px, .6px) rotate(-.3deg); } 56% { transform: translate(1.8px, -.6px) rotate(.3deg); } 66% { transform: translate(-1px, .4px); } 78% { transform: translate(.8px, -.3px); } 100% { transform: none; } }
+@media (prefers-reduced-motion: reduce) { .mfx.m-syringe, .dct.on::after { display: none; } .dct.shake { animation: none; } }
 
-/* Pain tokens: a lash cracks across the counter; the plate recoils; one scratch is left on its edge per token */
-.pain-st { position: relative; gap: 6px; padding: 6px 8px; border-radius: 12px; border: 1px solid rgba(255, 77, 115, .35); background: rgba(255, 77, 115, .05); }
-.pain-st output { font-size: 1.5rem; font-weight: 800; }
-.pain-st.hit { animation: painRecoil .42s cubic-bezier(.2, .9, .3, 1); }
-@keyframes painRecoil { 0% { transform: translate(0, 0) rotate(0); } 14% { transform: translate(9px, -2px) rotate(2.4deg); } 38% { transform: translate(-3px, 1px) rotate(-.9deg); } 100% { transform: translate(0, 0) rotate(0); } }
-.lash { position: absolute; z-index: 2; width: 18px; height: 2.5px; margin-left: -9px; border-radius: 2px; pointer-events: none;
-  background: linear-gradient(90deg, transparent, #ff4d73 25%, #ff4d73 75%, transparent); opacity: .85; box-shadow: 0 0 4px rgba(255, 77, 115, .55); }
-.lash::after { content: ''; position: absolute; left: 22%; top: 3.5px; width: 56%; height: 1.5px; border-radius: 2px; background: rgba(255, 77, 115, .5); }
-.lash.fresh { animation: lashIn .5s ease-out .12s backwards; }
-@keyframes lashIn { 0% { opacity: 0; transform: rotate(var(--r, -18deg)) scaleX(.2); } 100% { opacity: .85; transform: rotate(var(--r, -18deg)) scaleX(1); } }
-.whipfx { position: absolute; z-index: 3; left: -18%; top: -34%; width: 136%; height: 168%; pointer-events: none; opacity: 0; transform-origin: 100% 0; animation: whipCrack .55s ease-out forwards; }
-.whipfx svg { width: 100%; height: 100%; overflow: visible; fill: none; stroke-linecap: round; }
-.whipfx .w1 { stroke: rgba(239, 228, 210, .7); stroke-width: 3; } .whipfx .w2 { stroke: rgba(255, 77, 115, .75); stroke-width: 1.4; }
-@keyframes whipCrack { 0% { opacity: 0; transform: translateX(46%) rotate(-24deg) scaleX(.35); } 22% { opacity: .75; transform: translateX(8%) rotate(-6deg) scaleX(1); } 60% { opacity: .5; transform: translateX(-4%) rotate(4deg) scaleX(1); } 100% { opacity: 0; transform: translateX(-10%) rotate(8deg) scaleX(.9); } }
-@media (prefers-reduced-motion: reduce) { .pain-st.hit, .lash.fresh, .whipfx { animation: none; } .whipfx { display: none; } }
+/* Pain tokens: a plate that glows harder with every token (4 levels, capped), a lash that cracks across it, and welts left where it landed */
+.pain-st { position: relative; min-width: 232px; justify-content: space-between; gap: 6px; padding: 6px 8px; border-radius: 12px; border: 1px solid rgba(255, 77, 115, calc(.22 + .6 * var(--pl, 0))); background: linear-gradient(180deg, rgba(255, 77, 115, .07), rgba(255, 77, 115, .02)); }
+.pain-st > button, .pain-st > output { position: relative; z-index: 2; }
+.pain-st output { font-size: 1.55rem; font-weight: 800; text-shadow: 0 0 calc(2px + 16px * var(--pl, 0)) rgba(255, 77, 115, calc(.15 + .85 * var(--pl, 0))), 0 1px 2px rgba(0, 0, 0, .7); }
+.pain-st[data-lv="0"] output { text-shadow: none; }
+.pain-st > button { border-color: rgba(255, 77, 115, calc(.18 + .6 * var(--pl, 0))); box-shadow: 0 0 calc(10px * var(--pl, 0)) rgba(255, 77, 115, calc(.7 * var(--pl, 0))), inset 0 0 calc(8px * var(--pl, 0)) rgba(255, 77, 115, calc(.4 * var(--pl, 0))); }
+.pain-glow { position: absolute; inset: -3px; z-index: 0; border-radius: 15px; pointer-events: none; opacity: 0; box-shadow: 0 0 20px 3px rgba(255, 77, 115, .85), inset 0 0 18px rgba(255, 77, 115, .45); }
+.pain-st[data-lv="1"] .pain-glow { --lo: .1; --hi: .32; animation: painBreath 4.2s ease-in-out infinite; }
+.pain-st[data-lv="2"] .pain-glow { --lo: .24; --hi: .58; animation: painBreath 3s ease-in-out infinite; }
+.pain-st[data-lv="3"] .pain-glow { --lo: .42; --hi: .84; animation: painBreath 2.1s ease-in-out infinite; }
+.pain-st[data-lv="4"] .pain-glow { --lo: .6; --hi: 1; animation: painBreath 1.3s ease-in-out infinite; }
+.pain-st[data-lv="4"] { background: linear-gradient(180deg, rgba(255, 77, 115, .16), rgba(255, 77, 115, .05)); }
+@keyframes painBreath { 0%, 100% { opacity: var(--lo, .1); } 50% { opacity: var(--hi, .4); } }
+.pain-marks { position: absolute; inset: 0; z-index: 1; overflow: hidden; border-radius: inherit; pointer-events: none; }
+.welt { position: absolute; display: block; transform: rotate(var(--r, 0deg)); transform-origin: 50% 50%; filter: drop-shadow(0 0 3px rgba(255, 40, 80, .45)); }
+.welt svg { display: block; width: 100%; height: auto; overflow: visible; }
+.welt.fresh { animation: weltIn .5s cubic-bezier(.2, .8, .3, 1) var(--dl, .4s) both; }
+@keyframes weltIn { 0% { opacity: 0; transform: rotate(var(--r, 0deg)) scale(.15, .6); } 35% { opacity: 1; } 100% { opacity: 1; transform: rotate(var(--r, 0deg)) scale(1, 1); } }
+.pain-st.hit { animation: painRecoil .4s cubic-bezier(.2, .9, .3, 1); }
+@keyframes painRecoil { 0% { transform: translate(0, 0) rotate(0); } 14% { transform: translate(5px, 1px) rotate(1.3deg); } 36% { transform: translate(-2px, -1px) rotate(-.6deg); } 100% { transform: translate(0, 0) rotate(0); } }
+.pain-cv { position: absolute; z-index: 5; pointer-events: none; }
+@media (prefers-reduced-motion: reduce) { .pain-st.hit, .welt.fresh { animation: none; } .pain-glow { animation: none !important; opacity: calc(.15 + .6 * var(--pl, 0)); } .pain-cv { display: none; } }
 
-/* Kabalite Cartel: a scribbled contract sits behind the buttons; completing it signs the page with a pen flourish */
-.contract { position: relative; isolation: isolate; padding: 10px 8px 22px; border-radius: 10px; }
-.ct-doc { position: absolute; inset: 0; z-index: -1; border-radius: 10px; pointer-events: none; border: 1px solid rgba(239, 228, 210, .16); background-color: rgba(239, 228, 210, .05);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='96' viewBox='0 0 220 96'%3E%3Cg fill='none' stroke='%23efe4d2' stroke-width='1.1' stroke-linecap='round' stroke-linejoin='round' opacity='.55'%3E%3Cpath d='M6 14c6-8 10 6 16-2s9 6 15-1 8 7 14 0 10-5 14 1 9 5 15-2 8 6 14-1 10 3 15 0 9-6 14 0 8 5 14-1 10 2 14-1'/%3E%3Cpath d='M6 32c5-7 9 5 15-1s10 6 15 0 8-5 14 2 9-4 14 0 10 5 15-2 8 4 14 0 9-6 15 1 8 3 13-1'/%3E%3Cpath d='M6 50c6-6 9 6 14-1s9 5 16-1 9 6 14 0 8-5 15 1 9 4 14-2 10 5 14 0 8-4 15 1'/%3E%3Cpath d='M6 68c5-8 10 4 16-1s8 7 14 0 10-4 15 1 8 5 14-1 9-5 15 1'/%3E%3C/g%3E%3C/svg%3E");
-  background-size: 220px 96px; opacity: .55; }
-.ct-sign { position: absolute; right: 12px; bottom: 2px; width: 96px; height: 24px; pointer-events: none; opacity: 0; transform-origin: 0 50%; transform: scaleX(0); }
-.contract.signed .ct-sign { opacity: .9; transform: scaleX(1); }
-.ct-sign svg { width: 100%; height: 100%; fill: none; stroke: #ff4d73; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-.ct-sign.go { animation: ctSign .9s cubic-bezier(.3, .6, .3, 1) both; }
-@keyframes ctSign { 0% { opacity: 0; transform: scaleX(0); } 12% { opacity: .9; } 100% { opacity: .9; transform: scaleX(1); } }
-@media (prefers-reduced-motion: reduce) { .ct-sign.go { animation: none; } }
+/* Kabalite Cartel: the Contract is a parchment sheet; a chosen clause is ringed in pen, completion is signed and sealed in wax */
+.contract { position: relative; isolation: isolate; margin: 4px 0 2px; filter: drop-shadow(0 6px 9px rgba(0, 0, 0, .5)); }
+.ct-sheet { position: relative; padding: 14px 16px 6px; color: #eadfc8; border: 1px solid rgba(235, 220, 190, .3);
+  background: radial-gradient(120% 80% at 20% 0, rgba(255, 232, 190, .12), transparent 60%), radial-gradient(60% 50% at 92% 88%, rgba(120, 70, 30, .22), transparent 70%), linear-gradient(180deg, #2b2316, #1a140d);
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 5px), 96% 100%, 92% calc(100% - 4px), 87% calc(100% - 1px), 81% calc(100% - 5px), 75% 100%, 69% calc(100% - 3px), 62% calc(100% - 1px), 55% calc(100% - 5px), 48% 100%, 41% calc(100% - 4px), 34% calc(100% - 1px), 27% calc(100% - 5px), 20% 100%, 13% calc(100% - 3px), 6% calc(100% - 1px), 0 calc(100% - 4px)); }
+.ct-sheet::before { content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: .3; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .95 0 0 0 0 .85 0 0 0 0 .65 0 0 0 .7 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E"); }
+.ct-sheet::after { content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none; box-shadow: inset 0 0 38px rgba(0, 0, 0, .6); }
+.ct-sheet > * { position: relative; z-index: 1; }
+.ct-head { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; font-family: var(--font-display); font-size: 1.45rem; letter-spacing: .22em; color: #f1e4c8; text-shadow: 0 1px 0 rgba(0, 0, 0, .6); }
+.ct-head b { font-weight: 500; }
+.ct-head::before, .ct-head::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, rgba(235, 220, 190, .55)); }
+.ct-head::after { transform: scaleX(-1); }
+.ct-clauses { display: grid; }
+.ct-clause { position: relative; display: flex; align-items: center; gap: 12px; width: 100%; padding: 9px 8px; background: none; border: 0; border-bottom: 1px dashed rgba(235, 220, 190, .2); color: #eadfc8; font: inherit; text-align: left; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.ct-clause:last-child { border-bottom: 0; }
+.ct-no { flex: none; width: 1.9em; font-family: Georgia, 'Times New Roman', serif; font-size: .8rem; color: #b99c68; letter-spacing: .06em; }
+.ct-nm { position: relative; z-index: 1; font-family: var(--font-display); font-size: 1.2rem; letter-spacing: .03em; }
+.ct-clause:focus-visible { outline: 2px solid #ff4d73; outline-offset: 1px; }
+.ct-ring { position: absolute; top: 1px; left: 26px; width: calc(100% - 22px); height: calc(100% - 2px); overflow: visible; pointer-events: none; fill: none; }
+.ct-ring path { stroke: #ff4d73; stroke-width: 1.8; stroke-linecap: round; vector-effect: non-scaling-stroke; stroke-dasharray: 3000 3000; stroke-dashoffset: 3000; filter: drop-shadow(0 0 2px rgba(255, 77, 115, .6)); }
+.ct-clause.on .ct-ring path { stroke-dashoffset: 0; }
+.ct-clause.on .ct-nm { color: #fff1d8; }
+.ct-ring.fresh path { animation: ctRing .55s cubic-bezier(.4, 0, .25, 1) both; }
+@keyframes ctRing { from { stroke-dashoffset: 3000; } to { stroke-dashoffset: 0; } }
+.ct-eff { margin: 8px 2px 4px; font-size: .9rem; line-height: 1.35; color: #d3c6a6; }
+.ct-eff b { color: #f4e7cb; font-family: var(--font-display); font-weight: 500; letter-spacing: .03em; }
+.ct-foot { position: relative; height: 66px; margin-top: 2px; }
+.ct-line { position: absolute; left: 4px; right: 84px; bottom: 14px; border-bottom: 1px solid rgba(235, 220, 190, .5); }
+.ct-line::before { content: '×'; position: absolute; left: 0; bottom: 1px; font-size: .9rem; color: rgba(235, 220, 190, .55); }
+.ct-sig { position: absolute; left: 14px; bottom: 8px; width: 150px; height: 46px; max-width: calc(100% - 96px); }
+.ct-sig svg { position: absolute; inset: 0; width: 150px; height: 46px; overflow: visible; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.ct-sig .s-1, .ct-sig .s-2 { stroke: #ff5b7e; stroke-width: 1.9; stroke-dasharray: 1 1.02; stroke-dashoffset: 1; }
+.ct-sig .s-2 { stroke-width: 1.5; }
+.ct-sig .s-glow { stroke: rgba(255, 77, 115, .5); stroke-width: 4.5; opacity: 0; filter: blur(2.5px); }
+.ct-pen { position: absolute; left: 0; top: 0; width: 8px; height: 8px; margin: -4px 0 0 -4px; border-radius: 50%; opacity: 0; offset-distance: 0%; offset-rotate: 0deg; background: radial-gradient(circle, #fff 0, #ffc3cf 35%, rgba(255, 77, 115, 0) 72%); box-shadow: 0 0 8px 2px rgba(255, 77, 115, .8); }
+.ct-seal { position: absolute; right: 6px; bottom: 6px; width: 54px; height: 54px; opacity: 0; transform: scale(1.7) rotate(-14deg); transform-origin: 50% 50%; filter: drop-shadow(0 2px 3px rgba(0, 0, 0, .6)); }
+.ct-seal svg { display: block; width: 100%; height: 100%; }
+.contract.signed .s-1, .contract.signed .s-2 { stroke-dashoffset: 0; }
+.contract.signed .ct-seal { opacity: 1; transform: none; }
+.contract.go .s-1 { animation: ctDraw 1.05s cubic-bezier(.45, .05, .35, 1) both; }
+.contract.go .s-2 { animation: ctDraw .4s cubic-bezier(.2, .6, .3, 1) 1.02s both; }
+.contract.go .s-glow { animation: ctInk 1.7s ease-out both; }
+.contract.go .ct-pen { animation: ctPen 1.05s cubic-bezier(.45, .05, .35, 1) both; }
+.contract.go .ct-seal { animation: ctSeal .34s cubic-bezier(.3, 1.5, .5, 1) 1.5s both; }
+.contract.go .ct-sheet { animation: ctThump .26s ease-out 1.66s; }
+@keyframes ctDraw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes ctInk { 0% { opacity: 0; } 50% { opacity: .55; } 100% { opacity: 0; } }
+@keyframes ctPen { 0% { opacity: 1; offset-distance: 0%; } 96% { opacity: 1; offset-distance: 100%; } 100% { opacity: 0; offset-distance: 100%; } }
+@keyframes ctSeal { 0% { opacity: 0; transform: scale(1.8) rotate(-18deg); } 55% { opacity: 1; transform: scale(.92) rotate(2deg); } 100% { opacity: 1; transform: none; } }
+@keyframes ctThump { 0% { transform: none; } 35% { transform: translateY(2px) scale(.994); } 100% { transform: none; } }
+@media (prefers-reduced-motion: reduce) { .contract.go .s-1, .contract.go .s-2, .contract.go .s-glow, .contract.go .ct-pen, .contract.go .ct-seal, .contract.go .ct-sheet, .ct-ring.fresh path { animation: none; } .ct-pen { display: none; } }
 
 /* Raider: Vanguard of the Dark City cards (round pick) */
 .rpk-pain, .rpanel-pain .rpk { color: #efe4d2; background: linear-gradient(180deg, #0c2227, #07161a); border: 1px solid rgba(23, 138, 148, .4); }

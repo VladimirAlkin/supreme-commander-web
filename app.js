@@ -1642,7 +1642,8 @@
     if (k === 'sonar') return '<i class="mf-ping"></i><i class="mf-ping p2"></i><i class="mf-ping p3"></i>';
     if (k === 'crosshair') return '<svg class="mf-cross" viewBox="0 0 60 60"><circle cx="30" cy="30" r="17"/><path d="M30 4v14M30 42v14M4 30h14M42 30h14"/></svg>';
     if (k === 'cloak') return '<i class="mf-cloak"></i><i class="mf-cloak c2"></i>';
-    if (k === 'syringe') return '<i class="mf-fill"></i><i class="mf-syrw"><svg class="mf-syr" viewBox="0 0 70 24"><path class="sy-needle" d="M2 12H14"/><rect class="sy-barrel" x="14" y="5" width="34" height="14" rx="3"/><rect class="sy-liq" x="16" y="7" width="30" height="10" rx="2"/><path class="sy-plunger" d="M48 12H64M64 5V19"/></svg></i>';
+    if (k === 'syringe') { const tk = Array.from({ length: 12 }, (_, i) => { const x = (26 + i * 3.55).toFixed(2); return `M${x} 9.2v${i % 4 === 0 ? 3.6 : 1.9}`; }).join('');
+      return '<i class="mf-fill"></i><i class="mf-syrw"><svg class="mf-syr" viewBox="0 0 100 30"><g class="sy-ndl"><path class="sy-needle" d="M1 15L17 13.5v3z"/><path class="sy-hub" d="M17 11.4h5.4l1.4-2.2v11.6l-1.4-2.2H17z"/></g><rect class="sy-liq" x="24.4" y="10" width="37.6" height="10"/><path class="sy-ticks" d="' + tk + '"/><rect class="sy-barrel" x="23.8" y="8.6" width="47" height="12.8" rx="1"/><path class="sy-gloss" d="M26 11.2h42"/><rect class="sy-flange" x="70.8" y="3.8" width="3" height="22.4" rx="1"/><g class="sy-plg"><rect class="sy-stop" x="62" y="9.6" width="8.8" height="10.8" rx="1"/><path class="sy-rod" d="M74 12.3h19M74 17.7h19M74 15h19"/><rect class="sy-thumb" x="93" y="4.6" width="3.2" height="20.8" rx="1.2"/></g></svg></i>'; }
     return '';
   }
   /* Cawl's Canticles: on the click binary code runs along the button and gears spin up behind it, peeking out of its edges. */
@@ -1665,6 +1666,7 @@
     if (!el || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const fx = document.createElement('span'); fx.className = 'mfx m-' + k; fx.setAttribute('aria-hidden', 'true'); fx.innerHTML = mfxHTML(k);
     el.appendChild(fx); setTimeout(() => fx.remove(), 2300);
+    if (k === 'syringe') { el.classList.remove('shake'); void el.offsetWidth; el.classList.add('shake'); setTimeout(() => el.classList.remove('shake'), 1300); }
     if (PL.android) setTimeout(() => PL.haptic('confirm'), 120);
   }
   /* one pick per battle round, stored under p[key][round]; key is 'imp' for the army rule and 'halo' for Noospheric Transference */
@@ -1679,10 +1681,20 @@
   }
   /* Army-rule token pool (Drukhari Pain tokens): a stepper plate. Each token added is a lash that cracks across the plate and
      leaves one scratch on its top/bottom edge (never over the number); taking a token away removes a scratch. */
-  const WHIP_SVG = '<svg viewBox="0 0 200 80" preserveAspectRatio="none"><path class="w1" d="M196 8C150-14 118 74 74 40S20 22 6 60"/><path class="w2" d="M196 8C150-14 118 74 74 40S20 22 6 60"/></svg>';
+  /* welt i on the plate: placement (% of the plate), length, tilt and bend are fixed per index, so a re-render never moves a mark */
+  const pnRand = s => { let t = (s + 0x6D2B79F5) | 0; t = Math.imul(t ^ t >>> 15, t | 1); t ^= t + Math.imul(t ^ t >>> 7, t | 61); return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+  function weltSpec(i) {
+    const R = k => pnRand(i * 977 + k * 131 + 7), sg = R(1) < .5 ? -1 : 1;
+    return { x: 4 + R(2) * 54, y: 6 + R(3) * 58, w: 30 + R(4) * 18, rot: sg * (12 + R(5) * 32), bend: (R(6) - .5) * 6, th: 2.2 + R(7) * 1.6, drop: R(8) > .45 };
+  }
+  function weltHTML(i) {
+    const s = weltSpec(i), t = s.th, b = s.bend, lens = (k) => `M${1 + (1 - k) * 29} 7Q30 ${7 - 2 * t * k - b} ${59 - (1 - k) * 29} 7Q30 ${7 + 2 * t * k - b} ${1 + (1 - k) * 29} 7Z`;
+    const drop = s.drop ? `<path d="M${44 + (i % 3) * 3} ${7 + t - b * .4}c.4 2 .2 3.6 1.1 5" stroke="#d3103f" stroke-width=".7" fill="none" opacity=".8"/><circle cx="${45.4 + (i % 3) * 3}" cy="${7 + t - b * .4 + 6.2}" r="1" fill="#d3103f"/>` : '';
+    return `<i class="welt" style="left:${s.x.toFixed(1)}%;top:${s.y.toFixed(1)}%;width:${s.w.toFixed(1)}%;--r:${s.rot.toFixed(1)}deg"><svg viewBox="0 0 60 14"><g filter="url(#pnRough)"><path d="${lens(1.35)}" fill="rgba(255,77,115,.22)"/><path d="${lens(1)}" fill="#3a0818" stroke="rgba(255,77,115,.8)" stroke-width=".6"/><path d="${lens(.55)}" fill="#c0184a" opacity=".85"/><path d="M8 ${7 - b * .45}H52" stroke="#ffc9d5" stroke-width=".55" stroke-dasharray="7 2.2 11 3 5 2" opacity=".75"/>${drop}</g></svg></i>`;
+  }
   function tokenPoolHTML(r, p, a, dets) {
-    const c = a.counter, n = p[c.key] || 0, shown = Math.min(n, 12);
-    const marks = Array.from({ length: shown }, (_, i) => { const top = i % 2 === 0, x = 10 + ((i >> 1) % 6) * 15.5 + (top ? 0 : 6); return `<i class="lash" style="left:${x.toFixed(1)}%;top:${top ? '-2px' : 'calc(100% - 1px)'};--r:${top ? -16 : 14}deg;transform:rotate(${top ? -16 : 14}deg)"></i>`; }).join('');
+    const c = a.counter, n = p[c.key] || 0, lv = n <= 0 ? 0 : n < 5 ? 1 : n < 10 ? 2 : n < 15 ? 3 : 4, pl = Math.min(n, 15) / 15;
+    const marks = Array.from({ length: Math.min(n, 12) }, (_, i) => weltHTML(i)).join('');
     const sp = dets.find(d => d.painStart);
     let start = '';
     if (sp) {
@@ -1690,23 +1702,76 @@
       start = `<div class="row"><button class="btn sm ${done ? '' : 'primary'}" data-act="painStart" data-add="${add}" data-key="${c.key}" aria-pressed="${done}" ${!done && !add ? 'aria-disabled="true"' : ''}>${done ? `Starting pool added (+${p.painStart}) ✓` : `Add starting pool: +${add}`}</button></div><div class="faint" style="font-size:.85rem">${esc(sp.painStart.note)}</div>`;
     }
     return panel2(c.title, `<span class="badge gold num">${n}</span>`,
-      `<div class="row"><div class="stepper pain-st" role="group" aria-label="${esc(c.title)}"><button data-act="pc" data-k="${c.key}" data-d="-1" aria-label="Spend a Pain token">−</button><output class="num" aria-live="polite">${n}</output><button data-act="pc" data-k="${c.key}" data-d="1" aria-label="Gain a Pain token">+</button>${marks}</div><span class="dim">in your pool</span></div>
+      `<div class="row"><div class="stepper pain-st" role="group" aria-label="${esc(c.title)}" data-lv="${lv}" style="--pl:${pl.toFixed(2)}"><svg width="0" height="0" style="position:absolute" aria-hidden="true"><filter id="pnRough" x="-10%" y="-60%" width="120%" height="220%"><feTurbulence type="fractalNoise" baseFrequency=".65" numOctaves="2" seed="4"/><feDisplacementMap in="SourceGraphic" scale="2.4"/></filter></svg><span class="pain-glow" aria-hidden="true"></span><span class="pain-marks" aria-hidden="true">${marks}</span><button data-act="pc" data-k="${c.key}" data-d="-1" aria-label="Spend a Pain token">−</button><output class="num" aria-live="polite">${n}</output><button data-act="pc" data-k="${c.key}" data-d="1" aria-label="Gain a Pain token">+</button></div><span class="dim">in your pool</span></div>
       <div class="faint" style="font-size:.85rem">${esc(c.note)}</div>${start}`);
+  }
+  /* The lash: a 24-point chain drawn on one short-lived canvas. A loop runs down it from the handle (the crack), the tip lands where the
+     new welt will appear, a flash and sparks mark the hit, then it snaps back. Plate coordinates; the canvas reaches past the plate. */
+  const PN = { D: 860, N: 30, padL: 60, padR: 80, padT: 160, padB: 40 };
+  function drawWhip(g, u, W, H, T, seed) {
+    const lerp = (a, b, k) => a + (b - a) * k, eo = x => 1 - Math.pow(1 - x, 3), ei = x => x * x, cl = x => Math.max(0, Math.min(1, x));
+    const H0 = [W + 34, -60], Hw = [W + 60, -108], Hs = [W + 2, -30];
+    let hp, tp, amp, wv, w1 = 0, w2 = 0, alpha = 1, lw = .17;
+    if (u < .27) { const k = eo(u / .27); hp = [lerp(H0[0], Hw[0], k), lerp(H0[1], Hw[1], k)]; tp = [hp[0] - 36 + 86 * k, hp[1] + 130 - 40 * k]; amp = 0; wv = 0; w1 = 70 * k; w2 = -26 * k; }
+    else if (u < .5) { const k = (u - .27) / .23, e = ei(k), m = eo(k); hp = [lerp(Hw[0], Hs[0], m), lerp(Hw[1], Hs[1], m)]; const t0 = [Hw[0] + 50, Hw[1] + 90]; tp = [lerp(t0[0], T[0], e), lerp(t0[1], T[1], e)]; amp = 56 * (1 - .5 * e); wv = .08 + .92 * e; w1 = 70 * (1 - e) * (1 - e); w2 = -26 * (1 - e); lw = .2 - .06 * e; }
+    else { const k = cl((u - .5) / .5), kk = cl((k - .16) / .62); hp = [lerp(Hs[0], H0[0], eo(k)), lerp(Hs[1], H0[1], eo(k))]; const back = [T[0] + 70, T[1] - 80]; tp = [lerp(T[0], back[0], eo(kk)), lerp(T[1], back[1], eo(kk))]; amp = 0; wv = 1; w1 = 26 * Math.sin(k * 20) * (1 - k); w2 = 0; alpha = 1 - cl((k - .45) / .55); }
+    const P = [], dx = tp[0] - hp[0], dy = tp[1] - hp[1], L = Math.hypot(dx, dy) || 1, nx = -dy / L, ny = dx / L;
+    for (let i = 0; i <= PN.N; i++) { const s = i / PN.N, o = amp * Math.exp(-Math.pow((s - wv) / lw, 2)) + w1 * Math.sin(Math.PI * s) + w2 * Math.sin(2 * Math.PI * s); P.push([hp[0] + dx * s + nx * o, hp[1] + dy * s + ny * o]); }
+    g.save(); g.globalAlpha = alpha; g.lineCap = 'round'; g.lineJoin = 'round';
+    const seg = (a, b, w, col) => { g.strokeStyle = col; g.lineWidth = w; g.beginPath(); g.moveTo(a[0], a[1]); g.lineTo(b[0], b[1]); g.stroke(); };
+    const wd = i => 6.6 * Math.pow(1 - i / PN.N, 1.15) + 1.3;
+    for (let i = 0; i < PN.N; i++) seg(P[i], P[i + 1], wd(i) + 3.2, 'rgba(255,77,115,.16)');
+    for (let i = 0; i < PN.N; i++) seg(P[i], P[i + 1], wd(i) + 1.6, '#12060a');
+    for (let i = 0; i < PN.N; i++) { seg(P[i], P[i + 1], wd(i), i % 2 ? '#4a1727' : '#33101c'); if (i % 3 === 1) seg(P[i], P[i + 1], Math.max(.7, wd(i) * .3), '#a2415d'); }
+    seg(P[PN.N - 4], P[PN.N], .8, '#f6e4e8');
+    const a = P[0], b = P[1], hl = Math.hypot(b[0] - a[0], b[1] - a[1]) || 1, ux = (a[0] - b[0]) / hl, uy = (a[1] - b[1]) / hl, hd = 40, e = [a[0] + ux * hd, a[1] + uy * hd];
+    seg(a, e, 10.5, '#0e0508'); seg(a, e, 8.4, '#2d0f1a');
+    for (let q = 3; q < hd - 4; q += 5.5) seg([a[0] + ux * q, a[1] + uy * q], [a[0] + ux * (q + 2.6), a[1] + uy * (q + 2.6)], 8.8, '#8f3049');
+    seg(e, [e[0] + ux * 3, e[1] + uy * 3], 12, '#ff4d73'); seg([a[0] + ux * 2, a[1] + uy * 2], [a[0] + ux * 3, a[1] + uy * 3], 11, '#ff4d73');
+    if (u >= .5 && u < .68) {   // the crack: flash and sparks at the tip
+      const f = 1 - (u - .5) / .18, rg = g.createRadialGradient(T[0], T[1], 0, T[0], T[1], 10 + 30 * (1.1 - f));
+      rg.addColorStop(0, `rgba(255,240,244,${.95 * f})`); rg.addColorStop(.4, `rgba(255,77,115,${.6 * f})`); rg.addColorStop(1, 'rgba(255,77,115,0)');
+      g.globalAlpha = 1; g.fillStyle = rg; g.beginPath(); g.arc(T[0], T[1], 46, 0, 7); g.fill();
+      for (let q = 0; q < 9; q++) { const an = pnRand(seed * 17 + q) * 6.283, l0 = 5 + 8 * (1 - f), l1 = l0 + 8 + 22 * (1 - f) * (.4 + pnRand(seed + q * 5)); g.strokeStyle = `rgba(255,214,222,${f})`; g.lineWidth = 1.4; g.beginPath(); g.moveTo(T[0] + Math.cos(an) * l0, T[1] + Math.sin(an) * l0); g.lineTo(T[0] + Math.cos(an) * l1, T[1] + Math.sin(an) * l1); g.stroke(); }
+    }
+    g.restore();
   }
   function lashFx() {
     const st = document.querySelector('.pain-st'); if (!st || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    st.classList.remove('hit'); void st.offsetWidth; st.classList.add('hit');
-    const w = document.createElement('span'); w.className = 'whipfx'; w.setAttribute('aria-hidden', 'true'); w.innerHTML = WHIP_SVG; st.appendChild(w); setTimeout(() => w.remove(), 700);
-    const marks = st.querySelectorAll('.lash'); if (marks.length) marks[marks.length - 1].classList.add('fresh');
-    if (PL.android) PL.haptic('confirm');
+    const out = st.querySelector('output'), n = Math.max(1, +(out && out.textContent) || 1), W = st.offsetWidth, H = st.offsetHeight, sp = weltSpec(Math.min(n, 12) - 1);
+    const T = [(sp.x + sp.w / 2) / 100 * W, sp.y / 100 * H + sp.w / 100 * W * 14 / 60 / 2];
+    const marks = st.querySelectorAll('.welt'), last = marks[marks.length - 1];
+    if (n <= 12 && last) { last.style.setProperty('--dl', (PN.D * .5 / 1000).toFixed(2) + 's'); last.classList.add('fresh'); }
+    const cv = document.createElement('canvas'), dpr = Math.min(window.devicePixelRatio || 1, 2), cw = W + PN.padL + PN.padR, ch = H + PN.padT + PN.padB;
+    cv.className = 'pain-cv'; cv.setAttribute('aria-hidden', 'true'); cv.width = cw * dpr; cv.height = ch * dpr; cv.style.cssText = `left:${-PN.padL}px;top:${-PN.padT}px;width:${cw}px;height:${ch}px`;
+    st.appendChild(cv); const g = cv.getContext('2d'); let t0 = 0, hit = false;
+    const frame = now => {
+      if (!cv.isConnected) return; if (!t0) t0 = now; const u = Math.min(1, (now - t0) / PN.D);
+      g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, cw, ch); g.translate(PN.padL, PN.padT); drawWhip(g, u, W, H, T, n);
+      if (!hit && u >= .5) { hit = true; st.classList.remove('hit'); void st.offsetWidth; st.classList.add('hit'); if (PL.android) PL.haptic('confirm'); }
+      if (u < 1) requestAnimationFrame(frame); else cv.remove();
+    };
+    if (!location.search.includes('fxtest')) requestAnimationFrame(frame);
+    if (location.search.includes('fxtest')) window.__whip = { draw: (u) => { g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, cw, ch); g.translate(PN.padL, PN.padT); drawWhip(g, u, W, H, T, n); }, cv };
   }
-  /* Kabalite Cartel: pick a Contract; a scribbled document sits behind the buttons and is signed when the Contract is completed. */
+  /* Kabalite Cartel: the Contract is a sheet of parchment. A chosen clause is ringed in pen; completing it signs the sheet
+     (the pen runs along the signature, a flourish underlines it) and a wax seal drops on the corner. */
+  const CT_SIG = 'M6 35C9 21 13 9 18 9C23 9 22 21 18 31C16 37 20 38 25 28C29 20 31 17 34 21C37 25 31 35 36 35C42 35 42 19 47 19C52 19 46 34 53 32C60 30 62 18 68 20C73 22 66 34 74 33C84 31 92 21 104 18C112 16 120 20 126 14';
+  const CT_UL = 'M12 41C46 35 92 37 140 28';
+  const CT_SEAL = (() => { const N = 14, pt = (a, r) => `${(22 + Math.cos(a) * r).toFixed(2)} ${(22 + Math.sin(a) * r).toFixed(2)}`; let d = `M${pt(0, 17.4)}`; for (let k = 0; k < N; k++) { const a1 = (k + .5) / N * 6.2832, a2 = (k + 1) / N * 6.2832; d += `Q${pt(a1, 21.6)} ${pt(a2, 17.4)}`; } return d + 'Z'; })();
   function contractHTML(r, p, d) {
-    const bp = d.battlePick, picked = (p.aug || [])[0], opt = bp.options.find(o => o.id === picked), done = !!p.contractDone;
+    const bp = d.battlePick, picked = (p.aug || [])[0], opt = bp.options.find(o => o.id === picked), done = !!p.contractDone, RN = ['I', 'II', 'III', 'IV'];
+    const ring = '<svg class="ct-ring" viewBox="0 0 100 26" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M3 14C2 6 30 2 56 3 82 4 99 8 97 15 95 22 66 24 40 23 14 22 4 21 5 12"/></svg>';
+    const clauses = bp.options.map((o, i) => `<button class="ct-clause ${picked === o.id ? 'on' : ''}" data-act="csmAug" data-id="${o.id}" aria-pressed="${picked === o.id}"><span class="ct-no" aria-hidden="true">${RN[i] || i + 1}</span><span class="ct-nm">${esc(o.name)}</span>${ring}</button>`).join('');
     return panel2(bp.title, done ? `<span class="badge gold">Completed · +${p.contractDone} Pain</span>` : picked ? '<span class="badge gold">Contract active</span>' : '<span class="badge">Pick at battle start</span>',
       `<div class="dim">${esc(bp.note)}</div>
-      <div class="contract ${done ? 'signed' : ''}"><span class="ct-doc" aria-hidden="true"></span><div class="choicechips augrow">${bp.options.map(o => `<button class="cchip ${picked === o.id ? 'on' : ''}" data-act="csmAug" data-id="${o.id}" aria-pressed="${picked === o.id}">${esc(o.name)}</button>`).join('')}</div><span class="ct-sign" aria-hidden="true"><svg viewBox="0 0 96 24"><path d="M4 18C14 4 20 20 30 10S44 4 50 14s12 6 18-6 12 8 24 2"/></svg></span></div>
-      ${opt ? `<div class="dim"><b>${esc(opt.name)}</b>: ${esc(opt.effect)}</div>` : ''}
+      <div class="contract ${done ? 'signed' : ''}"><div class="ct-sheet"><div class="ct-head" aria-hidden="true"><b>Contract</b></div>
+        <div class="ct-clauses" role="group" aria-label="${esc(bp.title)}">${clauses}</div>
+        <p class="ct-eff">${opt ? `<b>${esc(opt.name)}.</b> ${esc(opt.effect)}` : 'Choose a Contract to bind the hunt.'}</p>
+        <div class="ct-foot" aria-hidden="true"><span class="ct-line"></span>
+          <span class="ct-sig"><svg viewBox="0 0 150 46"><path class="s-glow" d="${CT_SIG}"/><path class="s-1" pathLength="1" d="${CT_SIG}"/><path class="s-2" pathLength="1" d="${CT_UL}"/></svg><i class="ct-pen" style="offset-path:path('${CT_SIG}')"></i></span>
+          <span class="ct-seal"><svg viewBox="0 0 44 44"><defs><radialGradient id="ctWax" cx="38%" cy="32%" r="75%"><stop offset="0" stop-color="#e0405f"/><stop offset=".55" stop-color="#a3122e"/><stop offset="1" stop-color="#5a0618"/></radialGradient></defs><path d="${CT_SEAL}" fill="url(#ctWax)"/><circle cx="22" cy="22" r="12.4" fill="none" stroke="rgba(0,0,0,.35)" stroke-width="1"/><circle cx="22" cy="22" r="13.4" fill="none" stroke="rgba(255,170,180,.25)" stroke-width=".6"/><path d="M22 10.5l2.1 12.5L22 33.5 19.9 23zM16.5 24.6h11" fill="rgba(60,0,12,.55)" stroke="rgba(60,0,12,.55)" stroke-width="1.4" stroke-linejoin="round"/><path d="M22.7 11.5l1.5 11.5-1.5 9.5" fill="none" stroke="rgba(255,175,185,.4)" stroke-width=".6"/></svg></span></div>
+      </div></div>
       <div class="row"><button class="btn sm ${done ? '' : 'primary'}" data-act="contractDone" aria-pressed="${done}" ${picked ? '' : 'aria-disabled="true"'}>${done ? 'Contract completed ✓ (tap to undo)' : 'Mark Contract completed'}</button></div>`);
   }
   /* An enhancement's once-per-Command-phase action (Labyrinthine Cunning: spend a token or roll for 1CP). State p.ea[enhId][round] = what was applied. */
@@ -2878,7 +2943,7 @@
       const r = cur(), d = fdata(r.factionId).detachments.find(x => x.battlePick && x.battlePick.contract && r.detachmentIds.includes(x.id)); if (!d) return;
       const ctr = fdata(r.factionId).armyRules.find(a => a.counter), key = ctr && ctr.counter.key, gain = d.battlePick.contract.pain, wasDone = !!playState(r).contractDone;
       playChange(r, p => { if (p.contractDone) { if (key) p[key] = Math.max(0, (p[key] || 0) - p.contractDone); delete p.contractDone; } else { if (key) p[key] = (p[key] || 0) + gain; p.contractDone = gain; } }, null, 'confirm');
-      if (!wasDone && !matchMedia('(prefers-reduced-motion: reduce)').matches) { const sg = document.querySelector('.contract .ct-sign'); if (sg) sg.classList.add('go'); }
+      if (!wasDone && !matchMedia('(prefers-reduced-motion: reduce)').matches) { const sg = document.querySelector('.contract'); if (sg) sg.classList.add('go'); }
     },
     enhAct: el => {
       const r = cur(), fd = fdata(r.factionId), enh = el.dataset.enh, id = el.dataset.id;
@@ -3090,6 +3155,7 @@
       if (cap > 1 && !(playState(r).aug || []).includes(id) && (playState(r).aug || []).length >= cap) { toast(`Pick up to ${cap}.`); PL.haptic('reject'); return; }
       const wasOn = (playState(r).aug || []).includes(id);
       playChange(r, p => { p.aug = p.aug || []; p.aug = p.aug.includes(id) ? p.aug.filter(x => x !== id) : cap === 1 ? [id] : p.aug.concat(id); }, null, 'tick');
+      if (!wasOn && !matchMedia('(prefers-reduced-motion: reduce)').matches) { const rg = document.querySelector('.ct-clause.on .ct-ring'); if (rg) rg.classList.add('fresh'); }
       if (!wasOn && el.dataset.fx) mechFx(document.querySelector(`.cchip[data-act="csmAug"][data-id="${id}"]`), el.dataset.fx);
     },
     resetWounds: () => { const r = cur(); playChange(r, p => { p.wounds = {}; }, 'Wounds reset.'); },
