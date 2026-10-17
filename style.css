@@ -1654,16 +1654,18 @@ html:not(.m) .seg.wide { max-width: 560px; }
 
 /* The Silent King (roundPick fx 'king'): head sigil, green flood, eyes that outlast the head */
 .kingfx { position: fixed; inset: 0; z-index: 9999; pointer-events: none; overflow: hidden; }
-.kf-wash { position: absolute; inset: 0; opacity: 0; background: radial-gradient(circle at 50% 42%, rgba(52, 140, 36, .5), rgba(8, 44, 16, .78) 64%, rgba(3, 12, 5, .9)); animation: kfWash 3.4s ease-in-out both; will-change: opacity; }
-@keyframes kfWash { 0% { opacity: 0; } 14% { opacity: .75; } 30% { opacity: .55; } 70% { opacity: .55; } 100% { opacity: 0; } }
+.kf-wash { position: absolute; inset: 0; opacity: 0; background: radial-gradient(circle at 50% 42%, rgba(52, 140, 36, .5), rgba(8, 44, 16, .78) 64%, rgba(3, 12, 5, .9)); animation: kfWash 2.6s ease-in-out both; will-change: opacity; }
+@keyframes kfWash { 0% { opacity: 0; } 14% { opacity: .75; } 18% { opacity: .86; } 34% { opacity: .55; } 62% { opacity: .55; } 100% { opacity: 0; } }
 .kf-box { position: absolute; left: 50%; top: 43%; height: min(88vh, 128vw); aspect-ratio: 600 / 882; transform: translate(-50%, -50%); }
 .kf-head, .kf-eyes { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; will-change: transform, opacity; }
-.kf-head { opacity: 0; filter: drop-shadow(0 0 8px rgba(64, 180, 46, .6)) drop-shadow(0 0 26px rgba(64, 180, 46, .32)); animation: kfHead 2.5s cubic-bezier(.3, .6, .3, 1) both; }
-@keyframes kfHead { 0% { opacity: 0; transform: scale(.9); } 20% { opacity: .92; transform: scale(1); } 66% { opacity: .92; transform: scale(1.015); } 100% { opacity: 0; transform: scale(1.06); } }
-.kf-eyes { opacity: 0; animation: kfEyes 3.2s ease-in-out both; }
-@keyframes kfEyes { 0%, 14% { opacity: 0; } 24% { opacity: .85; } 84% { opacity: .85; } 100% { opacity: 0; } }
-.kf-hot { filter: brightness(1.3); animation: kfFlare 3.2s ease-in-out both; }
-@keyframes kfFlare { 0%, 16% { opacity: 0; } 26% { opacity: .75; } 46% { opacity: 0; } 100% { opacity: 0; } }
+.kf-head { opacity: 0; filter: drop-shadow(0 0 8px rgba(64, 180, 46, .6)) drop-shadow(0 0 26px rgba(64, 180, 46, .32)); animation: kfHead 2.3s cubic-bezier(.3, .6, .3, 1) both; }
+@keyframes kfHead { 0% { opacity: 0; transform: scale(.9); } 20% { opacity: .92; transform: scale(1); } 64% { opacity: .92; transform: scale(1.012); } 100% { opacity: 0; transform: scale(1.05); } }
+/* eyes: switch on together with the head (ease-out attack), overshoot to full brightness, settle to the normal glow, leave quickly with an ease-in */
+.kf-eyes { opacity: 0; animation: kfEyes 2.5s linear both; }
+@keyframes kfEyes { 0% { opacity: 0; animation-timing-function: cubic-bezier(0, 0, .2, 1); } 9% { opacity: 1; animation-timing-function: cubic-bezier(.3, 0, .5, 1); } 34% { opacity: .78; } 70% { opacity: .78; animation-timing-function: cubic-bezier(.4, 0, .7, .2); } 100% { opacity: 0; } }
+/* the flash: an extra bright bloom layer that spikes in ~0.15 s and decays slowly into the steady glow */
+.kf-hot { filter: brightness(1.7) saturate(.9) drop-shadow(0 0 10px rgba(190, 255, 160, .95)) drop-shadow(0 0 28px rgba(110, 240, 80, .8)); mix-blend-mode: screen; animation: kfFlare 1.4s linear both; }
+@keyframes kfFlare { 0% { opacity: 0; animation-timing-function: cubic-bezier(0, 0, .2, 1); } 12% { opacity: 1; animation-timing-function: cubic-bezier(.2, .6, .4, 1); } 100% { opacity: 0; } }
 .kingfx u { position: absolute; bottom: -6px; width: var(--s); height: var(--s); border-radius: 50%; background: #5fcf45; box-shadow: 0 0 6px rgba(70, 190, 50, .8); opacity: 0; animation: kfMote var(--t) ease-out var(--dl) both; will-change: transform, opacity; }
 @keyframes kfMote { 0% { opacity: 0; transform: translateY(0); } 20% { opacity: .7; } 100% { opacity: 0; transform: translateY(calc(var(--h) * -3)); } }
 @media (prefers-reduced-motion: reduce) { .rpk-gauss.on::after, .holofx, .kingfx { display: none; } }

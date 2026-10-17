@@ -1623,8 +1623,8 @@
     fx.innerHTML = '<div class="kf-wash"></div>'
       + `<div class="kf-box"><img class="kf-head" src="${IMG.nec_king_head}" alt="">${IMG.nec_king_eyes ? `<img class="kf-eyes" src="${IMG.nec_king_eyes}" alt=""><img class="kf-eyes kf-hot" src="${IMG.nec_king_eyes}" alt="">` : ''}</div>`
       + Array.from({ length: 12 }, () => `<u style="left:${R(8, 92).toFixed(0)}%;--h:${R(120, 380).toFixed(0)}px;--t:${R(1.6, 2.8).toFixed(2)}s;--dl:${R(.1, 1).toFixed(2)}s;--s:${R(2, 4).toFixed(0)}px"></u>`).join('');
-    document.body.appendChild(fx); setTimeout(() => fx.remove(), 3700);
-    if (PL.android) { PL.haptic('confirm'); setTimeout(() => PL.haptic('confirm'), 700); }
+    document.body.appendChild(fx); setTimeout(() => fx.remove(), 2800);
+    if (PL.android) { PL.haptic('confirm'); setTimeout(() => PL.haptic('confirm'), 300); }
   }
   /* A roll a unit makes in one of your phases every turn (Mortarion's Host of Plagues). Dice stay at the table:
      the card lights up in that phase and the player marks it done. State p.trig[instanceId][round] = true. */
