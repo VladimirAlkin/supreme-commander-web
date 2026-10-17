@@ -60,6 +60,27 @@ const Engine = (function () {
     if (a.ptsCap && a.ptsCap[bs.id] != null) return a.ptsCap[bs.id];
     return a.capKey && bs[a.capKey] != null ? bs[a.capKey] : null;
   }
+  /* An allied group as it applies to this roster: a detachment can replace its rule and cap, or shut the group out
+     (`overrides: {<detachmentId>: {rule, ptsCap}|{forbid: true}}` — Reaper's Wager). */
+  function alliedEff(a, roster) {
+    const ov = a.overrides && (roster.detachmentIds || []).map(id => a.overrides[id]).find(Boolean);
+    return ov ? Object.assign({}, a, ov) : a;
+  }
+  /* Points used against each allied cap. Groups sharing a `capGroup` (Harlequins + Anhrathe) count together under one cap.
+     [{label, factions, used, cap}] */
+  function alliedPtsInfo(roster, DATA) {
+    const ctx = ctxFor(roster, DATA), out = [];
+    if (!ctx.bs) return out;
+    const pts = points(roster, DATA), all = (ctx.fd.alliedFactions || []).map(a => alliedEff(a, roster)).filter(a => !a.forbid), seen = new Set();
+    all.forEach(a => {
+      const cap = alliedPtsCap(a, ctx.bs), key = a.capGroup || a.faction;
+      if (cap == null || seen.has(key)) return;
+      seen.add(key);
+      const members = all.filter(x => a.capGroup ? x.capGroup === a.capGroup : x.faction === a.faction);
+      out.push({ label: a.rule || a.faction, factions: members.map(x => x.faction), used: members.reduce((n, x) => n + ((pts.allied || {})[x.faction] || 0), 0), cap });
+    });
+    return out;
+  }
   /* Keyword an allied unit counts as in place of its own faction (Cult of the Dark Gods: HERETIC ASTARTES). */
   function keywordAsOf(ctx, fac) {
     const a = ((ctx.fd && ctx.fd.alliedFactions) || []).find(x => x.faction === fac && x.keywordAs);
@@ -69,6 +90,7 @@ const Engine = (function () {
   function copyLimit(def, ctx) {
     if (!ctx.bs) return Infinity;
     if (hasKw(def, ctx, 'Epic Hero')) return ctx.DATA.gameRules.epicHeroLimit;
+    if (def.copyMax) return def.copyMax;          // "you cannot include more than one of this model" (Death Jester, Shadowseer, Troupe Master)
     let lim = ctx.bs.copyLimit;
     if (ctx.DATA.gameRules.copyMultiplierKeywords.some(k => hasKw(def, ctx, k))) lim *= 2;
     return lim;
@@ -177,6 +199,7 @@ const Engine = (function () {
   }
   function ownCap(o, inst, def) {
     if (o.type === 'toggle') return 1;
+    if (o.maxBySize) return o.maxBySize[inst.size] || 0;      // cap depends on the unit size chosen (Troupe: 2 up to 9 models, 4 from 10)
     if (o.max === 'models') return inst.size;
     if (o.max === 'slot') { const sl = (def && def.slots || []).find(x => x.id === (o.slots || [])[0]); return sl ? slotSize(sl, inst) : 0; }
     if (o.per) return Math.floor(inst.size / o.per) * (o.n || 1);
@@ -249,18 +272,23 @@ const Engine = (function () {
     if (pts.total > bs.points) E(`Army is ${pts.total} pts, over the ${bs.points} pts limit by ${pts.total - bs.points}.`);
 
     // ---- Allied factions
-    (fd.alliedFactions || []).forEach(a => {
+    (fd.alliedFactions || []).forEach(a0 => {
+      const a = alliedEff(a0, roster);
       const units = roster.units.filter(inst => { const def = ctx.unitById[inst.datasheetId]; return def && factionOf(inst, def, ctx) === a.faction; });
       if (!units.length) return;
+      if (a.forbid) {
+        const why = (fd.detachments.find(d => (roster.detachmentIds || []).includes(d.id) && a0.overrides && a0.overrides[d.id]) || {}).name || 'a detachment in this roster';
+        units.forEach(inst => E(`${nameOf(inst)} is ${a.faction.toUpperCase()}; ${why} does not allow ${a.faction.toUpperCase()} units.`, inst.instanceId));
+        return;
+      }
       alliedCaps(roster, DATA).filter(c => c.faction === a.faction && c.used > c.n).forEach(c =>
         E(`${a.rule || a.faction}: ${c.used} ${c.keyword.toUpperCase()} units; ${bs.name} allows ${c.n}.`, c.units[c.units.length - 1].instanceId));
       if (a.requiresDetachment) {
         const hasDet = (roster.detachmentIds || []).includes(a.requiresDetachment);
         if (!hasDet) units.forEach(inst => E(`${nameOf(inst)} is ${a.faction.toUpperCase()} and needs the ${(fd.detachments.find(d => d.id === a.requiresDetachment) || {}).name} detachment.`, inst.instanceId));
       }
-      const cap = alliedPtsCap(a, bs);
-      if (cap != null && (pts.allied[a.faction] || 0) > cap) E(`${a.rule || a.faction}: units total ${pts.allied[a.faction]} pts; the ${bs.name} cap is ${cap} pts.`);
     });
+    alliedPtsInfo(roster, DATA).filter(i => i.used > i.cap).forEach(i => E(`${i.label}: units total ${i.used} pts; the ${bs.name} cap is ${i.cap} pts.`));
 
     // ---- Copy limits and surcharges
     const byDs = {};
@@ -270,7 +298,7 @@ const Engine = (function () {
       if (!def) { list.forEach(i => E(`Unknown datasheet ${dsId}.`, i.instanceId)); return; }
       const lim = copyLimit(def, ctx);
       if (list.length > lim) {
-        const why = hasKw(def, ctx, 'Epic Hero') ? 'is an Epic Hero (limit 1)' : `is limited to ${lim} in ${bs.name}`;
+        const why = hasKw(def, ctx, 'Epic Hero') ? 'is an Epic Hero (limit 1)' : def.copyMax ? `can only be included ${def.copyMax === 1 ? 'once' : def.copyMax + ' times'} in an army` : `is limited to ${lim} in ${bs.name}`;
         E(`${def.name} ${why}; you have ${list.length}. Remove ${list.length - lim}.`, list[lim].instanceId);
       }
       list.forEach(inst => {
@@ -521,6 +549,6 @@ const Engine = (function () {
   }
 
   function eligibleReason(e, inst, roster, DATA) { const ctx = ctxFor(roster, DATA); const def = ctx.unitById[inst.datasheetId]; return eligible(e, def, inst, ctx); }
-  return { alliedCaps, alliedPtsCap, warlordBlock, grantsFor, instGrants, dispositionsOf, dataVersionFor, eligibleReason, ctxFor, points, validate, copyLimit, nextCopyInfo, enhancementCount, enhancementBlock, optionMax, slotSize, slotUsed, ownCap, keywordsOf, hasKw, factionOf, buffed, attachedGroup, canLead, attachBlock, carries, enhIds, addStat, ORD };
+  return { alliedCaps, alliedPtsCap, alliedEff, alliedPtsInfo, warlordBlock, grantsFor, instGrants, dispositionsOf, dataVersionFor, eligibleReason, ctxFor, points, validate, copyLimit, nextCopyInfo, enhancementCount, enhancementBlock, optionMax, slotSize, slotUsed, ownCap, keywordsOf, hasKw, factionOf, buffed, attachedGroup, canLead, attachBlock, carries, enhIds, addStat, ORD };
 })();
 if (typeof module !== 'undefined') module.exports = Engine;

@@ -9,7 +9,8 @@ const DATA = {
    "adeptaSororitas": "2026-10-05-mfm15-fp12",
    "chaosSpaceMarines": "2026-10-08-mfm15-csm",
    "adeptusMechanicus": "2026-10-11-mfm15-fp12",
-   "emperorsChildren": "2026-10-14-mfm16-fp12"
+   "emperorsChildren": "2026-10-14-mfm16-fp12",
+   "drukhari": "2026-10-17-mfm16-fp12"
   },
   "stamp": "Data as of: MFM v1.5 (30/09/2026), Faction Packs World Eaters v1.3, Tyranids v1.2, Death Guard v1.3, Thousand Sons v1.3, Adepta Sororitas v1.2 and Imperial Agents v1.1. Rules text: official wording (Wahapedia export 28/09/2026 + 30/09/2026 Faction Pack changes). Checked 08.10.2026",
   "checked": "2026-10-05"
@@ -59866,7 +59867,28 @@ const DATA = {
       ],
       "per": 2,
       "note": "Start of the battle: 2 Pain tokens for each pairing in your army (Archon + Kabalite Warriors, Succubus + Wyches, Haemonculus + Wracks)."
-     }
+     },
+     "enhActions": [
+      {
+       "enh": "realspace_raiders_labyrinthine_cunning",
+       "title": "Labyrinthine Cunning",
+       "note": "Start of your Command phase, if the bearer is on the battlefield: spend 1 Pain token for 1CP, or roll a D6 and gain 1CP on a 4+. Once per Command phase.",
+       "options": [
+        {
+         "id": "spend",
+         "label": "Spend 1 Pain token: +1 CP",
+         "cp": 1,
+         "pain": -1
+        },
+        {
+         "id": "roll",
+         "label": "Rolled 4+: +1 CP",
+         "cp": 1,
+         "pain": 0
+        }
+       ]
+      }
+     ]
     },
     {
      "id": "reapers_wager",

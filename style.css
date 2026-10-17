@@ -1414,3 +1414,77 @@ html:not(.m) .seg.wide { max-width: 560px; }
   .rpk-slaanesh.on .sl-vein { opacity: .5; }
 }
 .pact-count > :not(svg) { position: relative; z-index: 1; }
+
+/* ---- Drukhari: badge tones, Combat Drugs, Pain tokens, Contract, Vanguard card ---- */
+.kwfx.tone-blue { border-color: rgba(88, 150, 255, .55); color: #8db6ff;
+  background-image: linear-gradient(100deg, #5b9bff 0%, #5b9bff 30%, #e3efff 40%, #5b9bff 50%, #9cc2ff 62%, #5b9bff 72%, #5b9bff 100%);
+  animation-name: kwwave, kwglowU; }
+@keyframes kwglowU { 0%, 100% { box-shadow: 0 0 0 rgba(88, 150, 255, 0); } 50% { box-shadow: 0 0 6px rgba(88, 150, 255, .38); } }
+.kwfx.tone-pain { border-color: rgba(255, 77, 115, .6); color: #ff4d73;
+  background-image: linear-gradient(100deg, #ff4d73 0%, #ff4d73 30%, #ffd6df 40%, #ff4d73 50%, #ff8aa3 62%, #ff4d73 72%, #ff4d73 100%);
+  animation-name: kwwave, kwglowP; }
+@keyframes kwglowP { 0%, 100% { box-shadow: 0 0 0 rgba(255, 77, 115, 0); } 50% { box-shadow: 0 0 7px rgba(255, 77, 115, .45); } }
+.hisum.tone-blue { border-color: rgba(88, 150, 255, .25); background: rgba(88, 150, 255, .05); }
+.hisum.tone-pain { border-color: rgba(255, 77, 115, .28); background: rgba(255, 77, 115, .06); }
+@media (prefers-reduced-motion: reduce) { .kwfx.tone-blue { -webkit-text-fill-color: #8db6ff; } .kwfx.tone-pain { -webkit-text-fill-color: #ff4d73; } }
+
+/* Combat Drugs: each drug has its own liquid colour; the active card glows and pulses in it (opacity only) */
+.dct-adrenalight { --c: rgba(255, 159, 28, .4); --cb: #ff9f1c; } .dct-hypex { --c: rgba(58, 134, 255, .4); --cb: #3a86ff; }
+.dct-serpentin { --c: rgba(123, 217, 63, .4); --cb: #7bd93f; } .dct-painbringer { --c: rgba(230, 57, 70, .4); --cb: #e63946; }
+.dct-lotus { --c: rgba(182, 109, 255, .4); --cb: #b66dff; } .dct-splintermind { --c: rgba(244, 224, 77, .4); --cb: #f4e04d; }
+.dct-adrenalight, .dct-hypex, .dct-serpentin, .dct-painbringer, .dct-lotus, .dct-splintermind { position: relative; }
+.dct-adrenalight::after, .dct-hypex::after, .dct-serpentin::after, .dct-painbringer::after, .dct-lotus::after, .dct-splintermind::after {
+  content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: 0; border-radius: inherit;
+  background: radial-gradient(90% 120% at 85% 10%, color-mix(in srgb, var(--cb) 55%, transparent), transparent 70%); }
+.dct.on:is(.dct-adrenalight, .dct-hypex, .dct-serpentin, .dct-painbringer, .dct-lotus, .dct-splintermind)::after { animation: drugPulse 2.2s ease-in-out infinite; }
+@keyframes drugPulse { 0%, 100% { opacity: .25; } 50% { opacity: .85; } }
+.dct[aria-disabled="true"] { opacity: .5; cursor: not-allowed; }
+.mfx.m-syringe { --fx: var(--cb, #7fd6e8); overflow: hidden; }
+.mf-fill { inset: 0; background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--fx) 60%, transparent)); opacity: 0; transform-origin: 100% 50%; animation: mfFill 1.5s ease-out .35s forwards; }
+@keyframes mfFill { 0% { opacity: 0; transform: scaleX(0); } 35% { opacity: .75; transform: scaleX(1); } 100% { opacity: 0; transform: scaleX(1); } }
+.mf-syrw { right: 4px; top: 4px; width: 70px; height: 24px; transform: rotate(-16deg); transform-origin: 100% 50%; }
+.mf-syr { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; opacity: 0; animation: mfSyr 2.2s ease-in-out forwards; }
+@keyframes mfSyr { 0% { opacity: 0; transform: translate(26px, -14px); } 14% { opacity: .62; transform: translate(0, 0); } 78% { opacity: .62; transform: translate(0, 0); } 100% { opacity: 0; transform: translate(26px, -14px); } }
+.mf-syr path, .mf-syr rect { vector-effect: non-scaling-stroke; }
+.mf-syr .sy-barrel { fill: rgba(230, 240, 245, .22); stroke: rgba(230, 240, 245, .75); stroke-width: 1.2; }
+.mf-syr .sy-liq { fill: var(--fx); opacity: .9; transform-box: fill-box; transform-origin: 0 50%; animation: mfLiq 1.2s ease-in .35s forwards; }
+@keyframes mfLiq { from { transform: scaleX(1); } to { transform: scaleX(.12); } }
+.mf-syr .sy-plunger { fill: none; stroke: rgba(230, 240, 245, .8); stroke-width: 1.6; stroke-linecap: round; animation: mfPlunge 1.2s ease-in .35s forwards; }
+@keyframes mfPlunge { from { transform: translateX(0); } to { transform: translateX(-22px); } }
+.mf-syr .sy-needle { stroke: rgba(230, 240, 245, .85); stroke-width: 1.4; stroke-linecap: round; fill: none; }
+@media (prefers-reduced-motion: reduce) { .mfx.m-syringe, .dct.on::after { display: none; } }
+
+/* Pain tokens: a lash cracks across the counter; the plate recoils; one scratch is left on its edge per token */
+.pain-st { position: relative; gap: 6px; padding: 6px 8px; border-radius: 12px; border: 1px solid rgba(255, 77, 115, .35); background: rgba(255, 77, 115, .05); }
+.pain-st output { font-size: 1.5rem; font-weight: 800; }
+.pain-st.hit { animation: painRecoil .42s cubic-bezier(.2, .9, .3, 1); }
+@keyframes painRecoil { 0% { transform: translate(0, 0) rotate(0); } 14% { transform: translate(9px, -2px) rotate(2.4deg); } 38% { transform: translate(-3px, 1px) rotate(-.9deg); } 100% { transform: translate(0, 0) rotate(0); } }
+.lash { position: absolute; z-index: 2; width: 18px; height: 2.5px; margin-left: -9px; border-radius: 2px; pointer-events: none;
+  background: linear-gradient(90deg, transparent, #ff4d73 25%, #ff4d73 75%, transparent); opacity: .85; box-shadow: 0 0 4px rgba(255, 77, 115, .55); }
+.lash::after { content: ''; position: absolute; left: 22%; top: 3.5px; width: 56%; height: 1.5px; border-radius: 2px; background: rgba(255, 77, 115, .5); }
+.lash.fresh { animation: lashIn .5s ease-out .12s backwards; }
+@keyframes lashIn { 0% { opacity: 0; transform: rotate(var(--r, -18deg)) scaleX(.2); } 100% { opacity: .85; transform: rotate(var(--r, -18deg)) scaleX(1); } }
+.whipfx { position: absolute; z-index: 3; left: -18%; top: -34%; width: 136%; height: 168%; pointer-events: none; opacity: 0; transform-origin: 100% 0; animation: whipCrack .55s ease-out forwards; }
+.whipfx svg { width: 100%; height: 100%; overflow: visible; fill: none; stroke-linecap: round; }
+.whipfx .w1 { stroke: rgba(239, 228, 210, .7); stroke-width: 3; } .whipfx .w2 { stroke: rgba(255, 77, 115, .75); stroke-width: 1.4; }
+@keyframes whipCrack { 0% { opacity: 0; transform: translateX(46%) rotate(-24deg) scaleX(.35); } 22% { opacity: .75; transform: translateX(8%) rotate(-6deg) scaleX(1); } 60% { opacity: .5; transform: translateX(-4%) rotate(4deg) scaleX(1); } 100% { opacity: 0; transform: translateX(-10%) rotate(8deg) scaleX(.9); } }
+@media (prefers-reduced-motion: reduce) { .pain-st.hit, .lash.fresh, .whipfx { animation: none; } .whipfx { display: none; } }
+
+/* Kabalite Cartel: a scribbled contract sits behind the buttons; completing it signs the page with a pen flourish */
+.contract { position: relative; isolation: isolate; padding: 10px 8px 22px; border-radius: 10px; }
+.ct-doc { position: absolute; inset: 0; z-index: -1; border-radius: 10px; pointer-events: none; border: 1px solid rgba(239, 228, 210, .16); background-color: rgba(239, 228, 210, .05);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='96' viewBox='0 0 220 96'%3E%3Cg fill='none' stroke='%23efe4d2' stroke-width='1.1' stroke-linecap='round' stroke-linejoin='round' opacity='.55'%3E%3Cpath d='M6 14c6-8 10 6 16-2s9 6 15-1 8 7 14 0 10-5 14 1 9 5 15-2 8 6 14-1 10 3 15 0 9-6 14 0 8 5 14-1 10 2 14-1'/%3E%3Cpath d='M6 32c5-7 9 5 15-1s10 6 15 0 8-5 14 2 9-4 14 0 10 5 15-2 8 4 14 0 9-6 15 1 8 3 13-1'/%3E%3Cpath d='M6 50c6-6 9 6 14-1s9 5 16-1 9 6 14 0 8-5 15 1 9 4 14-2 10 5 14 0 8-4 15 1'/%3E%3Cpath d='M6 68c5-8 10 4 16-1s8 7 14 0 10-4 15 1 8 5 14-1 9-5 15 1'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 220px 96px; opacity: .55; }
+.ct-sign { position: absolute; right: 12px; bottom: 2px; width: 96px; height: 24px; pointer-events: none; opacity: 0; transform-origin: 0 50%; transform: scaleX(0); }
+.contract.signed .ct-sign { opacity: .9; transform: scaleX(1); }
+.ct-sign svg { width: 100%; height: 100%; fill: none; stroke: #ff4d73; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.ct-sign.go { animation: ctSign .9s cubic-bezier(.3, .6, .3, 1) both; }
+@keyframes ctSign { 0% { opacity: 0; transform: scaleX(0); } 12% { opacity: .9; } 100% { opacity: .9; transform: scaleX(1); } }
+@media (prefers-reduced-motion: reduce) { .ct-sign.go { animation: none; } }
+
+/* Raider: Vanguard of the Dark City cards (round pick) */
+.rpk-pain, .rpanel-pain .rpk { color: #efe4d2; background: linear-gradient(180deg, #0c2227, #07161a); border: 1px solid rgba(23, 138, 148, .4); }
+.rpk-pain .rpk-e { color: #b9cdd0; } .rpk-pain .rpk-s { color: #ff8aa3; }
+.rpk-pain::before { content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: .5; background: linear-gradient(100deg, transparent 20%, rgba(255, 77, 115, .13) 50%, transparent 80%); background-size: 260% 100%; animation: htacDrift 10s ease-in-out infinite alternate; }
+.rpk-pain.on { border-color: #ff4d73; box-shadow: 0 0 16px rgba(255, 77, 115, .28); } .rpk-pain.on .rpk-s { color: #ffe3ea; text-shadow: 0 0 10px rgba(255, 77, 115, .7); }
+@media (prefers-reduced-motion: reduce) { .rpk-pain::before { display: none; } }

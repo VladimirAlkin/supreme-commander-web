@@ -539,7 +539,7 @@
   /* catalogue of addable units (desktop left column, phone "Add units" screen) */
   function catalogCats(r) {
     const fd = fdata(r.factionId);
-    const blAllowed = (fd.alliedFactions || []).filter(a => !a.requiresDetachment || r.detachmentIds.includes(a.requiresDetachment)).map(a => a.faction);
+    const blAllowed = (fd.alliedFactions || []).filter(a => (!a.requiresDetachment || r.detachmentIds.includes(a.requiresDetachment)) && !Engine.alliedEff(a, r).forbid).map(a => a.faction);
     const present = new Set(fd.units.filter(u => u.faction === fd.armyFaction || blAllowed.includes(u.faction)).map(u => catOf(u, r)));
     const hi = (faction(r.factionId).highlights || []).filter(h => hiLive(r, h) && !h.pickLabels && !h.noFilter).map(h => [hiKey(h), h.label.charAt(0) + h.label.slice(1).toLowerCase()]);
     return { blAllowed, cats: CATS.filter(([c]) => c === 'all' || present.has(c)).concat(hi) };
@@ -558,7 +558,7 @@
     units.forEach(u => (grouped[catOf(u, r)] = grouped[catOf(u, r)] || []).push(u));
     const have = id => r.units.filter(x => x.datasheetId === id).length;
     const caps = Engine.alliedCaps(r, DATA);
-    const ptsCaps = (fd.alliedFactions || []).map(a => ({ a, cap: Engine.alliedPtsCap(a, bs) })).filter(x => x.cap != null && blAllowed.includes(x.a.faction)).map(x => ({ label: x.a.rule || x.a.faction, used: (pts.allied && pts.allied[x.a.faction]) || 0, cap: x.cap }));
+    const ptsCaps = Engine.alliedPtsInfo(r, DATA).filter(x => x.factions.some(f => blAllowed.includes(f)));
     const addRow = u => {
       const nx = Engine.nextCopyInfo(u, r, DATA, u.sizes[0].models);
       const blocked = nx.copyNo > nx.limit ? `Limit ${nx.limit} reached in ${bs.name}` : null;
@@ -1289,6 +1289,7 @@
     }
     r.units.forEach(u => { const def = unitDef(r.factionId, u.datasheetId); if (def && def.roundPick) out.unshift(roundPickHTML(r, p, u, def)); if (def && def.phaseTrigger) out.unshift(phaseTriggerHTML(r, p, u, def)); if (def && def.oncePerBattle) out.push(oncePanelHTML(r, p, u, def)); });
     fd.armyRules.filter(a => a.imperatives).forEach(a => out.unshift(doctrinaHTML(p, a)));
+    fd.armyRules.filter(a => a.counter).forEach(a => out.unshift(tokenPoolHTML(r, p, a, dets)));
     fd.armyRules.filter(a => a.cpNote).forEach(a => {
       const names = new Set(a.cpNote.abilities), has = r.units.filter(u => (unitDef(r.factionId, u.datasheetId).abilities || []).some(x => names.has(x.name)));
       if (has.length) out.push(panel2(a.cpNote.title, '<span class="badge">Reminder</span>', `<div class="dim" style="font-size:.9rem">${esc(a.cpNote.text)}</div><div class="faint" style="font-size:.85rem">${esc(has.map(u => dispName(r, u)).join(', '))}</div>`));
@@ -1312,11 +1313,13 @@
           : rm.fx ? `<span class="mfx loop m-${rm.fx}" aria-hidden="true">${mfxHTML(rm.fx)}</span>` : '';
         if (active && !dismissed) out.push(`<div class="panel pad stack trk remind ${rm.fx ? 'fx-' + rm.fx : ''}" data-remcard="${d.id}">${fxEl}<div class="row"><h3 class="grow">${esc(rm.title)}</h3><span class="badge gold">This round</span></div>${rmText.map(t => `<div class="dim">${esc(t)}</div>`).join('')}<div class="row"><button class="btn sm primary" data-act="csmRemind" data-id="${d.id}">Done — dismiss</button></div></div>`);
       }
-      if (d.battlePick) {
+      if (d.battlePick && d.battlePick.contract) out.push(contractHTML(r, p, d));
+      else if (d.battlePick) {
         const bp = d.battlePick, picked = p.aug || [];
         out.push(panel(bp.title, picked.length ? `<span class="badge gold">${picked.length}/${bp.count} active</span>` : '<span class="badge">Pick at battle start</span>',
           `<div class="dim">${esc(bp.note)}</div>${Object.keys(bp.extraByEnh || {}).filter(id => r.units.some(x => Engine.enhIds(x).includes(id))).map(id => `<div class="dim"><b>Enhancement:</b> ${esc(bp.extraByEnh[id])}</div>`).join('')}<div class="choicechips augrow">${bp.options.map(o => `<button class="cchip ${picked.includes(o.id) ? 'on' : ''}" data-act="csmAug" data-fx="${bp.fx || ''}" data-id="${o.id}" aria-pressed="${picked.includes(o.id)}">${esc(o.name)}</button>`).join('')}</div>${picked.length ? `<div class="stack" style="gap:4px;margin-top:8px">${picked.map(id => { const o = bp.options.find(x => x.id === id); return o ? `<div class="dim"><b>${esc(o.name)}</b>: ${esc(o.effect)}</div>` : ''; }).join('')}</div>` : ''}`));
       }
+      (d.enhActions || []).forEach(ea => { const h = enhActHTML(r, p, ea); if (h) out.push(h); });
       if (d.numberlessHorde) {
         const rounds = d.numberlessHorde[r.battleSize] || d.numberlessHorde.strike, done = p.pox || {};
         const nowR = rounds.includes(p.round) && p.turn !== 'opp' && p.phase === 'Command' && !done[p.round];
@@ -1639,6 +1642,7 @@
     if (k === 'sonar') return '<i class="mf-ping"></i><i class="mf-ping p2"></i><i class="mf-ping p3"></i>';
     if (k === 'crosshair') return '<svg class="mf-cross" viewBox="0 0 60 60"><circle cx="30" cy="30" r="17"/><path d="M30 4v14M30 42v14M4 30h14M42 30h14"/></svg>';
     if (k === 'cloak') return '<i class="mf-cloak"></i><i class="mf-cloak c2"></i>';
+    if (k === 'syringe') return '<i class="mf-fill"></i><i class="mf-syrw"><svg class="mf-syr" viewBox="0 0 70 24"><path class="sy-needle" d="M2 12H14"/><rect class="sy-barrel" x="14" y="5" width="34" height="14" rx="3"/><rect class="sy-liq" x="16" y="7" width="30" height="10" rx="2"/><path class="sy-plunger" d="M48 12H64M64 5V19"/></svg></i>';
     return '';
   }
   /* Cawl's Canticles: on the click binary code runs along the button and gears spin up behind it, peeking out of its edges. */
@@ -1666,11 +1670,51 @@
   /* one pick per battle round, stored under p[key][round]; key is 'imp' for the army rule and 'halo' for Noospheric Transference */
   function doctrinaHTML(p, d) {
     const key = d.impKey || 'imp', now = (p[key] || {})[p.round], cur = d.imperatives.find(i => i.id === now);
-    const cards = d.imperatives.map(k => { const on = now === k.id;
-      return `<button class="dct dct-${k.tone || 'steel'} ${on ? 'on' : ''}" data-act="adImp" data-key="${key}" data-id="${k.id}" data-fx="${k.fx || d.impFx || ''}" aria-pressed="${on}"><span class="dct-gr" aria-hidden="true"></span>
-        <span class="dct-t"><b>${esc(k.name)}</b><span class="dct-s">${on ? 'Active' : 'Activate'}</span></span><span class="dct-e">${esc(k.effect)}</span></button>`; }).join('');
+    const usedIn = id => d.impOnce ? Object.entries(p[key] || {}).find(([rd, v]) => v === id && +rd !== p.round) : null;   // impOnce: each pick only once per battle
+    const cards = d.imperatives.map(k => { const on = now === k.id, u = usedIn(k.id);
+      return `<button class="dct dct-${k.tone || 'steel'} ${on ? 'on' : ''}" data-act="adImp" data-key="${key}" data-id="${k.id}" data-fx="${k.fx || d.impFx || ''}" aria-pressed="${on}" ${u ? 'aria-disabled="true"' : ''}><span class="dct-gr" aria-hidden="true"></span>
+        <span class="dct-t"><b>${esc(k.name)}</b><span class="dct-s">${u ? `Used · R${u[0]}` : on ? 'Active' : 'Activate'}</span></span><span class="dct-e">${esc(k.effect)}</span></button>`; }).join('');
     return `<div class="panel pad stack trk dctr"><div class="row"><h3 class="grow">${esc(d.impTitle)}</h3>${cur ? `<span class="badge gold">Round ${p.round}: ${esc(cur.name)}</span>` : `<span class="badge">Round ${p.round}: none</span>`}</div>
       <div class="dct-list">${cards}</div><div class="faint" style="font-size:.85rem">${esc(d.impNote || '')}</div></div>`;
+  }
+  /* Army-rule token pool (Drukhari Pain tokens): a stepper plate. Each token added is a lash that cracks across the plate and
+     leaves one scratch on its top/bottom edge (never over the number); taking a token away removes a scratch. */
+  const WHIP_SVG = '<svg viewBox="0 0 200 80" preserveAspectRatio="none"><path class="w1" d="M196 8C150-14 118 74 74 40S20 22 6 60"/><path class="w2" d="M196 8C150-14 118 74 74 40S20 22 6 60"/></svg>';
+  function tokenPoolHTML(r, p, a, dets) {
+    const c = a.counter, n = p[c.key] || 0, shown = Math.min(n, 12);
+    const marks = Array.from({ length: shown }, (_, i) => { const top = i % 2 === 0, x = 10 + ((i >> 1) % 6) * 15.5 + (top ? 0 : 6); return `<i class="lash" style="left:${x.toFixed(1)}%;top:${top ? '-2px' : 'calc(100% - 1px)'};--r:${top ? -16 : 14}deg;transform:rotate(${top ? -16 : 14}deg)"></i>`; }).join('');
+    const sp = dets.find(d => d.painStart);
+    let start = '';
+    if (sp) {
+      const have = id => r.units.some(u => u.datasheetId === id), pairs = sp.painStart.pairs.filter(([x, y]) => have(x) && have(y)).length, add = pairs * sp.painStart.per, done = !!p.painStart;
+      start = `<div class="row"><button class="btn sm ${done ? '' : 'primary'}" data-act="painStart" data-add="${add}" data-key="${c.key}" aria-pressed="${done}" ${!done && !add ? 'aria-disabled="true"' : ''}>${done ? `Starting pool added (+${p.painStart}) ✓` : `Add starting pool: +${add}`}</button></div><div class="faint" style="font-size:.85rem">${esc(sp.painStart.note)}</div>`;
+    }
+    return panel2(c.title, `<span class="badge gold num">${n}</span>`,
+      `<div class="row"><div class="stepper pain-st" role="group" aria-label="${esc(c.title)}"><button data-act="pc" data-k="${c.key}" data-d="-1" aria-label="Spend a Pain token">−</button><output class="num" aria-live="polite">${n}</output><button data-act="pc" data-k="${c.key}" data-d="1" aria-label="Gain a Pain token">+</button>${marks}</div><span class="dim">in your pool</span></div>
+      <div class="faint" style="font-size:.85rem">${esc(c.note)}</div>${start}`);
+  }
+  function lashFx() {
+    const st = document.querySelector('.pain-st'); if (!st || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    st.classList.remove('hit'); void st.offsetWidth; st.classList.add('hit');
+    const w = document.createElement('span'); w.className = 'whipfx'; w.setAttribute('aria-hidden', 'true'); w.innerHTML = WHIP_SVG; st.appendChild(w); setTimeout(() => w.remove(), 700);
+    const marks = st.querySelectorAll('.lash'); if (marks.length) marks[marks.length - 1].classList.add('fresh');
+    if (PL.android) PL.haptic('confirm');
+  }
+  /* Kabalite Cartel: pick a Contract; a scribbled document sits behind the buttons and is signed when the Contract is completed. */
+  function contractHTML(r, p, d) {
+    const bp = d.battlePick, picked = (p.aug || [])[0], opt = bp.options.find(o => o.id === picked), done = !!p.contractDone;
+    return panel2(bp.title, done ? `<span class="badge gold">Completed · +${p.contractDone} Pain</span>` : picked ? '<span class="badge gold">Contract active</span>' : '<span class="badge">Pick at battle start</span>',
+      `<div class="dim">${esc(bp.note)}</div>
+      <div class="contract ${done ? 'signed' : ''}"><span class="ct-doc" aria-hidden="true"></span><div class="choicechips augrow">${bp.options.map(o => `<button class="cchip ${picked === o.id ? 'on' : ''}" data-act="csmAug" data-id="${o.id}" aria-pressed="${picked === o.id}">${esc(o.name)}</button>`).join('')}</div><span class="ct-sign" aria-hidden="true"><svg viewBox="0 0 96 24"><path d="M4 18C14 4 20 20 30 10S44 4 50 14s12 6 18-6 12 8 24 2"/></svg></span></div>
+      ${opt ? `<div class="dim"><b>${esc(opt.name)}</b>: ${esc(opt.effect)}</div>` : ''}
+      <div class="row"><button class="btn sm ${done ? '' : 'primary'}" data-act="contractDone" aria-pressed="${done}" ${picked ? '' : 'aria-disabled="true"'}>${done ? 'Contract completed ✓ (tap to undo)' : 'Mark Contract completed'}</button></div>`);
+  }
+  /* An enhancement's once-per-Command-phase action (Labyrinthine Cunning: spend a token or roll for 1CP). State p.ea[enhId][round] = what was applied. */
+  function enhActHTML(r, p, ea) {
+    if (!r.units.some(u => Engine.enhIds(u).includes(ea.enh))) return '';
+    const cur = ((p.ea || {})[ea.enh] || {})[p.round], co = cur && ea.options.find(o => o.id === cur.id);
+    return panel2(ea.title, co ? `<span class="badge gold">Round ${p.round}: ${esc(co.label)}</span>` : `<span class="badge">Round ${p.round}: not used</span>`,
+      `<div class="dim" style="font-size:.9rem">${esc(ea.note)}</div><div class="chips" role="group" aria-label="${esc(ea.title)}">${ea.options.map(o => `<button class="chip" aria-pressed="${!!cur && cur.id === o.id}" data-act="enhAct" data-enh="${ea.enh}" data-id="${o.id}">${esc(o.label)}</button>`).join('')}</div>`);
   }
   /* Haloscreed: which units carry HALO OVERRIDE this round (limit by battle size); cleared when your turn starts */
   function haloUnitsHTML(r, p, d) {
@@ -2810,12 +2854,43 @@
       }, () => `${name} discarded${cp ? ': +1 CP' : ''}.`);
     },
     // play
-    pc: el => { const r = cur(), d = +el.dataset.d, k = el.dataset.k; if (k === 'tunnels') { const t = (S.play && S.play.tunnels) || 0, n = Math.max(0, Math.min(20, t + d)); if (n !== t) hfBite(el); } playChange(r, p => {
+    pc: el => { const r = cur(), d = +el.dataset.d, k = el.dataset.k;
+      const ctr = fdata(r.factionId).armyRules.find(a => a.counter && a.counter.key === k);
+      if (ctr) {   // army-rule token pool (Pain tokens)
+        const t = playState(r)[k] || 0, n = Math.max(0, Math.min(ctr.counter.max || 99, t + d));
+        if (n === t) { PL.haptic('reject'); return; }
+        playChange(r, p => { p[k] = n; }, null, d > 0 ? 'confirm' : 'tick'); if (d > 0) lashFx(); return;
+      }
+      if (k === 'tunnels') { const t = (S.play && S.play.tunnels) || 0, n = Math.max(0, Math.min(20, t + d)); if (n !== t) hfBite(el); } playChange(r, p => {
       if (k === 'cp') { if (p.cp + d < 0) return false; p.cp += d; }
       if (k === 'round') { const n = Math.min(5, Math.max(1, p.round + d)); if (n === p.round) return false; p.round = n; if (d > 0) { p.active = []; } }
       if (k === 'vp0' || k === 'vp1') { const i = k === 'vp0' ? 0 : 1; if (p.vp[i] + d < 0) return false; p.vp[i] += d; }
       if (k === 'tunnels') { const n = Math.max(0, Math.min(20, (p.tunnels || 0) + d)); if (n === (p.tunnels || 0)) return false; p.tunnels = n; }
     }); },
+    painStart: el => {   // add (or take back) the starting token pool counted from the roster
+      const r = cur(), key = el.dataset.key, add = +el.dataset.add, done = !!playState(r).painStart;
+      if (!done && !add) { toast('No Archon + Kabalite Warriors, Succubus + Wyches or Haemonculus + Wracks pairing in this roster.'); PL.haptic('reject'); return; }
+      playChange(r, p => { if (p.painStart) { p[key] = Math.max(0, (p[key] || 0) - p.painStart); delete p.painStart; } else { p[key] = (p[key] || 0) + add; p.painStart = add; } }, null, 'confirm');
+      if (!done) lashFx();
+    },
+    contractDone: el => {
+      if (el.getAttribute('aria-disabled') === 'true') { toast('Pick a Contract first.'); PL.haptic('reject'); return; }
+      const r = cur(), d = fdata(r.factionId).detachments.find(x => x.battlePick && x.battlePick.contract && r.detachmentIds.includes(x.id)); if (!d) return;
+      const ctr = fdata(r.factionId).armyRules.find(a => a.counter), key = ctr && ctr.counter.key, gain = d.battlePick.contract.pain, wasDone = !!playState(r).contractDone;
+      playChange(r, p => { if (p.contractDone) { if (key) p[key] = Math.max(0, (p[key] || 0) - p.contractDone); delete p.contractDone; } else { if (key) p[key] = (p[key] || 0) + gain; p.contractDone = gain; } }, null, 'confirm');
+      if (!wasDone && !matchMedia('(prefers-reduced-motion: reduce)').matches) { const sg = document.querySelector('.contract .ct-sign'); if (sg) sg.classList.add('go'); }
+    },
+    enhAct: el => {
+      const r = cur(), fd = fdata(r.factionId), enh = el.dataset.enh, id = el.dataset.id;
+      const ea = fd.detachments.flatMap(d => d.enhActions || []).find(x => x.enh === enh), o = ea && ea.options.find(x => x.id === id); if (!o) return;
+      const ctr = fd.armyRules.find(a => a.counter), key = ctr && ctr.counter.key;
+      playChange(r, p => {
+        const m = ((p.ea = p.ea || {})[enh] = p.ea[enh] || {}), prev = m[p.round];
+        if (!(prev && prev.id === id) && o.pain && key && ((p[key] || 0) - (prev ? prev.pain || 0 : 0) + o.pain) < 0) { toast('No Pain token to spend.'); PL.haptic('reject'); return false; }
+        if (prev) { p.cp = Math.max(0, p.cp - (prev.cp || 0)); if (key) p[key] = Math.max(0, (p[key] || 0) - (prev.pain || 0)); delete m[p.round]; if (prev.id === id) return; }
+        p.cp += o.cp || 0; if (key) p[key] = Math.max(0, (p[key] || 0) + (o.pain || 0)); m[p.round] = { id, cp: o.cp || 0, pain: o.pain || 0 };
+      }, null, 'confirm');
+    },
     tyrShadow: el => {
       if (el.getAttribute('aria-disabled') === 'true') { if (S.play && S.play.shadow) return; toast(S.play && S.play.phase !== 'Command' ? 'Unleash it in a Command phase (either player).' : 'No unit in this roster has Shadow in the Warp.'); PL.haptic('reject'); return; }
       const r = cur(), box = el.getBoundingClientRect(); S.shadowFx = true;
@@ -2866,7 +2941,8 @@
       playChange(r, p => { p.imp = p.imp || {}; if (p.imp[p.round] === id) delete p.imp[p.round]; else p.imp[p.round] = id; }, null, 'confirm');
       if (on) { const c = document.querySelector(`.kin[data-id="${id}"]`); if (c) sigilFx(c); }
     },
-    adImp: el => {   // Doctrina Imperatives / Halo Override: one pick per battle round
+    adImp: el => {   // Doctrina Imperatives / Halo Override / Combat Drugs: one pick per battle round
+      if (el.getAttribute('aria-disabled') === 'true') { toast('Already picked in an earlier round; each can only be picked once per battle.'); PL.haptic('reject'); return; }
       const r = cur(), id = el.dataset.id, key = el.dataset.key || 'imp', on = ((playState(r)[key] || {})[playState(r).round]) !== id;
       playChange(r, p => { p[key] = p[key] || {}; if (p[key][p.round] === id) delete p[key][p.round]; else p[key][p.round] = id; }, null, 'confirm');
       if (on) mechFx(document.querySelector(`.dct[data-key="${key}"][data-id="${id}"]`), el.dataset.fx);
