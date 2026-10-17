@@ -2,12 +2,13 @@
 
 Applies to every army in the app: Chaos Space Marines, World Eaters, Death
 Guard, Thousand Sons, Tyranids, Adepta Sororitas (with Imperial Agents),
-Adeptus Mechanicus, Emperor's Children (with Legions of Excess), and
+Adeptus Mechanicus, Emperor's Children (with Legions of Excess), Drukhari (with Harlequins and Anhrathe allies), and
 any army added later.
 
 Current to: the 30 Sep 2026 update (MFM v1.5; Faction Packs World Eaters,
 Death Guard, Thousand Sons v1.3; Tyranids and Adepta Sororitas v1.2 with no
 rules change; Imperial Agents profiles only). Last full rebuild 2026-10-08. Emperor's Children (added 2026-10-14) is
+current to MFM v1.6 and Faction Pack v1.2. Drukhari (added 2026-10-17) is
 current to MFM v1.6 and Faction Pack v1.2.
 
 ## Order of precedence
@@ -125,3 +126,12 @@ Found by `bsdelta.py` across BSData's import (`374f505..HEAD`) plus reviews:
   Spawn, Heldrake, Maulerfiend and the Daemon Princes use the Chaos kit photos;
   Infractors use a second image from the shared Tormentors/Infractors box. The
   Frenzied Host HOST tag is an interpretation — confirm.
+- Drukhari (added 2026-10-17, MFM v1.6; Faction Pack v1.2): 23 datasheets plus 14 allied
+  (Harlequins, Anhrathe). Where Wahapedia and BSData differ, BSData/MFM were taken
+  (owner decision). Check against the app: Ravager default price (3 Dark Lances
+  at +5 each = 125 pts), stratagem count of the 1-DP detachments (3 each, BSData
+  has none), Incubi Klaivex wounds, conditional invulnerable saves (Wyches 6+*),
+  Power from Pain / Pounce on the Prey / Venom Rapid Deployment overrides.
+  Pounce on the Prey kept at the owner's request. No product photo on
+  warhammer.com for Hand of the Archon, Scourges with Heavy Weapons (shares the
+  Scourges box), Corsair Voidscarred and Troupe Master: faction logo placeholder.
