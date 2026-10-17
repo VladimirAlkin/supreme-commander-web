@@ -2015,16 +2015,27 @@
     setTimeout(() => fx.remove(), 3300);
   }
   /* Tracker feedback for Tyranids (Hyper-adaptation and Tunnel Markers bite, Synaptic Imperative glow).
-     Overlays are fixed, sit on the body and only animate transform and opacity; reduced motion skips them. */
+     The overlay is a child of the button itself, so it travels with the button when the page scrolls. A tap re-renders the page and
+     builds a new button, so the button is found again by its data-* attributes once the new DOM is in. Only transform and opacity
+     animate; reduced motion skips it. */
   const HF_EYES_SRC = 'img/tyr_shadow_eyes.webp';
   let hfEyesPre = null;
   const HF_EYES = `<div class="hf-eyes" aria-hidden="true"><img src="${HF_EYES_SRC}" alt="" decoding="async"></div>`;
   const hfReduce = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
-  function hfFx(box, inner, ms, vars) {
-    const fx = document.createElement('div'); fx.className = 'hf-fx'; fx.setAttribute('aria-hidden', 'true');
-    fx.style.left = box.left + 'px'; fx.style.top = box.top + 'px'; fx.style.width = box.width + 'px'; fx.style.height = box.height + 'px';
-    Object.entries(vars || {}).forEach(([k, v]) => fx.style.setProperty(k, v));
-    fx.innerHTML = inner; document.body.appendChild(fx); setTimeout(() => fx.remove(), ms);
+  let hfN = 0;
+  const hfSel = el => el.tagName.toLowerCase() + [...el.attributes].filter(a => a.name.startsWith('data-')).map(a => `[${a.name}="${a.value.replace(/["\\]/g, '\\$&')}"]`).join('');
+  function hfFx(el, inner, ms, cls) {
+    const sel = hfSel(el); let idx = 0; try { idx = [...document.querySelectorAll(sel)].indexOf(el); } catch (e) { }
+    requestAnimationFrame(() => {
+      let host = el.isConnected ? el : null; try { const all = document.querySelectorAll(sel); host = all[idx] || all[0] || host; } catch (e) { }
+      if (!host) return;
+      host.querySelectorAll(':scope > .hf-fx').forEach(n => n.remove());
+      const fx = document.createElement('span'); fx.className = 'hf-fx'; fx.setAttribute('aria-hidden', 'true'); fx.innerHTML = inner;
+      if (getComputedStyle(host).position === 'static') host.classList.add('hf-host');
+      if (cls) host.classList.add(cls);
+      host.appendChild(fx); host._hfFx = fx;
+      setTimeout(() => { fx.remove(); if (host._hfFx === fx) { host.classList.remove('hf-host'); if (cls) host.classList.remove(cls); } }, ms);
+    });
   }
   // colour of whatever is behind the button: the bitten-out chunk is painted with it, so it reads as a hole
   // panels are translucent, so the layers are blended down to the first opaque one
@@ -2039,31 +2050,37 @@
     layers.reverse().forEach(c => { out = { r: c.r * c.a + out.r * (1 - c.a), g: c.g * c.a + out.g * (1 - c.a), b: c.b * c.a + out.b * (1 - c.a) }; });
     return `rgb(${Math.round(out.r)}, ${Math.round(out.g)}, ${Math.round(out.b)})`;
   }
-  /* One bite, drawn with the button edge at y=4 and the chunk going down into the button:
-     a scalloped hole (one arc per tooth, cusps between them), a torn dark rim, tooth punctures past the rim and hairline cracks. */
-  const HF_BITE = (() => {
-    const cx = 30, cy = 4, rx = 26, ry = 19, n = 7, pt = (t, k) => [cx + rx * k * Math.cos(t), cy + ry * k * Math.sin(t)], f = v => v.toFixed(1);
-    const P = Array.from({ length: n + 1 }, (_, i) => pt(Math.PI * i / n, 1));
+  /* A bite: two organic jaws (purple chitin, bone fangs, red gum) hinge shut like scissors on the button's edge and tear a scalloped chunk out of it.
+     The hole is painted with the colour behind the button, so it reads as missing; punctures and cracks stay on the button for ~2s and crumbs fly off.
+     One bite is drawn in its own coordinates (the edge point is the origin, +x goes into the button); --r turns it to face the right way. */
+  const HF_TEETH = 'M12 -4 L7 3 L4 -4 Z M4 -4 L-1 5 L-4 -4 Z M-4 -4 L-9 5 L-12 -4 Z M-12 -4 L-17 4 L-20 -4 Z';
+  const HF_JAW = low => `<svg viewBox="-28 ${low ? -5 : -14} 44 19" overflow="visible"><g${low ? ' transform="translate(4 0) scale(1 -1)"' : ''}>` +
+    `<path class="hfb-jb" d="M-28 -12 C-14 -16 3 -13 16 -2 L12 -4 L-20 -4 L-28 -8 Z"/><path class="hfb-rd" d="M-22 -10 Q-10 -13 3 -9 M-18 -7 Q-10 -9 -4 -7"/>` +
+    `<path class="hfb-gm" d="M-20 -5.6 H12 V-3.4 H-20 Z"/><path class="hfb-t" d="${HF_TEETH}"/></g></svg>`;
+  const HF_NOTCH = (() => {
+    const rx = 13, ry = 17, n = 5, f = v => v.toFixed(1), pt = (t, k) => [rx * k * Math.cos(t), ry * k * Math.sin(t)], a0 = i => -Math.PI / 2 + Math.PI * i / n;
+    const P = Array.from({ length: n + 1 }, (_, i) => pt(a0(i), 1));
     let rim = `M${f(P[0][0])} ${f(P[0][1])}`;
-    for (let i = 0; i < n; i++) { const c = pt(Math.PI * (i + .5) / n, 1.2); rim += ` Q${f(c[0])} ${f(c[1])} ${f(P[i + 1][0])} ${f(P[i + 1][1])}`; }
-    const holes = Array.from({ length: n }, (_, i) => { const t = Math.PI * (i + .5) / n, [x, y] = pt(t, 1.42); return `<ellipse cx="${f(x)}" cy="${f(y)}" rx="1.5" ry="2.6" transform="rotate(${f(t * 180 / Math.PI - 90)} ${f(x)} ${f(y)})"/>`; }).join('');
-    const cracks = [1, 3, 5, 6].map((i, j) => { const t = Math.PI * i / n, [x0, y0] = pt(t, 1.02), [x1, y1] = pt(t + (j % 2 ? .06 : -.07), 1.3), [x2, y2] = pt(t + (j % 2 ? -.03 : .05), 1.6); return `M${f(x0)} ${f(y0)} L${f(x1)} ${f(y1)} L${f(x2)} ${f(y2)}`; }).join(' ');
-    const out = `translate(${cx} ${cy}) scale(1.07) translate(${-cx} ${-cy})`; // the torn edge just outside the hole
-    return `<svg viewBox="-8 0 76 42" overflow="visible"><path class="hfb-crack" d="${cracks}"/><g class="hfb-holes">${holes}</g><path class="hfb-tear" d="${rim}" transform="${out}"/>` +
-      `<path class="hfb-chunk" d="M-4 0 H64 V${cy} L${f(P[0][0])} ${f(P[0][1])} ${rim.replace(/^M[^ ]+ [^ ]+ /, '')} L-4 ${cy} Z"/><path class="hfb-rim" d="${rim}"/><path class="hfb-raw" d="${rim}"/></svg>`;
+    for (let i = 0; i < n; i++) { const c = pt(a0(i + .5), 1.22); rim += ` Q${f(c[0])} ${f(c[1])} ${f(P[i + 1][0])} ${f(P[i + 1][1])}`; }
+    const holes = Array.from({ length: n }, (_, i) => { const t = a0(i + .5), [x, y] = pt(t, 1.5); return `<ellipse cx="${f(x)}" cy="${f(y)}" rx="2.1" ry="1.1" transform="rotate(${f(t * 180 / Math.PI)} ${f(x)} ${f(y)})"/>`; }).join('');
+    const cracks = [1, 3, 4].map((i, j) => { const t = a0(i), [x0, y0] = pt(t, 1.05), [x1, y1] = pt(t + (j % 2 ? .1 : -.1), 1.45), [x2, y2] = pt(t + (j % 2 ? -.05 : .08), 1.85); return `M${f(x0)} ${f(y0)} L${f(x1)} ${f(y1)} L${f(x2)} ${f(y2)}`; }).join(' ');
+    return `<svg class="hf-bn" viewBox="-30 -30 60 60" overflow="visible"><path class="hfb-cr" d="${cracks}"/><g class="hfb-pu">${holes}</g>` +
+      `<path class="hfb-hole" d="${rim} L${f(P[n][0])} ${f(P[n][1])} L-4 ${f(P[n][1])} L-4 ${f(P[0][1])} Z"/><path class="hfb-rim" d="${rim}"/><path class="hfb-raw" d="${rim}"/></svg>`;
   })();
-  // the button gets bitten from several sides at once
   function hfBite(el) {
     const box = el && el.getBoundingClientRect(); if (!box || !box.width || hfReduce()) return;
-    const wide = box.width / box.height > 1.6, w = wide ? box.height * .95 : Math.min(box.height * 1.15, box.width * .72);
-    // [x%, y%, rotation (inward direction), delay ms, size]; on a wide chip the side bite stays small so the label stays readable
-    const spots = wide ? [[24, 0, 0, 0, 1], [64, 100, 180, 90, 1], [100, 50, 90, 170, .72]] : [[42, 0, 0, 0, 1], [100, 62, 90, 90, 1], [36, 100, 180, 170, 1]];
-    hfFx(box, spots.map(([x, y, r, d, k]) => `<i class="hf-bite" style="left:${x}%;top:${y}%;--r:${r}deg;--hf-bw:${Math.round(w * k)}px;animation-delay:${d}ms">${HF_BITE}</i>`).join(''), 1700, { '--hf-bg': hfBehind(el) });
+    const wide = box.width / box.height > 1.6, s0 = Math.max(.45, Math.min(box.height * .0135, .62));
+    // [x%, y%, rotation (inward direction), delay ms, size]: a wide chip is bitten four times (right end, top, bottom, left end), a square button on its top and bottom edges
+    const spots = wide ? [[100, 50, 180, 0, 1], [28, 0, 90, 90, .8], [68, 100, -90, 170, .8], [0, 50, 0, 250, .8]] : [[36, 0, 90, 0, 1], [64, 100, -90, 170, .8]];
+    const cs = getComputedStyle(el), m = cs.backgroundColor.match(/[\d.]+/g) || [], crumb = m.length >= 3 && (m.length < 4 || +m[3] >= .5) ? cs.backgroundColor : 'rgba(236, 224, 196, .75)', bg = hfBehind(el);
+    const crumbs = [[-16, -9, 40], [-23, 2, -70], [-14, 11, 100]].map(([x, y, q]) => `<i class="hf-bc" style="--x:${x}px;--y:${y}px;--q:${q}deg"></i>`).join('');
+    hfFx(el, spots.map(([x, y, r, d, k]) => `<i class="hf-bite" style="left:${x}%;top:${y}%;--r:${r}deg;--s:${(s0 * k).toFixed(3)};--d:${d}ms;--hf-bg:${bg};--hf-cr:${crumb}">${HF_NOTCH}<i class="hf-bf"></i>${crumbs}` +
+      `<i class="hf-bj hf-bju">${HF_JAW(0)}</i><i class="hf-bj hf-bjl">${HF_JAW(1)}</i></i>`).join(''), 2800, 'hf-chomp');
   }
   // blue synapse glow around the button
   function hfSynapse(el) {
-    const box = el && el.getBoundingClientRect(); if (!box || !box.width || hfReduce()) return;
-    hfFx(box, '<i class="hf-syn"></i><i class="hf-syn hf-syn2"></i>', 1000);
+    if (!el || !el.offsetWidth || hfReduce()) return;
+    hfFx(el, '<i class="hf-syn"></i><i class="hf-syn hf-syn2"></i>', 1000);
   }
   function overHTML(p) {
     if (!p.over) return '';

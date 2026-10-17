@@ -655,23 +655,48 @@ html:not(.m) .seg.wide { max-width: 560px; }
 .hf-eyes { position: fixed; left: 50%; top: 46%; width: min(86vw, 520px); opacity: 0; transform: translate(-50%, -50%); filter: drop-shadow(0 0 18px rgba(255, 40, 10, .75)); animation: hfEyes 2.6s ease-out forwards; }
 .hf-eyes img { width: 100%; height: auto; display: block; }
 @keyframes hfEyes { 0% { opacity: 0; transform: translate(-50%, -50%) scale(.3); } 12% { opacity: 1; transform: translate(-50%, -50%) scale(1.08); } 18% { transform: translate(-50%, -50%) scale(1); } 40% { opacity: .7; } 46% { opacity: 1; } 70% { opacity: 1; } 100% { opacity: 0; transform: translate(-50%, -50%) scale(1.06); } }
-/* Tracker feedback overlays (JS adds .hf-fx to the body; fixed, pointer-events none) */
-.hf-fx { position: fixed; z-index: 96; pointer-events: none; }
-/* a bitten-out chunk: the edge point of the button sits at 50% / 9.5% of the svg (x=30, y=4 of the -8 0 76 42 viewBox) */
-.hf-bite { position: absolute; width: var(--hf-bw); height: calc(var(--hf-bw) * 42 / 76); margin: calc(var(--hf-bw) * -4 / 76) 0 0 calc(var(--hf-bw) / -2); transform-origin: 50% 9.5%; opacity: 0;
-  transform: rotate(var(--r)) scale(1.35); animation: hfBite 1.6s cubic-bezier(.3, 1.4, .5, 1) forwards; }
-.hf-bite svg { width: 100%; height: 100%; display: block; overflow: visible; }
-.hfb-chunk { fill: var(--hf-bg); }
-.hfb-tear { fill: none; stroke: rgba(255, 214, 190, .38); stroke-width: 1.4px; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
-.hfb-rim { fill: none; stroke: rgba(0, 0, 0, .8); stroke-width: 2.6px; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
-.hfb-raw { fill: none; stroke: rgba(190, 25, 35, .95); stroke-width: 1.2px; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
-.hfb-holes ellipse { fill: #070102; stroke: rgba(110, 12, 18, .55); stroke-width: .8px; vector-effect: non-scaling-stroke; }
-.hfb-crack { fill: none; stroke: rgba(0, 0, 0, .7); stroke-width: 1.1px; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
-@keyframes hfBite { 0% { opacity: 0; transform: rotate(var(--r)) scale(1.35); } 6% { opacity: 1; transform: rotate(var(--r)) scale(.92); } 12% { transform: rotate(var(--r)) scale(1); } 75% { opacity: 1; } 100% { opacity: 0; transform: rotate(var(--r)) scale(1); } }
+/* Tracker feedback overlays: JS puts .hf-fx inside the button itself, so it scrolls with it. Only transform and opacity animate. */
+.hf-host { position: relative; }
+.hf-fx { position: absolute; inset: 0; z-index: 5; pointer-events: none; }
+/* Tyranids bite. One .hf-bite is drawn around its edge point (--s = size, --r = direction, --d = delay); every part animates only transform and opacity. */
+.hf-bite { position: absolute; width: 0; height: 0; transform: rotate(var(--r)); }
+.hf-bite .hf-bn { position: absolute; max-width: none; left: calc(-30px * var(--s)); top: calc(-30px * var(--s)); width: calc(60px * var(--s)); height: calc(60px * var(--s)); opacity: 0; animation: hfNotch 2.3s calc(var(--d) + 176ms) forwards; }
+.hf-bj { position: absolute; left: calc(-28px * var(--s)); width: calc(44px * var(--s)); height: calc(19px * var(--s)); opacity: 0; animation: hfBj .8s var(--d) forwards; }
+.hf-bite .hf-bj svg { width: 100%; height: 100%; max-width: none; display: block; overflow: visible; }
+.hf-bju { top: calc(-14px * var(--s)); transform-origin: 0 calc(14px * var(--s)); --o: -1; }
+.hf-bjl { top: calc(-5px * var(--s)); transform-origin: 0 calc(5px * var(--s)); --o: 1; }
+.hfb-jb { fill: #5d3d5a; stroke: #150812; stroke-width: 1.1px; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.hfb-rd { fill: none; stroke: #2a1530; stroke-width: 1px; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.hfb-gm { fill: #8e1f2e; }
+.hfb-t { fill: #e9ddbd; stroke: #2a1620; stroke-width: .9px; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.hfb-hole { fill: var(--hf-bg); }
+.hfb-rim { fill: none; stroke: rgba(50, 6, 12, .95); stroke-width: 2.4px; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.hfb-raw { fill: none; stroke: rgba(205, 62, 74, .95); stroke-width: 1.1px; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.hfb-pu ellipse { fill: #12030a; stroke: rgba(140, 20, 30, .75); stroke-width: .8px; vector-effect: non-scaling-stroke; }
+.hfb-cr { fill: none; stroke: rgba(20, 3, 6, .8); stroke-width: 1px; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+/* a pale flash where the jaws meet, and crumbs of the button flying outwards */
+.hf-bf { position: absolute; left: calc(-16px * var(--s)); top: calc(-16px * var(--s)); width: calc(32px * var(--s)); height: calc(32px * var(--s)); border-radius: 50%; opacity: 0; transform: scale(.4);
+  background: radial-gradient(circle, rgba(255, 244, 214, .95) 0, rgba(255, 190, 150, .55) 38%, transparent 70%); animation: hfBf .4s calc(var(--d) + 176ms) ease-out forwards; }
+.hf-bc { position: absolute; left: -2px; top: -2px; width: 4px; height: 4px; border-radius: 1px; background: var(--hf-cr); opacity: 0; animation: hfBc .9s calc(var(--d) + 176ms) ease-out forwards; }
+.hf-chomp { animation: hfChomp .26s ease-out .17s; }
+@keyframes hfBj {
+  0% { opacity: 0; transform: rotate(calc(var(--o) * 30deg)); animation-timing-function: ease-out; }
+  8% { opacity: 1; transform: rotate(calc(var(--o) * 40deg)); animation-timing-function: cubic-bezier(.6, 0, .9, .5); }
+  22% { opacity: 1; transform: rotate(0deg); animation-timing-function: ease-out; }
+  26% { transform: rotate(calc(var(--o) * -3deg)); }
+  32% { transform: rotate(0deg); }
+  50% { opacity: 1; transform: rotate(0deg); animation-timing-function: ease-in; }
+  68% { opacity: 0; transform: rotate(calc(var(--o) * 14deg)); }
+  100% { opacity: 0; transform: rotate(calc(var(--o) * 14deg)); }
+}
+@keyframes hfNotch { 0% { opacity: 0; transform: scale(1.35); } 5% { opacity: 1; transform: scale(.94); } 9% { transform: scale(1); } 82% { opacity: 1; } 100% { opacity: 0; transform: scale(1); } }
+@keyframes hfBf { 0% { opacity: 0; transform: scale(.4); } 25% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(1.5); } }
+@keyframes hfBc { 0% { opacity: 0; transform: translate(0, 0) scale(.6); } 12% { opacity: 1; } 100% { opacity: 0; transform: translate(var(--x), var(--y)) rotate(var(--q)) scale(1); } }
+@keyframes hfChomp { 0% { transform: none; } 35% { transform: scale(.97, .92); } 100% { transform: none; } }
 .hf-syn { position: absolute; left: -12px; top: -12px; right: -12px; bottom: -12px; border-radius: 16px; opacity: 0; border: 2px solid rgba(120, 220, 255, .9); box-shadow: 0 0 18px 4px rgba(80, 190, 255, .8), inset 0 0 14px rgba(120, 220, 255, .5); animation: hfSyn .9s ease-out forwards; }
 .hf-syn2 { animation-delay: .18s; }
 @keyframes hfSyn { 0% { opacity: 0; transform: scale(.94); } 30% { opacity: 1; transform: scale(1.03); } 100% { opacity: 0; transform: scale(1.14); } }
-@media (prefers-reduced-motion: reduce) { .kbl.flare::after, .voidfx, .hf-fx { display: none; } }
+@media (prefers-reduced-motion: reduce) { .kbl.flare::after, .voidfx, .hf-fx { display: none; } .hf-chomp { animation: none; } }
 
 /* ---- faction highlight tones: Death Guard green (contagion), World Eaters blood (+1 die) ---- */
 .kwfx.tone-green { border-color: rgba(168, 204, 74, .5); color: #b8d65a;
