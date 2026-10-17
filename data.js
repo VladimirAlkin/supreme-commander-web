@@ -76638,7 +76638,7 @@ const DATA = {
      "role": "beast",
      "faction": "T’au Empire",
      "keywords": [
-      "Beasts",
+      "Beast",
       "Hounds",
       "Kroot",
       "T’au Empire"
