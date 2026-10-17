@@ -1550,3 +1550,56 @@ html:not(.m) .seg.wide { max-width: 560px; }
 .rpk-pain::before { content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: .5; background: linear-gradient(100deg, transparent 20%, rgba(255, 77, 115, .13) 50%, transparent 80%); background-size: 260% 100%; animation: htacDrift 10s ease-in-out infinite alternate; }
 .rpk-pain.on { border-color: #ff4d73; box-shadow: 0 0 16px rgba(255, 77, 115, .28); } .rpk-pain.on .rpk-s { color: #ffe3ea; text-shadow: 0 0 10px rgba(255, 77, 115, .7); }
 @media (prefers-reduced-motion: reduce) { .rpk-pain::before { display: none; } }
+
+/* Spend Pain: the button under the counter, the Empowered chips, the bottom sheet and the rows on unit cards */
+.pn-spend { width: 100%; min-height: 50px; border-radius: 12px; border: 0; background: #ff4d73; color: #1a0509; font-weight: 800; font-size: 1.08rem; display: flex; align-items: center; justify-content: center; gap: 9px; box-shadow: 0 0 18px rgba(255, 77, 115, .4); }
+.pn-spend svg { width: 20px; height: 20px; flex: none; }
+.pn-spend i { font-style: normal; font-size: .85rem; font-weight: 700; background: #1a0509; color: #ff7a95; border-radius: 99px; padding: 1px 10px; }
+.pn-lbl { display: flex; justify-content: space-between; gap: 8px; margin: 4px 0 -2px; font-size: .78rem; letter-spacing: .09em; text-transform: uppercase; color: var(--fg-faint); font-weight: 700; }
+.pn-emp { position: relative; display: flex; align-items: center; gap: 10px; padding: 8px 8px 8px 12px; border-radius: 12px; border: 1px solid rgba(255, 77, 115, .55); background: rgba(255, 77, 115, .1); }
+.pn-emp::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; border-radius: 12px 0 0 12px; background: #ff4d73; box-shadow: 0 0 10px #ff4d73; }
+.pn-emp > div { flex: 1; min-width: 0; display: flex; flex-direction: column; line-height: 1.2; }
+.pn-emp b { font-size: .98rem; }
+.pn-emp span { font-size: .84rem; color: var(--fg-dim); }
+.pn-emp .pt { width: 40px; height: 40px; flex: none; }
+.pn-emp button { flex: none; width: 40px; height: 40px; border-radius: 99px; border: 1px solid var(--line); background: transparent; color: var(--fg-dim); font-size: 1.3rem; line-height: 1; }
+.pn-emp.always { border-style: dashed; }
+.pn-pool { margin-left: 8px; padding: 0 12px; border-radius: 99px; border: 1px solid rgba(255, 77, 115, .6); color: #ff7a95; font-size: 1.1rem; text-shadow: 0 0 10px rgba(255, 77, 115, .8); vertical-align: 2px; }
+.pn-sh { display: flex; flex-direction: column; gap: 8px; }
+.pn-none { padding: 12px; border: 1px dashed var(--line); border-radius: 12px; color: var(--fg-dim); }
+.pn-card { border: 1px solid var(--line); border-radius: 14px; background: var(--panel); overflow: hidden; }
+.pn-card.open { border-color: rgba(255, 77, 115, .65); background: rgba(255, 77, 115, .07); }
+.pn-card.later:not(.open) { opacity: .62; }
+.pn-card.done { opacity: .75; }
+.pn-hd { width: 100%; display: flex; align-items: center; gap: 11px; padding: 10px; background: none; border: 0; color: inherit; text-align: left; min-height: 64px; }
+.pn-hd .pt { width: 46px; height: 46px; flex: none; }
+.pn-tx { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; line-height: 1.2; }
+.pn-tx b { font-size: 1rem; }
+.pn-tx i { font-style: normal; font-weight: 700; color: #ff7a95; font-size: .92rem; }
+.pn-tx > span { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; }
+.pn-tx em { font-style: normal; font-size: .78rem; color: var(--fg-faint); }
+.pn-led { font-size: .8rem; color: var(--fg-dim); }
+.pn-ph { font-size: .68rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--c); border: 1px solid var(--c); border-radius: 6px; padding: 0 6px; line-height: 1.5; }
+.pn-cost { flex: none; min-width: 54px; height: 42px; border-radius: 11px; border: 1px solid rgba(255, 77, 115, .6); background: rgba(255, 77, 115, .1); color: #ff7a95; font-weight: 800; display: flex; align-items: center; justify-content: center; }
+.pn-body { padding: 0 12px 12px; display: flex; flex-direction: column; gap: 10px; }
+.pn-text { font-size: .9rem; color: var(--fg-dim); line-height: 1.4; }
+.pn-note { font-size: .86rem; color: var(--warn); }
+.pn-body .row { flex-wrap: nowrap; }
+.pn-body .btn.primary { background: #ff4d73; color: #1a0509; border-color: transparent; font-weight: 800; }
+/* on unit cards */
+.pn-ur { display: flex; flex-direction: column; gap: 6px; }
+.pn-ab { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 12px; border: 1px solid rgba(255, 77, 115, .35); background: rgba(0, 0, 0, .18); }
+.pn-ab.on { border-color: #ff4d73; background: rgba(255, 77, 115, .12); }
+.pn-ab.later .pn-abt b { color: var(--fg-dim); }
+.pn-abt { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; line-height: 1.2; }
+.pn-abt b { font-size: .95rem; }
+.pn-abt span { display: flex; flex-wrap: wrap; gap: 4px; }
+.pn-btn { flex: none; min-height: 40px; padding: 0 14px; border-radius: 10px; border: 0; background: #ff4d73; color: #1a0509; font-weight: 800; font-size: .95rem; display: inline-flex; align-items: center; gap: 6px; }
+.pn-btn svg { width: 16px; height: 16px; }
+.pn-btn.undo { background: transparent; border: 1px solid #ff4d73; color: #ff7a95; }
+.pn-btn.off { background: transparent; border: 1px solid rgba(255, 77, 115, .55); color: #ff7a95; }
+.pn-state { flex: none; font-size: .82rem; font-weight: 700; color: var(--fg-dim); }
+.pn-empc { position: relative; border-color: rgba(255, 77, 115, .85) !important; background: linear-gradient(180deg, rgba(255, 77, 115, .14), rgba(255, 77, 115, .04)); box-shadow: 0 0 22px rgba(255, 77, 115, .28), inset 0 0 16px rgba(255, 77, 115, .1); }
+.pn-emb { align-self: flex-start; display: inline-block; margin: 0 0 6px; font-size: .7rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: #1a0509; background: #ff4d73; border-radius: 99px; padding: 2px 10px; box-shadow: 0 0 12px #ff4d73; }
+@media (prefers-reduced-motion: reduce) { .pn-spend, .pn-empc, .pn-emb { box-shadow: none; } }
+@media (min-width: 700px) { .pn-spend, .pn-emp, .pn-ur { max-width: 520px; } }

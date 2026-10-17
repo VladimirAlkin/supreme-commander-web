@@ -1699,6 +1699,100 @@
     const drop = s.drop ? `<path d="M${44 + (i % 3) * 3} ${7 + t - b * .4}c.4 2 .2 3.6 1.1 5" stroke="#d3103f" stroke-width=".7" fill="none" opacity=".8"/><circle cx="${45.4 + (i % 3) * 3}" cy="${7 + t - b * .4 + 6.2}" r="1" fill="#d3103f"/>` : '';
     return `<i class="welt${s.edge ? ' edge' : ''}" style="left:${s.x.toFixed(1)}%;top:${s.y.toFixed(1)}%;width:${s.w.toFixed(1)}%;--r:${s.rot.toFixed(1)}deg"><svg viewBox="0 0 60 14"><g filter="url(#pnRough)"><path d="${lens(1.35)}" fill="rgba(255,77,115,.14)"/><path d="${lens(1)}" fill="rgba(58,8,24,.6)" stroke="rgba(255,77,115,.6)" stroke-width=".5"/><path d="${lens(.55)}" fill="#c0184a" opacity=".55"/><path d="M8 ${7 - b * .45}H52" stroke="#ffc9d5" stroke-width=".5" stroke-dasharray="7 2.2 11 3 5 2" opacity=".7"/>${drop}</g></svg></i>`;
   }
+  /* ---- Spend Pain. Each unit's "(Pain)" ability says when 1 token may be spent to Empower the unit until the end of the phase;
+     an Attached unit is Empowered as a whole (Leader and Bodyguard share it). p.emp keeps what was spent; a record counts only
+     in the phase, turn and round it was made, so nothing needs clearing when the phase changes. ---- */
+  const PAIN_AB = /\(Pain\)\s*$/;
+  const painRuleOf = r => { const fd = r && fdata(r.factionId); return fd ? fd.armyRules.find(a => a.counter && a.counter.key === 'pain') : null; };
+  const painLabel = n => String(n).replace(PAIN_AB, '').trim();
+  /* "In your Shooting phase or the Fight phase, ... you can spend 1 Pain token" → Shooting (your turn), Fight (either turn) */
+  function painWhen(text) {
+    const out = []; String(text).split(/spend 1 Pain token/i)[0].replace(/(your opponent[’']s|opponent[’']s|your|the)\s+(Command|Movement|Shooting|Charge|Fight) phase/gi, (m, w, ph) => {
+      out.push({ ph: ph[0].toUpperCase() + ph.slice(1).toLowerCase(), who: /opponent/i.test(w) ? 'opp' : /^your$/i.test(w) ? 'mine' : 'any' }); return m; });
+    return out;
+  }
+  const painGroup = (r, inst) => { const top = (inst.attachedTo && r.units.find(b => b.instanceId === inst.attachedTo)) || inst; return [top, ...r.units.filter(x => x.attachedTo === top.instanceId)]; };
+  const painGroupName = (r, inst) => painGroup(r, inst).map(x => dispName(r, x)).join(' + ');
+  const painAlways = (r, inst) => painGroup(r, inst).some(x => Engine.enhIds(x).includes('realspace_raiders_dark_vitality'));
+  const painLive = p => (p.emp || []).filter(e => e.ph === p.phase && e.tn === p.turn && e.rd === p.round);
+  /* 'always' (Dark Vitality) | the record that Empowered this unit's group this phase | null */
+  const painState = (r, p, inst) => painAlways(r, inst) ? 'always' : painLive(p).find(e => e.g === painGroup(r, inst)[0].instanceId) || null;
+  function painAbs(r, p, only) {
+    const out = [];
+    r.units.forEach(u => {
+      if ((only && u !== only) || unitDead(p, u)) return;
+      const def = unitDef(r.factionId, u.datasheetId);
+      ((def && def.abilities) || []).forEach(a => {
+        if (!PAIN_AB.test(a.name || '')) return;
+        const text = [].concat(a.text).join(' '), when = painWhen(text);
+        out.push({ u, def, name: a.name, text, when, now: when.some(w => w.ph === p.phase && (w.who === 'any' || (w.who === 'opp') === (p.turn === 'opp'))) });
+      });
+    });
+    return out;
+  }
+  const painPills = when => when.map(w => `<span class="pn-ph" style="--c:var(${PH_VAR[w.ph]})">${w.who === 'opp' ? 'Opp. ' : ''}${w.ph}</span>`).join('');
+  function painSpendHTML(r, p) {
+    const abs = painAbs(r, p); if (!abs.length) return '';
+    const ready = abs.filter(a => a.now && !painState(r, p, a.u)).length;
+    return `<button class="pn-spend" data-act="painSheet">${ICON.bolt} Spend Pain <i>${ready ? `${ready} ready now` : 'none this phase'}</i></button>`;
+  }
+  function painChipsHTML(r, p) {
+    const rows = [], seen = new Set();
+    r.units.forEach(u => {
+      const g = painGroup(r, u)[0];
+      if (unitDead(p, u) || seen.has(g.instanceId) || !painAlways(r, u) || !painGroup(r, u).some(x => painAbs(r, p, x).length)) return;
+      seen.add(g.instanceId);
+      rows.push(`<div class="pn-emp always">${portrait(unitDef(r.factionId, g.datasheetId), r.factionId, 'sm')}<div><b>${esc(painGroupName(r, g))}</b><span>Always Empowered · Dark Vitality</span></div></div>`);
+    });
+    painLive(p).forEach(e => {
+      const by = r.units.find(x => x.instanceId === e.by); if (!by) return;
+      rows.push(`<div class="pn-emp">${portrait(unitDef(r.factionId, by.datasheetId), r.factionId, 'sm')}<div><b>${esc(painGroupName(r, by))}</b><span>${esc(painLabel(e.ab))} · until the end of ${e.ph}</span></div><button data-act="painUndo" data-id="${e.id}" aria-label="Take back: ${esc(painLabel(e.ab))}">×</button></div>`);
+    });
+    return rows.length ? `<div class="pn-lbl"><span>Empowered this phase</span><span class="num">${rows.length}</span></div>${rows.join('')}` : '';
+  }
+  /* a Pain ability on a unit card: spend it, take it back, or see that the unit is already Empowered */
+  function painUnitHTML(r, p, inst) {
+    const rule = painRuleOf(r); if (!rule) return '';
+    const abs = painAbs(r, p, inst); if (!abs.length) return '';
+    const st = painState(r, p, inst), n = p[rule.counter.key] || 0;
+    return `<div class="pn-ur">${abs.map(a => {
+      const mine = st && st !== 'always' && st.by === inst.instanceId && st.ab === a.name;
+      const key = `${inst.instanceId}|${a.name}`;
+      const btn = st === 'always' ? '<span class="pn-state">Always on</span>'
+        : mine ? `<button class="pn-btn undo" data-act="painUndo" data-id="${st.id}">Undo +1</button>`
+        : st ? '<span class="pn-state">Empowered</span>'
+        : n < 1 ? `<button class="pn-btn" data-act="painNone">${ICON.bolt} −1</button>`
+        : a.now ? `<button class="pn-btn" data-act="painSpend" data-id="${inst.instanceId}" data-ab="${esc(a.name)}">${ICON.bolt} Spend 1</button>`
+        : `<button class="pn-btn off" data-act="painSheet" data-key="${esc(key)}">${ICON.bolt} −1</button>`;
+      return `<div class="pn-ab ${st ? 'on' : ''} ${a.now ? '' : 'later'}"><div class="pn-abt"><b>${esc(painLabel(a.name))}</b><span>${painPills(a.when)}</span></div>${btn}</div>`;
+    }).join('')}</div>`;
+  }
+  function painSpend(r, instId, abName) {
+    const u = r.units.find(x => x.instanceId === instId), rule = painRuleOf(r); if (!u || !rule) return;
+    const p0 = playState(r), key = rule.counter.key;
+    if (painState(r, p0, u)) { toast(`${painGroupName(r, u)} is already Empowered this phase.`); PL.haptic('reject'); return; }
+    if ((p0[key] || 0) < 1) { toast('No Pain tokens in the pool.'); PL.haptic('reject'); return; }
+    S.sheet = null;
+    const cronos = r.units.some(x => x.datasheetId === 'cronos' && !unitDead(p0, x)), g = painGroup(r, u)[0].instanceId;
+    playChange(r, p => { p[key] -= 1; p.emp = painLive(p).concat({ id: uid(), g, by: instId, ab: abName, ph: p.phase, tn: p.turn, rd: p.round }); },
+      `${painGroupName(r, u)} Empowered (${painLabel(abName)}) until the end of the phase.${cronos ? ' Cronos in range? Roll for its Pain Engine.' : ''}`, 'confirm');
+  }
+  function painSheetInner(r, p, sh) {
+    const rule = painRuleOf(r), n = p[rule.counter.key] || 0, abs = painAbs(r, p);
+    const card = a => {
+      const key = `${a.u.instanceId}|${a.name}`, open = sh.open === key, st = painState(r, p, a.u), grp = painGroup(r, a.u);
+      const who = grp.length > 1 ? `<span class="pn-led">Attached unit: ${esc(painGroupName(r, a.u))}</span>` : '';
+      const cost = st === 'always' ? 'Free' : st ? '✓' : '−1';
+      let acts;
+      if (st) acts = `<div class="pn-note">${st === 'always' ? 'Always Empowered (Dark Vitality): no token needed.' : `${esc(painGroupName(r, a.u))} is already Empowered this phase.`}</div>`;
+      else if (n < 1) acts = '<div class="pn-note">No Pain tokens in the pool.</div>';
+      else acts = `${a.now ? '' : `<div class="pn-note">This ability is for ${a.when.map(w => (w.who === 'opp' ? 'the opponent’s ' : '') + w.ph).join(' / ') || 'another moment'}; it is the ${p.phase} phase now.</div>`}<div class="row"><button class="btn primary grow" data-act="painSpend" data-id="${a.u.instanceId}" data-ab="${esc(a.name)}">${a.now ? 'Empower · spend 1 Pain' : 'Spend anyway · 1 Pain'}</button><button class="btn" data-act="painOpen" data-key="${esc(key)}">Cancel</button></div>`;
+      return `<div class="pn-card ${open ? 'open' : ''} ${a.now ? '' : 'later'} ${st ? 'done' : ''}"><button class="pn-hd" data-act="painOpen" data-key="${esc(key)}" aria-expanded="${open}">${portrait(a.def, r.factionId, 'sm')}<span class="pn-tx"><b>${esc(dispName(r, a.u))}</b><i>${esc(painLabel(a.name))}</i><span>${painPills(a.when)}${a.now ? '' : '<em>Not this phase</em>'}</span>${who}</span><span class="pn-cost">${cost}</span></button>${open ? `<div class="pn-body"><div class="pn-text">${hl(a.text)}</div>${acts}</div>` : ''}</div>`;
+    };
+    const ready = abs.filter(a => a.now), later = abs.filter(a => !a.now);
+    return `<div class="pn-sh">${ready.length ? `<div class="pn-lbl"><span>Ready now · ${p.turn === 'opp' ? 'opponent’s ' : ''}${p.phase} phase</span></div>${ready.map(card).join('')}` : `<div class="pn-none">No Pain ability fits the ${p.turn === 'opp' ? 'opponent’s ' : ''}${p.phase} phase.</div>`}
+      ${later.length ? `<div class="pn-lbl"><span>Other phases</span><span>tap to spend anyway</span></div>${later.map(card).join('')}` : ''}</div>`;
+  }
   function tokenPoolHTML(r, p, a, dets) {
     const c = a.counter, n = p[c.key] || 0, lv = n <= 0 ? 0 : n < 5 ? 1 : n < 10 ? 2 : n < 15 ? 3 : 4, pl = Math.min(n, 15) / 15;
     const marks = Array.from({ length: Math.min(n, 12) }, (_, i) => weltHTML(i)).join('');
@@ -1710,6 +1804,7 @@
     }
     return panel2(c.title, `<span class="badge gold num">${n}</span>`,
       `<div class="row"><div class="stepper pain-st" role="group" aria-label="${esc(c.title)}" data-lv="${lv}" style="--pl:${pl.toFixed(2)}"><svg width="0" height="0" style="position:absolute" aria-hidden="true"><filter id="pnRough" x="-10%" y="-60%" width="120%" height="220%"><feTurbulence type="fractalNoise" baseFrequency=".65" numOctaves="2" seed="4"/><feDisplacementMap in="SourceGraphic" scale="2.4"/></filter></svg><span class="pain-glow" aria-hidden="true"></span><span class="pain-marks" aria-hidden="true">${marks}</span><button data-act="pc" data-k="${c.key}" data-d="-1" aria-label="Spend a Pain token">−</button><output class="num" aria-live="polite">${n}</output><button data-act="pc" data-k="${c.key}" data-d="1" aria-label="Gain a Pain token">+</button></div><span class="dim">in your pool</span></div>
+      ${c.key === 'pain' ? painSpendHTML(r, p) + painChipsHTML(r, p) : ''}
       <div class="faint" style="font-size:.85rem">${esc(c.note)}</div>${start}`);
   }
   /* The lash: a 24-point chain drawn on one short-lived canvas. A loop runs down it from the handle (the crack), the tip lands where the
@@ -2141,8 +2236,9 @@
       body = `<div class="models">${wl.map((w, i) => { const dmg = def.damaged && w > 0 && w <= def.damaged.threshold; return `<div class="model ${w <= 0 ? 'dead' : ''} ${dmg ? 'dmg' : ''}"><span class="faint" style="font-size:.75rem">${i === 0 && mixedUnit(def, inst) ? esc(def.leadModel.name) : `Model ${i + 1}`}</span><span class="w num">${w}/${maxW(def, i)}</span><div class="mb"><button data-act="mw" data-id="${inst.instanceId}" data-i="${i}" data-d="-1" aria-label="Model ${i + 1}: lose a wound">−</button><button data-act="mw" data-id="${inst.instanceId}" data-i="${i}" data-d="1" aria-label="Model ${i + 1}: heal a wound">+</button></div></div>`; }).join('')}</div>`;
     }
     const dmgOn = def.damaged && inst.size === 1 && wl[0] > 0 && wl[0] <= def.damaged.threshold;
-    return `<div class="ucard ${inst.attachedTo ? 'attached' : ''}" style="padding:10px"><div class="row nowrap"><button class="ptbtn" data-act="openInst" data-id="${inst.instanceId}" aria-label="Open datasheet">${portrait(def, r.factionId, 'sm')}</button><div class="grow"><b>${esc(dispName(r, inst))}</b>${kwBadges(r, def, inst, p)}${martyrBadge(r, def, inst, p)}<div class="dim" style="font-size:.85rem">T${def.profile.T} · Sv ${def.profile.Sv}${def.profile.InSv !== '—' ? ' · ' + def.profile.InSv + ' invuln' : ''} · OC ${def.profile.OC}${alive === 0 ? ' · <span style="color:var(--err)">Destroyed</span>' : ''}</div></div></div>
-      ${dmgOn ? `<div class="badge red" style="margin:8px 0">DAMAGED · ${esc(def.damaged.text)}</div>` : ''}<div style="margin-top:8px">${body}</div></div>`;
+    const pe = painRuleOf(r) && painState(r, p, inst);
+    return `<div class="ucard ${inst.attachedTo ? 'attached' : ''} ${pe ? 'pn-empc' : ''}" style="padding:10px">${pe ? '<span class="pn-emb">Empowered</span>' : ''}<div class="row nowrap"><button class="ptbtn" data-act="openInst" data-id="${inst.instanceId}" aria-label="Open datasheet">${portrait(def, r.factionId, 'sm')}</button><div class="grow"><b>${esc(dispName(r, inst))}</b>${kwBadges(r, def, inst, p)}${martyrBadge(r, def, inst, p)}<div class="dim" style="font-size:.85rem">T${def.profile.T} · Sv ${def.profile.Sv}${def.profile.InSv !== '—' ? ' · ' + def.profile.InSv + ' invuln' : ''} · OC ${def.profile.OC}${alive === 0 ? ' · <span style="color:var(--err)">Destroyed</span>' : ''}</div></div></div>
+      ${dmgOn ? `<div class="badge red" style="margin:8px 0">DAMAGED · ${esc(def.damaged.text)}</div>` : ''}<div style="margin-top:8px">${body}</div>${painUnitHTML(r, p, inst)}</div>`;
   }
   const maxW = (def, i) => (def.leadModel && i === 0 ? parseInt(def.leadModel.W, 10) : parseInt(def.profile.W, 10) || 1);
   /* a unit whose first model (Aspiring Sorcerer, Ravener Prime...) has its own wounds: the player picks who takes them */
@@ -2433,8 +2529,9 @@
       }
     }
     const dmgOn = def.damaged && inst.size === 1 && wl[0] > 0 && wl[0] <= def.damaged.threshold;
-    return `<div class="pcard ${alive ? '' : 'dead'} ${inst.attachedTo ? 'att' : ''}"><div class="row nowrap"><button class="ptbtn" data-act="openInst" data-id="${id}" aria-label="Datasheet: ${name}">${portrait(def, r.factionId, 'sm')}</button><div class="grow"><b>${name}</b>${kwBadges(r, def, inst, p)}${martyrBadge(r, def, inst, p)}<div class="dim pstats">T${def.profile.T} · Sv ${def.profile.Sv}${def.profile.InSv !== '—' ? ' · ' + def.profile.InSv + ' inv' : ''} · OC ${def.profile.OC}</div></div><div class="wread">${read}</div></div>
-      ${dmgOn ? `<div class="badge red dmgbadge">DAMAGED · ${esc(def.damaged.text)}</div>` : ''}${alive === 0 ? '<div class="bad" style="font-weight:700">Destroyed</div>' : ''}<div class="wbtns">${btns}</div></div>`;
+    const pe = painRuleOf(r) && painState(r, p, inst);
+    return `<div class="pcard ${alive ? '' : 'dead'} ${inst.attachedTo ? 'att' : ''} ${pe ? 'pn-empc' : ''}">${pe ? '<span class="pn-emb">Empowered</span>' : ''}<div class="row nowrap"><button class="ptbtn" data-act="openInst" data-id="${id}" aria-label="Datasheet: ${name}">${portrait(def, r.factionId, 'sm')}</button><div class="grow"><b>${name}</b>${kwBadges(r, def, inst, p)}${martyrBadge(r, def, inst, p)}<div class="dim pstats">T${def.profile.T} · Sv ${def.profile.Sv}${def.profile.InSv !== '—' ? ' · ' + def.profile.InSv + ' inv' : ''} · OC ${def.profile.OC}</div></div><div class="wread">${read}</div></div>
+      ${dmgOn ? `<div class="badge red dmgbadge">DAMAGED · ${esc(def.damaged.text)}</div>` : ''}${alive === 0 ? '<div class="bad" style="font-weight:700">Destroyed</div>' : ''}<div class="wbtns">${btns}</div>${painUnitHTML(r, p, inst)}</div>`;
   }
   /* stratagems: whose turn a stratagem is used in, read from its timing text */
   const stratTurn = s => /opponent's/i.test(s.when) ? 'opp' : /\byour\b/i.test(s.when) ? 'mine' : 'both';
@@ -2497,6 +2594,8 @@
     } else if (sh.type === 'mpick' && S.play && S.play.ms) { title = sh.replace ? 'Which card did you draw?' : `Card ${Math.min(2, (S.play.ms.drawn[S.play.round] || 0) + 1)} of 2`; inner = msPickInner(S.play);
     } else if (sh.type === 'mbeacon' && r && S.play) { title = 'Beacon unit'; inner = msBeaconInner(r, S.play, sh.i);
     } else if (sh.type === 'mswap' && S.play && S.play.ms) { title = 'New card · 1CP'; inner = msSwapInner(S.play);
+    } else if (sh.type === 'pain' && r && S.play && painRuleOf(r)) {
+      title = `Spend Pain <span class="pn-pool num" aria-label="${S.play[painRuleOf(r).counter.key] || 0} tokens in the pool">${S.play[painRuleOf(r).counter.key] || 0}</span>`; inner = painSheetInner(r, S.play, sh);
     } else if (sh.type === 'tip') {
       title = esc(sh.title || 'Rule');
       inner = `<p style="margin:0;font-size:1.05rem;line-height:1.5">${esc(sh.text)}</p>`;
@@ -2941,6 +3040,14 @@
       if (k === 'vp0' || k === 'vp1') { const i = k === 'vp0' ? 0 : 1; if (p.vp[i] + d < 0) return false; p.vp[i] += d; }
       if (k === 'tunnels') { const n = Math.max(0, Math.min(20, (p.tunnels || 0) + d)); if (n === (p.tunnels || 0)) return false; p.tunnels = n; }
     }); },
+    painSheet: el => { const r = cur(); if (!painRuleOf(r)) return; playState(r); S.sheet = { type: 'pain', open: el.dataset.key || null }; render(); },
+    painOpen: el => { if (!S.sheet || S.sheet.type !== 'pain') return; S.sheet.open = S.sheet.open === el.dataset.key ? null : el.dataset.key; render(); },
+    painSpend: el => painSpend(cur(), el.dataset.id, el.dataset.ab),
+    painNone: () => { toast('No Pain tokens in the pool.'); PL.haptic('reject'); },
+    painUndo: el => {   // take a spent token back
+      const r = cur(), rule = painRuleOf(r), id = el.dataset.id; if (!rule) return;
+      playChange(r, p => { const i = (p.emp || []).findIndex(e => e.id === id); if (i < 0) return false; p.emp.splice(i, 1); p[rule.counter.key] = Math.min(rule.counter.max || 99, (p[rule.counter.key] || 0) + 1); }, 'Pain token returned.', 'tick');
+    },
     painStart: el => {   // add (or take back) the starting token pool counted from the roster
       const r = cur(), key = el.dataset.key, add = +el.dataset.add, done = !!playState(r).painStart;
       if (!done && !add) { toast('No Archon + Kabalite Warriors, Succubus + Wyches or Haemonculus + Wracks pairing in this roster.'); PL.haptic('reject'); return; }
