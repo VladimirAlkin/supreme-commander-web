@@ -195,6 +195,10 @@ label.fld > input, label.fld > select { color: var(--fg); }
 .vmsg.error .ic { color: var(--err); }
 .vmsg.warning .ic { color: var(--warn); }
 .vmsg.info .ic { color: var(--info); }
+.imp-list { display: flex; flex-direction: column; gap: 14px; max-height: min(56vh, 480px); overflow: auto; overscroll-behavior: contain; }
+.imp-grp { display: flex; flex-direction: column; gap: 6px; }
+.imp-unit { font-weight: 700; font-size: .95rem; }
+.imp-list .vmsg { box-sizing: border-box; min-width: 0; overflow-wrap: anywhere; }
 .vbadge { display: inline-flex; gap: 6px; align-items: center; min-height: 40px; padding: 0 10px; border-radius: 8px; border: 1px solid var(--line); background: var(--panel); font-weight: 700; }
 .vbadge .e { color: var(--err); } .vbadge .w { color: var(--warn); } .vbadge .k { color: var(--ok); }
 

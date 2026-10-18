@@ -427,9 +427,10 @@
   function rosterListBlock(fid) {
     const n = rosters.filter(r => (!fid || r.factionId === fid) && !r.isExample).length, all = rosters.filter(r => !fid || r.factionId === fid).length;
     const dl = n ? `<button class="btn sm" data-act="openBackup" data-id="${fid || ''}">${ICON.save} Download roster${n === 1 ? '' : 's'}</button>` : '';
+    const imp = `<button class="btn sm" data-act="openImport">${ICON.paste} Import roster</button>`;
     const list = `<input class="search" type="search" id="home-search" data-inp="homeSearch" placeholder="Search rosters by name" value="${esc(S.homeSearch)}" aria-label="Search rosters">
       <div class="stack" id="roster-list" style="margin-top:12px">${rosterListInner(fid)}</div>`;
-    if (!fid) return `<div class="section-title"><h2>My Rosters</h2><span class="dim num">${all}</span><span class="spacer"></span>${dl}</div>${list}`;
+    if (!fid) return `<div class="section-title"><h2>My Rosters</h2><span class="dim num">${all}</span><span class="spacer"></span>${imp}${dl}</div>${list}`;
     /* army page: one collapsed line "My Rosters · N"; the list opens in place */
     if (!all) return '';
     const open = S.rostersOpen === fid;
@@ -2522,7 +2523,15 @@
         <div class="row">${PL.canShare() ? `<button class="btn primary" data-act="shareExport">${ICON.share} Share</button>` : ''}<button class="btn ${PL.canShare() ? '' : 'primary'}" data-act="copyExport">${ICON.copy} Copy</button>${Store.downloads || window.mrSaveFile || PL.android ? `<button class="btn" data-act="downloadExport">${ICON.save} ${window.mrSaveFile || PL.android ? 'Save to file' : 'Download'}</button>` : ''}</div>`);
     }
     if (m.type === 'import') return wrap('Import roster', `<div class="row"><button class="btn" data-act="pasteImport">${ICON.paste} Paste</button><label class="btn">${ICON.file} Open file<input type="file" id="imp-file" accept=".json,.txt,application/json,text/plain" data-chg="importFile" class="sr"></label></div>
-      <label class="fld">Share code (MR1:…), roster JSON or a backup file<textarea id="imp-text" style="min-height:180px">${esc(m.text || '')}</textarea></label>${m.error ? `<div class="vmsg error"><span class="ic">✕</span><span>${esc(m.error)}</span></div>` : ''}<div class="row"><button class="btn primary" data-act="doImport">Import</button><span class="faint" style="font-size:.85rem">Text exports from the GW app can't be imported yet.</span></div>`);
+      <label class="fld">Paste a roster export from the Warhammer 40,000 app, a share code (MR1:…), roster JSON or a backup file<textarea id="imp-text" style="min-height:180px">${esc(m.text || '')}</textarea></label>${m.error ? `<div class="vmsg error"><span class="ic">✕</span><span>${esc(m.error)}</span></div>` : ''}<div class="row"><button class="btn primary" data-act="doImport">Import</button><span class="faint" style="font-size:.85rem">Supported: Warhammer 40,000 roster export</span></div>`);
+    if (m.type === 'importNotes') {
+      const grp = new Map(); m.notes.forEach(n => { const k = n.unit || ''; if (!grp.has(k)) grp.set(k, []); grp.get(k).push(n.text); });
+      const row = (cls, ic, html) => `<div class="vmsg ${cls}"><span class="ic" aria-hidden="true">${ic}</span><span>${html}</span></div>`;
+      const blocks = [...grp].sort((a, b) => (a[0] === '' ? 0 : 1) - (b[0] === '' ? 0 : 1)).map(([u, txts]) => `<div class="imp-grp"><div class="imp-unit">${esc(u || 'Roster')}</div>${txts.map(x => row('warning', '!', esc(x))).join('')}</div>`).join('');
+      const rb = m.rules.length ? `<div class="imp-grp"><div class="imp-unit">Roster check (same as the editor)</div>${m.rules.map(x => row(x.severity, x.severity === 'error' ? '✕' : '!', `${x.unit ? `<b>${esc(x.unit)}:</b> ` : ''}${esc(x.text)}`)).join('')}</div>` : '';
+      const st = m.stats;
+      return wrap('Import notes', `<div class="dim">${esc(m.name)} · ${st.imported} of ${st.parsed} units imported${st.skipped ? ` · ${st.skipped} skipped` : ''}${st.points != null ? ` · ${st.points} pts` : ''}</div><div class="imp-list">${blocks}${rb}</div><div class="row"><button class="btn primary" data-act="closeModal">View roster</button></div>`);
+    }
     if (m.type === 'backup') {
       const json = backupJSON(m.fid), n = JSON.parse(json).rosters.length, what = m.fid ? `your ${n} ${esc(faction(m.fid).name)} roster${n === 1 ? '' : 's'}` : `all your ${n} roster${n === 1 ? '' : 's'}`;
       return wrap(`Download roster${n === 1 ? '' : 's'}`, `<p class="dim" style="margin:0">One file with ${what} and your unit portraits. Send it to a friend or keep it as a copy: on any device open an army, tap <b>Import roster</b> → <b>Open file</b> and pick this file.</p>
@@ -3034,6 +3043,19 @@
     openImport: () => { S.modal = { type: 'import' }; render(); },
     doImport: () => {
       const txt = document.getElementById('imp-text').value.trim();
+      if (!/^(MR1:|[\[{])/.test(txt)) { /* not a share code / JSON: a text export from the Warhammer 40,000 app (or nothing) */
+        const res = RosterImport.run(txt, DATA, Engine, { uid });
+        if (!res.ok) { S.modal = { type: 'import', text: txt, error: res.error.message }; render(); return; }
+        const gw = res.roster, from = S.view === 'home' ? 'home' : 'faction';
+        Object.assign(gw, { id: 'r' + uid(), createdAt: Date.now(), updatedAt: Date.now(), dataVersion: Engine.dataVersionFor(gw.factionId, DATA) });
+        gw.name = gw.name || defaultName(gw.factionId, gw.battleSize);
+        sortUnits(gw); rosters.push(gw); Store.save(gw);
+        go('roster', { rosterId: gw.id, factionId: gw.factionId, tab: 'build', cat: 'all', search: '', rosterFrom: from, play: null, playFor: null });
+        const rules = res.rules.filter(x => x.severity !== 'info');
+        if (res.notes.length || rules.length) { S.modal = { type: 'importNotes', name: gw.name, stats: res.stats, notes: res.notes, rules }; render(); }
+        else toast(`Roster imported: ${res.stats.imported} units.`);
+        return;
+      }
       let r;
       try { r = JSON.parse(txt.startsWith('MR1:') ? decodeURIComponent(escape(atob(txt.slice(4)))) : txt); } catch (e) { S.modal = { type: 'import', text: txt, error: 'This is not a valid share code or roster JSON. Copy the whole code, including MR1:.' }; render(); return; }
       if (r && (r.scBackup || Array.isArray(r))) {

@@ -10,8 +10,9 @@
     "mech": "node tools/mechanics-diff.js",
     "release": "node tools/release.js",
     "release:check": "node tools/release.js --check",
-    "check": "node tools/validate-data.js && node tools/mechanics-diff.js main",
+    "check": "node tools/validate-data.js && node tools/mechanics-diff.js main && node tests/import.test.js",
     "rules:rebuild": "tools/rules/rebuild.sh",
-    "rules:official": "node tools/rules/fill-slots.js --official-only"
+    "rules:official": "node tools/rules/fill-slots.js --official-only",
+    "test:import": "node tests/import.test.js"
   }
 }
