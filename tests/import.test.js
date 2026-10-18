@@ -27,6 +27,8 @@ const EXPECT = {
   world_eaters: { army: 'worldEaters', units: 6, links: 0, points: 1605, warlord: 'angron', sizes: ['khorne_berzerkers:20', 'khorne_berzerkers:20', 'khorne_berzerkers:20', 'khorne_berzerkers:10'] },
   thousand_sons: { army: 'thousandSons', units: 13, links: 3, points: 2000, warlord: 'magnus_the_red' },
   drukhari: { army: 'drukhari', units: 22, links: 5, points: 1990, warlord: 'archon', enh: 'skysplinter_assault_nightmare_shroud' },
+  /* the app's own layout: nesting by indentation, "Attached as" at column 0, "Enhancement: X (Upgrade)" */
+  world_eaters_indented: { army: 'worldEaters', units: 11, links: 3, points: 1995, warlord: 'angron', enh: 'berzerker_glaive' },
 };
 const summary = [];
 Object.entries(EXPECT).forEach(([name, ex]) => {
@@ -59,9 +61,21 @@ t('drukhari: wargear', () => {
   r.units.filter(u => u.datasheetId === 'incubi').forEach(u => assert.strictEqual(u.wargear.klaivex, 'demi'));
   assert(r.units.some(u => u.datasheetId === 'solitaire'), 'allied unit imported');
 });
+t('world_eaters_indented: the roster from the app, exactly', () => {
+  const r = run(fx('world_eaters_indented')).roster, of = id => r.units.filter(u => u.datasheetId === id);
+  of('khorne_berzerkers').forEach(u => assert.deepStrictEqual([u.size, u.wargear], [10, { champ_plasma: 1, plasma: 2, evisc: 2, icon: 1 }]));
+  of('chaos_terminators').forEach(u => assert.deepStrictEqual([u.size, u.wargear, u.enhancementId], [10, { reaper: 2, fist: 6, chainfist: 2 }, 'gore_stained_veterans']));
+  assert.strictEqual(of('chaos_rhino')[0].wargear.extra, 'none', 'the Rhino\'s own combi-bolter is not an extra pintle weapon');
+  assert.strictEqual(of('goremongers')[0].size, 8);
+});
+t('every army: every datasheet and every option round-trips (loadout and points)', () => {
+  const { cases, fails } = require('./import.roundtrip.js').all();
+  summary.push(`round trip     ${cases - fails.length}/${cases} datasheet x option cases`);
+  assert.strictEqual(fails.length, 0, '\n    ' + fails.slice(0, 10).join('\n    '));
+});
 t('world_eaters: marker lost in the export keeps the weapon', () => {
   const p = RI.parse(fx('world_eaters')), k = p.units.find(u => /Kh.rn/.test(u.name));
-  assert.deepStrictEqual(k.lines.map(l => l.name), ['Gorechild', 'Plasma pistol']);
+  assert.deepStrictEqual(k.items.map(l => l.name), ['Gorechild', 'Plasma pistol']);
 });
 
 /* ---------- 2. same roster through other typography ---------- */
@@ -74,6 +88,16 @@ const variants = {
   'no footer': s => s.replace(/Exported with.*$/m, ''),
   'diacritics stripped, case changed': s => s.replace(/â/g, 'a').replace(/^(Angron|Magnus the Red|Archon)/gm, m => m.toUpperCase()),
   'nested bullets indented': s => s.replace(/^◦ /gm, '    - ').replace(/^- /gm, '- '),
+  /* layout must not matter: the meaning comes from the datasheet, not from bullets or indentation */
+  'layout: flattened (no indentation)': s => s.replace(/^[ \t]+/gm, ''),
+  'layout: every marker is "-"': s => s.replace(/^(\s*)[\u2022\u25E6\-*]\s/gm, '$1- '),
+  'layout: no markers at all': s => s.replace(/^(\s*)[\u2022\u25E6\-*]\s/gm, '$1'),
+  'layout: tabs and "*"': s => s.replace(/^( {2})+/gm, m => '\t'.repeat(m.length / 2)).replace(/^(\t*)[\u2022\u25E6\-]\s/gm, '$1* '),
+  'layout: app-style indentation': s => s.replace(/^- /gm, '  \u2022 ').replace(/^\u25E6 /gm, '    \u2022 ').replace(/^(\d+x )/gm, '      $1'),
+  'layout: body shifted right': s => s.replace(/^(?=\s*(?:[\u2022\u25E6\-*]\s|\d+x ))/gm, '        '),
+  'layout: service lines first and unmarked': s => s.split(/\n(?=\n)/).map(b => { const ls = b.split('\n'), meta = ls.filter(l => /^\s*(?:[\u2022\u25E6\-*]\s*)?(?:Warlord|Attached as|Enhancements?:)/i.test(l)); if (!meta.length) return b; const rest = ls.filter(l => !meta.includes(l)), h = rest.findIndex(l => /\(\d[\d,]*\s*points\)/i.test(l)); if (h < 0) return b; return [...rest.slice(0, h + 1), ...meta.map(l => l.replace(/^\s*(?:[\u2022\u25E6\-*]\s*)?/, '')), ...rest.slice(h + 1)].join('\n'); }).join('\n'),
+  'layout: service lines last': s => s.split(/\n(?=\n)/).map(b => { const ls = b.split('\n'), meta = ls.filter(l => /^\s*(?:[\u2022\u25E6\-*]\s*)?(?:Warlord|Enhancements?:)/i.test(l)); return meta.length ? [...ls.filter(l => !meta.includes(l)), ...meta].join('\n') : b; }).join('\n'),
+  'section headers in any case': s => s.replace(/^(ATTACHED UNITS|CHARACTERS|BATTLELINE|DEDICATED TRANSPORTS|OTHER DATASHEETS|ALLIED UNITS|Attached Units)$/gm, h => h[0] + h.slice(1).toLowerCase()),
 };
 Object.entries(variants).forEach(([vn, f]) => Object.keys(EXPECT).forEach(n => t(`${n}: ${vn}`, () => {
   const res = run(f(fx(n))); ok(res); assert.strictEqual(shape(res.roster), base[n]);
