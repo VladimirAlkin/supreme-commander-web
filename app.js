@@ -169,7 +169,7 @@
     view: 'home', homeTab: 'armies', factionId: null, factionTab: 'army', rosterId: null, tab: 'build',
     search: '', cat: 'all', expanded: {}, renaming: false, modal: null, draft: null,
     stratPhase: 'All', stratSrc: 'All', rulesSeg: 'army', dsBuff: true, homeSearch: '',
-    m: false, sub: null, sheet: null, playSeg: 'turn', stratMode: 'all', stratOpen: {}, scrollMem: {}, rosterFrom: 'faction', flash: null, mpend: {}, msd: null, msAll: false, msCollapsed: false,
+    m: false, sub: null, sheet: null, playSeg: 'turn', stratMode: 'all', stratOpen: {}, pnOpen: {}, scrollMem: {}, rosterFrom: 'faction', flash: null, mpend: {}, msd: null, msAll: false, msCollapsed: false,
   };
   const cur = () => rosters.find(r => r.id === S.rosterId);
   const unitDef = (fid, id) => fdata(fid).units.find(u => u.id === id);
@@ -1785,6 +1785,11 @@
     const ready = abs.filter(a => a.now && !painState(r, p, a.u)).length;
     return `<button class="pn-spend" data-act="painSheet">${ICON.bolt} Spend Pain <i>${ready ? `${ready} ready now` : 'none this phase'}</i></button>`;
   }
+  /* what Empowering did: the Pain abilities of the Empowered unit (the one paid for first), worded exactly as on the datasheet */
+  function painInfoHTML(r, p, e, by) {
+    const abs = painGroup(r, by).flatMap(x => painAbs(r, p, x)).sort((a, b) => (b.u.instanceId === e.by && b.name === e.ab) - (a.u.instanceId === e.by && a.name === e.ab));
+    return `<div class="pn-info ${S.pnFresh === e.id ? 'fresh' : ''}">${abs.map(a => `<div><b>${esc(painLabel(a.name))}</b> <span class="faint">${esc(dispName(r, a.u))}</span><div>${hl(a.text)}</div></div>`).join('')}</div>`;
+  }
   function painChipsHTML(r, p) {
     const rows = [], seen = new Set();
     r.units.forEach(u => {
@@ -1795,7 +1800,8 @@
     });
     painLive(p).forEach(e => {
       const by = r.units.find(x => x.instanceId === e.by); if (!by) return;
-      rows.push(`<div class="pn-emp">${portrait(unitDef(r.factionId, by.datasheetId), r.factionId, 'sm')}<div><b>${esc(painGroupName(r, by))}</b><span>${esc(painLabel(e.ab))} · until the end of ${e.ph}</span></div><button data-act="painUndo" data-id="${e.id}" aria-label="Take back: ${esc(painLabel(e.ab))}">×</button></div>`);
+      const open = !!S.pnOpen[e.id];
+      rows.push(`<div class="pn-emp">${portrait(unitDef(r.factionId, by.datasheetId), r.factionId, 'sm')}<div><b>${esc(painGroupName(r, by))}</b><span>${esc(painLabel(e.ab))} · until the end of ${e.ph}</span></div><button class="pn-chev" data-act="painInfo" data-id="${e.id}" aria-expanded="${open}" aria-label="${open ? 'Hide' : 'Show'} what ${esc(painLabel(e.ab))} does">${CHEV}</button><button data-act="painUndo" data-id="${e.id}" aria-label="Take back: ${esc(painLabel(e.ab))}">×</button>${open ? painInfoHTML(r, p, e, by) : ''}</div>`);
     });
     return rows.length ? `<div class="pn-lbl"><span>Empowered this phase</span><span class="num">${rows.length}</span></div>${rows.join('')}` : '';
   }
@@ -3154,6 +3160,7 @@
     painSheet: el => { const r = cur(); if (!painRuleOf(r)) return; playState(r); S.sheet = { type: 'pain', open: el.dataset.key || null }; render(); },
     painOpen: el => { if (!S.sheet || S.sheet.type !== 'pain') return; S.sheet.open = S.sheet.open === el.dataset.key ? null : el.dataset.key; render(); },
     painSpend: el => painSpend(cur(), el.dataset.id, el.dataset.ab),
+    painInfo: el => { const id = el.dataset.id; S.pnOpen[id] = !S.pnOpen[id]; S.pnFresh = S.pnOpen[id] ? id : null; render(); S.pnFresh = null; },
     painNone: () => { toast('No Pain tokens in the pool.'); PL.haptic('reject'); },
     painUndo: el => {   // take a spent token back
       const r = cur(), rule = painRuleOf(r), id = el.dataset.id; if (!rule) return;

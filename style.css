@@ -1741,3 +1741,14 @@ html:not(.m) .seg.wide { max-width: 560px; }
   .fx-calm[aria-checked=true] > .detfx, .fx-kauyon[aria-checked=true] > .detfx, .fx-retaliation[aria-checked=true] > .detfx, .fx-claws[aria-checked=true] > .detfx { animation: none; opacity: .6; }
   .fx-montka[aria-checked=true] > .detfx::before { animation: none; transform: translateX(120%) skewX(-18deg); opacity: .6; }
 }
+
+/* Spend Pain: a clearer close button on the menu, and the fold-out under an Empowered chip */
+.sheet-back[data-type=pain] .sheet-head .iconbtn { border: 1px solid rgba(255, 77, 115, .55); border-radius: 99px; color: #ff7a95; }
+.pn-emp { flex-wrap: wrap; }
+.pn-emp .pn-chev .chev { width: 20px; height: 20px; transition: transform .15s; }
+.pn-emp .pn-chev[aria-expanded=true] .chev { transform: rotate(180deg); }
+.pn-emp > .pn-info { flex: 0 0 100%; min-width: 100%; display: flex; flex-direction: column; gap: 8px; padding: 8px 2px 2px; border-top: 1px solid rgba(255, 77, 115, .25); font-size: .88rem; color: var(--fg-dim); line-height: 1.4; }
+.pn-info b { color: #ff7a95; }
+.pn-info.fresh { animation: pnInfoIn .18s ease-out; }
+@keyframes pnInfoIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .pn-info.fresh { animation: none; } .pn-emp .pn-chev .chev { transition: none; } }
