@@ -36829,55 +36829,7 @@ const DATA = {
       },
       {
        "unitIds": [
-        "defiler"
-       ],
-       "keyword": "Daemon"
-      },
-      {
-       "unitIds": [
-        "forgefiend"
-       ],
-       "keyword": "Daemon"
-      },
-      {
-       "unitIds": [
         "helbrute"
-       ],
-       "keyword": "Daemon"
-      },
-      {
-       "unitIds": [
-        "heldrake"
-       ],
-       "keyword": "Daemon"
-      },
-      {
-       "unitIds": [
-        "lord_of_skulls"
-       ],
-       "keyword": "Daemon"
-      },
-      {
-       "unitIds": [
-        "lord_discordant"
-       ],
-       "keyword": "Daemon"
-      },
-      {
-       "unitIds": [
-        "maulerfiend"
-       ],
-       "keyword": "Daemon"
-      },
-      {
-       "unitIds": [
-        "vashtorr"
-       ],
-       "keyword": "Daemon"
-      },
-      {
-       "unitIds": [
-        "venomcrawler"
        ],
        "keyword": "Daemon"
       },

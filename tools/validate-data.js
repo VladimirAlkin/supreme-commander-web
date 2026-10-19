@@ -65,6 +65,15 @@ for (const f of L.factions(data)) {
     const dw = `${f}.${d.id}`;
     if (detIds.has(d.id)) err('E-DUPID', dw, 'duplicate detachment id');
     detIds.add(d.id);
+    /* A keyword or ability a detachment grants must not also sit on the datasheet (Lord Exultant bug pattern). */
+    for (const g of d.grantKeywords || []) for (const id of g.unitIds || []) {
+      const u = (fd.units || []).find(x => x.id === id);
+      if (!u) { err('E-GRANTDUP', dw, `grantKeywords names unknown unit ${id}`); continue; }
+      const has = [...(u.keywords || []), ...(u.coreAbilities || [])].some(k => String(k).toLowerCase() === String(g.keyword).toLowerCase());
+      if (has) err('E-GRANTDUP', `${f}.${id}`, `datasheet already carries "${g.keyword}", which ${d.name} grants`);
+    }
+    if (d.rule && d.rule.name) for (const u of fd.units || []) for (const a of u.abilities || [])
+      if (a && a.name && a.name.toLowerCase() === d.rule.name.toLowerCase()) err('E-GRANTDUP', `${f}.${u.id}`, `ability "${a.name}" duplicates the ${d.name} detachment rule`);
     if (d.rule) checkText(d.rule.text, `${dw}.rule`);
     else err('E-MISSING', dw, 'detachment has no rule');
 
