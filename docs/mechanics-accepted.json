@@ -149241,12 +149241,6 @@
    "why": "T'au Empire (new army, added 2026-10-18; MFM v1.6, Faction Pack v1.2 = Wahapedia version, BSData 14.10.2026; decisions in data/tau_empire_decisions.md): detachment stratagem (CP, type, phases)"
   },
   {
-   "path": ".tauEmpire.detachments[0].btnFx",
-   "change": "ADDED",
-   "value": "\"calm\"",
-   "why": "T'au Empire (new army, added 2026-10-18; MFM v1.6, Faction Pack v1.2 = Wahapedia version, BSData 14.10.2026; decisions in data/tau_empire_decisions.md): detachment structure and rule"
-  },
-  {
    "path": ".tauEmpire.detachments[1].id",
    "change": "ADDED",
    "value": "\"auxiliary_cadre\"",
@@ -149511,12 +149505,6 @@
    "why": "T'au Empire (new army, added 2026-10-18; MFM v1.6, Faction Pack v1.2 = Wahapedia version, BSData 14.10.2026; decisions in data/tau_empire_decisions.md): detachment stratagem (CP, type, phases)"
   },
   {
-   "path": ".tauEmpire.detachments[1].btnFx",
-   "change": "ADDED",
-   "value": "\"calm\"",
-   "why": "T'au Empire (new army, added 2026-10-18; MFM v1.6, Faction Pack v1.2 = Wahapedia version, BSData 14.10.2026; decisions in data/tau_empire_decisions.md): detachment structure and rule"
-  },
-  {
    "path": ".tauEmpire.detachments[2].id",
    "change": "ADDED",
    "value": "\"experimental_prototype_cadre\"",
@@ -149725,12 +149713,6 @@
    "change": "ADDED",
    "value": "\"Shooting\"",
    "why": "T'au Empire (new army, added 2026-10-18; MFM v1.6, Faction Pack v1.2 = Wahapedia version, BSData 14.10.2026; decisions in data/tau_empire_decisions.md): detachment stratagem (CP, type, phases)"
-  },
-  {
-   "path": ".tauEmpire.detachments[2].btnFx",
-   "change": "ADDED",
-   "value": "\"calm\"",
-   "why": "T'au Empire (new army, added 2026-10-18; MFM v1.6, Faction Pack v1.2 = Wahapedia version, BSData 14.10.2026; decisions in data/tau_empire_decisions.md): detachment structure and rule"
   },
   {
    "path": ".tauEmpire.detachments[3].id",
@@ -150225,12 +150207,6 @@
    "why": "T'au Empire (new army, added 2026-10-18; MFM v1.6, Faction Pack v1.2 = Wahapedia version, BSData 14.10.2026; decisions in data/tau_empire_decisions.md): detachment structure and rule"
   },
   {
-   "path": ".tauEmpire.detachments[3].btnFx",
-   "change": "ADDED",
-   "value": "\"kauyon\"",
-   "why": "T'au Empire (new army, added 2026-10-18; MFM v1.6, Faction Pack v1.2 = Wahapedia version, BSData 14.10.2026; decisions in data/tau_empire_decisions.md): detachment structure and rule"
-  },
-  {
    "path": ".tauEmpire.detachments[4].id",
    "change": "ADDED",
    "value": "\"kroot_hunting_pack\"",
@@ -150690,12 +150666,6 @@
    "path": ".tauEmpire.detachments[4].grantKeywords[0].keyword",
    "change": "ADDED",
    "value": "\"Battleline\"",
-   "why": "T'au Empire (new army, added 2026-10-18; MFM v1.6, Faction Pack v1.2 = Wahapedia version, BSData 14.10.2026; decisions in data/tau_empire_decisions.md): detachment structure and rule"
-  },
-  {
-   "path": ".tauEmpire.detachments[4].btnFx",
-   "change": "ADDED",
-   "value": "\"claws\"",
    "why": "T'au Empire (new army, added 2026-10-18; MFM v1.6, Faction Pack v1.2 = Wahapedia version, BSData 14.10.2026; decisions in data/tau_empire_decisions.md): detachment structure and rule"
   },
   {
@@ -151209,12 +151179,6 @@
    "why": "T'au Empire (new army, added 2026-10-18; MFM v1.6, Faction Pack v1.2 = Wahapedia version, BSData 14.10.2026; decisions in data/tau_empire_decisions.md): detachment structure and rule"
   },
   {
-   "path": ".tauEmpire.detachments[5].btnFx",
-   "change": "ADDED",
-   "value": "\"montka\"",
-   "why": "T'au Empire (new army, added 2026-10-18; MFM v1.6, Faction Pack v1.2 = Wahapedia version, BSData 14.10.2026; decisions in data/tau_empire_decisions.md): detachment structure and rule"
-  },
-  {
    "path": ".tauEmpire.detachments[6].id",
    "change": "ADDED",
    "value": "\"retaliation_cadre\"",
@@ -151699,12 +151663,6 @@
    "change": "ADDED",
    "value": "\"Fight\"",
    "why": "T'au Empire (new army, added 2026-10-18; MFM v1.6, Faction Pack v1.2 = Wahapedia version, BSData 14.10.2026; decisions in data/tau_empire_decisions.md): detachment stratagem (CP, type, phases)"
-  },
-  {
-   "path": ".tauEmpire.detachments[6].btnFx",
-   "change": "ADDED",
-   "value": "\"retaliation\"",
-   "why": "T'au Empire (new army, added 2026-10-18; MFM v1.6, Faction Pack v1.2 = Wahapedia version, BSData 14.10.2026; decisions in data/tau_empire_decisions.md): detachment structure and rule"
   },
   {
    "path": ".tauEmpire.units.length",

@@ -483,8 +483,7 @@ const DATA = {
     "card2": "#16060f",
     "icon1": "#8a1f65",
     "icon2": "#3a0d31",
-    "iconRim": "#ecd48c",
-    "gloss": true
+    "iconRim": "#ecd48c"
    },
    "emblemSvg": "<svg viewBox=\"0 0 64 64\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\"><circle cx=\"32\" cy=\"32\" r=\"30\" fill=\"#16060f\"/><circle cx=\"32\" cy=\"32\" r=\"27\" fill=\"none\" stroke=\"#c2358f\" stroke-width=\"1.5\"/><path d=\"M40 14c-9-4-19 0-19 8 0 10 22 8 22 19 0 8-11 11-20 6\" fill=\"none\" stroke=\"#e3b45c\" stroke-width=\"4\" stroke-linecap=\"round\"/><path d=\"M24 50c9 4 19 0 19-8 0-10-22-8-22-19 0-8 11-11 20-6\" fill=\"none\" stroke=\"#a8277c\" stroke-width=\"2\" stroke-linecap=\"round\" opacity=\".85\"/><circle cx=\"21\" cy=\"22\" r=\"2.4\" fill=\"#e3b45c\"/><circle cx=\"43\" cy=\"42\" r=\"2.4\" fill=\"#e3b45c\"/></svg>",
    "logo": "ec_logo",
@@ -660,9 +659,7 @@ const DATA = {
     "card2": "#050c07",
     "icon1": "#10331a",
     "icon2": "#07180c",
-    "iconRim": "#62f23a",
-    "gloss": true,
-    "lift": true
+    "iconRim": "#62f23a"
    },
    "emblemSvg": "<svg viewBox=\"0 0 64 64\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\"><circle cx=\"32\" cy=\"32\" r=\"30\" fill=\"#030704\"/><circle cx=\"32\" cy=\"32\" r=\"27\" fill=\"none\" stroke=\"#b9a64a\" stroke-width=\"1.5\"/><ellipse cx=\"32\" cy=\"22\" rx=\"7\" ry=\"9\" fill=\"none\" stroke=\"#62f23a\" stroke-width=\"4\"/><path d=\"M32 31v24M21 39h22\" stroke=\"#62f23a\" stroke-width=\"4\" stroke-linecap=\"round\" fill=\"none\"/></svg>",
    "logo": "nec_logo",
@@ -829,8 +826,7 @@ const DATA = {
     "card1": "#0e3036",
     "card2": "#041114",
     "icon1": "#0f5a63",
-    "icon2": "#06242a",
-    "gloss": true
+    "icon2": "#06242a"
    },
    "emblemSvg": "<svg viewBox=\"0 0 64 64\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\"><circle cx=\"32\" cy=\"32\" r=\"30\" fill=\"#041114\"/><circle cx=\"32\" cy=\"32\" r=\"27\" fill=\"none\" stroke=\"#178a94\" stroke-width=\"1.5\"/><path d=\"M14 49c13-3 27-15 36-35-2 13-10 29-30 41z\" fill=\"#ff4d73\"/><path d=\"M50 49c-13-3-27-15-36-35 2 13 10 29 30 41z\" fill=\"#efe4d2\" opacity=\".9\"/><path d=\"M32 24l5 8-5 8-5-8z\" fill=\"#8a5bd6\" stroke=\"#041114\" stroke-width=\"1.5\"/></svg>",
    "logo": "drk_logo",
@@ -882,8 +878,7 @@ const DATA = {
     "card2": "#15110b",
     "icon1": "#3a2a10",
     "icon2": "#0b0905",
-    "iconRim": "#d9a441",
-    "gloss": true
+    "iconRim": "#d9a441"
    },
    "emblemSvg": "<svg viewBox=\"0 0 64 64\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\"><circle cx=\"32\" cy=\"32\" r=\"30\" fill=\"#0b0905\"/><circle cx=\"32\" cy=\"32\" r=\"27\" fill=\"none\" stroke=\"#d9a441\" stroke-width=\"3\"/><circle cx=\"32\" cy=\"22\" r=\"9\" fill=\"none\" stroke=\"#f1e6c8\" stroke-width=\"3.5\"/><path d=\"M32 31v21M23 52h18\" stroke=\"#f1e6c8\" stroke-width=\"3.5\" stroke-linecap=\"round\" fill=\"none\"/></svg>",
    "logo": "tau_logo",
@@ -74170,8 +74165,7 @@ const DATA = {
        "target": "That PATHFINDER TEAM/STEALTH BATTLESUITS unit.",
        "effect": "Your unit has +1 Sv."
       }
-     ],
-     "btnFx": "calm"
+     ]
     },
     {
      "id": "auxiliary_cadre",
@@ -74256,8 +74250,7 @@ const DATA = {
        "target": "That KROOT/VESPID STINGWINGS unit.",
        "effect": "Until the end of the phase, add 1 to the Armour Penetration characteristic of attacks made by models in your unit."
       }
-     ],
-     "btnFx": "calm"
+     ]
     },
     {
      "id": "experimental_prototype_cadre",
@@ -74326,8 +74319,7 @@ const DATA = {
        "target": "That BATTLESUIT CHARACTER unit.",
        "effect": "Your unit’s ranged attacks have: ■ +1 S. ■ OR: +1 S, AP and [HAZARDOUS]."
       }
-     ],
-     "btnFx": "calm"
+     ]
     },
     {
      "id": "kauyon",
@@ -74491,8 +74483,7 @@ const DATA = {
       "extraByEnh": {
        "exemplar_of_the_kauyon": "Exemplar of the Kauyon: the bearer’s unit gets Patient Hunter from round 2."
       }
-     },
-     "btnFx": "kauyon"
+     }
     },
     {
      "id": "kroot_hunting_pack",
@@ -74644,8 +74635,7 @@ const DATA = {
        ],
        "keyword": "Battleline"
       }
-     ],
-     "btnFx": "claws"
+     ]
     },
     {
      "id": "montka",
@@ -74810,8 +74800,7 @@ const DATA = {
       "extraByEnh": {
        "exemplar_of_the_montka": "Exemplar of the Mont’ka: the bearer’s unit gets Killing Blow in round 4 as well."
       }
-     },
-     "btnFx": "montka"
+     }
     },
     {
      "id": "retaliation_cadre",
@@ -74967,8 +74956,7 @@ const DATA = {
        "target": "One T’AU EMPIRE BATTLESUIT unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
        "effect": "Until the end of the phase, models in your unit have the Feel No Pain 6+ ability."
       }
-     ],
-     "btnFx": "retaliation"
+     ]
     }
    ],
    "units": [
