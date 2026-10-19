@@ -1,0 +1,69 @@
+HOUSE OF TEST (2,390 Points)
+
+Imperial Knights
+Questor Forgepact (1 Detachment Points)
+Disruption
+Onslaught (3,000 Points)
+
+CHARACTERS
+
+Knight Paladin (375 Points)
+- Warlord
+- 2x Questoris heavy stubber
+- 1x Rapid-fire battle cannon
+- 1x Thunderstrike gauntlet
+- 1x Twin Icarus autocannon
+
+Knight Crusader (410 Points)
+- 1x Avenger gatling cannon
+- 1x Heavy flamer
+- 1x Meltagun
+- 1x Questoris heavy stubber
+- 1x Rapid-fire battle cannon
+- 1x Titanic feet
+
+Knight Castellan (425 Points)
+- 1x Plasma decimator
+- 1x Shieldbreaker missile launcher
+- 1x Titanic feet
+- 2x Twin meltagun
+- 2x Twin siegebreaker cannon
+- 1x Volcano lance
+
+Acastus Knight Porphyrion (725 Points)
+- 1x Acastus autocannon
+- 1x Acastus ironstorm missile pod
+- 1x Lascannon
+- 1x Titanic feet
+- 2x Twin magna lascannon
+
+OTHER DATASHEETS
+
+Armiger Helverin (140 Points)
+- 2x Armiger autocannon
+- 1x Armoured feet
+- 1x Meltagun
+
+Armiger Moirax (150 Points)
+- 1x Armoured feet
+- 1x Graviton pulsar
+- 1x Lightning lock
+
+ALLIED UNITS
+
+Tech-priest Dominus (80 Points)
+- Enhancement: Magos Questoris
+- 1x Eradication ray
+- 1x Omnissian axe
+- 1x Volkite blaster
+
+Skitarii Rangers (85 Points)
+- 1x Skitarii Ranger Alpha
+◦ 1x Galvanic rifle
+◦ 1x Close combat weapon
+- 9x Skitarii Ranger
+◦ 8x Galvanic rifle
+◦ 1x Arc rifle
+◦ 9x Close combat weapon
+
+Exported with App Version: v2.8.1 (1), Data Version: v995

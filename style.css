@@ -1756,3 +1756,112 @@ html:not(.m) .seg.wide { max-width: 560px; }
 .pn-info.fresh { animation: pnInfoIn .18s ease-out; }
 @keyframes pnInfoIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) { .pn-info.fresh { animation: none; } .pn-emp .pn-chev .chev { transition: none; } }
+
+/* ---- Imperial Knights: Oath, Honoured, Bondsman, Heroes of Legend; effects use transform and opacity only ---- */
+.oath-part { position: relative; display: grid; gap: 6px; }
+.oath-chips { flex-wrap: wrap; }
+.oath-chip { display: inline-flex; align-items: center; gap: 6px; text-align: left; }
+.oath-chip b { font-size: .72rem; opacity: .8; letter-spacing: .04em; }
+.oath-chip[aria-disabled=true] { opacity: .4; pointer-events: none; }
+.oath-txt { font-size: .88rem; }
+.oath-rand { justify-self: start; min-height: 40px; height: auto; padding: 6px 12px; border-radius: 12px; white-space: normal; text-align: left; line-height: 1.25; }
+.oath-go[aria-disabled=true], .oath-x .btn[aria-disabled=true] { opacity: .45; }
+.oath-active { color: var(--accent); font-weight: 600; }
+.oath-x { display: grid; gap: 6px; padding: 10px; border: 1px solid var(--line); border-radius: 12px; }
+.oath-x.fulfilled { border-color: color-mix(in srgb, var(--accent) 50%, transparent); }
+.oath-x .row { position: relative; align-items: center; gap: 8px; }
+.oath-seal { position: absolute; right: 2px; top: -8px; width: 32px; height: 32px; opacity: 0; transform: scale(.6); transition: opacity .25s, transform .25s; pointer-events: none; }
+.oath-seal.on { opacity: .95; transform: none; }
+.oath-seal svg { width: 100%; height: 100%; }
+.oath-seal circle { fill: #b3282d; stroke: #d9a441; stroke-width: 2; }
+.oath-seal path { fill: none; stroke: #f0ce86; stroke-width: 3; stroke-linecap: round; }
+.oath-x .oath-seal { position: static; width: 30px; height: 30px; margin-left: auto; }
+.oath-seal.slam { animation: ikSlam .6s cubic-bezier(.2, 1.4, .3, 1); }
+@keyframes ikSlam { 0% { opacity: 0; transform: scale(2.8) rotate(-16deg); } 55% { opacity: 1; transform: scale(.86) rotate(2deg); } 76% { transform: scale(1.07); } 100% { opacity: .95; transform: none; } }
+.panel.honoured { position: relative; border-color: color-mix(in srgb, var(--accent) 70%, transparent); }
+.panel.honoured::after { content: ''; position: absolute; inset: -1px; border-radius: inherit; pointer-events: none; box-shadow: 0 0 0 1px var(--accent), 0 0 22px 2px color-mix(in srgb, var(--accent) 50%, transparent); opacity: .35; animation: ikHon 3.6s ease-in-out infinite; }
+@keyframes ikHon { 0%, 100% { opacity: .22; } 50% { opacity: .9; } }
+.exp-chip { display: inline-flex; flex-direction: column; align-items: flex-start; gap: 0; padding: 6px 12px; min-height: 44px; border-radius: 12px; text-align: left; position: relative; }
+.exp-chip small { font-weight: 500; opacity: .75; font-size: .74rem; }
+.exp-chip[aria-pressed=true] { background: transparent; color: var(--dim, inherit); border: 1px dashed var(--line); opacity: .6; }
+.exp-chip[aria-pressed=true] span { text-decoration: line-through; }
+.flash { position: relative; }
+.flash::after { content: ''; position: absolute; inset: -2px; border-radius: inherit; pointer-events: none; box-shadow: 0 0 22px 6px rgba(240, 206, 134, .75); opacity: 0; animation: ikFlash .9s ease-out; }
+@keyframes ikFlash { 0% { opacity: 0; transform: scale(.96); } 30% { opacity: 1; transform: scale(1.03); } 100% { opacity: 0; transform: scale(1.08); } }
+/* the Oath is fulfilled */
+.oathfx { position: fixed; inset: 0; z-index: 200; pointer-events: none; overflow: hidden; }
+.oathfx > * { position: absolute; will-change: transform, opacity; }
+.of-vig { inset: 0; background: radial-gradient(ellipse at 50% 45%, rgba(255, 214, 120, .5), rgba(217, 164, 65, .14) 42%, transparent 72%); opacity: 0; animation: ofVig 2.8s ease-out forwards; }
+@keyframes ofVig { 0% { opacity: 0; } 10% { opacity: 1; } 100% { opacity: 0; } }
+.of-ring { left: 50%; top: 45%; width: 120px; height: 120px; margin: -60px 0 0 -60px; border-radius: 50%; border: 3px solid #f0ce86; box-shadow: 0 0 22px 4px rgba(240, 206, 134, .55); opacity: 0; animation: ofRing 1.5s cubic-bezier(.1, .7, .2, 1) forwards; }
+.of-ring.r2 { border-color: #b3282d; box-shadow: 0 0 22px 4px rgba(179, 40, 45, .5); animation-delay: .22s; }
+@keyframes ofRing { 0% { opacity: .95; transform: scale(.2); } 100% { opacity: 0; transform: scale(7); } }
+.of-wing { top: 45%; width: min(44vw, 240px); opacity: 0; }
+.of-wing.r { left: calc(50% + 34px); transform-origin: 0 50%; animation: ofWing 3s cubic-bezier(.2, .8, .2, 1) .15s forwards; }
+.of-wing.l { right: calc(50% + 34px); transform-origin: 100% 50%; animation: ofWing 3s cubic-bezier(.2, .8, .2, 1) .15s forwards; }
+.of-wing.l .of-wsvg { transform: scaleX(-1); }
+.of-wsvg { display: block; width: 100%; height: auto; overflow: visible; }
+.of-f { fill: #d9a441; stroke: #7a5518; stroke-width: .9; }
+.of-wsvg g:nth-child(odd) .of-f { fill: #ecc36a; }
+@keyframes ofWing { 0% { opacity: 0; transform: translateY(-50%) scaleX(.05); } 22% { opacity: 1; transform: translateY(-50%) scaleX(1.06); } 34% { transform: translateY(-50%) scaleX(1); } 78% { opacity: 1; transform: translateY(-50%) scaleX(1); } 100% { opacity: 0; transform: translateY(-58%) scaleX(1); } }
+.of-laurel { left: 50%; top: 45%; width: 0; height: 0; --R: 104px; animation: ofFade 3s linear forwards; }
+@keyframes ofFade { 0%, 78% { opacity: 1; } 100% { opacity: 0; } }
+.of-leaf { position: absolute; left: -7px; top: -15px; width: 14px; height: 30px; border-radius: 100% 0 100% 0 / 100% 0 100% 0; background: linear-gradient(160deg, #eef2f6, #8fa2b8); opacity: 0; transform: rotate(var(--a)) translateY(calc(-1 * var(--R) - 40px)) rotate(70deg) scale(.2); animation: ofLeaf .7s cubic-bezier(.2, .9, .3, 1) var(--dl) forwards; animation-delay: calc(.35s + var(--dl)); }
+@keyframes ofLeaf { to { opacity: 1; transform: rotate(var(--a)) translateY(calc(-1 * var(--R))) rotate(70deg) scale(1); } }
+.of-ban { top: -170px; width: 46px; height: 130px; clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 82%, 0 100%); background: linear-gradient(90deg, #2f6fb0 50%, #b3282d 50%); transform-origin: 50% 0; animation: ofBan 3s cubic-bezier(.3, .9, .3, 1) forwards; }
+.of-ban.b1 { left: calc(50% - 168px); }
+.of-ban.b2 { left: calc(50% + 122px); background: linear-gradient(90deg, #b3282d 50%, #2f6fb0 50%); animation-delay: .15s; }
+@keyframes ofBan { 0% { transform: translateY(0) rotate(0); } 26% { transform: translateY(38vh) rotate(5deg); } 38% { transform: translateY(34vh) rotate(-4deg); } 52% { transform: translateY(36vh) rotate(2deg); } 80% { transform: translateY(36vh) rotate(0); opacity: 1; } 100% { transform: translateY(36vh); opacity: 0; } }
+.of-cp { left: 50%; top: 45%; margin: -28px 0 0; font-size: 3rem; line-height: 1; color: #f0ce86; text-shadow: 0 2px 0 #5a3d0a, 0 0 22px rgba(240, 206, 134, .85); white-space: nowrap; opacity: 0; transform: translate(-50%, 10px) scale(.5); animation: ofCp 2.9s ease-out .35s forwards; }
+@keyframes ofCp { 0% { opacity: 0; transform: translate(-50%, 10px) scale(.5); } 16% { opacity: 1; transform: translate(-50%, -6px) scale(1.18); } 28% { transform: translate(-50%, -10px) scale(1); } 84% { opacity: 1; transform: translate(-50%, -76px) scale(1); } 100% { opacity: 0; transform: translate(-50%, -96px) scale(1); } }
+.of-hon { left: 50%; top: calc(45% + 34px); font-weight: 700; letter-spacing: .5em; font-size: .85rem; color: #f0ce86; text-shadow: 0 0 14px rgba(240, 206, 134, .8); white-space: nowrap; opacity: 0; transform: translate(-50%, 0); animation: ofHon 2.9s ease-out .6s forwards; }
+@keyframes ofHon { 0% { opacity: 0; } 20%, 80% { opacity: 1; } 100% { opacity: 0; } }
+.of-sp { left: 50%; top: 45%; width: 6px; height: 6px; background: #f0ce86; transform: rotate(45deg); opacity: 0; animation: ofSp 1.4s ease-out var(--dl) forwards; }
+@keyframes ofSp { 0% { opacity: 1; transform: translate(0, 0) rotate(45deg) scale(1); } 100% { opacity: 0; transform: translate(var(--x), var(--y)) rotate(200deg) scale(.3); } }
+/* a pennant unfurls beside an ARMIGER chip that comes under Bondsman */
+.ikpen { position: fixed; z-index: 150; pointer-events: none; width: 0; height: 0; }
+.pn-pole { position: absolute; left: 0; top: -24px; width: 2px; height: 28px; background: #d9a441; transform-origin: 50% 100%; animation: pnPole .3s ease-out both; }
+.pn-flag { position: absolute; left: 2px; top: -24px; width: 46px; height: 20px; clip-path: polygon(0 0, 100% 0, 82% 50%, 100% 100%, 0 100%); background: linear-gradient(90deg, #2f6fb0 50%, #b3282d 50%); transform-origin: 0 50%; animation: pnFlag 1.8s ease-out both; }
+@keyframes pnPole { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+@keyframes pnFlag { 0% { transform: scaleX(0); opacity: 1; } 24% { transform: scaleX(1.08); } 34% { transform: scaleX(1); } 76% { opacity: 1; } 100% { opacity: 0; transform: scaleX(1) translateX(8px); } }
+/* reminder cards */
+.mf-fnd { top: 50%; width: 14px; height: 14px; margin-top: -7px; border-radius: 50%; border: 2px solid #d9a441; animation: ikPulse 3.4s ease-in-out infinite; }
+.mf-fnd.f1 { left: 12%; } .mf-fnd.f2 { right: 12%; }
+.mf-fline { left: calc(12% + 14px); right: calc(12% + 14px); top: 50%; height: 2px; background: linear-gradient(90deg, #d9a441, #f0ce86, #d9a441); transform-origin: 0 50%; animation: ikLine 3.4s ease-in-out infinite; }
+@keyframes ikLine { 0% { transform: scaleX(0); opacity: .9; } 45% { transform: scaleX(1); opacity: .9; } 100% { transform: scaleX(1); opacity: 0; } }
+@keyframes ikPulse { 0%, 100% { opacity: .35; } 50% { opacity: 1; } }
+.mf-cross2 { bottom: -14px; width: 12px; height: 12px; opacity: 0; background: linear-gradient(#d9a441, #d9a441) center / 100% 3px no-repeat, linear-gradient(#d9a441, #d9a441) center / 3px 100% no-repeat; animation: ikRise 3.6s linear infinite; animation-delay: var(--dl); }
+@keyframes ikRise { 0% { opacity: 0; transform: translateY(0); } 15% { opacity: .9; } 100% { opacity: 0; transform: translateY(-120px); } }
+.mf-hex { left: 50%; top: 50%; width: 64px; height: 56px; margin: -28px 0 0 -32px; clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%); background: rgba(217, 164, 65, .28); opacity: 0; animation: ikHex 3.2s ease-out infinite; }
+.mf-hex.h2 { animation-delay: 1s; } .mf-hex.h3 { animation-delay: 2s; }
+@keyframes ikHex { 0% { opacity: .7; transform: scale(.3); } 100% { opacity: 0; transform: scale(5); } }
+.panel.remind.fx-ik_line, .panel.remind.fx-ik_heal, .panel.remind.fx-ik_aegis { border-color: rgba(217, 164, 65, .5); }
+/* detachment buttons */
+.fx-ik_quake > .detfx { background: radial-gradient(ellipse 80% 60% at 50% 120%, color-mix(in srgb, var(--accent) 40%, transparent), transparent 70%); transform-origin: 50% 100%; }
+.fx-ik_quake[aria-checked=true] > .detfx { animation: ikQuake 3s ease-out infinite; }
+@keyframes ikQuake { 0%, 100% { opacity: .15; transform: scaleY(.6); } 8% { opacity: 1; transform: scaleY(1.05); } 30% { opacity: .4; transform: scaleY(.85); } 60% { opacity: .2; transform: scaleY(.7); } }
+.fx-ik_ember > .detfx { overflow: hidden; }
+.fx-ik_ember > .detfx::before { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 200%; background: radial-gradient(circle, rgba(240, 206, 134, .9) 0 1.5px, transparent 2px) 0 0 / 34px 34px, radial-gradient(circle, rgba(217, 164, 65, .7) 0 1px, transparent 1.6px) 17px 17px / 34px 34px; }
+.fx-ik_ember[aria-checked=true] > .detfx::before { animation: ikEmber 7s linear infinite; }
+@keyframes ikEmber { from { transform: translateY(0); } to { transform: translateY(-50%); } }
+.fx-ik_line > .detfx { background: radial-gradient(circle 5px at 7% 50%, #d9a441 0 4px, transparent 5px), radial-gradient(circle 5px at 93% 50%, #d9a441 0 4px, transparent 5px); }
+.fx-ik_line > .detfx::before { content: ''; position: absolute; left: 8%; right: 8%; top: 50%; height: 2px; background: linear-gradient(90deg, #d9a441, #f0ce86, #d9a441); transform-origin: 0 50%; transform: scaleX(0); opacity: 0; }
+.fx-ik_line[aria-checked=true] > .detfx::before { animation: ikLine 3.4s ease-in-out infinite; }
+.fx-ik_circuit > .detfx { background: linear-gradient(90deg, transparent 0 11px, rgba(217, 164, 65, .28) 11px 12px) 0 0 / 24px 24px, linear-gradient(0deg, transparent 0 11px, rgba(217, 164, 65, .2) 11px 12px) 0 0 / 24px 24px; }
+.fx-ik_circuit[aria-checked=true] > .detfx { animation: tauCalm 4s ease-in-out infinite; }
+.fx-ik_laurel > .detfx { background: radial-gradient(ellipse 55% 90% at 50% 50%, color-mix(in srgb, var(--accent2) 30%, transparent), transparent 70%); }
+.fx-ik_laurel[aria-checked=true] > .detfx { animation: ikBreath 4.5s ease-in-out infinite; }
+@keyframes ikBreath { 0%, 100% { opacity: .35; transform: scale(.94); } 50% { opacity: 1; transform: scale(1.05); } }
+.fx-ik_pennants > .detfx { background: linear-gradient(90deg, rgba(47, 111, 176, .4) 0 6px, rgba(179, 40, 45, .4) 6px 12px, transparent 12px) 0 0 / 90px 100%; -webkit-mask-image: linear-gradient(180deg, #000, transparent 85%); mask-image: linear-gradient(180deg, #000, transparent 85%); transform-origin: 50% 0; }
+.fx-ik_pennants[aria-checked=true] > .detfx { animation: ikSway 3.2s ease-in-out infinite alternate; }
+@keyframes ikSway { from { opacity: .45; transform: skewX(-6deg); } to { opacity: .95; transform: skewX(6deg); } }
+.fx-ik_chase > .detfx { overflow: hidden; }
+.fx-ik_chase > .detfx::before, .fx-ik_chase > .detfx::after { content: ''; position: absolute; left: -30%; width: 30%; height: 2px; background: linear-gradient(90deg, transparent, rgba(240, 206, 134, .8)); opacity: 0; }
+.fx-ik_chase > .detfx::before { top: 32%; } .fx-ik_chase > .detfx::after { top: 66%; }
+.fx-ik_chase[aria-checked=true] > .detfx::before { animation: ikChase 1.9s linear infinite; }
+.fx-ik_chase[aria-checked=true] > .detfx::after { animation: ikChase 1.9s linear .8s infinite; }
+@keyframes ikChase { 0% { transform: translateX(0); opacity: 0; } 12% { opacity: 1; } 100% { transform: translateX(430%); opacity: 0; } }
+.fx-ik_lance > .detfx { overflow: hidden; }
+.fx-ik_lance > .detfx::before { content: ''; position: absolute; top: 0; bottom: 0; left: 0; width: 16%; background: linear-gradient(100deg, transparent, rgba(255, 240, 200, .8), transparent); transform: translateX(-130%) skewX(-32deg); opacity: 0; }
+.fx-ik_lance[aria-checked=true] > .detfx::before { animation: ikLance 3.6s cubic-bezier(.7, 0, .2, 1) infinite; }
+@keyframes ikLance { 0% { transform: translateX(-130%) skewX(-32deg); opacity: 0; } 10% { opacity: 1; } 50%, 100% { transform: translateX(640%) skewX(-32deg); opacity: 0; } }

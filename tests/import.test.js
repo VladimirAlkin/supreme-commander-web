@@ -28,6 +28,8 @@ const EXPECT = {
   thousand_sons: { army: 'thousandSons', units: 13, links: 3, points: 2000, warlord: 'magnus_the_red' },
   drukhari: { army: 'drukhari', units: 22, links: 5, points: 1990, warlord: 'archon', enh: 'skysplinter_assault_nightmare_shroud' },
   /* the app's own layout: nesting by indentation, "Attached as" at column 0, "Enhancement: X (Upgrade)" */
+  /* synthetic (written from the datasheets, not an official export): replace with a real export when the owner sends one */
+  imperial_knights_synthetic: { army: 'imperialKnights', bs: 'onslaught', units: 8, links: 0, points: 2390, warlord: 'knight_paladin', enh: 'magos_questoris' },
   world_eaters_indented: { army: 'worldEaters', units: 11, links: 3, points: 1995, warlord: 'angron', enh: 'berzerker_glaive' },
 };
 const summary = [];
@@ -36,7 +38,7 @@ Object.entries(EXPECT).forEach(([name, ex]) => {
     const res = run(fx(name)); ok(res);
     const r = res.roster, byId = id => r.units.find(u => u.instanceId === id);
     assert.strictEqual(r.factionId, ex.army);
-    assert.strictEqual(r.battleSize, 'strike');
+    assert.strictEqual(r.battleSize, ex.bs || 'strike');
     assert.strictEqual(r.units.length, ex.units, 'units imported');
     assert.strictEqual(res.stats.skipped, 0, 'nothing skipped');
     assert.strictEqual(r.units.filter(u => u.attachedTo).length, ex.links, 'leaders attached');

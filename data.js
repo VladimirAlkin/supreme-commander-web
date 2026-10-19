@@ -82239,7 +82239,76 @@ const DATA = {
      "name": "Code Chivalric",
      "text": [
       "If your Army Faction is IMPERIAL KNIGHTS, at the end of the Read Mission Objectives step, you must determine your army’s Oath for the coming battle. An Oath consists of two parts - one Deed and one Quality. There are three options for each part, shown below. To determine your army’s Deed, you can either select one Deed or you can randomly select one Deed by rolling a D6 and consulting the relevant table below. The selected Deed will describe what needs to be achieved in order to complete that Deed. To determine your army’s Quality, you can either select one Quality or you can randomly select one Quality by rolling a D6 and consulting the relevant table below. Until the end of the battle, the ability described in the Quality selected applies to all models in your army with this ability. The first time your selected Deed is completed your Oath is fulfilled and, until the end of the battle, your army becomes Honoured and you gain 2CP, or 3CP if you randomly selected your Deed and/or Quality (CP gained in this way are an exemption to the Core Rules that limit the maximum number of CP you can gain per battle round to 1). ■ Deed (D6) ■ 1-2: At the start of the battle, select one CHARACTER model in your opponent’s army. This Deed is completed at the end of a turn if that CHARACTER is destroyed. ■ 3-4: This Deed is completed at the end of your opponent’s turn if you control more objective markers than your opponent. ■ 5-6: This Deed is completed at the end of the battle round if the number of enemy units destroyed this battle round is greater than the battle round number even if those units are subsequently returned to the battlefield (for example, two destroyed enemy units in the first battle round). ■ Quality (D6) ■ 1-2: Each time this model is selected to shoot or fight, you can re-roll one Hit roll and you can re-roll one Wound roll. ■ 3-4: Add 2\" to this model’s Move characteristic and add 1 to Advance and Charge rolls made for this model. ■ 5-6: Improve this model’s Objective Control characteristic by 2 and its Leadership characteristic by 1."
-     ]
+     ],
+     "oath": {
+      "title": "Oath",
+      "note": "At the end of the Read Mission Objectives step: choose or roll one Deed and one Quality. Complete the Deed to fulfil the Oath: the army becomes Honoured and you gain CP.",
+      "cp": {
+       "chosen": 2,
+       "random": 3
+      },
+      "deeds": [
+       {
+        "id": "tyrant",
+        "label": "Lay low the tyrant",
+        "roll": "1-2",
+        "text": "At the start of the battle, select one enemy CHARACTER. Completed at the end of a turn if it is destroyed."
+       },
+       {
+        "id": "realm",
+        "label": "Reclaim the realm",
+        "roll": "3-4",
+        "text": "Completed at the end of your opponent’s turn if you control more objective markers than your opponent."
+       },
+       {
+        "id": "tally",
+        "label": "Reap a great tally",
+        "roll": "5-6",
+        "text": "Completed at the end of the battle round if the enemy units destroyed this battle round outnumber the battle round number."
+       }
+      ],
+      "qualities": [
+       {
+        "id": "valour",
+        "label": "Martial valour",
+        "roll": "1-2",
+        "text": "Each time a model is selected to shoot or fight, re-roll one Hit roll and one Wound roll."
+       },
+       {
+        "id": "eager",
+        "label": "Eager for the challenge",
+        "roll": "3-4",
+        "text": "+2\" Move, and +1 to Advance and Charge rolls."
+       },
+       {
+        "id": "legacy",
+        "label": "Legacy unsullied",
+        "roll": "5-6",
+        "text": "+2 Objective Control and +1 Leadership."
+       }
+      ],
+      "heroes": {
+       "detachment": "questoris_companions",
+       "cp": 1
+      }
+     }
+    },
+    {
+     "id": "bondsman",
+     "name": "Bondsman",
+     "text": [
+      "Some IMPERIAL KNIGHTS models have a Bondsman ability, tagged with the word ‘Bondsman’. In your Command phase, one or more models from your army with a Bondsman ability can use that ability. For each one that does, select one friendly ARMIGER model within 12\" of that model (you cannot select an ARMIGER model that is already being affected by a Bondsman ability). Until the start of your next Command phase, that ARMIGER model is affected by that Bondsman ability."
+     ],
+     "pickUnits": {
+      "key": "bond",
+      "title": "Bondsman",
+      "max": 3,
+      "keyword": "Armiger",
+      "armyOnly": true,
+      "style": "bond",
+      "note": "In your Command phase each Bondsman Knight picks one friendly ARMIGER within 12\" (15\" while Honoured). The effect lasts until your next Command phase.",
+      "foot": "Spearhead-at-Arms: the first Bondsman use each turn can cover up to three ARMIGER units."
+     }
     },
     {
      "id": "super_heavy_walker",
@@ -82248,6 +82317,13 @@ const DATA = {
       "Each time a model with this ability makes a Normal, Advance or Fall Back move, it can move through models (excluding TITANIC models) and sections of terrain features that are 4\" or less in height. When doing so:",
       "■ It can move within Engagement Range of enemy models, but cannot end that move within Engagement Range of them.",
       "■ It can also move through sections of terrain features that are more than 4\" in height, but if it does, after it has moved, roll one D6: on a 1, that model is Battle-shocked."
+     ]
+    },
+    {
+     "id": "freeblades",
+     "name": "Freeblades",
+     "text": [
+      "If every model in your army has the IMPERIUM keyword, you can include either one TITANIC IMPERIAL KNIGHTS model or up to three ARMIGER models in your army, even if they do not have the Faction keyword you selected in the Select Army Faction step. None of these models can be your WARLORD, and they cannot be given Enhancements."
      ]
     }
    ],
@@ -82331,7 +82407,8 @@ const DATA = {
        "target": "That IMPERIAL KNIGHTS DOMINUS unit.",
        "effect": "Your unit’s [BLAST] ranged attacks: ■ Do not have [BLAST]. ■ Have +1 A."
       }
-     ]
+     ],
+     "btnFx": "ik_quake"
     },
     {
      "id": "freeblade_company",
@@ -82472,7 +82549,15 @@ const DATA = {
        "target": "One IMPERIAL KNIGHTS unit from your army.",
        "effect": "Until the end of the phase, if your unit Advances, do not make an Advance roll for it. Instead, until the end of the phase, add 6\" to the Move characteristic of models in your unit, or 9\" instead if your unit is an Armiger or Destrier unit."
       }
-     ]
+     ],
+     "reminder": {
+      "title": "Knights of Legend",
+      "phase": "Command",
+      "turn": "mine",
+      "text": "Each IMPERIAL KNIGHTS model regains 1 lost wound at the start of your Command phase.",
+      "fx": "ik_heal"
+     },
+     "btnFx": "ik_ember"
     },
     {
      "id": "gate_warden_lance",
@@ -82611,7 +82696,32 @@ const DATA = {
        "target": "One IMPERIAL KNIGHTS unit from your army that was selected as the target of one or more of the attacking unit’s attacks and is on your defensive line.",
        "effect": "Until the end of the phase, each time an attack targets your unit, if the Strength characteristic of that attack is greaterthan the Toughness characteristic of your unit, subtract 1 from the Wound roll"
       }
-     ]
+     ],
+     "reminder": {
+      "title": "Dauntless Defenders",
+      "phase": "Command",
+      "turn": "mine",
+      "first": "Start of the first battle round: pick two objectives as your foundations and place a 40mm foundation marker in each. A model whose base crosses the line between them is on your defensive line.",
+      "text": "IMPERIAL KNIGHTS units on your defensive line get Against the Horde: ignore Hit modifiers and Sustained Hits 1.",
+      "fx": "ik_line"
+     },
+     "zones": {
+      "title": "Defensive line",
+      "note": "Mark what is true right now, for Acquisitor-at-Arms and the Gate Warden Stratagems.",
+      "always": [],
+      "toggles": [
+       {
+        "id": "foundations",
+        "name": "Foundation markers placed"
+       },
+       {
+        "id": "noenemy",
+        "name": "No enemy units on the line"
+       }
+      ],
+      "hint": "Units whose base crosses the line between your two foundation markers are on your defensive line."
+     },
+     "btnFx": "ik_line"
     },
     {
      "id": "questor_forgepact",
@@ -82690,7 +82800,15 @@ const DATA = {
        "target": "One friendly ADEPTUS MECHANICUS unit.",
        "effect": "That enemy unit is marked until the end of the battle: ■ While a unit is marked, friendly ADEPTUS MECHANICUS units’ attacks that target that unit can re-roll wound rolls."
       }
-     ]
+     ],
+     "reminder": {
+      "title": "Sacristan Pledge",
+      "phase": "Command",
+      "turn": "mine",
+      "text": "Each friendly Tech-Priest picks one IMPERIAL KNIGHTS model within 3\" that has not been picked this phase: it heals D3 wounds.",
+      "fx": "ik_aegis"
+     },
+     "btnFx": "ik_circuit"
     },
     {
      "id": "questoris_companions",
@@ -82832,7 +82950,18 @@ const DATA = {
        "target": "That IMPERIAL KNIGHTS TITANIC unit.",
        "effect": "Until the end of the phase, each time your unit Consolidates, models in it can move an additional 3\" provided your unit can end that move within Engagement Range of one or more enemy units."
       }
-     ]
+     ],
+     "expendable": {
+      "title": "Heroes of Legend: expended Enhancements",
+      "enhIds": [
+       "herald_of_triumph",
+       "pennant_of_silvered_fury",
+       "wyrmslayer_divination",
+       "crushing_condemnation"
+      ],
+      "note": "Mark an Enhancement as expended when you use it. Every time you fulfil an Oath, all expended Enhancements are ready again."
+     },
+     "btnFx": "ik_laurel"
     },
     {
      "id": "spearhead_at_arms",
@@ -82973,7 +83102,8 @@ const DATA = {
        "target": "One ARMIGER model from your army, or one IMPERIAL KNIGHTS TITANIC model from your army, and one or more friendly ARMIGER models affected by that model’s Bondsman ability.",
        "effect": "For each of your ARMIGER models that is within 9\" of one or more battlefield edges and not within Engagement Range of one or more enemy units, remove that ARMIGER model from the battlefield and place it into Strategic Reserves."
       }
-     ]
+     ],
+     "btnFx": "ik_pennants"
     },
     {
      "id": "throne_bonded_outriders",
@@ -83054,7 +83184,8 @@ const DATA = {
        "target": "One friendly IMPERIAL KNIGHTS TITANIC unit.",
        "effect": "Select one friendly battle-shocked ARMIGER unit within 12\" of your unit. That ARMIGER unit is no longer battle-shocked."
       }
-     ]
+     ],
+     "btnFx": "ik_chase"
     },
     {
      "id": "valourstrike_lance",
@@ -83193,7 +83324,8 @@ const DATA = {
        "target": "One IMPERIAL KNIGHTS unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
        "effect": "Until the end of the phase, models in your unit have a 4+ invulnerable save."
       }
-     ]
+     ],
+     "btnFx": "ik_lance"
     }
    ],
    "units": [
@@ -84541,26 +84673,11 @@ const DATA = {
      "composition": "1 model. Default: 2 Acastus autocannons, Acastus ironstorm missile pod, 2 twin magna lascannons, titanic feet.",
      "options": [
       {
-       "id": "autocannons",
-       "type": "choice",
-       "label": "Acastus autocannons",
-       "choices": [
-        {
-         "id": "auto2",
-         "label": "2 Acastus autocannons",
-         "pts": 0
-        },
-        {
-         "id": "auto1las1",
-         "label": "1 Acastus autocannon and 1 lascannon",
-         "pts": 0
-        },
-        {
-         "id": "las2",
-         "label": "2 lascannons",
-         "pts": 0
-        }
-       ]
+       "id": "lascannon",
+       "type": "count",
+       "label": "Lascannon",
+       "max": 2,
+       "note": "Each replaces one Acastus autocannon."
       },
       {
        "id": "missile",
@@ -86214,21 +86331,10 @@ const DATA = {
      "composition": "1 model. Default: plasma decimator, 2 shieldbreaker missile launchers, 2 twin meltaguns, twin siegebreaker cannon, volcano lance, titanic feet.",
      "options": [
       {
-       "id": "carapace",
-       "type": "choice",
-       "label": "Carapace-mounted weapons",
-       "choices": [
-        {
-         "id": "two_one",
-         "label": "2 shieldbreaker missile launchers and twin siegebreaker cannon",
-         "pts": 0
-        },
-        {
-         "id": "one_two",
-         "label": "Shieldbreaker missile launcher and 2 twin siegebreaker cannons",
-         "pts": 0
-        }
-       ]
+       "id": "siege",
+       "type": "toggle",
+       "label": "Twin siegebreaker cannon",
+       "note": "Replaces one shieldbreaker missile launcher."
       }
      ],
      "optionRules": [],
@@ -86376,21 +86482,10 @@ const DATA = {
      "composition": "1 model. Default: conflagration cannon, 2 shieldbreaker missile launchers, thundercoil harpoon, 2 twin meltaguns, twin siegebreaker cannon, titanic feet.",
      "options": [
       {
-       "id": "carapace",
-       "type": "choice",
-       "label": "Carapace-mounted weapons",
-       "choices": [
-        {
-         "id": "two_one",
-         "label": "2 shieldbreaker missile launchers and twin siegebreaker cannon",
-         "pts": 0
-        },
-        {
-         "id": "one_two",
-         "label": "Shieldbreaker missile launcher and 2 twin siegebreaker cannons",
-         "pts": 0
-        }
-       ]
+       "id": "siege",
+       "type": "toggle",
+       "label": "Twin siegebreaker cannon",
+       "note": "Replaces one shieldbreaker missile launcher."
       }
      ],
      "optionRules": [],

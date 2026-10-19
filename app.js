@@ -1303,6 +1303,8 @@
     fd.armyRules.filter(a => a.imperatives).forEach(a => out.unshift(doctrinaHTML(p, a)));
     fd.armyRules.filter(a => a.counter).forEach(a => out.unshift(tokenPoolHTML(r, p, a, dets)));
     fd.armyRules.filter(a => a.markTracker).forEach(a => out.unshift(markTrackerHTML(r, p, a)));
+    fd.armyRules.filter(a => a.pickUnits).forEach(a => out.push(pickUnitsHTML(r, p, a)));
+    fd.armyRules.filter(a => a.oath).forEach(a => out.unshift(oathHTML(r, p, a, dets)));
     fd.armyRules.filter(a => a.reminder).forEach(a => { const h = remindHTML(r, p, a); if (h) out.push(h); });
     fd.armyRules.filter(a => a.cpNote).forEach(a => {
       const names = new Set(a.cpNote.abilities), has = r.units.filter(u => (unitDef(r.factionId, u.datasheetId).abilities || []).some(x => names.has(x.name)));
@@ -1311,6 +1313,7 @@
     dets.forEach(d => {
       if (d.halo) out.push(haloUnitsHTML(r, p, d));
       if (d.pickUnits) out.push(pickUnitsHTML(r, p, d));
+      if (d.expendable) out.push(expendHTML(r, p, d));
       if (d.pledgeTracker) out.push(pledgeHTML(r, p, d));
       if (d.zones) out.push(zonesHTML(r, p, d));
       if (d.useLimit) out.push(useLimitHTML(r, p, d));
@@ -1537,7 +1540,7 @@
   /* which unit instances carry a play-time mark: this round's picks, or (Favoured Champions) the Warlord's unit until another is chosen */
   function pickSelFor(r, p, key) {
     if (p[key]) return p[key];
-    const fd = fdata(r.factionId), d = r.detachmentIds.map(id => fd.detachments.find(x => x.id === id)).find(x => x && x.pickUnits && x.pickUnits.key === key);
+    const fd = fdata(r.factionId), d = r.detachmentIds.map(id => fd.detachments.find(x => x.id === id)).find(x => x && x.pickUnits && x.pickUnits.key === key) || fd.armyRules.find(x => x.pickUnits && x.pickUnits.key === key);
     if (d && d.pickUnits.defaultWarlord) { const w = r.units.find(x => x.instanceId === r.warlordUnitId); return w ? [w.attachedTo || w.instanceId] : []; }
     return [];
   }
@@ -1687,6 +1690,9 @@
     }
     if (k === 'runes') return n(5).map(i => `<svg class="mf-rune" viewBox="0 0 24 24" style="left:${8 + i * 20}%;--dl:${(i * .16).toFixed(2)}s"><path d="${['M12 3v18M12 8l6-4M12 13l6-4','M7 4v16M7 4l9 6-9 6','M5 5l14 14M19 5L5 19M12 3v18','M12 3l8 9-8 9-8-9zM12 8v8','M6 4h12M12 4v16M6 20h12'][i]}"/></svg>`).join('');
     if (k === 'halo') return '<i class="mf-halo"></i><i class="mf-halo h2"></i>';
+    if (k === 'ik_line') return '<i class="mf-fnd f1"></i><i class="mf-fnd f2"></i><i class="mf-fline"></i>';
+    if (k === 'ik_heal') return n(7).map(i => `<i class="mf-cross2" style="left:${8 + i * 13}%;--dl:${(i * .37).toFixed(2)}s"></i>`).join('');
+    if (k === 'ik_aegis') return '<i class="mf-hex"></i><i class="mf-hex h2"></i><i class="mf-hex h3"></i>';
     if (k === 'reticle') return '<i class="mf-ret"></i><i class="mf-ret r2"></i>';
     if (k === 'geiger') return '<i class="mf-gpulse"></i>' + n(9).map(() => `<i class="mf-tick" style="left:${R(6, 94).toFixed(0)}%;top:${R(14, 84).toFixed(0)}%;--dl:${R(0, 1.6).toFixed(2)}s"></i>`).join('');
     if (k === 'sonar') return '<i class="mf-ping"></i><i class="mf-ping p2"></i><i class="mf-ping p3"></i>';
@@ -2002,6 +2008,71 @@
     return panel2(dup ? `${o.title} · ${dispName(r, u)}` : o.title, dead ? '<span class="badge">Dead</span>' : used ? `<span class="badge">Used · round ${used}</span>` : '<span class="badge gold">Ready</span>',
       `<div class="dim" style="font-size:.9rem">${esc(o.text)}</div>
       <button class="hop hop-${o.style || 'mech'} ${used ? 'done' : 'now'}" data-act="onceUse" data-u="${u.instanceId}" aria-pressed="${!!used}" ${dead ? 'aria-disabled="true"' : ''}><span class="hop-t"><b>${esc(o.when)}</b></span><span class="hop-s">${used ? 'Used ✓' : esc(o.button)}</span></button>`);
+  }
+  /* ---- Imperial Knights ----
+     Code Chivalric (armyRule.oath): the army's Oath = one Deed + one Quality, fulfilled once for CP and the Honoured state; Heroes of Legend
+     (Questoris Companions) adds further Oaths and readies expended Enhancements (detachment.expendable). Bondsman is a pickUnits tracker on
+     the army rule. State: p.oath = { deed, quality, rand, done, gain, extra: [{ deed, quality, done }] }, p.exp[instanceId:enhId] = true.
+     Effects use transform/opacity only and are off under prefers-reduced-motion. */
+  const IK_FEATHER = 'M0 0C26-13 62-13 94-5C88-1 80 2 70 4C60 8 50 9 40 8C26 10 12 7 0 4Z';
+  const ikWing = () => `<svg class="of-wsvg" viewBox="-6 -70 130 140" aria-hidden="true">${Array.from({ length: 7 }, (_, i) => `<g transform="rotate(${-58 + i * 11}) scale(${(1.08 - i * .07).toFixed(2)})"><path d="${IK_FEATHER}" class="of-f"/></g>`).join('')}</svg>`;
+  const ikLaurel = () => Array.from({ length: 22 }, (_, i) => { const a = (i / 22) * 360;
+    return `<i class="of-leaf" style="--a:${a.toFixed(0)}deg;--dl:${(i * .035).toFixed(2)}s"></i>`; }).join('');
+  /* the Oath is fulfilled: a gold shockwave, wings unfold, a laurel ring closes, two banners (blue and red) drop and swing, +CP rises */
+  function oathFx(card, cp) {
+    if (reducedMotion() || !card) return;
+    const R = (a, c) => a + Math.random() * (c - a);
+    const fx = document.createElement('div'); fx.className = 'oathfx'; fx.setAttribute('aria-hidden', 'true');
+    fx.innerHTML = `<div class="of-vig"></div><div class="of-ring"></div><div class="of-ring r2"></div>
+      <div class="of-wing l">${ikWing()}</div><div class="of-wing r">${ikWing()}</div><div class="of-laurel">${ikLaurel()}</div>
+      <i class="of-ban b1"></i><i class="of-ban b2"></i><b class="of-cp num">+${cp} CP</b><span class="of-hon">HONOURED</span>
+      ${Array.from({ length: 18 }, () => `<u class="of-sp" style="--x:${R(-150, 150).toFixed(0)}px;--y:${R(-170, 40).toFixed(0)}px;--dl:${R(.1, .7).toFixed(2)}s"></u>`).join('')}`;
+    document.body.appendChild(fx); setTimeout(() => fx.remove(), 3800);
+    if (PL.android) { PL.haptic('confirm'); setTimeout(() => PL.haptic('confirm'), 220); }
+  }
+  const sealFx = el => { if (!el || reducedMotion()) return; el.classList.remove('slam'); void el.offsetWidth; el.classList.add('slam'); };
+  const flashFx = el => { if (!el || reducedMotion()) return; el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash'); };
+  /* a pennant unfurls from the chip of an ARMIGER unit that comes under a Bondsman ability */
+  function pennantFx(el) {
+    if (reducedMotion() || !el) return;
+    const b = el.getBoundingClientRect(), fx = document.createElement('div'); fx.className = 'ikpen'; fx.setAttribute('aria-hidden', 'true');
+    fx.style.cssText = `left:${b.right - 6}px;top:${b.top + b.height / 2}px`; fx.innerHTML = '<i class="pn-pole"></i><i class="pn-flag"></i>';
+    document.body.appendChild(fx); setTimeout(() => fx.remove(), 1900);
+  }
+  function oathHTML(r, p, a, dets) {
+    const o = a.oath, st = p.oath || {}, done = !!st.done, extra = st.extra || [], hero = dets.some(d => d.id === o.heroes.detachment);
+    const part = (list, id) => list.find(x => x.id === id);
+    const usedBy = (k, i) => [st].concat(extra.filter((_, j) => j !== i)).map(x => x[k]).filter(Boolean);
+    const chips = (list, k, i, t) => `<div class="chips oath-chips" role="group" aria-label="${k === 'deed' ? 'Deed' : 'Quality'}">${list.map(x => {
+      const lock = t.done || (i >= 0 && usedBy(k, i).includes(x.id));
+      return `<button class="chip oath-chip" aria-pressed="${t[k] === x.id}" data-act="oathPick" data-i="${i}" data-k="${k}" data-id="${x.id}" ${lock ? 'aria-disabled="true"' : ''}><b class="num">${x.roll}</b> ${esc(x.label)}</button>`; }).join('')}</div>`;
+    const detail = (list, id) => { const x = part(list, id); return x ? `<div class="dim oath-txt">${esc(x.text)}</div>` : ''; };
+    const gain = st.rand ? o.cp.random : o.cp.chosen, ready = !!(st.deed && st.quality);
+    const seal = on => `<span class="oath-seal ${on ? 'on' : ''}" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17"/><path d="M20 8v24M12 16h16"/></svg></span>`;
+    const quals = [st].concat(extra).filter(x => x.done || x === st).map(x => part(o.qualities, x.quality)).filter(Boolean);
+    const extras = (done && hero) ? extra.map((t, i) => `<div class="oath-x ${t.done ? 'fulfilled' : ''}" data-i="${i}"><div class="row"><b>Additional Oath ${i + 1}</b>${t.done ? '<span class="badge gold">Fulfilled · +' + o.heroes.cp + ' CP</span>' : ''}${seal(!!(t.deed && t.quality))}</div>
+        ${chips(o.deeds, 'deed', i, t)}${detail(o.deeds, t.deed)}${chips(o.qualities, 'quality', i, t)}${detail(o.qualities, t.quality)}
+        ${t.done ? '' : `<button class="btn sm primary" data-act="oathXDone" data-i="${i}" ${t.deed && t.quality ? '' : 'aria-disabled="true"'}>Deed completed: +${o.heroes.cp} CP</button>`}</div>`).join('') : '';
+    const canAdd = done && hero && (extra.length === 0 || extra[extra.length - 1].done) && usedBy('deed', -1).length < o.deeds.length && usedBy('quality', -1).length < o.qualities.length;
+    return `<div class="panel pad stack trk oath-card ${done ? 'honoured' : ''}" data-oath="1"><div class="row"><h3 class="grow">${esc(a.name)} · ${esc(o.title)}</h3>${done ? '<span class="badge gold">Honoured</span>' : ready ? '<span class="badge">Sworn</span>' : '<span class="badge">Not sworn</span>'}</div>
+      ${done ? '' : `<div class="dim" style="font-size:.9rem">${esc(o.note)}</div>`}
+      <div class="oath-part"><div class="eyebrow">Deed</div>${chips(o.deeds, 'deed', -1, st)}${detail(o.deeds, st.deed)}</div>
+      <div class="oath-part"><div class="eyebrow">Quality</div>${chips(o.qualities, 'quality', -1, st)}${detail(o.qualities, st.quality)}${seal(ready)}</div>
+      ${done ? '' : `<button class="chip oath-rand" aria-pressed="${!!st.rand}" data-act="oathRand">Deed and/or Quality rolled on the D6 table: ${o.cp.random} CP instead of ${o.cp.chosen}</button>
+      <button class="btn primary oath-go" data-act="oathDone" ${ready ? '' : 'aria-disabled="true"'}>Deed completed: fulfil the Oath (+${gain} CP)</button>`}
+      ${done ? `<div class="oath-active"><b>Honoured</b> · ${esc(quals.map(q => q.label).join(' · '))}</div><div class="faint" style="font-size:.85rem">Fulfilled in round ${st.round || '?'}, +${st.gain || 0} CP. These CP ignore the 1 CP per battle round limit.</div>
+        <button class="btn sm" data-act="oathUndo">Undo: Oath not fulfilled yet</button>` : ''}
+      ${extras}${canAdd ? '<button class="btn sm" data-act="oathXAdd">Heroes of Legend: determine an additional Oath</button>' : ''}</div>`;
+  }
+  /* Heroes of Legend (Questoris Companions): Enhancements that are expended once used, ready again when an Oath is fulfilled */
+  function expendHTML(r, p, d) {
+    const x = d.expendable, ctx = Engine.ctxFor(r, DATA), list = [];
+    r.units.forEach(u => Engine.enhIds(u).forEach(id => { if (x.enhIds.includes(id)) list.push([u, id]); }));
+    const n = list.filter(([u, id]) => (p.exp || {})[u.instanceId + ':' + id]).length;
+    return panel2(x.title, `<span class="badge ${n ? '' : 'gold'}">${list.length ? (list.length - n) + '/' + list.length + ' ready' : 'None taken'}</span>`,
+      `<div class="dim" style="font-size:.9rem">${esc(x.note)}</div>
+      <div class="chips pu-chips" role="group" aria-label="${esc(x.title)}">${list.map(([u, id]) => { const on = (p.exp || {})[u.instanceId + ':' + id], e = ctx.allEnh[id];
+        return `<button class="chip exp-chip ${on ? 'spent' : ''}" aria-pressed="${!!on}" data-act="expToggle" data-id="${u.instanceId}" data-enh="${id}"><span>${esc(e ? e.name : id)}</span><small>${esc(dispName(r, u))} · ${on ? 'expended' : 'ready'}</small></button>`; }).join('') || '<span class="faint">No expendable Enhancement in this roster.</span>'}</div>`);
   }
   function roundHint(r, p) {
     const fd = fdata(r.factionId), dets = r.detachmentIds.map(id => fd.detachments.find(d => d.id === id)).filter(Boolean);
@@ -3286,10 +3357,41 @@
     },
     mtDel: el => { const r = cur(), i = +el.dataset.i; playChange(r, p => { const st = (p.mt || {})[p.round]; if (st && st.s) st.s = st.s.filter((_, k) => k !== i); }, null, 'tick'); },
     puPick: el => {
-      const r = cur(), id = el.dataset.id, key = el.dataset.key, fd = fdata(r.factionId), d = r.detachmentIds.map(x => fd.detachments.find(y => y.id === x)).find(y => y && y.pickUnits && y.pickUnits.key === key); if (!d) return;
+      const r = cur(), id = el.dataset.id, key = el.dataset.key, fd = fdata(r.factionId), d = r.detachmentIds.map(x => fd.detachments.find(y => y.id === x)).find(y => y && y.pickUnits && y.pickUnits.key === key) || fd.armyRules.find(y => y.pickUnits && y.pickUnits.key === key); if (!d) return;
       const pu = d.pickUnits, sel = pickSelFor(r, playState(r), key), on = sel.includes(id);
       playChange(r, p => { p[key] = pu.max === 1 ? (on ? [] : [id]) : on ? sel.filter(x => x !== id) : sel.concat(id); }, null, 'confirm');
-      if (!on) smokeFx(document.querySelector(`[data-act="puPick"][data-key="${key}"][data-id="${id}"]`));
+      if (!on) (pu.style === 'bond' ? pennantFx : smokeFx)(document.querySelector(`[data-act="puPick"][data-key="${key}"][data-id="${id}"]`));
+    },
+    oathPick: el => {
+      const r = cur(), i = +el.dataset.i, k = el.dataset.k, id = el.dataset.id; let sealed = false;
+      playChange(r, p => {
+        const st = p.oath = p.oath || {}, t = i < 0 ? st : (st.extra || [])[i]; if (!t || t.done) return false;
+        if (i >= 0 && [st].concat((st.extra || []).filter((_, j) => j !== i)).some(x => x[k] === id)) return false;
+        t[k] = t[k] === id ? null : id; sealed = !!(t.deed && t.quality && t[k]);
+      }, null, 'confirm');
+      if (sealed) sealFx(document.querySelector(i < 0 ? '.oath-card > .oath-part .oath-seal' : `.oath-x[data-i="${i}"] .oath-seal`));
+    },
+    oathRand: () => { const r = cur(); playChange(r, p => { const st = p.oath = p.oath || {}; if (st.done) return false; st.rand = !st.rand; }, null, 'tick'); },
+    oathDone: () => {
+      const r = cur(), o = fdata(r.factionId).armyRules.find(a => a.oath).oath, st0 = playState(r).oath || {};
+      if (!st0.deed || !st0.quality || st0.done) { PL.haptic('reject'); return; }
+      const gain = st0.rand ? o.cp.random : o.cp.chosen;
+      playChange(r, p => { const st = p.oath; st.done = true; st.gain = gain; st.round = p.round; p.cp += gain; p.expSnap = JSON.stringify(p.exp || {}); p.exp = {}; }, `Oath fulfilled: your army is Honoured. +${gain} CP.`, 'confirm');
+      oathFx(document.querySelector('.oath-card'), gain);
+    },
+    oathUndo: () => {
+      const r = cur(), o = fdata(r.factionId).armyRules.find(a => a.oath).oath; playChange(r, p => { const st = p.oath; if (!st || !st.done) return false; p.cp = Math.max(0, p.cp - (st.gain || 0) - (st.extra || []).filter(x => x.done).length * o.heroes.cp); st.done = false; st.gain = 0; st.extra = []; try { p.exp = JSON.parse(p.expSnap || '{}'); } catch (e) { p.exp = {}; } }, 'Oath is open again: CP taken back.', 'tick');
+    },
+    oathXAdd: () => { const r = cur(); playChange(r, p => { const st = p.oath; if (!st || !st.done) return false; st.extra = (st.extra || []).concat({ deed: null, quality: null, done: false }); }, null, 'confirm'); },
+    oathXDone: el => {
+      const r = cur(), o = fdata(r.factionId).armyRules.find(a => a.oath).oath, i = +el.dataset.i;
+      playChange(r, p => { const t = ((p.oath || {}).extra || [])[i]; if (!t || t.done || !t.deed || !t.quality) return false; t.done = true; p.cp += o.heroes.cp; p.exp = {}; }, `Additional Oath fulfilled: +${o.heroes.cp} CP, expended Enhancements are ready again.`, 'confirm');
+      flashFx(document.querySelector(`.oath-x[data-i="${i}"]`));
+    },
+    expToggle: el => {
+      const r = cur(), key = el.dataset.id + ':' + el.dataset.enh, was = !!(playState(r).exp || {})[key];
+      playChange(r, p => { p.exp = p.exp || {}; if (was) delete p.exp[key]; else p.exp[key] = true; }, null, 'confirm');
+      flashFx(document.querySelector(`[data-act="expToggle"][data-id="${el.dataset.id}"][data-enh="${el.dataset.enh}"]`));
     },
     pledgeStep: el => { const r = cur(), dd = +el.dataset.d, v = ((playState(r).pledge || {})[playState(r).round] || 0) + dd; if (v < 0 || v > 20) { PL.haptic('reject'); return; } playChange(r, p => { p.pledge = p.pledge || {}; p.pledge[p.round] = v; }, null, 'confirm'); },
     pactStep: el => { const r = cur(), dd = +el.dataset.d; if ((playState(r).pact || 0) + dd < 0) { PL.haptic('reject'); return; } pactChange(r, dd, null); },
