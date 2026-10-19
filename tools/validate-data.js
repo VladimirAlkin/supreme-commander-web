@@ -11,6 +11,7 @@
    Exit:  0 clean (warnings allowed), 1 errors found.                      */
 
 const L = require('./lib');
+const EngineRef = require(require('path').join(L.ROOT, 'engine.js'));
 
 const data = L.loadData();
 const quiet = process.argv.includes('--quiet');
@@ -57,6 +58,25 @@ for (const f of L.factions(data)) {
     } else {
       if (!r.text.length) err('E-EMPTY', w, 'no paragraphs');
       r.text.forEach((p, i) => checkText(p, `${w}.text[${i}]`));
+    }
+  }
+
+  /* Allies taken by reference (alliedFactions[].unitsFrom): the source must exist and resolve, ids must not clash, and a referenced
+     unit must belong to the group's faction or the catalogue would never list it. */
+  for (const a of fd.alliedFactions || []) {
+    const aw = `${f}.alliedFactions.${a.faction}`;
+    for (const o of a.oneOf || []) if (typeof o.keyword !== 'string' || !Number.isInteger(o.n) || o.n < 1) err('E-ALLYREF', aw, `oneOf entry needs {keyword, n>=1}: ${JSON.stringify(o)}`);
+    if (a.hostKeyword != null && typeof a.hostKeyword !== 'string') err('E-ALLYREF', aw, 'hostKeyword must be a string');
+    if (!a.unitsFrom) continue;
+    const uf = a.unitsFrom, src = data.factionData[uf.source];
+    if (!src) { err('E-ALLYREF', aw, `unitsFrom.source "${uf.source}" is not a faction in data.js`); continue; }
+    if (uf.source === f) err('E-ALLYREF', aw, 'unitsFrom.source is the army itself');
+    for (const id of uf.unitIds || []) if (!(src.units || []).some(u => u.id === id)) err('E-ALLYREF', aw, `unitsFrom.unitIds names unknown unit ${id} in ${uf.source}`);
+    const got = EngineRef.refUnits(fd, data).filter(r => r.group === a);
+    if (!got.length) err('E-ALLYREF', aw, `unitsFrom resolves to no units from ${uf.source}`);
+    for (const { unit: u } of got) {
+      if ((fd.units || []).some(x => x.id === u.id)) err('E-ALLYREF', `${aw}.${u.id}`, `id clashes with the army's own datasheet; the army's own wins`);
+      if (u.faction !== a.faction) err('E-ALLYREF', `${aw}.${u.id}`, `unit faction "${u.faction}" differs from the group "${a.faction}"`);
     }
   }
 

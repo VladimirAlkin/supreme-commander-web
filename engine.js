@@ -2,19 +2,47 @@
 const Engine = (function () {
   const ORD = n => n + (['th', 'st', 'nd', 'rd'][((n % 100) - 20) % 10] || ['th', 'st', 'nd', 'rd'][n % 100] || 'th');
 
+  /* Units an army fields from another army BY REFERENCE (not copied): alliedFactions[].unitsFrom = {source, unitIds?, keywordsAny?}.
+     `source` is a factionData id; without `unitIds` the units whose own faction is the group's faction are taken. A missing source gives
+     an empty list. Not transitive: a referenced unit's own alliedFactions are never followed. [{unit, group}] */
+  const _refs = new WeakMap();
+  function refUnits(fd, DATA) {
+    if (_refs.has(fd)) return _refs.get(fd);
+    const out = [];
+    (fd.alliedFactions || []).forEach(a => {
+      const uf = a && a.unitsFrom;
+      const src = uf && DATA.factionData && DATA.factionData[uf.source];
+      if (!src || !Array.isArray(src.units)) return;
+      src.units.forEach(u => {
+        if (uf.unitIds ? !uf.unitIds.includes(u.id) : u.faction !== a.faction) return;
+        if (uf.keywordsAny && !uf.keywordsAny.some(k => (u.keywords || []).includes(k))) return;
+        out.push({ unit: u, group: a });
+      });
+    });
+    _refs.set(fd, out);
+    return out;
+  }
+  /* Own datasheets plus referenced ones; an id the army already has always wins. */
+  function unitsOf(fd, DATA) {
+    const own = new Set(fd.units.map(u => u.id));
+    return fd.units.concat(refUnits(fd, DATA).filter(r => !own.has(r.unit.id)).map(r => r.unit));
+  }
+
   function ctxFor(roster, DATA) {
     const fd = DATA.factionData[roster.factionId];
     const bs = DATA.gameRules.battleSizes.find(b => b.id === roster.battleSize) || null;
     const dets = (roster.detachmentIds || []).map(id => fd.detachments.find(d => d.id === id)).filter(Boolean);
     const unitById = {};
     fd.units.forEach(u => (unitById[u.id] = u));
+    const refGroup = {};
+    refUnits(fd, DATA).forEach(r => { if (!unitById[r.unit.id]) { unitById[r.unit.id] = r.unit; refGroup[r.unit.id] = r.group; } });
     const enhById = {};
     dets.forEach(d => d.enhancements.forEach(e => (enhById[e.id] = { ...e, detachmentId: d.id })));
     const allEnh = {};
     fd.detachments.forEach(d => d.enhancements.forEach(e => (allEnh[e.id] = { ...e, detachmentId: d.id })));
     /* Add-ons a detachment gives to every eligible unit and charges for (Pantheon of Woe: Necrodermal Binding): enhancements flagged `binding`. */
     const bindings = dets.flatMap(d => (d.enhancements || []).filter(e => e.binding).map(e => ({ ...e, detachmentId: d.id })));
-    return { DATA, fd, bs, dets, unitById, enhById, allEnh, bindings, roster };
+    return { DATA, fd, bs, dets, unitById, refGroup, enhById, allEnh, bindings, roster };
   }
 
   function enhIds(inst) {
@@ -161,6 +189,8 @@ const Engine = (function () {
   function eligible(e, def, inst, ctx) {
     const el = e.eligible || {};
     const fac = def.faction;
+    const rg = ctx.refGroup && ctx.refGroup[def.id];
+    if (rg && rg.noEnhancements) return `${def.name} is an allied unit (${rg.rule || rg.faction}) and cannot take enhancements.`;
     if (el.unitIds && !el.unitIds.includes(def.id)) return `${e.name} can only be given to ${el.unitIds.map(id => (ctx.unitById[id] || {}).name || id).join(' or ')}.`;
     if (el.excludeUnitIds && el.excludeUnitIds.includes(def.id)) return `${e.name} cannot be given to ${def.name}.`;
     const extra = (el.orUnitIds || []).includes(def.id);
@@ -222,6 +252,34 @@ const Engine = (function () {
       if (o.group) { const g = (def.optionGroups || []).find(x => x.id === o.group); if (g) { const cap = Math.floor(inst.size / g.per) * g.n; const used = (def.options || []).filter(x => x.group === o.group && x.id !== o.id).reduce((s, x) => s + (+(inst.wargear || {})[x.id] || 0), 0); mx = Math.min(mx, cap - used); } }
     }
     return Math.max(0, mx);
+  }
+
+  /* Group rules for referenced allies. `hostKeyword`: every non-allied model in the army must carry it (Freeblades: IMPERIUM).
+     `oneOf: [{keyword, n}]`: models of ONE of the listed kinds only, up to n (1 TITANIC or up to 3 ARMIGER). */
+  function alliedHostMiss(a, roster, ctx) {
+    if (!a.hostKeyword) return null;
+    return roster.units.find(inst => { const def = ctx.unitById[inst.datasheetId]; return def && factionOf(inst, def, ctx) === ctx.fd.armyFaction && !hasKw(def, ctx, a.hostKeyword, inst); }) || null;
+  }
+  function alliedOneOf(a, roster, DATA) {
+    const ctx = ctxFor(roster, DATA);
+    const mine = roster.units.filter(inst => { const def = ctx.unitById[inst.datasheetId]; return def && factionOf(inst, def, ctx) === a.faction; });
+    return (a.oneOf || []).map(o => ({ keyword: o.keyword, n: o.n, used: mine.filter(u => hasKw(ctx.unitById[u.datasheetId], ctx, o.keyword, u)).reduce((m, u) => m + (u.size || 1), 0) }));
+  }
+  /* Why an allied datasheet cannot be added right now (greys the row in the catalogue), or null. */
+  function allyBlock(def, roster, DATA) {
+    const ctx = ctxFor(roster, DATA);
+    const a = (ctx.fd.alliedFactions || []).find(x => x.faction === def.faction && (x.hostKeyword || x.oneOf));
+    if (!a) return null;
+    const miss = alliedHostMiss(a, roster, ctx);
+    if (miss) return `${a.rule || a.faction}: every other model must be ${a.hostKeyword.toUpperCase()} (${(ctx.unitById[miss.datasheetId] || {}).name} is not)`;
+    if (a.oneOf) {
+      const st = alliedOneOf(a, roster, DATA), me = st.find(o => hasKw(def, ctx, o.keyword));
+      if (!me) return `${a.rule || a.faction}: only ${a.oneOf.map(o => o.keyword.toUpperCase()).join(' or ')} models`;
+      const other = st.find(o => o !== me && o.used > 0);
+      if (other) return `${a.rule || a.faction}: already took ${other.keyword.toUpperCase()}; ${me.keyword.toUpperCase()} is the other choice`;
+      if (me.used + (def.sizes && def.sizes[0] ? def.sizes[0].models : 1) > me.n) return `${a.rule || a.faction}: ${me.keyword.toUpperCase()} limit ${me.n} reached`;
+    }
+    return null;
   }
 
   /* Allies limited by unit counts per battle size instead of a detachment (Assigned Agents): [{faction, keyword, n, used, units}] */
@@ -295,6 +353,14 @@ const Engine = (function () {
         const why = (fd.detachments.find(d => (roster.detachmentIds || []).includes(d.id) && a0.overrides && a0.overrides[d.id]) || {}).name || 'a detachment in this roster';
         units.forEach(inst => E(`${nameOf(inst)} is ${a.faction.toUpperCase()}; ${why} does not allow ${a.faction.toUpperCase()} units.`, inst.instanceId));
         return;
+      }
+      { const miss = alliedHostMiss(a, roster, ctx);
+        if (miss) units.forEach(inst => E(`${nameOf(inst)} is ${a.faction.toUpperCase()}; ${a.rule || a.faction} needs every other model to be ${a.hostKeyword.toUpperCase()}, and ${nameOf(miss)} is not.`, inst.instanceId)); }
+      if (a.oneOf) {
+        const st = alliedOneOf(a, roster, DATA), used = st.filter(o => o.used > 0);
+        units.forEach(inst => { if (!st.some(o => hasKw(ctx.unitById[inst.datasheetId], ctx, o.keyword, inst))) E(`${nameOf(inst)}: ${a.rule || a.faction} allows only ${a.oneOf.map(o => o.keyword.toUpperCase()).join(' or ')} models.`, inst.instanceId); });
+        if (used.length > 1) E(`${a.rule || a.faction}: take ${a.oneOf.map(o => o.keyword.toUpperCase()).join(' or ')}, not both.`);
+        st.filter(o => o.used > o.n).forEach(o => E(`${a.rule || a.faction}: ${o.used} ${o.keyword.toUpperCase()} models; the limit is ${o.n}.`));
       }
       alliedCaps(roster, DATA).filter(c => c.faction === a.faction && c.used > c.n).forEach(c =>
         E(`${a.rule || a.faction}: ${c.used} ${c.keyword.toUpperCase()} units; ${bs.name} allows ${c.n}.`, c.units[c.units.length - 1].instanceId));
@@ -570,6 +636,6 @@ const Engine = (function () {
   }
 
   function eligibleReason(e, inst, roster, DATA) { const ctx = ctxFor(roster, DATA); const def = ctx.unitById[inst.datasheetId]; return eligible(e, def, inst, ctx); }
-  return { alliedCaps, alliedPtsCap, alliedEff, alliedPtsInfo, warlordBlock, grantsFor, instGrants, dispositionsOf, dataVersionFor, eligibleReason, ctxFor, points, validate, copyLimit, nextCopyInfo, enhancementCount, enhancementBlock, bindingsFor, optionMax, slotSize, slotUsed, ownCap, keywordsOf, hasKw, factionOf, buffed, attachedGroup, canLead, attachBlock, carries, enhIds, addStat, ORD };
+  return { refUnits, unitsOf, allyBlock, alliedOneOf, alliedCaps, alliedPtsCap, alliedEff, alliedPtsInfo, warlordBlock, grantsFor, instGrants, dispositionsOf, dataVersionFor, eligibleReason, ctxFor, points, validate, copyLimit, nextCopyInfo, enhancementCount, enhancementBlock, bindingsFor, optionMax, slotSize, slotUsed, ownCap, keywordsOf, hasKw, factionOf, buffed, attachedGroup, canLead, attachBlock, carries, enhIds, addStat, ORD };
 })();
 if (typeof module !== 'undefined') module.exports = Engine;

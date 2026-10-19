@@ -172,7 +172,7 @@
     m: false, sub: null, sheet: null, playSeg: 'turn', stratMode: 'all', stratOpen: {}, pnOpen: {}, scrollMem: {}, rosterFrom: 'faction', flash: null, mpend: {}, msd: null, msAll: false, msCollapsed: false,
   };
   const cur = () => rosters.find(r => r.id === S.rosterId);
-  const unitDef = (fid, id) => fdata(fid).units.find(u => u.id === id);
+  const unitDef = (fid, id) => fdata(fid).units.find(u => u.id === id) || (Engine.refUnits(fdata(fid), DATA).find(x => x.unit.id === id) || {}).unit;
   const touch = r => { sortUnits(r); r.updatedAt = Date.now(); if (r.isExample) delete r.isExample; Store.save(r); };
 
   /* ---------------- theme ---------------- */
@@ -542,7 +542,7 @@
   function catalogCats(r) {
     const fd = fdata(r.factionId);
     const blAllowed = (fd.alliedFactions || []).filter(a => (!a.requiresDetachment || r.detachmentIds.includes(a.requiresDetachment)) && !Engine.alliedEff(a, r).forbid).map(a => a.faction);
-    const present = new Set(fd.units.filter(u => u.faction === fd.armyFaction || blAllowed.includes(u.faction)).map(u => catOf(u, r)));
+    const present = new Set(Engine.unitsOf(fd, DATA).filter(u => u.faction === fd.armyFaction || blAllowed.includes(u.faction)).map(u => catOf(u, r)));
     const hi = (faction(r.factionId).highlights || []).filter(h => hiLive(r, h) && !h.pickLabels && !h.noFilter).map(h => [hiKey(h), h.label.charAt(0) + h.label.slice(1).toLowerCase()]);
     return { blAllowed, cats: CATS.filter(([c]) => c === 'all' || present.has(c)).concat(hi) };
   }
@@ -552,7 +552,7 @@
     const { blAllowed, cats } = catalogCats(r);
     if (!cats.some(([c]) => c === S.cat)) S.cat = 'all';
     const q = S.search.trim().toLowerCase();
-    const units = fd.units.filter(u => (u.faction === fd.armyFaction || blAllowed.includes(u.faction)))
+    const units = Engine.unitsOf(fd, DATA).filter(u => (u.faction === fd.armyFaction || blAllowed.includes(u.faction)))
       .filter(u => S.cat === 'all' || (S.cat.startsWith('kw:') ? (faction(r.factionId).highlights || []).some(h => hiKey(h) === S.cat && hiState(r, u, null, h)) : catOf(u, r) === S.cat))
       .filter(u => !q || u.name.toLowerCase().includes(q) || [...Engine.keywordsOf(u, ctx)].join(' ').toLowerCase().includes(q));
     const pts = rosterPts(r);
@@ -563,7 +563,7 @@
     const ptsCaps = Engine.alliedPtsInfo(r, DATA).filter(x => x.factions.some(f => blAllowed.includes(f)));
     const addRow = u => {
       const nx = Engine.nextCopyInfo(u, r, DATA, u.sizes[0].models);
-      const blocked = nx.copyNo > nx.limit ? `Limit ${nx.limit} reached in ${bs.name}` : null;
+      const blocked = nx.copyNo > nx.limit ? `Limit ${nx.limit} reached in ${bs.name}` : (u.faction !== fd.armyFaction ? Engine.allyBlock(u, r, DATA) : null);
       const full = caps.find(c => c.faction === u.faction && c.used >= c.n && Engine.hasKw(u, ctx, c.keyword));
       const overPts = !blocked && full ? `${full.keyword.toUpperCase()} allies: ${full.used}/${full.n} in ${bs.name}` : !blocked && pts.total + nx.pts > bs.points ? `Over points by ${pts.total + nx.pts - bs.points}` : null;
       const n = have(u.id);
@@ -2478,7 +2478,7 @@
     { const k = kwBadges(roster, def, inst); if (k) badges.push(k); }
     if (kws.includes('Battleline')) badges.push('<span class="badge">Battleline</span>');
     if (kws.includes('Dedicated Transport')) badges.push('<span class="badge">Dedicated Transport</span>');
-    const ledBy = fdata(fid).units.filter(u => (u.leaderOf || []).includes(def.id)).map(u => u.name);
+    const ledBy = Engine.unitsOf(fdata(fid), DATA).filter(u => (u.leaderOf || []).includes(def.id)).map(u => u.name);
     const group = r && inst ? Engine.attachedGroup(r, inst) : null;
     const nav = m.list && m.list.length > 1 ? (() => { const i = m.list.indexOf(m.instId); return `<button class="btn sm" data-act="dsNav" data-d="-1" ${i <= 0 ? 'disabled' : ''} aria-label="Previous unit">‹ Prev</button><span class="dim num">${i + 1}/${m.list.length}</span><button class="btn sm" data-act="dsNav" data-d="1" ${i >= m.list.length - 1 ? 'disabled' : ''} aria-label="Next unit">Next ›</button>`; })() : '';
     let combined = '';

@@ -233,7 +233,7 @@ const RosterImport = (function () {
     const r = { name: H.title, factionId: fac.id, battleSize: bs.id, detachmentIds: detachments.map(d => d.id), forceDisposition: disposition, warlordUnitId: null, units: [], notes: '' };
     const ctx = Engine.ctxFor(r, DATA);
 
-    const byKey = new Map(); fd.units.forEach(u => variantsOf(u.name).forEach(v => { const k = key(v); if (!byKey.has(k)) byKey.set(k, u); }));
+    const byKey = new Map(); Engine.unitsOf(fd, DATA).forEach(u => variantsOf(u.name).forEach(v => { const k = key(v); if (!byKey.has(k)) byKey.set(k, u); }));
     const seen = {}, occ = {}; p.units.forEach(u => { seen[key(u.name)] = (seen[key(u.name)] || 0) + 1; });
     const made = [];
 
