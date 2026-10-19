@@ -182127,12 +182127,6 @@
    "why": "New army, Imperial Knights: structure built from BSData 11e + Wahapedia 11e + Faction Pack/MFM v1.6 (checked 2026-10-19); validate-data errors=0, 8 detachment rosters open with a clean console, ally/enhancement/ARMIGERS-tag/Battleline rules checked on the engine"
   },
   {
-   "path": ".imperialKnights.detachments[0].btnFx",
-   "change": "ADDED",
-   "value": "\"ik_quake\"",
-   "why": "New army, Imperial Knights: structure built from BSData 11e + Wahapedia 11e + Faction Pack/MFM v1.6 (checked 2026-10-19); validate-data errors=0, 8 detachment rosters open with a clean console, ally/enhancement/ARMIGERS-tag/Battleline rules checked on the engine"
-  },
-  {
    "path": ".imperialKnights.detachments[1].id",
    "change": "ADDED",
    "value": "\"freeblade_company\"",
@@ -182589,12 +182583,6 @@
    "why": "New army, Imperial Knights: structure built from BSData 11e + Wahapedia 11e + Faction Pack/MFM v1.6 (checked 2026-10-19); validate-data errors=0, 8 detachment rosters open with a clean console, ally/enhancement/ARMIGERS-tag/Battleline rules checked on the engine"
   },
   {
-   "path": ".imperialKnights.detachments[1].btnFx",
-   "change": "ADDED",
-   "value": "\"ik_ember\"",
-   "why": "New army, Imperial Knights: structure built from BSData 11e + Wahapedia 11e + Faction Pack/MFM v1.6 (checked 2026-10-19); validate-data errors=0, 8 detachment rosters open with a clean console, ally/enhancement/ARMIGERS-tag/Battleline rules checked on the engine"
-  },
-  {
    "path": ".imperialKnights.detachments[2].id",
    "change": "ADDED",
    "value": "\"gate_warden_lance\"",
@@ -183039,12 +183027,6 @@
    "why": "New army, Imperial Knights: structure built from BSData 11e + Wahapedia 11e + Faction Pack/MFM v1.6 (checked 2026-10-19); validate-data errors=0, 8 detachment rosters open with a clean console, ally/enhancement/ARMIGERS-tag/Battleline rules checked on the engine"
   },
   {
-   "path": ".imperialKnights.detachments[2].reminder.fx",
-   "change": "ADDED",
-   "value": "\"ik_line\"",
-   "why": "New army, Imperial Knights: structure built from BSData 11e + Wahapedia 11e + Faction Pack/MFM v1.6 (checked 2026-10-19); validate-data errors=0, 8 detachment rosters open with a clean console, ally/enhancement/ARMIGERS-tag/Battleline rules checked on the engine"
-  },
-  {
    "path": ".imperialKnights.detachments[2].zones.title",
    "change": "ADDED",
    "value": "\"Defensive line\"",
@@ -183090,12 +183072,6 @@
    "path": ".imperialKnights.detachments[2].zones.hint",
    "change": "ADDED",
    "value": "\"Units whose base crosses the line between your two foundation markers are on your defensive line.\"",
-   "why": "New army, Imperial Knights: structure built from BSData 11e + Wahapedia 11e + Faction Pack/MFM v1.6 (checked 2026-10-19); validate-data errors=0, 8 detachment rosters open with a clean console, ally/enhancement/ARMIGERS-tag/Battleline rules checked on the engine"
-  },
-  {
-   "path": ".imperialKnights.detachments[2].btnFx",
-   "change": "ADDED",
-   "value": "\"ik_line\"",
    "why": "New army, Imperial Knights: structure built from BSData 11e + Wahapedia 11e + Faction Pack/MFM v1.6 (checked 2026-10-19); validate-data errors=0, 8 detachment rosters open with a clean console, ally/enhancement/ARMIGERS-tag/Battleline rules checked on the engine"
   },
   {
@@ -183360,12 +183336,6 @@
    "path": ".imperialKnights.detachments[3].reminder.fx",
    "change": "ADDED",
    "value": "\"ik_aegis\"",
-   "why": "New army, Imperial Knights: structure built from BSData 11e + Wahapedia 11e + Faction Pack/MFM v1.6 (checked 2026-10-19); validate-data errors=0, 8 detachment rosters open with a clean console, ally/enhancement/ARMIGERS-tag/Battleline rules checked on the engine"
-  },
-  {
-   "path": ".imperialKnights.detachments[3].btnFx",
-   "change": "ADDED",
-   "value": "\"ik_circuit\"",
    "why": "New army, Imperial Knights: structure built from BSData 11e + Wahapedia 11e + Faction Pack/MFM v1.6 (checked 2026-10-19); validate-data errors=0, 8 detachment rosters open with a clean console, ally/enhancement/ARMIGERS-tag/Battleline rules checked on the engine"
   },
   {
@@ -183843,12 +183813,6 @@
    "why": "New army, Imperial Knights: structure built from BSData 11e + Wahapedia 11e + Faction Pack/MFM v1.6 (checked 2026-10-19); validate-data errors=0, 8 detachment rosters open with a clean console, ally/enhancement/ARMIGERS-tag/Battleline rules checked on the engine"
   },
   {
-   "path": ".imperialKnights.detachments[4].btnFx",
-   "change": "ADDED",
-   "value": "\"ik_laurel\"",
-   "why": "New army, Imperial Knights: structure built from BSData 11e + Wahapedia 11e + Faction Pack/MFM v1.6 (checked 2026-10-19); validate-data errors=0, 8 detachment rosters open with a clean console, ally/enhancement/ARMIGERS-tag/Battleline rules checked on the engine"
-  },
-  {
    "path": ".imperialKnights.detachments[5].id",
    "change": "ADDED",
    "value": "\"spearhead_at_arms\"",
@@ -184275,12 +184239,6 @@
    "why": "New army, Imperial Knights: structure built from BSData 11e + Wahapedia 11e + Faction Pack/MFM v1.6 (checked 2026-10-19); validate-data errors=0, 8 detachment rosters open with a clean console, ally/enhancement/ARMIGERS-tag/Battleline rules checked on the engine"
   },
   {
-   "path": ".imperialKnights.detachments[5].btnFx",
-   "change": "ADDED",
-   "value": "\"ik_pennants\"",
-   "why": "New army, Imperial Knights: structure built from BSData 11e + Wahapedia 11e + Faction Pack/MFM v1.6 (checked 2026-10-19); validate-data errors=0, 8 detachment rosters open with a clean console, ally/enhancement/ARMIGERS-tag/Battleline rules checked on the engine"
-  },
-  {
    "path": ".imperialKnights.detachments[5].grantKeywords.length",
    "change": "ADDED",
    "value": "1",
@@ -184560,12 +184518,6 @@
    "path": ".imperialKnights.detachments[6].stratagems[2].phases[0]",
    "change": "ADDED",
    "value": "\"Command\"",
-   "why": "New army, Imperial Knights: structure built from BSData 11e + Wahapedia 11e + Faction Pack/MFM v1.6 (checked 2026-10-19); validate-data errors=0, 8 detachment rosters open with a clean console, ally/enhancement/ARMIGERS-tag/Battleline rules checked on the engine"
-  },
-  {
-   "path": ".imperialKnights.detachments[6].btnFx",
-   "change": "ADDED",
-   "value": "\"ik_chase\"",
    "why": "New army, Imperial Knights: structure built from BSData 11e + Wahapedia 11e + Faction Pack/MFM v1.6 (checked 2026-10-19); validate-data errors=0, 8 detachment rosters open with a clean console, ally/enhancement/ARMIGERS-tag/Battleline rules checked on the engine"
   },
   {
@@ -184986,12 +184938,6 @@
    "path": ".imperialKnights.detachments[7].stratagems[5].phases[0]",
    "change": "ADDED",
    "value": "\"Shooting\"",
-   "why": "New army, Imperial Knights: structure built from BSData 11e + Wahapedia 11e + Faction Pack/MFM v1.6 (checked 2026-10-19); validate-data errors=0, 8 detachment rosters open with a clean console, ally/enhancement/ARMIGERS-tag/Battleline rules checked on the engine"
-  },
-  {
-   "path": ".imperialKnights.detachments[7].btnFx",
-   "change": "ADDED",
-   "value": "\"ik_lance\"",
    "why": "New army, Imperial Knights: structure built from BSData 11e + Wahapedia 11e + Faction Pack/MFM v1.6 (checked 2026-10-19); validate-data errors=0, 8 detachment rosters open with a clean console, ally/enhancement/ARMIGERS-tag/Battleline rules checked on the engine"
   },
   {

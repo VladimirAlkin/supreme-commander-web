@@ -82384,8 +82384,7 @@ const DATA = {
        "target": "That IMPERIAL KNIGHTS DOMINUS unit.",
        "effect": "Your unit’s [BLAST] ranged attacks: ■ Do not have [BLAST]. ■ Have +1 A."
       }
-     ],
-     "btnFx": "ik_quake"
+     ]
     },
     {
      "id": "freeblade_company",
@@ -82533,8 +82532,7 @@ const DATA = {
       "turn": "mine",
       "text": "Each IMPERIAL KNIGHTS model regains 1 lost wound at the start of your Command phase.",
       "fx": "ik_heal"
-     },
-     "btnFx": "ik_ember"
+     }
     },
     {
      "id": "gate_warden_lance",
@@ -82679,8 +82677,7 @@ const DATA = {
       "phase": "Command",
       "turn": "mine",
       "first": "Start of the first battle round: pick two objectives as your foundations and place a 40mm foundation marker in each. A model whose base crosses the line between them is on your defensive line.",
-      "text": "IMPERIAL KNIGHTS units on your defensive line get Against the Horde: ignore Hit modifiers and Sustained Hits 1.",
-      "fx": "ik_line"
+      "text": "IMPERIAL KNIGHTS units on your defensive line get Against the Horde: ignore Hit modifiers and Sustained Hits 1."
      },
      "zones": {
       "title": "Defensive line",
@@ -82697,8 +82694,7 @@ const DATA = {
        }
       ],
       "hint": "Units whose base crosses the line between your two foundation markers are on your defensive line."
-     },
-     "btnFx": "ik_line"
+     }
     },
     {
      "id": "questor_forgepact",
@@ -82784,8 +82780,7 @@ const DATA = {
       "turn": "mine",
       "text": "Each friendly Tech-Priest picks one IMPERIAL KNIGHTS model within 3\" that has not been picked this phase: it heals D3 wounds.",
       "fx": "ik_aegis"
-     },
-     "btnFx": "ik_circuit"
+     }
     },
     {
      "id": "questoris_companions",
@@ -82937,8 +82932,7 @@ const DATA = {
        "crushing_condemnation"
       ],
       "note": "Mark an Enhancement as expended when you use it. Every time you fulfil an Oath, all expended Enhancements are ready again."
-     },
-     "btnFx": "ik_laurel"
+     }
     },
     {
      "id": "spearhead_at_arms",
@@ -83080,7 +83074,6 @@ const DATA = {
        "effect": "For each of your ARMIGER models that is within 9\" of one or more battlefield edges and not within Engagement Range of one or more enemy units, remove that ARMIGER model from the battlefield and place it into Strategic Reserves."
       }
      ],
-     "btnFx": "ik_pennants",
      "grantKeywords": [
       {
        "unitIds": [
@@ -83171,8 +83164,7 @@ const DATA = {
        "target": "One friendly IMPERIAL KNIGHTS TITANIC unit.",
        "effect": "Select one friendly battle-shocked ARMIGER unit within 12\" of your unit. That ARMIGER unit is no longer battle-shocked."
       }
-     ],
-     "btnFx": "ik_chase"
+     ]
     },
     {
      "id": "valourstrike_lance",
@@ -83311,8 +83303,7 @@ const DATA = {
        "target": "One IMPERIAL KNIGHTS unit from your army that was selected as the target of one or more of the attacking unit’s attacks.",
        "effect": "Until the end of the phase, models in your unit have a 4+ invulnerable save."
       }
-     ],
-     "btnFx": "ik_lance"
+     ]
     }
    ],
    "units": [

@@ -1690,7 +1690,6 @@
     }
     if (k === 'runes') return n(5).map(i => `<svg class="mf-rune" viewBox="0 0 24 24" style="left:${8 + i * 20}%;--dl:${(i * .16).toFixed(2)}s"><path d="${['M12 3v18M12 8l6-4M12 13l6-4','M7 4v16M7 4l9 6-9 6','M5 5l14 14M19 5L5 19M12 3v18','M12 3l8 9-8 9-8-9zM12 8v8','M6 4h12M12 4v16M6 20h12'][i]}"/></svg>`).join('');
     if (k === 'halo') return '<i class="mf-halo"></i><i class="mf-halo h2"></i>';
-    if (k === 'ik_line') return '<i class="mf-fnd f1"></i><i class="mf-fnd f2"></i><i class="mf-fline"></i>';
     if (k === 'ik_heal') return n(7).map(i => `<i class="mf-cross2" style="left:${8 + i * 13}%;--dl:${(i * .37).toFixed(2)}s"></i>`).join('');
     if (k === 'ik_aegis') return '<i class="mf-hex"></i><i class="mf-hex h2"></i><i class="mf-hex h3"></i>';
     if (k === 'reticle') return '<i class="mf-ret"></i><i class="mf-ret r2"></i>';
