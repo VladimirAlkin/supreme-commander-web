@@ -1,0 +1,34 @@
+IMPERIAL KNIGHTS — Munitorum Field Manual v1.6 (https://mfm.warhammer-community.com/en/imperial-knights), snapshot 2026-10-19
+UNITS
+ACASTUS KNIGHT ASTERIUS: 1st 785 / 2nd+ 860
+ACASTUS KNIGHT PORPHYRION: 1st 725 / 2nd+ 800
+ARMIGER HELVERIN: 140 (flat)
+ARMIGER MOIRAX: 1st-2nd 150 / 3rd+ 160
+ARMIGER WARGLAIVE: 140 (flat)
+CANIS REX: 415 (flat)
+CERASTUS KNIGHT ACHERON: 1st 380 / 2nd+ 395
+CERASTUS KNIGHT ATRAPOS: 1st 420 / 2nd+ 440
+CERASTUS KNIGHT CASTIGATOR: 1st 380 / 2nd+ 395
+CERASTUS KNIGHT LANCER: 1st 415 / 2nd+ 435
+KNIGHT CASTELLAN: 1st 425 / 2nd+ 450
+KNIGHT CRUSADER: 1st 395 / 2nd+ 415; wargear: per Rapid-fire battle cannon +15
+KNIGHT DEFENDER: 1st 385 / 2nd+ 405
+KNIGHT DESTRIER: 1st-2nd 265 / 3rd+ 280
+KNIGHT ERRANT: 1st-2nd 355 / 3rd+ 370
+KNIGHT GALLANT: 1st-2nd 355 / 3rd+ 370
+KNIGHT PALADIN: 1st-2nd 375 / 3rd+ 390
+KNIGHT PRECEPTOR: 1st-2nd 365 / 3rd+ 380
+KNIGHT VALIANT: 1st-2nd 390 / 3rd+ 405
+KNIGHT WARDEN: 1st-2nd 365 / 3rd+ 380
+QUESTORIS KNIGHT MAGAERA: 1st 385 / 2nd+ 400
+QUESTORIS KNIGHT STYRIX: 1st 375 / 2nd+ 390
+(no Sir Hekhtur entry; no Skitarii / Tech-priest entries — those are in Adeptus Mechanicus MFM)
+DETACHMENTS (DP, force dispositions, enhancements)
+DOMINUS FOEBREAKERS 1DP; PRIORITY ASSETS; Archeotech Autoloaders 25, Blessed Plate 30
+FREEBLADE COMPANY 3DP; PRIORITY ASSETS, PURGE THE FOE; Bringer of Justice 30, Hunter's Eye 25, Mysterious Guardian 35, Sanctuary 20
+GATE WARDEN LANCE 2DP; TAKE AND HOLD; Acquisitor-at-Arms 15, Augury Halo 20, Purgation's Hand 20, Vengeful Tread 15
+QUESTOR FORGEPACT 1DP; DISRUPTION; Knight of the Opus Machina (Aura) 15, Magos Questoris 20
+QUESTORIS COMPANIONS 3DP; TAKE AND HOLD, RECONNAISSANCE; Crushing Condemnation 10, Herald of Triumph 15, Pennant of Silvered Fury 15, Wyrmslayer Divination 10
+SPEARHEAD-AT-ARMS 2DP; RECONNAISSANCE; UNIQUE: ARMIGERS; Fables of Nightmare 10, Martial Tuition 15, Mentor's Pride 20, Tales of Heroism 10
+THRONE-BONDED OUTRIDERS 1DP; RECONNAISSANCE; UNIQUE: ARMIGERS; Ancestral Overbleed (Upgrade) 10, Gyro-optimised Actuators (Upgrade) 15
+VALOURSTRIKE LANCE 2DP; PURGE THE FOE; Bearer of the Evanescent Ion 15, Bearer of the Iron Chalice 20, Bearer of the Judicant's Helm 25, Bearer of the Lancer's Sigil 25
