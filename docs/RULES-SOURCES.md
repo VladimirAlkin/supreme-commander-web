@@ -2,7 +2,7 @@
 
 Applies to every army in the app: Chaos Space Marines, World Eaters, Death
 Guard, Thousand Sons, Tyranids, Adepta Sororitas (with Imperial Agents),
-Adeptus Mechanicus, Emperor's Children (with Legions of Excess), Drukhari (with Harlequins and Anhrathe allies), Necrons, T'au Empire, and
+Adeptus Mechanicus, Emperor's Children (with Legions of Excess), Drukhari (with Harlequins and Anhrathe allies), Necrons, T'au Empire, Imperial Knights (with Adeptus Mechanicus allies), and
 any army added later.
 
 Current to: the 30 Sep 2026 update (MFM v1.5; Faction Packs World Eaters,
@@ -11,7 +11,7 @@ rules change; Imperial Agents profiles only). Last full rebuild 2026-10-08. Empe
 current to MFM v1.6 and Faction Pack v1.2. Drukhari (added 2026-10-17) is
 current to MFM v1.6 and Faction Pack v1.2. Necrons (added 2026-10-17) is current to MFM v1.6;
 its Faction Pack v1.2 PDF was not read (rules text follows Wahapedia 1.2 and BSData). T'au Empire (added 2026-10-18) is current to MFM v1.6 and
-Faction Pack v1.2 (= Wahapedia version).
+Faction Pack v1.2 (= Wahapedia version). Imperial Knights (added 2026-10-19) is current to MFM v1.6; where BSData and Wahapedia differ BSData wins (owner's decision).
 
 ## Order of precedence
 
@@ -161,3 +161,15 @@ Found by `bsdelta.py` across BSData's import (`374f505..HEAD`) plus reviews:
   Auxiliary Cadre stratagems (not verbatim; Wahapedia has them empty, Guided Fire =
   Guided by Unity in the old pack). Details: `audit/tau_empire_rules.md`,
   `audit/tau_empire_units.md`, `data/tau_empire_build.md`.
+- Imperial Knights (added 2026-10-19, MFM v1.6): the Code Chivalric Deed and
+  Quality tables are transcribed from Wahapedia HTML — check against the app.
+  Weapon names differ between BSData and Wahapedia ("twin Icarus autocannon" /
+  "Icarus autocannons", "Questoris multi-laser" / "Preceptor multi-laser",
+  Atrapos lascutter profile split); Skitarii Marshal pistol BS; Crushing Impact
+  / Tank Shock and Protection Protocols wording. BSData taken (owner). The Mechanicus
+  pack is v1.4 on Wahapedia web but v1.2 in CSV/PDF. The five allied Adeptus
+  Mechanicus units are copies built inside the army (Mechanicus Allies, Questor
+  Forgepact only, 500 pts): not reconciled with the Adeptus Mechanicus army
+  (`allies-matrix.md`). No photo for Knight Preceptor and Knight Warden. The
+  import fixture `imperial_knights_synthetic` is synthetic: replace with a real
+  export.
