@@ -942,7 +942,7 @@ const DATA = {
   {
    "id": "imperialKnights",
    "name": "Imperial Knights",
-   "enabled": false,
+   "enabled": true,
    "theme": {
     "bg": "#0B1020",
     "bg2": "#23306b",
@@ -83103,7 +83103,17 @@ const DATA = {
        "effect": "For each of your ARMIGER models that is within 9\" of one or more battlefield edges and not within Engagement Range of one or more enemy units, remove that ARMIGER model from the battlefield and place it into Strategic Reserves."
       }
      ],
-     "btnFx": "ik_pennants"
+     "btnFx": "ik_pennants",
+     "grantKeywords": [
+      {
+       "unitIds": [
+        "armiger_helverin",
+        "armiger_warglaive",
+        "armiger_moirax"
+       ],
+       "keyword": "Battleline"
+      }
+     ]
     },
     {
      "id": "throne_bonded_outriders",
