@@ -48718,7 +48718,32 @@ const DATA = {
   },
   "adeptusMechanicus": {
    "armyFaction": "Adeptus Mechanicus",
-   "alliedFactions": [],
+   "alliedFactions": [
+    {
+     "faction": "Imperial Knights",
+     "rule": "Freeblades",
+     "hostKeyword": "Imperium",
+     "noEnhancements": true,
+     "cannotBeWarlord": true,
+     "unitsFrom": {
+      "source": "imperialKnights",
+      "keywordsAny": [
+       "Titanic",
+       "Armiger"
+      ]
+     },
+     "oneOf": [
+      {
+       "keyword": "Titanic",
+       "n": 1
+      },
+      {
+       "keyword": "Armiger",
+       "n": 3
+      }
+     ]
+    }
+   ],
    "armyRules": [
     {
      "id": "doctrina_imperatives",

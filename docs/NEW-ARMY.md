@@ -56,6 +56,26 @@ node tools/mechanics-diff.js main     # new army = all ADDED; review, then ledge
 Then open the app in a browser, add every unit in every detachment, open its
 datasheet, and read the console — not the screenshot. Then `tools/release.js`.
 
+## Allies by reference (`alliedFactions[].unitsFrom`)
+
+An army can field another army's datasheets without copying them:
+
+```json
+{ "faction": "Imperial Knights", "rule": "Freeblades", "hostKeyword": "Imperium", "noEnhancements": true, "cannotBeWarlord": true,
+  "unitsFrom": { "source": "imperialKnights", "keywordsAny": ["Titanic", "Armiger"] },
+  "oneOf": [{ "keyword": "Titanic", "n": 1 }, { "keyword": "Armiger", "n": 3 }] }
+```
+
+- `unitsFrom.source` is a `factionData` id. Without `unitIds` the units whose own `faction` equals the group's `faction` are taken
+  (so the source army's own copies of other armies' units are not pulled in); `keywordsAny` narrows further.
+- Referenced, not copied: the unit is the source army's object. Resolved in `Engine.refUnits` / `Engine.unitsOf`; `ctxFor` puts it in
+  `unitById`. Not transitive. A missing source gives an empty list, no error. The army's own id always wins a clash.
+- Group rules, all optional: `hostKeyword` (every other model carries it), `oneOf` (models of one kind only, up to n),
+  `noEnhancements`; plus the existing `requiresDetachment`, `ptsCap`, `caps`, `keywordAs`. Detachment grants of the source army do not apply.
+- A referenced unit keeps its own `faction`; the group's `faction` must be the same or the catalogue never lists it
+  (`validate-data` E-ALLYREF). Converting copies whose faction differs from the group's (CSM's four copies) needs a `factionAs` step first.
+- Gate: `node tests/unitsfrom.test.js` (part of `npm run check`).
+
 ## 5. Docs
 
 - `docs/RULES-SOURCES.md`: the army in the scope line, its open questions.

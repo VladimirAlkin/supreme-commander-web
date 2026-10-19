@@ -50285,8 +50285,8 @@
   {
    "path": ".adeptusMechanicus.alliedFactions.length",
    "change": "ADDED",
-   "value": "0",
-   "why": "Adeptus Mechanicus (new army, added 2026-10-11): points and tiers from MFM v1.5 (chat-1 report) and BSData 11e; CP, keywords, detachment DP/dispositions and enhancement costs from Wahapedia 11e (matches Faction Pack v1.2; 2CP: Bulwark Imperative, Baleful Halo, Binharic Offence, Auto-oracular Retrieval); Kastelan tiers 150/300 then 180/330; TL-4O9 30 pts (MFM; pack gives none); Ironstrider twin cognis lascannon +10, Disintegrator Ferrumite cannon +10 (checked 2026-10-11)"
+   "value": "1",
+   "why": "Adeptus Mechanicus (new army, added 2026-10-11): points and tiers from MFM v1.5 (chat-1 report) and BSData 11e; CP, keywords, detachment DP/dispositions and enhancement costs from Wahapedia 11e (matches Faction Pack v1.2; 2CP: Bulwark Imperative, Baleful Halo, Binharic Offence, Auto-oracular Retrieval); Kastelan tiers 150/300 then 180/330; TL-4O9 30 pts (MFM; pack gives none); Ironstrider twin cognis lascannon +10, Disintegrator Ferrumite cannon +10 (checked 2026-10-11) | 2026-10-19: now 1 — the Freeblades ally group (see the alliedFactions[0] entries)"
   },
   {
    "path": ".adeptusMechanicus.armyRules.length",
@@ -204804,367 +204804,451 @@
    "path": ".chaosSpaceMarines.detachments[3].grantKeywords.length",
    "change": "ADDED",
    "value": "20",
-   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e keywords: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant; Khorne Lord of Skulls assumed likewise); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
+   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e and Wahapedia 11e keywords carry Daemon for all 8: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant, Khorne Lord of Skulls (verified 2026-10-19)); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
   },
   {
    "path": ".chaosSpaceMarines.detachments[3].grantKeywords[0].unitIds.length",
    "change": "ADDED",
    "value": "1",
-   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e keywords: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant; Khorne Lord of Skulls assumed likewise); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
+   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e and Wahapedia 11e keywords carry Daemon for all 8: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant, Khorne Lord of Skulls (verified 2026-10-19)); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
   },
   {
    "path": ".chaosSpaceMarines.detachments[3].grantKeywords[0].unitIds[0]",
    "change": "ADDED",
    "value": "\"chaos_land_raider\"",
-   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e keywords: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant; Khorne Lord of Skulls assumed likewise); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
+   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e and Wahapedia 11e keywords carry Daemon for all 8: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant, Khorne Lord of Skulls (verified 2026-10-19)); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
   },
   {
    "path": ".chaosSpaceMarines.detachments[3].grantKeywords[0].keyword",
    "change": "ADDED",
    "value": "\"Daemon\"",
-   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e keywords: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant; Khorne Lord of Skulls assumed likewise); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
+   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e and Wahapedia 11e keywords carry Daemon for all 8: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant, Khorne Lord of Skulls (verified 2026-10-19)); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
   },
   {
    "path": ".chaosSpaceMarines.detachments[3].grantKeywords[1].unitIds.length",
    "change": "ADDED",
    "value": "1",
-   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e keywords: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant; Khorne Lord of Skulls assumed likewise); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
+   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e and Wahapedia 11e keywords carry Daemon for all 8: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant, Khorne Lord of Skulls (verified 2026-10-19)); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
   },
   {
    "path": ".chaosSpaceMarines.detachments[3].grantKeywords[1].unitIds[0]",
    "change": "ADDED",
    "value": "\"predator_annihilator\"",
-   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e keywords: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant; Khorne Lord of Skulls assumed likewise); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
+   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e and Wahapedia 11e keywords carry Daemon for all 8: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant, Khorne Lord of Skulls (verified 2026-10-19)); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
   },
   {
    "path": ".chaosSpaceMarines.detachments[3].grantKeywords[1].keyword",
    "change": "ADDED",
    "value": "\"Daemon\"",
-   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e keywords: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant; Khorne Lord of Skulls assumed likewise); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
+   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e and Wahapedia 11e keywords carry Daemon for all 8: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant, Khorne Lord of Skulls (verified 2026-10-19)); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
   },
   {
    "path": ".chaosSpaceMarines.detachments[3].grantKeywords[2].unitIds.length",
    "change": "ADDED",
    "value": "1",
-   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e keywords: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant; Khorne Lord of Skulls assumed likewise); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
+   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e and Wahapedia 11e keywords carry Daemon for all 8: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant, Khorne Lord of Skulls (verified 2026-10-19)); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
   },
   {
    "path": ".chaosSpaceMarines.detachments[3].grantKeywords[2].unitIds[0]",
    "change": "ADDED",
    "value": "\"predator_destructor\"",
-   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e keywords: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant; Khorne Lord of Skulls assumed likewise); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
+   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e and Wahapedia 11e keywords carry Daemon for all 8: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant, Khorne Lord of Skulls (verified 2026-10-19)); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
   },
   {
    "path": ".chaosSpaceMarines.detachments[3].grantKeywords[2].keyword",
    "change": "ADDED",
    "value": "\"Daemon\"",
-   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e keywords: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant; Khorne Lord of Skulls assumed likewise); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
+   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e and Wahapedia 11e keywords carry Daemon for all 8: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant, Khorne Lord of Skulls (verified 2026-10-19)); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
   },
   {
    "path": ".chaosSpaceMarines.detachments[3].grantKeywords[3].unitIds.length",
    "change": "ADDED",
    "value": "1",
-   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e keywords: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant; Khorne Lord of Skulls assumed likewise); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
+   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e and Wahapedia 11e keywords carry Daemon for all 8: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant, Khorne Lord of Skulls (verified 2026-10-19)); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
   },
   {
    "path": ".chaosSpaceMarines.detachments[3].grantKeywords[3].unitIds[0]",
    "change": "ADDED",
    "value": "\"chaos_rhino\"",
-   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e keywords: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant; Khorne Lord of Skulls assumed likewise); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
+   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e and Wahapedia 11e keywords carry Daemon for all 8: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant, Khorne Lord of Skulls (verified 2026-10-19)); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
   },
   {
    "path": ".chaosSpaceMarines.detachments[3].grantKeywords[3].keyword",
    "change": "ADDED",
    "value": "\"Daemon\"",
-   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e keywords: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant; Khorne Lord of Skulls assumed likewise); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
+   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e and Wahapedia 11e keywords carry Daemon for all 8: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant, Khorne Lord of Skulls (verified 2026-10-19)); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
   },
   {
    "path": ".chaosSpaceMarines.detachments[3].grantKeywords[4].unitIds.length",
    "change": "ADDED",
    "value": "1",
-   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e keywords: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant; Khorne Lord of Skulls assumed likewise); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
+   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e and Wahapedia 11e keywords carry Daemon for all 8: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant, Khorne Lord of Skulls (verified 2026-10-19)); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
   },
   {
    "path": ".chaosSpaceMarines.detachments[3].grantKeywords[4].unitIds[0]",
    "change": "ADDED",
    "value": "\"chaos_vindicator\"",
-   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e keywords: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant; Khorne Lord of Skulls assumed likewise); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
+   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e and Wahapedia 11e keywords carry Daemon for all 8: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant, Khorne Lord of Skulls (verified 2026-10-19)); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
   },
   {
    "path": ".chaosSpaceMarines.detachments[3].grantKeywords[4].keyword",
    "change": "ADDED",
    "value": "\"Daemon\"",
-   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e keywords: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant; Khorne Lord of Skulls assumed likewise); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
+   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e and Wahapedia 11e keywords carry Daemon for all 8: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant, Khorne Lord of Skulls (verified 2026-10-19)); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
   },
   {
    "path": ".chaosSpaceMarines.detachments[3].grantKeywords[5].unitIds.length",
    "change": "ADDED",
    "value": "1",
-   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e keywords: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant; Khorne Lord of Skulls assumed likewise); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
+   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e and Wahapedia 11e keywords carry Daemon for all 8: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant, Khorne Lord of Skulls (verified 2026-10-19)); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
   },
   {
    "path": ".chaosSpaceMarines.detachments[3].grantKeywords[5].unitIds[0]",
    "change": "ADDED",
    "value": "\"helbrute\"",
-   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e keywords: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant; Khorne Lord of Skulls assumed likewise); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
+   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e and Wahapedia 11e keywords carry Daemon for all 8: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant, Khorne Lord of Skulls (verified 2026-10-19)); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
   },
   {
    "path": ".chaosSpaceMarines.detachments[3].grantKeywords[5].keyword",
    "change": "ADDED",
    "value": "\"Daemon\"",
-   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e keywords: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant; Khorne Lord of Skulls assumed likewise); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
+   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e and Wahapedia 11e keywords carry Daemon for all 8: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant, Khorne Lord of Skulls (verified 2026-10-19)); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
   },
   {
    "path": ".chaosSpaceMarines.detachments[3].grantKeywords[6].unitIds.length",
    "change": "ADDED",
    "value": "1",
-   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e keywords: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant; Khorne Lord of Skulls assumed likewise); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
+   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e and Wahapedia 11e keywords carry Daemon for all 8: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant, Khorne Lord of Skulls (verified 2026-10-19)); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
   },
   {
    "path": ".chaosSpaceMarines.detachments[3].grantKeywords[6].unitIds[0]",
    "change": "ADDED",
    "value": "\"chaos_land_raider\"",
-   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e keywords: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant; Khorne Lord of Skulls assumed likewise); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
+   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e and Wahapedia 11e keywords carry Daemon for all 8: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant, Khorne Lord of Skulls (verified 2026-10-19)); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
   },
   {
    "path": ".chaosSpaceMarines.detachments[3].grantKeywords[6].keyword",
    "change": "ADDED",
    "value": "\"Soul Forge\"",
-   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e keywords: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant; Khorne Lord of Skulls assumed likewise); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
+   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e and Wahapedia 11e keywords carry Daemon for all 8: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant, Khorne Lord of Skulls (verified 2026-10-19)); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
   },
   {
    "path": ".chaosSpaceMarines.detachments[3].grantKeywords[7].unitIds.length",
    "change": "ADDED",
    "value": "1",
-   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e keywords: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant; Khorne Lord of Skulls assumed likewise); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
+   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e and Wahapedia 11e keywords carry Daemon for all 8: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant, Khorne Lord of Skulls (verified 2026-10-19)); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
   },
   {
    "path": ".chaosSpaceMarines.detachments[3].grantKeywords[7].unitIds[0]",
    "change": "ADDED",
    "value": "\"predator_annihilator\"",
-   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e keywords: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant; Khorne Lord of Skulls assumed likewise); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
+   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e and Wahapedia 11e keywords carry Daemon for all 8: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant, Khorne Lord of Skulls (verified 2026-10-19)); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
   },
   {
    "path": ".chaosSpaceMarines.detachments[3].grantKeywords[7].keyword",
    "change": "ADDED",
    "value": "\"Soul Forge\"",
-   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e keywords: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant; Khorne Lord of Skulls assumed likewise); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
+   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e and Wahapedia 11e keywords carry Daemon for all 8: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant, Khorne Lord of Skulls (verified 2026-10-19)); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
   },
   {
    "path": ".chaosSpaceMarines.detachments[3].grantKeywords[8].unitIds.length",
    "change": "ADDED",
    "value": "1",
-   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e keywords: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant; Khorne Lord of Skulls assumed likewise); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
+   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e and Wahapedia 11e keywords carry Daemon for all 8: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant, Khorne Lord of Skulls (verified 2026-10-19)); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
   },
   {
    "path": ".chaosSpaceMarines.detachments[3].grantKeywords[8].unitIds[0]",
    "change": "ADDED",
    "value": "\"predator_destructor\"",
-   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e keywords: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant; Khorne Lord of Skulls assumed likewise); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
+   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e and Wahapedia 11e keywords carry Daemon for all 8: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant, Khorne Lord of Skulls (verified 2026-10-19)); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
   },
   {
    "path": ".chaosSpaceMarines.detachments[3].grantKeywords[8].keyword",
    "change": "ADDED",
    "value": "\"Soul Forge\"",
-   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e keywords: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant; Khorne Lord of Skulls assumed likewise); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
+   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e and Wahapedia 11e keywords carry Daemon for all 8: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant, Khorne Lord of Skulls (verified 2026-10-19)); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
   },
   {
    "path": ".chaosSpaceMarines.detachments[3].grantKeywords[9].unitIds.length",
    "change": "ADDED",
    "value": "1",
-   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e keywords: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant; Khorne Lord of Skulls assumed likewise); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
+   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e and Wahapedia 11e keywords carry Daemon for all 8: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant, Khorne Lord of Skulls (verified 2026-10-19)); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
   },
   {
    "path": ".chaosSpaceMarines.detachments[3].grantKeywords[9].unitIds[0]",
    "change": "ADDED",
    "value": "\"chaos_rhino\"",
-   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e keywords: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant; Khorne Lord of Skulls assumed likewise); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
+   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e and Wahapedia 11e keywords carry Daemon for all 8: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant, Khorne Lord of Skulls (verified 2026-10-19)); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
   },
   {
    "path": ".chaosSpaceMarines.detachments[3].grantKeywords[9].keyword",
    "change": "ADDED",
    "value": "\"Soul Forge\"",
-   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e keywords: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant; Khorne Lord of Skulls assumed likewise); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
+   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e and Wahapedia 11e keywords carry Daemon for all 8: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant, Khorne Lord of Skulls (verified 2026-10-19)); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
   },
   {
    "path": ".chaosSpaceMarines.detachments[3].grantKeywords[10].unitIds.length",
    "change": "ADDED",
    "value": "1",
-   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e keywords: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant; Khorne Lord of Skulls assumed likewise); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
+   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e and Wahapedia 11e keywords carry Daemon for all 8: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant, Khorne Lord of Skulls (verified 2026-10-19)); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
   },
   {
    "path": ".chaosSpaceMarines.detachments[3].grantKeywords[10].unitIds[0]",
    "change": "ADDED",
    "value": "\"chaos_vindicator\"",
-   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e keywords: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant; Khorne Lord of Skulls assumed likewise); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
+   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e and Wahapedia 11e keywords carry Daemon for all 8: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant, Khorne Lord of Skulls (verified 2026-10-19)); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
   },
   {
    "path": ".chaosSpaceMarines.detachments[3].grantKeywords[10].keyword",
    "change": "ADDED",
    "value": "\"Soul Forge\"",
-   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e keywords: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant; Khorne Lord of Skulls assumed likewise); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
+   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e and Wahapedia 11e keywords carry Daemon for all 8: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant, Khorne Lord of Skulls (verified 2026-10-19)); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
   },
   {
    "path": ".chaosSpaceMarines.detachments[3].grantKeywords[11].unitIds.length",
    "change": "ADDED",
    "value": "1",
-   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e keywords: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant; Khorne Lord of Skulls assumed likewise); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
+   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e and Wahapedia 11e keywords carry Daemon for all 8: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant, Khorne Lord of Skulls (verified 2026-10-19)); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
   },
   {
    "path": ".chaosSpaceMarines.detachments[3].grantKeywords[11].unitIds[0]",
    "change": "ADDED",
    "value": "\"defiler\"",
-   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e keywords: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant; Khorne Lord of Skulls assumed likewise); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
+   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e and Wahapedia 11e keywords carry Daemon for all 8: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant, Khorne Lord of Skulls (verified 2026-10-19)); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
   },
   {
    "path": ".chaosSpaceMarines.detachments[3].grantKeywords[11].keyword",
    "change": "ADDED",
    "value": "\"Soul Forge\"",
-   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e keywords: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant; Khorne Lord of Skulls assumed likewise); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
+   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e and Wahapedia 11e keywords carry Daemon for all 8: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant, Khorne Lord of Skulls (verified 2026-10-19)); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
   },
   {
    "path": ".chaosSpaceMarines.detachments[3].grantKeywords[12].unitIds.length",
    "change": "ADDED",
    "value": "1",
-   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e keywords: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant; Khorne Lord of Skulls assumed likewise); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
+   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e and Wahapedia 11e keywords carry Daemon for all 8: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant, Khorne Lord of Skulls (verified 2026-10-19)); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
   },
   {
    "path": ".chaosSpaceMarines.detachments[3].grantKeywords[12].unitIds[0]",
    "change": "ADDED",
    "value": "\"forgefiend\"",
-   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e keywords: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant; Khorne Lord of Skulls assumed likewise); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
+   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e and Wahapedia 11e keywords carry Daemon for all 8: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant, Khorne Lord of Skulls (verified 2026-10-19)); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
   },
   {
    "path": ".chaosSpaceMarines.detachments[3].grantKeywords[12].keyword",
    "change": "ADDED",
    "value": "\"Soul Forge\"",
-   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e keywords: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant; Khorne Lord of Skulls assumed likewise); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
+   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e and Wahapedia 11e keywords carry Daemon for all 8: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant, Khorne Lord of Skulls (verified 2026-10-19)); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
   },
   {
    "path": ".chaosSpaceMarines.detachments[3].grantKeywords[13].unitIds.length",
    "change": "ADDED",
    "value": "1",
-   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e keywords: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant; Khorne Lord of Skulls assumed likewise); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
+   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e and Wahapedia 11e keywords carry Daemon for all 8: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant, Khorne Lord of Skulls (verified 2026-10-19)); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
   },
   {
    "path": ".chaosSpaceMarines.detachments[3].grantKeywords[13].unitIds[0]",
    "change": "ADDED",
    "value": "\"helbrute\"",
-   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e keywords: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant; Khorne Lord of Skulls assumed likewise); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
+   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e and Wahapedia 11e keywords carry Daemon for all 8: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant, Khorne Lord of Skulls (verified 2026-10-19)); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
   },
   {
    "path": ".chaosSpaceMarines.detachments[3].grantKeywords[13].keyword",
    "change": "ADDED",
    "value": "\"Soul Forge\"",
-   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e keywords: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant; Khorne Lord of Skulls assumed likewise); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
+   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e and Wahapedia 11e keywords carry Daemon for all 8: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant, Khorne Lord of Skulls (verified 2026-10-19)); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
   },
   {
    "path": ".chaosSpaceMarines.detachments[3].grantKeywords[14].unitIds.length",
    "change": "ADDED",
    "value": "1",
-   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e keywords: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant; Khorne Lord of Skulls assumed likewise); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
+   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e and Wahapedia 11e keywords carry Daemon for all 8: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant, Khorne Lord of Skulls (verified 2026-10-19)); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
   },
   {
    "path": ".chaosSpaceMarines.detachments[3].grantKeywords[14].unitIds[0]",
    "change": "ADDED",
    "value": "\"heldrake\"",
-   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e keywords: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant; Khorne Lord of Skulls assumed likewise); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
+   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e and Wahapedia 11e keywords carry Daemon for all 8: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant, Khorne Lord of Skulls (verified 2026-10-19)); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
   },
   {
    "path": ".chaosSpaceMarines.detachments[3].grantKeywords[14].keyword",
    "change": "ADDED",
    "value": "\"Soul Forge\"",
-   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e keywords: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant; Khorne Lord of Skulls assumed likewise); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
+   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e and Wahapedia 11e keywords carry Daemon for all 8: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant, Khorne Lord of Skulls (verified 2026-10-19)); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
   },
   {
    "path": ".chaosSpaceMarines.detachments[3].grantKeywords[15].unitIds.length",
    "change": "ADDED",
    "value": "1",
-   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e keywords: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant; Khorne Lord of Skulls assumed likewise); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
+   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e and Wahapedia 11e keywords carry Daemon for all 8: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant, Khorne Lord of Skulls (verified 2026-10-19)); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
   },
   {
    "path": ".chaosSpaceMarines.detachments[3].grantKeywords[15].unitIds[0]",
    "change": "ADDED",
    "value": "\"lord_of_skulls\"",
-   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e keywords: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant; Khorne Lord of Skulls assumed likewise); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
+   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e and Wahapedia 11e keywords carry Daemon for all 8: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant, Khorne Lord of Skulls (verified 2026-10-19)); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
   },
   {
    "path": ".chaosSpaceMarines.detachments[3].grantKeywords[15].keyword",
    "change": "ADDED",
    "value": "\"Soul Forge\"",
-   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e keywords: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant; Khorne Lord of Skulls assumed likewise); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
+   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e and Wahapedia 11e keywords carry Daemon for all 8: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant, Khorne Lord of Skulls (verified 2026-10-19)); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
   },
   {
    "path": ".chaosSpaceMarines.detachments[3].grantKeywords[16].unitIds.length",
    "change": "ADDED",
    "value": "1",
-   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e keywords: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant; Khorne Lord of Skulls assumed likewise); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
+   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e and Wahapedia 11e keywords carry Daemon for all 8: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant, Khorne Lord of Skulls (verified 2026-10-19)); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
   },
   {
    "path": ".chaosSpaceMarines.detachments[3].grantKeywords[16].unitIds[0]",
    "change": "ADDED",
    "value": "\"lord_discordant\"",
-   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e keywords: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant; Khorne Lord of Skulls assumed likewise); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
+   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e and Wahapedia 11e keywords carry Daemon for all 8: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant, Khorne Lord of Skulls (verified 2026-10-19)); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
   },
   {
    "path": ".chaosSpaceMarines.detachments[3].grantKeywords[16].keyword",
    "change": "ADDED",
    "value": "\"Soul Forge\"",
-   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e keywords: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant; Khorne Lord of Skulls assumed likewise); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
+   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e and Wahapedia 11e keywords carry Daemon for all 8: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant, Khorne Lord of Skulls (verified 2026-10-19)); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
   },
   {
    "path": ".chaosSpaceMarines.detachments[3].grantKeywords[17].unitIds.length",
    "change": "ADDED",
    "value": "1",
-   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e keywords: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant; Khorne Lord of Skulls assumed likewise); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
+   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e and Wahapedia 11e keywords carry Daemon for all 8: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant, Khorne Lord of Skulls (verified 2026-10-19)); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
   },
   {
    "path": ".chaosSpaceMarines.detachments[3].grantKeywords[17].unitIds[0]",
    "change": "ADDED",
    "value": "\"maulerfiend\"",
-   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e keywords: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant; Khorne Lord of Skulls assumed likewise); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
+   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e and Wahapedia 11e keywords carry Daemon for all 8: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant, Khorne Lord of Skulls (verified 2026-10-19)); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
   },
   {
    "path": ".chaosSpaceMarines.detachments[3].grantKeywords[17].keyword",
    "change": "ADDED",
    "value": "\"Soul Forge\"",
-   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e keywords: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant; Khorne Lord of Skulls assumed likewise); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
+   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e and Wahapedia 11e keywords carry Daemon for all 8: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant, Khorne Lord of Skulls (verified 2026-10-19)); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
   },
   {
    "path": ".chaosSpaceMarines.detachments[3].grantKeywords[18].unitIds.length",
    "change": "ADDED",
    "value": "1",
-   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e keywords: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant; Khorne Lord of Skulls assumed likewise); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
+   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e and Wahapedia 11e keywords carry Daemon for all 8: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant, Khorne Lord of Skulls (verified 2026-10-19)); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
   },
   {
    "path": ".chaosSpaceMarines.detachments[3].grantKeywords[18].unitIds[0]",
    "change": "ADDED",
    "value": "\"vashtorr\"",
-   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e keywords: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant; Khorne Lord of Skulls assumed likewise); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
+   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e and Wahapedia 11e keywords carry Daemon for all 8: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant, Khorne Lord of Skulls (verified 2026-10-19)); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
   },
   {
    "path": ".chaosSpaceMarines.detachments[3].grantKeywords[18].keyword",
    "change": "ADDED",
    "value": "\"Soul Forge\"",
-   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e keywords: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant; Khorne Lord of Skulls assumed likewise); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
+   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e and Wahapedia 11e keywords carry Daemon for all 8: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant, Khorne Lord of Skulls (verified 2026-10-19)); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
   },
   {
    "path": ".chaosSpaceMarines.detachments[3].grantKeywords[19].unitIds.length",
    "change": "ADDED",
    "value": "1",
-   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e keywords: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant; Khorne Lord of Skulls assumed likewise); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
+   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e and Wahapedia 11e keywords carry Daemon for all 8: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant, Khorne Lord of Skulls (verified 2026-10-19)); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
   },
   {
    "path": ".chaosSpaceMarines.detachments[3].grantKeywords[19].unitIds[0]",
    "change": "ADDED",
    "value": "\"venomcrawler\"",
-   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e keywords: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant; Khorne Lord of Skulls assumed likewise); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
+   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e and Wahapedia 11e keywords carry Daemon for all 8: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant, Khorne Lord of Skulls (verified 2026-10-19)); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
   },
   {
    "path": ".chaosSpaceMarines.detachments[3].grantKeywords[19].keyword",
    "change": "ADDED",
    "value": "\"Soul Forge\"",
-   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e keywords: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant; Khorne Lord of Skulls assumed likewise); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
+   "why": "Cult of the Arkifane: Daemon grant dropped for the 8 units that already carry Daemon on the datasheet (BSData 11e and Wahapedia 11e keywords carry Daemon for all 8: Defiler, Forgefiend, Heldrake, Maulerfiend, Venomcrawler, Vashtorr, Lord Discordant, Khorne Lord of Skulls (verified 2026-10-19)); entries re-indexed. Engine result unchanged (checked 2026-10-19)"
+  },
+  {
+   "path": ".adeptusMechanicus.alliedFactions[0].faction",
+   "change": "ADDED",
+   "value": "\"Imperial Knights\"",
+   "why": "Mechanicus ally group Freeblades via alliedFactions[].unitsFrom (engine 1f7c9dd): all models in the army IMPERIUM; 1 TITANIC Imperial Knights model or up to 3 ARMIGER; not Warlord; no enhancements; any detachment; no points cap. Text per docs decisions file (imperial_knights_decisions.md), checked against the printed rule 2026-10-19"
+  },
+  {
+   "path": ".adeptusMechanicus.alliedFactions[0].rule",
+   "change": "ADDED",
+   "value": "\"Freeblades\"",
+   "why": "Mechanicus ally group Freeblades via alliedFactions[].unitsFrom (engine 1f7c9dd): all models in the army IMPERIUM; 1 TITANIC Imperial Knights model or up to 3 ARMIGER; not Warlord; no enhancements; any detachment; no points cap. Text per docs decisions file (imperial_knights_decisions.md), checked against the printed rule 2026-10-19"
+  },
+  {
+   "path": ".adeptusMechanicus.alliedFactions[0].hostKeyword",
+   "change": "ADDED",
+   "value": "\"Imperium\"",
+   "why": "Mechanicus ally group Freeblades via alliedFactions[].unitsFrom (engine 1f7c9dd): all models in the army IMPERIUM; 1 TITANIC Imperial Knights model or up to 3 ARMIGER; not Warlord; no enhancements; any detachment; no points cap. Text per docs decisions file (imperial_knights_decisions.md), checked against the printed rule 2026-10-19"
+  },
+  {
+   "path": ".adeptusMechanicus.alliedFactions[0].noEnhancements",
+   "change": "ADDED",
+   "value": "true",
+   "why": "Mechanicus ally group Freeblades via alliedFactions[].unitsFrom (engine 1f7c9dd): all models in the army IMPERIUM; 1 TITANIC Imperial Knights model or up to 3 ARMIGER; not Warlord; no enhancements; any detachment; no points cap. Text per docs decisions file (imperial_knights_decisions.md), checked against the printed rule 2026-10-19"
+  },
+  {
+   "path": ".adeptusMechanicus.alliedFactions[0].cannotBeWarlord",
+   "change": "ADDED",
+   "value": "true",
+   "why": "Mechanicus ally group Freeblades via alliedFactions[].unitsFrom (engine 1f7c9dd): all models in the army IMPERIUM; 1 TITANIC Imperial Knights model or up to 3 ARMIGER; not Warlord; no enhancements; any detachment; no points cap. Text per docs decisions file (imperial_knights_decisions.md), checked against the printed rule 2026-10-19"
+  },
+  {
+   "path": ".adeptusMechanicus.alliedFactions[0].unitsFrom.source",
+   "change": "ADDED",
+   "value": "\"imperialKnights\"",
+   "why": "Mechanicus ally group Freeblades via alliedFactions[].unitsFrom (engine 1f7c9dd): all models in the army IMPERIUM; 1 TITANIC Imperial Knights model or up to 3 ARMIGER; not Warlord; no enhancements; any detachment; no points cap. Text per docs decisions file (imperial_knights_decisions.md), checked against the printed rule 2026-10-19"
+  },
+  {
+   "path": ".adeptusMechanicus.alliedFactions[0].unitsFrom.keywordsAny.length",
+   "change": "ADDED",
+   "value": "2",
+   "why": "Mechanicus ally group Freeblades via alliedFactions[].unitsFrom (engine 1f7c9dd): all models in the army IMPERIUM; 1 TITANIC Imperial Knights model or up to 3 ARMIGER; not Warlord; no enhancements; any detachment; no points cap. Text per docs decisions file (imperial_knights_decisions.md), checked against the printed rule 2026-10-19"
+  },
+  {
+   "path": ".adeptusMechanicus.alliedFactions[0].unitsFrom.keywordsAny[0]",
+   "change": "ADDED",
+   "value": "\"Titanic\"",
+   "why": "Mechanicus ally group Freeblades via alliedFactions[].unitsFrom (engine 1f7c9dd): all models in the army IMPERIUM; 1 TITANIC Imperial Knights model or up to 3 ARMIGER; not Warlord; no enhancements; any detachment; no points cap. Text per docs decisions file (imperial_knights_decisions.md), checked against the printed rule 2026-10-19"
+  },
+  {
+   "path": ".adeptusMechanicus.alliedFactions[0].unitsFrom.keywordsAny[1]",
+   "change": "ADDED",
+   "value": "\"Armiger\"",
+   "why": "Mechanicus ally group Freeblades via alliedFactions[].unitsFrom (engine 1f7c9dd): all models in the army IMPERIUM; 1 TITANIC Imperial Knights model or up to 3 ARMIGER; not Warlord; no enhancements; any detachment; no points cap. Text per docs decisions file (imperial_knights_decisions.md), checked against the printed rule 2026-10-19"
+  },
+  {
+   "path": ".adeptusMechanicus.alliedFactions[0].oneOf.length",
+   "change": "ADDED",
+   "value": "2",
+   "why": "Mechanicus ally group Freeblades via alliedFactions[].unitsFrom (engine 1f7c9dd): all models in the army IMPERIUM; 1 TITANIC Imperial Knights model or up to 3 ARMIGER; not Warlord; no enhancements; any detachment; no points cap. Text per docs decisions file (imperial_knights_decisions.md), checked against the printed rule 2026-10-19"
+  },
+  {
+   "path": ".adeptusMechanicus.alliedFactions[0].oneOf[0].keyword",
+   "change": "ADDED",
+   "value": "\"Titanic\"",
+   "why": "Mechanicus ally group Freeblades via alliedFactions[].unitsFrom (engine 1f7c9dd): all models in the army IMPERIUM; 1 TITANIC Imperial Knights model or up to 3 ARMIGER; not Warlord; no enhancements; any detachment; no points cap. Text per docs decisions file (imperial_knights_decisions.md), checked against the printed rule 2026-10-19"
+  },
+  {
+   "path": ".adeptusMechanicus.alliedFactions[0].oneOf[0].n",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Mechanicus ally group Freeblades via alliedFactions[].unitsFrom (engine 1f7c9dd): all models in the army IMPERIUM; 1 TITANIC Imperial Knights model or up to 3 ARMIGER; not Warlord; no enhancements; any detachment; no points cap. Text per docs decisions file (imperial_knights_decisions.md), checked against the printed rule 2026-10-19"
+  },
+  {
+   "path": ".adeptusMechanicus.alliedFactions[0].oneOf[1].keyword",
+   "change": "ADDED",
+   "value": "\"Armiger\"",
+   "why": "Mechanicus ally group Freeblades via alliedFactions[].unitsFrom (engine 1f7c9dd): all models in the army IMPERIUM; 1 TITANIC Imperial Knights model or up to 3 ARMIGER; not Warlord; no enhancements; any detachment; no points cap. Text per docs decisions file (imperial_knights_decisions.md), checked against the printed rule 2026-10-19"
+  },
+  {
+   "path": ".adeptusMechanicus.alliedFactions[0].oneOf[1].n",
+   "change": "ADDED",
+   "value": "3",
+   "why": "Mechanicus ally group Freeblades via alliedFactions[].unitsFrom (engine 1f7c9dd): all models in the army IMPERIUM; 1 TITANIC Imperial Knights model or up to 3 ARMIGER; not Warlord; no enhancements; any detachment; no points cap. Text per docs decisions file (imperial_knights_decisions.md), checked against the printed rule 2026-10-19"
   }
  ]
 }
