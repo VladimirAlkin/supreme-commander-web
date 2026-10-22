@@ -751,9 +751,9 @@ const DATA = {
     "panel": "rgba(14,31,23,.86)",
     "card1": "#173426",
     "card2": "#0E1F17",
-    "icon1": "#173426",
-    "icon2": "#06100B",
-    "iconRim": "#C9A24B"
+    "icon1": "#E8E0C8",
+    "icon2": "#E8E0C8",
+    "iconRim": "#0E1F17"
    },
    "emblemSvg": "<svg viewBox=\"0 0 64 64\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\"><circle cx=\"32\" cy=\"32\" r=\"30\" fill=\"#0E1F17\" stroke=\"#C9A24B\" stroke-width=\"2\"/><path fill=\"#C9A24B\" d=\"M32 6l5 7-3 3v6h5l2-2 2 2-2 2h-7v26l-2 8-2-8V24h-7l-2-2 2-2 2 2h5v-6l-3-3z\"/><path fill=\"#C9A24B\" d=\"M6 22h18c0 6 2 10 5 12v4c-2-1-4-2-5-3l-2 8-4-2 2-7-4 5-3-3 3-5-6 3-2-4 6-3H9z\"/><path fill=\"#C9A24B\" d=\"M58 22H40c0 6-2 10-5 12v4c2-1 4-2 5-3l2 8 4-2-2-7 4 5 3-3-3-5 6 3 2-4-6-3h5z\"/></svg>",
    "highlights": [
@@ -818,7 +818,9 @@ const DATA = {
      }
     }
    ],
-   "abilityTips": {}
+   "abilityTips": {},
+   "logo": "da_logo",
+   "rosterIcon": "da_roster"
   },
   {
    "id": "astraMilitarum",
@@ -103299,7 +103301,7 @@ const DATA = {
      "extraDoctrine": {
       "title": "Masterful Tactician",
       "phase": "Movement",
-      "target": "other",
+      "remind": true,
       "mode": "replace",
       "note": "Your Movement phase: one visible friendly ADEPTUS ASTARTES unit within 9″ of Azrael gets this doctrine until your next Command phase, in place of the army’s."
      }
@@ -103527,7 +103529,6 @@ const DATA = {
      "extraDoctrine": {
       "title": "Grand Master of the Ravenwing",
       "phase": "Command",
-      "target": "self",
       "mode": "replace",
       "note": "Your Command phase: Sammael’s unit gets this doctrine until your next Command phase, in place of the army’s."
      }
@@ -103975,7 +103976,6 @@ const DATA = {
      "extraDoctrine": {
       "title": "Master Strategist",
       "phase": "Command",
-      "target": "self",
       "mode": "add",
       "note": "Your Command phase: the Lion’s unit gets this doctrine too, in addition to the army’s, until your next Command phase."
      }

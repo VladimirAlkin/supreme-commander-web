@@ -30,6 +30,8 @@ const EXPECT = {
   /* the app's own layout: nesting by indentation, "Attached as" at column 0, "Enhancement: X (Upgrade)" */
   /* synthetic (written from the datasheets, not an official export): replace with a real export when the owner sends one */
   imperial_knights_synthetic: { army: 'imperialKnights', bs: 'onslaught', units: 8, links: 0, points: 2390, warlord: 'knight_paladin', enh: 'magos_questoris' },
+  /* synthetic as well: a Chapter army on the Space Marines pool (shared Captain in Terminator Armour leads Deathwing Knights through leaderOfExtra) */
+  dark_angels_synthetic: { army: 'darkAngels', units: 7, links: 1, points: 1280, warlord: 'lion_eljonson', enh: 'deathwing_assault' },
   world_eaters_indented: { army: 'worldEaters', units: 11, links: 3, points: 1995, warlord: 'angron', enh: 'berzerker_glaive' },
 };
 const summary = [];

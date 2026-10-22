@@ -265851,6 +265851,12 @@
    "why": "New army, Dark Angels (inherits the Space Marines pool by reference): own datasheets and detachments from BSData 11e (Dark Angels catalogue 14e21f4..db61485, detachments in the Space Marines catalogue) + Wahapedia 11e CSV (Dark Angels app 03.10.2026), points BSData = Wahapedia = MFM v1.6 (14.10.2026); DEATHWING 18 / RAVENWING 9 grants from BSData modifiers (= Wahapedia rules); keyword and profile choices in darkAngels_decisions.md; validate-data errors=0, 8 rosters (6 DA detachments, 2 SM) open at 390 px with a clean console (checked 2026-10-22)"
   },
   {
+   "path": ".darkAngels.units[0].extraDoctrine.remind",
+   "change": "ADDED",
+   "value": "true",
+   "why": "New army, Dark Angels (inherits the Space Marines pool by reference): own datasheets and detachments from BSData 11e (Dark Angels catalogue 14e21f4..db61485, detachments in the Space Marines catalogue) + Wahapedia 11e CSV (Dark Angels app 03.10.2026), points BSData = Wahapedia = MFM v1.6 (14.10.2026); DEATHWING 18 / RAVENWING 9 grants from BSData modifiers (= Wahapedia rules); keyword and profile choices in darkAngels_decisions.md; validate-data errors=0, 8 rosters (6 DA detachments, 2 SM) open at 390 px with a clean console (checked 2026-10-22)"
+  },
+  {
    "path": ".darkAngels.units[0].extraDoctrine.mode",
    "change": "ADDED",
    "value": "\"replace\"",

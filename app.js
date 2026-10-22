@@ -2066,22 +2066,20 @@
       return `<button class="ogr ${used ? 'used' : ''}" data-act="onceUse" data-u="${u.instanceId}" aria-pressed="${!!used}" ${dead ? 'aria-disabled="true"' : ''}>${sym ? `<img class="ogr-sym" src="${sym}" alt="" aria-hidden="true">` : '<span class="ogr-sym"></span>'}<span class="ogr-t"><b>${esc(dispName(r, u))}</b><span class="ogr-s">${dead ? 'Dead' : used ? `Used · round ${used}` : 'Ready'}</span></span></button>`; }).join('');
     return panel2(g.title, `<span class="badge ${left ? 'gold' : ''}">${left} ready</span>`, `<div class="dim" style="font-size:.9rem">${esc(g.note)}</div><div class="ogr-list">${rows}</div><div class="faint" style="font-size:.85rem">${esc(g.foot || 'Tap a unit when it uses it; tap again to undo.')}</div>`);
   }
-  /* A character's own combat doctrine on top of the army's pick (def.extraDoctrine: Azrael, Sammael, Lion El'Jonson).
-     {title, phase, target: 'self' | 'other', mode: 'replace' | 'add', note}. Not limited by the army's once-per-battle uses
-     (owner decision); 'add' cannot repeat the doctrine the army has active this round. State p.xdoc[instanceId][round] = {d, t}. */
+  /* A character's own combat doctrine on top of the army's pick (def.extraDoctrine: Sammael, Lion El'Jonson).
+     {title, phase, mode: 'replace' | 'add', note, remind?}. remind: only the ability's reminder, no pick (Azrael: owner decision).
+     Not limited by the army's once-per-battle uses (owner decision); 'add' cannot repeat the doctrine the army has active this
+     round. State p.xdoc[instanceId][round] = {d}. */
   function xdocHTML(r, p, u, def) {
-    const xd = def.extraDoctrine, fd = fdata(r.factionId), ar = fd.armyRules.find(a => a.imperatives); if (!ar) return '';
-    const key = ar.impKey || 'imp', army = (p[key] || {})[p.round], pick = ((p.xdoc || {})[u.instanceId] || {})[p.round] || {}, dead = unitDead(p, u);
-    const doc = ar.imperatives.find(i => i.id === pick.d), tgt = pick.t && r.units.find(x => x.instanceId === pick.t);
+    const xd = def.extraDoctrine, fd = fdata(r.factionId), ar = fd.armyRules.find(a => a.imperatives), dead = unitDead(p, u);
+    if (xd.remind || !ar) return panel2(xd.title, dead ? '<span class="badge">Dead</span>' : `<span class="badge">${esc(xd.phase)} phase</span>`, `<div class="dim" style="font-size:.9rem">${esc(dead ? def.name + ' is destroyed.' : xd.note)}</div>`);
+    const key = ar.impKey || 'imp', army = (p[key] || {})[p.round], pick = ((p.xdoc || {})[u.instanceId] || {})[p.round] || {};
+    const doc = ar.imperatives.find(i => i.id === pick.d);
     const cards = ar.imperatives.map(k => { const on = pick.d === k.id, block = xd.mode === 'add' && army === k.id;
       return `<button class="dct dct-${k.tone || 'steel'} ${on ? 'on' : ''}" data-act="xdPick" data-u="${u.instanceId}" data-id="${k.id}" data-fx="${k.fx || ar.impFx || ''}" aria-pressed="${on}" ${dead || block ? 'aria-disabled="true"' : ''}><span class="dct-gr" aria-hidden="true"></span>
         <span class="dct-t"><b>${esc(k.name)}</b><span class="dct-s">${block ? 'Army has it' : on ? 'Active' : 'Pick'}</span></span><span class="dct-e">${esc(k.effect)}</span></button>`; }).join('');
-    const grp = x => [x, ...r.units.filter(y => y.attachedTo === x.instanceId)];
-    const cands = xd.target === 'other' ? r.units.filter(x => !x.attachedTo && !unitDead(p, x) && grp(x).some(y => (unitDef(r.factionId, y.datasheetId) || {}).factionAbilities && (unitDef(r.factionId, y.datasheetId).factionAbilities || []).includes(ar.name))) : [];
-    const chips = xd.target === 'other' ? `<div class="chips pu-chips" role="group" aria-label="Target unit">${cands.map(x => `<button class="chip puc puc-plain" aria-pressed="${pick.t === x.instanceId}" data-act="xdTarget" data-u="${u.instanceId}" data-id="${x.instanceId}">${esc(grp(x).map(y => dispName(r, y)).join(' + '))}</button>`).join('')}</div>` : '';
-    const who = xd.target === 'other' ? (tgt ? grp(tgt).map(y => dispName(r, y)).join(' + ') : 'pick a unit') : dispName(r, u);
-    const badge = dead ? '<span class="badge">Dead</span>' : doc ? `<span class="badge gold">Round ${p.round}: ${esc(doc.name)} · ${esc(who)}</span>` : `<span class="badge">Round ${p.round}: ${esc(xd.phase)} phase</span>`;
-    return `<div class="panel pad stack trk dctr"><div class="row"><h3 class="grow">${esc(xd.title)}</h3>${badge}</div><div class="dim" style="font-size:.9rem">${esc(dead ? def.name + ' is destroyed.' : xd.note)}</div>${chips}<div class="dct-list">${cards}</div></div>`;
+    const badge = dead ? '<span class="badge">Dead</span>' : doc ? `<span class="badge gold">Round ${p.round}: ${esc(doc.name)}</span>` : `<span class="badge">Round ${p.round}: ${esc(xd.phase)} phase</span>`;
+    return `<div class="panel pad stack trk dctr"><div class="row"><h3 class="grow">${esc(xd.title)}</h3>${badge}</div><div class="dim" style="font-size:.9rem">${esc(dead ? def.name + ' is destroyed.' : xd.note)}</div><div class="dct-list">${cards}</div></div>`;
   }
   function oncePanelHTML(r, p, u, def) {
     const o = def.oncePerBattle, used = (p.once || {})[u.instanceId], dead = unitDead(p, u);
@@ -3498,12 +3496,8 @@
     xdPick: el => {
       if (el.getAttribute('aria-disabled') === 'true') { toast('The army already has this doctrine active this round.'); PL.haptic('reject'); return; }
       const r = cur(), iid = el.dataset.u, id = el.dataset.id, on = ((((playState(r).xdoc || {})[iid] || {})[playState(r).round]) || {}).d !== id;
-      playChange(r, p => { p.xdoc = p.xdoc || {}; const m = p.xdoc[iid] = p.xdoc[iid] || {}, c = m[p.round] = m[p.round] || {}; if (c.d === id) delete c.d; else c.d = id; if (!c.d && !c.t) delete m[p.round]; }, null, 'confirm');
+      playChange(r, p => { p.xdoc = p.xdoc || {}; const m = p.xdoc[iid] = p.xdoc[iid] || {}, c = m[p.round] = m[p.round] || {}; if (c.d === id) delete c.d; else c.d = id; if (!c.d) delete m[p.round]; }, null, 'confirm');
       if (on) mechFx(document.querySelector(`.dct[data-act="xdPick"][data-u="${iid}"][data-id="${id}"]`), el.dataset.fx);
-    },
-    xdTarget: el => {
-      const r = cur(), iid = el.dataset.u, id = el.dataset.id;
-      playChange(r, p => { p.xdoc = p.xdoc || {}; const m = p.xdoc[iid] = p.xdoc[iid] || {}, c = m[p.round] = m[p.round] || {}; if (c.t === id) delete c.t; else c.t = id; if (!c.d && !c.t) delete m[p.round]; }, null, 'confirm');
     },
     onceUse: el => {
       if (el.getAttribute('aria-disabled') === 'true') { PL.haptic('reject'); return; }
