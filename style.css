@@ -1801,7 +1801,7 @@ html:not(.m) .seg.wide { max-width: 560px; }
 
 /* ---- Space Marines: Combat Doctrine cards (dct-smA/D/T) and the aquila stamp (mfx m-aquila_*); detachment reminder sweep (m-sm_sweep) ---- */
 .dct-smA { --c: rgba(200, 32, 46, .4); --cb: #e8505a; } .dct-smD { --c: rgba(42, 99, 214, .4); --cb: #6f9cff; } .dct-smT { --c: rgba(233, 228, 216, .3); --cb: #e9e4d8; }
-.mfx[class*="m-aquila"] { --fx: #e9e4d8; overflow: hidden; border-radius: inherit; }
+.mfx[class*="m-aquila"] { --fx: #e9e4d8; overflow: hidden; border-radius: inherit; z-index: 0; }   /* behind the card text, never over it */
 .mfx.m-aquila_assault { --fx2: #e8505a; } .mfx.m-aquila_devastator { --fx2: #6f9cff; } .mfx.m-aquila_tactical { --fx2: #f2d58a; }
 .mf-aq { left: 50%; top: 50%; width: 92px; height: 58px; margin: -29px 0 0 -46px; fill: var(--fx); filter: drop-shadow(0 0 6px var(--fx2, #e8505a)); opacity: 0; animation: mfAqStamp 1.5s cubic-bezier(.2, .8, .25, 1) forwards; }
 .mf-aq-glyph { left: 50%; top: 50%; width: 30px; height: 30px; margin: -46px 0 0 -15px; fill: var(--fx2, #e8505a); filter: drop-shadow(0 0 8px var(--fx2, #e8505a)); opacity: 0; animation: mfAqGlyph 1.7s ease-out .35s forwards; }
