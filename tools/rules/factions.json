@@ -17,5 +17,6 @@
  "necrons":         { "wahapedia": ["NEC"],      "bsdata": ["Necrons.json"], "packVersion": "1.2", "wahapediaVersion": "1.2" },
  "tauEmpire":        { "wahapedia": ["TAU"],      "bsdata": ["T'au Empire.json"], "packVersion": "1.2", "wahapediaVersion": "1.2" },
  "imperialKnights":  { "wahapedia": ["QI"], "bsdata": ["Imperium - Imperial Knights.json", "Imperium - Imperial Knights - Library.json", "Imperium - Adeptus Mechanicus.json"], "packVersion": "1.2", "wahapediaVersion": "1.2" },
- "spaceMarines":     { "wahapedia": ["SM"], "bsdata": ["Imperium - Space Marines.json", "Imperium - Ultramarines.json", "Imperium - Imperial Fists.json", "Imperium - Iron Hands.json", "Imperium - Raven Guard.json", "Imperium - Salamanders.json", "Imperium - White Scars.json"], "packVersion": "codex-11e", "wahapediaVersion": "codex-11e" }
+ "spaceMarines":     { "wahapedia": ["SM"], "bsdata": ["Imperium - Space Marines.json", "Imperium - Ultramarines.json", "Imperium - Imperial Fists.json", "Imperium - Iron Hands.json", "Imperium - Raven Guard.json", "Imperium - Salamanders.json", "Imperium - White Scars.json"], "packVersion": "codex-11e", "wahapediaVersion": "codex-11e" },
+ "darkAngels":       { "wahapedia": ["SM"], "bsdata": ["Imperium - Dark Angels.json", "Imperium - Space Marines.json"], "packVersion": "app-2.8.1", "wahapediaVersion": "app-2.8.1" }
 }

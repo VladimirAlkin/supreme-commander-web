@@ -1,0 +1,490 @@
+{
+ "_meta": {
+  "faction": "darkAngels",
+  "factionName": "Dark Angels",
+  "dataVersion": "2026-10-22-da-app-bsdata",
+  "generatedAt": "2026-10-22",
+  "howTo": "docs/RULES-SOURCES.md",
+  "rules": [
+   "Edit ONLY the plain text fields. Keys starting with _ are context and are ignored.",
+   "Plain text only: no HTML, no markdown, no ** or [] markup. Highlighting is automatic.",
+   "Keep ALL-CAPS keywords, dice notation (D3, D6, 2D6, D6+3) and quotes/inches as written.",
+   "armyRules text is a list: one entry per paragraph.",
+   "Leave a field unchanged if you have not done it yet. Never delete a key."
+  ],
+  "counts": {
+   "armyRules": 0,
+   "detachmentRules": 3,
+   "stratagems": 12,
+   "enhancements": 8,
+   "unitAbilities": 41
+  }
+ },
+ "armyRules": {},
+ "detachments": {
+  "inner_circle_task_force": {
+   "_name": "Inner Circle Task Force",
+   "rule": {
+    "_name": "Vowed Target",
+    "text": "In your Command phase, you can use this ability. If you do, select one objective. That objective is your vowed objective until your next Command phase. ■ Friendly DEATHWING INFANTRY unit’s attacks that target an enemy unit within range of your vowed objective have +1 to wound rolls. Restrictions: Your army can include DARK ANGELS units, but it cannot include any ADEPTUS ASTARTES units drawn from any other Chapter."
+   },
+   "stratagems": {
+    "wrath_of_the_lion": {
+     "_name": "Wrath of the Lion",
+     "_cp": 1,
+     "_type": "Inner Circle Task Force",
+     "_phases": [
+      "Charge"
+     ],
+     "when": "Your Charge phase, when a friendly DEATHWING unit ends a charge move.",
+     "target": "That DEATHWING unit.",
+     "effect": "Select one enemy unit engaged with your unit. If you do, roll one D6 for each model in your unit engaged with that enemy unit: ■ For each 3+, that enemy unit suffers 1 mortal wound (to a maximum of 6 mortal wounds).",
+     "restrictions": null
+    },
+    "duty_unto_death": {
+     "_name": "Duty Unto Death",
+     "_cp": 1,
+     "_type": "Inner Circle Task Force",
+     "_phases": [
+      "Fight"
+     ],
+     "when": "Fight phase, when an enemy unit targets a friendly DEATHWING unit.",
+     "target": "That DEATHWING unit.",
+     "effect": "When a model in your unit is destroyed, if your unit has not been selected to fight this phase, roll one D6, with +1 to that roll if your unit is engaged with an enemy unit within range of your vowed objective: ■ On a 4+, do not remove that model from the battlefield. When your unit has fought, or at the end of the phase (whichever comes first), that model is removed from the battlefield.",
+     "restrictions": null
+    },
+    "relic_teleportarium": {
+     "_name": "Relic Teleportarium",
+     "_cp": 1,
+     "_type": "Inner Circle Task Force",
+     "_phases": [
+      "Movement"
+     ],
+     "when": "Your Movement phase, when a friendly DEATHWING unit with the Deep Strike ability is selected to make an ingress move.",
+     "target": "That DEATHWING unit.",
+     "effect": "■ Your unit can be set up more than 6\" horizontally from all enemy units (instead of more than 8\"). ■ Your unit is not eligible to declare a charge until the end of this turn.",
+     "restrictions": null
+    }
+   },
+   "enhancements": {
+    "singular_will": {
+     "_name": "Singular Will",
+     "_pts": 20,
+     "text": "DEATHWING model only. When this unit is selected to make a consolidation move, this unit can move up to D3+3\"."
+    },
+    "champion_of_the_deathwing": {
+     "_name": "Champion of the Deathwing",
+     "_pts": 20,
+     "text": "DEATHWING model only. This unit’s attacks that target an enemy unit within range of your vowed objective have [SUSTAINED HITS 1]."
+    }
+   }
+  },
+  "wrath_of_the_rock": {
+   "_name": "Wrath of the Rock",
+   "rule": {
+    "_name": "Dutiful Tenacity",
+    "text": "Attacks that target friendly ADEPTUS ASTARTES INFANTRY/MOUNTED units with a S greater than that unit’s T have -1 to wound rolls. Restrictions: Your army can include DARK ANGELS units, but it cannot include any ADEPTUS ASTARTES units drawn from any other Chapter."
+   },
+   "stratagems": {
+    "in_sacrifice_victory": {
+     "_name": "In Sacrifice, Victory",
+     "_cp": 1,
+     "_type": "Wrath of the Rock",
+     "_phases": [
+      "Any"
+     ],
+     "when": "Any phase, when a friendly DEATHWING/RAVENWING unit within range of an objective is destroyed.",
+     "target": "That DEATHWING/RAVENWING unit. You can target that unit with this stratagem even though it is destroyed.",
+     "effect": "Select one objective: ■ That no enemy units (excluding AIRCRAFT units) are within range of. ■ That your unit was controlling at the end of the previous phase. That objective is secured.",
+     "restrictions": null
+    },
+    "lions_will": {
+     "_name": "Lion's Will",
+     "_cp": 1,
+     "_type": "Wrath of the Rock",
+     "_phases": [
+      "Command"
+     ],
+     "when": "Command phase.",
+     "target": "One friendly ADEPTUS ASTARTES unit that is within range of an objective.",
+     "effect": "Your unit has +1 OC until the end of the turn.",
+     "restrictions": null
+    },
+    "inescapable_justice": {
+     "_name": "Inescapable Justice",
+     "_cp": 1,
+     "_type": "Wrath of the Rock",
+     "_phases": [
+      "Fight"
+     ],
+     "when": "The Fight phase, when a friendly ADEPTUS ASTARTES unit is selected to fight.",
+     "target": "That ADEPTUS ASTARTES unit.",
+     "effect": "Your unit's melee attacks have [Precision].",
+     "restrictions": null
+    },
+    "tactical_mastery": {
+     "_name": "Tactical Mastery",
+     "_cp": 1,
+     "_type": "Wrath of the Rock",
+     "_phases": [
+      "Command"
+     ],
+     "when": "Your Command phase.",
+     "target": "One friendly DEATHWING/RAVENWING unit.",
+     "effect": "Select one combat doctrine. That combat doctrine is active for your unit until the start of your next Command phase.",
+     "restrictions": null
+    },
+    "knights_of_iron": {
+     "_name": "Knights of Iron",
+     "_cp": 1,
+     "_type": "Wrath of the Rock",
+     "_phases": [
+      "Movement",
+      "Charge"
+     ],
+     "when": "Your Movement/Charge phase, when a friendly RAVENWING unit is selected to move or declares a charge.",
+     "target": "That RAVENWING unit.",
+     "effect": "Your unit has Mobile.",
+     "restrictions": null
+    },
+    "relics_of_the_dark_age": {
+     "_name": "Relics of the Dark Age",
+     "_cp": 1,
+     "_type": "Wrath of the Rock",
+     "_phases": [
+      "Shooting"
+     ],
+     "when": "Your Shooting phase, when a friendly ADEPTUS ASTARTES INFANTRY/MOUNTED unit is selected to shoot.",
+     "target": "That ADEPTUS ASTARTES INFANTRY/MOUNTED unit.",
+     "effect": "Your unit’s ranged attacks have +2 S.",
+     "restrictions": null
+    }
+   },
+   "enhancements": {
+    "tempered_in_battle_wrath": {
+     "_name": "Tempered in Battle (Aura)",
+     "_pts": 10,
+     "text": "ADEPTUS ASTARTES model only. Friendly ADEPTUS ASTARTES units within 6\" of this model can re-roll leadership rolls."
+    },
+    "lord_of_the_ravenwing": {
+     "_name": "Lord of the Ravenwing",
+     "_pts": 15,
+     "text": "RAVENWING model only. This unit can re-roll charge rolls."
+    },
+    "deathwing_assault": {
+     "_name": "Deathwing Assault",
+     "_pts": 15,
+     "text": "DEATHWING model with the Deep Strike ability only. In your first Movement phase, this unit can make an ingress move."
+    },
+    "ancient_weapons": {
+     "_name": "Ancient Weapons",
+     "_pts": 20,
+     "text": "ADEPTUS ASTARTES model only. This model’s melee attacks: ■ Have +2 S. ■ Have +1 AP."
+    }
+   }
+  },
+  "darkflight_pursuit": {
+   "_name": "Darkflight Pursuit",
+   "rule": {
+    "_name": "Black-winged Vigilance",
+    "text": "Friendly RAVENWING FLY units’ ranged attacks have [IGNORES COVER]. Friendly Outrider squad units have BATTLELINE. Restrictions: Your army can include DARK ANGELS units, but it cannot include any ADEPTUS ASTARTES units drawn from any other Chapter."
+   },
+   "stratagems": {
+    "wings_of_shadow": {
+     "_name": "Wings of Shadow",
+     "_cp": 1,
+     "_type": "Darkflight Pursuit",
+     "_phases": [
+      "Shooting"
+     ],
+     "when": "Your opponent’s Shooting phase, when an enemy unit targets a friendly RAVENWING FLY/MOUNTED unit.",
+     "target": "That RAVENWING FLY/MOUNTED unit.",
+     "effect": "Your unit has Stealth.",
+     "restrictions": null
+    },
+    "skyborne_surveillance": {
+     "_name": "Skyborne Surveillance",
+     "_cp": 1,
+     "_type": "Darkflight Pursuit",
+     "_phases": [
+      "Shooting"
+     ],
+     "when": "Your Shooting phase, when a friendly RAVENWING FLY unit has shot.",
+     "target": "That RAVENWING FLY unit.",
+     "effect": "Visible enemy units within 6\" of your unit have +3\" detection range.",
+     "restrictions": null
+    },
+    "we_are_vengeance": {
+     "_name": "We Are Vengeance",
+     "_cp": 1,
+     "_type": "Darkflight Pursuit",
+     "_phases": [
+      "Shooting"
+     ],
+     "when": "Your opponent’s Shooting phase, when an enemy unit that targeted a friendly unengaged RAVENWING FLY unit has shot.",
+     "target": "That RAVENWING FLY unit.",
+     "effect": "Your unit can make a normal move of up to D3+3\".",
+     "restrictions": null
+    }
+   },
+   "enhancements": {
+    "thundercowl_turbines": {
+     "_name": "Thundercowl Turbines",
+     "_pts": 15,
+     "text": "RAVENWING FLY/RAVENWING MOUNTED unit only. In your first Movement phase, this unit can make an ingress move."
+    },
+    "nightforged_battery": {
+     "_name": "Nightforged Battery",
+     "_pts": 10,
+     "text": "Land Speeder Vengeance unit only. This unit can re-roll: ■ Rolls to determine the A of a weapon. ■ Hazard rolls."
+    }
+   }
+  }
+ },
+ "units": {
+  "azrael": {
+   "_name": "Azrael",
+   "abilities": {
+    "Masterful Tactician": {
+     "_kind": "datasheet",
+     "text": "In your Movement phase, select up to one visible friendly ADEPTUS ASTARTES unit within 9\" of this model, and select one combat doctrine. That combat doctrine is active for that unit until the start of your next Command phase."
+    },
+    "Supreme Grand Master": {
+     "_kind": "datasheet",
+     "text": "This unit’s attacks have [SUSTAINED HITS 1]."
+    },
+    "Watcher in the Dark (Once per battle, per unit)": {
+     "_kind": "datasheet",
+     "text": "In any phase, when this unit suffers a mortal wound, this unit can summon a Watcher in the Dark. If it does, this unit has Feel No Pain 4+ against mortal wounds."
+    },
+    "The Lion Helm": {
+     "_kind": "wargear",
+     "text": "This unit has 4+ InSv."
+    }
+   }
+  },
+  "belial": {
+   "_name": "Belial",
+   "abilities": {
+    "Grand Master of the Deathwing": {
+     "_kind": "datasheet",
+     "text": "This unit’s attacks that target an enemy CHARACTER unit have +1 to wound rolls."
+    },
+    "Strikes of Retribution": {
+     "_kind": "datasheet",
+     "text": "In the fight phase, when this model is destroyed, if this unit has not been selected to fight this phase, roll one D6: ■ On a 2+, do not remove this model from the battlefield. When your unit has fought, or at the end of the phase (whichever comes first), this model is removed from the battlefield."
+    }
+   }
+  },
+  "sammael": {
+   "_name": "Sammael",
+   "abilities": {
+    "Cut Off Their Escape": {
+     "_kind": "datasheet",
+     "text": "When an enemy unit engaged with this unit (excluding MONSTER/VEHICLE units) makes a fall-back move, that enemy unit must use the desperate escape mode. If that enemy unit is battle-shocked, -1 from those hazard rolls."
+    },
+    "Grand Master of the Ravenwing": {
+     "_kind": "datasheet",
+     "text": "■ This unit has Mobile. ■ In your Command phase, you can use this ability. If you do, select one combat doctrine to be active for this unit until the start of your next Command phase."
+    }
+   }
+  },
+  "ezekiel": {
+   "_name": "Ezekiel",
+   "abilities": {
+    "Book of Salvation": {
+     "_kind": "datasheet",
+     "text": "This unit’s melee attacks have +1 A."
+    },
+    "Chief Librarian (psyker level 3)": {
+     "_kind": "datasheet",
+     "text": "This model has the psychic abilities listed in the Psychic Abilities section."
+    },
+    "Psychic Hood": {
+     "_kind": "datasheet",
+     "text": "This unit has Feel No Pain 4+ against psychic attacks and mortal wounds."
+    },
+    "Engulfing Fear (psychic level 1)": {
+     "_kind": "datasheet",
+     "text": "In your Shooting phase, if this unit is not battle-shocked, you can make a psychic roll for this unit by rolling one D6. If you do: ■ On a 1, this unit is battle-shocked. ■ Select one enemy unit within 12\" of this model. That unit makes a battle-shock roll with -1 to that battle-shock roll."
+    },
+    "Whispers of the Shadow Forest (psychic level 1)": {
+     "_kind": "datasheet",
+     "text": "When an enemy unit targets this unit, if this unit is not battle-shocked, you can make a psychic roll for this unit by rolling one D6. If you do: ■ On a 1, this unit is battle-shocked. ■ Attacks that target this unit have -1 to hit rolls until the end of the phase."
+    }
+   }
+  },
+  "asmodai": {
+   "_name": "Asmodai",
+   "abilities": {
+    "Exemplar of Hate": {
+     "_kind": "datasheet",
+     "text": "This unit’s melee attacks can re-roll hit rolls."
+    },
+    "Feared Interrogator": {
+     "_kind": "datasheet",
+     "text": "At the start of the Fight phase, each enemy CHARACTER unit within 6\" of this model makes a battle-shock roll, with -1 to that battle-shock roll."
+    }
+   }
+  },
+  "lion_eljonson": {
+   "_name": "Lion El'Jonson",
+   "abilities": {
+    "Dark Angels Bodyguard": {
+     "_kind": "datasheet",
+     "text": "While this unit is within 3\" of a friendly DARK ANGELS INFANTRY unit, this unit has Lone Operative."
+    },
+    "The Emperor's Shield": {
+     "_kind": "datasheet",
+     "text": "Attacks that target this unit with a S greater than this unit’s T have -1 to wound rolls."
+    },
+    "Primarch of the First Legion": {
+     "_kind": "datasheet",
+     "text": "At the start of your Command phase, you can select up to two of the abilities in the Primarch of the First Legion section. Until the start of your next Command phase, this model has those abilities."
+    },
+    "The Watchers": {
+     "_kind": "datasheet",
+     "text": "This unit has Feel No Pain 4+ against psychic attacks and mortal wounds."
+    },
+    "Master Strategist": {
+     "_kind": "datasheet",
+     "text": "In your Command phase, you can use this ability. If you do, select one combat doctrine to be active for this unit until the start of your next Command phase, in addition to any other combat doctrine."
+    },
+    "Mist-wreathed Shadow Realms": {
+     "_kind": "datasheet",
+     "text": "In your Command phase, if this unit is unengaged, you can use this ability. If you do: ■ Place this unit in strategic reserves. ■ This unit can make an ingress move in your next Movement phase (including in your first turn)."
+    },
+    "Martial Exemplar": {
+     "_kind": "datasheet",
+     "text": "While a friendly DARK ANGELS unit is within 6\" of this unit, that unit’s melee attacks can: ■ Re-roll hit rolls of 1. ■ Re-roll wound rolls of 1."
+    },
+    "No Hiding from the Watchers": {
+     "_kind": "datasheet",
+     "text": "While a friendly DARK ANGELS unit is within 6\" of this unit, that unit has Feel No Pain 5+ against psychic attacks and mortal wounds."
+    },
+    "Supreme Commander": {
+     "_kind": "datasheet",
+     "text": "If this model is in your army, it must be your WARLORD."
+    }
+   }
+  },
+  "lazarus": {
+   "_name": "Lazarus",
+   "abilities": {
+    "Intractable Will": {
+     "_kind": "datasheet",
+     "text": "In the Fight phase, when a model in this unit is destroyed, if this unit has not been selected to fight this phase, roll one D6: ■ On a 4+, do not remove that model from the battlefield. When your unit has fought, or at the end of the phase (whichever comes first), that model is removed from the battlefield."
+    },
+    "The Spiritshield Helm": {
+     "_kind": "datasheet",
+     "text": "This unit has Feel No Pain 3+ against psychic attacks and mortal wounds."
+    }
+   }
+  },
+  "nephilim_jetfighter": {
+   "_name": "Nephilim Jetfighter",
+   "abilities": {
+    "Lightning-fast Manoeuvres": {
+     "_kind": "datasheet",
+     "text": "Ranged attacks that target this unit have -1 to wound rolls."
+    }
+   }
+  },
+  "ravenwing_dark_talon": {
+   "_name": "Ravenwing Dark Talon",
+   "abilities": {
+    "Stasis Bomb": {
+     "_kind": "datasheet",
+     "text": "At the end of your opponent’s Fight phase, select one visible enemy unit (excluding AIRCRAFT/Lone Operative units) within 24\" of this unit. That enemy unit is slowed until the end of your opponent’s next Movement phase: ■ While a unit is slowed, in your opponent’s Movement phase, when that unit is selected to move, unless that unit remains stationary, roll one D6: ■ On a 1-4, that unit suffers D3 mortal wounds and that unit has -2\" M. ■ On a 5-6, that unit suffers 2D3 mortal wounds and that unit has -3\" M."
+    }
+   }
+  },
+  "land_speeder_vengeance": {
+   "_name": "Land Speeder Vengeance",
+   "abilities": {
+    "Storm of Vengeance (Once per turn, per unit)": {
+     "_kind": "datasheet",
+     "text": "In your opponent’s Shooting phase, when an enemy unit has shot, if those attacks destroyed a friendly DARK ANGELS unit within 6\" of this unit, you can use this ability. If you do, this unit shoots using normal shooting but while doing so this unit can only target that enemy unit."
+    }
+   }
+  },
+  "ravenwing_darkshroud": {
+   "_name": "Ravenwing Darkshroud",
+   "abilities": {
+    "Icon of Old Caliban": {
+     "_kind": "datasheet",
+     "text": "While a friendly DARK ANGELS unit is within 6\" of this unit, that unit has Stealth."
+    }
+   }
+  },
+  "ravenwing_black_knights": {
+   "_name": "Ravenwing Black Knights",
+   "abilities": {
+    "Knights of Caliban": {
+     "_kind": "datasheet",
+     "text": "If this unit made a charge move this turn, this unit’s melee attacks have [ANTI-MONSTER/VEHICLE 4+]."
+    }
+   }
+  },
+  "ravenwing_command_squad": {
+   "_name": "Ravenwing Command Squad",
+   "abilities": {
+    "Astartes Banner": {
+     "_kind": "datasheet",
+     "text": "While this unit contains a Ravenwing Ancient, this unit has +1 OC."
+    },
+    "Honour or Death": {
+     "_kind": "datasheet",
+     "text": "While this unit contains a Ravenwing Champion: ■ This unit has +1 to advance rolls and charge rolls. ■ When you target this unit with the Heroic Intervention stratagem, that use is -1CP."
+    },
+    "Narthecium": {
+     "_kind": "datasheet",
+     "text": "While this unit contains a Ravenwing Apothecary, in your Command phase, this unit heals D3+1 wounds."
+    }
+   }
+  },
+  "deathwing_knights": {
+   "_name": "Deathwing Knights",
+   "abilities": {
+    "Inner Circle": {
+     "_kind": "datasheet",
+     "text": "■ Attacks that target this unit have -1 D. ■ This unit cannot be targeted with the Tactical Dreadnought Fortitude stratagem."
+    },
+    "Teleport Homer (Once per battle, per unit)": {
+     "_kind": "datasheet",
+     "text": "At the start of the battle, you can set up one Teleport Homer token for this unit on the battlefield. If you do: ■ When you target this unit with the Rapid Ingress stratagem, you can use that Teleport Homer token. If you do, that use is -1 CP, but when resolving that stratagem, this unit must be set up within 3\" of that Teleport Homer token and not within 8\" of an enemy unit. That Teleport Homer token is then removed from the battlefield. ■ If an enemy unit ends a move within 1\" of that Teleport Homer token, that Teleport Homer token is removed from the battlefield."
+    },
+    "Watcher in the Dark": {
+     "_kind": "wargear",
+     "text": "Once per battle, in any phase, just after a mortal wound is allocated to an ADEPTUS ASTARTES model in this unit, this unit can summon a Watcher in the Dark. When it does, until the end of the phase, models in this unit have the Feel No Pain 4+ ability against mortal wounds. Designer’s Note: Place a Watcher in the Dark token next to the unit, removing it when this ability has been used."
+    }
+   }
+  },
+  "deathwing_terminator_squad": {
+   "_name": "Deathwing Terminator Squad",
+   "abilities": {
+    "Deathwing": {
+     "_kind": "datasheet",
+     "text": "This unit’s attacks can ignore modifiers to: ■ BS and WS. ■ Hit rolls."
+    },
+    "Watcher in the Dark": {
+     "_kind": "wargear",
+     "text": "Once per battle, in any phase, just after a mortal wound is allocated to an ADEPTUS ASTARTES model in this unit, this unit can summon a Watcher in the Dark. When it does, until the end of the phase, models in this unit have the Feel No Pain 4+ ability against mortal wounds. Designer’s Note: Place a Watcher in the Dark token next to the unit, removing it when this ability has been used."
+    }
+   }
+  },
+  "inner_circle_companions": {
+   "_name": "Inner Circle Companions",
+   "abilities": {
+    "Braziers of Judgement": {
+     "_kind": "datasheet",
+     "text": "■ This unit has Stealth. ■ Melee attacks that target this unit have -1 to hit rolls."
+    },
+    "Emnity for the Unworthy": {
+     "_kind": "datasheet",
+     "text": "This unit’s attacks that target a CHARACTER unit have +1 to hit rolls."
+    }
+   }
+  }
+ }
+}

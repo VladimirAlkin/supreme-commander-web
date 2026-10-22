@@ -108,6 +108,14 @@ for (const f of L.factions(data)) {
       if ((u.keywords || []).some(k => String(k).toLowerCase() === g.keyword.toLowerCase())) err('E-GRANTDUP', `${f}.${id}`, `datasheet already carries "${g.keyword}", which the army grants`);
     }
   }
+  /* fd.leaderOfExtra {leaderId: [unitIds]}: both ends must be datasheets this army fields */
+  for (const [lid, ids] of Object.entries(fd.leaderOfExtra || {})) {
+    const lw = `${f}.leaderOfExtra.${lid}`;
+    if (!fielded.some(x => x.id === lid)) err('E-MECH', lw, `leader ${lid} is not a datasheet this army fields`);
+    if (!Array.isArray(ids) || !ids.length) { err('E-MECH', lw, 'needs a non-empty list of unit ids'); continue; }
+    for (const id of ids) if (!fielded.some(x => x.id === id)) err('E-MECH', lw, `names ${id}, which this army does not field`);
+  }
+  if (fd.armyKeyword !== undefined && (typeof fd.armyKeyword !== 'string' || !fd.armyKeyword)) err('E-MECH', `${f}.armyKeyword`, 'must be a non-empty string');
 
   const detIds = new Set();
   for (const d of fd.detachments || []) {

@@ -53,6 +53,11 @@ const Engine = (function () {
         fd.armyRules = src.armyRules.slice();
         Object.defineProperty(fd.armyRules, 'toJSON', { value: () => orig, enumerable: false });
       }
+      if (!(fd.alliedFactions || []).length && (src.alliedFactions || []).length) {   // allies of the source army (Freeblades) by reference too
+        const orig = fd.alliedFactions;
+        fd.alliedFactions = src.alliedFactions.slice();
+        Object.defineProperty(fd.alliedFactions, 'toJSON', { value: () => orig, enumerable: false });
+      }
       if (Array.isArray(src.terms)) {   // highlighted phrases: the army's own plus the source's (its army rules come with them)
         const orig = fd.terms;
         fd.terms = [...new Set((orig || []).concat(src.terms))];
@@ -61,6 +66,10 @@ const Engine = (function () {
     });
     return DATA;
   }
+  /* Bodyguard units a datasheet can lead in this army: its own leaderOf plus the army's fd.leaderOfExtra (a Chapter army whose
+     shared characters lead its own squads: Dark Angels' Captain in Terminator Armour -> Deathwing Knights), so the source
+     army's datasheets stay untouched. */
+  function leadsOf(def, fd) { return [...new Set([...(def.leaderOf || []), ...(((fd && fd.leaderOfExtra) || {})[def.id] || [])])]; }
   /* Own datasheets plus referenced ones; an id the army already has always wins. */
   function unitsOf(fd, DATA) {
     const own = new Set(fd.units.map(u => u.id));
@@ -109,6 +118,8 @@ const Engine = (function () {
        and an enhancement's factionSwap replaces it. */
     const fac = inst ? factionOf(inst, def, ctx) : def.faction;
     if (fac) kw.add(keywordAsOf(ctx, fac));
+    /* an army-wide keyword every own or inherited unit carries (fd.armyKeyword: DARK ANGELS), not its allies */
+    if (ctx.fd && ctx.fd.armyKeyword && !(ctx.refGroup && ctx.refGroup[def.id])) kw.add(ctx.fd.armyKeyword);
     /* detachment grants apply while it is chosen; an army's own grants (fd.grantKeywords, same shape) apply to its units,
        referenced ones included (Dark Angels: listed ADEPTUS ASTARTES units gain DEATHWING) */
     [ctx.fd || {}].concat(ctx.dets).forEach(d => (d.grantKeywords || []).forEach(g => { if ((g.unitIds || []).includes(def.id)) kw.add(g.keyword); }));
@@ -685,11 +696,11 @@ const Engine = (function () {
   function canLead(def, inst, roster, DATA) {
     const ctx = ctxFor(roster, DATA);
     const extra = (inst ? enhIds(inst) : []).flatMap(id => (ctx.allEnh[id] || {}).leaderOf || []);
-    return [...new Set([...(def.leaderOf || []), ...extra])];
+    return [...new Set([...leadsOf(def, ctx.fd), ...extra])];
   }
 
   function eligibleReason(e, inst, roster, DATA) { const ctx = ctxFor(roster, DATA); const def = ctx.unitById[inst.datasheetId]; return eligible(e, def, inst, ctx); }
-  return { subOk, subName, refUnits, unitsOf, inherit, pickUnits, allyBlock, alliedOneOf, alliedCaps, alliedPtsCap, alliedEff, alliedPtsInfo, warlordBlock, grantsFor, instGrants, dispositionsOf, dataVersionFor, eligibleReason, ctxFor, points, validate, copyLimit, nextCopyInfo, enhancementCount, enhancementBlock, bindingsFor, optionMax, slotSize, slotUsed, ownCap, keywordsOf, hasKw, factionOf, buffed, attachedGroup, canLead, attachBlock, carries, enhIds, addStat, ORD };
+  return { subOk, subName, refUnits, unitsOf, leadsOf, inherit, pickUnits, allyBlock, alliedOneOf, alliedCaps, alliedPtsCap, alliedEff, alliedPtsInfo, warlordBlock, grantsFor, instGrants, dispositionsOf, dataVersionFor, eligibleReason, ctxFor, points, validate, copyLimit, nextCopyInfo, enhancementCount, enhancementBlock, bindingsFor, optionMax, slotSize, slotUsed, ownCap, keywordsOf, hasKw, factionOf, buffed, attachedGroup, canLead, attachBlock, carries, enhIds, addStat, ORD };
 })();
 if (typeof DATA !== 'undefined') Engine.inherit(DATA);
 if (typeof module !== 'undefined') module.exports = Engine;

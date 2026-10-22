@@ -1294,7 +1294,11 @@
         <div class="dpchoices">${dp.refChoices.map(c => `<div class="dpchoice"><b>${esc(c.name)}</b><span class="dim">${esc(c.effect)}</span></div>`).join('')}</div>
         ${off ? `<div class="faint" style="font-size:.85rem">${esc(off.note)}</div>` : `<div class="faint" style="font-size:.85rem">${esc(dp.refNote || '')}</div>`}</div>`));
     }
-    r.units.forEach(u => { const def = unitDef(r.factionId, u.datasheetId); if (def && def.roundPick) out.unshift(roundPickHTML(r, p, u, def)); if (def && def.phaseTrigger) out.unshift(phaseTriggerHTML(r, p, u, def)); if (def && def.oncePerBattle && onceNeeds(u, def.oncePerBattle)) out.push(oncePanelHTML(r, p, u, def)); });
+    const onceGroups = {};
+    r.units.forEach(u => { const def = unitDef(r.factionId, u.datasheetId); if (def && def.roundPick) out.unshift(roundPickHTML(r, p, u, def)); if (def && def.phaseTrigger) out.unshift(phaseTriggerHTML(r, p, u, def));
+      if (def && def.oncePerBattle && onceNeeds(u, def.oncePerBattle)) { const g = def.oncePerBattle.group; if (g) (onceGroups[g.id] = onceGroups[g.id] || { g, us: [] }).us.push(u); else out.push(oncePanelHTML(r, p, u, def)); }
+      if (def && def.extraDoctrine) out.push(xdocHTML(r, p, u, def)); });
+    Object.values(onceGroups).forEach(x => out.push(onceGroupHTML(r, p, x.g, x.us)));
     fd.armyRules.filter(a => a.imperatives).forEach(a => out.unshift(doctrinaHTML(p, a, r)));
     fd.armyRules.filter(a => a.counter).forEach(a => out.unshift(tokenPoolHTML(r, p, a, dets)));
     fd.armyRules.filter(a => a.markTracker).forEach(a => out.unshift(markTrackerHTML(r, p, a)));
@@ -1478,17 +1482,19 @@
   /* A unit that takes one ability each battle round (Angron's Wrathful Presence, Magnus' Crimson King).
      State p.rpick[instanceId][round] = option id. Cards in the unit's own style: 'wrath' (blood) or 'eye' (warp). */
   /* the option in force: this round's pick, or (persist) the latest earlier pick, or the default */
+  /* rp.max > 1 (Lion El'Jonson: up to two Primarch abilities): this round's picks are an array; rpSel gives them for any max */
+  function rpSel(p, u, rp) { const v = rp.max > 1 ? ((p.rpick || {})[u.instanceId] || {})[p.round] : rpCur(p, u, rp); return Array.isArray(v) ? v : v ? [v] : []; }
   function rpCur(p, u, rp) {
     const m = (p.rpick || {})[u.instanceId] || {};
-    if (m[p.round]) return m[p.round];
+    if (m[p.round]) return Array.isArray(m[p.round]) ? m[p.round][0] || null : m[p.round];
     if (!rp.persist) return null;
     for (let rd = p.round - 1; rd >= 1; rd--) if (m[rd]) return m[rd];
     return rp.default || null;
   }
   function roundPickHTML(r, p, u, def) {
-    const rp = def.roundPick, cur = rpCur(p, u, rp), dead = unitDead(p, u), opt = rp.options.find(o => o.id === cur);
-    const badge = dead ? '<span class="badge">Dead</span>' : opt ? `<span class="badge gold">Round ${p.round}: ${esc(opt.name)}</span>` : `<span class="badge ${p.turn === (p.first || 'mine') ? 'gold' : ''}">Round ${p.round}: pick one</span>`;
-    const cards = rp.options.map((o, i) => `<button class="rpk rpk-${rp.style} ${cur === o.id ? 'on' : ''}" style="--d:-${(i * 1.4).toFixed(1)}s" data-act="rpPick" data-u="${u.instanceId}" data-id="${o.id}" aria-pressed="${cur === o.id}" ${dead ? 'aria-disabled="true"' : ''}>${rp.style === 'canticle' ? `<span class="ctg" aria-hidden="true" style="--c:${CANT[(o.fx || '').split('-')[1]] || CANT.gold}">${cogSvg('ctg-1')}${cogSvg('ctg-2')}${cogSvg('ctg-3')}</span>` : ''}<span class="rpk-mark" aria-hidden="true" ${rp.style === 'wrath' && IMG.we_rune ? `style="--rune:url('${IMG.we_rune}')"` : rp.style === 'slaanesh' && IMG.ec_slaanesh ? `style="--sym:url('${IMG.ec_slaanesh}')"` : ''}></span>${rp.style === 'slaanesh' ? SL_DECO : ''}<span class="rpk-t"><b>${esc(o.name)}</b></span><span class="rpk-s">${cur === o.id ? 'Active' : dead ? '' : 'Pick'}</span><span class="rpk-e">${esc(o.effect)}</span></button>`).join('');
+    const rp = def.roundPick, sel = rpSel(p, u, rp), dead = unitDead(p, u), opts = rp.options.filter(o => sel.includes(o.id)), multi = rp.max > 1;
+    const badge = dead ? '<span class="badge">Dead</span>' : opts.length ? `<span class="badge gold">Round ${p.round}: ${esc(opts.map(o => o.name).join(' + '))}</span>` : `<span class="badge ${p.turn === (p.first || 'mine') ? 'gold' : ''}">Round ${p.round}: ${multi ? `pick up to ${rp.max}` : 'pick one'}</span>`;
+    const cards = rp.options.map((o, i) => `<button class="rpk rpk-${rp.style} ${sel.includes(o.id) ? 'on' : ''}" style="--d:-${(i * 1.4).toFixed(1)}s" data-act="rpPick" data-u="${u.instanceId}" data-id="${o.id}" aria-pressed="${sel.includes(o.id)}" ${dead ? 'aria-disabled="true"' : ''}>${rp.style === 'canticle' ? `<span class="ctg" aria-hidden="true" style="--c:${CANT[(o.fx || '').split('-')[1]] || CANT.gold}">${cogSvg('ctg-1')}${cogSvg('ctg-2')}${cogSvg('ctg-3')}</span>` : ''}<span class="rpk-mark" aria-hidden="true" ${rp.style === 'wrath' && IMG.we_rune ? `style="--rune:url('${IMG.we_rune}')"` : rp.style === 'slaanesh' && IMG.ec_slaanesh ? `style="--sym:url('${IMG.ec_slaanesh}')"` : ''}></span>${rp.style === 'slaanesh' ? SL_DECO : ''}<span class="rpk-t"><b>${esc(o.name)}</b></span><span class="rpk-s">${sel.includes(o.id) ? 'Active' : dead ? '' : 'Pick'}</span><span class="rpk-e">${esc(o.effect)}</span></button>`).join('');
     return `<div class="panel pad stack trk rpanel rpanel-${rp.style} ${dead ? 'dead' : ''}"><div class="row"><h3 class="grow">${esc(rp.title)}</h3>${badge}</div>
       <div class="dim" style="font-size:.9rem">${esc(dead ? rp.deadNote : rp.note)}</div><div class="rpk-list">${cards}</div></div>`;
   }
@@ -1645,6 +1651,33 @@
     fx.innerHTML = '<div class="kf-wash"></div>'
       + `<div class="kf-box"><img class="kf-head" src="${IMG.nec_king_head}" alt="">${IMG.nec_king_eyes ? `<img class="kf-eyes" src="${IMG.nec_king_eyes}" alt=""><img class="kf-eyes kf-hot" src="${IMG.nec_king_eyes}" alt="">` : ''}</div>`
       + Array.from({ length: 12 }, () => `<u style="left:${R(8, 92).toFixed(0)}%;--h:${R(120, 380).toFixed(0)}px;--t:${R(1.6, 2.8).toFixed(2)}s;--dl:${R(.1, 1).toFixed(2)}s;--s:${R(2, 4).toFixed(0)}px"></u>`).join('');
+    document.body.appendChild(fx); setTimeout(() => fx.remove(), 2800);
+    if (PL.android) { PL.haptic('confirm'); setTimeout(() => PL.haptic('confirm'), 300); }
+  }
+  /* Lion El'Jonson picks a Primarch ability: the dark of the Shadow Forest washes over the screen, branches and leaves grow up
+     from the bottom with a faint glow, the Lion's helm rises in the middle and its eyes burn red, outlasting the helm.
+     Timings follow the Silent King (2.8 s). transform/opacity only; off under prefers-reduced-motion. */
+  function lionFx(card) {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches || !IMG.da_lion_helm) return;
+    const R = (a, c) => a + Math.random() * (c - a);
+    /* trees in a 100x160 box anchored to the bottom: tall ones at the edges frame the helm, low ones in the middle; each trunk
+       forks three times and ends in clusters of leaves */
+    const f1 = n => n.toFixed(1);
+    const branch = (x, y, ang, len, depth, acc) => {
+      const a = ang * Math.PI / 180, x2 = x + Math.sin(a) * len, y2 = y - Math.cos(a) * len, bend = R(-.18, .18) * len;
+      acc.p.push(`<path class="lf-d${depth}" d="M${f1(x)} ${f1(y)} Q${f1((x + x2) / 2 + bend)} ${f1((y + y2) / 2)} ${f1(x2)} ${f1(y2)}"/>`);
+      if (depth >= 3) { for (let k = 0; k < 5; k++) { const lx = x2 + R(-4, 4), ly = y2 + R(-3, 3); acc.l.push(`<ellipse cx="${f1(lx)}" cy="${f1(ly)}" rx="${f1(R(1.8, 3.2))}" ry="${f1(R(.8, 1.4))}" transform="rotate(${R(-70, 70).toFixed(0)} ${f1(lx)} ${f1(ly)})"/>`); } return; }
+      const n = depth === 0 ? 3 : 2;
+      for (let k = 0; k < n; k++) branch(x2, y2, ang + (n === 3 ? [-30, 4, 32][k] : [-26, 26][k]) + R(-10, 10), len * R(.6, .78), depth + 1, acc);
+    };
+    const ROOTS = [[-4, 22, 58], [9, 12, 46], [24, 6, 26], [76, -6, 26], [91, -12, 46], [104, -22, 58], [42, 2, 16], [60, -2, 16]];
+    const tree = ([x, ang, len]) => { const acc = { p: [], l: [] }; branch(x, 161, ang + R(-4, 4), len * R(.85, 1.1), 0, acc);
+      return `<g class="lf-tree" style="--dl:${R(0, .4).toFixed(2)}s"><g class="lf-wood">${acc.p.join('')}</g><g class="lf-lv">${acc.l.join('')}</g></g>`; };
+    const fx = document.createElement('div'); fx.className = 'lionfx'; fx.setAttribute('aria-hidden', 'true');
+    fx.innerHTML = '<div class="lf-wash"></div>'
+      + `<svg class="lf-forest" viewBox="0 0 100 160" preserveAspectRatio="xMidYMax slice">${ROOTS.map(tree).join('')}</svg>`
+      + `<div class="lf-box"><img class="lf-helm" src="${IMG.da_lion_helm}" alt="">${IMG.da_lion_eyes ? `<img class="lf-eyes" src="${IMG.da_lion_eyes}" alt=""><img class="lf-eyes lf-hot" src="${IMG.da_lion_eyes}" alt="">` : ''}</div>`
+      + Array.from({ length: 10 }, () => `<u style="left:${R(6, 94).toFixed(0)}%;--h:${R(120, 340).toFixed(0)}px;--t:${R(1.6, 2.6).toFixed(2)}s;--dl:${R(.2, 1).toFixed(2)}s;--s:${R(2, 4).toFixed(0)}px"></u>`).join('');
     document.body.appendChild(fx); setTimeout(() => fx.remove(), 2800);
     if (PL.android) { PL.haptic('confirm'); setTimeout(() => PL.haptic('confirm'), 300); }
   }
@@ -2024,6 +2057,32 @@
   /* Once per battle: a unit's one-shot ability (Servo-skull Uplink, Defend the Divine Work). State p.once[instanceId] = round used. */
   /* a once-per-battle ability that only some copies have (needs: {opt, is}) shows only for a unit whose option matches */
   const onceNeeds = (u, o) => !o.needs || [].concat(o.needs.is).map(String).includes(String((u.wargear || {})[o.needs.opt]));
+  /* One panel for every unit that shares a once-per-battle wargear ability (oncePerBattle.group: Dark Angels' Watcher in the Dark):
+     each unit is a row with the group's symbol; tapping marks it used (the row dims, the symbol goes), tapping again undoes it.
+     State p.once[instanceId] = round used, the same as a single once-per-battle panel. */
+  function onceGroupHTML(r, p, g, us) {
+    const left = us.filter(u => !(p.once || {})[u.instanceId] && !unitDead(p, u)).length, sym = g.icon && IMG[g.icon];
+    const rows = us.map(u => { const used = (p.once || {})[u.instanceId], dead = unitDead(p, u);
+      return `<button class="ogr ${used ? 'used' : ''}" data-act="onceUse" data-u="${u.instanceId}" aria-pressed="${!!used}" ${dead ? 'aria-disabled="true"' : ''}>${sym ? `<img class="ogr-sym" src="${sym}" alt="" aria-hidden="true">` : '<span class="ogr-sym"></span>'}<span class="ogr-t"><b>${esc(dispName(r, u))}</b><span class="ogr-s">${dead ? 'Dead' : used ? `Used · round ${used}` : 'Ready'}</span></span></button>`; }).join('');
+    return panel2(g.title, `<span class="badge ${left ? 'gold' : ''}">${left} ready</span>`, `<div class="dim" style="font-size:.9rem">${esc(g.note)}</div><div class="ogr-list">${rows}</div><div class="faint" style="font-size:.85rem">${esc(g.foot || 'Tap a unit when it uses it; tap again to undo.')}</div>`);
+  }
+  /* A character's own combat doctrine on top of the army's pick (def.extraDoctrine: Azrael, Sammael, Lion El'Jonson).
+     {title, phase, target: 'self' | 'other', mode: 'replace' | 'add', note}. Not limited by the army's once-per-battle uses
+     (owner decision); 'add' cannot repeat the doctrine the army has active this round. State p.xdoc[instanceId][round] = {d, t}. */
+  function xdocHTML(r, p, u, def) {
+    const xd = def.extraDoctrine, fd = fdata(r.factionId), ar = fd.armyRules.find(a => a.imperatives); if (!ar) return '';
+    const key = ar.impKey || 'imp', army = (p[key] || {})[p.round], pick = ((p.xdoc || {})[u.instanceId] || {})[p.round] || {}, dead = unitDead(p, u);
+    const doc = ar.imperatives.find(i => i.id === pick.d), tgt = pick.t && r.units.find(x => x.instanceId === pick.t);
+    const cards = ar.imperatives.map(k => { const on = pick.d === k.id, block = xd.mode === 'add' && army === k.id;
+      return `<button class="dct dct-${k.tone || 'steel'} ${on ? 'on' : ''}" data-act="xdPick" data-u="${u.instanceId}" data-id="${k.id}" data-fx="${k.fx || ar.impFx || ''}" aria-pressed="${on}" ${dead || block ? 'aria-disabled="true"' : ''}><span class="dct-gr" aria-hidden="true"></span>
+        <span class="dct-t"><b>${esc(k.name)}</b><span class="dct-s">${block ? 'Army has it' : on ? 'Active' : 'Pick'}</span></span><span class="dct-e">${esc(k.effect)}</span></button>`; }).join('');
+    const grp = x => [x, ...r.units.filter(y => y.attachedTo === x.instanceId)];
+    const cands = xd.target === 'other' ? r.units.filter(x => !x.attachedTo && !unitDead(p, x) && grp(x).some(y => (unitDef(r.factionId, y.datasheetId) || {}).factionAbilities && (unitDef(r.factionId, y.datasheetId).factionAbilities || []).includes(ar.name))) : [];
+    const chips = xd.target === 'other' ? `<div class="chips pu-chips" role="group" aria-label="Target unit">${cands.map(x => `<button class="chip puc puc-plain" aria-pressed="${pick.t === x.instanceId}" data-act="xdTarget" data-u="${u.instanceId}" data-id="${x.instanceId}">${esc(grp(x).map(y => dispName(r, y)).join(' + '))}</button>`).join('')}</div>` : '';
+    const who = xd.target === 'other' ? (tgt ? grp(tgt).map(y => dispName(r, y)).join(' + ') : 'pick a unit') : dispName(r, u);
+    const badge = dead ? '<span class="badge">Dead</span>' : doc ? `<span class="badge gold">Round ${p.round}: ${esc(doc.name)} · ${esc(who)}</span>` : `<span class="badge">Round ${p.round}: ${esc(xd.phase)} phase</span>`;
+    return `<div class="panel pad stack trk dctr"><div class="row"><h3 class="grow">${esc(xd.title)}</h3>${badge}</div><div class="dim" style="font-size:.9rem">${esc(dead ? def.name + ' is destroyed.' : xd.note)}</div>${chips}<div class="dct-list">${cards}</div></div>`;
+  }
   function oncePanelHTML(r, p, u, def) {
     const o = def.oncePerBattle, used = (p.once || {})[u.instanceId], dead = unitDead(p, u);
     const dup = r.units.filter(x => { const d2 = unitDef(r.factionId, x.datasheetId); return d2 && d2.oncePerBattle && d2.oncePerBattle.title === o.title && onceNeeds(x, d2.oncePerBattle); }).length > 1;
@@ -2502,7 +2561,7 @@
     { const k = kwBadges(roster, def, inst); if (k) badges.push(k); }
     if (kws.includes('Battleline')) badges.push('<span class="badge">Battleline</span>');
     if (kws.includes('Dedicated Transport')) badges.push('<span class="badge">Dedicated Transport</span>');
-    const ledBy = Engine.unitsOf(fdata(fid), DATA).filter(u => (u.leaderOf || []).includes(def.id)).map(u => u.name);
+    const ledBy = Engine.unitsOf(fdata(fid), DATA).filter(u => Engine.leadsOf(u, fdata(fid)).includes(def.id)).map(u => u.name);
     const group = r && inst ? Engine.attachedGroup(r, inst) : null;
     const nav = m.list && m.list.length > 1 ? (() => { const i = m.list.indexOf(m.instId); return `<button class="btn sm" data-act="dsNav" data-d="-1" ${i <= 0 ? 'disabled' : ''} aria-label="Previous unit">‹ Prev</button><span class="dim num">${i + 1}/${m.list.length}</span><button class="btn sm" data-act="dsNav" data-d="1" ${i >= m.list.length - 1 ? 'disabled' : ''} aria-label="Next unit">Next ›</button>`; })() : '';
     let combined = '';
@@ -2539,7 +2598,7 @@
         ${def.options.length ? `<div class="stack" style="gap:6px"><span class="eyebrow">Wargear options</span><ul style="margin:0;padding-left:20px">${def.options.map(o => `<li>${esc(o.label)}${o.type === 'choice' ? ': ' + esc(o.choices.map(c => c.label + (c.pts ? ` (+${c.pts})` : '')).join(' / ')) : o.per ? ` — ${o.n || 1} per ${o.per} models` : o.max === 'models' ? ' — any number' : ' — one model'}</li>`).join('')}</ul></div>` : ''}
         <div class="stack" style="gap:6px"><span class="eyebrow">Unit composition</span><div>${esc(def.composition)}</div></div>
         <div class="stack" style="gap:6px"><span class="eyebrow">Points</span><div class="num">${def.sizes.map(s => `${s.models} model${s.models > 1 ? 's' : ''}: ${s.pts} pts${s.ptsLater != null ? ` (${ORD(def.stepFrom)}+ copy: ${s.ptsLater} pts)` : ''}`).join('<br>')}</div></div>
-        ${def.leaderOf.length ? `<div><b>Can lead:</b> ${esc(def.leaderOf.map(id => unitDef(fid, id).name).join(', '))}</div>` : ''}
+        ${Engine.leadsOf(def, fdata(fid)).length ? `<div><b>Can lead:</b> ${esc(Engine.leadsOf(def, fdata(fid)).map(id => (unitDef(fid, id) || {}).name || id).join(', '))}</div>` : ''}
         ${ledBy.length ? `<div><b>Led by:</b> ${esc(ledBy.join(', '))}</div>` : ''}
         <div><span class="eyebrow">Keywords</span><div>${kws.filter(k => k !== (inst && r ? Engine.factionOf(inst, def, ctx) : def.faction)).map(k => `<span class="kwchip">${esc(k)}</span>`).join('')}</div><div style="margin-top:6px"><span class="eyebrow">Faction</span> <span class="kwchip">${esc(inst && r ? Engine.factionOf(inst, def, ctx) : def.faction)}</span></div></div>`}
       </div>${S.m && nav ? `<div class="dsnav">${nav}</div>` : ''}</div></div>`;
@@ -3436,6 +3495,16 @@
       if (v < 0 || v > limitMax(r, d)) { PL.haptic('reject'); return; }
       playChange(r, p => { p.lim = p.lim || {}; if (v) p.lim[p.round] = v; else delete p.lim[p.round]; }, null, 'confirm');
     },
+    xdPick: el => {
+      if (el.getAttribute('aria-disabled') === 'true') { toast('The army already has this doctrine active this round.'); PL.haptic('reject'); return; }
+      const r = cur(), iid = el.dataset.u, id = el.dataset.id, on = ((((playState(r).xdoc || {})[iid] || {})[playState(r).round]) || {}).d !== id;
+      playChange(r, p => { p.xdoc = p.xdoc || {}; const m = p.xdoc[iid] = p.xdoc[iid] || {}, c = m[p.round] = m[p.round] || {}; if (c.d === id) delete c.d; else c.d = id; if (!c.d && !c.t) delete m[p.round]; }, null, 'confirm');
+      if (on) mechFx(document.querySelector(`.dct[data-act="xdPick"][data-u="${iid}"][data-id="${id}"]`), el.dataset.fx);
+    },
+    xdTarget: el => {
+      const r = cur(), iid = el.dataset.u, id = el.dataset.id;
+      playChange(r, p => { p.xdoc = p.xdoc || {}; const m = p.xdoc[iid] = p.xdoc[iid] || {}, c = m[p.round] = m[p.round] || {}; if (c.t === id) delete c.t; else c.t = id; if (!c.d && !c.t) delete m[p.round]; }, null, 'confirm');
+    },
     onceUse: el => {
       if (el.getAttribute('aria-disabled') === 'true') { PL.haptic('reject'); return; }
       const r = cur(), iid = el.dataset.u;
@@ -3477,9 +3546,13 @@
     rpPick: el => {
       if (el.getAttribute('aria-disabled') === 'true') { toast('Dead. Bring the model back first.'); PL.haptic('reject'); return; }
       const r = cur(), iid = el.dataset.u, id = el.dataset.id, u = inst(iid), def = unitDef(r.factionId, u.datasheetId);
-      const on = rpCur(playState(r), u, def.roundPick) !== id || !!def.roundPick.persist && !((playState(r).rpick || {})[iid] || {})[playState(r).round];
-      playChange(r, p => { p.rpick = p.rpick || {}; const m = p.rpick[iid] = p.rpick[iid] || {}; if (m[p.round] === id) delete m[p.round]; else m[p.round] = id; }, null, 'confirm');
-      if (on) { const c = document.querySelector(`.rpk[data-u="${iid}"][data-id="${id}"]`); if (def.roundPick.style === 'wrath') wrathFx(c); else if (def.roundPick.style === 'slaanesh') slaaneshFx(c); else { const ox = def.roundPick.options.find(o => o.id === id) || {}, fk = ox.fx || def.roundPick.fx; if (fk === 'king') kingFx(c); else if (fk && fk.startsWith('canticle')) canticleFx(c, fk.split('-')[1]); else if (fk) mechFx(c, fk); else eyeFx(c); } }
+      const rpx = def.roundPick, multi = rpx.max > 1, sel0 = rpSel(playState(r), u, rpx);
+      if (multi && !sel0.includes(id) && sel0.length >= rpx.max) { toast(`Up to ${rpx.max} this round. Tap an active one to drop it.`); PL.haptic('reject'); return; }
+      const on = multi ? !sel0.includes(id) : rpCur(playState(r), u, rpx) !== id || !!rpx.persist && !((playState(r).rpick || {})[iid] || {})[playState(r).round];
+      playChange(r, p => { p.rpick = p.rpick || {}; const m = p.rpick[iid] = p.rpick[iid] || {};
+        if (multi) { const a = rpSel(p, u, rpx).filter(x => x !== id); if (on) a.push(id); if (a.length) m[p.round] = a; else delete m[p.round]; }
+        else if (m[p.round] === id) delete m[p.round]; else m[p.round] = id; }, null, 'confirm');
+      if (on) { const c = document.querySelector(`.rpk[data-u="${iid}"][data-id="${id}"]`); if (def.roundPick.style === 'wrath') wrathFx(c); else if (def.roundPick.style === 'slaanesh') slaaneshFx(c); else { const ox = def.roundPick.options.find(o => o.id === id) || {}, fk = ox.fx || def.roundPick.fx; if (fk === 'king') kingFx(c); else if (fk === 'lion') lionFx(c); else if (fk && fk.startsWith('canticle')) canticleFx(c, fk.split('-')[1]); else if (fk) mechFx(c, fk); else eyeFx(c); } }
     },
     asGain: el => { const r = cur(), v = +el.dataset.v; playChange(r, p => { p.miracle = (p.miracle || []).concat(v); S.mNew = p.miracle.length - 1; }, `Miracle dice ${v} added.`, 'confirm'); holyFx(document.querySelector('.mdie.new'), 'die'); setTimeout(() => { S.mNew = null; }, 50); },
     asSpend: el => {
