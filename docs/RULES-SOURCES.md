@@ -2,7 +2,7 @@
 
 Applies to every army in the app: Chaos Space Marines, World Eaters, Death
 Guard, Thousand Sons, Tyranids, Adepta Sororitas (with Imperial Agents),
-Adeptus Mechanicus, Emperor's Children (with Legions of Excess), Drukhari (with Harlequins and Anhrathe allies), Necrons, T'au Empire, Imperial Knights (with Adeptus Mechanicus allies), and
+Adeptus Mechanicus, Emperor's Children (with Legions of Excess), Drukhari (with Harlequins and Anhrathe allies), Necrons, T'au Empire, Imperial Knights (with Adeptus Mechanicus allies), Space Marines (codex Chapters, with Freeblades allies), and
 any army added later.
 
 Current to: the 30 Sep 2026 update (MFM v1.5; Faction Packs World Eaters,
@@ -12,6 +12,9 @@ current to MFM v1.6 and Faction Pack v1.2. Drukhari (added 2026-10-17) is
 current to MFM v1.6 and Faction Pack v1.2. Necrons (added 2026-10-17) is current to MFM v1.6;
 its Faction Pack v1.2 PDF was not read (rules text follows Wahapedia 1.2 and BSData). T'au Empire (added 2026-10-18) is current to MFM v1.6 and
 Faction Pack v1.2 (= Wahapedia version). Imperial Knights (added 2026-10-19) is current to MFM v1.6; where BSData and Wahapedia differ BSData wins (owner's decision).
+Space Marines (added 2026-10-22) is current to Codex: Space Marines 11e (October 2026; no Faction Pack), BSData cdc2667
+(21.10.2026) and Wahapedia 19.10.2026, points from BSData after the MFM of 14.10.2026. Wahapedia already carries the codex,
+so SM is rebuilt with an empty delta: `IMPORT=cdc2667..cdc2667 tools/rules/rebuild.sh spaceMarines`.
 
 ## Order of precedence
 
@@ -173,3 +176,16 @@ Found by `bsdelta.py` across BSData's import (`374f505..HEAD`) plus reviews:
   (`allies-matrix.md`). No photo for Knight Preceptor and Knight Warden. The
   import fixture `imperial_knights_synthetic` is synthetic: replace with a real
   export.
+- Space Marines (added 2026-10-22; codex 11e, BSData cdc2667, Wahapedia 19.10.2026; owner decision: one army per
+  Chapter family — this army = common pool + six codex Chapters, picked in the roster setup; BA/DA/SW/BT/DW later as
+  their own armies by reference). 87 datasheets, 21 detachments, 84 stratagems, 56 enhancements. Points: BSData
+  (Gladiator Lancer 160/165, Valiant 165/145, Repulsor Executioner 260/265 vs Wahapedia). Multi-melta options of
+  Gladiators/Impulsor/Repulsors are Wahapedia only (not added). Check against the app: Master of the Machine War (BSData
+  text only), stratagem categories (Wahapedia exports none), the DOCTRINES tag on the three Brethren detachments,
+  BS 3+ (BSData) vs 2+ (Wahapedia) on Captain with Jump Pack, Lieutenant, Eliminator and Invader ATV weapons,
+  Thunderhawk M 20+" and the Astraeus/Thunderhawk weapon profiles. BSData profile errors corrected from Wahapedia:
+  Captain in Phobos T4, Terminator Assault Squad W3, Apothecary Biologis OC1, Sternguard chainsword S5, Astraeus storm
+  bolter S5 AP-1. Excluded: Legendary Proxies (Tactical, Devastator, Suppressor, Kantor, Ventris), Lieutenant in
+  Reiver Armour, Captain Sicarius, [Crucible], Deathwatch Support (comes with the Deathwatch army). No product photo:
+  Apothecary, Apothecary Biologis, Bladeguard Ancient, Judiciar, Chaplain, Chaplain with Jump Pack, Lieutenant in Phobos
+  Armour, Lieutenant with Combi-weapon, Wardens of Ultramar. Details: `audit/space_marines_*.md`.

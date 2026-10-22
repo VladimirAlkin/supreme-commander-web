@@ -76,6 +76,13 @@ An army can field another army's datasheets without copying them:
   (`validate-data` E-ALLYREF). Converting copies whose faction differs from the group's (CSM's four copies) needs a `factionAs` step first.
 - Gate: `node tests/unitsfrom.test.js` (part of `npm run check`).
 
+## Sub-factions inside one army (`fd.subfactions`)
+
+Space Marines Chapters: `fd.subfactions = [{id, name, keyword}]`, `fd.subfactionLabel` ("Chapter"). A datasheet or a
+detachment with `subfaction: <id>` is offered only when the roster's `subfaction` (picked in the roster setup, null =
+none) is that id; `Engine.subOk` filters the catalogue and the wizard, `validate` reports mismatches. Detachment
+`impExtra: [{ids, n, requireUnit?}]` gives extra picks of an `impOnce` army-rule doctrine (Combat Doctrines).
+
 ## 5. Docs
 
 - `docs/RULES-SOURCES.md`: the army in the scope line, its open questions.
