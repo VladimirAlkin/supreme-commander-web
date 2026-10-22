@@ -2,7 +2,7 @@
 
 Applies to every army in the app: Chaos Space Marines, World Eaters, Death
 Guard, Thousand Sons, Tyranids, Adepta Sororitas (with Imperial Agents),
-Adeptus Mechanicus, Emperor's Children (with Legions of Excess), Drukhari (with Harlequins and Anhrathe allies), Necrons, T'au Empire, Imperial Knights (with Adeptus Mechanicus allies), Space Marines (codex Chapters, with Freeblades allies), and
+Adeptus Mechanicus, Emperor's Children (with Legions of Excess), Drukhari (with Harlequins and Anhrathe allies), Necrons, T'au Empire, Imperial Knights (with Adeptus Mechanicus allies), Space Marines (codex Chapters, with Freeblades allies), Dark Angels (on the Space Marines pool by reference, Freeblades inherited), and
 any army added later.
 
 Current to: the 30 Sep 2026 update (MFM v1.5; Faction Packs World Eaters,
@@ -15,6 +15,9 @@ Faction Pack v1.2 (= Wahapedia version). Imperial Knights (added 2026-10-19) is 
 Space Marines (added 2026-10-22) is current to Codex: Space Marines 11e (October 2026; no Faction Pack), BSData cdc2667
 (21.10.2026) and Wahapedia 19.10.2026, points from BSData after the MFM of 14.10.2026. Wahapedia already carries the codex,
 so SM is rebuilt with an empty delta: `IMPORT=cdc2667..cdc2667 tools/rules/rebuild.sh spaceMarines`.
+Dark Angels (added 2026-10-22) has no 11th-edition Faction Pack (the `eng_08-10` v1.0 PDF is 10th edition): texts follow Wahapedia
+19.10.2026 (source "Dark Angels — App" 03.10.2026), structure BSData db61485 (DA catalogue) and 7232fde (DA detachments in the SM
+catalogue), points MFM v1.6 = BSData = Wahapedia. Rebuilt with an empty delta: `IMPORT=7232fde..7232fde tools/rules/rebuild.sh darkAngels`.
 
 ## Order of precedence
 
@@ -189,3 +192,14 @@ Found by `bsdelta.py` across BSData's import (`374f505..HEAD`) plus reviews:
   Reiver Armour, Captain Sicarius, [Crucible], Deathwatch Support (comes with the Deathwatch army). No product photo:
   Apothecary, Apothecary Biologis, Bladeguard Ancient, Judiciar, Chaplain, Chaplain with Jump Pack, Lieutenant in Phobos
   Armour, Lieutenant with Combi-weapon, Wardens of Ultramar. Details: `audit/space_marines_*.md`.
+- Dark Angels (added 2026-10-22; owner decision: a Chapter army on the Space Marines pool — `fd.inherits` brings the shared units, 15
+  shared detachments, Combat Doctrines, terms and Freeblades by reference; DEATHWING 18 / RAVENWING 9 grants from BSData; DARK ANGELS on
+  every unit via `fd.armyKeyword`; Space Marines leaders of DA squads via `fd.leaderOfExtra`, SM data untouched). 16 own datasheets, 3
+  own detachments, 12 stratagems, 8 enhancements; Legends (Talonmaster, Strikemaster, Deathwing Command Squad) excluded. Check against the
+  app: every detachment, stratagem and enhancement text (no Faction Pack 11e); whether Azrael's / Sammael's / Lion's personal doctrines
+  spend the once-per-battle limit (the app says no, owner); Ravenwing Black Knights Bolt Pistol S5 AP-1 [CLOSE-QUARTERS] and Deathwing
+  Sergeant Power Weapon A5 (Wahapedia; BSData has 10th-edition S4 AP0 and A4); Asmodai Heavy Bolt Pistol BS 3+ (BSData) vs 2+ (Wahapedia);
+  Teleport Homer on Deathwing Knights (Wahapedia only); SPEEDER on Darkshroud and CHARACTER on Ravenwing Command Squad (Wahapedia only);
+  EXPLOSIVES on Lazarus and Black Knights (BSData GRENADES); Wrath of the Rock TERMINATOR tag (BSData); RAVENWING on Invader ATVs (BSData).
+  The import fixture `dark_angels_synthetic` is synthetic: replace with a real export. Every own unit has a photo (Command Squad and
+  Deathwing Terminator Squad have no product of their own: kit and box photos used). Details: `audit/darkAngels_*.md`.
