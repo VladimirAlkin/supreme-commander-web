@@ -308,8 +308,6 @@ pre.export { white-space: pre-wrap; word-break: break-word; font: .9rem/1.45 ui-
 .uname .kwfx, .mrow-name .kwfx { margin-left: 6px; }
 .synS { display: inline; padding: 0 0 0 2px; margin: 0; border: 0; background: none; font: inherit; font-weight: 800; color: #7fc8ff; cursor: help; }
 .wl-stats .synS { display: block; font-size: .8em; line-height: 1.1; padding: 0; }
-.hisum { display: flex; align-items: baseline; gap: 10px; padding: 8px 10px; margin: 4px 0 2px; border-radius: 10px; border: 1px solid rgba(127, 200, 255, .22); background: rgba(127, 200, 255, .05); font-size: .9rem; }
-.hisum .kwfx { margin-left: 0; flex: none; }
 .mgroups { display: flex; flex-direction: column; gap: 6px; }
 .mgroups .rgh { margin-top: 10px; }
 .grouphdr { font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; color: var(--fg-dim); font-weight: 700; margin-top: 8px; }
@@ -711,8 +709,6 @@ html:not(.m) .seg.wide { max-width: 560px; }
   background-image: linear-gradient(100deg, #f0574a 0%, #f0574a 30%, #ffd9a8 40%, #f0574a 50%, #ff8a70 62%, #f0574a 72%, #f0574a 100%);
   animation-name: kwwave, kwglowB; }
 @keyframes kwglowB { 0%, 100% { box-shadow: 0 0 0 rgba(240, 80, 60, 0); } 50% { box-shadow: 0 0 6px rgba(240, 80, 60, .35); } }
-.hisum.tone-green { border-color: rgba(168, 204, 74, .25); background: rgba(168, 204, 74, .05); }
-.hisum.tone-blood { border-color: rgba(240, 87, 74, .25); background: rgba(240, 87, 74, .05); }
 .kwfx.tone-arcane { border-color: rgba(63, 182, 201, .55); color: #6fd6e6;
   background-image: linear-gradient(100deg, #46c2d4 0%, #46c2d4 30%, #e6fbff 40%, #46c2d4 50%, #9be6f0 62%, #46c2d4 72%, #46c2d4 100%);
   animation-name: kwwave, kwglowA; }
@@ -721,8 +717,6 @@ html:not(.m) .seg.wide { max-width: 560px; }
   background-image: linear-gradient(100deg, #d8b45a 0%, #d8b45a 30%, #fff3cf 40%, #d8b45a 50%, #f0d68e 62%, #d8b45a 72%, #d8b45a 100%);
   animation-name: kwwave, kwglowY; }
 @keyframes kwglowY { 0%, 100% { box-shadow: 0 0 0 rgba(216, 180, 90, 0); } 50% { box-shadow: 0 0 6px rgba(216, 180, 90, .38); } }
-.hisum.tone-arcane { border-color: rgba(63, 182, 201, .25); background: rgba(63, 182, 201, .05); }
-.hisum.tone-gold { border-color: rgba(216, 180, 90, .25); background: rgba(216, 180, 90, .05); }
 @media (prefers-reduced-motion: reduce) { .kwfx.tone-green { -webkit-text-fill-color: #b8d65a; } .kwfx.tone-blood { -webkit-text-fill-color: #ff7a66; } .kwfx.tone-arcane { -webkit-text-fill-color: #6fd6e6; } .kwfx.tone-gold { -webkit-text-fill-color: #e6c878; } }
 
 /* ---- Thousand Sons: Ritual cards; a lapis glow drifts, a manifested Ritual burns with warpfire ---- */
@@ -887,7 +881,6 @@ html:not(.m) .seg.wide { max-width: 560px; }
   58% { opacity: 1; transform: translateY(1px) scale(1, 1.05); } 80% { opacity: .9; transform: translateY(10px) scale(.85, 1.2); } 100% { opacity: 0; transform: translateY(18px) scale(.7, .9); } }
 .kwfx.tone-gore.cond { opacity: .7; border-style: dashed; }
 .kwfx.tone-gore.cond::before { display: none; }
-.hisum.tone-gore { border-color: rgba(195, 38, 28, .35); background: linear-gradient(90deg, rgba(150, 12, 10, .14), rgba(150, 12, 10, .03)); }
 @media (prefers-reduced-motion: reduce) { .kwfx.tone-gore::after, .kwfx.tone-gore::before { animation: none; opacity: 0; } }
 
 /* ---------------- Missions ---------------- */
@@ -945,7 +938,6 @@ html:not(.m) .seg.wide { max-width: 560px; }
   background-image: linear-gradient(100deg, #9fb8d2 0%, #9fb8d2 30%, #f4f8ff 40%, #9fb8d2 50%, #c9d9ea 62%, #9fb8d2 72%, #9fb8d2 100%);
   animation-name: kwwave, kwglowS; }
 @keyframes kwglowS { 0%, 100% { box-shadow: 0 0 0 rgba(150, 180, 210, 0); } 50% { box-shadow: 0 0 6px rgba(150, 180, 210, .35); } }
-.hisum.tone-steel { border-color: rgba(150, 180, 210, .25); background: rgba(150, 180, 210, .05); }
 @media (prefers-reduced-motion: reduce) { .kwfx.tone-steel { -webkit-text-fill-color: #b9cde2; } }
 .allycaps { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: .82rem; margin: -2px 0 6px; letter-spacing: .04em; }
 .allycaps .bad b { color: var(--err); }
@@ -1194,7 +1186,6 @@ html:not(.m) .seg.wide { max-width: 560px; }
   background-image: linear-gradient(100deg, #e35fa6 0%, #e35fa6 30%, #ffe3f2 40%, #e35fa6 50%, #f3a6d2 62%, #e35fa6 72%, #e35fa6 100%);
   animation-name: kwwave, kwglowSl; }
 @keyframes kwglowSl { 0%, 100% { box-shadow: 0 0 0 rgba(227, 95, 166, 0); } 50% { box-shadow: 0 0 6px rgba(227, 95, 166, .4); } }
-.hisum.tone-slaanesh { border-color: rgba(227, 95, 166, .25); background: rgba(227, 95, 166, .05); }
 @media (prefers-reduced-motion: reduce) { .kwfx.tone-slaanesh { -webkit-text-fill-color: #f08ec4; } }
 
 /* Mark badge: a faint eight-point rune breathes behind the god's name */
@@ -1446,8 +1437,6 @@ html:not(.m) .seg.wide { max-width: 560px; }
   background-image: linear-gradient(100deg, #ff4d73 0%, #ff4d73 30%, #ffd6df 40%, #ff4d73 50%, #ff8aa3 62%, #ff4d73 72%, #ff4d73 100%);
   animation-name: kwwave, kwglowP; }
 @keyframes kwglowP { 0%, 100% { box-shadow: 0 0 0 rgba(255, 77, 115, 0); } 50% { box-shadow: 0 0 7px rgba(255, 77, 115, .45); } }
-.hisum.tone-blue { border-color: rgba(88, 150, 255, .25); background: rgba(88, 150, 255, .05); }
-.hisum.tone-pain { border-color: rgba(255, 77, 115, .28); background: rgba(255, 77, 115, .06); }
 @media (prefers-reduced-motion: reduce) { .kwfx.tone-blue { -webkit-text-fill-color: #8db6ff; } .kwfx.tone-pain { -webkit-text-fill-color: #ff4d73; } }
 
 /* Combat Drugs: each drug has its own liquid colour; the active card glows and pulses in it (opacity only) */

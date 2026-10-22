@@ -662,19 +662,6 @@
     for (const h of f.highlights) { if (!h.meleeBonus) continue; const st = hiState(r, def, inst, h); if (st && !st.cond) return h.meleeBonus; }
     return null;
   }
-  function hiSummary(r) {
-    const f = faction(r.factionId); if (!f || !f.highlights || !r.units.length) return '';
-    return f.highlights.filter(h => hiLive(r, h) && !h.pickLabels && !h.playOnly).map(h => {
-      if (h.markHighlight) {
-        const det = markDet(r), markable = (det.instanceGrants[0] || {}).unitIds || [];
-        const list = r.units.map(u => ({ u, g: markOf(r, unitDef(r.factionId, u.datasheetId), u) }))
-          .filter(x => x.g || markable.includes(x.u.datasheetId));
-        return `<div class="hisum tone-arcane"><span class="kwfx tone-arcane" style="--d:0s">${esc(h.label)}</span><span class="dim">${list.length ? esc(list.map(x => dispName(r, x.u) + (x.g ? ': ' + x.g.keyword : ': —')).join(', ')) : esc(h.none || 'No units')}</span></div>`;
-      }
-      const list = r.units.map(u => ({ u, st: hiState(r, unitDef(r.factionId, u.datasheetId), u, h) })).filter(x => x.st);
-      return `<div class="hisum ${h.tone ? 'tone-' + h.tone : ''}"><span class="kwfx ${h.tone ? 'tone-' + h.tone : ''}" style="--d:0s">${esc(h.label)}</span><span class="dim">${list.length ? esc(list.map(x => dispName(r, x.u) + (x.st.cond ? '*' : '') + (h.rangeStep ? ` (+${(x.st.n || 1) * h.rangeStep}″)` : '')).join(', ')) : esc(h.none || 'No units')}</span></div>`;
-    }).join('');
-  }
   /* roster split into GW-app categories; every unit stays in its own category (an attached leader is labelled, not moved) */
   function rosterGroups(r) {
     const pts = rosterPts(r), groups = {};
@@ -726,7 +713,7 @@
     // roster column
     const v = Engine.validate(r, DATA);
     const errUnits = new Set(v.filter(x => x.severity === 'error' && x.unitInstanceId).map(x => x.unitInstanceId));
-    const cards = hiSummary(r) + rosterGroups(r).map(g => groupHdr(r, g, errUnits) + (isColl(r, g.cat) ? '' : g.items.map(u => unitCard(r, u, pts, errUnits)).join(''))).join('');
+    const cards = rosterGroups(r).map(g => groupHdr(r, g, errUnits) + (isColl(r, g.cat) ? '' : g.items.map(u => unitCard(r, u, pts, errUnits)).join(''))).join('');
     const rosterCol = `<section class="stack" aria-label="Roster"><div class="row"><h2 class="grow">Roster</h2><span class="dim num">${r.units.length} units</span></div>
       ${cards || '<div class="empty">Your roster is empty. Add a CHARACTER first; tap a name or portrait to read its datasheet.</div>'}
       <div class="panel pad stack"><h3>Validation</h3>${valList(v)}</div>
@@ -2695,7 +2682,7 @@
     };
     const rows = rosterGroups(r).map(g => groupHdr(r, g, errUnits) + (isColl(r, g.cat) ? '' : `<div class="mlist">${g.items.map(rowOf).join('')}</div>`)).join('');
     return `<div class="mdet"><span class="dim">${esc(bs.name)} · ${esc((r.subfaction ? Engine.subName(fd, r.subfaction) + ' · ' : '') + r.detachmentIds.map(id => fd.detachments.find(d => d.id === id).name).join(' + '))}</span><span class="dim num">${r.units.length} units</span></div>
-      ${rows ? `${hiSummary(r)}<div class="mgroups">${rows}</div>` : `<div class="empty">Your roster is empty. Start with a CHARACTER.<br><button class="btn primary" data-act="openCatalog" style="margin-top:12px">${ICON.plus} Add your first unit</button></div>`}
+      ${rows ? `<div class="mgroups">${rows}</div>` : `<div class="empty">Your roster is empty. Start with a CHARACTER.<br><button class="btn primary" data-act="openCatalog" style="margin-top:12px">${ICON.plus} Add your first unit</button></div>`}
       <label class="fld" style="margin-top:18px">Roster notes<textarea id="roster-notes" data-inp="rosterNotes">${esc(r.notes || '')}</textarea></label>
       ${ne ? `<button class="errstrip" data-act="openStatus"><span>✕ ${ne} problem${ne > 1 ? 's' : ''}</span><span>Show ›</span></button>` : ''}
       <button class="fab" data-act="openCatalog">${ICON.plus}<span>Add unit</span></button>`;
