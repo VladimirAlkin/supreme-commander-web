@@ -80,6 +80,35 @@ for (const f of L.factions(data)) {
     }
   }
 
+  /* An army on another army's pool (fd.inherits) and army-level keyword grants (fd.grantKeywords). Checked on the raw data:
+     only what this army lists itself. */
+  /* every datasheet the army can field: its own, inherited and referenced */
+  const fieldedSrc = fd.inherits && data.factionData[fd.inherits.source];
+  const fielded = (fd.units || []).concat(fieldedSrc ? EngineRef.pickUnits(fieldedSrc, { exclude: fd.inherits.exclude || {} }, fieldedSrc.armyFaction) : [], EngineRef.refUnits(fd, data).map(r => r.unit));
+  if (fd.inherits) {
+    const inh = fd.inherits, src = data.factionData[inh.source], ex = inh.exclude || {}, iw = `${f}.inherits`;
+    if (!src) err('E-INHERIT', iw, `source "${inh.source}" is not a faction in data.js`);
+    else {
+      if (inh.source === f) err('E-INHERIT', iw, 'source is the army itself');
+      if (src.inherits) err('E-INHERIT', iw, `source ${inh.source} inherits from ${src.inherits.source} itself; inheritance is not transitive`);
+      if (src.armyFaction !== fd.armyFaction) err('E-INHERIT', iw, `armyFaction "${fd.armyFaction}" differs from the source's "${src.armyFaction}"; inherited units would count as allies`);
+      for (const id of ex.unitIds || []) if (!(src.units || []).some(u => u.id === id && !u.subfaction)) err('E-INHERIT', iw, `exclude.unitIds names ${id}, not a common unit of ${inh.source}`);
+      for (const id of ex.detachmentIds || []) if (!(src.detachments || []).some(d => d.id === id && !d.subfaction)) err('E-INHERIT', iw, `exclude.detachmentIds names ${id}, not a common detachment of ${inh.source}`);
+      for (const k of ex.keywordsAny || []) if (!(src.units || []).some(u => (u.keywords || []).some(x => x.toLowerCase() === String(k).toLowerCase()))) warn('W-INHERIT', iw, `exclude.keywordsAny "${k}" matches no unit of ${inh.source}`);
+      if (!EngineRef.pickUnits(src, { exclude: ex }, src.armyFaction).length) err('E-INHERIT', iw, `takes no units from ${inh.source}`);
+      for (const u of fd.units || []) if ((src.units || []).some(x => x.id === u.id)) warn('W-INHERIT', `${f}.${u.id}`, `own datasheet replaces ${inh.source}'s ${u.id}`);
+    }
+  }
+  for (const g of fd.grantKeywords || []) {
+    const gw = `${f}.grantKeywords.${g.keyword}`;
+    if (typeof g.keyword !== 'string' || !g.keyword || !Array.isArray(g.unitIds) || !g.unitIds.length) { err('E-GRANTDUP', gw, `needs {keyword, unitIds[]}: ${JSON.stringify(g)}`); continue; }
+    for (const id of g.unitIds) {
+      const u = fielded.find(x => x.id === id);
+      if (!u) { err('E-GRANTDUP', gw, `names ${id}, which this army does not field`); continue; }
+      if ((u.keywords || []).some(k => String(k).toLowerCase() === g.keyword.toLowerCase())) err('E-GRANTDUP', `${f}.${id}`, `datasheet already carries "${g.keyword}", which the army grants`);
+    }
+  }
+
   const detIds = new Set();
   for (const d of fd.detachments || []) {
     const dw = `${f}.${d.id}`;
@@ -87,7 +116,7 @@ for (const f of L.factions(data)) {
     detIds.add(d.id);
     /* A keyword or ability a detachment grants must not also sit on the datasheet (Lord Exultant bug pattern). */
     for (const g of d.grantKeywords || []) for (const id of g.unitIds || []) {
-      const u = (fd.units || []).find(x => x.id === id);
+      const u = fielded.find(x => x.id === id);
       if (!u) { err('E-GRANTDUP', dw, `grantKeywords names unknown unit ${id}`); continue; }
       const has = [...(u.keywords || []), ...(u.coreAbilities || [])].some(k => String(k).toLowerCase() === String(g.keyword).toLowerCase());
       if (has) err('E-GRANTDUP', `${f}.${id}`, `datasheet already carries "${g.keyword}", which ${d.name} grants`);
@@ -147,7 +176,7 @@ for (const f of L.factions(data)) {
     }
   }
 
-  if (!Array.isArray(fd.terms)) warn('W-TERMS', f, 'no terms list — faction phrases will not be highlighted');
+  if (!Array.isArray(fd.terms) && !(fd.inherits && Array.isArray((data.factionData[fd.inherits.source] || {}).terms))) warn('W-TERMS', f, 'no terms list — faction phrases will not be highlighted');
 
   /* optionRules: the engine knows exactly three shapes. Anything else used to
      throw inside render(); the engine now skips it, which means the rule is
@@ -201,7 +230,10 @@ for (const f of L.factions(data)) {
       const ctx = Engine.ctxFor(roster, data);
       try { ok = fd.units.some(u => [[], ...Engine.grantsFor(u, ctx).map(g => [g.id])].some(grants => Engine.eligibleReason(e, { instanceId: 'x', datasheetId: u.id, grants }, roster, data) === null)); }
       catch (x) { err('E-CRASH', `${f}.${d.id}.${e.id}`, `eligibility check throws: ${x.message}`); continue; }
-      if (!ok) err('E-MECH', `${f}.${d.id}.${e.id}`, `no unit in the faction can take ${e.name} (eligible: ${JSON.stringify(e.eligible || {})})`);
+      /* an inherited detachment keeps its source's enhancements; one aimed at a unit this army excludes is the rules, not a data error */
+      const inheritedDet = fd.inherits && ((data.factionData[fd.inherits.source] || {}).detachments || []).includes(d);
+      if (!ok && inheritedDet) warn('W-INHERIT', `${f}.${d.id}.${e.id}`, `${e.name} comes from ${fd.inherits.source} and no unit this army fields can take it`);
+      else if (!ok) err('E-MECH', `${f}.${d.id}.${e.id}`, `no unit in the faction can take ${e.name} (eligible: ${JSON.stringify(e.eligible || {})})`);
     }
   }
 }

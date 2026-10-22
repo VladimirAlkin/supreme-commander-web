@@ -209,7 +209,10 @@ const RosterImport = (function () {
     const fail = (code, message) => ({ ok: false, error: { code, message } });
 
     /* hard stops, in order: army -> detachments -> battle size */
-    const fac = (DATA.factions || []).find(f => f.enabled !== false && DATA.factionData[f.id] && (key(f.name) === key(H.army) || key(DATA.factionData[f.id].armyFaction) === key(H.army)));
+    /* the army's own name first: a Chapter army shares its faction keyword (ADEPTUS ASTARTES) with the army it inherits from, which wins a bare faction-keyword header */
+    if (Engine.inherit) Engine.inherit(DATA);
+    const live = (DATA.factions || []).filter(f => f.enabled !== false && DATA.factionData[f.id]);
+    const fac = live.find(f => key(f.name) === key(H.army)) || live.filter(f => key(DATA.factionData[f.id].armyFaction) === key(H.army)).sort((a, b) => !!DATA.factionData[a.id].inherits - !!DATA.factionData[b.id].inherits)[0];
     if (!fac) return fail('army', `Army ${H.army} does not exist in the application`);
     const fd = DATA.factionData[fac.id];
     const seg = segmentDetachments(H.detachmentsRaw, fd.detachments);

@@ -2,25 +2,64 @@
 const Engine = (function () {
   const ORD = n => n + (['th', 'st', 'nd', 'rd'][((n % 100) - 20) % 10] || ['th', 'st', 'nd', 'rd'][n % 100] || 'th');
 
-  /* Units an army fields from another army BY REFERENCE (not copied): alliedFactions[].unitsFrom = {source, unitIds?, keywordsAny?}.
-     `source` is a factionData id; without `unitIds` the units whose own faction is the group's faction are taken. A missing source gives
-     an empty list. Not transitive: a referenced unit's own alliedFactions are never followed. [{unit, group}] */
+  /* Units an army fields from another army BY REFERENCE (not copied): alliedFactions[].unitsFrom = {source, unitIds?, keywordsAny?, exclude?}.
+     `source` is a factionData id; without `unitIds` the units whose own faction is the group's faction are taken, except units bound
+     to one of the source's own sub-factions (its Chapters). `exclude: {unitIds?, keywordsAny?}` then takes listed units out of the pool.
+     A missing source gives an empty list. Not transitive: a referenced unit's own alliedFactions are never followed. [{unit, group}] */
+  const hasAny = (u, ks) => (ks || []).some(k => (u.keywords || []).some(x => x.toLowerCase() === k.toLowerCase()));
+  function pickUnits(src, uf, faction) {
+    if (!src || !Array.isArray(src.units) || !uf) return [];
+    const ex = uf.exclude || {};
+    return src.units.filter(u => {
+      if (uf.unitIds ? !uf.unitIds.includes(u.id) : (u.faction !== faction || u.subfaction)) return false;
+      if (uf.keywordsAny && !hasAny(u, uf.keywordsAny)) return false;
+      return !(ex.unitIds || []).includes(u.id) && !hasAny(u, ex.keywordsAny);
+    });
+  }
   const _refs = new WeakMap();
   function refUnits(fd, DATA) {
     if (_refs.has(fd)) return _refs.get(fd);
     const out = [];
     (fd.alliedFactions || []).forEach(a => {
       const uf = a && a.unitsFrom;
-      const src = uf && DATA.factionData && DATA.factionData[uf.source];
-      if (!src || !Array.isArray(src.units)) return;
-      src.units.forEach(u => {
-        if (uf.unitIds ? !uf.unitIds.includes(u.id) : u.faction !== a.faction) return;
-        if (uf.keywordsAny && !uf.keywordsAny.some(k => (u.keywords || []).includes(k))) return;
-        out.push({ unit: u, group: a });
-      });
+      pickUnits(uf && DATA.factionData && DATA.factionData[uf.source], uf, a.faction).forEach(u => out.push({ unit: u, group: a }));
     });
     _refs.set(fd, out);
     return out;
+  }
+
+  /* An army built on another army's pool (a Chapter with its own book on Space Marines): fd.inherits = {source, exclude?:
+     {unitIds?, keywordsAny?, detachmentIds?}}. The source's units of the same faction, its detachments and, when the army has none
+     of its own, its army rules join the army BY REFERENCE (its highlighted terms are added to the army's own) (the same objects): an id the army has itself wins. Whatever is bound to
+     one of the source's sub-factions stays with the source. Linked once per DATA; the joined arrays serialise as the army's own
+     items only, so a tool that writes data.js never writes a copy. Not transitive: the source's own `inherits` is not followed. */
+  const _linked = new WeakSet();
+  function inherit(DATA) {
+    if (!DATA || !DATA.factionData || _linked.has(DATA)) return DATA;
+    _linked.add(DATA);
+    const join = (orig, extra) => {
+      const own = orig || [], ids = new Set(own.map(x => x.id)), all = own.concat(extra.filter(x => !ids.has(x.id)));
+      Object.defineProperty(all, 'toJSON', { value: () => orig, enumerable: false });
+      return all;
+    };
+    Object.keys(DATA.factionData).forEach(id => {
+      const fd = DATA.factionData[id], inh = fd && fd.inherits, src = inh && DATA.factionData[inh.source];
+      if (!src || src === fd) return;
+      const ex = inh.exclude || {};
+      fd.units = join(fd.units, pickUnits(src, { exclude: ex }, src.armyFaction));
+      fd.detachments = join(fd.detachments, (src.detachments || []).filter(d => !d.subfaction && !(ex.detachmentIds || []).includes(d.id)));
+      if (!(fd.armyRules || []).length && (src.armyRules || []).length) {
+        const orig = fd.armyRules;
+        fd.armyRules = src.armyRules.slice();
+        Object.defineProperty(fd.armyRules, 'toJSON', { value: () => orig, enumerable: false });
+      }
+      if (Array.isArray(src.terms)) {   // highlighted phrases: the army's own plus the source's (its army rules come with them)
+        const orig = fd.terms;
+        fd.terms = [...new Set((orig || []).concat(src.terms))];
+        Object.defineProperty(fd.terms, 'toJSON', { value: () => orig, enumerable: false });
+      }
+    });
+    return DATA;
   }
   /* Own datasheets plus referenced ones; an id the army already has always wins. */
   function unitsOf(fd, DATA) {
@@ -34,6 +73,7 @@ const Engine = (function () {
   function subName(fd, id) { const s = (fd.subfactions || []).find(x => x.id === id); return s ? s.name : id; }
 
   function ctxFor(roster, DATA) {
+    inherit(DATA);
     const fd = DATA.factionData[roster.factionId];
     const bs = DATA.gameRules.battleSizes.find(b => b.id === roster.battleSize) || null;
     const dets = (roster.detachmentIds || []).map(id => fd.detachments.find(d => d.id === id)).filter(Boolean);
@@ -69,7 +109,9 @@ const Engine = (function () {
        and an enhancement's factionSwap replaces it. */
     const fac = inst ? factionOf(inst, def, ctx) : def.faction;
     if (fac) kw.add(keywordAsOf(ctx, fac));
-    ctx.dets.forEach(d => (d.grantKeywords || []).forEach(g => { if (g.unitIds.includes(def.id)) kw.add(g.keyword); }));
+    /* detachment grants apply while it is chosen; an army's own grants (fd.grantKeywords, same shape) apply to its units,
+       referenced ones included (Dark Angels: listed ADEPTUS ASTARTES units gain DEATHWING) */
+    [ctx.fd || {}].concat(ctx.dets).forEach(d => (d.grantKeywords || []).forEach(g => { if ((g.unitIds || []).includes(def.id)) kw.add(g.keyword); }));
     instGrants(def, ctx, inst).forEach(g => kw.add(g.keyword));
     // a wargear pick that gives its unit a keyword (T'au Marker drone: MARKERLIGHT)
     if (inst && inst.wargear) (def.options || []).forEach(o => { if (o.grantKeyword && (+inst.wargear[o.id] || 0) > 0) kw.add(o.grantKeyword); });
@@ -647,6 +689,7 @@ const Engine = (function () {
   }
 
   function eligibleReason(e, inst, roster, DATA) { const ctx = ctxFor(roster, DATA); const def = ctx.unitById[inst.datasheetId]; return eligible(e, def, inst, ctx); }
-  return { subOk, subName, refUnits, unitsOf, allyBlock, alliedOneOf, alliedCaps, alliedPtsCap, alliedEff, alliedPtsInfo, warlordBlock, grantsFor, instGrants, dispositionsOf, dataVersionFor, eligibleReason, ctxFor, points, validate, copyLimit, nextCopyInfo, enhancementCount, enhancementBlock, bindingsFor, optionMax, slotSize, slotUsed, ownCap, keywordsOf, hasKw, factionOf, buffed, attachedGroup, canLead, attachBlock, carries, enhIds, addStat, ORD };
+  return { subOk, subName, refUnits, unitsOf, inherit, pickUnits, allyBlock, alliedOneOf, alliedCaps, alliedPtsCap, alliedEff, alliedPtsInfo, warlordBlock, grantsFor, instGrants, dispositionsOf, dataVersionFor, eligibleReason, ctxFor, points, validate, copyLimit, nextCopyInfo, enhancementCount, enhancementBlock, bindingsFor, optionMax, slotSize, slotUsed, ownCap, keywordsOf, hasKw, factionOf, buffed, attachedGroup, canLead, attachBlock, carries, enhIds, addStat, ORD };
 })();
+if (typeof DATA !== 'undefined') Engine.inherit(DATA);
 if (typeof module !== 'undefined') module.exports = Engine;
