@@ -28,6 +28,11 @@ const Engine = (function () {
     return fd.units.concat(refUnits(fd, DATA).filter(r => !own.has(r.unit.id)).map(r => r.unit));
   }
 
+  /* Sub-factions inside one army (Space Marines Chapters): fd.subfactions [{id, name, keyword}], a datasheet's or detachment's
+     `subfaction` id, the roster's `subfaction` (null = none chosen). An item with a subfaction fits only a roster with that one. */
+  const subOk = (x, roster) => !x || !x.subfaction || x.subfaction === (roster && roster.subfaction || null);
+  function subName(fd, id) { const s = (fd.subfactions || []).find(x => x.id === id); return s ? s.name : id; }
+
   function ctxFor(roster, DATA) {
     const fd = DATA.factionData[roster.factionId];
     const bs = DATA.gameRules.battleSizes.find(b => b.id === roster.battleSize) || null;
@@ -324,6 +329,12 @@ const Engine = (function () {
     if (dp > bs.dp && !loneException) E(`Detachments cost ${dp} DP but ${bs.name} allows ${bs.dp} DP. Remove a detachment.`);
     if (threes > DATA.gameRules.maxThreeDpDetachments) E('Only one 3 DP detachment is allowed per army.');
     if (bs.loneThreeDp && threes && dets.length > 1) E(`In ${bs.name} a 3 DP detachment can only be taken as your only detachment.`);
+    // ---- Sub-faction (Chapter): one per army; its units and detachments only with it
+    if ((fd.subfactions || []).length) {
+      const lbl = (fd.subfactionLabel || 'sub-faction').toLowerCase();
+      dets.forEach(d => { if (!subOk(d, roster)) E(`${d.name} needs the ${subName(fd, d.subfaction)} ${lbl}${roster.subfaction ? `, not ${subName(fd, roster.subfaction)}` : ''}. Change the ${lbl} in the roster setup or remove the detachment.`); });
+      (roster.units || []).forEach(inst => { const def = ctx.unitById[inst.datasheetId]; if (def && !subOk(def, roster)) E(`${def.name} is from the ${subName(fd, def.subfaction)} ${lbl}; this army ${roster.subfaction ? `is ${subName(fd, roster.subfaction)}` : `has no ${lbl}`}. Pick the ${lbl} in the roster setup or remove the unit.`, inst.instanceId); });
+    }
     const tagOwner = {};
     dets.forEach(d => (d.tags || []).forEach(t => {
       if (tagOwner[t]) E(`${tagOwner[t]} and ${d.name} both have the ${t} tag. Keep only one.`);
@@ -541,7 +552,7 @@ const Engine = (function () {
     const add = (label, sel) => wparts(label).forEach(k => on.set(k, on.get(k) || sel));
     def.options.forEach(o => {
       // a champion's swap leaves the rest of the unit with the default weapon
-      if (o.type === 'choice') { const v = wg[o.id] != null ? wg[o.id] : o.choices[0].id, keep = /^champion/i.test(o.label) && inst.size > 1; o.choices.forEach((c, i) => add(c.label, c.id === v || (keep && i === 0))); }
+      if (o.type === 'choice') { const v = wg[o.id] != null ? wg[o.id] : o.choices[0].id, keep = (o.single || /^champion/i.test(o.label)) && inst.size > 1; /* single: one model (a Sergeant) makes the swap */ o.choices.forEach((c, i) => add(c.label, c.id === v || (keep && i === 0))); }
       else add(o.label, (+wg[o.id] || 0) > 0);
     });
     (def.slots || []).forEach(sl => add(sl.default, slotSize(sl, inst) - slotUsed(def, inst, sl.id) > 0));
@@ -636,6 +647,6 @@ const Engine = (function () {
   }
 
   function eligibleReason(e, inst, roster, DATA) { const ctx = ctxFor(roster, DATA); const def = ctx.unitById[inst.datasheetId]; return eligible(e, def, inst, ctx); }
-  return { refUnits, unitsOf, allyBlock, alliedOneOf, alliedCaps, alliedPtsCap, alliedEff, alliedPtsInfo, warlordBlock, grantsFor, instGrants, dispositionsOf, dataVersionFor, eligibleReason, ctxFor, points, validate, copyLimit, nextCopyInfo, enhancementCount, enhancementBlock, bindingsFor, optionMax, slotSize, slotUsed, ownCap, keywordsOf, hasKw, factionOf, buffed, attachedGroup, canLead, attachBlock, carries, enhIds, addStat, ORD };
+  return { subOk, subName, refUnits, unitsOf, allyBlock, alliedOneOf, alliedCaps, alliedPtsCap, alliedEff, alliedPtsInfo, warlordBlock, grantsFor, instGrants, dispositionsOf, dataVersionFor, eligibleReason, ctxFor, points, validate, copyLimit, nextCopyInfo, enhancementCount, enhancementBlock, bindingsFor, optionMax, slotSize, slotUsed, ownCap, keywordsOf, hasKw, factionOf, buffed, attachedGroup, canLead, attachBlock, carries, enhIds, addStat, ORD };
 })();
 if (typeof module !== 'undefined') module.exports = Engine;

@@ -1798,3 +1798,25 @@ html:not(.m) .seg.wide { max-width: 560px; }
 .mf-hex.h2 { animation-delay: 1s; } .mf-hex.h3 { animation-delay: 2s; }
 @keyframes ikHex { 0% { opacity: .7; transform: scale(.3); } 100% { opacity: 0; transform: scale(5); } }
 .panel.remind.fx-ik_heal, .panel.remind.fx-ik_aegis { border-color: rgba(217, 164, 65, .5); }
+
+/* ---- Space Marines: Combat Doctrine cards (dct-smA/D/T) and the aquila stamp (mfx m-aquila_*); detachment reminder sweep (m-sm_sweep) ---- */
+.dct-smA { --c: rgba(200, 32, 46, .4); --cb: #e8505a; } .dct-smD { --c: rgba(42, 99, 214, .4); --cb: #6f9cff; } .dct-smT { --c: rgba(233, 228, 216, .3); --cb: #e9e4d8; }
+.mfx[class*="m-aquila"] { --fx: #e9e4d8; overflow: hidden; border-radius: inherit; }
+.mfx.m-aquila_assault { --fx2: #e8505a; } .mfx.m-aquila_devastator { --fx2: #6f9cff; } .mfx.m-aquila_tactical { --fx2: #f2d58a; }
+.mf-aq { left: 50%; top: 50%; width: 92px; height: 58px; margin: -29px 0 0 -46px; fill: var(--fx); filter: drop-shadow(0 0 6px var(--fx2, #e8505a)); opacity: 0; animation: mfAqStamp 1.5s cubic-bezier(.2, .8, .25, 1) forwards; }
+.mf-aq-glyph { left: 50%; top: 50%; width: 30px; height: 30px; margin: -46px 0 0 -15px; fill: var(--fx2, #e8505a); filter: drop-shadow(0 0 8px var(--fx2, #e8505a)); opacity: 0; animation: mfAqGlyph 1.7s ease-out .35s forwards; }
+.mf-aq-flash { inset: 0; background: radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--fx2, #e8505a) 55%, transparent), transparent 62%); opacity: 0; animation: mfAqFlash 1.1s ease-out .22s forwards; }
+.mf-aq-ring { left: 50%; top: 50%; width: 60px; height: 60px; margin: -30px 0 0 -30px; border-radius: 50%; border: 2px solid var(--fx); box-shadow: 0 0 14px var(--fx2, #e8505a), inset 0 0 10px var(--fx2, #e8505a); opacity: 0; animation: mfAqRing 1.2s ease-out .24s forwards; }
+.mf-aq-ring.r2 { border-color: var(--fx2, #e8505a); animation-delay: .4s; }
+.mf-aq-ray { left: 50%; top: 50%; width: 3px; height: 70px; margin: -70px 0 0 -1.5px; transform-origin: 50% 100%; background: linear-gradient(to top, transparent, var(--fx), transparent); opacity: 0; transform: rotate(var(--r)) scaleY(.2); animation: mfAqRay .9s ease-out var(--dl) forwards; }
+.mf-aq-ember { bottom: 6px; width: 4px; height: 4px; border-radius: 50%; background: var(--fx2, #e8505a); box-shadow: 0 0 6px var(--fx2, #e8505a); opacity: 0; animation: mfAqEmber var(--t) ease-out var(--dl) forwards; }
+@keyframes mfAqStamp { 0% { opacity: 0; transform: scale(2.4); } 22% { opacity: 1; transform: scale(.94); } 30% { transform: scale(1.04); } 38% { transform: scale(1); } 75% { opacity: .95; transform: scale(1); } 100% { opacity: 0; transform: scale(1.06); } }
+@keyframes mfAqGlyph { 0% { opacity: 0; transform: translateY(8px) scale(.6); } 30% { opacity: 1; transform: translateY(0) scale(1.15); } 70% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: translateY(-6px) scale(1); } }
+@keyframes mfAqFlash { 0% { opacity: 0; } 15% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes mfAqRing { 0% { opacity: .95; transform: scale(.3); } 100% { opacity: 0; transform: scale(4.2); } }
+@keyframes mfAqRay { 0% { opacity: 0; transform: rotate(var(--r)) scaleY(.2); } 30% { opacity: .9; } 100% { opacity: 0; transform: rotate(var(--r)) scaleY(1.25); } }
+@keyframes mfAqEmber { 0% { opacity: 0; transform: translate(0, 0); } 20% { opacity: 1; } 100% { opacity: 0; transform: translate(var(--x), -70px); } }
+.mf-sweep { top: 0; bottom: 0; left: -40%; width: 40%; background: linear-gradient(100deg, transparent, color-mix(in srgb, #e9e4d8 22%, transparent) 45%, color-mix(in srgb, #e8505a 30%, transparent) 55%, transparent); transform: translateX(0) skewX(-18deg); animation: mfSweep 3.6s ease-in-out infinite; }
+.mf-sweep.s2 { top: auto; height: 2px; width: 30%; background: linear-gradient(90deg, transparent, #e8505a, #e9e4d8, transparent); transform: none; animation: mfSweepEdge 3.6s ease-in-out .3s infinite; }
+@keyframes mfSweep { 0%, 55% { transform: translateX(0) skewX(-18deg); } 100% { transform: translateX(380%) skewX(-18deg); } }
+@keyframes mfSweepEdge { 0%, 50% { transform: translateX(0); opacity: 0; } 60% { opacity: 1; } 100% { transform: translateX(450%); opacity: 0; } }

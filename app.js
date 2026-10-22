@@ -409,7 +409,7 @@
     list.forEach(r => (groups[r.factionId] = groups[r.factionId] || []).push(r));
     const items = r => {
       const f = faction(r.factionId), fd = fdata(r.factionId), bs = bsDef(r.battleSize);
-      const dets = r.detachmentIds.map(id => (fd.detachments.find(d => d.id === id) || {}).name).filter(Boolean).join(', ');
+      const dets = (r.subfaction ? Engine.subName(fd, r.subfaction) + ' · ' : '') + r.detachmentIds.map(id => (fd.detachments.find(d => d.id === id) || {}).name).filter(Boolean).join(', ');
       const pts = rosterPts(r).total;
       const d = new Date(r.updatedAt || r.createdAt || Date.now());
       return `<div class="panel ritem clickable" data-act="openRoster" data-id="${r.id}">
@@ -499,6 +499,13 @@
     if (tag) return `Shares the ${tag} tag with a chosen detachment.`;
     return null;
   }
+  /* Sub-faction pick (Space Marines Chapter) in the roster setup: asked before the detachments, which it filters. */
+  function subHTML(dr, fd) {
+    if (!(fd.subfactions || []).length) return '';
+    const lbl = fd.subfactionLabel || 'Sub-faction';
+    return `<section class="stack"><div class="eyebrow">${esc(lbl)}</div><div class="row">${[{ id: '', name: 'None' }].concat(fd.subfactions).map(x => `<button class="chip" aria-pressed="${(dr.subfaction || '') === x.id}" data-act="draftSub" data-id="${esc(x.id)}">${esc(x.name)}</button>`).join('')}</div>
+      <span class="dim">${dr.subfaction ? `${esc(Engine.subName(fd, dr.subfaction))} units and detachment are added to the common ones.` : `Common units and detachments only. Pick a ${esc(lbl.toLowerCase())} to add its units and detachment.`}</span></section>`;
+  }
   function viewWizard() {
     const dr = S.draft, fd = fdata(dr.factionId), f = faction(dr.factionId), bs = bsDef(dr.battleSize);
     applyTheme(dr.factionId);
@@ -511,8 +518,9 @@
       `<main class="wrap stack" style="gap:22px">
       <section class="stack"><div class="eyebrow">Roster name</div><input type="text" id="wiz-name" data-inp="draftName" value="${esc(dr.name)}" aria-label="Roster name" style="max-width:520px"></section>
       <section class="stack"><div class="eyebrow">Battle size</div><div class="cards3">${GR.battleSizes.map(b => `<button class="choice" aria-pressed="${dr.battleSize === b.id}" data-act="draftSize" data-id="${b.id}"><span class="big">${b.name}</span><dl><dt>Points</dt><dd>${b.points}</dd><dt>DP budget</dt><dd>${b.dp}</dd><dt>Enhancements</dt><dd>${b.enhancements}</dd><dt>Copies per datasheet</dt><dd>${b.copyLimit} (Battleline / Transport ${b.copyLimit * 2})</dd></dl>${b.loneThreeDp ? '<span class="dim" style="font-size:.85rem">A single 3 DP detachment may be taken on its own.</span>' : ''}</button>`).join('')}</div></section>
+      ${subHTML(dr, fd)}
       <section class="stack"><div class="row"><div class="eyebrow grow">Detachments</div><b class="num">${used} / ${bs.dp} DP</b></div><div class="bar ${used > bs.dp ? 'over' : ''}"><i style="width:${Math.min(100, used / bs.dp * 100)}%"></i></div>
-        <div class="stack" style="gap:8px">${fd.detachments.map(d => { const why = detBlock(d, dr); const on = dr.detachmentIds.includes(d.id); return `<button class="choice detrow" role="checkbox" aria-checked="${on}" ${why ? 'aria-disabled="true"' : ''} data-act="draftDet" data-id="${d.id}"><span class="check">${on ? '✓' : ''}</span><span class="stack" style="gap:4px"><span class="row"><span class="big">${esc(d.name)}</span><span class="badge gold">${d.dp} DP</span>${Engine.dispositionsOf(d).map(x => `<span class="badge">${esc(x)}</span>`).join('')}${(d.tags || []).map(t => `<span class="badge red">${esc(t)}</span>`).join('')}</span><span class="dim">${hl(d.summary)}</span>${why ? `<span class="why">⚠ ${esc(why)}</span>` : ''}</span></button>`; }).join('')}</div></section>
+        <div class="stack" style="gap:8px">${fd.detachments.filter(d => Engine.subOk(d, dr)).map(d => { const why = detBlock(d, dr); const on = dr.detachmentIds.includes(d.id); return `<button class="choice detrow" role="checkbox" aria-checked="${on}" ${why ? 'aria-disabled="true"' : ''} data-act="draftDet" data-id="${d.id}"><span class="check">${on ? '✓' : ''}</span><span class="stack" style="gap:4px"><span class="row"><span class="big">${esc(d.name)}</span><span class="badge gold">${d.dp} DP</span>${Engine.dispositionsOf(d).map(x => `<span class="badge">${esc(x)}</span>`).join('')}${(d.tags || []).map(t => `<span class="badge red">${esc(t)}</span>`).join('')}</span><span class="dim">${hl(d.summary)}</span>${why ? `<span class="why">⚠ ${esc(why)}</span>` : ''}</span></button>`; }).join('')}</div></section>
       <section class="stack"><div class="eyebrow">Force Disposition</div>${disps.length ? `<div class="row">${disps.map(x => `<button class="chip" aria-pressed="${dr.forceDisposition === x}" data-act="draftDisp" data-id="${esc(x)}">${esc(x)}</button>`).join('')}</div>${disps.length === 1 ? '<span class="dim">Set automatically: only one disposition is available.</span>' : '<span class="dim">Pick one of your detachments\' dispositions.</span>'}` : '<span class="dim">Choose a detachment first.</span>'}</section>
       <div class="row"><button class="btn primary" data-act="wizDone" ${ok ? '' : 'disabled'}>${dr.editing ? 'Save setup' : 'Create roster'}</button>${ok ? '' : '<span class="dim">Pick a detachment and a disposition to continue.</span>'}</div>
       </main>`;
@@ -542,7 +550,7 @@
   function catalogCats(r) {
     const fd = fdata(r.factionId);
     const blAllowed = (fd.alliedFactions || []).filter(a => (!a.requiresDetachment || r.detachmentIds.includes(a.requiresDetachment)) && !Engine.alliedEff(a, r).forbid).map(a => a.faction);
-    const present = new Set(Engine.unitsOf(fd, DATA).filter(u => u.faction === fd.armyFaction || blAllowed.includes(u.faction)).map(u => catOf(u, r)));
+    const present = new Set(Engine.unitsOf(fd, DATA).filter(u => (u.faction === fd.armyFaction || blAllowed.includes(u.faction)) && Engine.subOk(u, r)).map(u => catOf(u, r)));
     const hi = (faction(r.factionId).highlights || []).filter(h => hiLive(r, h) && !h.pickLabels && !h.noFilter).map(h => [hiKey(h), h.label.charAt(0) + h.label.slice(1).toLowerCase()]);
     return { blAllowed, cats: CATS.filter(([c]) => c === 'all' || present.has(c)).concat(hi) };
   }
@@ -552,7 +560,7 @@
     const { blAllowed, cats } = catalogCats(r);
     if (!cats.some(([c]) => c === S.cat)) S.cat = 'all';
     const q = S.search.trim().toLowerCase();
-    const units = Engine.unitsOf(fd, DATA).filter(u => (u.faction === fd.armyFaction || blAllowed.includes(u.faction)))
+    const units = Engine.unitsOf(fd, DATA).filter(u => (u.faction === fd.armyFaction || blAllowed.includes(u.faction)) && Engine.subOk(u, r))
       .filter(u => S.cat === 'all' || (S.cat.startsWith('kw:') ? (faction(r.factionId).highlights || []).some(h => hiKey(h) === S.cat && hiState(r, u, null, h)) : catOf(u, r) === S.cat))
       .filter(u => !q || u.name.toLowerCase().includes(q) || [...Engine.keywordsOf(u, ctx)].join(' ').toLowerCase().includes(q));
     const pts = rosterPts(r);
@@ -711,7 +719,7 @@
     const { cats } = catalogCats(r);
     const pts = rosterPts(r);
     const addCol = `<section class="addcol stack" aria-label="Add units"><div class="row"><h2 class="grow">Add units</h2><button class="btn sm" data-act="editSetup">Edit setup</button></div>
-      <div class="dim" style="font-size:.9rem">${esc(bs.name)} · ${esc(r.detachmentIds.map(id => fd.detachments.find(d => d.id === id).name).join(' + '))} · ${esc(r.forceDisposition || 'no disposition')}</div>
+      <div class="dim" style="font-size:.9rem">${esc(bs.name)} · ${esc((r.subfaction ? Engine.subName(fd, r.subfaction) + ' · ' : '') + r.detachmentIds.map(id => fd.detachments.find(d => d.id === id).name).join(' + '))} · ${esc(r.forceDisposition || 'no disposition')}</div>
       <input class="search" type="search" id="add-search" data-inp="search" placeholder="Search name or keyword" value="${esc(S.search)}" aria-label="Search units" autocomplete="off">
       <div class="chips" role="group" aria-label="Categories">${cats.map(([c, l]) => `<button class="chip" aria-pressed="${S.cat === c}" data-act="cat" data-id="${c}">${l}</button>`).join('')}</div>
       <div class="addlist" id="cat-list">${catalogList(r)}</div></section>`;
@@ -891,7 +899,7 @@
     const rows = r.units.slice();
     const bs = bsDef(r.battleSize);
     return `<div class="stack"><div class="panel pad"><div class="row"><div class="grow"><div class="eyebrow">${esc(faction(r.factionId).name)} · ${bs.name}</div><h2>${esc(r.name)}</h2>
-      <div class="dim">${esc(r.detachmentIds.map(id => fd.detachments.find(d => d.id === id).name).join(' + '))} · ${esc(r.forceDisposition || '—')}</div></div><b class="num" style="font-size:1.4rem">${pts.total} pts</b></div></div>
+      <div class="dim">${esc((r.subfaction ? Engine.subName(fd, r.subfaction) + ' · ' : '') + r.detachmentIds.map(id => fd.detachments.find(d => d.id === id).name).join(' + '))} · ${esc(r.forceDisposition || '—')}</div></div><b class="num" style="font-size:1.4rem">${pts.total} pts</b></div></div>
       ${rows.length ? rows.map(inst => { const def = unitDef(r.factionId, inst.datasheetId); const p = pts.per[inst.instanceId]; const enh = inst.enhancementId ? ctx.allEnh[inst.enhancementId] : null; const att = inst.attachedTo ? r.units.find(u => u.instanceId === inst.attachedTo) : null; const ws = wargearSummary(def, inst);
         return `<div class="panel additem"><button class="ptbtn" data-act="openInst" data-id="${inst.instanceId}" aria-label="Open datasheet">${portrait(def, r.factionId, 'sm')}</button><div class="grow"><button class="nm" data-act="openInst" data-id="${inst.instanceId}">${esc(dispName(r, inst))}${inst.size > 1 ? ` <span class="dim">×${inst.size}</span>` : ''}</button>
         <div class="sub">${[r.warlordUnitId === inst.instanceId ? '★ Warlord' : '', enh ? esc(enh.name) : '', att ? 'Leading ' + esc(dispName(r, att)) : '', ws.length ? esc(ws.join(', ')) : ''].filter(Boolean).join(' · ') || '&nbsp;'}</div></div><b class="num">${p ? p.total : ''}</b></div>`; }).join('') : '<div class="empty">No units yet. Add them on the Build tab.</div>'}
@@ -1300,7 +1308,7 @@
         ${off ? `<div class="faint" style="font-size:.85rem">${esc(off.note)}</div>` : `<div class="faint" style="font-size:.85rem">${esc(dp.refNote || '')}</div>`}</div>`));
     }
     r.units.forEach(u => { const def = unitDef(r.factionId, u.datasheetId); if (def && def.roundPick) out.unshift(roundPickHTML(r, p, u, def)); if (def && def.phaseTrigger) out.unshift(phaseTriggerHTML(r, p, u, def)); if (def && def.oncePerBattle && onceNeeds(u, def.oncePerBattle)) out.push(oncePanelHTML(r, p, u, def)); });
-    fd.armyRules.filter(a => a.imperatives).forEach(a => out.unshift(doctrinaHTML(p, a)));
+    fd.armyRules.filter(a => a.imperatives).forEach(a => out.unshift(doctrinaHTML(p, a, r)));
     fd.armyRules.filter(a => a.counter).forEach(a => out.unshift(tokenPoolHTML(r, p, a, dets)));
     fd.armyRules.filter(a => a.markTracker).forEach(a => out.unshift(markTrackerHTML(r, p, a)));
     fd.armyRules.filter(a => a.pickUnits).forEach(a => out.push(pickUnitsHTML(r, p, a)));
@@ -1317,7 +1325,7 @@
       if (d.pledgeTracker) out.push(pledgeHTML(r, p, d));
       if (d.zones) out.push(zonesHTML(r, p, d));
       if (d.useLimit) out.push(useLimitHTML(r, p, d));
-      if (d.imperatives && d.impStyle === 'doctrina') { out.push(doctrinaHTML(p, d)); return; }
+      if (d.imperatives && d.impStyle === 'doctrina') { out.push(doctrinaHTML(p, d, r)); return; }
       if (d.reminder) out.push(remindHTML(r, p, d) || '');
       if (d.battlePick && d.battlePick.contract) out.push(contractHTML(r, p, d));
       else if (d.battlePick) {
@@ -1387,7 +1395,7 @@
   function turnStart(r, p) {
     const fd = fdata(r.factionId); if (!fd) return;
     // +1CP units (Swarmlord): your Command phase, while alive
-    if (p.turn !== 'opp' && r.units.some(u => (unitDef(r.factionId, u.datasheetId) || {}).cpEachCommand && !unitDead(p, u)) && !(p.hc || {})[p.round]) { p.cp += 1; p.hc = Object.assign(p.hc || {}, { [p.round]: 1 }); }
+    if (p.turn !== 'opp' && r.units.some(u => { const c = (unitDef(r.factionId, u.datasheetId) || {}).cpEachCommand; return c && !unitDead(p, u) && (!c.warlordOnly || r.warlordUnitId === u.instanceId); }) && !(p.hc || {})[p.round]) { p.cp += 1; p.hc = Object.assign(p.hc || {}, { [p.round]: 1 }); }
     if (p.turn !== 'opp') p.haloU = [];
     if (!fd.armyRules.some(a => a.miracle)) return;
     if (p.turn !== 'opp') p.righteous = [];
@@ -1689,6 +1697,18 @@
         + n(16).map(() => { const a = R(0, Math.PI * 2), d = R(30, 110); return `<i class="mf-sp" style="left:${R(10, 90).toFixed(0)}%;top:${R(20, 80).toFixed(0)}%;--x:${(Math.cos(a) * d).toFixed(0)}px;--y:${(Math.sin(a) * d * .6).toFixed(0)}px;--dl:${R(0, .35).toFixed(2)}s`+'"></i>'; }).join('');
     }
     if (k === 'runes') return n(5).map(i => `<svg class="mf-rune" viewBox="0 0 24 24" style="left:${8 + i * 20}%;--dl:${(i * .16).toFixed(2)}s"><path d="${['M12 3v18M12 8l6-4M12 13l6-4','M7 4v16M7 4l9 6-9 6','M5 5l14 14M19 5L5 19M12 3v18','M12 3l8 9-8 9-8-9zM12 8v8','M6 4h12M12 4v16M6 20h12'][i]}"/></svg>`).join('');
+    /* Space Marines Combat Doctrine: the aquila stamps down onto the card, a shockwave ring and light rays burst out, the doctrine's
+       glyph (sword / bolter / shield) flares above it and embers rise. ~1.8s, transform/opacity only. */
+    if (k.startsWith('aquila')) {
+      const g = { aquila_assault: 'M12 2l2 3v11h3v2h-3v3h-4v-3H7v-2h3V5z', aquila_devastator: 'M3 9h13l2-2h3v4h-2l-1 1v5h-3v-3H9l-2 3H4l2-5H3z', aquila_tactical: 'M12 2l8 3v6c0 5-3.5 9-8 11-4.5-2-8-6-8-11V5z' }[k] || 'M12 2l8 3v6c0 5-3.5 9-8 11-4.5-2-8-6-8-11V5z';
+      return '<i class="mf-aq-flash"></i>' + n(8).map(i => `<i class="mf-aq-ray" style="--r:${i * 45}deg;--dl:${(.12 + i * .015).toFixed(3)}s"></i>`).join('')
+        + '<i class="mf-aq-ring"></i><i class="mf-aq-ring r2"></i>'
+        + '<svg class="mf-aq" viewBox="0 0 64 40"><path d="M32 6c-2 0-3 2-3 4l-3-3c-2-1-4 0-4 2l2 3c-6-3-13-5-21-4 5 2 9 4 12 7-4-1-8-1-12 0 5 1 9 3 12 5-3 0-6 1-9 2 6 1 12 2 16 1l3 6 4 7h6l4-7 3-6c4 1 10 0 16-1-3-1-6-2-9-2 3-2 7-4 12-5-4-1-8-1-12 0 3-3 7-5 12-7-8-1-15 1-21 4l2-3c0-2-2-3-4-2l-3 3c0-2-1-4-3-4z"/></svg>'
+        + `<svg class="mf-aq-glyph" viewBox="0 0 24 24"><path d="${g}"/></svg>`
+        + n(12).map(() => `<i class="mf-aq-ember" style="left:${R(8, 92).toFixed(0)}%;--x:${R(-18, 18).toFixed(0)}px;--dl:${R(.3, .9).toFixed(2)}s;--t:${R(.9, 1.5).toFixed(2)}s"></i>`).join('');
+    }
+    /* Space Marines detachment reminder: a light sweep runs along the card's edge (loops while the card is shown) */
+    if (k === 'sm_sweep') return '<i class="mf-sweep"></i><i class="mf-sweep s2"></i>';
     if (k === 'halo') return '<i class="mf-halo"></i><i class="mf-halo h2"></i>';
     if (k === 'ik_heal') return n(7).map(i => `<i class="mf-cross2" style="left:${8 + i * 13}%;--dl:${(i * .37).toFixed(2)}s"></i>`).join('');
     if (k === 'ik_aegis') return '<i class="mf-hex"></i><i class="mf-hex h2"></i><i class="mf-hex h3"></i>';
@@ -1725,12 +1745,28 @@
     if (PL.android) setTimeout(() => PL.haptic('confirm'), 120);
   }
   /* one pick per battle round, stored under p[key][round]; key is 'imp' for the army rule and 'halo' for Noospheric Transference */
-  function doctrinaHTML(p, d) {
+  /* impOnce picks: each once per battle, plus extra uses detachments give (detachment.impExtra [{ids, n, requireUnit?}]: one more
+     pick of any listed id, n times; requireUnit = only while the roster has that datasheet). Can `id` be picked in this round? */
+  function impPools(r) {
+    if (!r) return [];
+    const fd = fdata(r.factionId), have = new Set(r.units.map(u => u.datasheetId));
+    return r.detachmentIds.map(id => fd.detachments.find(x => x.id === id)).filter(Boolean)
+      .flatMap(x => x.impExtra || []).filter(x => !x.requireUnit || have.has(x.requireUnit));
+  }
+  function impCanPick(p, key, r, id) {
+    const uses = {}; Object.entries(p[key] || {}).forEach(([rd, v]) => { if (+rd !== p.round) uses[v] = (uses[v] || 0) + 1; });
+    uses[id] = (uses[id] || 0) + 1;
+    const pools = impPools(r), left = pools.map(x => x.n || 1), extra = [];
+    Object.entries(uses).forEach(([k, n]) => { for (let i = 1; i < n; i++) extra.push(k); });
+    const fit = i => { if (i === extra.length) return true; for (let j = 0; j < pools.length; j++) if (left[j] > 0 && pools[j].ids.includes(extra[i])) { left[j]--; if (fit(i + 1)) return true; left[j]++; } return false; };
+    return fit(0);
+  }
+  function doctrinaHTML(p, d, r) {
     const key = d.impKey || 'imp', now = (p[key] || {})[p.round], cur = d.imperatives.find(i => i.id === now);
-    const usedIn = id => d.impOnce ? Object.entries(p[key] || {}).find(([rd, v]) => v === id && +rd !== p.round) : null;   // impOnce: each pick only once per battle
+    const usedIn = id => d.impOnce && now !== id && !impCanPick(p, key, r, id) ? Object.entries(p[key] || {}).find(([rd, v]) => v === id && +rd !== p.round) || ['?'] : null;   // impOnce: each pick only once per battle (plus detachment extras)
     const cards = d.imperatives.map(k => { const on = now === k.id, u = usedIn(k.id);
       return `<button class="dct dct-${k.tone || 'steel'} ${on ? 'on' : ''}" data-act="adImp" data-key="${key}" data-id="${k.id}" data-fx="${k.fx || d.impFx || ''}" aria-pressed="${on}" ${u ? 'aria-disabled="true"' : ''}><span class="dct-gr" aria-hidden="true"></span>
-        <span class="dct-t"><b>${esc(k.name)}</b><span class="dct-s">${u ? `Used · R${u[0]}` : on ? 'Active' : 'Activate'}</span></span><span class="dct-e">${esc(k.effect)}</span></button>`; }).join('');
+        <span class="dct-t"><b>${esc(k.name)}</b><span class="dct-s">${u ? `Used · R${u[0]}` : on ? 'Active' : d.impOnce && Object.entries(p[key] || {}).some(([rd, v]) => v === k.id && +rd !== p.round) ? 'Extra use' : 'Activate'}</span></span><span class="dct-e">${esc(k.effect)}</span></button>`; }).join('');
     return `<div class="panel pad stack trk dctr"><div class="row"><h3 class="grow">${esc(d.impTitle)}</h3>${cur ? `<span class="badge gold">Round ${p.round}: ${esc(cur.name)}</span>` : `<span class="badge">Round ${p.round}: none</span>`}</div>
       <div class="dct-list">${cards}</div><div class="faint" style="font-size:.85rem">${esc(d.impNote || '')}</div></div>`;
   }
@@ -2077,8 +2113,10 @@
     const fd = fdata(r.factionId), dets = r.detachmentIds.map(id => fd.detachments.find(d => d.id === id)).filter(Boolean);
     const startOfRound = p.turn === (p.first || 'mine');
     const h = [];
-    if (p.turn !== 'opp' && (p.hc || {})[p.round] && p.phase === 'Command') { const u = r.units.find(x => (unitDef(r.factionId, x.datasheetId) || {}).cpEachCommand); if (u) h.push(` ${unitDef(r.factionId, u.datasheetId).cpEachCommand.name}: +1 CP.`); }
+    if (p.turn !== 'opp' && (p.hc || {})[p.round] && p.phase === 'Command') { const u = r.units.find(x => { const c = (unitDef(r.factionId, x.datasheetId) || {}).cpEachCommand; return c && (!c.warlordOnly || r.warlordUnitId === x.instanceId); }); if (u) h.push(` ${unitDef(r.factionId, u.datasheetId).cpEachCommand.name}: +1 CP.`); }
     if (startOfRound) r.units.forEach(u => { const rp = (unitDef(r.factionId, u.datasheetId) || {}).roundPick; if (rp && !rp.persist && !unitDead(p, u) && !((p.rpick || {})[u.instanceId] || {})[p.round]) h.push(` Pick ${rp.who}'s ${rp.title}.`); });
+    /* army-rule reminders in the hint line (Librarius): armyRules[].roundHint, shown at the start of each battle round while a unit of the roster has that rule */
+    if (startOfRound) fd.armyRules.filter(a => a.roundHint && r.units.some(u => ((unitDef(r.factionId, u.datasheetId) || {}).factionAbilities || []).includes(a.name))).forEach(a => h.push(' ' + a.roundHint));
     const pt = dets.find(d => d.pledgeTracker); if (pt && startOfRound && !((p.pledgeDone || {})[p.round])) h.push(' Pledge a number of enemy units to destroy (Pledges to the Dark Prince).');
     if (fd.armyRules.some(a => a.blessings)) return (startOfRound && !(p.active || []).length ? ' Roll and pick Blessings of Khorne.' : '') + h.join('');
     if (fd.armyRules.some(a => a.contagion)) {
@@ -2656,7 +2694,7 @@
       return `<div class="mrow ${errUnits.has(u.instanceId) ? 'err' : ''} ${S.flash === u.instanceId ? 'flash' : ''}" id="u-${u.instanceId}"><button class="ptbtn" data-act="openInst" data-id="${u.instanceId}" aria-label="Datasheet: ${esc(dispName(r, u))}">${portrait(def, r.factionId)}</button><button class="mrow-main" data-act="openUnit" data-id="${u.instanceId}"><span class="mrow-name">${errUnits.has(u.instanceId) ? '<span class="bad">✕ </span>' : ''}${esc(dispName(r, u))}${kwBadges(r, def, u)}</span>${meta ? `<span class="mrow-meta">${meta}</span>` : ''}${rel}</button><span class="mrow-pts num">${p.total}</span><button class="iconbtn mrow-more" data-act="unitMenu" data-id="${u.instanceId}" aria-label="Actions for ${esc(dispName(r, u))}">${ICON.more}</button></div>`;
     };
     const rows = rosterGroups(r).map(g => groupHdr(r, g, errUnits) + (isColl(r, g.cat) ? '' : `<div class="mlist">${g.items.map(rowOf).join('')}</div>`)).join('');
-    return `<div class="mdet"><span class="dim">${esc(bs.name)} · ${esc(r.detachmentIds.map(id => fd.detachments.find(d => d.id === id).name).join(' + '))}</span><span class="dim num">${r.units.length} units</span></div>
+    return `<div class="mdet"><span class="dim">${esc(bs.name)} · ${esc((r.subfaction ? Engine.subName(fd, r.subfaction) + ' · ' : '') + r.detachmentIds.map(id => fd.detachments.find(d => d.id === id).name).join(' + '))}</span><span class="dim num">${r.units.length} units</span></div>
       ${rows ? `${hiSummary(r)}<div class="mgroups">${rows}</div>` : `<div class="empty">Your roster is empty. Start with a CHARACTER.<br><button class="btn primary" data-act="openCatalog" style="margin-top:12px">${ICON.plus} Add your first unit</button></div>`}
       <label class="fld" style="margin-top:18px">Roster notes<textarea id="roster-notes" data-inp="rosterNotes">${esc(r.notes || '')}</textarea></label>
       ${ne ? `<button class="errstrip" data-act="openStatus"><span>✕ ${ne} problem${ne > 1 ? 's' : ''}</span><span>Show ›</span></button>` : ''}
@@ -3036,23 +3074,24 @@
     goFaction: () => { const r = cur(); go('faction', { factionId: r ? r.factionId : S.factionId || 'worldEaters', rosterId: null, renaming: false }); },
     openFaction: el => go('faction', { factionId: el.dataset.id, search: '' }),
     factionTab: el => { S.factionTab = el.dataset.id; render(); },
-    newRoster: () => { S.draft = { factionId: S.factionId, name: defaultName(S.factionId, 'strike'), nameTouched: false, battleSize: 'strike', detachmentIds: [], forceDisposition: null }; go('wizard'); },
-    editSetup: () => { const r = cur(); S.draft = { editing: true, factionId: r.factionId, name: r.name, nameTouched: true, battleSize: r.battleSize, detachmentIds: r.detachmentIds.slice(), forceDisposition: r.forceDisposition }; go('wizard'); },
+    newRoster: () => { S.draft = { factionId: S.factionId, name: defaultName(S.factionId, 'strike'), nameTouched: false, battleSize: 'strike', detachmentIds: [], forceDisposition: null, subfaction: null }; go('wizard'); },
+    editSetup: () => { const r = cur(); S.draft = { editing: true, factionId: r.factionId, name: r.name, nameTouched: true, battleSize: r.battleSize, detachmentIds: r.detachmentIds.slice(), forceDisposition: r.forceDisposition, subfaction: r.subfaction || null }; go('wizard'); },
     wizCancel: () => go('roster'),
     draftSize: el => { const d = S.draft; d.battleSize = el.dataset.id; if (!d.nameTouched) d.name = defaultName(d.factionId, d.battleSize); const fd = fdata(d.factionId); /* drop detachments that no longer fit */ const keep = []; d.detachmentIds.forEach(id => { const tmp = { ...d, detachmentIds: keep }; if (!detBlock(fd.detachments.find(x => x.id === id), tmp)) keep.push(id); }); if (keep.length !== d.detachmentIds.length) toast('Some detachments no longer fit and were removed.'); d.detachmentIds = keep; render(); },
     draftDet: el => { const d = S.draft, id = el.dataset.id; if (d.detachmentIds.includes(id)) d.detachmentIds = d.detachmentIds.filter(x => x !== id); else { const det = fdata(d.factionId).detachments.find(x => x.id === id); const why = detBlock(det, d); if (why) { toast(why); return; } d.detachmentIds.push(id); } render(); },
+    draftSub: el => { const d = S.draft, fd = fdata(d.factionId); d.subfaction = el.dataset.id || null; const keep = d.detachmentIds.filter(id => Engine.subOk(fd.detachments.find(x => x.id === id), d)); if (keep.length !== d.detachmentIds.length) toast(`Removed a detachment of another ${(fd.subfactionLabel || 'sub-faction').toLowerCase()}.`); d.detachmentIds = keep; render(); },
     draftDisp: el => { S.draft.forceDisposition = el.dataset.id; render(); },
     wizDone: () => {
       const d = S.draft;
       const name = d.name.trim() || defaultName(d.factionId, d.battleSize);
       if (d.editing) {
-        const r = cur(); Object.assign(r, { name, battleSize: d.battleSize, detachmentIds: d.detachmentIds.slice(), forceDisposition: d.forceDisposition });
+        const r = cur(); Object.assign(r, { name, battleSize: d.battleSize, detachmentIds: d.detachmentIds.slice(), forceDisposition: d.forceDisposition, subfaction: d.subfaction || null });
         const ctx = Engine.ctxFor(r, DATA); let dropped = 0;
         r.units.forEach(u => { if (u.enhancementId && !ctx.enhById[u.enhancementId]) { u.enhancementId = null; dropped++; } });
         touch(r); go('roster', { tab: 'build' }); if (dropped) toast(`${dropped} enhancement${dropped > 1 ? 's' : ''} removed: detachment no longer selected.`);
         return;
       }
-      const r = { id: 'r' + uid(), name, factionId: d.factionId, battleSize: d.battleSize, detachmentIds: d.detachmentIds.slice(), forceDisposition: d.forceDisposition, warlordUnitId: null, units: [], notes: '', createdAt: Date.now(), updatedAt: Date.now(), dataVersion: Engine.dataVersionFor(d.factionId, DATA) };
+      const r = { id: 'r' + uid(), name, factionId: d.factionId, battleSize: d.battleSize, detachmentIds: d.detachmentIds.slice(), forceDisposition: d.forceDisposition, subfaction: d.subfaction || null, warlordUnitId: null, units: [], notes: '', createdAt: Date.now(), updatedAt: Date.now(), dataVersion: Engine.dataVersionFor(d.factionId, DATA) };
       rosters.push(r); Store.save(r); go('roster', { rosterId: r.id, tab: 'build', cat: 'character', search: '' });
     },
     openRoster: el => { const r = rosters.find(x => x.id === el.dataset.id); if (!r) return; sortUnits(r); const from = S.view === 'home' ? 'home' : 'faction'; go('roster', { rosterId: r.id, factionId: r.factionId, tab: 'build', cat: 'all', search: '', rosterFrom: from, play: null, playFor: null }); if (r.dataVersion !== DATA.meta.dataVersion) toast('Built on older data. Check the Validation panel.'); },
@@ -3333,7 +3372,7 @@
       if (on) { const c = document.querySelector(`.kin[data-id="${id}"]`); if (c) sigilFx(c); }
     },
     adImp: el => {   // Doctrina Imperatives / Halo Override / Combat Drugs: one pick per battle round
-      if (el.getAttribute('aria-disabled') === 'true') { toast('Already picked in an earlier round; each can only be picked once per battle.'); PL.haptic('reject'); return; }
+      if (el.getAttribute('aria-disabled') === 'true') { toast('Already used up this battle: each can be picked once, plus any extra uses your detachments give.'); PL.haptic('reject'); return; }
       const r = cur(), id = el.dataset.id, key = el.dataset.key || 'imp', on = ((playState(r)[key] || {})[playState(r).round]) !== id;
       playChange(r, p => { p[key] = p[key] || {}; if (p[key][p.round] === id) delete p[key][p.round]; else p[key][p.round] = id; }, null, 'confirm');
       if (on) mechFx(document.querySelector(`.dct[data-key="${key}"][data-id="${id}"]`), el.dataset.fx);
