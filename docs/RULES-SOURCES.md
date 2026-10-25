@@ -2,7 +2,7 @@
 
 Applies to every army in the app: Chaos Space Marines, World Eaters, Death
 Guard, Thousand Sons, Tyranids, Adepta Sororitas (with Imperial Agents),
-Adeptus Mechanicus, Emperor's Children (with Legions of Excess), Drukhari (with Harlequins and Anhrathe allies), Necrons, T'au Empire, Imperial Knights (with Adeptus Mechanicus allies), Space Marines (codex Chapters, with Freeblades allies), Dark Angels (on the Space Marines pool by reference, Freeblades inherited), and
+Adeptus Mechanicus, Emperor's Children (with Legions of Excess), Drukhari (with Harlequins and Anhrathe allies), Necrons, T'au Empire, Imperial Knights (with Adeptus Mechanicus allies), Space Marines (codex Chapters, with Freeblades allies), Dark Angels (on the Space Marines pool by reference, Freeblades inherited), Blood Angels (the same way), and
 any army added later.
 
 Current to: the 30 Sep 2026 update (MFM v1.5; Faction Packs World Eaters,
@@ -18,6 +18,10 @@ so SM is rebuilt with an empty delta: `IMPORT=cdc2667..cdc2667 tools/rules/rebui
 Dark Angels (added 2026-10-22) has no 11th-edition Faction Pack (the `eng_08-10` v1.0 PDF is 10th edition): texts follow Wahapedia
 19.10.2026 (source "Dark Angels — App" 03.10.2026), structure BSData db61485 (DA catalogue) and 7232fde (DA detachments in the SM
 catalogue), points MFM v1.6 = BSData = Wahapedia. Rebuilt with an empty delta: `IMPORT=7232fde..7232fde tools/rules/rebuild.sh darkAngels`.
+Blood Angels (added 2026-10-25) has no 11th-edition Faction Pack either (the June 2026 pack was superseded in the app by Codex: Space
+Marines; the only PDF found is the French v1.1, 10th edition): texts follow Wahapedia 19.10.2026 (source "Blood Angels — App" 03.10.2026),
+structure BSData b4dc3f4 (BA catalogue + BA detachments in the SM catalogue), points BSData = Wahapedia App 2.8.1 (the MFM site cannot be
+reached from here). Rebuilt with an empty delta: `IMPORT=b4dc3f4..b4dc3f4 tools/rules/rebuild.sh bloodAngels`.
 
 ## Order of precedence
 
@@ -203,3 +207,17 @@ Found by `bsdelta.py` across BSData's import (`374f505..HEAD`) plus reviews:
   EXPLOSIVES on Lazarus and Black Knights (BSData GRENADES); Wrath of the Rock TERMINATOR tag (BSData); RAVENWING on Invader ATVs (BSData).
   The import fixture `dark_angels_synthetic` is synthetic: replace with a real export. Every own unit has a photo (Command Squad and
   Deathwing Terminator Squad have no product of their own: kit and box photos used). Details: `audit/darkAngels_*.md`.
+- Blood Angels (added 2026-10-25; a Chapter army on the Space Marines pool like Dark Angels — `fd.inherits`, BLOOD ANGELS via `fd.armyKeyword`,
+  no `grantKeywords` (BSData has no instanceOf-BA modifiers), `leaderOfExtra` for Captain with Jump Pack → Sanguinary Guard, Chaplain → Death
+  Company Marines, Chaplain with Jump Pack → Death Company Marines with Jump Packs (Wahapedia 11e "App. Blood Angels"; BSData has none)).
+  14 own datasheets, 3 own detachments, 12 stratagems, 8 enhancements. Excluded: 12 Legends and Death Company Intercessors (folded into Death
+  Company Marines in 11e; hidden in BSData). Black Rage is a datasheet ability in 11e, DEATH COMPANY an ordinary keyword (no army-level
+  selection). Decisions from the sources: Angelic Inheritors 3 DP (MFM via Tabletop Battles, BSData, Wahapedia; the September player pack says
+  2), Prescient Flash 25 pts (Wahapedia, Tabletop Battles; BSData 20), DEATH COMPANY on Lemartes (Wahapedia 11e; BSData lacks it).
+  Weapon profiles where BSData kept 10th-edition values and Wahapedia = the Space Marines pool were taken from Wahapedia (Relic Weapon S6,
+  Captains' Heavy Bolt Pistol S5 [CLOSE-QUARTERS], DC Captain with Jump Pack plasma pistol BS 2+). Transfixing Gaze: BSData wording without
+  Wahapedia's "(Core Rules, 09.04)" (`overrides.json`). Check against the app: every detachment, stratagem and enhancement text; the three
+  decisions above; [ASSAULT] on the Baal Predator's storm bolter and hunter-killer (Wahapedia only, not applied); the Grenade Launcher of Death
+  Company Marines needs a Bolt Rifle (not enforced). Photos: Death Company Dreadnought / Marines / Marines with Jump Packs are cut from the
+  Warhammer Community army-set photo (no product of their own); Death Company Captain and Captain with Jump Pack use the logo. Import fixture
+  `blood_angels_synthetic` is synthetic: replace with a real export. Details: `audit/bloodAngels_*.md`.
