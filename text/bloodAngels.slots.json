@@ -1,0 +1,440 @@
+{
+ "_meta": {
+  "faction": "bloodAngels",
+  "factionName": "Blood Angels",
+  "dataVersion": "2026-10-25-ba-app-bsdata",
+  "generatedAt": "2026-10-25",
+  "howTo": "docs/RULES-SOURCES.md",
+  "rules": [
+   "Edit ONLY the plain text fields. Keys starting with _ are context and are ignored.",
+   "Plain text only: no HTML, no markdown, no ** or [] markup. Highlighting is automatic.",
+   "Keep ALL-CAPS keywords, dice notation (D3, D6, 2D6, D6+3) and quotes/inches as written.",
+   "armyRules text is a list: one entry per paragraph.",
+   "Leave a field unchanged if you have not done it yet. Never delete a key."
+  ],
+  "counts": {
+   "armyRules": 0,
+   "detachmentRules": 3,
+   "stratagems": 12,
+   "enhancements": 8,
+   "unitAbilities": 31
+  }
+ },
+ "armyRules": {},
+ "detachments": {
+  "angelic_inheritors": {
+   "_name": "Angelic Inheritors",
+   "rule": {
+    "_name": "Legacy of the Angel",
+    "text": "Friendly BLOOD ANGELS CHARACTER units: ■ Can re-roll hit rolls of 1. ■ Can re-roll wound rolls of 1. Restrictions: Your army can include BLOOD ANGELS units, but it cannot include any ADEPTUS ASTARTES units drawn from any other Chapter."
+   },
+   "stratagems": {
+    "in_the_shadow_of_great_wings": {
+     "_name": "In the Shadow of Great Wings",
+     "_cp": 1,
+     "_type": "Angelic Inheritors",
+     "_phases": [
+      "Shooting"
+     ],
+     "when": "Your opponent’s Shooting phase, when an enemy unit targets a friendly ADEPTUS ASTARTES CHARACTER unit.",
+     "target": "That ADEPTUS ASTARTES CHARACTER unit.",
+     "effect": "Your unit has: ■ Stealth. ■ -3\" detection range.",
+     "restrictions": null
+    },
+    "instant_of_grace": {
+     "_name": "Instant of Grace",
+     "_cp": 1,
+     "_type": "Angelic Inheritors",
+     "_phases": [
+      "Command"
+     ],
+     "when": "Your Command phase.",
+     "target": "One friendly ADEPTUS ASTARTES INFANTRY unit.",
+     "effect": "Your unit has CHARACTER until the start of your next Command phase.",
+     "restrictions": null
+    },
+    "strike_now_for_glory": {
+     "_name": "Strike Now for Glory",
+     "_cp": 1,
+     "_type": "Angelic Inheritors",
+     "_phases": [
+      "Shooting"
+     ],
+     "when": "Your Shooting phase when a friendly ADEPTUS ASTARTES unit is selected to attack.",
+     "target": "That ADEPTUS ASTARTES unit.",
+     "effect": "Your unit’s ranged attacks have [SUSTAINED HITS 1].",
+     "restrictions": null
+    },
+    "unto_the_burning_skies": {
+     "_name": "Unto the Burning Skies",
+     "_cp": 1,
+     "_type": "Angelic Inheritors",
+     "_phases": [
+      "Fight"
+     ],
+     "when": "End of your opponent’s Fight phase.",
+     "target": "One friendly The Sanguinor/unengaged ADEPTUS ASTARTES JUMP PACK unit.",
+     "effect": "Place your unit in strategic reserves.",
+     "restrictions": null
+    },
+    "measured_strategist": {
+     "_name": "Measured Strategist",
+     "_cp": 1,
+     "_type": "Angelic Inheritors",
+     "_phases": [
+      "Command"
+     ],
+     "when": "Your Command phase.",
+     "target": "One friendly ADEPTUS ASTARTES CHARACTER unit.",
+     "effect": "Select one combat doctrine. That combat doctrine is active for your unit until the start of your next Command phase.",
+     "restrictions": null
+    },
+    "focused_fury": {
+     "_name": "Focused Fury",
+     "_cp": 1,
+     "_type": "Angelic Inheritors",
+     "_phases": [
+      "Fight"
+     ],
+     "when": "Fight phase, when a friendly ADEPTUS ASTARTES unit is selected to fight.",
+     "target": "That ADEPTUS ASTARTES unit.",
+     "effect": "Your unit’s melee attacks: ■ Have [LETHAL HITS]. ■ Or: If your unit is a CHARACTER unit, have [LETHAL HITS], [LANCE].",
+     "restrictions": null
+    }
+   },
+   "enhancements": {
+    "prescient_flash": {
+     "_name": "Prescient Flash",
+     "_pts": 25,
+     "text": "ADEPTUS ASTARTES model only. This unit has Scouts 6\"."
+    },
+    "blazing_icon": {
+     "_name": "Blazing Icon",
+     "_pts": 20,
+     "text": "ADEPTUS ASTARTES model only. Enemy units cannot target this unit with snap shooting attacks."
+    },
+    "ordained_sacrifice": {
+     "_name": "Ordained Sacrifice",
+     "_pts": 25,
+     "text": "ADEPTUS ASTARTES model only. (Once per battle, per army) At the end of a phase in which this model is destroyed, roll one D6: ■ On a 2+, set this model back up on the battlefield as close as possible to where it was destroyed, unengaged, with 3 wounds remaining."
+    },
+    "unto_death": {
+     "_name": "Unto Death",
+     "_pts": 15,
+     "text": "ADEPTUS ASTARTES model only. (Once per battle, per army) In your Command phase you can use this ability. If you do, until the end of the turn this unit can: ■ Re-roll advance rolls. ■ Re-roll charge rolls."
+    }
+   }
+  },
+  "encarmine_speartip": {
+   "_name": "Encarmine Speartip",
+   "rule": {
+    "_name": "Wrath of Angels",
+    "text": "The tactical doctrine is active for Sanguinary Guard units in addition to any other combat doctrine. Restrictions: Your army can include BLOOD ANGELS units, but it cannot include any ADEPTUS ASTARTES units drawn from any other Chapter."
+   },
+   "stratagems": {
+    "inexorable_valour": {
+     "_name": "Inexorable Valour",
+     "_cp": 1,
+     "_type": "Encarmine Speartip",
+     "_phases": [
+      "Movement"
+     ],
+     "when": "Your opponent’s Movement phase, when an enemy unit that was engaged with a friendly Sanguinary Guard unit ends a fall-back move, if that SANGUINARY GUARD unit is unengaged.",
+     "target": "That SANGUINARY GUARD unit.",
+     "effect": "Your unit can make a normal move of up to D3+3\".",
+     "restrictions": null
+    },
+    "judgement_of_the_golden_host": {
+     "_name": "Judgement of the Golden Host",
+     "_cp": 1,
+     "_type": "Encarmine Speartip",
+     "_phases": [
+      "Charge"
+     ],
+     "when": "Your Charge phase, when a friendly Sanguinary Guard unit form your army ends a charge move.",
+     "target": "That SANGUINARY GUARD unit.",
+     "effect": "Select one enemy unit engaged with your unit. Roll one D6 for each model in your unit engaged with that enemy unit: ■ For each 3+, that enemy unit suffers 1 mortal wound.",
+     "restrictions": null
+    },
+    "blinding_blurs_of_vengeance": {
+     "_name": "Blinding Blurs of Vengeance",
+     "_cp": 1,
+     "_type": "Encarmine Speartip",
+     "_phases": [
+      "Shooting"
+     ],
+     "when": "Your opponent’s Shooting phase, when an enemy unit targets a friendly Sanguinary Guard unit.",
+     "target": "That SANGUINARY GUARD unit.",
+     "effect": "Your unit has: ■ Stealth. ■ -3\" detection range.",
+     "restrictions": null
+    }
+   },
+   "enhancements": {
+    "shadow_of_abomination": {
+     "_name": "Shadow of Abomination",
+     "_pts": 15,
+     "text": "ADEPTUS ASTARTES JUMP PACK model only. (once per battle, per army) When this unit is selected to fight you can use this ability. If you do, this model’s melee attacks have +1 D."
+    },
+    "angelic_executioner": {
+     "_name": "Angelic Executioner",
+     "_pts": 20,
+     "text": "ADEPTUS ASTARTES JUMP PACK model only. When this unit is selected to fight, this unit’s melee attacks have: ■ [LETHAL HITS]. ■ Or: [SUSTAINED HITS 1]"
+    }
+   }
+  },
+  "wrath_of_the_doomed": {
+   "_name": "Wrath of the Doomed",
+   "rule": {
+    "_name": "Sanguinius' Fury",
+    "text": "Friendly DEATH COMPANY units have the following: ■ At the start of each phase, the assault doctrine is active for this unit. ■ The devastator/tactical doctrine cannot be active for this unit. This means that, regardless of any other rules, DEATH COMPANY units can never have an active doctrine other than the assault doctrine. Restrictions: Your army can include BLOOD ANGELS units, but it cannot include any ADEPTUS ASTARTES units drawn from any other Chapter."
+   },
+   "stratagems": {
+    "death_begets_vengeance": {
+     "_name": "Death Begets Vengeance",
+     "_cp": 1,
+     "_type": "Wrath of the Doomed",
+     "_phases": [
+      "Any"
+     ],
+     "when": "Any phase, when a friendly DEATH COMPANY unit is destroyed by an enemy unit.",
+     "target": "That enemy unit.",
+     "effect": "That enemy unit is hated until the end of the battle: ■ While a unit is hated, friendly DEATH COMPANY units’ attacks that target that unit have +1 to wound rolls.",
+     "restrictions": null
+    },
+    "no_barrier_to_retribution": {
+     "_name": "No Barrier to Retribution",
+     "_cp": 1,
+     "_type": "Wrath of the Doomed",
+     "_phases": [
+      "Movement",
+      "Charge"
+     ],
+     "when": "Your Movement or your Charge phase, when a friendly DEATH COMPANY DREADNOUGHT unit is selected to make a normal/advance/charge move.",
+     "target": "That DEATH COMPANY DREADNOUGHT unit.",
+     "effect": "Your unit has Mobile.",
+     "restrictions": null
+    },
+    "rage_fuelled_response": {
+     "_name": "Rage-Fuelled Response",
+     "_cp": 1,
+     "_type": "Wrath of the Doomed",
+     "_phases": [
+      "Shooting"
+     ],
+     "when": "Your opponent’s Shooting phase, when an enemy unit that targeted a friendly unengaged DEATH COMPANY unit has shot.",
+     "target": "That DEATH COMPANY unit.",
+     "effect": "Your unit can make a surge move of up to D6\".",
+     "restrictions": null
+    }
+   },
+   "enhancements": {
+    "instinctive_interception": {
+     "_name": "Instinctive Interception",
+     "_pts": 10,
+     "text": "DEATH COMPANY model only. When you target this unit with the Heroic Intervention stratagem, that use is -1 CP."
+    },
+    "on_the_archtraitors_bridge": {
+     "_name": "On the Archtraitor's Bridge",
+     "_pts": 20,
+     "text": "DEATH COMPANY model only. This model’s melee attacks have +2 A."
+    }
+   }
+  }
+ },
+ "units": {
+  "commander_dante": {
+   "_name": "Commander Dante",
+   "abilities": {
+    "Death Mask of Sanguinius": {
+     "_kind": "datasheet",
+     "text": "At the start of the Fight phase, each enemy unit within 6\" of this model makes a battle-shock roll, with -1 to that battle-shock roll."
+    },
+    "Warden of the Imperium Nihilus": {
+     "_kind": "datasheet",
+     "text": "The assault doctrine and tactical doctrine are active for this unit in addition to any other combat doctrine."
+    }
+   }
+  },
+  "chief_librarian_mephiston": {
+   "_name": "Chief Librarian Mephiston",
+   "abilities": {
+    "Chief Librarian (psyker level 3)": {
+     "_kind": "datasheet",
+     "text": "This model has the psychic abilities listed in the Psychic Abilities section."
+    },
+    "Quickening (psychic level 1)": {
+     "_kind": "datasheet",
+     "text": "In your Command phase, if this unit is not battle-shocked, you can make a psychic roll for this unit by rolling one D6. If you do: ■ On a 1, this unit is battle-shocked. ■ The assault doctrine is active for this unit in addition to any other combat doctrine until the start of your next Command phase."
+    },
+    "Transfixing Gaze (psychic level 2)": {
+     "_kind": "datasheet",
+     "text": "Start of your opponent’s Movement phase, if this unit is not battle-shocked, you can make a psychic roll for this unit by rolling one D6. If you do: ■ On a 1, this unit is battle-shocked. ■ When an enemy unit within 6\" makes a fall-back move, that enemy unit must take a leadership roll. If that test is failed, that enemy unit must Remain Stationary."
+    }
+   }
+  },
+  "the_sanguinor": {
+   "_name": "The Sanguinor",
+   "abilities": {
+    "Aura of Fervour": {
+     "_kind": "datasheet",
+     "text": "Friendly ADEPTUS ASTARTES units within 12\" of this model can re-roll leadership rolls."
+    },
+    "Miraculous Saviour (Once per battle, per army)": {
+     "_kind": "datasheet",
+     "text": "At the end of your opponent’s Charge phase (excluding the first battle round), select up to one enemy unit that made a charge move this phase. This unit can make an ingress move and must be set up engaged with that enemy unit. That move does not prevent this unit from being eligible to move."
+    }
+   }
+  },
+  "astorath": {
+   "_name": "Astorath",
+   "abilities": {
+    "Redeemer of the Lost": {
+     "_kind": "datasheet",
+     "text": "In the Fight phase, when a model in this unit is destroyed, if this unit has not been selected to fight this phase, roll one D6, with +1 to that roll if that model was engaged with an enemy unit with a T greater than or equal to this unit’s T: ■ On a 4+, do not remove that model from the battlefield. When this unit has fought, or at the end of the phase (whichever comes first), that model is removed from the battlefield."
+    },
+    "Mass of Doom": {
+     "_kind": "datasheet",
+     "text": "If this unit made a charge move this turn, this unit’s melee attacks have [DEVASTATING WOUNDS: non-MONSTER/VEHICLE]."
+    }
+   }
+  },
+  "lemartes": {
+   "_name": "Lemartes",
+   "abilities": {
+    "Fury Unbound": {
+     "_kind": "datasheet",
+     "text": "This unit’s melee attacks have [LETHAL HITS]."
+    },
+    "Guardian of the Lost": {
+     "_kind": "datasheet",
+     "text": "Attacks that target this unit have -1 D."
+    }
+   }
+  },
+  "blood_angels_captain": {
+   "_name": "Blood Angels Captain",
+   "abilities": {
+    "Finest Hour (Once per battle, per unit)": {
+     "_kind": "datasheet",
+     "text": "In the Fight phase, when this unit is selected to fight, you can use this ability. If you do, this model’s melee attacks have: ■ +3 A. ■ [Devastating Wounds]."
+    },
+    "Strategic Acumen": {
+     "_kind": "datasheet",
+     "text": "In your Command phase, you can use this ability. If you do, select one combat doctrine to be active for this unit until the start of your next Command phase."
+    }
+   }
+  },
+  "death_company_captain": {
+   "_name": "Death Company Captain",
+   "abilities": {
+    "Death Visions of Sanguinius": {
+     "_kind": "datasheet",
+     "text": "In the Fight phase, when an enemy unit has fought, if this model was destroyed by those attacks, you can use this ability. If you do, roll one D6, with +2 to that roll if this model was engaged with an enemy WARLORD unit: ■ On a 2-3, that enemy unit suffers D3 mortal wounds. ■ On a 4-5, that enemy unit suffers 3 mortal wounds. ■ On a 6+, that enemy unit suffers D3+3 mortal wounds."
+    },
+    "Black Rage": {
+     "_kind": "datasheet",
+     "text": "■ This unit’s melee attacks can re-roll hit rolls of 1. ■ While this unit is not within 6\" of one or more friendly BLOOD ANGELS CHARACTER models, or not within 12\" of one or more friendly CHAPLAIN models, it cannot make a fall-back move and it’s OC is modified to 0."
+    },
+    "Forlorn Hero": {
+     "_kind": "datasheet",
+     "text": "This unit has Scouts 6\"."
+    }
+   }
+  },
+  "death_company_captain_with_jump_pack": {
+   "_name": "Death Company Captain with Jump Pack",
+   "abilities": {
+    "Black Rage": {
+     "_kind": "datasheet",
+     "text": "■ This unit’s melee attacks can re-roll hit rolls of 1. ■ While this unit is not within 6\" of one or more friendly BLOOD ANGELS CHARACTER models, or not within 12\" of one or more friendly CHAPLAIN models, it cannot make a fall-back move and it’s OC is modified to 0."
+    },
+    "Death Visions of Sanguinius": {
+     "_kind": "datasheet",
+     "text": "In the Fight phase, when an enemy unit has fought, if this model was destroyed by those attacks, you can use this ability. If you do, roll one D6, with +2 to that roll if this model was engaged with an enemy WARLORD unit: ■ On a 2-3, that enemy unit suffers D3 mortal wounds. ■ On a 4-5, that enemy unit suffers 3 mortal wounds. ■ On a 6+, that enemy unit suffers D3+3 mortal wounds."
+    },
+    "Lost to Fury": {
+     "_kind": "datasheet",
+     "text": "This unit’s melee attacks have [SUSTAINED HITS 1]."
+    },
+    "Relic Shield": {
+     "_kind": "wargear",
+     "text": "This model has +1 W."
+    }
+   }
+  },
+  "sanguinary_priest": {
+   "_name": "Sanguinary Priest",
+   "abilities": {
+    "Blood Chalice": {
+     "_kind": "datasheet",
+     "text": "This unit has +1 T."
+    },
+    "Narthecium (Once per turn, per unit)": {
+     "_kind": "datasheet",
+     "text": "In your Command phase, this unit heals D3+1 wounds."
+    }
+   }
+  },
+  "sanguinary_guard": {
+   "_name": "Sanguinary Guard",
+   "abilities": {
+    "Heirs of Azkaellon": {
+     "_kind": "datasheet",
+     "text": "Attacks that target this unit with a S greater than this unit’s T have -1 to wound rolls."
+    },
+    "Angelic Visage": {
+     "_kind": "datasheet",
+     "text": "Melee attacks that target this unit have -1 to hit rolls."
+    }
+   }
+  },
+  "death_company_marines": {
+   "_name": "Death Company Marines",
+   "abilities": {
+    "An Honourable Death in Combat": {
+     "_kind": "datasheet",
+     "text": "This unit’s attacks: ■ Have [SUSTAINED HITS 1], if this unit is below starting strength. ■ Or: have [SUSTAINED HITS 2], if this unit is below half-strength."
+    },
+    "Black Rage": {
+     "_kind": "datasheet",
+     "text": "■ This unit’s melee attacks can re-roll hit rolls of 1. ■ While this unit is not within 6\" of one or more friendly BLOOD ANGELS CHARACTER models, or not within 12\" of one or more friendly CHAPLAIN models, it cannot make a fall-back move and it’s OC is modified to 0."
+    }
+   }
+  },
+  "death_company_marines_with_jump_packs": {
+   "_name": "Death Company Marines with Jump Packs",
+   "abilities": {
+    "Black Rage": {
+     "_kind": "datasheet",
+     "text": "■ This unit’s melee attacks can re-roll hit rolls of 1. ■ While this unit is not within 6\" of one or more friendly BLOOD ANGELS CHARACTER models, or not within 12\" of one or more friendly CHAPLAIN models, it cannot make a fall-back move and it’s OC is modified to 0."
+    },
+    "Savage Fury": {
+     "_kind": "datasheet",
+     "text": "This unit has +1 to charge rolls."
+    }
+   }
+  },
+  "death_company_dreadnought": {
+   "_name": "Death Company Dreadnought",
+   "abilities": {
+    "Black Rage": {
+     "_kind": "datasheet",
+     "text": "■ This unit’s melee attacks can re-roll hit rolls of 1. ■ While this unit is not within 6\" of one or more friendly BLOOD ANGELS CHARACTER models, or not within 12\" of one or more friendly CHAPLAIN models, it cannot make a fall-back move and it’s OC is modified to 0."
+    },
+    "Driven by Fury": {
+     "_kind": "datasheet",
+     "text": "In your opponent’s Shooting phase, when an enemy unit has shot, if this unit was hit by those attacks, it can make a surge move of up to D6+1\"."
+    }
+   }
+  },
+  "baal_predator": {
+   "_name": "Baal Predator",
+   "abilities": {
+    "Overcharged Engines": {
+     "_kind": "datasheet",
+     "text": "This unit can re-roll advance rolls."
+    }
+   }
+  }
+ }
+}

@@ -1654,6 +1654,34 @@
     document.body.appendChild(fx); setTimeout(() => fx.remove(), 2800);
     if (PL.android) { PL.haptic('confirm'); setTimeout(() => PL.haptic('confirm'), 300); }
   }
+  /* Blood Angels once-per-battle moments (oncePerBattle.fx). transform/opacity only; off under prefers-reduced-motion.
+     saviour (the Sanguinor's Miraculous Saviour): a golden pillar of light falls from above, two great wings unfold from the
+     middle and golden feathers drift down and fade. finest (a Captain's Finest Hour): the screen dims to crimson, a drop of blood
+     falls to the middle and breaks into a golden halo that rings outward, sparks fly. */
+  const BA_FEATHER = 'M0 0C24-12 58-12 90-4C84 0 76 3 66 5C56 8 46 9 36 8C24 9 11 7 0 4Z';
+  const BA_DROP = 'M50 4C60 30 78 52 78 72A28 28 0 0 1 22 72C22 52 40 30 50 4Z';
+  function saviourFx() {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const R = (a, c) => a + Math.random() * (c - a);
+    /* each wing grows out from the middle: the left one is the right one mirrored inside its own box */
+    const wing = side => `<svg class="sv-wing sv-${side}" viewBox="${side === 'l' ? '-134' : '-6'} -80 140 160" aria-hidden="true"><g${side === 'l' ? ' transform="scale(-1 1)"' : ''}>${Array.from({ length: 9 }, (_, i) => `<g transform="rotate(${-64 + i * 12}) scale(${(1.12 - i * .06).toFixed(2)})"><path d="${BA_FEATHER}"/></g>`).join('')}</g></svg>`;
+    const fx = document.createElement('div'); fx.className = 'savfx'; fx.setAttribute('aria-hidden', 'true');
+    fx.innerHTML = '<div class="sv-wash"></div><div class="sv-pillar"></div><div class="sv-glow"></div>'
+      + `<div class="sv-box">${wing('l')}${wing('r')}<svg class="sv-drop" viewBox="0 0 100 110"><path d="${BA_DROP}"/></svg></div>`
+      + Array.from({ length: 14 }, () => `<svg class="sv-f" viewBox="-4 -16 100 32" style="left:${R(6, 94).toFixed(0)}%;--t:${R(1.6, 2.4).toFixed(2)}s;--dl:${R(.3, 1).toFixed(2)}s;--r:${R(-160, 160).toFixed(0)}deg;--x:${R(-40, 40).toFixed(0)}px;--s:${R(22, 40).toFixed(0)}px"><path d="${BA_FEATHER}"/></svg>`).join('');
+    document.body.appendChild(fx); setTimeout(() => fx.remove(), 2800);
+    if (PL.android) { PL.haptic('confirm'); setTimeout(() => PL.haptic('confirm'), 320); }
+  }
+  function finestFx() {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const fx = document.createElement('div'); fx.className = 'finfx'; fx.setAttribute('aria-hidden', 'true');
+    fx.innerHTML = '<div class="fn-wash"></div>'
+      + `<div class="fn-box"><svg class="fn-drop" viewBox="0 0 100 110"><path d="${BA_DROP}"/></svg><i class="fn-halo"></i><i class="fn-halo fn-h2"></i><i class="fn-core"></i>`
+      + Array.from({ length: 12 }, (_, i) => `<b class="fn-sp" style="--a:${(i * 30 + 15).toFixed(0)}deg;--dl:${(.62 + (i % 3) * .04).toFixed(2)}s"></b>`).join('') + '</div>';
+    document.body.appendChild(fx); setTimeout(() => fx.remove(), 2300);
+    if (PL.android) PL.haptic('confirm');
+  }
+  const ONCE_FX = { saviour: saviourFx, finest: finestFx };
   /* Lion El'Jonson picks a Primarch ability: the dark of the Shadow Forest washes over the screen, branches and leaves grow up
      from the bottom with a faint glow, the Lion's helm rises in the middle and its eyes burn red, outlasting the helm.
      Timings follow the Silent King (2.8 s). transform/opacity only; off under prefers-reduced-motion. */
@@ -2063,7 +2091,7 @@
   function onceGroupHTML(r, p, g, us) {
     const left = us.filter(u => !(p.once || {})[u.instanceId] && !unitDead(p, u)).length, sym = g.icon && IMG[g.icon];
     const rows = us.map(u => { const used = (p.once || {})[u.instanceId], dead = unitDead(p, u);
-      return `<button class="ogr ${used ? 'used' : ''}" data-act="onceUse" data-u="${u.instanceId}" aria-pressed="${!!used}" ${dead ? 'aria-disabled="true"' : ''}>${sym ? `<img class="ogr-sym" src="${sym}" alt="" aria-hidden="true">` : '<span class="ogr-sym"></span>'}<span class="ogr-t"><b>${esc(dispName(r, u))}</b><span class="ogr-s">${dead ? 'Dead' : used ? `Used · round ${used}` : 'Ready'}</span></span></button>`; }).join('');
+      return `<button class="ogr ${g.style ? 'ogr-' + g.style : ''} ${used ? 'used' : ''}" data-act="onceUse" data-u="${u.instanceId}" aria-pressed="${!!used}" ${dead ? 'aria-disabled="true"' : ''}>${sym ? `<img class="ogr-sym" src="${sym}" alt="" aria-hidden="true">` : '<span class="ogr-sym"></span>'}<span class="ogr-t"><b>${esc(dispName(r, u))}</b><span class="ogr-s">${dead ? 'Dead' : used ? `Used · round ${used}` : 'Ready'}</span></span></button>`; }).join('');
     return panel2(g.title, `<span class="badge ${left ? 'gold' : ''}">${left} ready</span>`, `<div class="dim" style="font-size:.9rem">${esc(g.note)}</div><div class="ogr-list">${rows}</div><div class="faint" style="font-size:.85rem">${esc(g.foot || 'Tap a unit when it uses it; tap again to undo.')}</div>`);
   }
   /* A character's own combat doctrine on top of the army's pick (def.extraDoctrine: Sammael, Lion El'Jonson).
@@ -3502,7 +3530,11 @@
     onceUse: el => {
       if (el.getAttribute('aria-disabled') === 'true') { PL.haptic('reject'); return; }
       const r = cur(), iid = el.dataset.u;
+      const was = !!(playState(r).once || {})[iid];
       playChange(r, p => { p.once = p.once || {}; if (p.once[iid]) delete p.once[iid]; else p.once[iid] = p.round; }, null, 'confirm');
+      /* oncePerBattle.fx names an effect played when the ability is spent (not on undo) */
+      if (!was) { const inst = r.units.find(x => x.instanceId === iid), o = inst && (unitDef(r.factionId, inst.datasheetId) || {}).oncePerBattle;
+        if (o && o.fx && ONCE_FX[o.fx]) ONCE_FX[o.fx](el); }
     },
     csmTac: el => {   // Huron's Marauders command pick
       const r = cur(), id = el.dataset.id, on = (playState(r).imp || {})[playState(r).round] !== id;

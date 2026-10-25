@@ -32,6 +32,8 @@ const EXPECT = {
   imperial_knights_synthetic: { army: 'imperialKnights', bs: 'onslaught', units: 8, links: 0, points: 2390, warlord: 'knight_paladin', enh: 'magos_questoris' },
   /* synthetic as well: a Chapter army on the Space Marines pool (shared Captain in Terminator Armour leads Deathwing Knights through leaderOfExtra) */
   dark_angels_synthetic: { army: 'darkAngels', units: 7, links: 1, points: 1280, warlord: 'lion_eljonson', enh: 'deathwing_assault' },
+  /* synthetic: Blood Angels on the Space Marines pool (shared Chaplain with Jump Pack leads Death Company through leaderOfExtra) */
+  blood_angels_synthetic: { army: 'bloodAngels', units: 7, links: 1, points: 870, warlord: 'commander_dante', enh: 'instinctive_interception' },
   world_eaters_indented: { army: 'worldEaters', units: 11, links: 3, points: 1995, warlord: 'angron', enh: 'berzerker_glaive' },
 };
 const summary = [];
