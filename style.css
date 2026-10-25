@@ -1873,8 +1873,8 @@ html:not(.m) .seg.wide { max-width: 560px; }
 /* Miraculous Saviour */
 .sv-wash { position: absolute; inset: 0; opacity: 0; background: radial-gradient(circle at 50% 44%, rgba(120, 60, 30, .55), rgba(43, 10, 15, .92) 58%, rgba(20, 4, 7, .97)); animation: svWash 3.2s ease-in-out both; will-change: opacity; }
 @keyframes svWash { 0% { opacity: 0; } 12% { opacity: .9; } 70% { opacity: .8; } 100% { opacity: 0; } }
-.sv-pillar { position: absolute; left: 50%; top: 0; width: min(30vw, 170px); height: 60%; margin-left: calc(min(30vw, 170px) / -2); transform-origin: 50% 0;
-  background: linear-gradient(180deg, rgba(255, 246, 214, .95), rgba(230, 197, 110, .5) 55%, rgba(214, 174, 82, 0)); filter: blur(7px);
+.sv-pillar { position: absolute; left: 50%; top: 0; width: min(44vw, 240px); height: 64%; margin-left: calc(min(44vw, 240px) / -2); transform-origin: 50% 0;
+  background: radial-gradient(ellipse 34% 100% at 50% 0, rgba(255, 246, 214, .95), rgba(230, 197, 110, .5) 55%, rgba(214, 174, 82, 0) 100%);
   opacity: 0; transform: scaleY(0); animation: svPillar 2.8s cubic-bezier(.2, .7, .3, 1) both; will-change: transform, opacity; }
 @keyframes svPillar { 0% { opacity: 0; transform: scaleY(0); } 14% { opacity: .95; transform: scaleY(1); } 60% { opacity: .7; transform: scaleY(1); } 100% { opacity: 0; transform: scaleY(1.04); } }
 .sv-glow { position: absolute; left: 50%; top: 44%; width: 80vmin; height: 80vmin; margin: -40vmin 0 0 -40vmin; border-radius: 50%;
@@ -1882,33 +1882,24 @@ html:not(.m) .seg.wide { max-width: 560px; }
   animation: svGlow 2.8s ease-out .25s both; will-change: transform, opacity; }
 @keyframes svGlow { 0% { opacity: 0; transform: scale(.4); } 26% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(1.2); } }
 .sv-box { position: absolute; left: 50%; top: 52%; width: 0; height: 0; }
-.sv-wing { position: absolute; width: min(53vw, 340px); height: calc(min(53vw, 340px) * 340 / 310); top: calc(min(53vw, 340px) * -260 / 310); overflow: visible;
-  filter: drop-shadow(0 0 10px rgba(255, 222, 150, .5)); animation: svWingOut 3.1s ease-in-out both; will-change: transform, opacity; }
-.sv-r { left: calc(min(53vw, 340px) * -10 / 310 + 4px); transform-origin: 3.2% 76.5%; }
-.sv-l { right: calc(min(53vw, 340px) * -10 / 310 + 4px); transform-origin: 96.8% 76.5%; }
+.sv-wing { position: absolute; left: 4px; top: 0; width: 0; height: 0; animation: svWingOut 3.1s ease-in-out both; will-change: transform, opacity; }
+.sv-l { left: -4px; transform: scaleX(-1); animation-name: svWingOutL; }
 @keyframes svWingOut { 0%, 72% { opacity: 1; transform: scaleX(1); } 80% { transform: scaleX(.94); } 88% { opacity: 1; transform: scaleX(1.02); } 100% { opacity: 0; transform: scaleX(1.04); } }
-.bw-f { transform-origin: 0 0; opacity: 0; animation: bwOpen 1.1s cubic-bezier(.2, .8, .25, 1) var(--d) both; will-change: transform, opacity; }
-@keyframes bwOpen { 0% { opacity: 0; transform: rotate(-70deg) scale(.4); } 35% { opacity: 1; } 100% { opacity: 1; transform: rotate(0) scale(1); } }
-.bw-v { stroke: #5a3d10; stroke-width: .7px; vector-effect: non-scaling-stroke; }
-.bw-s { fill: none; stroke: #fff3cc; stroke-width: .8px; opacity: .7; vector-effect: non-scaling-stroke; }
-.sv-drop { position: absolute; left: -34px; top: -104px; width: 68px; height: 75px; opacity: 0; filter: drop-shadow(0 0 14px rgba(224, 38, 47, .9));
-  animation: svDrop 2.7s ease-out .45s both; will-change: transform, opacity; }
+@keyframes svWingOutL { 0%, 72% { opacity: 1; transform: scaleX(-1); } 80% { transform: scaleX(-.94); } 88% { opacity: 1; transform: scaleX(-1.02); } 100% { opacity: 0; transform: scaleX(-1.04); } }
+.sv-sec { position: absolute; display: block; max-width: none; opacity: 0; will-change: transform, opacity; animation: bwOpen 1.15s cubic-bezier(.2, .8, .25, 1) var(--d) both; }
+@keyframes bwOpen { 0% { opacity: 0; transform: rotate(-62deg) scale(.45); } 30% { opacity: 1; } 100% { opacity: 1; transform: rotate(0) scale(1); } }
+.sv-dglow { position: absolute; left: -70px; top: -126px; width: 140px; height: 140px; border-radius: 50%; opacity: 0;
+  background: radial-gradient(circle, rgba(255, 70, 60, .55), rgba(224, 38, 47, .18) 45%, rgba(224, 38, 47, 0) 70%); animation: svDrop 2.7s ease-out .45s both; will-change: transform, opacity; }
+.sv-drop { position: absolute; left: -34px; top: -104px; width: 68px; height: 75px; opacity: 0; animation: svDrop 2.7s ease-out .45s both; will-change: transform, opacity; }
 @keyframes svDrop { 0% { opacity: 0; transform: translateY(18px) scale(.5); } 20% { opacity: 1; transform: translateY(0) scale(1.06); } 30% { transform: scale(1); } 78% { opacity: 1; transform: scale(1.02); } 100% { opacity: 0; transform: scale(1.08); } }
-.sv-f { position: absolute; top: -10vh; width: calc(var(--s) * .375); height: var(--s); opacity: 0; animation: svFall var(--t) cubic-bezier(.35, .1, .6, 1) var(--dl) both; will-change: transform, opacity; }
-.sv-f b { display: block; width: 100%; height: 100%; animation: svSway var(--st) ease-in-out var(--dl) infinite alternate; will-change: transform; }
-.sv-f u { display: block; width: 100%; height: 100%; animation: svFlip var(--fl) ease-in-out var(--dl) infinite alternate; will-change: transform; }
-.sv-f svg { display: block; width: 100%; height: 100%; overflow: visible; filter: drop-shadow(0 0 4px rgba(255, 220, 140, .55)); }
-.sv-f.sv-far { filter: blur(.8px) brightness(.75); }
-@keyframes svFall { 0% { opacity: 0; transform: translate(0, 0) rotate(var(--r0)); } 12% { opacity: .95; } 80% { opacity: .9; } 100% { opacity: 0; transform: translate(var(--x), 112vh) rotate(var(--r)); } }
-@keyframes svSway { 0% { transform: translateX(calc(var(--sw) * -1)) rotate(-24deg); } 100% { transform: translateX(var(--sw)) rotate(24deg); } }
-@keyframes svFlip { 0% { transform: scaleX(1) skewY(0); } 100% { transform: scaleX(.62) skewY(-6deg); } }
+.sv-f { position: absolute; top: -10vh; display: block; max-width: none; opacity: 0; will-change: transform, opacity; }
 /* Finest Hour: a drop of blood falls into a pool of blood */
 .fn-dim { position: absolute; inset: 0; background: rgba(40, 2, 6, .7); opacity: 0; animation: fnDim 2.8s ease-in-out both; will-change: opacity; }
 @keyframes fnDim { 0% { opacity: 0; } 8% { opacity: .85; } 80% { opacity: .85; } 100% { opacity: 0; } }
-.fn-pool { position: absolute; left: 50%; top: 54%; width: 240vmax; height: 240vmax; margin: -120vmax 0 0 -120vmax; border-radius: 50%;
+.fn-pool { position: absolute; left: 50%; top: 54%; width: 60vmax; height: 60vmax; margin: -30vmax 0 0 -30vmax; border-radius: 50%;
   background: radial-gradient(circle, rgba(112, 4, 14, .97) 0, rgba(92, 2, 11, .96) 18%, rgba(66, 0, 8, .95) 34%, rgba(46, 0, 5, .94) 46%, rgba(46, 0, 5, 0) 50%);
   opacity: 0; transform: scale(0); animation: fnPool 2.6s cubic-bezier(.12, .6, .3, 1) .62s both; will-change: transform, opacity; }
-@keyframes fnPool { 0% { opacity: 0; transform: scale(.01); } 6% { opacity: .95; } 72% { opacity: .95; transform: scale(1); } 100% { opacity: 0; transform: scale(1.03); } }
+@keyframes fnPool { 0% { opacity: 0; transform: scale(.04); } 6% { opacity: .95; } 72% { opacity: .95; transform: scale(4); } 100% { opacity: 0; transform: scale(4.12); } }
 .fn-sheen { position: absolute; left: 50%; top: 54%; width: 120vw; height: 34vh; margin: -17vh 0 0 -60vw; border-radius: 50%;
   background: radial-gradient(ellipse at 42% 38%, rgba(255, 120, 110, .32), rgba(255, 80, 70, .1) 38%, rgba(255, 60, 60, 0) 64%);
   opacity: 0; transform: scale(.2); animation: fnSheen 2.4s ease-out .7s both; will-change: transform, opacity; }
@@ -1935,7 +1926,8 @@ html:not(.m) .seg.wide { max-width: 560px; }
   animation: fnSplash .85s cubic-bezier(.25, .6, .5, 1) var(--dl) both; will-change: transform, opacity; }
 @keyframes fnSplash { 0% { opacity: 0; transform: translate(0, 0) scale(.4); } 12% { opacity: 1; } 45% { transform: translate(calc(var(--x) * .55), var(--y)) scale(1); } 100% { opacity: 0; transform: translate(var(--x), 30px) scale(.7); } }
 .fn-drop { position: absolute; left: -30px; top: -68px; width: 60px; height: 66px; opacity: 0; transform-origin: 50% 100%;
-  filter: drop-shadow(0 0 8px rgba(224, 38, 47, .7)); animation: fnDrop .7s cubic-bezier(.55, 0, 1, .45) both; will-change: transform, opacity; }
+  animation: fnDrop .7s cubic-bezier(.55, 0, 1, .45) both; will-change: transform, opacity; }
 @keyframes fnDrop { 0% { opacity: 0; transform: translateY(-62vh) scale(.85, 1.2); } 12% { opacity: 1; } 86% { opacity: 1; transform: translateY(0) scale(.9, 1.15); } 100% { opacity: 0; transform: translateY(4px) scale(1.7, .35); } }
 @media (prefers-reduced-motion: reduce) { .savfx, .finfx { display: none; } }
+body.fx-on #app * { animation-play-state: paused !important; }
 
