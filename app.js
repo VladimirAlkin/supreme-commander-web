@@ -1655,31 +1655,71 @@
     if (PL.android) { PL.haptic('confirm'); setTimeout(() => PL.haptic('confirm'), 300); }
   }
   /* Blood Angels once-per-battle moments (oncePerBattle.fx). transform/opacity only; off under prefers-reduced-motion.
-     saviour (the Sanguinor's Miraculous Saviour): a golden pillar of light falls from above, two great wings unfold from the
-     middle and golden feathers drift down and fade. finest (a Captain's Finest Hour): the screen dims to crimson, a drop of blood
-     falls to the middle and breaks into a golden halo that rings outward, sparks fly. */
-  const BA_FEATHER = 'M0 0C24-12 58-12 90-4C84 0 76 3 66 5C56 8 46 9 36 8C24 9 11 7 0 4Z';
+     saviour (the Sanguinor's Miraculous Saviour): a pillar of golden light falls, two angel wings unfurl from the middle feather
+     by feather around a drop of blood, and a storm of golden feathers drifts and sways down the screen.
+     finest (a Captain's Finest Hour): a drop of blood falls into a pool of blood — on impact a crown of droplets sprays up, red
+     ripples run out across the surface (rings tilted in perspective), and the blood spreads from the impact over the screen. */
   const BA_DROP = 'M50 4C60 30 78 52 78 72A28 28 0 0 1 22 72C22 52 40 30 50 4Z';
+  /* Miraculous Saviour wings: every feather runs from a root on the arm (the leading edge, a smooth curve from the shoulder up
+     to the wrist) to a tip on a smooth outline, so the silhouette is one clean curve and the feathers fan evenly. Rows: flight
+     feathers (tips on the outline), then two covert rows (tips part-way between arm and outline). Each feather swings out from
+     its own root, from the wingtip down to the body. The left wing is the right one mirrored. */
+  const BAW = {
+    arm: [[0, -4], [78, -30], [118, -170]],                 // quadratic: shoulder, control, wrist
+    edge: [[156, -246], [290, -214], [300, 10], [30, 66]],   // cubic: wingtip → outer curve → bottom near the body
+    rows: [
+      { n: 28, k: 1, w: .16, c0: '#7d5718', c1: '#ecc96f', d: .3 },
+      { n: 17, k: .5, w: .2, c0: '#9c7429', c1: '#f4d98f', d: .55 },
+      { n: 12, k: .26, w: .26, c0: '#b48b38', c1: '#fff0c0', d: .7 },
+    ],
+  };
+  function baWingSvg(side) {
+    const P = BAW, f = x => x.toFixed(1);
+    const q = (p, t) => { const u = 1 - t; return [u * u * p[0][0] + 2 * u * t * p[1][0] + t * t * p[2][0], u * u * p[0][1] + 2 * u * t * p[1][1] + t * t * p[2][1]]; };
+    const cb = (p, t) => { const u = 1 - t; return [0, 1].map(k => u * u * u * p[0][k] + 3 * u * u * t * p[1][k] + 3 * u * t * t * p[2][k] + t * t * t * p[3][k]); };
+    const defs = P.rows.map((r, j) => `<linearGradient id="bw${side}${j}" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="${r.c0}"/><stop offset="1" stop-color="${r.c1}"/></linearGradient>`).join('');
+    const body = P.rows.map((r, j) => Array.from({ length: r.n }, (_, i) => {
+      const u = i / (r.n - 1);                                   // 0 = wingtip, 1 = next to the body
+      const t = 1 - .94 * Math.pow(u, 1.35);                     // roots crowd towards the wrist for the primaries
+      const [rx, ry] = q(P.arm, t), [ex, ey] = cb(P.edge, Math.min(1, u * (r.k < 1 ? .92 : 1)));
+      const tx = rx + (ex - rx) * r.k, ty = ry + (ey - ry) * r.k;
+      const L = Math.hypot(tx - rx, ty - ry), a = Math.atan2(ty - ry, tx - rx) * 180 / Math.PI, W = Math.max(5, L * r.w * (1 - .25 * u));
+      const c = -L * .025;                                       // every feather bends slightly the same way (towards the tip)
+      const d = `M0 ${f(-W * .3)}C${f(L * .25)} ${f(-W * 1.05 + c)} ${f(L * .76)} ${f(-W * .85 + c * 1.4)} ${f(L)} ${f(c * 1.5)}C${f(L * .8)} ${f(W * .7 + c)} ${f(L * .28)} ${f(W * .9 + c * .5)} 0 ${f(W * .3)}Z`;
+      return `<g transform="translate(${f(rx)} ${f(ry)}) rotate(${f(a)})"><g class="bw-f" style="--d:${(r.d + (r.n - 1 - i) * .022).toFixed(3)}s"><path class="bw-v" fill="url(#bw${side}${j})" d="${d}"/><path class="bw-s" d="M0 0Q${f(L * .5)} ${f(c * .5)} ${f(L * .94)} ${f(c * 1.4)}"/></g></g>`;
+    }).reverse().join('')).join('');
+    return `<defs>${defs}</defs>${body}`;
+  }
+  /* a falling feather (0..24 x 0..80, quill at the bottom): a vane with a slight curve and two splits in its edge, the shaft
+     running into a bare quill, a few barbs and a downy base; drawn once per effect and reused */
+  const SV_FEATHER = '<svg width="0" height="0" style="position:absolute"><defs><linearGradient id="svfg" x1="0" y1="0" x2="1" y2=".2"><stop offset="0" stop-color="#9c7228"/><stop offset=".45" stop-color="#f3d78e"/><stop offset=".55" stop-color="#e9c873"/><stop offset="1" stop-color="#b28934"/></linearGradient>'
+    + '<symbol id="svfeather" viewBox="0 0 30 80"><path fill="url(#svfg)" d="M15.6 2C20.4 6.5 25.6 15 27 25C27.6 29.5 26.6 32 25 33.4L27.2 34.6C26.8 43 24.4 51 19.6 58.5C18.6 60 17.2 61 16 61.2L14.6 59.6C11.6 60.2 8.6 58.6 6.6 55.4C4.8 52.4 3.6 48.6 3.2 44.6L5.6 43.4L3 41.4C2.4 33 3.6 24 7.2 16C9.4 11 12.2 6.2 15.6 2Z"/>'
+    + '<path fill="#e9c873" opacity=".8" d="M14.6 59.6C12.8 61.8 10.4 62.8 7.8 62.4C10 61.6 11.6 60.4 12.6 58.8ZM16 61.2C18.4 63.4 21.4 64 23.6 63C21.2 62.6 19.2 61.8 17.8 60.4Z"/>'
+    + '<path fill="none" stroke="#fff4d2" stroke-width=".9" stroke-linecap="round" d="M15.4 4C16.2 20 16.4 40 15.4 61"/><path fill="none" stroke="#c9a24b" stroke-width="1.7" stroke-linecap="round" d="M15.4 60.5C15.3 66 15 72 14.2 78"/>'
+    + '<path fill="none" stroke="#7d5718" stroke-width=".55" opacity=".55" stroke-linecap="round" d="M16 13Q20 10.5 22.6 8.6M16.2 21Q21.4 18.4 25.4 15.6M16.3 30Q21.6 28 26 25.6M16.2 40Q21 38.6 25.4 36.6M16 48Q19.6 47 23 45.6M15.8 54Q18.2 53.4 20.6 52.4M15.8 17Q11 13.6 8.2 11.6M15.8 25Q9.8 22 5.6 19.8M15.8 34Q9.4 31.6 4.2 30M15.6 44Q10 42.4 5.4 41M15.4 51Q11.6 50.2 7.2 49"/></symbol></defs></svg>';
   function saviourFx() {
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const R = (a, c) => a + Math.random() * (c - a);
-    /* each wing grows out from the middle: the left one is the right one mirrored inside its own box */
-    const wing = side => `<svg class="sv-wing sv-${side}" viewBox="${side === 'l' ? '-134' : '-6'} -80 140 160" aria-hidden="true"><g${side === 'l' ? ' transform="scale(-1 1)"' : ''}>${Array.from({ length: 9 }, (_, i) => `<g transform="rotate(${-64 + i * 12}) scale(${(1.12 - i * .06).toFixed(2)})"><path d="${BA_FEATHER}"/></g>`).join('')}</g></svg>`;
+    const wing = side => `<svg class="sv-wing sv-${side}" viewBox="${side === 'l' ? '-300' : '-10'} -260 310 340" aria-hidden="true"><g${side === 'l' ? ' transform="scale(-1 1)"' : ''}>${baWingSvg(side)}</g></svg>`;
     const fx = document.createElement('div'); fx.className = 'savfx'; fx.setAttribute('aria-hidden', 'true');
-    fx.innerHTML = '<div class="sv-wash"></div><div class="sv-pillar"></div><div class="sv-glow"></div>'
-      + `<div class="sv-box">${wing('l')}${wing('r')}<svg class="sv-drop" viewBox="0 0 100 110"><path d="${BA_DROP}"/></svg></div>`
-      + Array.from({ length: 14 }, () => `<svg class="sv-f" viewBox="-4 -16 100 32" style="left:${R(6, 94).toFixed(0)}%;--t:${R(1.6, 2.4).toFixed(2)}s;--dl:${R(.3, 1).toFixed(2)}s;--r:${R(-160, 160).toFixed(0)}deg;--x:${R(-40, 40).toFixed(0)}px;--s:${R(22, 40).toFixed(0)}px"><path d="${BA_FEATHER}"/></svg>`).join('');
-    document.body.appendChild(fx); setTimeout(() => fx.remove(), 2800);
+    fx.innerHTML = SV_FEATHER + '<div class="sv-wash"></div><div class="sv-pillar"></div><div class="sv-glow"></div>'
+      + `<div class="sv-box">${wing('l')}${wing('r')}<svg class="sv-drop" viewBox="0 0 100 110"><defs><radialGradient id="svd" cx=".38" cy=".62" r=".6"><stop offset="0" stop-color="#ff7a6c"/><stop offset=".55" stop-color="#d0121f"/><stop offset="1" stop-color="#5a040b"/></radialGradient></defs><path d="${BA_DROP}" fill="url(#svd)"/><ellipse cx="38" cy="66" rx="7" ry="11" fill="#ffd8d0" opacity=".6"/></svg></div>`
+      + Array.from({ length: 46 }, (_, i) => { const s = R(22, 52), far = s < 32;
+        return `<i class="sv-f${far ? ' sv-far' : ''}" style="left:${R(-4, 100).toFixed(1)}%;--t:${R(2, 3.1).toFixed(2)}s;--dl:${R(.25, 1.5).toFixed(2)}s;--x:${R(-60, 60).toFixed(0)}px;--sw:${R(14, 34).toFixed(0)}px;--st:${R(.8, 1.3).toFixed(2)}s;--fl:${R(.5, .9).toFixed(2)}s;--r0:${R(-60, 60).toFixed(0)}deg;--r:${R(-140, 140).toFixed(0)}deg;--s:${s.toFixed(0)}px"><b><u><svg viewBox="0 0 30 80"><use href="#svfeather"/></svg></u></b></i>`; }).join('')
+    document.body.appendChild(fx); setTimeout(() => fx.remove(), 3600);
     if (PL.android) { PL.haptic('confirm'); setTimeout(() => PL.haptic('confirm'), 320); }
   }
   function finestFx() {
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const R = (a, c) => a + Math.random() * (c - a);
     const fx = document.createElement('div'); fx.className = 'finfx'; fx.setAttribute('aria-hidden', 'true');
-    fx.innerHTML = '<div class="fn-wash"></div>'
-      + `<div class="fn-box"><svg class="fn-drop" viewBox="0 0 100 110"><path d="${BA_DROP}"/></svg><i class="fn-halo"></i><i class="fn-halo fn-h2"></i><i class="fn-core"></i>`
-      + Array.from({ length: 12 }, (_, i) => `<b class="fn-sp" style="--a:${(i * 30 + 15).toFixed(0)}deg;--dl:${(.62 + (i % 3) * .04).toFixed(2)}s"></b>`).join('') + '</div>';
-    document.body.appendChild(fx); setTimeout(() => fx.remove(), 2300);
-    if (PL.android) PL.haptic('confirm');
+    fx.innerHTML = '<div class="fn-dim"></div><div class="fn-pool"></div><div class="fn-sheen"></div><div class="fn-vig"></div>'
+      + Array.from({ length: 13 }, (_, i) => `<i class="fn-drip" style="left:${(i * 7.8 + R(-2, 2)).toFixed(1)}%;--w:${R(5, 15).toFixed(0)}px;--h:${R(9, 34).toFixed(0)}vh;--dl:${R(.85, 1.35).toFixed(2)}s"></i>`).join('')
+      + `<div class="fn-at"><div class="fn-plane">${Array.from({ length: 5 }, (_, i) => `<i class="fn-ring" style="--dl:${(.62 + i * .17).toFixed(2)}s;--t:${(1.5 + i * .12).toFixed(2)}s"></i>`).join('')}<i class="fn-hit"></i></div>`
+      + Array.from({ length: 20 }, () => `<b class="fn-sp" style="--x:${R(-130, 130).toFixed(0)}px;--y:${R(-170, -60).toFixed(0)}px;--s:${R(6, 14).toFixed(0)}px;--dl:${R(.6, .7).toFixed(2)}s"></b>`).join('')
+      + `<svg class="fn-drop" viewBox="0 0 100 110"><defs><radialGradient id="fnd" cx=".38" cy=".62" r=".6"><stop offset="0" stop-color="#ff6a5c"/><stop offset=".55" stop-color="#c8101e"/><stop offset="1" stop-color="#5a040b"/></radialGradient></defs><path d="${BA_DROP}" fill="url(#fnd)"/><ellipse cx="38" cy="66" rx="7" ry="11" fill="#ffd0c8" opacity=".55"/></svg></div>`;
+    document.body.appendChild(fx); setTimeout(() => fx.remove(), 3300);
+    if (PL.android) { setTimeout(() => PL.haptic('confirm'), 600); }
   }
   const ONCE_FX = { saviour: saviourFx, finest: finestFx };
   /* Lion El'Jonson picks a Primarch ability: the dark of the Shadow Forest washes over the screen, branches and leaves grow up
