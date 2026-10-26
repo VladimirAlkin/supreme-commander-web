@@ -108506,6 +108506,8 @@ const DATA = {
        "devastator": "Hunter’s Eye (devastator doctrine): your unit’s ranged attacks can re-roll hit rolls of 1.",
        "tactical": "Ferocious Strike (tactical doctrine): attacks that target an enemy unit within 9\" have [SUSTAINED HITS 1]."
       },
+      "keep": true,
+      "button": "Heed the Saga",
       "text": "ADEPTUS ASTARTES units (not MONSTER/VEHICLE) get the bonus of the combat doctrine active for them."
      }
     },
@@ -108793,7 +108795,7 @@ const DATA = {
      },
      "phaseTrigger": {
       "title": "High King of Fenris",
-      "style": "frost",
+      "style": "ember",
       "fx": "axe",
       "who": "Logan Grimnar",
       "phase": "Movement",

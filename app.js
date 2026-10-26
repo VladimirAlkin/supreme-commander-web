@@ -1770,39 +1770,52 @@
     if (PL.android) { setTimeout(() => PL.haptic('confirm'), 600); }
   }
 
-  /* ---- Space Wolves effects: Howl (Logan), High King axe, Haywire Mine frost on the button, Howlmaw runes. WAAPI, opacity/transform only ---- */
+  /* ---- Space Wolves effects: Howl (Logan), High King axe, Haywire Mine frost on the button, Master of Wolves runes. WAAPI, opacity/transform only ---- */
   const SWH = { W: 674, H: 606, body: [50, 217, 541, 345], poses: [[334,134,287,145],[334,134,287,145],[334,134,287,145],[334,134,287,145],[334,134,287,145],[334,134,287,145],[334,134,287,145],[334,134,286,145],[334,134,285,145],[334,134,283,145],[334,134,281,145],[334,134,278,145],[334,131,274,148],[334,121,269,158],[334,110,262,169],[334,99,254,180],[334,87,246,192],[334,76,237,203],[334,66,227,213],[334,58,216,221],[334,51,205,228],[334,45,195,234],[334,41,185,238],[334,38,181,241],[334,36,180,243],[334,35,180,244],[334,34,180,245],[334,34,179,245],[334,34,179,245],[334,34,179,245],[334,34,179,245],[334,34,180,245],[334,35,180,244],[334,35,180,244],[334,36,180,243],[334,36,180,243],[334,36,181,243],[334,37,181,242],[334,37,181,242],[334,37,181,242],[334,37,181,242],[334,38,181,241],[334,37,181,242],[334,37,181,242],[334,37,181,242],[334,37,181,242]] };
   const SWA = { W: 586, H: 416, bands: [[[39,0,498,327],[35,0,505,329]],[[39,0,496,329],[35,0,501,332]],[[50,11,483,307],[44,9,493,311]],[[62,21,463,286],[56,19,475,290]],[[74,29,440,269],[70,26,450,275]],[[88,31,413,261],[84,27,421,268]],[[101,31,385,251],[96,27,394,257]],[[116,36,354,206],[111,30,363,215]],[[144,38,305,164],[142,34,310,169]],[[169,69,247,59],[166,64,254,67]]], eyes: [[171,102,75,65,48.0,50.31],[330,102,74,65,50.68,49.23]] };
   const swImg = (src, o, W, H, cls) => `<img class="${cls || ''}" src="${src}" alt="" style="left:${(o[0] / W * 100).toFixed(3)}%;top:${(o[1] / H * 100).toFixed(3)}%;width:${(o[2] / W * 100).toFixed(3)}%;height:${(o[3] / H * 100).toFixed(3)}%">`;
   const swPlay = (fx, ms) => { fxHold(ms); document.body.appendChild(fx); setTimeout(() => fx.remove(), ms); };
   const swA = (el, kf, o) => el.animate(kf, Object.assign({ fill: 'both', easing: 'linear' }, o));
+  const swRnd = seed => { let h = 2166136261; for (const c of String(seed)) h = Math.imul(h ^ c.charCodeAt(0), 16777619); return () => ((h = Math.imul(h ^ (h >>> 15), 2246822507) + 1013904223 >>> 0) / 4294967296); };
+  /* Howl: soft night moonlight pours in from the upper right in wide slanted beams (the page stays visible under it), the wolf rears its head in the middle of the screen */
   function howlFx() {
     if (reducedMotion()) return;
-    const N = SWH.poses.length, RISE0 = 120, STEP = 45, FADE_T = 2800, END_T = 3200;
+    const N = SWH.poses.length, RISE0 = 80, STEP = 32, FADE_T = 2000, END_T = 2400, R = (a, c) => a + Math.random() * (c - a);
     const fx = document.createElement('div'); fx.className = 'swfx'; fx.setAttribute('aria-hidden', 'true');
-    fx.innerHTML = '<div class="swf-scrim"></div><div class="swf-flood"></div><div class="swf-stage"><div class="swf-anchor"></div><div class="swf-grp">'
-      + swImg('img/sw_howl_body.webp', SWH.body, SWH.W, SWH.H)
+    fx.innerHTML = '<div class="swf-night"></div><div class="swf-flood"></div>'
+      + Array.from({ length: 6 }, (_, i) => `<i class="swf-beam" style="left:${(34 + i * 13 + R(-3, 3)).toFixed(0)}%;width:${R(11, 20).toFixed(0)}vmax;--o:${R(.5, 1).toFixed(2)}"></i>`).join('')
+      + '<div class="swf-hstage"><div class="swf-grp">' + swImg('img/sw_howl_body.webp', SWH.body, SWH.W, SWH.H)
       + SWH.poses.map((o, k) => swImg('img/sw_howl_' + String(k).padStart(2, '0') + '.webp', o, SWH.W, SWH.H, 'swf-pose' + (k ? '' : ' p0'))).join('')
-      + '</div></div>';
+      + '</div></div>'
+      + Array.from({ length: 18 }, () => `<b class="swf-mote" style="left:${R(40, 98).toFixed(0)}%;top:${R(0, 70).toFixed(0)}%"></b>`).join('');
     document.body.appendChild(fx);
-    const q = s => fx.querySelector(s), poses = fx.querySelectorAll('.swf-pose'), flood = q('.swf-flood'), r = q('.swf-anchor').getBoundingClientRect();
-    flood.style.left = (r.left - 150) + 'px'; flood.style.top = (r.top - 150) + 'px';
+    const q = s => fx.querySelector(s), poses = fx.querySelectorAll('.swf-pose'), flood = q('.swf-flood');
+    flood.style.left = (innerWidth * .86 - 150) + 'px'; flood.style.top = (innerHeight * .05 - 150) + 'px';
     fxHold(END_T + 100);
-    swA(q('.swf-scrim'), [{ opacity: 0 }, { opacity: 1 }], { duration: 260 });
-    swA(flood, [{ opacity: 0, transform: 'scale(.7)' }, { opacity: 1, transform: 'scale(4.4)', offset: .55 }, { opacity: 1, transform: 'scale(5.2)', offset: .8 }, { opacity: 1, transform: 'scale(4.8)' }], { duration: 2400, easing: 'cubic-bezier(.3,.55,.35,1)' });
+    swA(q('.swf-night'), [{ opacity: 0 }, { opacity: 1 }], { duration: 400 });
+    swA(flood, [{ opacity: 0, transform: 'scale(.6)' }, { opacity: .8, transform: 'scale(4.6)', offset: .6 }, { opacity: .7, transform: 'scale(5.2)' }], { duration: 1900, easing: 'cubic-bezier(.3,.55,.35,1)' });
+    fx.querySelectorAll('.swf-beam').forEach((b, i) => { const o = +b.style.getPropertyValue('--o');
+      swA(b, [{ opacity: 0, transform: 'rotate(24deg) translateX(-30px)' }, { opacity: o, transform: 'rotate(24deg) translateX(0)', offset: .45 }, { opacity: o * .75, transform: 'rotate(24deg) translateX(18px)' }], { delay: i * 70, duration: 1900, easing: 'ease-out' }); });
+    fx.querySelectorAll('.swf-mote').forEach((m, i) => swA(m, [{ opacity: 0, transform: 'translateY(0)' }, { opacity: .8, offset: .3 }, { opacity: 0, transform: `translateY(${R(40, 110).toFixed(0)}px)` }], { delay: 150 + i * 60, duration: R(1100, 1700) }));
     swA(q('.swf-grp'), [{ opacity: 0 }, { opacity: 1 }], { duration: 200 });
     for (let k = 1; k < N; k++) { const t = RISE0 + STEP * (k - 1);
       swA(poses[k], [{ opacity: 0 }, { opacity: 1 }], { delay: t, duration: 1 });
       swA(poses[k - 1], [{ opacity: 1 }, { opacity: 0 }], { delay: t, duration: STEP * .7, fill: 'forwards' }); }
     swA(fx, [{ opacity: 1 }, { opacity: 0 }], { delay: FADE_T, duration: END_T - FADE_T });
     setTimeout(() => fx.remove(), END_T + 60);
-    if (PL.android) { PL.haptic('confirm'); setTimeout(() => PL.haptic('confirm'), 600); }
+    if (PL.android) { PL.haptic('confirm'); setTimeout(() => PL.haptic('confirm'), 500); }
   }
+  /* High King of Fenris: a snowy fir forest closes in under a night sky, snow falls, the axe heats up band by band from the shaft's fade, the wolves' eyes flare */
+  const SW_FIR = (x, y, h, c) => { const w = h * .42; let d = ''; for (let k = 0; k < 4; k++) { const yy = y - h * (.12 + k * .22), ww = w * (1 - k * .2); d += `M${x - ww} ${yy}L${x} ${yy - h * .34}L${x + ww} ${yy}Z`; } return `<path fill="${c}" d="${d}M${x - 1.2} ${y}h2.4v${-h * .12}h-2.4z"/>`; };
   function axeFx() {
     if (reducedMotion()) return;
-    const BASE_T = 450, STEP = 95, EYE_T = 1500, FADE_T = 2700, END_T = 3200, B = SWA.bands, W = SWA.W, H = SWA.H;
+    const BASE_T = 450, STEP = 95, EYE_T = 1500, FADE_T = 2700, END_T = 3200, B = SWA.bands, W = SWA.W, H = SWA.H, R = (a, c) => a + Math.random() * (c - a);
+    const row = (c, n, h0, y0, dh) => Array.from({ length: n }, (_, i) => SW_FIR((i + .5) * 100 / n + R(-2, 2), y0 + R(-2, 2), h0 + R(0, dh), c)).join('');
     const fx = document.createElement('div'); fx.className = 'swfx swaxe'; fx.setAttribute('aria-hidden', 'true');
-    fx.innerHTML = '<div class="swf-scrim a"></div><div class="swf-moon"></div><div class="swf-astage"><div class="swf-bloom"></div><img class="swf-base" src="img/sw_axe_base.webp" alt="">'
+    fx.innerHTML = '<div class="swf-scrim a"></div><div class="swf-moon"></div>'
+      + `<svg class="swf-fir swf-fir1" viewBox="0 0 100 60" preserveAspectRatio="xMidYMax slice">${row('#16293b', 9, 24, 60, 14)}</svg><svg class="swf-fir swf-fir2" viewBox="0 0 100 60" preserveAspectRatio="xMidYMax slice">${row('#0a1621', 6, 30, 64, 20)}</svg><div class="swf-mist"></div>`
+      + Array.from({ length: 46 }, () => `<i class="swf-snow" style="left:${R(0, 100).toFixed(1)}%;--s:${R(2, 5).toFixed(1)}px"></i>`).join('')
+      + '<div class="swf-astage"><div class="swf-bloom"></div><img class="swf-base" src="img/sw_axe_base.webp" alt="">'
       + B.map((b, i) => swImg(`img/sw_axe_e${i}.webp`, b[0], W, H, 'swf-ember') + swImg(`img/sw_axe_h${i}.webp`, b[1], W, H, 'swf-hot')).join('')
       + SWA.eyes.map((e, i) => swImg(`img/sw_axe_eye${i}.webp`, e, W, H, 'swf-eye').replace('style="', `style="transform-origin:${e[4]}% ${e[5]}%;`)).join('') + '</div>';
     document.body.appendChild(fx);
@@ -1810,6 +1823,11 @@
     fxHold(END_T + 100);
     swA(q('.swf-scrim'), [{ opacity: 0 }, { opacity: 1 }], { duration: 350 });
     swA(q('.swf-moon'), [{ opacity: 0 }, { opacity: 1 }], { duration: 700 });
+    swA(q('.swf-fir1'), [{ opacity: 0, transform: 'translateY(8%)' }, { opacity: 1, transform: 'translateY(0)' }], { delay: 100, duration: 900, easing: 'ease-out' });
+    swA(q('.swf-fir2'), [{ opacity: 0, transform: 'translateY(14%)' }, { opacity: 1, transform: 'translateY(0)' }], { delay: 250, duration: 1000, easing: 'ease-out' });
+    swA(q('.swf-mist'), [{ opacity: 0, transform: 'translateX(-6%)' }, { opacity: 1, transform: 'translateX(4%)' }], { delay: 200, duration: 2600 });
+    fx.querySelectorAll('.swf-snow').forEach(s => { const x0 = R(-20, 20), dur = R(2200, 3400);
+      swA(s, [{ opacity: 0, transform: `translate(0,-8vh)` }, { opacity: R(.5, .95), offset: .15 }, { opacity: .8, offset: .85 }, { opacity: 0, transform: `translate(${x0 + R(-30, 30)}px,${(innerHeight * 1.05).toFixed(0)}px)` }], { delay: R(0, 1400), duration: dur }); });
     swA(q('.swf-astage'), [{ opacity: 0, transform: 'translate(-50%,-50%) scale(.94)' }, { opacity: 1, transform: 'translate(-50%,-50%) scale(1)' }], { duration: 550, easing: 'cubic-bezier(.2,.7,.2,1)' });
     swA(q('.swf-bloom'), [{ opacity: 0 }, { opacity: .75, offset: .8 }, { opacity: 1 }], { delay: 500, duration: 1300 });
     fx.querySelectorAll('.swf-ember').forEach((el, i) => swA(el, [{ opacity: 0 }, { opacity: 1 }], { delay: BASE_T + i * STEP, duration: 210 }));
@@ -1819,31 +1837,42 @@
     setTimeout(() => fx.remove(), END_T + 60);
     if (PL.android) { PL.haptic('confirm'); setTimeout(() => PL.haptic('confirm'), 1500); }
   }
-  /* Haywire Mine: ice cracks spread over the pressed button only, then it stays cracked and inactive */
-  function frostFx(btn) {
-    if (reducedMotion() || !btn) return;
-    const b = btn.getBoundingClientRect(), w = b.width, h = b.height, R = (a, c) => a + Math.random() * (c - a);
-    const cx = R(.3, .7) * w, cy = R(.3, .7) * h, segs = [];
-    for (let i = 0; i < 7; i++) { let a = i / 7 * Math.PI * 2 + R(-.25, .25), x = cx, y = cy, d = 'M' + cx.toFixed(1) + ' ' + cy.toFixed(1);
-      for (let s = 0; s < 4; s++) { const L = R(.14, .3) * Math.max(w, h) * .6; a += R(-.45, .45); x += Math.cos(a) * L; y += Math.sin(a) * L; d += 'L' + x.toFixed(1) + ' ' + y.toFixed(1);
-        if (s === 1 && Math.random() < .6) { const a2 = a + R(.5, .9) * (Math.random() < .5 ? -1 : 1), L2 = L * .7; segs.push(`M${x.toFixed(1)} ${y.toFixed(1)}L${(x + Math.cos(a2) * L2).toFixed(1)} ${(y + Math.sin(a2) * L2).toFixed(1)}`); } }
-      segs.push(d); }
-    const s = document.createElement('div'); s.className = 'frost-ov'; s.setAttribute('aria-hidden', 'true');
-    s.innerHTML = `<svg viewBox="0 0 ${w.toFixed(0)} ${h.toFixed(0)}" preserveAspectRatio="none">${segs.map(d => `<path d="${d}" pathLength="1"/>`).join('')}</svg>`;
-    btn.appendChild(s);
-    s.querySelectorAll('path').forEach((p, i) => p.animate([{ strokeDashoffset: 1 }, { strokeDashoffset: 0 }], { delay: i * 40, duration: 380, fill: 'both', easing: 'cubic-bezier(.2,.8,.2,1)' }));
-    s.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 120, fill: 'both' });
-    if (PL.android) PL.haptic('confirm');
+  /* Haywire Mine: frost ferns (like frost on a window) grow over the pressed row from its edges and stay; the row goes dim. The layer is
+     part of the row's own markup (seeded by the unit), so the used state looks the same as the animation's last frame. */
+  function frostLayer(seed) {
+    const rnd = swRnd(seed), W = 300, H = 60, f = n => n.toFixed(1), fern = [];
+    const stem = (x, y, a, L) => { const sides = [], subs = [];
+      for (const t of [.16, .34, .52, .7]) for (const sg of [-1, 1]) { const px = x + Math.cos(a) * L * t, py = y + Math.sin(a) * L * t, sa = a + sg * (1.0 + rnd() * .12), sl = L * (.4 - t * .3);
+        const ex = px + Math.cos(sa) * sl, ey = py + Math.sin(sa) * sl; sides.push(`M${f(px)} ${f(py)}L${f(ex)} ${f(ey)}`);
+        const mx = px + Math.cos(sa) * sl * .55, my = py + Math.sin(sa) * sl * .55;
+        for (const s2 of [-1, 1]) { const ta = sa + s2 * 1.0, tl = sl * .42; subs.push(`M${f(mx)} ${f(my)}L${f(mx + Math.cos(ta) * tl)} ${f(my + Math.sin(ta) * tl)}`); } }
+      return [`M${f(x)} ${f(y)}L${f(x + Math.cos(a) * L)} ${f(y + Math.sin(a) * L)}`, sides.join(''), subs.join('')]; };
+    const roots = [[-4, H * .2, .42, 96], [-4, H * 1.05, -.5, 92], [W + 4, H * .25, Math.PI - .4, 104], [W + 4, H * 1.05, -Math.PI + .55, 98], [W * .52, H + 3, -Math.PI / 2 + .1, 44], [W * .34, -3, Math.PI / 2 - .1, 40]];
+    const parts = roots.map(([x, y, a, L], i) => stem(x, y + rnd() * 6, a + (rnd() - .5) * .2, L * (.9 + rnd() * .2)).map((d, k) => `<path class="fr-p fr-k${k}" style="--i:${i}" pathLength="1" d="${d}"/>`).join('')).join('');
+    return `<span class="fr-layer" aria-hidden="true"><i class="fr-fill"></i><svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid slice">${parts}</svg><i class="fr-flash"></i></span>`;
   }
-  /* Howlmaw: runes lift off the button on a winter wind */
-  function runeFx(btn) {
+  function frostFx(el) {
+    const row = el && document.querySelector(`.ogr-frost[data-u="${el.dataset.u}"]`);
+    if (reducedMotion() || !row) return;
+    const lay = row.querySelector('.fr-layer'); if (!lay) return;
+    const o = { fill: 'both', easing: 'cubic-bezier(.25,.7,.25,1)' };
+    lay.querySelector('.fr-fill').animate([{ opacity: 0 }, { opacity: 1 }], Object.assign({}, o, { duration: 900, delay: 150 }));
+    lay.querySelector('.fr-flash').animate([{ opacity: 0 }, { opacity: .55, offset: .2 }, { opacity: 0 }], { duration: 520, easing: 'ease-out' });
+    lay.querySelectorAll('.fr-p').forEach(p => { const k = +p.className.baseVal.slice(-1), i = +p.style.getPropertyValue('--i');
+      p.animate([{ strokeDashoffset: 1 }, { strokeDashoffset: 0 }], Object.assign({}, o, { delay: 60 + i * 90 + k * 260, duration: k ? 520 : 650 })); });
+    if (PL.android) { PL.haptic('confirm'); setTimeout(() => PL.haptic('tick'), 350); }
+  }
+  /* runes lift off a button on a winter wind (Howlmaw: few, Master of Wolves: a ring of runes that flares and drifts up) */
+  function runeFx(btn, big) {
     if (reducedMotion() || !btn) return;
-    const R = (a, c) => a + Math.random() * (c - a), g = 'ᚠᚢᚦᚨᚱᚲᚷᚹᚺᚾᛁᛃᛇᛈᛉᛊᛏᛒᛖᛗ', s = document.createElement('div'); s.className = 'rune-ov'; s.setAttribute('aria-hidden', 'true');
-    s.innerHTML = Array.from({ length: 5 }, () => `<i class="rn-wind" style="top:${R(10, 90).toFixed(0)}%;width:${R(30, 60).toFixed(0)}%"></i>`).join('') + Array.from({ length: 9 }, () => `<b class="rn-r" style="left:${R(4, 92).toFixed(0)}%;top:${R(20, 80).toFixed(0)}%">${g[Math.floor(Math.random() * g.length)]}</b>`).join('');
+    const R = (a, c) => a + Math.random() * (c - a), g = 'ᚠᚢᚦᚨᚱᚲᚷᚹᚺᚾᛁᛃᛇᛈᛉᛊᛏᛒᛖᛗ', n = big ? 16 : 9, s = document.createElement('div'); s.className = 'rune-ov'; s.setAttribute('aria-hidden', 'true');
+    s.innerHTML = '<i class="rn-halo"></i>' + Array.from({ length: big ? 7 : 5 }, () => `<i class="rn-wind" style="top:${R(10, 90).toFixed(0)}%;width:${R(30, 60).toFixed(0)}%"></i>`).join('')
+      + Array.from({ length: n }, (_, i) => `<b class="rn-r" style="left:${(big ? 4 + i * 94 / n + R(-2, 2) : R(4, 92)).toFixed(0)}%;top:${R(30, 80).toFixed(0)}%">${g[Math.floor(Math.random() * g.length)]}</b>`).join('');
     btn.appendChild(s);
+    s.querySelector('.rn-halo').animate([{ opacity: 0, transform: 'scale(.4)' }, { opacity: .9, transform: 'scale(1)', offset: .35 }, { opacity: 0, transform: 'scale(1.5)' }], { duration: big ? 1500 : 1000, easing: 'ease-out' });
     s.querySelectorAll('.rn-wind').forEach((e, i) => e.animate([{ opacity: 0, transform: 'translateX(-120%)' }, { opacity: .8, offset: .3 }, { opacity: 0, transform: 'translateX(260%)' }], { delay: i * 90, duration: 900, fill: 'both', easing: 'ease-out' }));
-    s.querySelectorAll('.rn-r').forEach((e, i) => e.animate([{ opacity: 0, transform: 'translate(0,6px) scale(.6)' }, { opacity: 1, offset: .25 }, { opacity: 0, transform: `translate(${R(30, 90).toFixed(0)}px,${R(-26, -8).toFixed(0)}px) scale(1.1)` }], { delay: i * 70, duration: 1300, fill: 'both', easing: 'ease-out' }));
-    setTimeout(() => s.remove(), 2200);
+    s.querySelectorAll('.rn-r').forEach((e, i) => e.animate([{ opacity: 0, transform: 'translate(0,6px) scale(.6)' }, { opacity: 1, transform: 'translate(0,0) scale(1.25)', offset: .3 }, { opacity: 0, transform: `translate(${R(-26, 60).toFixed(0)}px,${R(-34, -12).toFixed(0)}px) scale(1.05)` }], { delay: i * (big ? 55 : 70), duration: big ? 1700 : 1300, fill: 'both', easing: 'ease-out' }));
+    setTimeout(() => s.remove(), big ? 2800 : 2200);
     if (PL.android) PL.haptic('confirm');
   }
   /* while a full-screen effect plays, the page's own looping animations (doctrine card shimmer, badge waves: background-position,
@@ -1885,8 +1914,8 @@
     const now = !dead && !done && p.phase === t.phase && (t.turn !== 'mine' || p.turn !== 'opp') && (t.turn !== 'opp' || p.turn === 'opp');
     const badge = dead ? '<span class="badge">Dead</span>' : done ? `<span class="badge">Round ${p.round}: done</span>` : now ? '<span class="badge gold">Now</span>' : `<span class="badge">${esc(t.when)}</span>`;
     return `<div class="panel pad stack trk"><div class="row"><h3 class="grow">${esc(t.title)}</h3>${badge}</div>
-      <button class="hop hop-${t.style} ${done ? 'done' : ''} ${now ? 'now' : ''}" data-act="trigDone" data-u="${u.instanceId}" aria-pressed="${!!done}" ${dead ? 'aria-disabled="true"' : ''}>
-        <span class="hop-stain" aria-hidden="true"></span><span class="hop-t"><b>${esc(t.when)}</b></span><span class="hop-s">${dead ? '' : done ? esc(t.done) + ' ✓' : esc(t.button)}</span><span class="hop-e">${esc(t.text)}</span></button>
+      <button class="hop hop-${t.style} ${done ? 'done' : dead ? '' : 'ready'} ${now ? 'now' : ''}" data-act="trigDone" data-u="${u.instanceId}" aria-pressed="${!!done}" ${dead ? 'aria-disabled="true"' : ''}>
+        ${t.style === 'ember' ? '' : '<span class="hop-stain" aria-hidden="true"></span>'}<span class="hop-t"><b>${esc(t.when)}</b></span><span class="hop-s">${dead ? '' : done ? esc(t.done) + ' ✓' : esc(t.button)}</span><span class="hop-e">${esc(t.text)}</span></button>
       <div class="faint" style="font-size:.85rem">${dead ? `${esc(t.who)} is dead.` : 'Roll at the table, then tap to mark this battle round as done.'}</div></div>`;
   }
   /* Rot and decay: a sickly vignette closes in, clouds of miasma roll out from the card, the three-circle mark of the
@@ -2227,6 +2256,8 @@
         : rm.fx === 'slash'
         ? `<span class="rem-slash" aria-hidden="true"><i class="rs-line"></i><i class="rs-spark"></i><i class="rs-spark"></i><i class="rs-spark"></i><i class="rs-spark"></i><i class="rs-spark"></i><i class="rs-spark"></i></span>`
         : rm.fx ? `<span class="mfx loop m-${rm.fx}" aria-hidden="true">${mfxHTML(rm.fx)}</span>` : '';
+      if (rm.keep && (active || dismissed)) return `<div class="panel pad stack trk remind" data-remcard="${d.id}"><div class="row"><h3 class="grow">${esc(rm.title)}</h3><span class="badge ${dismissed ? '' : 'gold'}">${dismissed ? 'Done this round' : 'This round'}</span></div>${rmText.map(t => `<div class="dim">${esc(t)}</div>`).join('')}
+        <button class="hop hop-frost hop-rune ${dismissed ? 'done' : 'now'}" data-act="remKeep" data-id="${d.id}" data-rem="${d.id}" aria-pressed="${!!dismissed}"><span class="hop-t"><b>${esc(rm.title)}</b></span><span class="hop-s">${dismissed ? 'Done ✓' : esc(rm.button || 'Done')}</span></button></div>`;
       if (active && !dismissed) return (`<div class="panel pad stack trk remind ${rm.fx ? 'fx-' + rm.fx : ''}" data-remcard="${d.id}">${fxEl}<div class="row"><h3 class="grow">${esc(rm.title)}</h3><span class="badge gold">This round</span></div>${rmText.map(t => `<div class="dim">${esc(t)}</div>`).join('')}<div class="row"><button class="btn sm primary" data-act="csmRemind" data-id="${d.id}">Done — dismiss</button></div></div>`);
     return '';
   }
@@ -2260,7 +2291,7 @@
   function onceGroupHTML(r, p, g, us) {
     const left = us.filter(u => !(p.once || {})[u.instanceId] && !unitDead(p, u)).length, sym = g.icon && IMG[g.icon];
     const rows = us.map(u => { const used = (p.once || {})[u.instanceId], dead = unitDead(p, u);
-      return `<button class="ogr ${g.style ? 'ogr-' + g.style : ''} ${used ? 'used' : ''}" data-act="onceUse" data-u="${u.instanceId}" aria-pressed="${!!used}" ${dead ? 'aria-disabled="true"' : ''}>${sym ? `<img class="ogr-sym" src="${sym}" alt="" aria-hidden="true">` : '<span class="ogr-sym"></span>'}<span class="ogr-t"><b>${esc(dispName(r, u))}</b><span class="ogr-s">${dead ? 'Dead' : used ? `Used · round ${used}` : 'Ready'}</span></span></button>`; }).join('');
+      return `<button class="ogr ${g.style ? 'ogr-' + g.style : ''} ${used ? 'used' : ''}" data-act="onceUse" data-u="${u.instanceId}" aria-pressed="${!!used}" ${dead ? 'aria-disabled="true"' : ''}>${sym ? `<img class="ogr-sym" src="${sym}" alt="" aria-hidden="true">` : '<span class="ogr-sym"></span>'}<span class="ogr-t"><b>${esc(dispName(r, u))}</b><span class="ogr-s">${dead ? 'Dead' : used ? `Used · round ${used}` : 'Ready'}</span></span>${g.style === 'frost' ? frostLayer(u.instanceId) : ''}</button>`; }).join('');
     return panel2(g.title, `<span class="badge ${left ? 'gold' : ''}">${left} ready</span>`, `<div class="dim" style="font-size:.9rem">${esc(g.note)}</div><div class="ogr-list">${rows}</div><div class="faint" style="font-size:.85rem">${esc(g.foot || 'Tap a unit when it uses it; tap again to undo.')}</div>`);
   }
   /* A character's own combat doctrine on top of the army's pick (def.extraDoctrine: Sammael, Lion El'Jonson).
@@ -3761,7 +3792,7 @@
       playChange(r, p => { p.trig = p.trig || {}; const m = p.trig[iid] = p.trig[iid] || {}; if (m[p.round]) delete m[p.round]; else m[p.round] = true; }, on ? null : 'Marked as not done.', 'confirm');
       if (on) {
         const hb = document.querySelector(`.hop[data-u="${iid}"]`), tx = (unitDef(r.factionId, (inst(iid) || {}).datasheetId) || {}).phaseTrigger || {};
-        if (tx.fx === 'holo') holoFx(hb); else if (tx.fx === 'axe') axeFx(); else rotFx(hb);
+        if (tx.fx === 'axe') axeFx(); else if (tx.fx === 'holo') holoFx(hb); else rotFx(hb);
       }
     },
     rpPick: el => {
@@ -3843,6 +3874,11 @@
       u.grants = (u.grants || []).filter(x => !groupIds.includes(x));   // single-select: clear the group
       if (!had) u.grants.push(g.id);                                    // tapping the active one clears it
       touch(r); PL.haptic('tick'); render();
+    },
+    remKeep: el => {
+      const r = cur(), id = el.dataset.id, p0 = playState(r), was = !!((p0.rem || {})[p0.round] || {})[id];
+      playChange(r, p => { p.rem = p.rem || {}; const m = p.rem[p.round] = p.rem[p.round] || {}; if (m[id]) delete m[id]; else m[id] = 1; }, null, 'confirm');
+      if (!was) runeFx(document.querySelector(`.hop-rune[data-rem="${id}"]`), true);
     },
     csmRemind: el => {                                                  // dismiss a Play reminder, dissolving in the Chaos style
       const r = cur(), id = el.dataset.id, card = el.closest('[data-remcard]');

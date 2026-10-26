@@ -286557,6 +286557,18 @@
    "why": "New army Space Wolves (2026-10-26): own datasheets and detachments only, the Space Marines pool by reference (fd.inherits, Apothecary excluded). Profiles and points Wahapedia 11e SM rows = BSData b4dc3f4..HEAD (App 2.8.1); weapon fixes, keywords, Headtakers/Wulfen sizing, DP 2/1/1 and Master of Wolves per claude/army-builder/data/spaceWolves_decisions.md and data/spaceWolves_build/build_log.txt."
   },
   {
+   "path": ".spaceWolves.detachments[0].reminder.keep",
+   "change": "ADDED",
+   "value": "true",
+   "why": "New army Space Wolves (2026-10-26): own datasheets and detachments only, the Space Marines pool by reference (fd.inherits, Apothecary excluded). Profiles and points Wahapedia 11e SM rows = BSData b4dc3f4..HEAD (App 2.8.1); weapon fixes, keywords, Headtakers/Wulfen sizing, DP 2/1/1 and Master of Wolves per claude/army-builder/data/spaceWolves_decisions.md and data/spaceWolves_build/build_log.txt."
+  },
+  {
+   "path": ".spaceWolves.detachments[0].reminder.button",
+   "change": "ADDED",
+   "value": "\"Heed the Saga\"",
+   "why": "New army Space Wolves (2026-10-26): own datasheets and detachments only, the Space Marines pool by reference (fd.inherits, Apothecary excluded). Profiles and points Wahapedia 11e SM rows = BSData b4dc3f4..HEAD (App 2.8.1); weapon fixes, keywords, Headtakers/Wulfen sizing, DP 2/1/1 and Master of Wolves per claude/army-builder/data/spaceWolves_decisions.md and data/spaceWolves_build/build_log.txt."
+  },
+  {
    "path": ".spaceWolves.detachments[1].id",
    "change": "ADDED",
    "value": "\"saga_of_the_beastslayer\"",
@@ -287579,7 +287591,7 @@
   {
    "path": ".spaceWolves.units[0].phaseTrigger.style",
    "change": "ADDED",
-   "value": "\"frost\"",
+   "value": "\"ember\"",
    "why": "New army Space Wolves (2026-10-26): own datasheets and detachments only, the Space Marines pool by reference (fd.inherits, Apothecary excluded). Profiles and points Wahapedia 11e SM rows = BSData b4dc3f4..HEAD (App 2.8.1); weapon fixes, keywords, Headtakers/Wulfen sizing, DP 2/1/1 and Master of Wolves per claude/army-builder/data/spaceWolves_decisions.md and data/spaceWolves_build/build_log.txt."
   },
   {
