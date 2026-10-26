@@ -2,7 +2,7 @@
 
 Applies to every army in the app: Chaos Space Marines, World Eaters, Death
 Guard, Thousand Sons, Tyranids, Adepta Sororitas (with Imperial Agents),
-Adeptus Mechanicus, Emperor's Children (with Legions of Excess), Drukhari (with Harlequins and Anhrathe allies), Necrons, T'au Empire, Imperial Knights (with Adeptus Mechanicus allies), Space Marines (codex Chapters, with Freeblades allies), Dark Angels (on the Space Marines pool by reference, Freeblades inherited), Blood Angels (the same way), and
+Adeptus Mechanicus, Emperor's Children (with Legions of Excess), Drukhari (with Harlequins and Anhrathe allies), Necrons, T'au Empire, Imperial Knights (with Adeptus Mechanicus allies), Space Marines (codex Chapters, with Freeblades allies), Dark Angels (on the Space Marines pool by reference, Freeblades inherited), Blood Angels and Space Wolves (the same way), and
 any army added later.
 
 Current to: the 30 Sep 2026 update (MFM v1.5; Faction Packs World Eaters,
@@ -18,6 +18,10 @@ so SM is rebuilt with an empty delta: `IMPORT=cdc2667..cdc2667 tools/rules/rebui
 Dark Angels (added 2026-10-22) has no 11th-edition Faction Pack (the `eng_08-10` v1.0 PDF is 10th edition): texts follow Wahapedia
 19.10.2026 (source "Dark Angels — App" 03.10.2026), structure BSData db61485 (DA catalogue) and 7232fde (DA detachments in the SM
 catalogue), points MFM v1.6 = BSData = Wahapedia. Rebuilt with an empty delta: `IMPORT=7232fde..7232fde tools/rules/rebuild.sh darkAngels`.
+Space Wolves (added 2026-10-26) likewise has no 11th-edition Faction Pack: texts Wahapedia 11e (SM rows, App 2.8.1), structure and points BSData
+`IMPORT=b4dc3f4..HEAD tools/rules/rebuild.sh spaceWolves`; the Master of Wolves rule text comes from BSData (Wahapedia row empty), typo "within 9”"
+fixed by an override. Decisions: `claude/army-builder/data/spaceWolves_decisions.md`.
+
 Blood Angels (added 2026-10-25) has no 11th-edition Faction Pack either (the June 2026 pack was superseded in the app by Codex: Space
 Marines; the only PDF found is the French v1.1, 10th edition): texts follow Wahapedia 19.10.2026 (source "Blood Angels — App" 03.10.2026),
 structure BSData b4dc3f4 (BA catalogue + BA detachments in the SM catalogue), points BSData = Wahapedia App 2.8.1 (the MFM site cannot be
