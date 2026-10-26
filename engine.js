@@ -210,7 +210,7 @@ const Engine = (function () {
           const v = (inst.wargear || {})[o.id];
           const c = o.choices.find(c => c.id === v);
           if (c && c.pts) wargear += c.pts;
-        } else if (o.pts) wargear += (+(inst.wargear || {})[o.id] || 0) * o.pts;
+        } else if (o.pts || o.ptsBySize) wargear += (+(inst.wargear || {})[o.id] || 0) * (o.ptsBySize ? (o.ptsBySize[inst.size] || 0) : o.pts);   // ptsBySize: the pack's price follows the unit size (Wolf Guard Headtakers' Hunting Wolves)
       });
       let enh = 0;
       enhIds(inst).forEach(id => { const e = ctx.allEnh[id]; if (e) enh += e.pts; });

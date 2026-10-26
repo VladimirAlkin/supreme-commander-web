@@ -174,7 +174,8 @@
    "name": "Transfixing Gaze (psychic level 2)",
    "text": "Start of your opponent’s Movement phase, if this unit is not battle-shocked, you can make a psychic roll for this unit by rolling one D6. If you do: ■ On a 1, this unit is battle-shocked. ■ When an enemy unit within 6\" makes a fall-back move, that enemy unit must take a leadership roll. If that test is failed, that enemy unit must Remain Stationary.",
    "why": "Wahapedia 11e (App 2.8.1) adds its own cross-reference \"(Core Rules, 09.04)\"; BSData b4dc3f4 has the wording without it (list marks as in Wahapedia)."
-  }
+  },
+  {"f": "spaceWolves", "cat": "det-rule", "det": "Saga of the Great Wolf", "name": "Master of Wolves", "text": "Friendly ADEPTUS ASTARTES units (excluding MONSTER/VEHICLES units) with this ability have the following abilities: Encircling Jaws: If the assault doctrine is active for your unit, your unit has +1 to advance rolls and charge rolls. Hunter’s Eye: If the devastator doctrine is active for your unit, your unit’s ranged attacks can re-roll hit rolls of 1. Ferocious Strike: If the tactical doctrine is active for your unit, your unit’s attacks that target an enemy unit within 9” have [Sustained Hits 1]. Friendly Logan Grimnar units have the following ability: Howling Onslaught: (Once per battle, per army) In your command phase, you can use this ability. If you do, friendly Adeptus Astartes Monster/Vehicle units benefit from the Master of Wolves rule until the start of your next command phase. Restrictions: Your army can include Space Wolves units, but it cannot include any Adeptus Astartes units drawn from any other Chapter.", "why": "Wahapedia 11e CSV row is empty; BSData (b4dc3f4+) is the only text. One typo fixed: BSData \"an enemy unit with 9”\" -> \"within 9”\" (Tabletop Battles 23.09.2026 summary says \"within 9”\"). Everything else is BSData verbatim."}
  ],
  "useBsdata": [
   {

@@ -1296,7 +1296,7 @@
     }
     const onceGroups = {};
     r.units.forEach(u => { const def = unitDef(r.factionId, u.datasheetId); if (def && def.roundPick) out.unshift(roundPickHTML(r, p, u, def)); if (def && def.phaseTrigger) out.unshift(phaseTriggerHTML(r, p, u, def));
-      if (def && def.oncePerBattle && onceNeeds(u, def.oncePerBattle)) { const g = def.oncePerBattle.group; if (g) (onceGroups[g.id] = onceGroups[g.id] || { g, us: [] }).us.push(u); else out.push(oncePanelHTML(r, p, u, def)); }
+      if (def && def.oathReminder) out.push(oathRemHTML(r, p, u, def)); if (Engine.enhIds(u).includes('howlmaw')) out.push(howlmawHTML(r, p, u)); if (def && def.oncePerBattle && onceNeeds(u, def.oncePerBattle) && (!def.oncePerBattle.detachment || r.detachmentIds.includes(def.oncePerBattle.detachment))) { const g = def.oncePerBattle.group; if (g) (onceGroups[g.id] = onceGroups[g.id] || { g, us: [] }).us.push(u); else out.push(oncePanelHTML(r, p, u, def)); }
       if (def && def.extraDoctrine) out.push(xdocHTML(r, p, u, def)); });
     Object.values(onceGroups).forEach(x => out.push(onceGroupHTML(r, p, x.g, x.us)));
     fd.armyRules.filter(a => a.imperatives).forEach(a => out.unshift(doctrinaHTML(p, a, r)));
@@ -1769,11 +1769,88 @@
     fxHold(3300); document.body.appendChild(fx); setTimeout(() => fx.remove(), 3300);
     if (PL.android) { setTimeout(() => PL.haptic('confirm'), 600); }
   }
+
+  /* ---- Space Wolves effects: Howl (Logan), High King axe, Haywire Mine frost on the button, Howlmaw runes. WAAPI, opacity/transform only ---- */
+  const SWH = { W: 674, H: 606, body: [50, 217, 541, 345], poses: [[334,134,287,145],[334,134,287,145],[334,134,287,145],[334,134,287,145],[334,134,287,145],[334,134,287,145],[334,134,287,145],[334,134,286,145],[334,134,285,145],[334,134,283,145],[334,134,281,145],[334,134,278,145],[334,131,274,148],[334,121,269,158],[334,110,262,169],[334,99,254,180],[334,87,246,192],[334,76,237,203],[334,66,227,213],[334,58,216,221],[334,51,205,228],[334,45,195,234],[334,41,185,238],[334,38,181,241],[334,36,180,243],[334,35,180,244],[334,34,180,245],[334,34,179,245],[334,34,179,245],[334,34,179,245],[334,34,179,245],[334,34,180,245],[334,35,180,244],[334,35,180,244],[334,36,180,243],[334,36,180,243],[334,36,181,243],[334,37,181,242],[334,37,181,242],[334,37,181,242],[334,37,181,242],[334,38,181,241],[334,37,181,242],[334,37,181,242],[334,37,181,242],[334,37,181,242]] };
+  const SWA = { W: 586, H: 416, bands: [[[39,0,498,327],[35,0,505,329]],[[39,0,496,329],[35,0,501,332]],[[50,11,483,307],[44,9,493,311]],[[62,21,463,286],[56,19,475,290]],[[74,29,440,269],[70,26,450,275]],[[88,31,413,261],[84,27,421,268]],[[101,31,385,251],[96,27,394,257]],[[116,36,354,206],[111,30,363,215]],[[144,38,305,164],[142,34,310,169]],[[169,69,247,59],[166,64,254,67]]], eyes: [[171,102,75,65,48.0,50.31],[330,102,74,65,50.68,49.23]] };
+  const swImg = (src, o, W, H, cls) => `<img class="${cls || ''}" src="${src}" alt="" style="left:${(o[0] / W * 100).toFixed(3)}%;top:${(o[1] / H * 100).toFixed(3)}%;width:${(o[2] / W * 100).toFixed(3)}%;height:${(o[3] / H * 100).toFixed(3)}%">`;
+  const swPlay = (fx, ms) => { fxHold(ms); document.body.appendChild(fx); setTimeout(() => fx.remove(), ms); };
+  const swA = (el, kf, o) => el.animate(kf, Object.assign({ fill: 'both', easing: 'linear' }, o));
+  function howlFx() {
+    if (reducedMotion()) return;
+    const N = SWH.poses.length, RISE0 = 120, STEP = 45, FADE_T = 2800, END_T = 3200;
+    const fx = document.createElement('div'); fx.className = 'swfx'; fx.setAttribute('aria-hidden', 'true');
+    fx.innerHTML = '<div class="swf-scrim"></div><div class="swf-flood"></div><div class="swf-stage"><div class="swf-anchor"></div><div class="swf-grp">'
+      + swImg('img/sw_howl_body.webp', SWH.body, SWH.W, SWH.H)
+      + SWH.poses.map((o, k) => swImg('img/sw_howl_' + String(k).padStart(2, '0') + '.webp', o, SWH.W, SWH.H, 'swf-pose' + (k ? '' : ' p0'))).join('')
+      + '</div></div>';
+    document.body.appendChild(fx);
+    const q = s => fx.querySelector(s), poses = fx.querySelectorAll('.swf-pose'), flood = q('.swf-flood'), r = q('.swf-anchor').getBoundingClientRect();
+    flood.style.left = (r.left - 150) + 'px'; flood.style.top = (r.top - 150) + 'px';
+    fxHold(END_T + 100);
+    swA(q('.swf-scrim'), [{ opacity: 0 }, { opacity: 1 }], { duration: 260 });
+    swA(flood, [{ opacity: 0, transform: 'scale(.7)' }, { opacity: 1, transform: 'scale(4.4)', offset: .55 }, { opacity: 1, transform: 'scale(5.2)', offset: .8 }, { opacity: 1, transform: 'scale(4.8)' }], { duration: 2400, easing: 'cubic-bezier(.3,.55,.35,1)' });
+    swA(q('.swf-grp'), [{ opacity: 0 }, { opacity: 1 }], { duration: 200 });
+    for (let k = 1; k < N; k++) { const t = RISE0 + STEP * (k - 1);
+      swA(poses[k], [{ opacity: 0 }, { opacity: 1 }], { delay: t, duration: 1 });
+      swA(poses[k - 1], [{ opacity: 1 }, { opacity: 0 }], { delay: t, duration: STEP * .7, fill: 'forwards' }); }
+    swA(fx, [{ opacity: 1 }, { opacity: 0 }], { delay: FADE_T, duration: END_T - FADE_T });
+    setTimeout(() => fx.remove(), END_T + 60);
+    if (PL.android) { PL.haptic('confirm'); setTimeout(() => PL.haptic('confirm'), 600); }
+  }
+  function axeFx() {
+    if (reducedMotion()) return;
+    const BASE_T = 450, STEP = 95, EYE_T = 1500, FADE_T = 2700, END_T = 3200, B = SWA.bands, W = SWA.W, H = SWA.H;
+    const fx = document.createElement('div'); fx.className = 'swfx swaxe'; fx.setAttribute('aria-hidden', 'true');
+    fx.innerHTML = '<div class="swf-scrim a"></div><div class="swf-moon"></div><div class="swf-astage"><div class="swf-bloom"></div><img class="swf-base" src="img/sw_axe_base.webp" alt="">'
+      + B.map((b, i) => swImg(`img/sw_axe_e${i}.webp`, b[0], W, H, 'swf-ember') + swImg(`img/sw_axe_h${i}.webp`, b[1], W, H, 'swf-hot')).join('')
+      + SWA.eyes.map((e, i) => swImg(`img/sw_axe_eye${i}.webp`, e, W, H, 'swf-eye').replace('style="', `style="transform-origin:${e[4]}% ${e[5]}%;`)).join('') + '</div>';
+    document.body.appendChild(fx);
+    const q = s => fx.querySelector(s);
+    fxHold(END_T + 100);
+    swA(q('.swf-scrim'), [{ opacity: 0 }, { opacity: 1 }], { duration: 350 });
+    swA(q('.swf-moon'), [{ opacity: 0 }, { opacity: 1 }], { duration: 700 });
+    swA(q('.swf-astage'), [{ opacity: 0, transform: 'translate(-50%,-50%) scale(.94)' }, { opacity: 1, transform: 'translate(-50%,-50%) scale(1)' }], { duration: 550, easing: 'cubic-bezier(.2,.7,.2,1)' });
+    swA(q('.swf-bloom'), [{ opacity: 0 }, { opacity: .75, offset: .8 }, { opacity: 1 }], { delay: 500, duration: 1300 });
+    fx.querySelectorAll('.swf-ember').forEach((el, i) => swA(el, [{ opacity: 0 }, { opacity: 1 }], { delay: BASE_T + i * STEP, duration: 210 }));
+    fx.querySelectorAll('.swf-hot').forEach((el, i) => swA(el, [{ opacity: 0 }, { opacity: 1, offset: .22 }, { opacity: .1 }], { delay: BASE_T + i * STEP, duration: 380 }));
+    fx.querySelectorAll('.swf-eye').forEach(el => swA(el, [{ opacity: 0, transform: 'scale(.55)' }, { opacity: 1, transform: 'scale(1.3)', offset: .22 }, { opacity: 1, transform: 'scale(1)', offset: .5 }, { opacity: 1, transform: 'scale(1)' }], { delay: EYE_T, duration: 700 }));
+    swA(fx, [{ opacity: 1 }, { opacity: 0 }], { delay: FADE_T, duration: END_T - FADE_T });
+    setTimeout(() => fx.remove(), END_T + 60);
+    if (PL.android) { PL.haptic('confirm'); setTimeout(() => PL.haptic('confirm'), 1500); }
+  }
+  /* Haywire Mine: ice cracks spread over the pressed button only, then it stays cracked and inactive */
+  function frostFx(btn) {
+    if (reducedMotion() || !btn) return;
+    const b = btn.getBoundingClientRect(), w = b.width, h = b.height, R = (a, c) => a + Math.random() * (c - a);
+    const cx = R(.3, .7) * w, cy = R(.3, .7) * h, segs = [];
+    for (let i = 0; i < 7; i++) { let a = i / 7 * Math.PI * 2 + R(-.25, .25), x = cx, y = cy, d = 'M' + cx.toFixed(1) + ' ' + cy.toFixed(1);
+      for (let s = 0; s < 4; s++) { const L = R(.14, .3) * Math.max(w, h) * .6; a += R(-.45, .45); x += Math.cos(a) * L; y += Math.sin(a) * L; d += 'L' + x.toFixed(1) + ' ' + y.toFixed(1);
+        if (s === 1 && Math.random() < .6) { const a2 = a + R(.5, .9) * (Math.random() < .5 ? -1 : 1), L2 = L * .7; segs.push(`M${x.toFixed(1)} ${y.toFixed(1)}L${(x + Math.cos(a2) * L2).toFixed(1)} ${(y + Math.sin(a2) * L2).toFixed(1)}`); } }
+      segs.push(d); }
+    const s = document.createElement('div'); s.className = 'frost-ov'; s.setAttribute('aria-hidden', 'true');
+    s.innerHTML = `<svg viewBox="0 0 ${w.toFixed(0)} ${h.toFixed(0)}" preserveAspectRatio="none">${segs.map(d => `<path d="${d}" pathLength="1"/>`).join('')}</svg>`;
+    btn.appendChild(s);
+    s.querySelectorAll('path').forEach((p, i) => p.animate([{ strokeDashoffset: 1 }, { strokeDashoffset: 0 }], { delay: i * 40, duration: 380, fill: 'both', easing: 'cubic-bezier(.2,.8,.2,1)' }));
+    s.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 120, fill: 'both' });
+    if (PL.android) PL.haptic('confirm');
+  }
+  /* Howlmaw: runes lift off the button on a winter wind */
+  function runeFx(btn) {
+    if (reducedMotion() || !btn) return;
+    const R = (a, c) => a + Math.random() * (c - a), g = 'ᚠᚢᚦᚨᚱᚲᚷᚹᚺᚾᛁᛃᛇᛈᛉᛊᛏᛒᛖᛗ', s = document.createElement('div'); s.className = 'rune-ov'; s.setAttribute('aria-hidden', 'true');
+    s.innerHTML = Array.from({ length: 5 }, () => `<i class="rn-wind" style="top:${R(10, 90).toFixed(0)}%;width:${R(30, 60).toFixed(0)}%"></i>`).join('') + Array.from({ length: 9 }, () => `<b class="rn-r" style="left:${R(4, 92).toFixed(0)}%;top:${R(20, 80).toFixed(0)}%">${g[Math.floor(Math.random() * g.length)]}</b>`).join('');
+    btn.appendChild(s);
+    s.querySelectorAll('.rn-wind').forEach((e, i) => e.animate([{ opacity: 0, transform: 'translateX(-120%)' }, { opacity: .8, offset: .3 }, { opacity: 0, transform: 'translateX(260%)' }], { delay: i * 90, duration: 900, fill: 'both', easing: 'ease-out' }));
+    s.querySelectorAll('.rn-r').forEach((e, i) => e.animate([{ opacity: 0, transform: 'translate(0,6px) scale(.6)' }, { opacity: 1, offset: .25 }, { opacity: 0, transform: `translate(${R(30, 90).toFixed(0)}px,${R(-26, -8).toFixed(0)}px) scale(1.1)` }], { delay: i * 70, duration: 1300, fill: 'both', easing: 'ease-out' }));
+    setTimeout(() => s.remove(), 2200);
+    if (PL.android) PL.haptic('confirm');
+  }
   /* while a full-screen effect plays, the page's own looping animations (doctrine card shimmer, badge waves: background-position,
      repainted every frame) are paused, so the effect's layers only need the compositor */
   let fxHoldT = 0;
   function fxHold(ms) { document.body.classList.add('fx-on'); clearTimeout(fxHoldT); fxHoldT = setTimeout(() => document.body.classList.remove('fx-on'), ms); }
-  const ONCE_FX = { saviour: saviourFx, finest: finestFx };
+  const ONCE_FX = { saviour: saviourFx, finest: finestFx, howl: howlFx, frost: frostFx };
   /* Lion El'Jonson picks a Primarch ability: the dark of the Shadow Forest washes over the screen, branches and leaves grow up
      from the bottom with a faint glow, the Lion's helm rises in the middle and its eyes burn red, outlasting the helm.
      Timings follow the Silent King (2.8 s). transform/opacity only; off under prefers-reduced-motion. */
@@ -2200,6 +2277,20 @@
         <span class="dct-t"><b>${esc(k.name)}</b><span class="dct-s">${block ? 'Army has it' : on ? 'Active' : 'Pick'}</span></span><span class="dct-e">${esc(k.effect)}</span></button>`; }).join('');
     const badge = dead ? '<span class="badge">Dead</span>' : doc ? `<span class="badge gold">Round ${p.round}: ${esc(doc.name)}</span>` : `<span class="badge">Round ${p.round}: ${esc(xd.phase)} phase</span>`;
     return `<div class="panel pad stack trk dctr"><div class="row"><h3 class="grow">${esc(xd.title)}</h3>${badge}</div><div class="dim" style="font-size:.9rem">${esc(dead ? def.name + ' is destroyed.' : xd.note)}</div><div class="dct-list">${cards}</div></div>`;
+  }
+  /* Slayer's Oath (Ulrik): a reminder to choose the target at the start of round 1; glows until the target is chosen, then dims. State p.sworn[iid] = true */
+  function oathRemHTML(r, p, u, def) {
+    const t = def.oathReminder, ok = (p.sworn || {})[u.instanceId], dead = unitDead(p, u);
+    return `<div class="panel pad stack trk oathrem ${ok || dead ? 'quiet' : 'glow'}"><div class="row"><h3 class="grow">${esc(t.title)}</h3>${dead ? '<span class="badge">Dead</span>' : ok ? '<span class="badge">Target chosen</span>' : '<span class="badge red">Round 1</span>'}</div>
+      <div class="dim" style="font-size:.9rem">${esc(dead ? t.who + ' is dead.' : t.text)}</div>
+      <button class="hop hop-oath ${ok ? 'done' : 'now'}" data-act="oathSworn" data-u="${u.instanceId}" aria-pressed="${!!ok}" ${dead ? 'aria-disabled="true"' : ''}><span class="hop-t"><b>${esc(t.who)}</b></span><span class="hop-s">${ok ? esc(t.done) + ' ✓' : esc(t.button)}</span></button></div>`;
+  }
+  /* Howlmaw (Wolf Priest enhancement): once per turn, per bearer, at the start of the Fight phase. State p.how[iid] = 'round:turn' */
+  function howlmawHTML(r, p, u) {
+    const key = p.round + ':' + (p.turn === 'opp' ? 'o' : 'm'), done = (p.how || {})[u.instanceId] === key, dead = unitDead(p, u), now = !dead && !done && p.phase === 'Fight';
+    return `<div class="panel pad stack trk"><div class="row"><h3 class="grow">Howlmaw · ${esc(dispName(r, u))}</h3>${dead ? '<span class="badge">Dead</span>' : done ? '<span class="badge">Used this turn</span>' : now ? '<span class="badge gold">Now</span>' : '<span class="badge">Fight phase</span>'}</div>
+      <div class="dim" style="font-size:.9rem">Once per turn, per unit, at the start of the Fight phase: select one enemy unit within 6". Roll a battle-shock test for it with -1.</div>
+      <button class="hop hop-frost hop-rune ${done ? 'done' : now ? 'now' : ''}" data-act="howlmaw" data-u="${u.instanceId}" aria-pressed="${done}" ${dead ? 'aria-disabled="true"' : ''}><span class="hop-t"><b>Start of the Fight phase</b></span><span class="hop-s">${done ? 'Used ✓' : 'Howl'}</span></button></div>`;
   }
   function oncePanelHTML(r, p, u, def) {
     if (def.oncePerBattle.fx === 'saviour') setTimeout(svAssets, 0);   // bitmaps ready before the first tap
@@ -3620,6 +3711,17 @@
       playChange(r, p => { p.xdoc = p.xdoc || {}; const m = p.xdoc[iid] = p.xdoc[iid] || {}, c = m[p.round] = m[p.round] || {}; if (c.d === id) delete c.d; else c.d = id; if (!c.d) delete m[p.round]; }, null, 'confirm');
       if (on) mechFx(document.querySelector(`.dct[data-act="xdPick"][data-u="${iid}"][data-id="${id}"]`), el.dataset.fx);
     },
+    oathSworn: el => {
+      if (el.getAttribute('aria-disabled') === 'true') { PL.haptic('reject'); return; }
+      const r = cur(), iid = el.dataset.u;
+      playChange(r, p => { p.sworn = p.sworn || {}; if (p.sworn[iid]) delete p.sworn[iid]; else p.sworn[iid] = true; }, null, 'confirm');
+    },
+    howlmaw: el => {
+      if (el.getAttribute('aria-disabled') === 'true') { PL.haptic('reject'); return; }
+      const r = cur(), iid = el.dataset.u, p0 = playState(r), key = p0.round + ':' + (p0.turn === 'opp' ? 'o' : 'm'), was = (p0.how || {})[iid] === key;
+      playChange(r, p => { p.how = p.how || {}; if (p.how[iid] === key) delete p.how[iid]; else p.how[iid] = key; }, null, 'confirm');
+      if (!was) runeFx(document.querySelector(`.hop-rune[data-u="${iid}"]`));
+    },
     onceUse: el => {
       if (el.getAttribute('aria-disabled') === 'true') { PL.haptic('reject'); return; }
       const r = cur(), iid = el.dataset.u;
@@ -3659,7 +3761,7 @@
       playChange(r, p => { p.trig = p.trig || {}; const m = p.trig[iid] = p.trig[iid] || {}; if (m[p.round]) delete m[p.round]; else m[p.round] = true; }, on ? null : 'Marked as not done.', 'confirm');
       if (on) {
         const hb = document.querySelector(`.hop[data-u="${iid}"]`), tx = (unitDef(r.factionId, (inst(iid) || {}).datasheetId) || {}).phaseTrigger || {};
-        if (tx.fx === 'holo') holoFx(hb); else rotFx(hb);
+        if (tx.fx === 'holo') holoFx(hb); else if (tx.fx === 'axe') axeFx(); else rotFx(hb);
       }
     },
     rpPick: el => {

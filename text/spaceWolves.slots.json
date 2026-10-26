@@ -1,0 +1,557 @@
+{
+ "_meta": {
+  "faction": "spaceWolves",
+  "factionName": "Space Wolves",
+  "dataVersion": "2026-10-26-sw-wahapedia-bsdata",
+  "generatedAt": "2026-10-26",
+  "howTo": "docs/RULES-SOURCES.md",
+  "rules": [
+   "Edit ONLY the plain text fields. Keys starting with _ are context and are ignored.",
+   "Plain text only: no HTML, no markdown, no ** or [] markup. Highlighting is automatic.",
+   "Keep ALL-CAPS keywords, dice notation (D3, D6, 2D6, D6+3) and quotes/inches as written.",
+   "armyRules text is a list: one entry per paragraph.",
+   "Leave a field unchanged if you have not done it yet. Never delete a key."
+  ],
+  "counts": {
+   "armyRules": 0,
+   "detachmentRules": 3,
+   "stratagems": 12,
+   "enhancements": 8,
+   "unitAbilities": 51
+  }
+ },
+ "armyRules": {},
+ "detachments": {
+  "saga_of_the_great_wolf": {
+   "_name": "Saga of the Great Wolf",
+   "rule": {
+    "_name": "Master of Wolves",
+    "text": "Friendly ADEPTUS ASTARTES units (excluding MONSTER/VEHICLES units) with this ability have the following abilities: Encircling Jaws: If the assault doctrine is active for your unit, your unit has +1 to advance rolls and charge rolls. Hunter’s Eye: If the devastator doctrine is active for your unit, your unit’s ranged attacks can re-roll hit rolls of 1. Ferocious Strike: If the tactical doctrine is active for your unit, your unit’s attacks that target an enemy unit within 9” have [Sustained Hits 1]. Friendly Logan Grimnar units have the following ability: Howling Onslaught: (Once per battle, per army) In your command phase, you can use this ability. If you do, friendly Adeptus Astartes Monster/Vehicle units benefit from the Master of Wolves rule until the start of your next command phase. Restrictions: Your army can include Space Wolves units, but it cannot include any Adeptus Astartes units drawn from any other Chapter."
+   },
+   "stratagems": {
+    "battle_instincts": {
+     "_name": "Battle Instincts",
+     "_cp": 1,
+     "_type": "Saga of the Great Wolf",
+     "_phases": [
+      "Shooting"
+     ],
+     "when": "Your opponent’s Shooting phase, when an enemy unit that targeted a friendly unengaged ADEPTUS ASTARTES INFANTRY/MOUNTED unit has shot.",
+     "target": "That ADEPTUS ASTARTES INFANTRY/MOUNTED unit.",
+     "effect": "Your unit can make a normal move of up to D3+3\".",
+     "restrictions": null
+    },
+    "grimnars_command": {
+     "_name": "Grimnar's Command",
+     "_cp": 1,
+     "_type": "Saga of the Great Wolf",
+     "_phases": [
+      "Command"
+     ],
+     "when": "Your Command phase.",
+     "target": "One friendly ADEPTUS ASTARTES unit (excluding MONSTER/VEHICLE units).",
+     "effect": "Select one combat doctrine. That combat doctrine is active for your unit until the start of your next Command phase.",
+     "restrictions": null
+    },
+    "fenrisian_ferocity": {
+     "_name": "Fenrisian Ferocity",
+     "_cp": 1,
+     "_type": "Saga of the Great Wolf",
+     "_phases": [
+      "Movement",
+      "Charge"
+     ],
+     "when": "Your Movement/Charge phase, when a friendly ADEPTUS ASTARTES MOUNTED/WALKER unit is selected to move or declares a charge.",
+     "target": "That ADEPTUS ASTARTES MOUNTED/WALKER unit.",
+     "effect": "Your unit has Mobile.",
+     "restrictions": null
+    },
+    "fangs_of_the_pack": {
+     "_name": "Fangs of the Pack",
+     "_cp": 1,
+     "_type": "Saga of the Great Wolf",
+     "_phases": [
+      "Fight"
+     ],
+     "when": "Fight phase, when a friendly ADEPTUS ASTARTES INFANTRY/MOUNTED unit is selected to fight.",
+     "target": "That ADEPTUS ASTARTES INFANTRY/MOUNTED unit.",
+     "effect": "Your unit’s melee attacks have [Precision].",
+     "restrictions": null
+    },
+    "wolf_totems": {
+     "_name": "Wolf Totems",
+     "_cp": 1,
+     "_type": "Saga of the Great Wolf",
+     "_phases": [
+      "Any"
+     ],
+     "when": "Any phase, when a friendly ADEPTUS ASTARTES INFANTRY/MOUNTED unit suffers a mortal wound.",
+     "target": "That ADEPTUS ASTARTES INFANTRY/MOUNTED unit.",
+     "effect": "Your unit has Feel No Pain 5+ against mortal wounds.",
+     "restrictions": null
+    },
+    "eye_of_the_pack": {
+     "_name": "Eye of the Pack",
+     "_cp": 1,
+     "_type": "Saga of the Great Wolf",
+     "_phases": [
+      "Shooting",
+      "Fight"
+     ],
+     "when": "Your Shooting phase, or the Fight phase, when a friendly ADEPTUS ASTARTES INFANTRY unit is selected to attack.",
+     "target": "That ADEPTUS ASTARTES INFANTRY unit.",
+     "effect": "Your unit’s attacks can re-roll wound rolls of 1 and 2.",
+     "restrictions": null
+    }
+   },
+   "enhancements": {
+    "howlmaw": {
+     "_name": "Howlmaw",
+     "_pts": 15,
+     "text": "WOLF PRIEST model only. (Once per turn, per unit) At the start of the fight phase, you can select one enemy unit within 6\" of this model. That unit makes a battle-shock roll with -1 to that battle-shock roll."
+    },
+    "grimnars_mark": {
+     "_name": "Grimnar's Mark",
+     "_pts": 15,
+     "text": "ADEPTUS ASTARTES TERMINATOR CAPTAIN model only. (Once per battle round, per army) You can target this unit with the Rapid Ingress/Heroic Intervention stratagem, regardless of any other uses of that stratagem this phase. If you do: ■ That use is -1CP. ■ That use does not prevent any uses of that stratagem on other units this phase."
+    },
+    "chariots_of_the_storm": {
+     "_name": "Chariots of the Storm",
+     "_pts": 25,
+     "text": "ADEPTUS ASTARTES model only. When both players have deployed their armies, you can redeploy up to three friendly ADEPTUS ASTARTES units. When doing so, you can set those units up in strategic reserves, regardless of how many units are already in strategic reserves."
+    },
+    "skjalds_foretelling": {
+     "_name": "Skjald's Foretelling",
+     "_pts": 20,
+     "text": "Wolf Guard Battle Leader model only. This unit’s melee attacks have [Lance]."
+    }
+   }
+  },
+  "saga_of_the_beastslayer": {
+   "_name": "Saga of the Beastslayer",
+   "rule": {
+    "_name": "Legendary Slayers",
+    "text": "Attacks made by friendly Blood Claws/Thunderwolf Cavalry/WULFEN units have [Lethal Hits: Character/Monster/Vehicle]."
+   },
+   "stratagems": {
+    "unbridled_feroicity": {
+     "_name": "Unbridled Feroicity",
+     "_cp": 1,
+     "_type": "Saga of the Beastslayer",
+     "_phases": [
+      "Fight"
+     ],
+     "when": "Fight phase, when a friendly Blood Claws/Thunderwolf Cavalry/WULFEN unit is selected to fight.",
+     "target": "That BLOOD CLAWS/THUNDERWOLF CAVALRY/WULFEN unit.",
+     "effect": "Your unit’s melee attacks have [LANCE].",
+     "restrictions": null
+    },
+    "co_ordinated_strike": {
+     "_name": "Co-Ordinated Strike",
+     "_cp": 1,
+     "_type": "Saga of the Beastslayer",
+     "_phases": [
+      "Fight"
+     ],
+     "when": "End of your opponent’s Fight phase.",
+     "target": "One unengaged Blood Claws/Thunderwolf Cavalry/WULFEN unit that is within 9\" of one or more battlefield edges.",
+     "effect": "Place your unit in strategic reserves.",
+     "restrictions": null
+    },
+    "impetuosity": {
+     "_name": "Impetuosity",
+     "_cp": 1,
+     "_type": "Saga of the Beastslayer",
+     "_phases": [
+      "Shooting"
+     ],
+     "when": "Your opponent’s Shooting phase, when an enemy unit that targeted a friendly unengaged Blood Claws/Thunderwolf Cavalry/WULFEN unit has shot.",
+     "target": "That BLOOD CLAWS/THUNDERWOLF CAVALRY/WULFEN unit.",
+     "effect": "Your unit can make a surge move of up to D6\".",
+     "restrictions": null
+    }
+   },
+   "enhancements": {
+    "hunters_guile": {
+     "_name": "Hunter's Guile",
+     "_pts": 20,
+     "text": "ADEPTUS ASTARTES model only. When both players have deployed their armies, you can redeploy up to three friendly Blood Claws/Thunderwolf Cavalry/WULFEN units. When doing so, you can set those units up in strategic reserves, regardless of how many units are already in strategic reserves."
+    },
+    "wolf_touched": {
+     "_name": "Wolf-Touched",
+     "_pts": 15,
+     "text": "ADEPTUS ASTARTES model only. This unit has: ■ Wulfen. ■ +2\" M."
+    }
+   }
+  },
+  "champions_of_fenris": {
+   "_name": "Champions of Fenris",
+   "rule": {
+    "_name": "The Great Wolf Watches",
+    "text": "Friendly ADEPTUS ASTARTES CHARACTER units have the following ability: Countercharge: (Once per battle round, per unit) When you target this unit with the Heroic Intervention stratagem, that use is -1CP."
+   },
+   "stratagems": {
+    "birth_of_a_saga": {
+     "_name": "Birth of a Saga",
+     "_cp": 1,
+     "_type": "Champions of Fenris",
+     "_phases": [
+      "Command"
+     ],
+     "when": "Your Command phase.",
+     "target": "One friendly ADEPTUS ASTARTES unit (excluding MONSTER/VEHICLE units).",
+     "effect": "Until the start of your next Command phase, your unit has CHARACTER.",
+     "restrictions": null
+    },
+    "heroic_resolve": {
+     "_name": "Heroic Resolve",
+     "_cp": 2,
+     "_type": "Champions of Fenris",
+     "_phases": [
+      "Shooting",
+      "Fight"
+     ],
+     "when": "Your opponent’s Shooting phase or the Fight phase, when an enemy unit targets a friendly ADEPTUS ASTARTES CHARACTER unit.",
+     "target": "That ADEPTUS ASTARTES CHARACTER unit.",
+     "effect": "Attacks that target your unit have -1 D until that enemy unit has attacked.",
+     "restrictions": null
+    },
+    "champions_guidance": {
+     "_name": "Champion's Guidance",
+     "_cp": 1,
+     "_type": "Champions of Fenris",
+     "_phases": [
+      "Fight"
+     ],
+     "when": "Fight phase, when a friendly ADEPTUS ASTARTES CHARACTER unit is selected to fight.",
+     "target": "That ADEPTUS ASTARTES CHARACTER unit.",
+     "effect": "Your unit’s melee attacks can re-roll hit rolls of 1 and wound rolls of 1.",
+     "restrictions": null
+    }
+   },
+   "enhancements": {
+    "preyslayer": {
+     "_name": "Preyslayer",
+     "_pts": 15,
+     "text": "ADEPTUS ASTARTES INFANTRY model only. This unit can re-roll charge rolls."
+    },
+    "a_giant_amongst_giants": {
+     "_name": "A Giant Amongst Giants",
+     "_pts": 15,
+     "text": "ADEPTUS ASTARTES INFANTRY model only. ■ This model has +2 W. ■ This model’s melee attacks have +1 S."
+    }
+   }
+  }
+ },
+ "units": {
+  "logan_grimnar": {
+   "_name": "Logan Grimnar",
+   "abilities": {
+    "High King of Fenris (Once per battle round, per unit)": {
+     "_kind": "datasheet",
+     "text": "In your Movement phase, select up to one friendly SPACE WOLVES unit in strategic reserves. If you do, when that unit makes an ingress move, treat the current battle round number as being one higher than it actually is."
+    },
+    "Guile of the Wolf": {
+     "_kind": "datasheet",
+     "text": "At the start of each phase, the assault doctrine, devastator doctrine and tactical doctrine are active for this unit."
+    }
+   }
+  },
+  "njal_stormcaller": {
+   "_name": "Njal Stormcaller",
+   "abilities": {
+    "Wind Walker": {
+     "_kind": "datasheet",
+     "text": "■ This unit’s ranged attacks have [ASSAULT]. ■ When this unit is selected to make an advance move, this unit can change advance rolls to a 6."
+    },
+    "High Rune Priest (psyker level 3)": {
+     "_kind": "datasheet",
+     "text": "This model has the psychic abilities listed in the Runic Abilities section."
+    },
+    "Murderous Hurricane (psychic level 1)": {
+     "_kind": "datasheet",
+     "text": "In your Movement phase, if this unit is not battle-shocked, you can make a psychic roll for this unit by rolling one D6. If you do: ■ On a 1, this unit is battle-shocked. ■ Select one visible enemy unit within 12\". That enemy unit cannot make Snap shooting attacks."
+    },
+    "Storm Caller (psychic level 1)": {
+     "_kind": "datasheet",
+     "text": "When an enemy unit targets this unit, if this unit is not battle-shocked, you can make a psychic roll for this unit by rolling one D6. If you do: ■ On a 1, this unit is battle-shocked. ■ This unit has -3\" detection range until the end of the phase."
+    },
+    "Tempest's Wrath (psychic level 1)": {
+     "_kind": "datasheet",
+     "text": "In your Shooting phase, if this unit is not battle-shocked, you can make a psychic roll for this unit by rolling one D6. If you do: ■ On a 1, this unit is battle-shocked. ■ Select one visible enemy unit within 18\". That enemy unit is suppressed until the start of your next turn: ■ While a unit is suppressed, that unit’s attacks have -1 to hit rolls."
+    }
+   }
+  },
+  "bjorn_the_fell_handed": {
+   "_name": "Bjorn the Fell-Handed",
+   "abilities": {
+    "Legendary Tenacity": {
+     "_kind": "datasheet",
+     "text": "Attacks that target this unit with a S greater than this unit’s T have -1 to wound rolls."
+    },
+    "Ancient Tactician (Once per turn, per army)": {
+     "_kind": "datasheet",
+     "text": "When you target this unit with a stratagem, that use is -1CP"
+    }
+   }
+  },
+  "arjac_rockfist": {
+   "_name": "Arjac Rockfist",
+   "abilities": {
+    "Champion of the Kingsguard": {
+     "_kind": "datasheet",
+     "text": "This model’s attacks that target a CHARACTER unit: ■ Can re-roll hit rolls of 1. ■ Can re-roll wound rolls of 1."
+    },
+    "Anvil of Endurance": {
+     "_kind": "datasheet",
+     "text": "In the Fight phase, when a model in this unit is destroyed, if this unit has not been selected to fight this phase, roll one D6: ■ On a 4+, do not remove that model from the battlefield. When your unit has fought, or at the end of the phase (whichever comes first), that model is then removed from the battlefield."
+    }
+   }
+  },
+  "ulrik_the_slayer": {
+   "_name": "Ulrik the Slayer",
+   "abilities": {
+    "Slayer's Oath": {
+     "_kind": "datasheet",
+     "text": "At the start of the first battle round, you select up to one enemy CHARACTER/MONSTER/VEHICLE unit to be this unit’s slayer’s oath: ■ This unit’s attacks that target this unit’s slayer’s oath can ignore modifiers to your unit’s: ■ BS and WS. ■ Hit rolls."
+    },
+    "Oathbound": {
+     "_kind": "datasheet",
+     "text": "■ This unit’s melee attacks have +1 to hit rolls. ■ Or: This unit’s melee attacks that target this unit’s slayer’s oath have +1 to hit rolls and wound rolls."
+    }
+   }
+  },
+  "ragnar_blackmane": {
+   "_name": "Ragnar Blackmane",
+   "abilities": {
+    "Battle-lust": {
+     "_kind": "datasheet",
+     "text": "If this unit made a charge move this turn, this model’s melee attacks have +2 A."
+    },
+    "War Howl": {
+     "_kind": "datasheet",
+     "text": "■ While this model is attached to a Blood Claws unit, this unit’s melee attacks have +1 S and [SUSTAINED HITS 1]. ■ While this model is attached to a Wolf Guard Headtakers unit, when this unit is selected to make an advance move, that advance move does not prevent this unit from being eligible to declare a charge."
+    }
+   }
+  },
+  "blood_claws": {
+   "_name": "Blood Claws",
+   "abilities": {
+    "Berserk Charge": {
+     "_kind": "datasheet",
+     "text": "When this unit is selected to make an advance move, that advance move does not prevent this unit from being eligible to declare a charge."
+    }
+   }
+  },
+  "grey_hunters": {
+   "_name": "Grey Hunters",
+   "abilities": {
+    "Old Greymanes": {
+     "_kind": "datasheet",
+     "text": "In the Declare Battle Formations step, you can split this unit into two units, each containing as equal a number of models as possible (when splitting a unit in this way, make a note of which models form each of the two new units)."
+    },
+    "Cunning Hunters": {
+     "_kind": "datasheet",
+     "text": "In the Fight phase, if this unit is within range of an objective, this unit’s melee attacks: ■ Have +1 S. ■ Have +1 AP."
+    }
+   }
+  },
+  "wolf_guard_terminators": {
+   "_name": "Wolf Guard Terminators",
+   "abilities": {
+    "Rugged Resilience": {
+     "_kind": "datasheet",
+     "text": "Attacks that target this unit with a S greater than this unit’s T have -1 to wound rolls."
+    },
+    "Storm Shield": {
+     "_kind": "wargear",
+     "text": "This model has +1 W."
+    }
+   }
+  },
+  "wulfen": {
+   "_name": "Wulfen",
+   "abilities": {
+    "Savage Frenzy": {
+     "_kind": "datasheet",
+     "text": "When an enemy unit engaged with your unit (excluding MONSTER/VEHICLE units) makes a fall-back move that enemy unit must use the desperate escape mode. If that enemy unit is battle-shocked, -1 from those hazard rolls."
+    },
+    "Death Totem": {
+     "_kind": "wargear",
+     "text": "This unit’s melee attacks can re-roll hit rolls of 1."
+    }
+   }
+  },
+  "wulfen_dreadnought": {
+   "_name": "Wulfen Dreadnought",
+   "abilities": {
+    "Violent Fury": {
+     "_kind": "datasheet",
+     "text": "If this model is equipped with two melee weapons, melee attacks made by this unit have [TWIN-LINKED]."
+    },
+    "Bestial Rage": {
+     "_kind": "datasheet",
+     "text": "In your opponent’s Shooting phase, when an enemy unit has shot, if this unit lost a wound as a result of those attacks, this unit can make a surge move of up to D6+1\"."
+    },
+    "Blizzard Shield": {
+     "_kind": "wargear",
+     "text": "This model has 4+ InSv"
+    }
+   }
+  },
+  "murderfang": {
+   "_name": "Murderfang",
+   "abilities": {
+    "Murder-maker": {
+     "_kind": "datasheet",
+     "text": "In the Fight phase, when a friendly WULFEN model within 6\" of this unit is destroyed, if that model’s unit has not been selected to fight this phase, roll one D6: ■ On a 4+, do not remove that model from the battlefield. When your unit has fought, or at the end of the phase (whichever comes first), that model is removed from the battlefield."
+    },
+    "Bestial Fury": {
+     "_kind": "datasheet",
+     "text": "This unit: ■ Can re-roll advance rolls. ■ Can re-roll charge rolls."
+    },
+    "Force of Untamed Destruction": {
+     "_kind": "datasheet",
+     "text": "This model cannot be your WARLORD."
+    }
+   }
+  },
+  "thunderwolf_cavalry": {
+   "_name": "Thunderwolf Cavalry",
+   "abilities": {
+    "Thunderous Charge": {
+     "_kind": "datasheet",
+     "text": "If this unit made a charge move this turn, this unit’s melee attacks have: ■ +1 S. ■ +1 D."
+    },
+    "Storm Shield": {
+     "_kind": "wargear",
+     "text": "This model has a 4+ InSv."
+    }
+   }
+  },
+  "fenrisian_wolves": {
+   "_name": "Fenrisian Wolves",
+   "abilities": {
+    "Predatory Instinct (Once per battle round, per unit)": {
+     "_kind": "datasheet",
+     "text": "In your opponent’s Movement phase, when an enemy unit ends a move within 8\" of this unit, if this unit is unengaged, this unit can make a normal move of up to D6\"."
+    },
+    "Hunting Hounds": {
+     "_kind": "datasheet",
+     "text": "While this unit is within 6\" of a friendly SPACE WOLVES CHARACTER model (excluding Wulfen), if this unit is not battle-shocked, this unit has +1 OC."
+    }
+   }
+  },
+  "iron_priest": {
+   "_name": "Iron Priest",
+   "abilities": {
+    "Gift of the Iron Wolf": {
+     "_kind": "datasheet",
+     "text": "In your Movement phase, at the start or end of this unit’s move, select up to one friendly SPACE WOLVES VEHICLE model within 3\" of this model: ■ That VEHICLE model heals D3 wounds. ■ That VEHICLE model’s attacks can ignore modifiers to hit rolls and wound rolls until the start of your next Movement phase. You cannot select the same VEHICLE model for this ability more than once per phase."
+    },
+    "Iron Priest": {
+     "_kind": "datasheet",
+     "text": "While this model is within 3\" of a friendly SPACE WOLVES VEHICLE unit, this model has Lone Operative."
+    },
+    "Judgement of the Omnissiah": {
+     "_kind": "datasheet",
+     "text": "This model’s attacks that target an enemy unit engaged with a friendly Space Wolves Vehicle can re-roll wound rolls."
+    }
+   }
+  },
+  "venerable_dreadnought": {
+   "_name": "Venerable Dreadnought",
+   "abilities": {
+    "Fervour of the Ancients": {
+     "_kind": "datasheet",
+     "text": "Friendly SPACE WOLVES units within 6\" of this unit: ■ Have +1 to advance rolls. ■ Have +1 to charge rolls."
+    },
+    "Blizzard Shield": {
+     "_kind": "wargear",
+     "text": "This model has 4+ InSv"
+    }
+   }
+  },
+  "wolf_guard_battle_leader": {
+   "_name": "Wolf Guard Battle Leader",
+   "abilities": {
+    "Tempered Ferocity": {
+     "_kind": "datasheet",
+     "text": "■ This unit’s attacks have [SUSTAINED HITS 1]. ■ This unit’s attacks that target an enemy unit within 6\" of this unit can re-roll hit rolls of 1."
+    },
+    "Heroic Last Stand": {
+     "_kind": "datasheet",
+     "text": "In the Fight phase, when this model is destroyed, if this unit has not been selected to fight this phase, roll one D6: ■ On a 2+, do not remove this model from the battlefield. When your unit has fought, or at the end of the phase (whichever comes first), this model is removed from the battlefield."
+    },
+    "Storm Shield": {
+     "_kind": "wargear",
+     "text": "This model has +1 W."
+    }
+   }
+  },
+  "wolf_guard_headtakers": {
+   "_name": "Wolf Guard Headtakers",
+   "abilities": {
+    "Headhunters": {
+     "_kind": "datasheet",
+     "text": "At the start of the first battle round, select up to one enemy unit to be this unit’s quarry: ■ This unit’s attacks that target this unit’s quarry have [DEVASTATING WOUNDS] and [PRECISION]. ■ Each time this unit’s quarry is destroyed, select one enemy unit to be this unit’s quarry."
+    },
+    "Let Loose the Wolves": {
+     "_kind": "datasheet",
+     "text": "At the start of the Declare Battle Formations step, you can split this unit into two units, one containing all Wolf Guard Headtaker models and all leader/support models, the other containing all Hunting Wolves models, with new starting strengths accordingly."
+    },
+    "Hunting Hounds": {
+     "_kind": "datasheet",
+     "text": "While this unit is within 6\" of a friendly SPACE WOLVES CHARACTER model (excluding Wulfen), if this unit is not battle-shocked, Hunting Wolf models have +1 OC."
+    },
+    "Storm Shield": {
+     "_kind": "wargear",
+     "text": "This model has a 4+ InSv."
+    }
+   }
+  },
+  "wolf_priest": {
+   "_name": "Wolf Priest",
+   "abilities": {
+    "Healing Balms": {
+     "_kind": "datasheet",
+     "text": "In your Command phase, this unit heals D3+1 wounds."
+    },
+    "Litany of Hate": {
+     "_kind": "datasheet",
+     "text": "This unit’s melee attacks have [LANCE]."
+    }
+   }
+  },
+  "wulfen_with_storm_shields": {
+   "_name": "Wulfen with Storm Shields",
+   "abilities": {
+    "Hammer Blow": {
+     "_kind": "datasheet",
+     "text": "In the Fight phase, when this unit has fought, select up to one enemy MONSTER/VEHICLE unit hit by those attacks. If you do, that enemy unit is suppressed until the start of your next turn: ■ While a unit is suppressed, that unit’s attacks have -1 to hit rolls."
+    },
+    "Death Totem": {
+     "_kind": "wargear",
+     "text": "This unit’s melee attacks can re-roll hit rolls of 1."
+    }
+   }
+  },
+  "wolf_scouts": {
+   "_name": "Wolf Scouts",
+   "abilities": {
+    "Deadly Stalkers": {
+     "_kind": "datasheet",
+     "text": "This unit’s attacks that target an enemy unit more than 6\" from any other enemy units have +1 to wound rolls."
+    },
+    "Hunting Hounds": {
+     "_kind": "datasheet",
+     "text": "While this unit is within 6\" of a friendly SPACE WOLVES CHARACTER model (excluding Wulfen), if this unit is not battle-shocked, Hunting Wolf models have +1 OC."
+    },
+    "Haywire Mine (Once per battle, per unit)": {
+     "_kind": "wargear",
+     "text": "In your Shooting phase, select up to one visible enemy unit within 6\" of this unit and roll one D6. On a 2+: ■ That enemy unit suffers D3 mortal wounds. ■ Or: If that enemy unit is a VEHICLE unit, that enemy unit suffers 2D3 mortal wounds."
+    }
+   }
+  }
+ }
+}
