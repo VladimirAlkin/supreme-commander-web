@@ -265,7 +265,7 @@
   /* ---------------- images ---------------- */
   const logoOf = fid => { const f = faction(fid); return (f && f.logo && IMG[f.logo]) || null; };
   const iconOf = fid => { const f = faction(fid); return (f && f.rosterIcon && IMG[f.rosterIcon]) || null; };
-  const facVars = f => { const t = f.theme || {}; return `--fc1:${t.card1 || t.bg2};--fc2:${t.card2 || t.bgDeep};--fi1:${t.icon1 || t.bg2};--fi2:${t.icon2 || t.bgDeep};--fa:${t.accent};--fr:${t.iconRim || t.accent}`; };
+  const facVars = f => { const t = f.theme || {}; return `--fc1:${t.card1 || t.bg2};--fc2:${t.card2 || t.bgDeep};--fi1:${t.icon1 || t.bg2};--fi2:${t.icon2 || t.bgDeep};--fa:${t.accent};--fr:${t.iconRim || t.accent}${t.iconRimW ? ';--frw:' + t.iconRimW : ''}`; };
   function portrait(def, fid, cls = '') {
     const src = (def && CUSTOM[def.id] && imgSrc(CUSTOM[def.id])) || (def && def.image && IMG[def.image]) || logoOf(fid);
     if (src) return `<img class="pt ${cls}" src="${src}" alt="" loading="lazy">`;
