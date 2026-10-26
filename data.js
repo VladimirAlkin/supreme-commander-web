@@ -893,9 +893,9 @@ const DATA = {
     "panel": "rgba(16,26,36,.86)",
     "card1": "#17283a",
     "card2": "#101A24",
-    "icon1": "#2a4660",
-    "icon2": "#070C12",
-    "iconRim": "#C9D8E6"
+    "icon1": "#F0C040",
+    "icon2": "#D9A21E",
+    "iconRim": "#0A0A0A"
    },
    "emblemSvg": "<svg viewBox=\"0 0 64 64\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\"><circle cx=\"32\" cy=\"32\" r=\"30\" fill=\"#101A24\" stroke=\"#C9D8E6\" stroke-width=\"2\"/><path fill=\"#C9D8E6\" d=\"M32 12 40 22 52 20 47 31 52 42 40 40 32 52 24 40 12 42 17 31 12 20 24 22z\"/><circle cx=\"26\" cy=\"29\" r=\"2.4\" fill=\"#D9962B\"/><circle cx=\"38\" cy=\"29\" r=\"2.4\" fill=\"#D9962B\"/></svg>",
    "highlights": [
