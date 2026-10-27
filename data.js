@@ -111187,8 +111187,11 @@ const DATA = {
        "id": "wolves",
        "type": "count",
        "label": "Hunting Wolves",
-       "max": 1,
-       "ptsBySize": {
+       "maxBySize": {
+        "3": 3,
+        "6": 6
+       },
+       "ptsOnceBySize": {
         "3": 30,
         "6": 60
        }

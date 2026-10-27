@@ -297513,19 +297513,25 @@
    "why": "New army Space Wolves (2026-10-26): own datasheets and detachments only, the Space Marines pool by reference (fd.inherits, Apothecary excluded). Profiles and points Wahapedia 11e SM rows = BSData b4dc3f4..HEAD (App 2.8.1); weapon fixes, keywords, Headtakers/Wulfen sizing, DP 2/1/1 and Master of Wolves per claude/army-builder/data/spaceWolves_decisions.md and data/spaceWolves_build/build_log.txt."
   },
   {
-   "path": ".spaceWolves.units[17].options[1].max",
+   "path": ".spaceWolves.units[17].options[1].maxBySize.3",
    "change": "ADDED",
-   "value": "1",
+   "value": "3",
    "why": "New army Space Wolves (2026-10-26): own datasheets and detachments only, the Space Marines pool by reference (fd.inherits, Apothecary excluded). Profiles and points Wahapedia 11e SM rows = BSData b4dc3f4..HEAD (App 2.8.1); weapon fixes, keywords, Headtakers/Wulfen sizing, DP 2/1/1 and Master of Wolves per claude/army-builder/data/spaceWolves_decisions.md and data/spaceWolves_build/build_log.txt."
   },
   {
-   "path": ".spaceWolves.units[17].options[1].ptsBySize.3",
+   "path": ".spaceWolves.units[17].options[1].maxBySize.6",
+   "change": "ADDED",
+   "value": "6",
+   "why": "New army Space Wolves (2026-10-26): own datasheets and detachments only, the Space Marines pool by reference (fd.inherits, Apothecary excluded). Profiles and points Wahapedia 11e SM rows = BSData b4dc3f4..HEAD (App 2.8.1); weapon fixes, keywords, Headtakers/Wulfen sizing, DP 2/1/1 and Master of Wolves per claude/army-builder/data/spaceWolves_decisions.md and data/spaceWolves_build/build_log.txt."
+  },
+  {
+   "path": ".spaceWolves.units[17].options[1].ptsOnceBySize.3",
    "change": "ADDED",
    "value": "30",
    "why": "New army Space Wolves (2026-10-26): own datasheets and detachments only, the Space Marines pool by reference (fd.inherits, Apothecary excluded). Profiles and points Wahapedia 11e SM rows = BSData b4dc3f4..HEAD (App 2.8.1); weapon fixes, keywords, Headtakers/Wulfen sizing, DP 2/1/1 and Master of Wolves per claude/army-builder/data/spaceWolves_decisions.md and data/spaceWolves_build/build_log.txt."
   },
   {
-   "path": ".spaceWolves.units[17].options[1].ptsBySize.6",
+   "path": ".spaceWolves.units[17].options[1].ptsOnceBySize.6",
    "change": "ADDED",
    "value": "60",
    "why": "New army Space Wolves (2026-10-26): own datasheets and detachments only, the Space Marines pool by reference (fd.inherits, Apothecary excluded). Profiles and points Wahapedia 11e SM rows = BSData b4dc3f4..HEAD (App 2.8.1); weapon fixes, keywords, Headtakers/Wulfen sizing, DP 2/1/1 and Master of Wolves per claude/army-builder/data/spaceWolves_decisions.md and data/spaceWolves_build/build_log.txt."

@@ -3,7 +3,7 @@
   "faction": "spaceWolves",
   "factionName": "Space Wolves",
   "dataVersion": "2026-10-26-sw-wahapedia-bsdata",
-  "generatedAt": "2026-10-26",
+  "generatedAt": "2026-10-27",
   "howTo": "docs/RULES-SOURCES.md",
   "rules": [
    "Edit ONLY the plain text fields. Keys starting with _ are context and are ignored.",
