@@ -40,6 +40,7 @@ const EXPECT = {
   world_eaters_dreadblades_synthetic: { army: 'worldEaters', units: 3, links: 0, points: 730, warlord: 'daemon_prince' },
   death_guard_dreadblades_synthetic: { army: 'deathGuard', units: 3, links: 0, points: 635, warlord: 'daemon_prince_of_nurgle' },
   thousand_sons_dreadblades_synthetic: { army: 'thousandSons', units: 3, links: 0, points: 575, warlord: 'exalted_sorcerer' },
+  emperors_children_dreadblades_synthetic: { army: 'emperorsChildren', units: 3, links: 0, points: 540, warlord: 'lord_exultant' },
   world_eaters_indented: { army: 'worldEaters', units: 11, links: 3, points: 1995, warlord: 'angron', enh: 'berzerker_glaive' },
 };
 const summary = [];
