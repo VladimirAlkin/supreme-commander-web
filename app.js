@@ -1553,7 +1553,7 @@
     const count = list.filter(u => sel.includes(u.instanceId)).length;
     return panel2(pu.title, `<span class="badge ${count ? 'gold' : ''}">${pu.max === 1 ? (count ? 'Chosen' : 'None') : count + ' marked'}</span>`,
       `<div class="dim" style="font-size:.9rem">${esc(pu.note)}</div>
-      <div class="chips pu-chips" role="group" aria-label="${esc(pu.title)}">${list.map(u => `<button class="chip puc puc-${pu.style || 'plain'}" aria-pressed="${sel.includes(u.instanceId)}" ${pu.style === 'favoured' && IMG.ec_slaanesh ? `style="--sym:url('${IMG.ec_slaanesh}')"` : ''} data-act="puPick" data-key="${pu.key}" data-id="${u.instanceId}">${esc(lbl(u))}</button>`).join('') || '<span class="faint">No units to mark.</span>'}</div>
+      <div class="chips pu-chips" role="group" aria-label="${esc(pu.title)}">${list.map(u => `<button class="chip puc puc-${pu.style || 'plain'}" aria-pressed="${sel.includes(u.instanceId)}" ${pu.style === 'favoured' && IMG.ec_slaanesh ? `style="--sym:url('${IMG.ec_slaanesh}')"` : ''} data-act="puPick" data-key="${pu.key}" data-id="${u.instanceId}">${pu.style === 'anvil' && sel.includes(u.instanceId) ? blackFireHTML() : ''}<span>${esc(lbl(u))}</span></button>`).join('') || '<span class="faint">No units to mark.</span>'}</div>
       ${pu.foot ? `<div class="faint" style="font-size:.85rem">${esc(pu.foot)}</div>` : ''}`);
   }
   /* Battle-long picks: a detachment's (Creations of Bile augmentations) or an army rule's (Chaos Knights Dread abilities).
@@ -1590,7 +1590,7 @@
     const iid = 'em-' + slot.replace(/[^a-z0-9]/gi, '');
     return panel2(m.title + (u && r.units.filter(x => x.datasheetId === u.datasheetId).length > 1 ? ' · ' + dispName(r, u) : ''), badge,
       `<div class="dim" style="font-size:.9rem">${esc(m.note)}</div>
-      ${name ? `<div class="em-cur em-${m.fx || 'plain'}" data-em="${esc(slot)}"><span class="em-l">${esc(m.label)}${from && from !== p.round ? ` · round ${from}` : ''}</span><b>${esc(name)}</b></div>` : ''}
+      ${name ? `<div class="em-cur em-${m.fx || 'plain'}" data-em="${esc(slot)}">${m.fx === 'claw' ? `<span class="em-scar" aria-hidden="true" style="--cks:url('${ckClaw(true)}')"></span>` : ''}<span class="em-l">${esc(m.label)}${from && from !== p.round ? ` · round ${from}` : ''}</span><b>${esc(name)}</b></div>` : ''}
       ${dead ? '' : `<div class="row mt-add"><input class="search" id="${iid}" type="text" maxlength="40" placeholder="${esc(m.placeholder || 'Enemy unit')}" aria-label="${esc(m.label)}: enemy unit"><button class="btn sm" data-act="emSet" data-k="${esc(slot)}" data-in="${iid}" data-p="${m.persist ? 1 : ''}" data-fx="${m.fx || ''}">${name ? 'Change' : 'Mark'}</button></div>
       ${name && m.clear ? `<button class="btn sm ghost" data-act="emSet" data-k="${esc(slot)}" data-p="1" data-clear="1">${esc(m.clear)}</button>` : ''}`}`);
   }
@@ -2075,9 +2075,85 @@
     setTimeout(() => fx.remove(), 1600);
     if (PL.android) setTimeout(() => PL.haptic('confirm'), 150);
   }
-  /* Empowered (anvil and black fire) and Marked Prey (claws and brand): pending the owner's look at the pilot effect */
-  function anvilFx(el) { }
-  function clawFx(el) { }
+  /* black fire: the same tongue shapes as the warp fire, a near-black body with crimson and ember edges */
+  const ckBlackFlame = () => ckBmp('bflame', 512, 96, (g, W, H) => {
+    let h = 11; const rnd = () => ((h = Math.imul(h ^ (h >>> 13), 1274126177) + 1013904223 >>> 0) / 4294967296);
+    for (let pass = 0; pass < 3; pass++) for (let i = 0; i < 24; i++) {
+      const x = rnd() * W, wd = 20 + rnd() * 34 - pass * 6, ht = H * (.5 + rnd() * .5) * (1 - pass * .2);
+      [x, x - W, x + W].forEach(cx => {
+        const gr = g.createLinearGradient(0, H, 0, H - ht);
+        const c = pass === 0 ? ['rgba(214,44,22,1)', 'rgba(150,24,14,.85)', 'rgba(60,8,6,0)'] : pass === 1 ? ['rgba(8,4,4,.98)', 'rgba(14,6,6,.9)', 'rgba(20,6,6,0)'] : ['rgba(255,122,31,.85)', 'rgba(120,20,10,.5)', 'rgba(10,4,4,0)'];
+        gr.addColorStop(0, c[0]); gr.addColorStop(.5, c[1]); gr.addColorStop(1, c[2]); g.fillStyle = gr;
+        const w2 = pass === 2 ? wd * .25 : wd;
+        g.beginPath(); g.moveTo(cx - w2 / 2, H);
+        g.bezierCurveTo(cx - w2 * .6, H - ht * .45, cx - w2 * .05, H - ht * .7, cx + (rnd() - .5) * w2 * .4, H - ht * (pass === 2 ? .35 : 1));
+        g.bezierCurveTo(cx + w2 * .1, H - ht * .65, cx + w2 * .6, H - ht * .4, cx + w2 / 2, H); g.closePath(); g.fill();
+      });
+    }
+  });
+  const blackFireHTML = () => `<span class="bk-fire" aria-hidden="true" style="--ckb:url('${ckBlackFlame()}')"><i></i><i></i></span>`;
+  /* a hammer seen from the side: iron head with a bronze band, wooden haft */
+  const ckHammer = () => ckBmp('hammer', 120, 160, (g, W, H) => {
+    const hg = g.createLinearGradient(0, 0, 0, 52); hg.addColorStop(0, '#d8d2c4'); hg.addColorStop(.45, '#8a857c'); hg.addColorStop(1, '#2e2a25');
+    g.fillStyle = '#6a4024'; g.fillRect(W / 2 - 6, 44, 12, H - 48); g.fillStyle = '#E2581B'; g.fillRect(W / 2 - 6, H - 30, 12, 6);
+    g.fillStyle = hg; g.beginPath(); g.moveTo(8, 6); g.lineTo(W - 8, 6); g.lineTo(W - 2, 26); g.lineTo(W - 8, 48); g.lineTo(8, 48); g.lineTo(2, 26); g.closePath(); g.fill();
+    g.fillStyle = '#9A9488'; g.fillRect(W / 2 - 10, 6, 20, 42); g.fillStyle = '#E2581B'; g.fillRect(W / 2 - 10, 24, 20, 4);
+  });
+  /* three claw rakes; scar = the dim version that stays on the mark */
+  const ckClaw = scar => ckBmp(scar ? 'scar' : 'claw', 120, 60, (g, W, H) => {
+    for (let i = 0; i < 3; i++) {
+      const y = 10 + i * 16, gr = g.createLinearGradient(0, 0, W, 0);
+      const a = scar ? .55 : 1;
+      gr.addColorStop(0, 'rgba(255,122,31,0)'); gr.addColorStop(.2, `rgba(255,150,60,${a})`); gr.addColorStop(.6, scar ? `rgba(178,34,20,${a})` : 'rgba(255,240,200,1)'); gr.addColorStop(1, 'rgba(226,88,27,0)');
+      g.strokeStyle = gr; g.lineCap = 'round'; g.lineWidth = scar ? 3 : 4.5;
+      g.beginPath(); g.moveTo(6, y + 18); g.quadraticCurveTo(W * .5, y + 4, W - 6, y - 4); g.stroke();
+    }
+  });
+  /* Empowered: a hammer swings down onto the unit's chip as onto an anvil; at the blow a white-hot flash, a shock ring and
+     sparks fly, the chip jolts, then black fire with crimson edges rises from it and keeps burning while it is Empowered (~1.2 s). */
+  function anvilFx(chip) {
+    if (!chip || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const R = (a, c) => a + Math.random() * (c - a), A = (el, kf, o) => el.animate(kf, Object.assign({ fill: 'both', easing: 'linear' }, o));
+    const b = chip.getBoundingClientRect(), fx = document.createElement('div'); fx.className = 'anfx'; fx.setAttribute('aria-hidden', 'true');
+    fx.style.cssText = `left:${(b.left + b.width / 2).toFixed(0)}px;top:${b.top.toFixed(0)}px`;
+    const img = (src, cls, css) => { const i = document.createElement('img'); i.src = src; i.alt = ''; i.className = cls; if (css) i.style.cssText = css; fx.appendChild(i); return i; };
+    const ham = img(ckHammer(), 'an-ham'), flash = img(ckGlow('flare', '255,122,31', 'rgba(255,240,200,.9)'), 'an-flash'), ring = img(ckRing(), 'an-ring');
+    document.body.appendChild(fx);
+    /* the hammer swings in an arc from the left at the chip's own height (it never crosses the text above) and strikes its top edge */
+    A(ham, [{ opacity: 0, transform: 'translate3d(104px,-4px,0) rotate(100deg)' }, { opacity: 1, transform: 'translate3d(84px,-24px,0) rotate(76deg)', offset: .3 },
+      { opacity: 1, transform: 'translate3d(16px,-36px,0) rotate(4deg)', offset: .6 }, { opacity: 1, transform: 'translate3d(20px,-40px,0) rotate(14deg)', offset: .75 }, { opacity: 0, transform: 'translate3d(32px,-42px,0) rotate(30deg)' }],
+      { duration: 620, easing: 'cubic-bezier(.55,0,.85,.35)' });
+    const hit = 370;
+    A(flash, [{ opacity: 0, transform: 'scale(.2)' }, { opacity: 1, transform: 'scale(1)', offset: .2 }, { opacity: 0, transform: 'scale(1.8)' }], { duration: 520, delay: hit, easing: 'ease-out' });
+    A(ring, [{ opacity: 0, transform: 'scale(.3,.18)' }, { opacity: .9, transform: 'scale(1,.5)', offset: .3 }, { opacity: 0, transform: 'scale(2.4,1.1)' }], { duration: 700, delay: hit, easing: 'ease-out' });
+    const spark = ckGlow('ember', '255,150,60', 'rgba(255,245,210,1)');
+    for (let i = 0; i < 16; i++) {
+      const ang = R(-170, -10) * Math.PI / 180, d = R(40, 120), s = R(3, 7), e = img(spark, 'an-sp', `width:${s.toFixed(0)}px;height:${s.toFixed(0)}px`);
+      const dx = Math.cos(ang) * d, dy = Math.sin(ang) * d;
+      A(e, [{ opacity: 0, transform: 'translate3d(0,0,0)' }, { opacity: 1, transform: `translate3d(${(dx * .4).toFixed(1)}px,${(dy * .4).toFixed(1)}px,0)`, offset: .2 },
+        { opacity: 0, transform: `translate3d(${dx.toFixed(1)}px,${(dy + 40).toFixed(1)}px,0) scale(.5)` }], { duration: R(500, 850), delay: hit, easing: 'cubic-bezier(.2,.7,.4,1)' });
+    }
+    chip.animate([{ transform: 'translate3d(0,0,0)' }, { transform: 'translate3d(0,3px,0)', offset: .25 }, { transform: 'translate3d(0,-1px,0)', offset: .6 }, { transform: 'translate3d(0,0,0)' }], { duration: 260, delay: hit });
+    const f = chip.querySelector('.bk-fire'); if (f) A(f, [{ opacity: 0, transform: 'translate3d(0,70%,0)' }, { opacity: 1, transform: 'translate3d(0,0,0)' }], { duration: 700, delay: hit + 80, fill: 'backwards', easing: 'ease-out' });
+    setTimeout(() => fx.remove(), 1500);
+    if (PL.android) setTimeout(() => PL.haptic('confirm'), hit);
+  }
+  /* Marked Prey: three claw rakes tear across the marked name from left to right, a flare, then they cool into the
+     smouldering scars that stay on the mark (~0.9 s). */
+  function clawFx(el) {
+    if (!el || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const A = (e, kf, o) => e.animate(kf, Object.assign({ fill: 'both', easing: 'cubic-bezier(.3,.7,.3,1)' }, o));
+    const fx = document.createElement('span'); fx.className = 'clfx'; fx.setAttribute('aria-hidden', 'true');
+    const c = document.createElement('img'); c.src = ckClaw(false); c.alt = ''; c.className = 'cl-rake'; fx.appendChild(c);
+    const fl = document.createElement('img'); fl.src = ckGlow('flare', '255,122,31', 'rgba(255,240,200,.9)'); fl.alt = ''; fl.className = 'cl-flash'; fx.appendChild(fl);
+    el.appendChild(fx);
+    A(c, [{ opacity: 1, transform: 'scaleX(0)' }, { opacity: 1, transform: 'scaleX(1)', offset: .45 }, { opacity: .9, transform: 'scaleX(1)', offset: .7 }, { opacity: 0, transform: 'scaleX(1)' }], { duration: 820 });
+    A(fl, [{ opacity: 0, transform: 'scale(.3)' }, { opacity: .85, transform: 'scale(1)', offset: .3 }, { opacity: 0, transform: 'scale(1.5)' }], { duration: 520, delay: 300 });
+    const sc = el.querySelector('.em-scar'); if (sc) A(sc, [{ opacity: 0 }, { opacity: 1 }], { duration: 500, delay: 520, fill: 'backwards' });
+    el.animate([{ transform: 'translate3d(0,0,0)' }, { transform: 'translate3d(2px,1px,0)', offset: .3 }, { transform: 'translate3d(-1px,0,0)', offset: .6 }, { transform: 'translate3d(0,0,0)' }], { duration: 240, delay: 260 });
+    setTimeout(() => fx.remove(), 1300);
+    if (PL.android) setTimeout(() => PL.haptic('confirm'), 260);
+  }
   function mechFx(el, k, loop) {
     if (!el || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const fx = document.createElement('span'); fx.className = 'mfx m-' + k; fx.setAttribute('aria-hidden', 'true'); fx.innerHTML = mfxHTML(k);

@@ -34,6 +34,7 @@ const EXPECT = {
   dark_angels_synthetic: { army: 'darkAngels', units: 7, links: 1, points: 1280, warlord: 'lion_eljonson', enh: 'deathwing_assault' },
   /* synthetic: Blood Angels on the Space Marines pool (shared Chaplain with Jump Pack leads Death Company through leaderOfExtra) */
   blood_angels_synthetic: { army: 'bloodAngels', units: 7, links: 1, points: 870, warlord: 'commander_dante', enh: 'instinctive_interception' },
+  chaos_knights_synthetic: { army: 'chaosKnights', bs: 'strike', units: 6, links: 0, points: 1210, warlord: 'knight_tyrant', enh: 'ck_cruel_lashmaster' },
   world_eaters_indented: { army: 'worldEaters', units: 11, links: 3, points: 1995, warlord: 'angron', enh: 'berzerker_glaive' },
 };
 const summary = [];
