@@ -546,9 +546,9 @@ const DATA = {
     "panel": "rgba(26,18,14,.86)",
     "card1": "#2e1d14",
     "card2": "#1A120E",
-    "icon1": "#1A120E",
-    "icon2": "#0A0605",
-    "iconRim": "#E2581B"
+    "icon1": "#5a2410",
+    "icon2": "#1A120E",
+    "iconRim": "#E3D6BB"
    },
    "emblemSvg": "<svg viewBox=\"0 0 64 64\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\"><circle cx=\"32\" cy=\"32\" r=\"30\" fill=\"#1A120E\"/><path fill=\"#9A9488\" d=\"M18 14c2 8 4 12 8 14l-2-12zM46 14c-2 8-4 12-8 14l2-12zM32 16c-9 0-13 6-13 14 0 6 3 10 6 12v8h14v-8c3-2 6-6 6-12 0-8-4-14-13-14z\"/><path fill=\"#FF7A1F\" d=\"M24 30l6 2-1 4-5-2zM40 30l-6 2 1 4 5-2z\"/><path fill=\"#1A120E\" d=\"M27 44h2v5h-2zM31 44h2v5h-2zM35 44h2v5h-2z\"/></svg>",
    "highlights": [
@@ -604,7 +604,9 @@ const DATA = {
      }
     }
    ],
-   "abilityTips": {}
+   "abilityTips": {},
+   "logo": "ck_logo",
+   "rosterIcon": "ck_roster"
   },
   {
    "id": "adeptaSororitas",
