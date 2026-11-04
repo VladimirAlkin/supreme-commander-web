@@ -1545,6 +1545,7 @@
   }
   /* Detachment pickUnits: mark which units carry a state (Empowered, Favoured Champions). State p[key] = [instanceId of the bodyguard / lone unit]. */
   function pickUnitsHTML(r, p, d) {
+    if (d.pickUnits.style === 'anvil') ckPrebake();
     const pu = d.pickUnits, fd = fdata(r.factionId), sel = pickSelFor(r, p, pu.key);
     const grp = u => [u, ...r.units.filter(x => x.attachedTo === u.instanceId)];
     const list = r.units.filter(u => !u.attachedTo && !unitDead(p, u) && (!pu.armyOnly || grp(u).some(x => unitDef(r.factionId, x.datasheetId).faction === fd.armyFaction))
@@ -1572,7 +1573,7 @@
   function dreadHTML(r, p, bp, key, picked) {
     const row = (o, on, always) => `<${always ? 'div' : 'button'} class="dread ${on ? 'on' : ''} ${always ? 'always' : ''}" ${always ? '' : `data-act="csmAug" data-key="${key}" data-fx="${bp.fx || ''}" data-id="${o.id}" aria-pressed="${on}"`}>`
       + `${on ? dreadFireHTML() : ''}<span class="dr-t"><b>${esc(o.name)}</b>${always ? '<i class="dr-tag">Always</i>' : ''}</span><span class="dr-e">${esc(o.effect)}</span></${always ? 'div' : 'button'}>`;
-    const n = picked.length + (bp.always ? 1 : 0);
+    const n = picked.length + (bp.always ? 1 : 0); ckPrebake();
     return panel2(bp.title, `<span class="badge ${picked.length ? 'gold' : ''}">${n} active</span>`,
       `<div class="dim">${esc(bp.note)}</div><div class="dread-list" role="group" aria-label="${esc(bp.title)}">${bp.always ? row(bp.always, true, true) : ''}${bp.options.map(o => row(o, picked.includes(o.id))).join('')}</div>`
       + (bp.hint ? `<div class="faint dr-hint">${esc(bp.hint)}</div>` : ''));
@@ -1590,7 +1591,7 @@
     const iid = 'em-' + slot.replace(/[^a-z0-9]/gi, '');
     return panel2(m.title + (u && r.units.filter(x => x.datasheetId === u.datasheetId).length > 1 ? ' · ' + dispName(r, u) : ''), badge,
       `<div class="dim" style="font-size:.9rem">${esc(m.note)}</div>
-      ${name ? `<div class="em-cur em-${m.fx || 'plain'}" data-em="${esc(slot)}">${m.fx === 'claw' ? `<span class="em-scar" aria-hidden="true" style="--cks:url('${ckClaw(true)}')"></span>` : ''}<span class="em-l">${esc(m.label)}${from && from !== p.round ? ` · round ${from}` : ''}</span><b>${esc(name)}</b></div>` : ''}
+      ${name ? `<div class="em-cur em-${m.fx || 'plain'}" data-em="${esc(slot)}">${m.fx === 'claw' ? `${(ckVar('--ck-scar', ckClaw(true)), '')}<span class="em-scar" aria-hidden="true"></span>` : ''}<span class="em-l">${esc(m.label)}${from && from !== p.round ? ` · round ${from}` : ''}</span><b>${esc(name)}</b></div>` : ''}
       ${dead ? '' : `<div class="row mt-add"><input class="search" id="${iid}" type="text" maxlength="40" placeholder="${esc(m.placeholder || 'Enemy unit')}" aria-label="${esc(m.label)}: enemy unit"><button class="btn sm" data-act="emSet" data-k="${esc(slot)}" data-in="${iid}" data-p="${m.persist ? 1 : ''}" data-fx="${m.fx || ''}">${name ? 'Change' : 'Mark'}</button></div>
       ${name && m.clear ? `<button class="btn sm ghost" data-act="emSet" data-k="${esc(slot)}" data-p="1" data-clear="1">${esc(m.clear)}</button>` : ''}`}`);
   }
@@ -2019,8 +2020,9 @@
     par.appendChild(fx); setTimeout(() => fx.remove(), 2000);
     if (PL.android) PL.haptic('confirm');
   }
-  /* ---- Chaos Knights effects. Bitmaps are drawn once on a canvas and cached; only transform/opacity move (Web Animations
-     with plain-number keyframes, so the compositor runs them). Reduced motion: no burst, the burning row stays still. ---- */
+  /* ---- Chaos Knights effects. Every bitmap is baked once on a canvas (soft glow via shadowBlur at bake time, additive
+     blending) and cached as a data URL; at run time only transform and opacity move (Web Animations / CSS keyframes with
+     plain numbers, so the compositor runs them). Reduced motion: no bursts, the burning rows and chips stand still. ---- */
   const CKB = {};
   function ckBmp(k, w, h, draw) {
     if (CKB[k]) return CKB[k];
@@ -2028,77 +2030,97 @@
     catch (e) { CKB[k] = ''; }
     return CKB[k];
   }
-  /* a seamless strip of fire tongues (it repeats along x): ember-orange body, pale core, dark smoky tips */
-  const ckFlame = () => ckBmp('flame', 512, 96, (g, W, H) => {
-    let h = 7; const rnd = () => ((h = Math.imul(h ^ (h >>> 13), 1274126177) + 1013904223 >>> 0) / 4294967296);
-    for (let pass = 0; pass < 3; pass++) for (let i = 0; i < 26; i++) {
-      const x = rnd() * W, wd = 18 + rnd() * 34 - pass * 5, ht = H * (.45 + rnd() * .5) * (1 - pass * .18);
-      [x, x - W, x + W].forEach(cx => {
-        const gr = g.createLinearGradient(0, H, 0, H - ht);
-        const c = pass === 2 ? ['rgba(255,236,190,.95)', 'rgba(255,170,70,.6)', 'rgba(255,122,31,0)'] : pass === 1 ? ['rgba(255,122,31,.95)', 'rgba(226,88,27,.7)', 'rgba(120,30,8,0)'] : ['rgba(150,40,10,.85)', 'rgba(70,20,8,.55)', 'rgba(20,8,4,0)'];
-        gr.addColorStop(0, c[0]); gr.addColorStop(.55, c[1]); gr.addColorStop(1, c[2]); g.fillStyle = gr;
-        g.beginPath(); g.moveTo(cx - wd / 2, H);
-        g.bezierCurveTo(cx - wd * .6, H - ht * .45, cx - wd * .05, H - ht * .7, cx + (rnd() - .5) * wd * .4, H - ht);
-        g.bezierCurveTo(cx + wd * .1, H - ht * .65, cx + wd * .6, H - ht * .4, cx + wd / 2, H); g.closePath(); g.fill();
-      });
-    }
+  const ckRnd = seed => { let h = seed; return () => ((h = Math.imul(h ^ (h >>> 13), 1274126177) + 1013904223 >>> 0) / 4294967296); };
+  /* one tongue of flame from the bottom edge, drawn three times across the seam so the strip tiles along x */
+  function ckTongue(g, W, H, x, wd, ht, lean, fill) {
+    [x, x - W, x + W].forEach(cx => {
+      g.fillStyle = fill(H, ht); g.beginPath(); g.moveTo(cx - wd / 2, H + 2);
+      g.bezierCurveTo(cx - wd * .55, H - ht * .4, cx + lean * .4 - wd * .15, H - ht * .75, cx + lean, H - ht);
+      g.bezierCurveTo(cx + lean * .4 + wd * .2, H - ht * .7, cx + wd * .6, H - ht * .35, cx + wd / 2, H + 2); g.closePath(); g.fill();
+    });
+  }
+  /* warp fire strip: dozens of thin tongues added together, so the base burns white-gold and the tips cool to ember red */
+  const ckFlame = () => ckBmp('flame2', 512, 120, (g, W, H) => {
+    const rnd = ckRnd(7); g.globalCompositeOperation = 'lighter';
+    const grad = (a, b, c) => (Hh, ht) => { const gr = g.createLinearGradient(0, Hh, 0, Hh - ht); gr.addColorStop(0, a); gr.addColorStop(.45, b); gr.addColorStop(1, c); return gr; };
+    g.shadowColor = 'rgba(255,90,20,.9)'; g.shadowBlur = 14;
+    for (let i = 0; i < 46; i++) ckTongue(g, W, H, rnd() * W, 16 + rnd() * 26, H * (.35 + rnd() * .6), (rnd() - .5) * 26, grad('rgba(255,120,30,.34)', 'rgba(226,70,20,.22)', 'rgba(140,20,8,0)'));
+    g.shadowBlur = 6; g.shadowColor = 'rgba(255,170,60,.8)';
+    for (let i = 0; i < 40; i++) ckTongue(g, W, H, rnd() * W, 6 + rnd() * 12, H * (.18 + rnd() * .4), (rnd() - .5) * 14, grad('rgba(255,236,180,.5)', 'rgba(255,160,60,.3)', 'rgba(255,90,20,0)'));
+  });
+  /* black fire: a crimson glow behind, near-black tongues in front, so every tongue has a burning red rim */
+  const ckBlackFlame = () => ckBmp('bflame2', 512, 120, (g, W, H) => {
+    const rnd = ckRnd(23), tongues = Array.from({ length: 20 }, () => [rnd() * W, 22 + rnd() * 26, H * (.45 + rnd() * .5), (rnd() - .5) * 30]);
+    g.globalCompositeOperation = 'lighter'; g.shadowColor = 'rgba(214,30,20,1)'; g.shadowBlur = 22;
+    tongues.forEach(([x, w, h, l]) => ckTongue(g, W, H, x, w * 1.15, h * 1.06, l, (Hh, ht) => { const gr = g.createLinearGradient(0, Hh, 0, Hh - ht); gr.addColorStop(0, 'rgba(255,90,30,.55)'); gr.addColorStop(.5, 'rgba(200,24,16,.4)'); gr.addColorStop(1, 'rgba(120,8,8,0)'); return gr; }));
+    g.globalCompositeOperation = 'source-over'; g.shadowBlur = 4; g.shadowColor = 'rgba(0,0,0,.6)';
+    tongues.forEach(([x, w, h, l]) => ckTongue(g, W, H, x, w * .78, h * .9, l, (Hh, ht) => { const gr = g.createLinearGradient(0, Hh, 0, Hh - ht); gr.addColorStop(0, 'rgba(6,2,4,.96)'); gr.addColorStop(.6, 'rgba(16,4,8,.8)'); gr.addColorStop(1, 'rgba(30,6,10,0)'); return gr; }));
   });
   const ckGlow = (k, rgb, core) => ckBmp(k, 64, 64, (g, W) => { const r = g.createRadialGradient(W / 2, W / 2, 0, W / 2, W / 2, W / 2);
     r.addColorStop(0, core); r.addColorStop(.35, `rgba(${rgb},.85)`); r.addColorStop(1, `rgba(${rgb},0)`); g.fillStyle = r; g.fillRect(0, 0, W, W); });
-  const ckEye = () => ckBmp('eye', 96, 40, (g, W, H) => { g.save(); g.translate(W / 2, H / 2); g.scale(1, .42);
-    const r = g.createRadialGradient(0, 0, 0, 0, 0, W / 2); r.addColorStop(0, '#fff3c4'); r.addColorStop(.25, '#ffb347'); r.addColorStop(.6, 'rgba(255,122,31,.55)'); r.addColorStop(1, 'rgba(255,90,20,0)');
-    g.fillStyle = r; g.beginPath(); g.arc(0, 0, W / 2, 0, 7); g.fill(); g.restore(); });
-  const ckRing = () => ckBmp('ring', 160, 160, (g, W) => { const r = g.createRadialGradient(W / 2, W / 2, W * .3, W / 2, W / 2, W / 2);
-    r.addColorStop(0, 'rgba(255,122,31,0)'); r.addColorStop(.55, 'rgba(255,150,60,.8)'); r.addColorStop(.75, 'rgba(226,88,27,.35)'); r.addColorStop(1, 'rgba(226,88,27,0)'); g.fillStyle = r; g.fillRect(0, 0, W, W); });
-  /* the persistent warp fire under an active Dread row: two strips drifting in opposite directions, set once per render */
-  const dreadFireHTML = () => `<span class="dr-fire" aria-hidden="true" style="--ckf:url('${ckFlame()}')"><i></i><i></i></span>`;
-  /* Dread ability ignited: two burning eyes open at the right end of the row, a ring of warp fire rolls out from them,
-     embers fly up and the fire catches along the bottom edge (~1 s). The name and text stay clear. */
-  function dreadFx(btn) {
-    if (!btn || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    const R = (a, c) => a + Math.random() * (c - a), A = (el, kf, o) => el.animate(kf, Object.assign({ fill: 'both', easing: 'cubic-bezier(.2,.7,.3,1)' }, o));
-    const fx = document.createElement('span'); fx.className = 'dfx'; fx.setAttribute('aria-hidden', 'true');
-    const img = (src, cls, css) => { const i = document.createElement('img'); i.src = src; i.alt = ''; i.className = cls; i.style.cssText = css; fx.appendChild(i); return i; };
-    const ring = img(ckRing(), 'dfx-ring', ''), e1 = img(ckEye(), 'dfx-eye', 'right:46px'), e2 = img(ckEye(), 'dfx-eye', 'right:12px');
-    const flare = img(ckGlow('flare', '255,122,31', 'rgba(255,240,200,.9)'), 'dfx-flare', '');
-    btn.appendChild(fx);
-    A(flare, [{ opacity: 0, transform: 'scale(.2)' }, { opacity: .9, transform: 'scale(1)', offset: .25 }, { opacity: 0, transform: 'scale(1.6)' }], { duration: 700 });
-    [e1, e2].forEach((e, i) => A(e, [{ opacity: 0, transform: 'scale(1,.05)' }, { opacity: 1, transform: 'scale(1,1)', offset: .3 }, { opacity: 1, transform: 'scale(1,.9)', offset: .7 }, { opacity: 0, transform: 'scale(1.1,.1)' }], { duration: 950, delay: i * 40 }));
-    A(ring, [{ opacity: 0, transform: 'translate(-50%,-50%) scale(.25)' }, { opacity: .95, transform: 'translate(-50%,-50%) scale(.9)', offset: .35 }, { opacity: 0, transform: 'translate(-50%,-50%) scale(2.2)' }], { duration: 900, delay: 120 });
-    const ember = ckGlow('ember', '255,150,60', 'rgba(255,245,210,1)');
-    for (let i = 0; i < 12; i++) {
-      const s = R(4, 9), e = img(ember, 'dfx-ember', `left:${R(4, 96).toFixed(1)}%;width:${s.toFixed(0)}px;height:${s.toFixed(0)}px`);
-      const dx = R(-14, 14), dy = R(-46, -90);
-      A(e, [{ opacity: 0, transform: 'translate3d(0,0,0)' }, { opacity: 1, transform: `translate3d(${(dx * .3).toFixed(1)}px,${(dy * .3).toFixed(1)}px,0)`, offset: .25 }, { opacity: 0, transform: `translate3d(${dx.toFixed(1)}px,${dy.toFixed(1)}px,0) scale(.4)` }], { duration: R(700, 1100), delay: R(150, 420), easing: 'linear' });
-    }
-    const f = btn.querySelector('.dr-fire'); if (f) A(f, [{ opacity: 0, transform: 'translate3d(0,60%,0)' }, { opacity: 1, transform: 'translate3d(0,0,0)' }], { duration: 650, delay: 200, fill: 'backwards' });
-    setTimeout(() => fx.remove(), 1600);
-    if (PL.android) setTimeout(() => PL.haptic('confirm'), 150);
+  /* a spark streak (motion-blurred: bright head, cooling tail) — rotated along its flight */
+  const ckStreak = () => ckBmp('streak', 48, 8, (g, W, H) => { const gr = g.createLinearGradient(0, 0, W, 0);
+    gr.addColorStop(0, 'rgba(255,90,20,0)'); gr.addColorStop(.6, 'rgba(255,150,60,.8)'); gr.addColorStop(.92, 'rgba(255,245,215,1)'); gr.addColorStop(1, 'rgba(255,245,215,0)');
+    g.fillStyle = gr; g.shadowColor = 'rgba(255,120,30,1)'; g.shadowBlur = 4; g.beginPath(); g.ellipse(W / 2, H / 2, W / 2 - 2, 1.6, 0, 0, 7); g.fill(); });
+  /* the burning eyes of the emblem: an almond of white-gold heat in a wide ember halo */
+  const ckEye = () => ckBmp('eye2', 160, 72, (g, W, H) => {
+    g.translate(W / 2, H / 2); const halo = g.createRadialGradient(0, 0, 0, 0, 0, W / 2); halo.addColorStop(0, 'rgba(255,140,40,.55)'); halo.addColorStop(1, 'rgba(255,90,20,0)');
+    g.fillStyle = halo; g.fillRect(-W / 2, -H / 2, W, H);
+    g.shadowColor = 'rgba(255,120,30,1)'; g.shadowBlur = 12; const core = g.createLinearGradient(-30, 0, 30, 0); core.addColorStop(0, '#ff7a1f'); core.addColorStop(.5, '#fff6d8'); core.addColorStop(1, '#ff7a1f');
+    g.fillStyle = core; g.beginPath(); g.moveTo(-32, 2); g.quadraticCurveTo(0, -16, 32, -4); g.quadraticCurveTo(0, 12, -32, 2); g.fill(); });
+  const ckShock = () => ckBmp('shock', 256, 64, (g, W, H) => { g.translate(W / 2, H / 2); g.scale(1, H / W);
+    const r = g.createRadialGradient(0, 0, W * .3, 0, 0, W / 2); r.addColorStop(0, 'rgba(255,150,60,0)'); r.addColorStop(.7, 'rgba(255,180,90,.85)'); r.addColorStop(1, 'rgba(226,88,27,0)'); g.fillStyle = r; g.beginPath(); g.arc(0, 0, W / 2, 0, 7); g.fill(); });
+  /* persistent fire layer: two strips at different scales drifting apart (parallax), a heat flicker on the wrapper,
+     and three embers rising out of it */
+  /* the strips go to :root once (a data URL inline in every render would be re-parsed each time) */
+  const ckVar = (name, url) => { const k = 'v' + name; if (!CKB[k] && url) { document.documentElement.style.setProperty(name, `url('${url}')`); CKB[k] = 1; } };
+  const ckFireHTML = (cls, name, url) => { ckVar(name, url); return `<span class="${cls}" aria-hidden="true"><i class="fl a"></i><i class="fl b"></i><b class="em e1"></b><b class="em e2"></b><b class="em e3"></b></span>`; };
+  /* bake the burst bitmaps while the page is idle, so the first tap does not pay for them */
+  let ckBaked = false;
+  const ckPrebake = () => { if (ckBaked) return; ckBaked = true; (window.requestIdleCallback || (f => setTimeout(f, 400)))(() => { ckStreak(); ckEye(); ckShock(); ckGlow('flare', '255,122,31', 'rgba(255,240,200,.95)'); ckBlackFlame(); ckFlame(); }); };
+  const dreadFireHTML = () => ckFireHTML('ckfire dr-fire', '--ck-flame', ckFlame());
+  const blackFireHTML = () => ckFireHTML('ckfire bk-fire', '--ck-bflame', ckBlackFlame());
+  const ckReduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+  /* a burst overlay pinned to an element's box on screen, above everything, removed after ms */
+  function ckOverlay(el, ms) {
+    const b = el.getBoundingClientRect(), fx = document.createElement('div'); fx.className = 'ckfx'; fx.setAttribute('aria-hidden', 'true');
+    fx.style.cssText = `left:${b.left.toFixed(0)}px;top:${b.top.toFixed(0)}px;width:${b.width.toFixed(0)}px;height:${b.height.toFixed(0)}px`;
+    document.body.appendChild(fx); setTimeout(() => fx.remove(), ms); return { fx, b };
   }
-  /* black fire: the same tongue shapes as the warp fire, a near-black body with crimson and ember edges */
-  const ckBlackFlame = () => ckBmp('bflame', 512, 96, (g, W, H) => {
-    let h = 11; const rnd = () => ((h = Math.imul(h ^ (h >>> 13), 1274126177) + 1013904223 >>> 0) / 4294967296);
-    for (let pass = 0; pass < 3; pass++) for (let i = 0; i < 24; i++) {
-      const x = rnd() * W, wd = 20 + rnd() * 34 - pass * 6, ht = H * (.5 + rnd() * .5) * (1 - pass * .2);
-      [x, x - W, x + W].forEach(cx => {
-        const gr = g.createLinearGradient(0, H, 0, H - ht);
-        const c = pass === 0 ? ['rgba(214,44,22,1)', 'rgba(150,24,14,.85)', 'rgba(60,8,6,0)'] : pass === 1 ? ['rgba(8,4,4,.98)', 'rgba(14,6,6,.9)', 'rgba(20,6,6,0)'] : ['rgba(255,122,31,.85)', 'rgba(120,20,10,.5)', 'rgba(10,4,4,0)'];
-        gr.addColorStop(0, c[0]); gr.addColorStop(.5, c[1]); gr.addColorStop(1, c[2]); g.fillStyle = gr;
-        const w2 = pass === 2 ? wd * .25 : wd;
-        g.beginPath(); g.moveTo(cx - w2 / 2, H);
-        g.bezierCurveTo(cx - w2 * .6, H - ht * .45, cx - w2 * .05, H - ht * .7, cx + (rnd() - .5) * w2 * .4, H - ht * (pass === 2 ? .35 : 1));
-        g.bezierCurveTo(cx + w2 * .1, H - ht * .65, cx + w2 * .6, H - ht * .4, cx + w2 / 2, H); g.closePath(); g.fill();
-      });
+  const ckImg = (fx, src, cls, css) => { const i = document.createElement('img'); i.src = src; i.alt = ''; i.className = cls; if (css) i.style.cssText = css; fx.appendChild(i); return i; };
+  const ckA = (el, kf, o) => el.animate(kf, Object.assign({ fill: 'both', easing: 'cubic-bezier(.2,.7,.3,1)' }, o));
+  /* sparks fly out of (cx, cy) in a fan, along curved paths that fall back under gravity; each streak points along its flight */
+  function ckSparks(fx, cx, cy, n, a0, a1, v0, v1, delay) {
+    const R = (a, c) => a + Math.random() * (c - a), src = ckStreak();
+    for (let i = 0; i < n; i++) {
+      const ang = R(a0, a1) * Math.PI / 180, v = R(v0, v1), t = R(.55, 1), g = 140 * t * t;
+      const pts = [0, .35, .7, 1].map(k => [Math.cos(ang) * v * k * t, Math.sin(ang) * v * k * t + g * k * k]);
+      const rot = k => { const d = k ? [pts[k][0] - pts[k - 1][0], pts[k][1] - pts[k - 1][1]] : [pts[1][0], pts[1][1]]; return Math.atan2(d[1], d[0]) * 180 / Math.PI; };
+      const im = ckImg(fx, src, 'ck-sp', `left:${cx.toFixed(0)}px;top:${cy.toFixed(0)}px;width:${R(18, 34).toFixed(0)}px`);
+      ckA(im, [{ offset: 0, opacity: 0, transform: 'translate3d(0,0,0) scaleX(.3)' }].concat(pts.map((p, k) => ({ offset: k ? k / 3 : .04, opacity: k === 3 ? 0 : 1, transform: `translate3d(${p[0].toFixed(1)}px,${p[1].toFixed(1)}px,0) rotate(${rot(k).toFixed(0)}deg) scaleX(${k === 3 ? .4 : 1})` }))),
+        { duration: R(520, 900), delay: delay + R(0, 60), easing: 'cubic-bezier(.15,.6,.4,1)' });
     }
-  });
-  const blackFireHTML = () => `<span class="bk-fire" aria-hidden="true" style="--ckb:url('${ckBlackFlame()}')"><i></i><i></i></span>`;
-  /* a hammer seen from the side: iron head with a bronze band, wooden haft */
-  const ckHammer = () => ckBmp('hammer', 120, 160, (g, W, H) => {
-    const hg = g.createLinearGradient(0, 0, 0, 52); hg.addColorStop(0, '#d8d2c4'); hg.addColorStop(.45, '#8a857c'); hg.addColorStop(1, '#2e2a25');
-    g.fillStyle = '#6a4024'; g.fillRect(W / 2 - 6, 44, 12, H - 48); g.fillStyle = '#E2581B'; g.fillRect(W / 2 - 6, H - 30, 12, 6);
-    g.fillStyle = hg; g.beginPath(); g.moveTo(8, 6); g.lineTo(W - 8, 6); g.lineTo(W - 2, 26); g.lineTo(W - 8, 48); g.lineTo(8, 48); g.lineTo(2, 26); g.closePath(); g.fill();
-    g.fillStyle = '#9A9488'; g.fillRect(W / 2 - 10, 6, 20, 42); g.fillStyle = '#E2581B'; g.fillRect(W / 2 - 10, 24, 20, 4);
-  });
+  }
+  /* Dread ability chosen: the row slams, a veil of darkness falls over the list, the emblem's two burning eyes open
+     behind the name and stare, a shock ring rolls out, sparks erupt from the row's edge and warp fire surges up from the
+     bottom to settle into the steady burn (~1.4 s). The name and text stay on top. */
+  function dreadFx(row) {
+    if (!row || ckReduced()) return;
+    const list = row.closest('.dread-list'), { fx, b } = ckOverlay(row, 1700);
+    if (list) { const v = document.createElement('span'); v.className = 'dr-veil'; v.setAttribute('aria-hidden', 'true'); list.appendChild(v);
+      ckA(v, [{ opacity: 0 }, { opacity: 1, offset: .2 }, { opacity: 0 }], { duration: 1100, easing: 'ease-out' }); setTimeout(() => v.remove(), 1200); }
+    const eyes = document.createElement('span'); eyes.className = 'dr-eyes'; eyes.setAttribute('aria-hidden', 'true');
+    eyes.innerHTML = `<img src="${ckEye()}" alt=""><img src="${ckEye()}" alt="" style="transform:scaleX(-1)">`; row.appendChild(eyes); setTimeout(() => eyes.remove(), 1500);
+    ckA(eyes, [{ opacity: 0, transform: 'scale(1.15,.05)' }, { opacity: 1, transform: 'scale(1,1)', offset: .22 }, { opacity: .9, transform: 'scale(1,.92)', offset: .62 }, { opacity: 0, transform: 'scale(1.05,.08)' }], { duration: 1300, delay: 60 });
+    ckA(row, [{ transform: 'scale(1)' }, { transform: 'scale(.985)', offset: .15 }, { transform: 'scale(1.015)', offset: .45 }, { transform: 'scale(1)' }], { duration: 420, fill: 'none' });
+    const sh = ckImg(fx, ckShock(), 'ck-shock', `left:${(b.width / 2 - 160).toFixed(0)}px;top:${(b.height / 2 - 40).toFixed(0)}px;width:320px;height:80px`);
+    ckA(sh, [{ opacity: 0, transform: 'scale(.2)' }, { opacity: 1, transform: 'scale(.8)', offset: .3 }, { opacity: 0, transform: 'scale(1.9)' }], { duration: 900, delay: 180, easing: 'ease-out' });
+    ckSparks(fx, b.width * .5, b.height, 10, -160, -110, 70, 150, 220);
+    ckSparks(fx, b.width * .5, b.height, 10, -70, -20, 70, 150, 220);
+    ckSparks(fx, b.width * .5, b.height, 8, -110, -70, 90, 170, 260);
+    const f = row.querySelector('.ckfire'); if (f) ckA(f, [{ opacity: 0, transform: 'translate3d(0,80%,0) scaleY(1.6)' }, { opacity: 1, transform: 'translate3d(0,-8%,0) scaleY(1.25)', offset: .55 }, { opacity: 1, transform: 'translate3d(0,0,0) scaleY(1)' }], { duration: 900, delay: 160, fill: 'backwards' });
+    if (PL.android) { PL.haptic('confirm'); setTimeout(() => PL.haptic('confirm'), 220); }
+  }
   /* three claw rakes; scar = the dim version that stays on the mark */
   const ckClaw = scar => ckBmp(scar ? 'scar' : 'claw', 120, 60, (g, W, H) => {
     for (let i = 0; i < 3; i++) {
@@ -2109,34 +2131,28 @@
       g.beginPath(); g.moveTo(6, y + 18); g.quadraticCurveTo(W * .5, y + 4, W - 6, y - 4); g.stroke();
     }
   });
-  /* Empowered: a hammer swings down onto the unit's chip as onto an anvil; at the blow a white-hot flash, a shock ring and
-     sparks fly, the chip jolts, then black fire with crimson edges rises from it and keeps burning while it is Empowered (~1.2 s). */
+  /* Empowered: two blows of a forge hammer on the unit's chip as on an anvil — a light tap, then the heavy strike. Each blow
+     flashes a white-hot line across the chip and throws sparks that arc and fall; the heavy one also rolls out a shock ring.
+     The chip glows white-hot and cools to red, and black fire rises against that glow and keeps burning while the unit is
+     Empowered (~1.3 s). Nothing crosses the text above the chip. */
   function anvilFx(chip) {
-    if (!chip || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    const R = (a, c) => a + Math.random() * (c - a), A = (el, kf, o) => el.animate(kf, Object.assign({ fill: 'both', easing: 'linear' }, o));
-    const b = chip.getBoundingClientRect(), fx = document.createElement('div'); fx.className = 'anfx'; fx.setAttribute('aria-hidden', 'true');
-    fx.style.cssText = `left:${(b.left + b.width / 2).toFixed(0)}px;top:${b.top.toFixed(0)}px`;
-    const img = (src, cls, css) => { const i = document.createElement('img'); i.src = src; i.alt = ''; i.className = cls; if (css) i.style.cssText = css; fx.appendChild(i); return i; };
-    const ham = img(ckHammer(), 'an-ham'), flash = img(ckGlow('flare', '255,122,31', 'rgba(255,240,200,.9)'), 'an-flash'), ring = img(ckRing(), 'an-ring');
-    document.body.appendChild(fx);
-    /* the hammer swings in an arc from the left at the chip's own height (it never crosses the text above) and strikes its top edge */
-    A(ham, [{ opacity: 0, transform: 'translate3d(104px,-4px,0) rotate(100deg)' }, { opacity: 1, transform: 'translate3d(84px,-24px,0) rotate(76deg)', offset: .3 },
-      { opacity: 1, transform: 'translate3d(16px,-36px,0) rotate(4deg)', offset: .6 }, { opacity: 1, transform: 'translate3d(20px,-40px,0) rotate(14deg)', offset: .75 }, { opacity: 0, transform: 'translate3d(32px,-42px,0) rotate(30deg)' }],
-      { duration: 620, easing: 'cubic-bezier(.55,0,.85,.35)' });
-    const hit = 370;
-    A(flash, [{ opacity: 0, transform: 'scale(.2)' }, { opacity: 1, transform: 'scale(1)', offset: .2 }, { opacity: 0, transform: 'scale(1.8)' }], { duration: 520, delay: hit, easing: 'ease-out' });
-    A(ring, [{ opacity: 0, transform: 'scale(.3,.18)' }, { opacity: .9, transform: 'scale(1,.5)', offset: .3 }, { opacity: 0, transform: 'scale(2.4,1.1)' }], { duration: 700, delay: hit, easing: 'ease-out' });
-    const spark = ckGlow('ember', '255,150,60', 'rgba(255,245,210,1)');
-    for (let i = 0; i < 16; i++) {
-      const ang = R(-170, -10) * Math.PI / 180, d = R(40, 120), s = R(3, 7), e = img(spark, 'an-sp', `width:${s.toFixed(0)}px;height:${s.toFixed(0)}px`);
-      const dx = Math.cos(ang) * d, dy = Math.sin(ang) * d;
-      A(e, [{ opacity: 0, transform: 'translate3d(0,0,0)' }, { opacity: 1, transform: `translate3d(${(dx * .4).toFixed(1)}px,${(dy * .4).toFixed(1)}px,0)`, offset: .2 },
-        { opacity: 0, transform: `translate3d(${dx.toFixed(1)}px,${(dy + 40).toFixed(1)}px,0) scale(.5)` }], { duration: R(500, 850), delay: hit, easing: 'cubic-bezier(.2,.7,.4,1)' });
-    }
-    chip.animate([{ transform: 'translate3d(0,0,0)' }, { transform: 'translate3d(0,3px,0)', offset: .25 }, { transform: 'translate3d(0,-1px,0)', offset: .6 }, { transform: 'translate3d(0,0,0)' }], { duration: 260, delay: hit });
-    const f = chip.querySelector('.bk-fire'); if (f) A(f, [{ opacity: 0, transform: 'translate3d(0,70%,0)' }, { opacity: 1, transform: 'translate3d(0,0,0)' }], { duration: 700, delay: hit + 80, fill: 'backwards', easing: 'ease-out' });
-    setTimeout(() => fx.remove(), 1500);
-    if (PL.android) setTimeout(() => PL.haptic('confirm'), hit);
+    if (!chip || ckReduced()) return;
+    const { fx, b } = ckOverlay(chip, 1600), cx = b.width / 2, hits = [[0, .55, 8], [300, 1, 26]];
+    hits.forEach(([t, k, n]) => {
+      const line = document.createElement('span'); line.className = 'ck-line'; fx.appendChild(line);
+      ckA(line, [{ opacity: 0, transform: 'scaleX(.05)' }, { opacity: k, transform: 'scaleX(1)', offset: .2 }, { opacity: 0, transform: 'scaleX(1.08)' }], { duration: 380, delay: t, easing: 'ease-out' });
+      const fl = ckImg(fx, ckGlow('flare', '255,122,31', 'rgba(255,240,200,.95)'), 'ck-flash', `left:${(cx - 70 * k).toFixed(0)}px;top:${(-50 * k).toFixed(0)}px;width:${(140 * k).toFixed(0)}px;height:${(140 * k).toFixed(0)}px`);
+      ckA(fl, [{ opacity: 0, transform: 'scale(.2)' }, { opacity: 1, transform: 'scale(1)', offset: .15 }, { opacity: 0, transform: 'scale(1.6)' }], { duration: 460, delay: t, easing: 'ease-out' });
+      ckSparks(fx, cx, 2, n / 2, -178, -125, 60 + 70 * k, 120 + 110 * k, t);
+      ckSparks(fx, cx, 2, n / 2, -55, -2, 60 + 70 * k, 120 + 110 * k, t);
+      ckA(chip, [{ transform: 'translate3d(0,0,0) scale(1,1)' }, { transform: `translate3d(0,${(3 * k).toFixed(1)}px,0) scale(${(1 + .04 * k).toFixed(3)},${(1 - .1 * k).toFixed(3)})`, offset: .2 }, { transform: 'translate3d(0,-1px,0) scale(.99,1.03)', offset: .55 }, { transform: 'translate3d(0,0,0) scale(1,1)' }], { duration: 300, delay: t, fill: 'none' });
+    });
+    const sh = ckImg(fx, ckShock(), 'ck-shock', `left:${(cx - 130).toFixed(0)}px;top:${(b.height / 2 - 32).toFixed(0)}px;width:260px;height:64px`);
+    ckA(sh, [{ opacity: 0, transform: 'scale(.2)' }, { opacity: 1, transform: 'scale(.7)', offset: .25 }, { opacity: 0, transform: 'scale(1.9)' }], { duration: 700, delay: 300, easing: 'ease-out' });
+    const hot = document.createElement('span'); hot.className = 'ck-hot'; hot.setAttribute('aria-hidden', 'true'); chip.appendChild(hot); setTimeout(() => hot.remove(), 1400);
+    ckA(hot, [{ opacity: 0 }, { opacity: .55, offset: .02 }, { opacity: .3, offset: .2 }, { opacity: 1, offset: .26 }, { opacity: 0 }], { duration: 1300, easing: 'ease-out' });
+    const f = chip.querySelector('.ckfire'); if (f) ckA(f, [{ opacity: 0, transform: 'translate3d(0,90%,0) scaleY(1.6)' }, { opacity: 1, transform: 'translate3d(0,-8%,0) scaleY(1.25)', offset: .5 }, { opacity: 1, transform: 'translate3d(0,0,0) scaleY(1)' }], { duration: 800, delay: 380, fill: 'backwards' });
+    if (PL.android) { PL.haptic('confirm'); setTimeout(() => PL.haptic('confirm'), 300); }
   }
   /* Marked Prey: three claw rakes tear across the marked name from left to right, a flare, then they cool into the
      smouldering scars that stay on the mark (~0.9 s). */
