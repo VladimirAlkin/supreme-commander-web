@@ -829,7 +829,7 @@
 
   function wargearHTML(def, inst) {
     const slots = def.slots || [];
-    if (!slots.length) return (def.options || []).map(o => optionHTML(inst, o, def)).join('');
+    if (!slots.length) return standardRow(def, inst) + (def.options || []).map(o => optionHTML(inst, o, def)).join('');
     const placed = new Set();
     const blocks = slots.map((sl, i) => {
       const size = Engine.slotSize(sl, inst), used = Engine.slotUsed(def, inst, sl.id);
@@ -840,7 +840,7 @@
         ${mine.map(o => optionHTML(inst, o, def)).join('')}${sl.fixedNote ? `<div class="faint" style="font-size:.85rem">${esc(sl.fixedNote)}</div>` : ''}</div>`;
     }).join('');
     const rest = (def.options || []).filter(o => !placed.has(o.id));
-    return blocks + (rest.length ? `<div class="wslot"><div class="wslot-h"><span class="eyebrow">Other wargear</span></div>${rest.map(o => optionHTML(inst, o, def)).join('')}</div>` : '');
+    return standardRow(def, inst) + blocks + (rest.length ? `<div class="wslot"><div class="wslot-h"><span class="eyebrow">Other wargear</span></div>${rest.map(o => optionHTML(inst, o, def)).join('')}</div>` : '');
   }
   function clampWargear(def, inst) {
     const wg = inst.wargear = inst.wargear || {};
@@ -851,33 +851,54 @@
   /* what a wargear option does, shown under it: the wargear rule (Icon of Khorne…) or the weapon profile(s) (Havoc launcher…) */
   const wgNorm = s => String(s || '').toLowerCase().replace(/’/g, "'").replace(/\([^)]*\)/g, ' ').replace(/^[a-z' ]{3,24}:\s*/, '').replace(/^(second|extra)\s+/, '').replace(/\s+/g, ' ').trim();
   const stat = (k, v) => k + (/^\d|^[-+]/.test(String(v)) ? '' : ' ') + v;
-  function optDesc(def, label) {
-    const n = wgNorm(label); if (!def || !n || n === 'none') return '';
+  /* label -> what the wargear panel shows: weapon profile(s), a wargear rule, or the label text itself */
+  function wgResolve(def, label) {
+    const n = wgNorm(label); if (!def || !n || n === 'none') return { weapons: [], text: '' };
     const ab = (def.abilities || []).find(a => wgNorm(a.name) === n);
-    if (ab) return `<div class="optdesc">${esc(ab.text)}</div>`;
-    const ws = [...(def.ranged || []), ...(def.melee || [])], seen = new Set(), lines = [];
+    if (ab) return { weapons: [], text: ab.text, title: ab.name };
+    const ws = [...(def.ranged || []), ...(def.melee || [])], out = [];
     const parts = ws.some(w => wgNorm(w.name).startsWith(n)) ? [n] : n.split(/\s*(?:,|\band\b)\s*/).filter(Boolean);
     parts.forEach(part => {
       const p = part.replace(/^\d+\s+/, '');
       const find = q => ws.filter(w => { const x = wgNorm(w.name); return x === q || x.startsWith(q + ' - ') || x.startsWith(q + ' – '); });
       let hit = find(p); if (!hit.length && /s$/.test(p)) hit = find(p.replace(/s$/, ''));
-      hit.forEach(w => { if (seen.has(w.name)) return; seen.add(w.name); const mel = /melee/i.test(w.range);
-        lines.push(`<b>${esc(w.name)}</b> ${esc([mel ? 'Melee' : w.range, stat('A', w.A), (mel ? 'WS ' : 'BS ') + w.skill, stat('S', w.S), stat('AP', w.AP), stat('D', w.D)].concat(w.kw || []).join(' · '))}`); });
+      hit.forEach(w => { if (!out.includes(w)) out.push(w); });
     });
-    return lines.length ? `<div class="optdesc">${lines.join('<br>')}</div>` : '';
+    return { weapons: out, text: out.length ? '' : String(label) };
+  }
+  /* Standard loadout = the weapons Play shows for the unit with no wargear picks */
+  function standardWeapons(def) {
+    if (!def.sizes || !def.sizes[0]) return [];
+    const has = Engine.carries(def, { size: def.sizes[0].models, wargear: {} });
+    return [...(def.ranged || []), ...(def.melee || [])].filter(has);
+  }
+  const wgNameBtn = (inst, label, cls) => `<button class="wgname ${cls || ''}" data-act="wgInfo" data-id="${inst.instanceId}" data-label="${esc(label)}" aria-label="Show ${esc(label)}">${esc(label)}</button>`;
+  function wgCard(w, noName) {
+    const mel = /melee/i.test(w.range), kw = w.kw || [];
+    const cells = [mel ? 'Melee' : w.range, w.A, w.skill, w.S, w.AP, w.D];
+    return `<div class="wgcard">${noName ? '' : `<div class="wl-name">${esc(w.name)}</div>`}<div class="wlist"><div class="wl-h"><span>${mel ? 'Melee' : 'Range'}</span><span>A</span><span>${mel ? 'WS' : 'BS'}</span><span>S</span><span>AP</span><span>D</span></div><div class="wl-row"><div class="wl-stats">${cells.map(c => `<span>${esc(c)}</span>`).join('')}</div></div></div>
+      ${kw.length ? `<dl class="wgkw">${kw.map(k => { const g = glossFor(k), t = g.startsWith(k + ': ') ? g.slice(k.length + 2) : ''; return `<dt>${esc(k)}</dt>${t ? `<dd>${esc(t)}</dd>` : ''}`; }).join('')}</dl>` : ''}</div>`;
+  }
+  function wgPanelHTML(def, label) {
+    const r = wgResolve(def, label);
+    return r.weapons.map(w => wgCard(w, r.weapons.length === 1)).join('') + (r.text ? `<div class="wgtext">${esc(r.text)}</div>` : '');
+  }
+  function standardRow(def, inst) {
+    const ws = standardWeapons(def); if (!ws.length) return '';
+    return `<div class="wstd"><span class="eyebrow">Standard</span> ${ws.map(w => wgNameBtn(inst, w.name, 'std')).join('')}</div>`;
   }
   function optionHTML(inst, o, def) {
     const wg = inst.wargear || {};
     if (o.type === 'choice') {
       const v = wg[o.id] || o.choices[0].id, sel = o.choices.find(c => c.id === v);
-      return `<div class="stack" style="gap:6px"><span>${esc(o.label)}</span><div class="choicechips" role="radiogroup" aria-label="${esc(o.label)}">${o.choices.map(c => `<button class="cchip" role="radio" aria-checked="${c.id === v}" data-act="pickOpt" data-id="${inst.instanceId}" data-o="${o.id}" data-v="${c.id}">${esc(c.label)}${c.pts ? ` <span class="num">+${c.pts}</span>` : ''}</button>`).join('')}</div>${sel ? optDesc(def, sel.label) : ''}</div>`;
+      return `<div class="stack" style="gap:6px"><span>${esc(o.label)}</span><div class="choicechips" role="radiogroup" aria-label="${esc(o.label)}">${o.choices.map(c => `<button class="cchip" role="radio" aria-checked="${c.id === v}" data-act="pickOpt" data-id="${inst.instanceId}" data-o="${o.id}" data-v="${c.id}">${esc(c.label)}${c.pts ? ` <span class="num">+${c.pts}</span>` : ''}</button>`).join('')}</div>${sel && sel.id !== 'none' && wgNorm(sel.label) !== 'none' ? wgNameBtn(inst, sel.label, 'sel') : ''}</div>`;
     }
     const mx = Engine.optionMax(o, inst, def), val = +wg[o.id] || 0, cap = Engine.ownCap(o, inst, def);
-    if (o.type === 'toggle') return `<div class="optt"><label class="row" style="min-height:44px"><input type="checkbox" id="opt-${inst.instanceId}-${o.id}" data-chg="optToggle" data-id="${inst.instanceId}" data-o="${o.id}" ${val ? 'checked' : ''} ${!val && mx < 1 ? 'disabled' : ''} style="width:22px;height:22px"> ${esc(o.label)}</label>${optDesc(def, o.label)}</div>`;
+    if (o.type === 'toggle') return `<div class="optt row nowrap" style="min-height:44px"><label class="row" style="min-height:44px"><input type="checkbox" id="opt-${inst.instanceId}-${o.id}" data-chg="optToggle" data-id="${inst.instanceId}" data-o="${o.id}" aria-label="${esc(o.label)}" ${val ? 'checked' : ''} ${!val && mx < 1 ? 'disabled' : ''} style="width:22px;height:22px"></label>${wgNameBtn(inst, o.label)}</div>`;
     const grp = o.group && def ? (def.optionGroups || []).find(g => g.id === o.group) : null;
     const capTxt = grp ? `${grp.n} ${grp.label.toLowerCase()} per ${grp.per} models` : o.per ? `${o.n || 1} per ${o.per} models` : o.max === 'models' ? 'any number' : o.max === 'slot' ? 'any of them' : `max ${cap}`;
-    return `<div class="opt"><div><div>${esc(o.label)}${o.note ? ` <span class="faint">(${esc(o.note)})</span>` : ''}</div><div class="cap num" ${val > cap ? 'style="color:var(--err)"' : ''}>${val}/${cap} · ${capTxt}</div></div>
-      <div class="stepper"><button data-act="optDec" data-id="${inst.instanceId}" data-o="${o.id}" aria-label="Fewer">−</button><output class="num">${val}</output><button data-act="optInc" data-id="${inst.instanceId}" data-o="${o.id}" aria-label="More" ${val >= mx ? 'disabled' : ''}>+</button></div>${optDesc(def, o.label)}</div>`;
+    return `<div class="opt"><div><div>${wgNameBtn(inst, o.label)}${o.note ? ` <span class="faint">(${esc(o.note)})</span>` : ''}</div><div class="cap num" ${val > cap ? 'style="color:var(--err)"' : ''}>${val}/${cap} · ${capTxt}</div></div>
+      <div class="stepper"><button data-act="optDec" data-id="${inst.instanceId}" data-o="${o.id}" aria-label="Fewer">−</button><output class="num">${val}</output><button data-act="optInc" data-id="${inst.instanceId}" data-o="${o.id}" aria-label="More" ${val >= mx ? 'disabled' : ''}>+</button></div></div>`;
   }
 
   function rosterViewHTML(r) {
@@ -3291,6 +3312,9 @@
       const u = r.units.find(x => x.instanceId === sh.id); if (!u) { S.sheet = null; return ''; }
       if (sh.kind === 'enh') { const { isChar } = enhChoices(r, u); title = isChar ? 'Enhancement' : 'Upgrade'; inner = `<div class="picklist" role="radiogroup" aria-label="${title}">${enhPickList(r, u)}</div>`; }
       else { title = 'Attach to bodyguard'; inner = `<div class="picklist" role="radiogroup" aria-label="${title}">${attPickList(r, u)}</div>`; }
+    } else if (sh.type === 'wpn' && r) {
+      const u = r.units.find(x => x.instanceId === sh.id), d = u && unitDef(r.factionId, u.datasheetId); if (!d) { S.sheet = null; return ''; }
+      title = esc(sh.label); inner = wgPanelHTML(d, sh.label);
     } else if (sh.type === 'status' && r) {
       title = 'Roster check'; inner = meters(r) + valList(Engine.validate(r, DATA)) + `<button class="btn" data-act="editSetup">${ICON.gear} Battle size & detachments</button>`;
     } else if (sh.type === 'menu' && r) {
@@ -3531,6 +3555,7 @@
     resetPortrait: async () => { const m = S.modal; await Portraits.clear(m.unitId); S.modal = null; toast('Default portrait restored.'); render(); },
     pickEnh: el => pickInto(el, 'enhancementId'),
     pickAtt: el => pickInto(el, 'attachedTo'),
+    wgInfo: el => { S.sheet = { type: 'wpn', id: el.dataset.id, label: el.dataset.label }; render(); },
     pickSheet: el => { S.sheet = { type: 'pick', kind: el.dataset.kind, id: el.dataset.id }; render(); },
     goBack: () => { goBack(); },
     closeSheet: () => { S.sheet = null; render(); },
