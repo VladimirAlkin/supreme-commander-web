@@ -2063,3 +2063,9 @@ body.fx-on #app * { animation-play-state: paused !important; }
 .ck-hot { position: absolute; inset: 0; z-index: 1; pointer-events: none; border-radius: inherit; opacity: 0; background: radial-gradient(ellipse at 50% 60%, #fff6e0, #ffc070 35%, rgba(255, 110, 30, .6) 70%, rgba(214, 36, 20, 0)); }
 /* Dread rows: the fire burns below the text */
 .dread.on { padding-bottom: 18px; } .dread .dr-fire { height: 56%; } .dread .dr-fire .fl.a { opacity: .9; }
+/* Dread tap: round burning eyes, fire running along the frame, heat bloom behind the text */
+.dr-eyes { gap: 34px; } .dr-eyes img { width: 64px; height: 64px; }
+.dr-trace { position: absolute; left: 0; right: 0; height: 4px; border-radius: 2px; transform-origin: 50% 50%; will-change: transform, opacity;
+  background: linear-gradient(90deg, rgba(255, 122, 31, 0), #ff9a3a 12%, #fff1d0 50%, #ff9a3a 88%, rgba(255, 122, 31, 0)); box-shadow: 0 0 10px 2px rgba(255, 110, 30, .8); }
+.ckfx .dr-head { position: absolute; width: 28px; height: 28px; }
+.dr-bloom { position: absolute; inset: 0; z-index: 1; pointer-events: none; opacity: 0; border-radius: inherit; background: radial-gradient(ellipse 60% 90% at 50% 60%, rgba(255, 140, 50, .45), rgba(226, 88, 27, .18) 55%, rgba(226, 88, 27, 0)); }

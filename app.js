@@ -2063,11 +2063,14 @@
     gr.addColorStop(0, 'rgba(255,90,20,0)'); gr.addColorStop(.6, 'rgba(255,150,60,.8)'); gr.addColorStop(.92, 'rgba(255,245,215,1)'); gr.addColorStop(1, 'rgba(255,245,215,0)');
     g.fillStyle = gr; g.shadowColor = 'rgba(255,120,30,1)'; g.shadowBlur = 4; g.beginPath(); g.ellipse(W / 2, H / 2, W / 2 - 2, 1.6, 0, 0, 7); g.fill(); });
   /* the burning eyes of the emblem: an almond of white-gold heat in a wide ember halo */
-  const ckEye = () => ckBmp('eye2', 160, 72, (g, W, H) => {
-    g.translate(W / 2, H / 2); const halo = g.createRadialGradient(0, 0, 0, 0, 0, W / 2); halo.addColorStop(0, 'rgba(255,140,40,.55)'); halo.addColorStop(1, 'rgba(255,90,20,0)');
-    g.fillStyle = halo; g.fillRect(-W / 2, -H / 2, W, H);
-    g.shadowColor = 'rgba(255,120,30,1)'; g.shadowBlur = 12; const core = g.createLinearGradient(-30, 0, 30, 0); core.addColorStop(0, '#ff7a1f'); core.addColorStop(.5, '#fff6d8'); core.addColorStop(1, '#ff7a1f');
-    g.fillStyle = core; g.beginPath(); g.moveTo(-32, 2); g.quadraticCurveTo(0, -16, 32, -4); g.quadraticCurveTo(0, 12, -32, 2); g.fill(); });
+  /* the burning eyes of the emblem: a white-hot pupil in an orange orb, a soft round halo and a thin horizontal flare */
+  const ckEye = () => ckBmp('eye3', 128, 128, (g, W) => {
+    const c = W / 2, halo = g.createRadialGradient(c, c, 0, c, c, c); halo.addColorStop(0, 'rgba(255,150,50,.75)'); halo.addColorStop(.35, 'rgba(255,100,25,.35)'); halo.addColorStop(1, 'rgba(255,80,20,0)');
+    g.fillStyle = halo; g.beginPath(); g.arc(c, c, c, 0, 7); g.fill();
+    const fl = g.createLinearGradient(0, 0, W, 0); fl.addColorStop(0, 'rgba(255,140,40,0)'); fl.addColorStop(.5, 'rgba(255,230,180,.9)'); fl.addColorStop(1, 'rgba(255,140,40,0)');
+    g.fillStyle = fl; g.fillRect(0, c - 1.5, W, 3);
+    const orb = g.createRadialGradient(c - 2, c - 2, 0, c, c, 15); orb.addColorStop(0, '#ffffff'); orb.addColorStop(.3, '#fff1b8'); orb.addColorStop(.65, '#ffab3d'); orb.addColorStop(1, 'rgba(255,90,20,0)');
+    g.shadowColor = 'rgba(255,120,30,1)'; g.shadowBlur = 14; g.fillStyle = orb; g.beginPath(); g.arc(c, c, 15, 0, 7); g.fill(); });
   const ckShock = () => ckBmp('shock', 256, 64, (g, W, H) => { g.translate(W / 2, H / 2); g.scale(1, H / W);
     const r = g.createRadialGradient(0, 0, W * .3, 0, 0, W / 2); r.addColorStop(0, 'rgba(255,150,60,0)'); r.addColorStop(.7, 'rgba(255,180,90,.85)'); r.addColorStop(1, 'rgba(226,88,27,0)'); g.fillStyle = r; g.beginPath(); g.arc(0, 0, W / 2, 0, 7); g.fill(); });
   /* persistent fire layer: two strips at different scales drifting apart (parallax), a heat flicker on the wrapper,
@@ -2077,7 +2080,7 @@
   const ckFireHTML = (cls, name, url) => { ckVar(name, url); return `<span class="${cls}" aria-hidden="true"><i class="fl a"></i><i class="fl b"></i><b class="em e1"></b><b class="em e2"></b><b class="em e3"></b></span>`; };
   /* bake the burst bitmaps while the page is idle, so the first tap does not pay for them */
   let ckBaked = false;
-  const ckPrebake = () => { if (ckBaked) return; ckBaked = true; (window.requestIdleCallback || (f => setTimeout(f, 400)))(() => { ckStreak(); ckEye(); ckShock(); ckGlow('flare', '255,122,31', 'rgba(255,240,200,.95)'); ckBlackFlame(); ckFlame(); }); };
+  const ckPrebake = () => { if (ckBaked) return; ckBaked = true; (window.requestIdleCallback || (f => setTimeout(f, 400)))(() => { ckStreak(); ckEye(); ckShock(); ckGlow('flare', '255,122,31', 'rgba(255,240,200,.95)'); ckGlow('flare', '255,122,31', 'rgba(255,240,200,.95)'); ckBlackFlame(); ckFlame(); }); };
   const dreadFireHTML = () => ckFireHTML('ckfire dr-fire', '--ck-flame', ckFlame());
   const blackFireHTML = () => ckFireHTML('ckfire bk-fire', '--ck-bflame', ckBlackFlame());
   const ckReduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -2110,11 +2113,21 @@
     if (list) { const v = document.createElement('span'); v.className = 'dr-veil'; v.setAttribute('aria-hidden', 'true'); list.appendChild(v);
       ckA(v, [{ opacity: 0 }, { opacity: 1, offset: .2 }, { opacity: 0 }], { duration: 1100, easing: 'ease-out' }); setTimeout(() => v.remove(), 1200); }
     const eyes = document.createElement('span'); eyes.className = 'dr-eyes'; eyes.setAttribute('aria-hidden', 'true');
-    eyes.innerHTML = `<img src="${ckEye()}" alt=""><img src="${ckEye()}" alt="" style="transform:scaleX(-1)">`; row.appendChild(eyes); setTimeout(() => eyes.remove(), 1500);
-    ckA(eyes, [{ opacity: 0, transform: 'scale(1.15,.05)' }, { opacity: 1, transform: 'scale(1,1)', offset: .22 }, { opacity: .9, transform: 'scale(1,.92)', offset: .62 }, { opacity: 0, transform: 'scale(1.05,.08)' }], { duration: 1300, delay: 60 });
+    eyes.innerHTML = `<img src="${ckEye()}" alt=""><img src="${ckEye()}" alt="">`; row.appendChild(eyes); setTimeout(() => eyes.remove(), 1500);
+    ckA(eyes, [{ opacity: 0, transform: 'scale(.4)' }, { opacity: 1, transform: 'scale(1.12)', offset: .18 }, { opacity: .85, transform: 'scale(.96)', offset: .3 }, { opacity: 1, transform: 'scale(1.04)', offset: .45 }, { opacity: .9, transform: 'scale(1)', offset: .7 }, { opacity: 0, transform: 'scale(.85)' }], { duration: 1300, delay: 60 });
     ckA(row, [{ transform: 'scale(1)' }, { transform: 'scale(.985)', offset: .15 }, { transform: 'scale(1.015)', offset: .45 }, { transform: 'scale(1)' }], { duration: 420, fill: 'none' });
-    const sh = ckImg(fx, ckShock(), 'ck-shock', `left:${(b.width / 2 - 160).toFixed(0)}px;top:${(b.height / 2 - 40).toFixed(0)}px;width:320px;height:80px`);
-    ckA(sh, [{ opacity: 0, transform: 'scale(.2)' }, { opacity: 1, transform: 'scale(.8)', offset: .3 }, { opacity: 0, transform: 'scale(1.9)' }], { duration: 900, delay: 180, easing: 'ease-out' });
+    /* a fuse of fire runs along the frame: from the middle of the top and bottom edges out to the corners, then fades
+       into the lit border; four ember heads lead it */
+    const head = ckGlow('flare', '255,122,31', 'rgba(255,240,200,.95)');
+    [0, b.height].forEach((y, i) => {
+      const tr = document.createElement('span'); tr.className = 'dr-trace'; tr.style.top = (y - 2) + 'px'; fx.appendChild(tr);
+      ckA(tr, [{ opacity: 1, transform: 'scaleX(0)' }, { opacity: 1, transform: 'scaleX(1)', offset: .55 }, { opacity: 0, transform: 'scaleX(1)' }], { duration: 820, delay: 90 + i * 40, easing: 'cubic-bezier(.3,.6,.3,1)' });
+      [-1, 1].forEach(dir => { const h = ckImg(fx, head, 'dr-head', `left:${(b.width / 2 - 14).toFixed(0)}px;top:${(y - 14).toFixed(0)}px`);
+        ckA(h, [{ opacity: 0, transform: 'translate3d(0,0,0) scale(.6)' }, { opacity: 1, transform: `translate3d(${(dir * b.width * .1).toFixed(0)}px,0,0) scale(1.1)`, offset: .12 }, { opacity: 1, transform: `translate3d(${(dir * b.width * .5).toFixed(0)}px,0,0) scale(.9)`, offset: .78 }, { opacity: 0, transform: `translate3d(${(dir * b.width * .52).toFixed(0)}px,0,0) scale(.4)` }], { duration: 560, delay: 90 + i * 40, easing: 'cubic-bezier(.35,.5,.3,1)' }); });
+    });
+    /* heat bloom behind the text */
+    const bl = document.createElement('span'); bl.className = 'dr-bloom'; bl.setAttribute('aria-hidden', 'true'); row.appendChild(bl); setTimeout(() => bl.remove(), 1300);
+    ckA(bl, [{ opacity: 0, transform: 'scale(.6)' }, { opacity: 1, transform: 'scale(1)', offset: .25 }, { opacity: 0, transform: 'scale(1.15)' }], { duration: 1100, delay: 40, easing: 'ease-out' });
     ckSparks(fx, b.width * .5, b.height, 10, -160, -110, 70, 150, 220);
     ckSparks(fx, b.width * .5, b.height, 10, -70, -20, 70, 150, 220);
     ckSparks(fx, b.width * .5, b.height, 8, -110, -70, 90, 170, 260);
