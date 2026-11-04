@@ -94,8 +94,13 @@ bar on iPhone is in that category.
 ## Deploy
 
 GitHub Pages serves the branch `rules-fidelity-fix` directly (Settings →
-Pages). `main` is the rollback; do not commit to it. Whatever is on the
-served branch is live; only the owner can switch it.
+Pages). `rules-fidelity-fix` is the working and
+production branch. `main` is a stable snapshot: it is updated (fast-forward
+only) solely on the owner's command "переноси в main". Current snapshot:
+main = 9284654 (2026-11-04; tag push is blocked in this environment, so the
+SHA is the anchor). Worst-case rollback: `git revert main..HEAD` on
+`rules-fidelity-fix`, no force-push. Whatever is on the served branch is
+live; only the owner can switch it.
 
 Changing `data.js` alone does not reach phones. The service worker is
 cache-first and matches with `ignoreSearch` — only a new `CACHE` name in
