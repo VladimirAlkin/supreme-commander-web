@@ -2093,7 +2093,7 @@
   const ckImg = (fx, src, cls, css) => { const i = document.createElement('img'); i.src = src; i.alt = ''; i.className = cls; if (css) i.style.cssText = css; fx.appendChild(i); return i; };
   const ckA = (el, kf, o) => el.animate(kf, Object.assign({ fill: 'both', easing: 'cubic-bezier(.2,.7,.3,1)' }, o));
   /* sparks fly out of (cx, cy) in a fan, along curved paths that fall back under gravity; each streak points along its flight */
-  function ckSparks(fx, cx, cy, n, a0, a1, v0, v1, delay) {
+  function ckSparks(fx, cx, cy, n, a0, a1, v0, v1, delay, ts = 1) {
     const R = (a, c) => a + Math.random() * (c - a), src = ckStreak();
     for (let i = 0; i < n; i++) {
       const ang = R(a0, a1) * Math.PI / 180, v = R(v0, v1), t = R(.55, 1), g = 140 * t * t;
@@ -2101,7 +2101,7 @@
       const rot = k => { const d = k ? [pts[k][0] - pts[k - 1][0], pts[k][1] - pts[k - 1][1]] : [pts[1][0], pts[1][1]]; return Math.atan2(d[1], d[0]) * 180 / Math.PI; };
       const im = ckImg(fx, src, 'ck-sp', `left:${cx.toFixed(0)}px;top:${cy.toFixed(0)}px;width:${R(18, 34).toFixed(0)}px`);
       ckA(im, [{ offset: 0, opacity: 0, transform: 'translate3d(0,0,0) scaleX(.3)' }].concat(pts.map((p, k) => ({ offset: k ? k / 3 : .04, opacity: k === 3 ? 0 : 1, transform: `translate3d(${p[0].toFixed(1)}px,${p[1].toFixed(1)}px,0) rotate(${rot(k).toFixed(0)}deg) scaleX(${k === 3 ? .4 : 1})` }))),
-        { duration: R(520, 900), delay: delay + R(0, 60), easing: 'cubic-bezier(.15,.6,.4,1)' });
+        { duration: R(520, 900) * ts, delay: delay + R(0, 60) * ts, easing: 'cubic-bezier(.15,.6,.4,1)' });
     }
   }
   /* Dread ability chosen: the row slams, a veil of darkness falls over the list, the emblem's two burning eyes open
@@ -2109,30 +2109,32 @@
      bottom to settle into the steady burn (~1.4 s). The name and text stay on top. */
   function dreadFx(row) {
     if (!row || ckReduced()) return;
-    const list = row.closest('.dread-list'), { fx, b } = ckOverlay(row, 1700);
+    /* the tap plays 1.6x slower than the other bursts (owner): every duration and delay below is scaled */
+    const S = 1.6, A = (el, kf, o) => ckA(el, kf, Object.assign({}, o, { duration: o.duration * S, delay: (o.delay || 0) * S }));
+    const list = row.closest('.dread-list'), { fx, b } = ckOverlay(row, 2800);
     if (list) { const v = document.createElement('span'); v.className = 'dr-veil'; v.setAttribute('aria-hidden', 'true'); list.appendChild(v);
-      ckA(v, [{ opacity: 0 }, { opacity: 1, offset: .2 }, { opacity: 0 }], { duration: 1100, easing: 'ease-out' }); setTimeout(() => v.remove(), 1200); }
+      A(v, [{ opacity: 0 }, { opacity: 1, offset: .2 }, { opacity: 0 }], { duration: 1100, easing: 'ease-out' }); setTimeout(() => v.remove(), 1900); }
     const eyes = document.createElement('span'); eyes.className = 'dr-eyes'; eyes.setAttribute('aria-hidden', 'true');
-    eyes.innerHTML = `<img src="${ckEye()}" alt=""><img src="${ckEye()}" alt="">`; row.appendChild(eyes); setTimeout(() => eyes.remove(), 1500);
-    ckA(eyes, [{ opacity: 0, transform: 'scale(.4)' }, { opacity: 1, transform: 'scale(1.12)', offset: .18 }, { opacity: .85, transform: 'scale(.96)', offset: .3 }, { opacity: 1, transform: 'scale(1.04)', offset: .45 }, { opacity: .9, transform: 'scale(1)', offset: .7 }, { opacity: 0, transform: 'scale(.85)' }], { duration: 1300, delay: 60 });
-    ckA(row, [{ transform: 'scale(1)' }, { transform: 'scale(.985)', offset: .15 }, { transform: 'scale(1.015)', offset: .45 }, { transform: 'scale(1)' }], { duration: 420, fill: 'none' });
+    eyes.innerHTML = `<img src="${ckEye()}" alt=""><img src="${ckEye()}" alt="">`; row.appendChild(eyes); setTimeout(() => eyes.remove(), 2500);
+    A(eyes, [{ opacity: 0, transform: 'scale(.4)' }, { opacity: 1, transform: 'scale(1.12)', offset: .18 }, { opacity: .85, transform: 'scale(.96)', offset: .3 }, { opacity: 1, transform: 'scale(1.04)', offset: .45 }, { opacity: .9, transform: 'scale(1)', offset: .7 }, { opacity: 0, transform: 'scale(.85)' }], { duration: 1300, delay: 60 });
+    A(row, [{ transform: 'scale(1)' }, { transform: 'scale(.985)', offset: .15 }, { transform: 'scale(1.015)', offset: .45 }, { transform: 'scale(1)' }], { duration: 420, fill: 'none' });
     /* a fuse of fire runs along the frame: from the middle of the top and bottom edges out to the corners, then fades
        into the lit border; four ember heads lead it */
     const head = ckGlow('flare', '255,122,31', 'rgba(255,240,200,.95)');
     [0, b.height].forEach((y, i) => {
       const tr = document.createElement('span'); tr.className = 'dr-trace'; tr.style.top = (y - 2) + 'px'; fx.appendChild(tr);
-      ckA(tr, [{ opacity: 1, transform: 'scaleX(0)' }, { opacity: 1, transform: 'scaleX(1)', offset: .55 }, { opacity: 0, transform: 'scaleX(1)' }], { duration: 820, delay: 90 + i * 40, easing: 'cubic-bezier(.3,.6,.3,1)' });
+      A(tr, [{ opacity: 1, transform: 'scaleX(0)' }, { opacity: 1, transform: 'scaleX(1)', offset: .55 }, { opacity: 0, transform: 'scaleX(1)' }], { duration: 820, delay: 90 + i * 40, easing: 'cubic-bezier(.3,.6,.3,1)' });
       [-1, 1].forEach(dir => { const h = ckImg(fx, head, 'dr-head', `left:${(b.width / 2 - 14).toFixed(0)}px;top:${(y - 14).toFixed(0)}px`);
-        ckA(h, [{ opacity: 0, transform: 'translate3d(0,0,0) scale(.6)' }, { opacity: 1, transform: `translate3d(${(dir * b.width * .1).toFixed(0)}px,0,0) scale(1.1)`, offset: .12 }, { opacity: 1, transform: `translate3d(${(dir * b.width * .5).toFixed(0)}px,0,0) scale(.9)`, offset: .78 }, { opacity: 0, transform: `translate3d(${(dir * b.width * .52).toFixed(0)}px,0,0) scale(.4)` }], { duration: 560, delay: 90 + i * 40, easing: 'cubic-bezier(.35,.5,.3,1)' }); });
+        A(h, [{ opacity: 0, transform: 'translate3d(0,0,0) scale(.6)' }, { opacity: 1, transform: `translate3d(${(dir * b.width * .1).toFixed(0)}px,0,0) scale(1.1)`, offset: .12 }, { opacity: 1, transform: `translate3d(${(dir * b.width * .5).toFixed(0)}px,0,0) scale(.9)`, offset: .78 }, { opacity: 0, transform: `translate3d(${(dir * b.width * .52).toFixed(0)}px,0,0) scale(.4)` }], { duration: 560, delay: 90 + i * 40, easing: 'cubic-bezier(.35,.5,.3,1)' }); });
     });
     /* heat bloom behind the text */
-    const bl = document.createElement('span'); bl.className = 'dr-bloom'; bl.setAttribute('aria-hidden', 'true'); row.appendChild(bl); setTimeout(() => bl.remove(), 1300);
-    ckA(bl, [{ opacity: 0, transform: 'scale(.6)' }, { opacity: 1, transform: 'scale(1)', offset: .25 }, { opacity: 0, transform: 'scale(1.15)' }], { duration: 1100, delay: 40, easing: 'ease-out' });
-    ckSparks(fx, b.width * .5, b.height, 10, -160, -110, 70, 150, 220);
-    ckSparks(fx, b.width * .5, b.height, 10, -70, -20, 70, 150, 220);
-    ckSparks(fx, b.width * .5, b.height, 8, -110, -70, 90, 170, 260);
-    const f = row.querySelector('.ckfire'); if (f) ckA(f, [{ opacity: 0, transform: 'translate3d(0,80%,0) scaleY(1.6)' }, { opacity: 1, transform: 'translate3d(0,-8%,0) scaleY(1.25)', offset: .55 }, { opacity: 1, transform: 'translate3d(0,0,0) scaleY(1)' }], { duration: 900, delay: 160, fill: 'backwards' });
-    if (PL.android) { PL.haptic('confirm'); setTimeout(() => PL.haptic('confirm'), 220); }
+    const bl = document.createElement('span'); bl.className = 'dr-bloom'; bl.setAttribute('aria-hidden', 'true'); row.appendChild(bl); setTimeout(() => bl.remove(), 2100);
+    A(bl, [{ opacity: 0, transform: 'scale(.6)' }, { opacity: 1, transform: 'scale(1)', offset: .25 }, { opacity: 0, transform: 'scale(1.15)' }], { duration: 1100, delay: 40, easing: 'ease-out' });
+    ckSparks(fx, b.width * .5, b.height, 10, -160, -110, 70, 150, 220 * S, S);
+    ckSparks(fx, b.width * .5, b.height, 10, -70, -20, 70, 150, 220 * S, S);
+    ckSparks(fx, b.width * .5, b.height, 8, -110, -70, 90, 170, 260 * S, S);
+    const f = row.querySelector('.ckfire'); if (f) A(f, [{ opacity: 0, transform: 'translate3d(0,80%,0) scaleY(1.6)' }, { opacity: 1, transform: 'translate3d(0,-8%,0) scaleY(1.25)', offset: .55 }, { opacity: 1, transform: 'translate3d(0,0,0) scaleY(1)' }], { duration: 900, delay: 160, fill: 'backwards' });
+    if (PL.android) { PL.haptic('confirm'); setTimeout(() => PL.haptic('confirm'), 220 * S); }
   }
   /* three claw rakes; scar = the dim version that stays on the mark */
   const ckClaw = scar => ckBmp(scar ? 'scar' : 'claw', 120, 60, (g, W, H) => {
