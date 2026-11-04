@@ -38,6 +38,7 @@ const EXPECT = {
   /* synthetic (Dreadblades): a Chaos army with one Chaos Knights TITANIC model under ALLIED UNITS, by reference */
   chaos_space_marines_dreadblades_synthetic: { army: 'chaosSpaceMarines', units: 3, links: 0, points: 505, warlord: 'chaos_lord' },
   world_eaters_dreadblades_synthetic: { army: 'worldEaters', units: 3, links: 0, points: 730, warlord: 'daemon_prince' },
+  death_guard_dreadblades_synthetic: { army: 'deathGuard', units: 3, links: 0, points: 635, warlord: 'daemon_prince_of_nurgle' },
   world_eaters_indented: { army: 'worldEaters', units: 11, links: 3, points: 1995, warlord: 'angron', enh: 'berzerker_glaive' },
 };
 const summary = [];
