@@ -1993,3 +1993,44 @@ body.fx-on #app * { animation-play-state: paused !important; }
 .oathrem.quiet { opacity: .6; animation: none; }
 @keyframes oathGlow { 0%, 100% { box-shadow: 0 0 10px rgba(230, 70, 60, .22), inset 0 0 14px rgba(230, 70, 60, .08); } 50% { box-shadow: 0 0 22px rgba(230, 70, 60, .5), inset 0 0 26px rgba(230, 70, 60, .16); } }
 @media (prefers-reduced-motion: reduce) { .oathrem.glow { animation: none; } }
+
+/* ---- Chaos Knights: Dread abilities (Harbingers of Dread), warp fire. Palette A: #1A120E #FF7A1F #0A0605 #E2581B #9A9488 #E3D6BB ---- */
+.dread-list { display: grid; gap: 6px; }
+.dread { box-sizing: border-box; position: relative; overflow: hidden; isolation: isolate; display: grid; gap: 2px; width: 100%; min-height: 48px; padding: 8px 12px; text-align: left; border-radius: 10px;
+  border: 1px solid rgba(154, 148, 136, .28); background: linear-gradient(180deg, #1f1611, #0f0907); color: #E3D6BB; font: inherit; }
+.dread .dr-t { position: relative; z-index: 2; display: flex; gap: 8px; align-items: baseline; }
+.dread .dr-t b { font-weight: 700; letter-spacing: .02em; }
+.dread .dr-e { position: relative; z-index: 2; font-size: .88rem; color: #b8ad9c; line-height: 1.3; }
+.dread .dr-tag { margin-left: auto; font-style: normal; font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: #FF7A1F; }
+.dread.on { border-color: rgba(255, 122, 31, .75); background: linear-gradient(180deg, #2a160c, #120806); box-shadow: inset 0 -10px 18px -10px rgba(255, 122, 31, .55), 0 0 10px rgba(226, 88, 27, .25); }
+.dread.on .dr-t b { color: #ffe4c4; text-shadow: 0 1px 2px #0A0605, 0 0 8px rgba(255, 122, 31, .45); }
+.dread.on .dr-e { color: #e9dccb; text-shadow: 0 1px 2px #0A0605, 0 0 3px #0A0605; }
+.dread.always { border-style: solid; }
+.dr-hint { font-size: .82rem; line-height: 1.35; margin-top: 2px; }
+/* the fire sits along the bottom edge under the text; two bitmap strips drift in opposite directions (transform only) */
+.dr-fire { position: absolute; left: 0; right: 0; bottom: -2px; height: 62%; z-index: 1; pointer-events: none; overflow: hidden; opacity: 1;
+  -webkit-mask-image: linear-gradient(0deg, #000 30%, transparent); mask-image: linear-gradient(0deg, #000 30%, transparent); }
+.dr-fire i { position: absolute; left: 0; bottom: 0; width: 200%; height: 100%; background: var(--ckf) repeat-x 0 100% / 256px 100%; will-change: transform; }
+.dr-fire i:first-child { opacity: .62; animation: drDrift 5.6s linear infinite; }
+.dr-fire i:last-child { opacity: .38; transform: scaleX(-1); animation: drDrift2 3.9s linear infinite; }
+@keyframes drDrift { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-256px, 0, 0); } }
+@keyframes drDrift2 { from { transform: translate3d(-256px, 0, 0) scaleX(-1); } to { transform: translate3d(0, 0, 0) scaleX(-1); } }
+.dread.on::after { content: ""; position: absolute; inset: auto 0 0 0; height: 2px; z-index: 2; background: linear-gradient(90deg, transparent, #FF7A1F 20%, #ffd08a 50%, #FF7A1F 80%, transparent);
+  animation: drPulse 2.4s ease-in-out infinite; }
+@keyframes drPulse { 0%, 100% { opacity: .55; } 50% { opacity: 1; } }
+.dfx { position: absolute; inset: 0; z-index: 3; pointer-events: none; }
+.dfx img { position: absolute; display: block; pointer-events: none; will-change: transform, opacity; }
+.dfx-eye { top: calc(50% - 10px); width: 30px; height: 12px; }
+.dfx-ring { right: -50px; top: 50%; width: 160px; height: 160px; left: auto; transform: translate(-50%, -50%); }
+.dfx-flare { right: -10px; top: calc(50% - 40px); width: 80px; height: 80px; }
+.dfx-ember { bottom: 4px; }
+@media (prefers-reduced-motion: reduce) { .dr-fire i, .dread.on::after { animation: none; } }
+/* phase reminders of Chaos Knights datasheets (Abominant, Magaera) */
+.hop-dread { color: #E3D6BB; background: linear-gradient(180deg, #22150f, #0f0907); border-color: rgba(154, 148, 136, .35); } .hop-dread .hop-e { color: #c6b9a6; } .hop-dread .hop-s { color: #FF7A1F; } .hop-dread::before { display: none; }
+.hop-dread.now { border-color: rgba(255, 122, 31, .85); box-shadow: 0 0 14px rgba(226, 88, 27, .35); } .hop-dread.done { border-color: rgba(120, 100, 85, .5); opacity: .8; }
+/* marked enemy unit (Houndpack Lance prey, Ruinator victim) */
+.em-cur { display: flex; gap: 10px; align-items: baseline; padding: 8px 12px; border-radius: 10px; border: 1px solid rgba(255, 122, 31, .5); background: linear-gradient(180deg, #24140c, #110806); }
+.em-cur .em-l { font-size: .75rem; letter-spacing: .08em; text-transform: uppercase; color: #FF7A1F; }
+.em-cur b { color: #ffe4c4; }
+.hop-dread .hop-stain { display: none; }
+.hop-dread.now .hop-s { color: #ffe4c4; text-shadow: 0 0 10px rgba(255, 122, 31, .8); } .hop-dread.now::before { animation: none; }

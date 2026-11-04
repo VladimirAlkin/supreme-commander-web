@@ -483,6 +483,12 @@ const Engine = (function () {
     dets.forEach(d => (d.instanceGrants || []).forEach(g => {
       const list = roster.units.filter(u => (u.grants || []).includes(g.id) && g.unitIds.includes(u.datasheetId));
       if (g.max != null && list.length > g.max) E(`${g.label}: ${list.length} units chosen, up to ${g.max} allowed.`, list[g.max].instanceId);
+      if (g.min != null && list.length < g.min) E(`${g.label}: ${list.length} of ${g.min} units chosen. Pick ${g.min - list.length} more in the unit editor.`);
+    }));
+    // ---- Detachment unit minimums (Houndpack Lance: three or more WAR DOG units); granted keywords count
+    dets.forEach(d => (d.requireUnits || []).forEach(q => {
+      const n = roster.units.filter(inst => { const def = ctx.unitById[inst.datasheetId]; return def && hasKw(def, ctx, q.keyword, inst); }).length;
+      if (n < q.min) E(q.message || `${d.name} needs ${q.min} or more ${q.keyword.toUpperCase()} units (${n} now).`);
     }));
     roster.units.forEach(inst => {
       const def = ctx.unitById[inst.datasheetId];

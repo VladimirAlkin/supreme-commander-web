@@ -150,6 +150,10 @@ for (const f of L.factions(data)) {
       if (unknown.length) err('E-MECH', w, `unknown buff keys [${unknown.join(', ')}] — the engine ignores these, so the rule does nothing`);
     });
 
+    /* Detachment unit minimums: Engine.validate counts units with the keyword; a bad row would never fire. */
+    (d.requireUnits || []).forEach((q, i) => { if (!q || typeof q.keyword !== 'string' || !(q.min > 0)) err('E-MECH', `${dw}.requireUnits[${i}]`, 'needs {keyword, min > 0}'); });
+    (d.instanceGrants || []).forEach((g, i) => { if (g.min != null && g.max != null && g.min > g.max) err('E-MECH', `${dw}.instanceGrants[${i}]`, 'min is greater than max'); });
+
     const sIds = new Set();
     for (const s of d.stratagems || []) {
       const w = `${dw}.${s.id}`;

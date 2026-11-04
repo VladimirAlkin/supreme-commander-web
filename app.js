@@ -1295,11 +1295,12 @@
         ${off ? `<div class="faint" style="font-size:.85rem">${esc(off.note)}</div>` : `<div class="faint" style="font-size:.85rem">${esc(dp.refNote || '')}</div>`}</div>`));
     }
     const onceGroups = {};
-    r.units.forEach(u => { const def = unitDef(r.factionId, u.datasheetId); if (def && def.roundPick) out.unshift(roundPickHTML(r, p, u, def)); if (def && def.phaseTrigger) out.unshift(phaseTriggerHTML(r, p, u, def));
+    r.units.forEach(u => { const def = unitDef(r.factionId, u.datasheetId); if (def && def.roundPick) out.unshift(roundPickHTML(r, p, u, def)); if (def && def.phaseTrigger) [].concat(def.phaseTrigger).forEach((t, i) => out.unshift(phaseTriggerHTML(r, p, u, def, t, i))); if (def && def.enemyMark) out.push(enemyMarkHTML(r, p, def.enemyMark, u));
       if (def && def.oathReminder) out.push(oathRemHTML(r, p, u, def)); if (Engine.enhIds(u).includes('howlmaw')) out.push(howlmawHTML(r, p, u)); if (def && def.oncePerBattle && onceNeeds(u, def.oncePerBattle) && (!def.oncePerBattle.detachment || r.detachmentIds.includes(def.oncePerBattle.detachment))) { const g = def.oncePerBattle.group; if (g) (onceGroups[g.id] = onceGroups[g.id] || { g, us: [] }).us.push(u); else out.push(oncePanelHTML(r, p, u, def)); }
       if (def && def.extraDoctrine) out.push(xdocHTML(r, p, u, def)); });
     Object.values(onceGroups).forEach(x => out.push(onceGroupHTML(r, p, x.g, x.us)));
     fd.armyRules.filter(a => a.imperatives).forEach(a => out.unshift(doctrinaHTML(p, a, r)));
+    fd.armyRules.filter(a => a.battlePick).forEach(a => out.unshift(battlePickHTML(r, p, a)));
     fd.armyRules.filter(a => a.counter).forEach(a => out.unshift(tokenPoolHTML(r, p, a, dets)));
     fd.armyRules.filter(a => a.markTracker).forEach(a => out.unshift(markTrackerHTML(r, p, a)));
     fd.armyRules.filter(a => a.pickUnits).forEach(a => out.push(pickUnitsHTML(r, p, a)));
@@ -1312,6 +1313,7 @@
     dets.forEach(d => {
       if (d.halo) out.push(haloUnitsHTML(r, p, d));
       if (d.pickUnits) out.push(pickUnitsHTML(r, p, d));
+      if (d.enemyMark) out.push(enemyMarkHTML(r, p, d.enemyMark));
       if (d.expendable) out.push(expendHTML(r, p, d));
       if (d.pledgeTracker) out.push(pledgeHTML(r, p, d));
       if (d.zones) out.push(zonesHTML(r, p, d));
@@ -1319,11 +1321,7 @@
       if (d.imperatives && d.impStyle === 'doctrina') { out.push(doctrinaHTML(p, d, r)); return; }
       if (d.reminder) out.push(remindHTML(r, p, d) || '');
       if (d.battlePick && d.battlePick.contract) out.push(contractHTML(r, p, d));
-      else if (d.battlePick) {
-        const bp = d.battlePick, picked = p.aug || [];
-        out.push(panel(bp.title, picked.length ? `<span class="badge gold">${picked.length}/${bp.count} active</span>` : '<span class="badge">Pick at battle start</span>',
-          `<div class="dim">${esc(bp.note)}</div>${Object.keys(bp.extraByEnh || {}).filter(id => r.units.some(x => Engine.enhIds(x).includes(id))).map(id => `<div class="dim"><b>Enhancement:</b> ${esc(bp.extraByEnh[id])}</div>`).join('')}<div class="choicechips augrow">${bp.options.map(o => `<button class="cchip ${picked.includes(o.id) ? 'on' : ''}" data-act="csmAug" data-fx="${bp.fx || ''}" data-id="${o.id}" aria-pressed="${picked.includes(o.id)}">${esc(o.name)}</button>`).join('')}</div>${picked.length ? `<div class="stack" style="gap:4px;margin-top:8px">${picked.map(id => { const o = bp.options.find(x => x.id === id); return o ? `<div class="dim"><b>${esc(o.name)}</b>: ${esc(o.effect)}</div>` : ''; }).join('')}</div>` : ''}`));
-      }
+      else if (d.battlePick) out.push(battlePickHTML(r, p, d));
       (d.enhActions || []).forEach(ea => { const h = enhActHTML(r, p, ea); if (h) out.push(h); });
       if (d.numberlessHorde) {
         const rounds = d.numberlessHorde[r.battleSize] || d.numberlessHorde.strike, done = p.pox || {};
@@ -1557,6 +1555,44 @@
       `<div class="dim" style="font-size:.9rem">${esc(pu.note)}</div>
       <div class="chips pu-chips" role="group" aria-label="${esc(pu.title)}">${list.map(u => `<button class="chip puc puc-${pu.style || 'plain'}" aria-pressed="${sel.includes(u.instanceId)}" ${pu.style === 'favoured' && IMG.ec_slaanesh ? `style="--sym:url('${IMG.ec_slaanesh}')"` : ''} data-act="puPick" data-key="${pu.key}" data-id="${u.instanceId}">${esc(lbl(u))}</button>`).join('') || '<span class="faint">No units to mark.</span>'}</div>
       ${pu.foot ? `<div class="faint" style="font-size:.85rem">${esc(pu.foot)}</div>` : ''}`);
+  }
+  /* Battle-long picks: a detachment's (Creations of Bile augmentations) or an army rule's (Chaos Knights Dread abilities).
+     State p[bp.key || 'aug'] = [option ids]. bp.noCap: no limit, the dice stay at the table; bp.always: an option that is always on. */
+  function bpSrc(r, key) {
+    const fd = fdata(r.factionId), k = x => x && x.battlePick && !x.battlePick.contract && (x.battlePick.key || 'aug') === key;
+    return r.detachmentIds.map(id => fd.detachments.find(x => x.id === id)).find(k) || fd.armyRules.find(k);
+  }
+  function battlePickHTML(r, p, d) {
+    const bp = d.battlePick, key = bp.key || 'aug', picked = p[key] || [];
+    if (bp.style === 'warpfire') return dreadHTML(r, p, bp, key, picked);
+    return panel2(bp.title, picked.length ? `<span class="badge gold">${picked.length}/${bp.count} active</span>` : '<span class="badge">Pick at battle start</span>',
+      `<div class="dim">${esc(bp.note)}</div>${Object.keys(bp.extraByEnh || {}).filter(id => r.units.some(x => Engine.enhIds(x).includes(id))).map(id => `<div class="dim"><b>Enhancement:</b> ${esc(bp.extraByEnh[id])}</div>`).join('')}<div class="choicechips augrow">${bp.options.map(o => `<button class="cchip ${picked.includes(o.id) ? 'on' : ''}" data-act="csmAug" data-key="${key}" data-fx="${bp.fx || ''}" data-id="${o.id}" aria-pressed="${picked.includes(o.id)}">${esc(o.name)}</button>`).join('')}</div>${picked.length ? `<div class="stack" style="gap:4px;margin-top:8px">${picked.map(id => { const o = bp.options.find(x => x.id === id); return o ? `<div class="dim"><b>${esc(o.name)}</b>: ${esc(o.effect)}</div>` : ''; }).join('')}</div>` : ''}`);
+  }
+  /* Dread abilities (Harbingers of Dread): a list the player taps; active rows keep burning with warp fire under the text. */
+  function dreadHTML(r, p, bp, key, picked) {
+    const row = (o, on, always) => `<${always ? 'div' : 'button'} class="dread ${on ? 'on' : ''} ${always ? 'always' : ''}" ${always ? '' : `data-act="csmAug" data-key="${key}" data-fx="${bp.fx || ''}" data-id="${o.id}" aria-pressed="${on}"`}>`
+      + `${on ? dreadFireHTML() : ''}<span class="dr-t"><b>${esc(o.name)}</b>${always ? '<i class="dr-tag">Always</i>' : ''}</span><span class="dr-e">${esc(o.effect)}</span></${always ? 'div' : 'button'}>`;
+    const n = picked.length + (bp.always ? 1 : 0);
+    return panel2(bp.title, `<span class="badge ${picked.length ? 'gold' : ''}">${n} active</span>`,
+      `<div class="dim">${esc(bp.note)}</div><div class="dread-list" role="group" aria-label="${esc(bp.title)}">${bp.always ? row(bp.always, true, true) : ''}${bp.options.map(o => row(o, picked.includes(o.id))).join('')}</div>`
+      + (bp.hint ? `<div class="faint dr-hint">${esc(bp.hint)}</div>` : ''));
+  }
+  /* One marked enemy unit, typed by name (the app does not know the opponent's roster).
+     Detachment (Houndpack Lance Marked Prey): set each round in the given phase, p.em[key][round] = name, the latest one stays until replaced.
+     Datasheet (Knight Ruinator victim): persist, p.em[key + ':' + instanceId] = name until cleared. */
+  function enemyMarkHTML(r, p, m, u) {
+    const em = p.em || {}, slot = u ? m.key + ':' + u.instanceId : m.key, dead = u && unitDead(p, u);
+    let name = '', from = 0;
+    if (m.persist) name = em[slot] || '';
+    else { const byR = em[slot] || {}; for (let k = p.round; k >= 1; k--) if (byR[k]) { name = byR[k]; from = k; break; } }
+    const now = !dead && (m.persist ? !name && p.round >= (m.from || 1) : p.turn !== 'opp' && p.phase === m.phase && from !== p.round);
+    const badge = dead ? '<span class="badge">Dead</span>' : now ? '<span class="badge gold">Now</span>' : name ? `<span class="badge">${esc(m.label)}: set</span>` : '<span class="badge">None</span>';
+    const iid = 'em-' + slot.replace(/[^a-z0-9]/gi, '');
+    return panel2(m.title + (u && r.units.filter(x => x.datasheetId === u.datasheetId).length > 1 ? ' · ' + dispName(r, u) : ''), badge,
+      `<div class="dim" style="font-size:.9rem">${esc(m.note)}</div>
+      ${name ? `<div class="em-cur em-${m.fx || 'plain'}" data-em="${esc(slot)}"><span class="em-l">${esc(m.label)}${from && from !== p.round ? ` · round ${from}` : ''}</span><b>${esc(name)}</b></div>` : ''}
+      ${dead ? '' : `<div class="row mt-add"><input class="search" id="${iid}" type="text" maxlength="40" placeholder="${esc(m.placeholder || 'Enemy unit')}" aria-label="${esc(m.label)}: enemy unit"><button class="btn sm" data-act="emSet" data-k="${esc(slot)}" data-in="${iid}" data-p="${m.persist ? 1 : ''}" data-fx="${m.fx || ''}">${name ? 'Change' : 'Mark'}</button></div>
+      ${name && m.clear ? `<button class="btn sm ghost" data-act="emSet" data-k="${esc(slot)}" data-p="1" data-clear="1">${esc(m.clear)}</button>` : ''}`}`);
   }
   /* Army-rule mark tracker (T'au Observer / Spotted): units with the rule's ability mark enemy units at the start of a phase.
      State p.mt[round] = { o: [instanceId of the marking units], s: [enemy unit names] }. Config: armyRule.markTracker. */
@@ -1909,12 +1945,12 @@
   }
   /* A roll a unit makes in one of your phases every turn (Mortarion's Host of Plagues). Dice stay at the table:
      the card lights up in that phase and the player marks it done. State p.trig[instanceId][round] = true. */
-  function phaseTriggerHTML(r, p, u, def) {
-    const t = def.phaseTrigger, done = ((p.trig || {})[u.instanceId] || {})[p.round], dead = unitDead(p, u);
+  function phaseTriggerHTML(r, p, u, def, t, i) {
+    t = t || def.phaseTrigger; const tk = u.instanceId + (i ? ':' + i : ''), done = ((p.trig || {})[tk] || {})[p.round], dead = unitDead(p, u);
     const now = !dead && !done && p.phase === t.phase && (t.turn !== 'mine' || p.turn !== 'opp') && (t.turn !== 'opp' || p.turn === 'opp');
     const badge = dead ? '<span class="badge">Dead</span>' : done ? `<span class="badge">Round ${p.round}: done</span>` : now ? '<span class="badge gold">Now</span>' : `<span class="badge">${esc(t.when)}</span>`;
     return `<div class="panel pad stack trk"><div class="row"><h3 class="grow">${esc(t.title)}</h3>${badge}</div>
-      <button class="hop hop-${t.style} ${done ? 'done' : dead ? '' : 'ready'} ${now ? 'now' : ''}" data-act="trigDone" data-u="${u.instanceId}" aria-pressed="${!!done}" ${dead ? 'aria-disabled="true"' : ''}>
+      <button class="hop hop-${t.style} ${done ? 'done' : dead ? '' : 'ready'} ${now ? 'now' : ''}" data-act="trigDone" data-u="${tk}" aria-pressed="${!!done}" ${dead ? 'aria-disabled="true"' : ''}>
         ${t.style === 'ember' ? '' : '<span class="hop-stain" aria-hidden="true"></span>'}<span class="hop-t"><b>${esc(t.when)}</b></span><span class="hop-s">${dead ? '' : done ? esc(t.done) + ' ✓' : esc(t.button)}</span><span class="hop-e">${esc(t.text)}</span></button>
       <div class="faint" style="font-size:.85rem">${dead ? `${esc(t.who)} is dead.` : 'Roll at the table, then tap to mark this battle round as done.'}</div></div>`;
   }
@@ -1983,6 +2019,65 @@
     par.appendChild(fx); setTimeout(() => fx.remove(), 2000);
     if (PL.android) PL.haptic('confirm');
   }
+  /* ---- Chaos Knights effects. Bitmaps are drawn once on a canvas and cached; only transform/opacity move (Web Animations
+     with plain-number keyframes, so the compositor runs them). Reduced motion: no burst, the burning row stays still. ---- */
+  const CKB = {};
+  function ckBmp(k, w, h, draw) {
+    if (CKB[k]) return CKB[k];
+    try { const c = document.createElement('canvas'); c.width = w; c.height = h; draw(c.getContext('2d'), w, h); CKB[k] = c.toDataURL('image/png'); }
+    catch (e) { CKB[k] = ''; }
+    return CKB[k];
+  }
+  /* a seamless strip of fire tongues (it repeats along x): ember-orange body, pale core, dark smoky tips */
+  const ckFlame = () => ckBmp('flame', 512, 96, (g, W, H) => {
+    let h = 7; const rnd = () => ((h = Math.imul(h ^ (h >>> 13), 1274126177) + 1013904223 >>> 0) / 4294967296);
+    for (let pass = 0; pass < 3; pass++) for (let i = 0; i < 26; i++) {
+      const x = rnd() * W, wd = 18 + rnd() * 34 - pass * 5, ht = H * (.45 + rnd() * .5) * (1 - pass * .18);
+      [x, x - W, x + W].forEach(cx => {
+        const gr = g.createLinearGradient(0, H, 0, H - ht);
+        const c = pass === 2 ? ['rgba(255,236,190,.95)', 'rgba(255,170,70,.6)', 'rgba(255,122,31,0)'] : pass === 1 ? ['rgba(255,122,31,.95)', 'rgba(226,88,27,.7)', 'rgba(120,30,8,0)'] : ['rgba(150,40,10,.85)', 'rgba(70,20,8,.55)', 'rgba(20,8,4,0)'];
+        gr.addColorStop(0, c[0]); gr.addColorStop(.55, c[1]); gr.addColorStop(1, c[2]); g.fillStyle = gr;
+        g.beginPath(); g.moveTo(cx - wd / 2, H);
+        g.bezierCurveTo(cx - wd * .6, H - ht * .45, cx - wd * .05, H - ht * .7, cx + (rnd() - .5) * wd * .4, H - ht);
+        g.bezierCurveTo(cx + wd * .1, H - ht * .65, cx + wd * .6, H - ht * .4, cx + wd / 2, H); g.closePath(); g.fill();
+      });
+    }
+  });
+  const ckGlow = (k, rgb, core) => ckBmp(k, 64, 64, (g, W) => { const r = g.createRadialGradient(W / 2, W / 2, 0, W / 2, W / 2, W / 2);
+    r.addColorStop(0, core); r.addColorStop(.35, `rgba(${rgb},.85)`); r.addColorStop(1, `rgba(${rgb},0)`); g.fillStyle = r; g.fillRect(0, 0, W, W); });
+  const ckEye = () => ckBmp('eye', 96, 40, (g, W, H) => { g.save(); g.translate(W / 2, H / 2); g.scale(1, .42);
+    const r = g.createRadialGradient(0, 0, 0, 0, 0, W / 2); r.addColorStop(0, '#fff3c4'); r.addColorStop(.25, '#ffb347'); r.addColorStop(.6, 'rgba(255,122,31,.55)'); r.addColorStop(1, 'rgba(255,90,20,0)');
+    g.fillStyle = r; g.beginPath(); g.arc(0, 0, W / 2, 0, 7); g.fill(); g.restore(); });
+  const ckRing = () => ckBmp('ring', 160, 160, (g, W) => { const r = g.createRadialGradient(W / 2, W / 2, W * .3, W / 2, W / 2, W / 2);
+    r.addColorStop(0, 'rgba(255,122,31,0)'); r.addColorStop(.55, 'rgba(255,150,60,.8)'); r.addColorStop(.75, 'rgba(226,88,27,.35)'); r.addColorStop(1, 'rgba(226,88,27,0)'); g.fillStyle = r; g.fillRect(0, 0, W, W); });
+  /* the persistent warp fire under an active Dread row: two strips drifting in opposite directions, set once per render */
+  const dreadFireHTML = () => `<span class="dr-fire" aria-hidden="true" style="--ckf:url('${ckFlame()}')"><i></i><i></i></span>`;
+  /* Dread ability ignited: two burning eyes open at the right end of the row, a ring of warp fire rolls out from them,
+     embers fly up and the fire catches along the bottom edge (~1 s). The name and text stay clear. */
+  function dreadFx(btn) {
+    if (!btn || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const R = (a, c) => a + Math.random() * (c - a), A = (el, kf, o) => el.animate(kf, Object.assign({ fill: 'both', easing: 'cubic-bezier(.2,.7,.3,1)' }, o));
+    const fx = document.createElement('span'); fx.className = 'dfx'; fx.setAttribute('aria-hidden', 'true');
+    const img = (src, cls, css) => { const i = document.createElement('img'); i.src = src; i.alt = ''; i.className = cls; i.style.cssText = css; fx.appendChild(i); return i; };
+    const ring = img(ckRing(), 'dfx-ring', ''), e1 = img(ckEye(), 'dfx-eye', 'right:46px'), e2 = img(ckEye(), 'dfx-eye', 'right:12px');
+    const flare = img(ckGlow('flare', '255,122,31', 'rgba(255,240,200,.9)'), 'dfx-flare', '');
+    btn.appendChild(fx);
+    A(flare, [{ opacity: 0, transform: 'scale(.2)' }, { opacity: .9, transform: 'scale(1)', offset: .25 }, { opacity: 0, transform: 'scale(1.6)' }], { duration: 700 });
+    [e1, e2].forEach((e, i) => A(e, [{ opacity: 0, transform: 'scale(1,.05)' }, { opacity: 1, transform: 'scale(1,1)', offset: .3 }, { opacity: 1, transform: 'scale(1,.9)', offset: .7 }, { opacity: 0, transform: 'scale(1.1,.1)' }], { duration: 950, delay: i * 40 }));
+    A(ring, [{ opacity: 0, transform: 'translate(-50%,-50%) scale(.25)' }, { opacity: .95, transform: 'translate(-50%,-50%) scale(.9)', offset: .35 }, { opacity: 0, transform: 'translate(-50%,-50%) scale(2.2)' }], { duration: 900, delay: 120 });
+    const ember = ckGlow('ember', '255,150,60', 'rgba(255,245,210,1)');
+    for (let i = 0; i < 12; i++) {
+      const s = R(4, 9), e = img(ember, 'dfx-ember', `left:${R(4, 96).toFixed(1)}%;width:${s.toFixed(0)}px;height:${s.toFixed(0)}px`);
+      const dx = R(-14, 14), dy = R(-46, -90);
+      A(e, [{ opacity: 0, transform: 'translate3d(0,0,0)' }, { opacity: 1, transform: `translate3d(${(dx * .3).toFixed(1)}px,${(dy * .3).toFixed(1)}px,0)`, offset: .25 }, { opacity: 0, transform: `translate3d(${dx.toFixed(1)}px,${dy.toFixed(1)}px,0) scale(.4)` }], { duration: R(700, 1100), delay: R(150, 420), easing: 'linear' });
+    }
+    const f = btn.querySelector('.dr-fire'); if (f) A(f, [{ opacity: 0, transform: 'translate3d(0,60%,0)' }, { opacity: 1, transform: 'translate3d(0,0,0)' }], { duration: 650, delay: 200, fill: 'backwards' });
+    setTimeout(() => fx.remove(), 1600);
+    if (PL.android) setTimeout(() => PL.haptic('confirm'), 150);
+  }
+  /* Empowered (anvil and black fire) and Marked Prey (claws and brand): pending the owner's look at the pilot effect */
+  function anvilFx(el) { }
+  function clawFx(el) { }
   function mechFx(el, k, loop) {
     if (!el || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const fx = document.createElement('span'); fx.className = 'mfx m-' + k; fx.setAttribute('aria-hidden', 'true'); fx.innerHTML = mfxHTML(k);
@@ -3675,6 +3770,13 @@
       playChange(r, p => { p.mt = p.mt || {}; const st = p.mt[p.round] = p.mt[p.round] || { o: [], s: [] }; st.o = on ? st.o.filter(x => x !== id) : st.o.concat(id); }, null, 'confirm');
       if (!on) mechFx(document.querySelector(`[data-act="mtObs"][data-id="${id}"]`), 'reticle');
     },
+    emSet: el => {
+      const r = cur(), k = el.dataset.k, inp = el.dataset.in && document.getElementById(el.dataset.in);
+      const name = el.dataset.clear ? '' : ((inp && inp.value) || '').trim().replace(/\s+/g, ' ').slice(0, 40);
+      if (!name && !el.dataset.clear) { PL.haptic('reject'); return; }
+      playChange(r, p => { p.em = p.em || {}; if (el.dataset.p) { if (name) p.em[k] = name; else delete p.em[k]; } else { p.em[k] = p.em[k] || {}; p.em[k][p.round] = name; } }, null, 'confirm');
+      if (name && el.dataset.fx === 'claw') clawFx(document.querySelector(`.em-cur[data-em="${k}"]`));
+    },
     mtAdd: () => {
       const r = cur(), inp = document.getElementById('mt-in'), name = ((inp && inp.value) || '').trim().replace(/\s+/g, ' ').slice(0, 40), p0 = playState(r), st0 = (p0.mt || {})[p0.round] || {};
       if (!name || (st0.s || []).some(x => x.toLowerCase() === name.toLowerCase()) || (st0.s || []).length >= (st0.o || []).length) { PL.haptic('reject'); return; }
@@ -3685,7 +3787,8 @@
       const r = cur(), id = el.dataset.id, key = el.dataset.key, fd = fdata(r.factionId), d = r.detachmentIds.map(x => fd.detachments.find(y => y.id === x)).find(y => y && y.pickUnits && y.pickUnits.key === key) || fd.armyRules.find(y => y.pickUnits && y.pickUnits.key === key); if (!d) return;
       const pu = d.pickUnits, sel = pickSelFor(r, playState(r), key), on = sel.includes(id);
       playChange(r, p => { p[key] = pu.max === 1 ? (on ? [] : [id]) : on ? sel.filter(x => x !== id) : sel.concat(id); }, null, 'confirm');
-      if (!on) (pu.style === 'bond' ? pennantFx : smokeFx)(document.querySelector(`[data-act="puPick"][data-key="${key}"][data-id="${id}"]`));
+      const fxOf = pu.style === 'bond' ? pennantFx : pu.style === 'anvil' ? anvilFx : smokeFx;
+      if (!on) fxOf(document.querySelector(`[data-act="puPick"][data-key="${key}"][data-id="${id}"]`));
     },
     oathPick: el => {
       const r = cur(), i = +el.dataset.i, k = el.dataset.k, id = el.dataset.id; let sealed = false;
@@ -3788,11 +3891,11 @@
     },
     trigDone: el => {
       if (el.getAttribute('aria-disabled') === 'true') { toast('Dead. Bring the model back first.'); PL.haptic('reject'); return; }
-      const r = cur(), iid = el.dataset.u, on = !((playState(r).trig || {})[iid] || {})[playState(r).round];
+      const r = cur(), iid = el.dataset.u, on = !((playState(r).trig || {})[iid] || {})[playState(r).round], [uid, ti] = iid.split(':');
       playChange(r, p => { p.trig = p.trig || {}; const m = p.trig[iid] = p.trig[iid] || {}; if (m[p.round]) delete m[p.round]; else m[p.round] = true; }, on ? null : 'Marked as not done.', 'confirm');
       if (on) {
-        const hb = document.querySelector(`.hop[data-u="${iid}"]`), tx = (unitDef(r.factionId, (inst(iid) || {}).datasheetId) || {}).phaseTrigger || {};
-        if (tx.fx === 'axe') axeFx(); else if (tx.fx === 'holo') holoFx(hb); else rotFx(hb);
+        const hb = document.querySelector(`.hop[data-u="${iid}"]`), tx = [].concat((unitDef(r.factionId, (inst(uid) || {}).datasheetId) || {}).phaseTrigger || {})[+ti || 0] || {};
+        if (tx.fx === 'none') return; if (tx.fx === 'axe') axeFx(); else if (tx.fx === 'holo') holoFx(hb); else rotFx(hb);
       }
     },
     rpPick: el => {
@@ -3886,12 +3989,13 @@
       if (card && !matchMedia('(prefers-reduced-motion: reduce)').matches) { card.classList.add('dissolving'); PL.haptic('tick'); setTimeout(go, 560); } else go();
     },
     csmAug: el => {                                                     // pick/clear a Creations of Bile augmentation (persists all battle)
-      const r = cur(), id = el.dataset.id;
-      const d = fdata(r.factionId).detachments.find(x => x.battlePick && r.detachmentIds.includes(x.id)); if (!d) return;
-      const cap = d.battlePick.count || 2;
-      if (cap > 1 && !(playState(r).aug || []).includes(id) && (playState(r).aug || []).length >= cap) { toast(`Pick up to ${cap}.`); PL.haptic('reject'); return; }
-      const wasOn = (playState(r).aug || []).includes(id);
-      playChange(r, p => { p.aug = p.aug || []; p.aug = p.aug.includes(id) ? p.aug.filter(x => x !== id) : cap === 1 ? [id] : p.aug.concat(id); }, null, 'tick');
+      const r = cur(), id = el.dataset.id, key = el.dataset.key || 'aug';
+      const d = bpSrc(r, key); if (!d) return;
+      const cap = d.battlePick.noCap ? Infinity : d.battlePick.count || 2, sel0 = playState(r)[key] || [];
+      if (cap > 1 && !sel0.includes(id) && sel0.length >= cap) { toast(`Pick up to ${cap}.`); PL.haptic('reject'); return; }
+      const wasOn = sel0.includes(id);
+      playChange(r, p => { const a = p[key] || []; p[key] = a.includes(id) ? a.filter(x => x !== id) : cap === 1 ? [id] : a.concat(id); }, null, 'tick');
+      if (!wasOn && el.dataset.fx === 'warpfire') { dreadFx(document.querySelector(`.dread[data-key="${key}"][data-id="${id}"]`)); return; }
       if (!wasOn && !matchMedia('(prefers-reduced-motion: reduce)').matches) { const rg = document.querySelector('.ct-clause.on .ct-ring'); if (rg) rg.classList.add('fresh'); }
       if (!wasOn && el.dataset.fx) mechFx(document.querySelector(`.cchip[data-act="csmAug"][data-id="${id}"]`), el.dataset.fx);
     },
