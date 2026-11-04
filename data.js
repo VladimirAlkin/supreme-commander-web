@@ -36515,6 +36515,30 @@ const DATA = {
       "strike": 500,
       "onslaught": 750
      }
+    },
+    {
+     "faction": "Chaos Knights",
+     "rule": "Dreadblades",
+     "hostKeyword": "Chaos",
+     "noEnhancements": true,
+     "cannotBeWarlord": true,
+     "unitsFrom": {
+      "source": "chaosKnights",
+      "keywordsAny": [
+       "Titanic",
+       "War Dog"
+      ]
+     },
+     "oneOf": [
+      {
+       "keyword": "Titanic",
+       "n": 1
+      },
+      {
+       "keyword": "War Dog",
+       "n": 3
+      }
+     ]
     }
    ],
    "armyRules": [

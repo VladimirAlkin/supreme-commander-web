@@ -50273,8 +50273,8 @@
   {
    "path": ".chaosSpaceMarines.alliedFactions.length",
    "change": "ADDED",
-   "value": "1",
-   "why": "Cult of the Dark Gods — Wahapedia Abilities.csv id 000008360 and BSData category \"Cults of the Dark Gods\"; points limit 250/500/750 by battle size; Heretic Astartes keyword replaces the faction keyword (checked 2026-10-11)"
+   "value": "2",
+   "why": "Cult of the Dark Gods — Wahapedia Abilities.csv id 000008360 and BSData category \"Cults of the Dark Gods\"; points limit 250/500/750 by battle size; Heretic Astartes keyword replaces the faction keyword (checked 2026-10-11) || Dreadblades group added 2026-11-04 (Faction Pack Chaos Knights v1.2 via Wahapedia App, Abilities.csv 000008514): the group count of chaosSpaceMarines grows by one; see the alliedFactions rows"
   },
   {
    "path": ".adeptusMechanicus.armyFaction",
@@ -316459,6 +316459,90 @@
    "change": "ADDED",
    "value": "\"detection range\"",
    "why": "New army Chaos Knights (2026-11-04): own datasheets, detachments and Wretched Thralls by reference (unitsFrom chaosSpaceMarines). Profiles BSData d9156c6 = Wahapedia 11e (30.10.2026, Faction Pack 1.2 App); points BSData = Wahapedia (MFM unreachable); CHAOS on Acheron and CHAOS KNIGHTS on Magaera from the pack text via Wahapedia (BSData error since 10e); DP and Force Dispositions BSData; decisions claude/army-builder/data/chaosKnights_decisions.md."
+  },
+  {
+   "path": ".chaosSpaceMarines.alliedFactions[1].faction",
+   "change": "ADDED",
+   "value": "\"Chaos Knights\"",
+   "why": "Dreadblades (Chaos Knights army rule) as an ally group on chaosSpaceMarines via alliedFactions[].unitsFrom {source chaosKnights, keywordsAny Titanic/War Dog}: if every model in the army is CHAOS, 1 TITANIC CHAOS KNIGHTS model or up to 3 WAR DOG; not Warlord; no enhancements; any detachment; no points cap; faction keyword unchanged. Source: Faction Pack Chaos Knights 11e v1.2 (28.08.2026) via Wahapedia App (Abilities.csv 000008514), checked 2026-11-04; BSData 11e links the CK Library in this catalogue and carries no rule text"
+  },
+  {
+   "path": ".chaosSpaceMarines.alliedFactions[1].rule",
+   "change": "ADDED",
+   "value": "\"Dreadblades\"",
+   "why": "Dreadblades (Chaos Knights army rule) as an ally group on chaosSpaceMarines via alliedFactions[].unitsFrom {source chaosKnights, keywordsAny Titanic/War Dog}: if every model in the army is CHAOS, 1 TITANIC CHAOS KNIGHTS model or up to 3 WAR DOG; not Warlord; no enhancements; any detachment; no points cap; faction keyword unchanged. Source: Faction Pack Chaos Knights 11e v1.2 (28.08.2026) via Wahapedia App (Abilities.csv 000008514), checked 2026-11-04; BSData 11e links the CK Library in this catalogue and carries no rule text"
+  },
+  {
+   "path": ".chaosSpaceMarines.alliedFactions[1].hostKeyword",
+   "change": "ADDED",
+   "value": "\"Chaos\"",
+   "why": "Dreadblades (Chaos Knights army rule) as an ally group on chaosSpaceMarines via alliedFactions[].unitsFrom {source chaosKnights, keywordsAny Titanic/War Dog}: if every model in the army is CHAOS, 1 TITANIC CHAOS KNIGHTS model or up to 3 WAR DOG; not Warlord; no enhancements; any detachment; no points cap; faction keyword unchanged. Source: Faction Pack Chaos Knights 11e v1.2 (28.08.2026) via Wahapedia App (Abilities.csv 000008514), checked 2026-11-04; BSData 11e links the CK Library in this catalogue and carries no rule text"
+  },
+  {
+   "path": ".chaosSpaceMarines.alliedFactions[1].noEnhancements",
+   "change": "ADDED",
+   "value": "true",
+   "why": "Dreadblades (Chaos Knights army rule) as an ally group on chaosSpaceMarines via alliedFactions[].unitsFrom {source chaosKnights, keywordsAny Titanic/War Dog}: if every model in the army is CHAOS, 1 TITANIC CHAOS KNIGHTS model or up to 3 WAR DOG; not Warlord; no enhancements; any detachment; no points cap; faction keyword unchanged. Source: Faction Pack Chaos Knights 11e v1.2 (28.08.2026) via Wahapedia App (Abilities.csv 000008514), checked 2026-11-04; BSData 11e links the CK Library in this catalogue and carries no rule text"
+  },
+  {
+   "path": ".chaosSpaceMarines.alliedFactions[1].cannotBeWarlord",
+   "change": "ADDED",
+   "value": "true",
+   "why": "Dreadblades (Chaos Knights army rule) as an ally group on chaosSpaceMarines via alliedFactions[].unitsFrom {source chaosKnights, keywordsAny Titanic/War Dog}: if every model in the army is CHAOS, 1 TITANIC CHAOS KNIGHTS model or up to 3 WAR DOG; not Warlord; no enhancements; any detachment; no points cap; faction keyword unchanged. Source: Faction Pack Chaos Knights 11e v1.2 (28.08.2026) via Wahapedia App (Abilities.csv 000008514), checked 2026-11-04; BSData 11e links the CK Library in this catalogue and carries no rule text"
+  },
+  {
+   "path": ".chaosSpaceMarines.alliedFactions[1].unitsFrom.source",
+   "change": "ADDED",
+   "value": "\"chaosKnights\"",
+   "why": "Dreadblades (Chaos Knights army rule) as an ally group on chaosSpaceMarines via alliedFactions[].unitsFrom {source chaosKnights, keywordsAny Titanic/War Dog}: if every model in the army is CHAOS, 1 TITANIC CHAOS KNIGHTS model or up to 3 WAR DOG; not Warlord; no enhancements; any detachment; no points cap; faction keyword unchanged. Source: Faction Pack Chaos Knights 11e v1.2 (28.08.2026) via Wahapedia App (Abilities.csv 000008514), checked 2026-11-04; BSData 11e links the CK Library in this catalogue and carries no rule text"
+  },
+  {
+   "path": ".chaosSpaceMarines.alliedFactions[1].unitsFrom.keywordsAny.length",
+   "change": "ADDED",
+   "value": "2",
+   "why": "Dreadblades (Chaos Knights army rule) as an ally group on chaosSpaceMarines via alliedFactions[].unitsFrom {source chaosKnights, keywordsAny Titanic/War Dog}: if every model in the army is CHAOS, 1 TITANIC CHAOS KNIGHTS model or up to 3 WAR DOG; not Warlord; no enhancements; any detachment; no points cap; faction keyword unchanged. Source: Faction Pack Chaos Knights 11e v1.2 (28.08.2026) via Wahapedia App (Abilities.csv 000008514), checked 2026-11-04; BSData 11e links the CK Library in this catalogue and carries no rule text"
+  },
+  {
+   "path": ".chaosSpaceMarines.alliedFactions[1].unitsFrom.keywordsAny[0]",
+   "change": "ADDED",
+   "value": "\"Titanic\"",
+   "why": "Dreadblades (Chaos Knights army rule) as an ally group on chaosSpaceMarines via alliedFactions[].unitsFrom {source chaosKnights, keywordsAny Titanic/War Dog}: if every model in the army is CHAOS, 1 TITANIC CHAOS KNIGHTS model or up to 3 WAR DOG; not Warlord; no enhancements; any detachment; no points cap; faction keyword unchanged. Source: Faction Pack Chaos Knights 11e v1.2 (28.08.2026) via Wahapedia App (Abilities.csv 000008514), checked 2026-11-04; BSData 11e links the CK Library in this catalogue and carries no rule text"
+  },
+  {
+   "path": ".chaosSpaceMarines.alliedFactions[1].unitsFrom.keywordsAny[1]",
+   "change": "ADDED",
+   "value": "\"War Dog\"",
+   "why": "Dreadblades (Chaos Knights army rule) as an ally group on chaosSpaceMarines via alliedFactions[].unitsFrom {source chaosKnights, keywordsAny Titanic/War Dog}: if every model in the army is CHAOS, 1 TITANIC CHAOS KNIGHTS model or up to 3 WAR DOG; not Warlord; no enhancements; any detachment; no points cap; faction keyword unchanged. Source: Faction Pack Chaos Knights 11e v1.2 (28.08.2026) via Wahapedia App (Abilities.csv 000008514), checked 2026-11-04; BSData 11e links the CK Library in this catalogue and carries no rule text"
+  },
+  {
+   "path": ".chaosSpaceMarines.alliedFactions[1].oneOf.length",
+   "change": "ADDED",
+   "value": "2",
+   "why": "Dreadblades (Chaos Knights army rule) as an ally group on chaosSpaceMarines via alliedFactions[].unitsFrom {source chaosKnights, keywordsAny Titanic/War Dog}: if every model in the army is CHAOS, 1 TITANIC CHAOS KNIGHTS model or up to 3 WAR DOG; not Warlord; no enhancements; any detachment; no points cap; faction keyword unchanged. Source: Faction Pack Chaos Knights 11e v1.2 (28.08.2026) via Wahapedia App (Abilities.csv 000008514), checked 2026-11-04; BSData 11e links the CK Library in this catalogue and carries no rule text"
+  },
+  {
+   "path": ".chaosSpaceMarines.alliedFactions[1].oneOf[0].keyword",
+   "change": "ADDED",
+   "value": "\"Titanic\"",
+   "why": "Dreadblades (Chaos Knights army rule) as an ally group on chaosSpaceMarines via alliedFactions[].unitsFrom {source chaosKnights, keywordsAny Titanic/War Dog}: if every model in the army is CHAOS, 1 TITANIC CHAOS KNIGHTS model or up to 3 WAR DOG; not Warlord; no enhancements; any detachment; no points cap; faction keyword unchanged. Source: Faction Pack Chaos Knights 11e v1.2 (28.08.2026) via Wahapedia App (Abilities.csv 000008514), checked 2026-11-04; BSData 11e links the CK Library in this catalogue and carries no rule text"
+  },
+  {
+   "path": ".chaosSpaceMarines.alliedFactions[1].oneOf[0].n",
+   "change": "ADDED",
+   "value": "1",
+   "why": "Dreadblades (Chaos Knights army rule) as an ally group on chaosSpaceMarines via alliedFactions[].unitsFrom {source chaosKnights, keywordsAny Titanic/War Dog}: if every model in the army is CHAOS, 1 TITANIC CHAOS KNIGHTS model or up to 3 WAR DOG; not Warlord; no enhancements; any detachment; no points cap; faction keyword unchanged. Source: Faction Pack Chaos Knights 11e v1.2 (28.08.2026) via Wahapedia App (Abilities.csv 000008514), checked 2026-11-04; BSData 11e links the CK Library in this catalogue and carries no rule text"
+  },
+  {
+   "path": ".chaosSpaceMarines.alliedFactions[1].oneOf[1].keyword",
+   "change": "ADDED",
+   "value": "\"War Dog\"",
+   "why": "Dreadblades (Chaos Knights army rule) as an ally group on chaosSpaceMarines via alliedFactions[].unitsFrom {source chaosKnights, keywordsAny Titanic/War Dog}: if every model in the army is CHAOS, 1 TITANIC CHAOS KNIGHTS model or up to 3 WAR DOG; not Warlord; no enhancements; any detachment; no points cap; faction keyword unchanged. Source: Faction Pack Chaos Knights 11e v1.2 (28.08.2026) via Wahapedia App (Abilities.csv 000008514), checked 2026-11-04; BSData 11e links the CK Library in this catalogue and carries no rule text"
+  },
+  {
+   "path": ".chaosSpaceMarines.alliedFactions[1].oneOf[1].n",
+   "change": "ADDED",
+   "value": "3",
+   "why": "Dreadblades (Chaos Knights army rule) as an ally group on chaosSpaceMarines via alliedFactions[].unitsFrom {source chaosKnights, keywordsAny Titanic/War Dog}: if every model in the army is CHAOS, 1 TITANIC CHAOS KNIGHTS model or up to 3 WAR DOG; not Warlord; no enhancements; any detachment; no points cap; faction keyword unchanged. Source: Faction Pack Chaos Knights 11e v1.2 (28.08.2026) via Wahapedia App (Abilities.csv 000008514), checked 2026-11-04; BSData 11e links the CK Library in this catalogue and carries no rule text"
   }
  ]
 }
