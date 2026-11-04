@@ -855,22 +855,26 @@
   function wgResolve(def, label) {
     const n = wgNorm(label); if (!def || !n || n === 'none') return { weapons: [], text: '' };
     const ab = (def.abilities || []).find(a => wgNorm(a.name) === n);
-    if (ab) return { weapons: [], text: ab.text, title: ab.name };
-    const ws = [...(def.ranged || []), ...(def.melee || [])], out = [];
+    const ws = [...(def.ranged || []), ...(def.melee || [])], out = [], miss = [];
+    if (ab && !ws.some(w => wgNorm(w.name) === n)) return { weapons: [], text: ab.text, title: ab.name };
     const parts = ws.some(w => wgNorm(w.name).startsWith(n)) ? [n] : n.split(/\s*(?:,|\band\b)\s*/).filter(Boolean);
     parts.forEach(part => {
       const p = part.replace(/^\d+\s+/, '');
       const find = q => ws.filter(w => { const x = wgNorm(w.name); return x === q || x.startsWith(q + ' - ') || x.startsWith(q + ' – '); });
       let hit = find(p); if (!hit.length && /s$/.test(p)) hit = find(p.replace(/s$/, ''));
+      if (!hit.length) miss.push(p);
       hit.forEach(w => { if (!out.includes(w)) out.push(w); });
     });
-    return { weapons: out, text: out.length ? '' : String(label) };
+    /* nothing matched: show the option's own text; a weapon plus an item without a profile (Relic Shield): name the item */
+    if (!out.length) return { weapons: [], text: String(label) };
+    if (ab) return { weapons: out, text: ab.text };
+    return { weapons: out, text: miss.length ? 'Also: ' + miss.map(m => m.charAt(0).toUpperCase() + m.slice(1)).join(', ') : '' };
   }
   /* Standard loadout = the weapons Play shows for the unit with no wargear picks */
   function standardWeapons(def) {
     if (!def.sizes || !def.sizes[0]) return [];
     const has = Engine.carries(def, { size: def.sizes[0].models, wargear: {} });
-    return [...(def.ranged || []), ...(def.melee || [])].filter(has);
+    return [...(def.ranged || []), ...(def.melee || [])].filter(w => w.name && has(w));
   }
   const wgNameBtn = (inst, label, cls) => `<button class="wgname ${cls || ''}" data-act="wgInfo" data-id="${inst.instanceId}" data-label="${esc(label)}" aria-label="Show ${esc(label)}">${esc(label)}</button>`;
   function wgCard(w, noName) {
