@@ -2,7 +2,7 @@
 
 Applies to every army in the app: Chaos Space Marines, World Eaters, Death
 Guard, Thousand Sons, Tyranids, Adepta Sororitas (with Imperial Agents),
-Adeptus Mechanicus, Emperor's Children (with Legions of Excess), Drukhari (with Harlequins and Anhrathe allies), Necrons, T'au Empire, Imperial Knights (with Adeptus Mechanicus allies), Space Marines (codex Chapters, with Freeblades allies), Dark Angels (on the Space Marines pool by reference, Freeblades inherited), Blood Angels and Space Wolves (the same way), and
+Adeptus Mechanicus, Emperor's Children (with Legions of Excess), Drukhari (with Harlequins and Anhrathe allies), Necrons, T'au Empire, Imperial Knights (with Adeptus Mechanicus allies), Space Marines (codex Chapters, with Freeblades allies), Dark Angels (on the Space Marines pool by reference, Freeblades inherited), Blood Angels and Space Wolves (the same way), Chaos Knights (with Wretched Thralls allies by reference), and
 any army added later.
 
 Current to: the 30 Sep 2026 update (MFM v1.5; Faction Packs World Eaters,
@@ -26,6 +26,11 @@ Blood Angels (added 2026-10-25) has no 11th-edition Faction Pack either (the Jun
 Marines; the only PDF found is the French v1.1, 10th edition): texts follow Wahapedia 19.10.2026 (source "Blood Angels — App" 03.10.2026),
 structure BSData b4dc3f4 (BA catalogue + BA detachments in the SM catalogue), points BSData = Wahapedia App 2.8.1 (the MFM site cannot be
 reached from here). Rebuilt with an empty delta: `IMPORT=b4dc3f4..b4dc3f4 tools/rules/rebuild.sh bloodAngels`.
+
+Chaos Knights (added 2026-11-04) is current to Faction Pack v1.2 (28.08.2026; Wahapedia source "Chaos Knights — App", App 2.8.1),
+BSData d9156c6 (CK files last changed bb2746a 13.10.2026; the 30.09 import 119dab8 changed points only) and Wahapedia 30.10.2026. Points
+BSData = Wahapedia (MFM not reachable from here). Rebuilt with `IMPORT=119dab8~1..HEAD tools/rules/rebuild.sh chaosKnights` (109 slots,
+no overrides). Decisions: `claude/army-builder/data/chaosKnights_decisions.md`.
 
 ## Order of precedence
 
@@ -225,3 +230,15 @@ Found by `bsdelta.py` across BSData's import (`374f505..HEAD`) plus reviews:
   Company Marines needs a Bolt Rifle (not enforced). Photos: Death Company Dreadnought / Marines / Marines with Jump Packs are cut from the
   Warhammer Community army-set photo (no product of their own); Death Company Captain and Captain with Jump Pack use the logo. Import fixture
   `blood_angels_synthetic` is synthetic: replace with a real export. Details: `audit/bloodAngels_*.md`.
+- Chaos Knights (added 2026-11-04; Faction Pack v1.2 via Wahapedia App, BSData d9156c6): 20 datasheets (9 Imperial Armour), 8 detachments,
+  28 enhancements, 39 stratagems; Wretched Thralls = 7 DAMNED units of Chaos Space Marines by reference (Iconoclast Fiefdom only, 500 pts).
+  Legends (10 DAMNED Legends) and Crusade content excluded. Decisions from the sources: CHAOS on Chaos Cerastus Knight Acheron and the
+  CHAOS KNIGHTS faction keyword on Chaos Questoris Knight Magaera from the pack text (Wahapedia 10e and 11e); BSData lacks them since its
+  10th-edition data and its first 11e commit (not an 11e change). Enhancement names Soul-Spoor Auspicator, Panoply of the Cursed Knight,
+  Hate-Filled Dominion as in the App (Wahapedia). Enhancement eligibility from the restriction lines ("CHAOS KNIGHTS model only" etc.) —
+  BSData also hides most of them from War Dogs; this only matters for a War Dog made CHARACTER by Houndpack Lance with a second detachment.
+  Check against the app: the WAR DOGS tag of Hunting Warpack (Wahapedia text only; no other detachment carries it, so no mechanical tag is
+  set), the "N/A" line left from Wahapedia's Dread table in Harbingers of Dread, DP and Force Dispositions (BSData only). Deferred:
+  Daemonic Pact (Chaos Daemons army), Titanicus Traitoris (Titans army), Dreadblades reverse link (CSM/WE/DG/TS/EC may take 1 TITANIC or
+  up to 3 WAR DOG). Photos 20/20 (Imperial Armour knights in Mechanicum colours: no Chaos version of those kits). Import fixture
+  `chaos_knights_synthetic` is synthetic: replace with a real export.
