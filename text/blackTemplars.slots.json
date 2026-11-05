@@ -1,0 +1,434 @@
+{
+ "_meta": {
+  "faction": "blackTemplars",
+  "factionName": "Black Templars",
+  "dataVersion": "2026-11-05-bt-wahapedia-bsdata",
+  "generatedAt": "2026-11-05",
+  "howTo": "docs/RULES-SOURCES.md",
+  "rules": [
+   "Edit ONLY the plain text fields. Keys starting with _ are context and are ignored.",
+   "Plain text only: no HTML, no markdown, no ** or [] markup. Highlighting is automatic.",
+   "Keep ALL-CAPS keywords, dice notation (D3, D6, 2D6, D6+3) and quotes/inches as written.",
+   "armyRules text is a list: one entry per paragraph.",
+   "Leave a field unchanged if you have not done it yet. Never delete a key."
+  ],
+  "counts": {
+   "armyRules": 0,
+   "detachmentRules": 3,
+   "stratagems": 12,
+   "enhancements": 8,
+   "unitAbilities": 28
+  }
+ },
+ "armyRules": {},
+ "detachments": {
+  "vow_sworn_crusaders": {
+   "_name": "Vow-Sworn Crusaders",
+   "rule": {
+    "_name": "Templar Vows",
+    "text": "At the start of the first battle round, you can select one Vow listed below. That Vow is active for friendly ADEPTUS ASTARTES units until the end of the battle. ABHOR THE WITCH, DESTROY THE WITCH: This unit’s melee attacks that target a PSYKER unit: ■ Have [PRECISION]. ■ Have [LANCE]. ACCEPT ANY CHALLENGE, NO MATTER THE ODDS: Friendly melee attacks that target a unit with a T greater than this unit’s S have +1 to wound rolls. UPHOLD THE HONOUR OF THE EMPEROR: Friendly INFANTRY units have: ■ At the end of your Movement phase, if this unit is controlling an objective, that objective is secured. ■ When this unit is selected to make an advance move, that advance move does not prevent this unit from being eligible to start an action. Restrictions: Your army can include BLACK TEMPLARS units, but it cannot include any ADEPTUS ASTARTES units drawn from any other Chapter."
+   },
+   "stratagems": {
+    "for_the_emperors_honour": {
+     "_name": "For the Emperor's Honour!",
+     "_cp": 1,
+     "_type": "Vow-Sworn Crusaders",
+     "_phases": [
+      "Fight"
+     ],
+     "when": "The Fight phase, when a friendly ADEPTUS ASTARTES INFANTRY unit is selected to fight.",
+     "target": "That ADEPTUS ASTARTES INFANTRY unit.",
+     "effect": "Your unit’s melee attacks have [PRECISION].",
+     "restrictions": null
+    },
+    "pious_enmity": {
+     "_name": "Pious Enmity",
+     "_cp": 1,
+     "_type": "Vow-Sworn Crusaders",
+     "_phases": [
+      "Fight"
+     ],
+     "when": "Fight phase, when a friendly Chaplain/Judiciar unit is selected to fight.",
+     "target": "That CHAPLIN/JUDICIAR unit.",
+     "effect": "■ Your unit’s melee attacks can re-roll hit rolls of 1. ■ Or: Your unit’s melee attacks that target a MONSTER/VEHICLE unit can re-roll hit rolls of 1 and wound rolls of 1.",
+     "restrictions": null
+    },
+    "devout_push": {
+     "_name": "Devout Push",
+     "_cp": 1,
+     "_type": "Vow-Sworn Crusaders",
+     "_phases": [
+      "Fight"
+     ],
+     "when": "Fight phase, when a friendly ADEPTUS ASTARTES INFANTRY unit is selected to make a pile-in/consolidation move.",
+     "target": "That ADEPTUS ASTARTES INFANTRY unit.",
+     "effect": "When making that pile-in/consolidation move, your unit can move up to D3+3\".",
+     "restrictions": null
+    },
+    "heresy_begets_retribution": {
+     "_name": "Heresy Begets Retribution",
+     "_cp": 1,
+     "_type": "Vow-Sworn Crusaders",
+     "_phases": [
+      "Movement"
+     ],
+     "when": "Your opponent’s Movement phase, when an enemy unit ends a move within 8\" of a friendly ADEPTUS ASTARTES INFANTRY unit.",
+     "target": "That ADEPTUS ASTARTES INFANTRY unit.",
+     "effect": "Your unit can make a surge move of up to D6\".",
+     "restrictions": null
+    },
+    "dread_crusaders": {
+     "_name": "Dread Crusaders",
+     "_cp": 1,
+     "_type": "Vow-Sworn Crusaders",
+     "_phases": [
+      "Charge"
+     ],
+     "when": "Your opponent’s Charge phase, when an enemy unit selects charge targets.",
+     "target": "One ADEPTUS ASTARTES INFANTRY unit that was selected as a charge target by that enemy unit this phase.",
+     "effect": "That enemy unit must make a battle-shock roll, with -1 to that battle-shock roll.",
+     "restrictions": null
+    },
+    "spoor_of_the_unholy": {
+     "_name": "Spoor of the Unholy",
+     "_cp": 1,
+     "_type": "Vow-Sworn Crusaders",
+     "_phases": [
+      "Shooting",
+      "Fight"
+     ],
+     "when": "Your Shooting phase or the Fight phase, when a friendly ADEPTUS ASTARTES unit is selected to attack.",
+     "target": "That ADEPTUS ASTARTES unit.",
+     "effect": "Your unit can ignore modifiers to your unit’s: ■ BS and WS. ■ Hit rolls.",
+     "restrictions": null
+    }
+   },
+   "enhancements": {
+    "augury_servo_host": {
+     "_name": "Augury Servo-host",
+     "_pts": 20,
+     "text": "ADEPTUS ASTARTES model only. In your Shooting phase, you can select one visible enemy unit within 18\" of this unit. That enemy unit cannot have the benefit of cover."
+    },
+    "consecrating_aura": {
+     "_name": "Consecrating Aura",
+     "_pts": 20,
+     "text": "ADEPTUS ASTARTES model only. This unit has 5+ InSv."
+    },
+    "incendiary_animus": {
+     "_name": "Incendiary Animus",
+     "_pts": 25,
+     "text": "Chaplain/Judiciar model only. This unit’s melee attacks have +1 S."
+    },
+    "zealous_vanguard": {
+     "_name": "Zealous Vanguard",
+     "_pts": 25,
+     "text": "ADEPTUS ASTARTES model only. This unit has Scouts 6\"."
+    }
+   }
+  },
+  "fist_of_the_god_emperor": {
+   "_name": "Fist of the God-Emperor",
+   "rule": {
+    "_name": "Purge and Sanctify",
+    "text": "Each time a friendly CRUSADER SQUAD unit makes a surge move, instead of selecting a surge target, you can select the closest objective to that unit. When that unit makes that surge move, each model in that unit must end that surge move as close as possible to that objective instead. Restrictions: Your army can include BLACK TEMPLARS units, but it cannot include any ADEPTUS ASTARTES units drawn from any other Chapter."
+   },
+   "stratagems": {
+    "doctrinal_flexibility": {
+     "_name": "Doctrinal Flexibility",
+     "_cp": 1,
+     "_type": "Fist of the God-Emperor",
+     "_phases": [
+      "Command"
+     ],
+     "when": "Your Command phase.",
+     "target": "One friendly Crusader Squad unit.",
+     "effect": "Select one combat doctrine. That combat doctrine is active for your unit until the start of your next Command phase.",
+     "restrictions": null
+    },
+    "avowed_destruction": {
+     "_name": "Avowed Destruction",
+     "_cp": 1,
+     "_type": "Fist of the God-Emperor",
+     "_phases": [
+      "Fight"
+     ],
+     "when": "The Fight phase, when a friendly CRUSADER SQUAD unit is selected to fight.",
+     "target": "That CRUSADER SQUAD unit.",
+     "effect": "Your unit’s melee attacks: ■ Have [LETHAL HITS]. ■ Or: Have [SUSTAINED HITS 1].",
+     "restrictions": null
+    },
+    "angels_defiant": {
+     "_name": "Angels Defiant",
+     "_cp": 1,
+     "_type": "Fist of the God-Emperor",
+     "_phases": [
+      "Shooting",
+      "Fight"
+     ],
+     "when": "Your opponent’s Shooting phase or the Fight phase, when an enemy unit targets a friendly CRUSADER SQUAD unit.",
+     "target": "That CRUSADER SQUAD unit.",
+     "effect": "Attacks that target your unit with a S greater than your unit’s T have -1 to wound rolls.",
+     "restrictions": null
+    }
+   },
+   "enhancements": {
+    "righteous_fervour": {
+     "_name": "Righteous Fervour",
+     "_pts": 15,
+     "text": "CRUSADER SQUAD unit only. This unit can re-roll Advance rolls."
+    },
+    "oathbound_exemplar": {
+     "_name": "Oathbound Exemplar",
+     "_pts": 10,
+     "text": "ADEPTUS ASTARTES INFANTRY unit only. When this unit is selected to make an advance/fall-back move, that advance/fall-back move does not prevent this unit from being eligible to start an action."
+    }
+   }
+  },
+  "marshals_household": {
+   "_name": "Marshal's Household",
+   "rule": {
+    "_name": "Faith-fuelled Resolve",
+    "text": "In the Fight phase, if a friendly Sword Brethren Squad unit is within range of an objective, that unit’s melee attacks have +1 A. Restrictions: Your army can include BLACK TEMPLARS units, but it cannot include any ADEPTUS ASTARTES units drawn from any other Chapter."
+   },
+   "stratagems": {
+    "slayers_of_abominations": {
+     "_name": "Slayers of Abominations",
+     "_cp": 1,
+     "_type": "Marshal's Household",
+     "_phases": [
+      "Fight"
+     ],
+     "when": "Fight phase, when a friendly Sword Brethren Squad unit is selected to fight.",
+     "target": "That SWORD BRETHREN SQUAD unit.",
+     "effect": "Your unit’s melee attacks that target a MONSTER/VEHICLE unit have +2 S.",
+     "restrictions": null
+    },
+    "unsparing_execution": {
+     "_name": "Unsparing Execution",
+     "_cp": 1,
+     "_type": "Marshal's Household",
+     "_phases": [
+      "Movement"
+     ],
+     "when": "Your opponent’s Movement phase, when a unit is selected to make a fall-back move, if that unit is engaged with a friendly Sword Brethren Squad unit.",
+     "target": "That SWORD BRETHREN SQUAD unit.",
+     "effect": "When an enemy unit engaged with your unit is selected to make a fall-back move , that enemy unit must use the desperate escape mode, with -1 to those hazard rolls if that enemy unit is battle-shocked.",
+     "restrictions": null
+    },
+    "blade_of_detestation": {
+     "_name": "Blade of Detestation",
+     "_cp": 1,
+     "_type": "Marshal's Household",
+     "_phases": [
+      "Charge"
+     ],
+     "when": "Your Charge phase, when a friendly Sword Brethren Squad unit ends a charge move.",
+     "target": "That SWORD BRETHREN SQUAD.",
+     "effect": "Select one enemy unit engaged with your unit. Roll one D6 for each model in your unit engaged with that enemy unit: ■ For each 4+, that enemy unit suffers 1 mortal wound (to a maximum of 6 mortal wounds).",
+     "restrictions": null
+    }
+   },
+   "enhancements": {
+    "fervent_exemplars": {
+     "_name": "Fervent Exemplars",
+     "_pts": 10,
+     "text": "Sword Brethren Squad unit only. This unit has +1 to charge rolls."
+    },
+    "inheritors_of_sigismund": {
+     "_name": "Inheritors of Sigismund",
+     "_pts": 15,
+     "text": "Sword Brethren Squad unit only. This unit has Fights First."
+    }
+   }
+  }
+ },
+ "units": {
+  "bt_impulsor": {
+   "_name": "Impulsor",
+   "abilities": {
+    "Rapid Disembarkation": {
+     "_kind": "datasheet",
+     "text": "In your Movement phase, when this unit ends an advance move, units embarked within this unit can make a shock disembark move."
+    },
+    "Orbital Comms Array": {
+     "_kind": "wargear",
+     "text": "This unit has Scouts 6\"."
+    },
+    "Shield Dome": {
+     "_kind": "wargear",
+     "text": "This unit has 5+ InSv."
+    }
+   }
+  },
+  "bt_gladiator_lancer": {
+   "_name": "Gladiator Lancer",
+   "abilities": {
+    "Aquilon Optics": {
+     "_kind": "datasheet",
+     "text": "This unit’s ranged attacks that target a MONSTER/VEHICLE unit can: ■ Re-roll one hit roll. ■ Re-roll one wound roll. ■ Re-roll one damage roll."
+    }
+   }
+  },
+  "bt_gladiator_valiant": {
+   "_name": "Gladiator Valiant",
+   "abilities": {
+    "Priority Target Acquisition": {
+     "_kind": "datasheet",
+     "text": "This unit’s ranged attacks that target a unit within 12\" of this unit have +1 S."
+    }
+   }
+  },
+  "bt_gladiator_reaper": {
+   "_name": "Gladiator Reaper",
+   "abilities": {
+    "Reaping Tally": {
+     "_kind": "datasheet",
+     "text": "This unit’s ranged attacks that target a unit (excluding MONSTER/VEHICLE units) have +1 AP."
+    }
+   }
+  },
+  "bt_repulsor_executioner": {
+   "_name": "Repulsor Executioner",
+   "abilities": {
+    "Executioner": {
+     "_kind": "datasheet",
+     "text": "This unit’s ranged attacks that target a unit not below half-strength have +1 to hit rolls."
+    }
+   }
+  },
+  "bt_repulsor": {
+   "_name": "Repulsor",
+   "abilities": {
+    "Combat Embarkation": {
+     "_kind": "datasheet",
+     "text": "In your opponent’s Charge phase, when an enemy unit has selected charge targets, you can select one friendly unengaged ADEPTUS ASTARTES unit that was one of those charge targets and is eligible to embark within this TRANSPORT. If every model in that unit is within 3\" of this TRANSPORT, that unit can embark within this TRANSPORT. That enemy unit can then select new charge targets for that charge move."
+    }
+   }
+  },
+  "chaplain_grimaldus": {
+   "_name": "Chaplain Grimaldus",
+   "abilities": {
+    "Temple Relics": {
+     "_kind": "datasheet",
+     "text": "At the start of your Command phase, if this unit contains one or more Cenobyte Servitor models, select up to one of the abilities in the Temple Relics section. Until the start of your next Command phase, this model has that ability."
+    },
+    "Faithful Cenobytes": {
+     "_kind": "datasheet",
+     "text": "■ If this unit’s Chaplain Grimaldus model is destroyed, this unit’s remaining Cenobyte Servitor models are also destroyed. ■ Each Cenobyte Servitor model in this unit takes up 0 transport capacity."
+    },
+    "Litanies of the Devout": {
+     "_kind": "datasheet",
+     "text": "This unit’s melee attacks can re-roll hit rolls."
+    },
+    "Banner of the Emperor Victorious": {
+     "_kind": "datasheet",
+     "text": "This unit has +1 to advance rolls and charge rolls."
+    },
+    "Column from the Major Altar": {
+     "_kind": "datasheet",
+     "text": "This unit has +1 T."
+    },
+    "Water from the Stoup of Elucidation": {
+     "_kind": "datasheet",
+     "text": "This unit’s melee attacks have +1 AP."
+    }
+   }
+  },
+  "castellan": {
+   "_name": "Castellan",
+   "abilities": {
+    "Vehement Aggression": {
+     "_kind": "datasheet",
+     "text": "In the Fight phase, when this unit is selected to fight, you can use this ability. If you do, make a leadership roll for this unit: ■ This unit’s melee attacks can re-roll hit rolls of 1. ■ Or: If that roll succeeds: This unit’s melee attacks: ■ Can re-roll hit rolls of 1. ■ Can re-roll wound rolls of 1."
+    }
+   }
+  },
+  "high_marshal_helbrecht": {
+   "_name": "High Marshal Helbrecht",
+   "abilities": {
+    "High Marshal": {
+     "_kind": "datasheet",
+     "text": "At the start of the Fight phase, select up to one enemy unit engaged with this unit and roll one D6: ■ On a 2-3, that enemy unit suffers D3 mortal wounds. ■ On a 4-5, that enemy unit suffers 3 mortal wounds. ■ On a 6+, that enemy unit suffers D3+3 mortal wounds."
+    },
+    "Crusade of Wrath": {
+     "_kind": "datasheet",
+     "text": "This unit’s melee attacks have: ■ +1 A. ■ +1 S."
+    }
+   }
+  },
+  "emperors_champion": {
+   "_name": "Emperor's Champion",
+   "abilities": {
+    "Armour of Faith": {
+     "_kind": "datasheet",
+     "text": "Attacks allocated to this model have -1 D."
+    },
+    "Chosen of the Emperor": {
+     "_kind": "datasheet",
+     "text": "You cannot include more than one EMPEROR’S CHAMPION unit in your army."
+    },
+    "Sigismund's Heir": {
+     "_kind": "datasheet",
+     "text": "This unit has +1 to charge rolls."
+    }
+   }
+  },
+  "marshal": {
+   "_name": "Marshal",
+   "abilities": {
+    "Inspirational Exemplar": {
+     "_kind": "datasheet",
+     "text": "This unit’s melee attacks have +1 to hit rolls."
+    },
+    "Pious Fervour": {
+     "_kind": "datasheet",
+     "text": "When this unit is selected to fight, you can use this ability. If you do, this model’s melee attacks have +1 A for each enemy unit within 6\" of this model (to a maximum of +3 A)."
+    }
+   }
+  },
+  "sword_brethren_squad": {
+   "_name": "Sword Brethren Squad",
+   "abilities": {
+    "Exploit their Cowardice": {
+     "_kind": "datasheet",
+     "text": "In your opponent’s Movement phase, when an enemy unit that was engaged with this unit ends a fall-back move, if this unit is unengaged it can make a normal move of up to 6\"."
+    }
+   }
+  },
+  "crusader_squad": {
+   "_name": "Crusader Squad",
+   "abilities": {
+    "Righteous Zeal": {
+     "_kind": "datasheet",
+     "text": "In your opponent’s Shooting phase, when an enemy unit has shot, if a model in this unit was destroyed by those attacks, this unit can make a surge move of up to D6+1\"."
+    }
+   }
+  },
+  "execrator": {
+   "_name": "Execrator",
+   "abilities": {
+    "Remorseless Persecution": {
+     "_kind": "datasheet",
+     "text": "In your Movement phase, when this unit is selected to make an advance move, that advance move does not prevent this unit from being eligible to declare a charge."
+    },
+    "Condemnatory Annihilation": {
+     "_kind": "datasheet",
+     "text": "After this unit has fought, if this unit destroyed an enemy model this phase, each enemy unit engaged with this unit makes a battle-shock roll, with -1 to that battle-shock roll."
+    }
+   }
+  },
+  "crusade_ancient": {
+   "_name": "Crusade Ancient",
+   "abilities": {
+    "Martial Honour (Once per battle, per unit)": {
+     "_kind": "datasheet",
+     "text": "If this unit’s melee attacks destroyed an enemy unit this phase, you can use this ability. If you do, until the end of the battle, this model has +5 OC."
+    },
+    "Vengeful Exhortation": {
+     "_kind": "datasheet",
+     "text": "In the Fight phase, you can use this ability. If you do, when a model in this unit is destroyed, if this unit has not been selected to fight this phase, roll one D6: ■ On a 4+, do not remove this model from the battlefield. When your unit has fought, or at the end of the phase (whichever comes first), this model is removed from the battlefield."
+    }
+   }
+  }
+ }
+}

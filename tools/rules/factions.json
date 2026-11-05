@@ -21,5 +21,6 @@
  "darkAngels":       { "wahapedia": ["SM"], "bsdata": ["Imperium - Dark Angels.json", "Imperium - Space Marines.json"], "packVersion": "app-2.8.1", "wahapediaVersion": "app-2.8.1" },
  "bloodAngels":      { "wahapedia": ["SM"], "bsdata": ["Imperium - Blood Angels.json", "Imperium - Space Marines.json"], "packVersion": "app-2.8.1", "wahapediaVersion": "app-2.8.1" },
  "spaceWolves":      { "wahapedia": ["SM"], "bsdata": ["Imperium - Space Wolves.json", "Imperium - Space Marines.json"], "packVersion": "app-2.8.1", "wahapediaVersion": "app-2.8.1" },
- "chaosKnights":     { "wahapedia": ["QT"], "bsdata": ["Chaos - Chaos Knights.json", "Chaos - Chaos Knights Library.json"], "packVersion": "1.2", "wahapediaVersion": "1.2" }
+ "chaosKnights":     { "wahapedia": ["QT"], "bsdata": ["Chaos - Chaos Knights.json", "Chaos - Chaos Knights Library.json"], "packVersion": "1.2", "wahapediaVersion": "1.2" },
+ "blackTemplars":    { "wahapedia": ["SM"], "bsdata": ["Imperium - Black Templars.json", "Imperium - Space Marines.json"], "packVersion": "app-2.8.1", "wahapediaVersion": "app-2.8.1" }
 }

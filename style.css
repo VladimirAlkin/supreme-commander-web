@@ -2085,3 +2085,63 @@ body.fx-on #app * { animation-play-state: paused !important; }
 .wgkw dt { font-weight: 700; font-size: .85rem; letter-spacing: .03em; text-transform: uppercase; margin-top: 6px; }
 .wgkw dd { margin: 0; font-size: .92rem; line-height: 1.4; color: var(--fg-dim); }
 .wgtext { font-size: .98rem; line-height: 1.5; }
+/* Black Templars effects (vowFx, relicFx, bannerFx): bitmaps baked once, transform/opacity only */
+.btfx { position: fixed; inset: 0; z-index: 9000; pointer-events: none; overflow: hidden; }
+.btfx i, .btfx img, .btfx div, .btfx svg { position: absolute; display: block; }
+.btf-vig { inset: 0; background: radial-gradient(ellipse at 50% 42%, rgba(7, 5, 6, .25) 18%, rgba(7, 5, 6, .92) 72%); }
+.btf-stage { left: 50%; top: 42%; width: 0; height: 0; }
+.btf-glow { width: 320px; height: 320px; left: -160px; top: -180px; }
+.btf-rays { width: 600px; height: 600px; left: -300px; top: -320px; }
+.btf-cd { width: 18px; }
+.btf-halo { width: 150px; height: 150px; left: -66px; top: -104px; }
+.btf-fl { width: 16px; height: 40px; left: 1px; top: -44px; transform-origin: 50% 100%; }
+.btf-wick { left: 8px; top: -6px; width: 2px; height: 7px; background: #2a1f18; }
+.btf-wax { left: 0; top: 0; width: 18px; border-radius: 3px 3px 2px 2px; background: linear-gradient(90deg, #a8987a, #efe5cf 35%, #f7f0de 50%, #d6c8a8 75%, #9c8c6e); }
+.btf-drip { left: 3px; top: 0; width: 5px; border-radius: 0 0 3px 3px; background: linear-gradient(90deg, #d6c8a8, #f5eedc); } .btf-drip.r { left: 11px; width: 4px; }
+.btf-emb { width: 6px; height: 6px; left: 6px; top: -40px; }
+.btf-ring { left: -60px; top: -80px; width: 120px; height: 120px; border-radius: 50%; border: 3px solid rgba(246, 226, 176, .9); }
+.btf-ring.b { border: 2px solid rgba(163, 22, 28, .9); }
+.btf-dust { left: -2px; top: 18px; width: 3px; height: 3px; border-radius: 50%; background: #E9DFC6; }
+.btf-cross { left: -75px; top: -95px; width: 150px; height: 150px; }
+.btf-scr { left: -150px; top: 70px; width: 300px; height: 96px; }
+.btf-win { left: 0; top: 6px; width: 300px; height: 78px; overflow: hidden; }
+.btf-par { inset: 0; transform: translateY(-100%); text-align: center; background: linear-gradient(90deg, #b9a57a, #efe3c4 10%, #f6edd5 50%, #efe3c4 90%, #b9a57a); }
+.btf-k { left: 0; right: 0; top: 13px; font-size: 10px; font-weight: 700; letter-spacing: .32em; color: #A3161C; font-style: normal; }
+.btf-v { left: 8px; right: 8px; top: 30px; font-family: Georgia, 'Times New Roman', serif; font-style: italic; font-size: 17px; line-height: 1.25; color: #3a2414; }
+.btfx .btf-v span { display: inline-block; position: static; white-space: pre; }
+.btf-rol { left: -12px; top: 0; width: 324px; height: 12px; border-radius: 6px; background: linear-gradient(#6e5532, #e8d3a0 45%, #6a5030); }
+.btf-flash { inset: 0; background: radial-gradient(circle at 50% 38%, rgba(255, 248, 225, .8), rgba(246, 226, 176, .22) 30%, rgba(0, 0, 0, 0) 62%); }
+.btf-glow, .btf-rays, .btf-fl, .btf-halo, .btf-emb, .btf-ring, .btf-dust, .btf-cross, .btf-scr, .btf-flash, .btfx .btf-v span { opacity: 0; }
+.btf-beam { top: -330px; width: 150px; height: 450px; transform-origin: 50% 0; background: linear-gradient(rgba(246, 226, 176, 0), rgba(246, 226, 176, .32) 55%, rgba(246, 226, 176, .06)); clip-path: polygon(38% 0, 62% 0, 100% 100%, 0 100%); }
+.btf-mote { width: 5px; height: 5px; }
+.btf-rel { top: -40px; width: 90px; height: 140px; }
+.btf-rel svg { left: 0; top: 0; width: 90px; height: 110px; }
+.btf-plinth { left: -6px; top: 110px; width: 102px; height: 24px; border-radius: 3px; background: linear-gradient(90deg, #2a2224, #5a4c48 45%, #3a3032 70%, #1c1617); }
+.btf-rhalo { width: 200px; height: 200px; left: -55px; top: -45px; }
+.btf-rl { top: 162px; width: 80px; height: 1px; } .btf-rl.a { left: -170px; transform-origin: 100% 0; background: linear-gradient(90deg, rgba(205, 185, 140, 0), #CDB98C); } .btf-rl.b { left: 90px; transform-origin: 0 0; background: linear-gradient(90deg, #CDB98C, rgba(205, 185, 140, 0)); }
+.btf-rn { left: -180px; width: 360px; top: 150px; text-align: center; font-family: Georgia, 'Times New Roman', serif; font-style: italic; font-size: 16px; color: #F6E2B0; }
+.btf-ban { left: -70px; top: -150px; width: 140px; height: 260px; transform-origin: 50% 100%; }
+.btf-pole { left: 66px; top: 6px; width: 8px; height: 254px; border-radius: 3px; background: linear-gradient(90deg, #4a3720, #d9b56a 40%, #f3dca0 50%, #a07c3e 70%, #3e2e1a); }
+.btf-fin { left: 58px; top: -4px; width: 24px; height: 24px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #fff2c8, #d9b56a 45%, #6e5228); }
+.btf-bar { left: 6px; top: 20px; width: 128px; height: 8px; border-radius: 4px; background: linear-gradient(#6e5532, #f3dca0 45%, #6a5030); }
+.btf-cwin { left: 14px; top: 27px; width: 112px; height: 170px; overflow: hidden; }
+.btf-cloth { inset: 0; transform: translateY(-100%); transform-origin: 50% 0; } .btf-cloth svg { inset: 0; width: 100%; height: 100%; }
+.btf-tas { top: 26px; width: 8px; height: 44px; border-radius: 0 0 4px 4px; background: linear-gradient(90deg, #8f6c34, #f3dca0, #8f6c34); } .btf-tas.a { left: 2px; } .btf-tas.b { left: 130px; }
+.btf-ring.c { left: -50px; top: -95px; width: 100px; height: 100px; border-width: 2px; }
+.btf-emb.b { width: 6px; height: 6px; }
+.btf-occ { left: 90px; top: -40px; width: 110px; height: 110px; }
+.btf-ocl { left: 0; right: 0; top: 0; text-align: center; color: #CDB98C; font-size: 11px; font-weight: 700; letter-spacing: .3em; font-style: normal; }
+.btf-ocb { left: 18px; top: 18px; width: 74px; height: 62px; border-radius: 10px; background: #070506; border: 1px solid #CDB98C; overflow: hidden; }
+.btf-numc { left: 0; right: 0; top: 3px; } .btfx .btf-numc i { position: static; display: block; height: 56px; text-align: center; color: #F6E2B0; font-size: 42px; font-weight: 700; line-height: 56px; font-style: normal; }
+.btf-plus { left: 0; right: 0; top: 86px; text-align: center; color: #e2474a; font-size: 15px; font-weight: 700; font-style: normal; }
+.btf-hl { left: -160px; width: 320px; top: 130px; text-align: center; color: #F6E2B0; font-size: 13px; font-weight: 700; letter-spacing: .4em; font-style: normal; }
+.btfx .btf-hl span { display: inline-block; position: static; white-space: pre; }
+.btf-sub { left: -160px; width: 320px; top: 152px; text-align: center; color: #E9DFC6; font-family: Georgia, 'Times New Roman', serif; font-style: italic; font-size: 16px; }
+.btf-flash.c { background: radial-gradient(circle at 50% 32%, rgba(255, 248, 225, .55), rgba(246, 226, 176, .15) 30%, rgba(0, 0, 0, 0) 62%); }
+.btf-beam, .btf-mote, .btf-rel, .btf-rhalo, .btf-rl, .btf-rn, .btf-ban, .btf-tas, .btf-occ, .btf-plus, .btf-sub, .btfx .btf-hl span { opacity: 0; }
+/* Black Templars Play cards: Temple Relics picks, Martial Honour button (palette Votive Wax) */
+.rpk-relic, .rpanel-relic .rpk { color: #E9DFC6; background: linear-gradient(180deg, #201A1C, #141113); border: 1px solid rgba(205, 185, 140, .35); }
+.rpk-relic .rpk-e { color: #CDB98C; } .rpk-relic .rpk-s { color: #F6E2B0; }
+.rpk-relic.on { border-color: #F6E2B0; box-shadow: 0 0 14px rgba(246, 226, 176, .28); } .rpk-relic.on .rpk-s { color: #fff6dc; }
+.hop-honour { color: #E9DFC6; background: linear-gradient(180deg, #201A1C, #141113); border-color: rgba(163, 22, 28, .5); } .hop-honour .hop-s { color: #F6E2B0; } .hop-honour::before { display: none; }
+.hop-honour.now { border-color: #A3161C; box-shadow: 0 0 14px rgba(163, 22, 28, .35); } .hop-honour.done { border-color: rgba(205, 185, 140, .4); opacity: .8; }

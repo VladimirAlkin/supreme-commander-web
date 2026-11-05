@@ -1517,6 +1517,7 @@
     return rp.default || null;
   }
   function roundPickHTML(r, p, u, def) {
+    if (def.roundPick.fx === 'relic') setTimeout(btBake, 0);   // bitmaps ready before the first tap
     const rp = def.roundPick, sel = rpSel(p, u, rp), dead = unitDead(p, u), opts = rp.options.filter(o => sel.includes(o.id)), multi = rp.max > 1;
     const badge = dead ? '<span class="badge">Dead</span>' : opts.length ? `<span class="badge gold">Round ${p.round}: ${esc(opts.map(o => o.name).join(' + '))}</span>` : `<span class="badge ${p.turn === (p.first || 'mine') ? 'gold' : ''}">Round ${p.round}: ${multi ? `pick up to ${rp.max}` : 'pick one'}</span>`;
     const cards = rp.options.map((o, i) => `<button class="rpk rpk-${rp.style} ${sel.includes(o.id) ? 'on' : ''}" style="--d:-${(i * 1.4).toFixed(1)}s" data-act="rpPick" data-u="${u.instanceId}" data-id="${o.id}" aria-pressed="${sel.includes(o.id)}" ${dead ? 'aria-disabled="true"' : ''}>${rp.style === 'canticle' ? `<span class="ctg" aria-hidden="true" style="--c:${CANT[(o.fx || '').split('-')[1]] || CANT.gold}">${cogSvg('ctg-1')}${cogSvg('ctg-2')}${cogSvg('ctg-3')}</span>` : ''}<span class="rpk-mark" aria-hidden="true" ${rp.style === 'wrath' && IMG.we_rune ? `style="--rune:url('${IMG.we_rune}')"` : rp.style === 'slaanesh' && IMG.ec_slaanesh ? `style="--sym:url('${IMG.ec_slaanesh}')"` : ''}></span>${rp.style === 'slaanesh' ? SL_DECO : ''}<span class="rpk-t"><b>${esc(o.name)}</b></span><span class="rpk-s">${sel.includes(o.id) ? 'Active' : dead ? '' : 'Pick'}</span><span class="rpk-e">${esc(o.effect)}</span></button>`).join('');
@@ -1592,6 +1593,7 @@
   }
   function battlePickHTML(r, p, d) {
     const bp = d.battlePick, key = bp.key || 'aug', picked = p[key] || [];
+    if (bp.fx === 'vow') setTimeout(btBake, 0);   // bitmaps ready before the first tap
     if (bp.style === 'warpfire') return dreadHTML(r, p, bp, key, picked);
     return panel2(bp.title, picked.length ? `<span class="badge gold">${picked.length}/${bp.count} active</span>` : '<span class="badge">Pick at battle start</span>',
       `<div class="dim">${esc(bp.note)}</div>${Object.keys(bp.extraByEnh || {}).filter(id => r.units.some(x => Engine.enhIds(x).includes(id))).map(id => `<div class="dim"><b>Enhancement:</b> ${esc(bp.extraByEnh[id])}</div>`).join('')}<div class="choicechips augrow">${bp.options.map(o => `<button class="cchip ${picked.includes(o.id) ? 'on' : ''}" data-act="csmAug" data-key="${key}" data-fx="${bp.fx || ''}" data-id="${o.id}" aria-pressed="${picked.includes(o.id)}">${esc(o.name)}</button>`).join('')}</div>${picked.length ? `<div class="stack" style="gap:4px;margin-top:8px">${picked.map(id => { const o = bp.options.find(x => x.id === id); return o ? `<div class="dim"><b>${esc(o.name)}</b>: ${esc(o.effect)}</div>` : ''; }).join('')}</div>` : ''}`);
@@ -1943,7 +1945,145 @@
      repainted every frame) are paused, so the effect's layers only need the compositor */
   let fxHoldT = 0;
   function fxHold(ms) { document.body.classList.add('fx-on'); clearTimeout(fxHoldT); fxHoldT = setTimeout(() => document.body.classList.remove('fx-on'), ms); }
-  const ONCE_FX = { saviour: saviourFx, finest: finestFx, howl: howlFx, frost: frostFx };
+  /* altProfiles: a group of non-leader models with their own statline (Crusader Squad Neophytes). {name, models: {unitSize: count}, M/T/Sv/InSv/W/Ld/OC that differ} */
+  function altProfilesHTML(def, inst) {
+    if (!Array.isArray(def.altProfiles) || !def.altProfiles.length) return '';
+    return def.altProfiles.map(a => { if (!a || !a.name) return '';
+      const n = a.models ? (inst ? a.models[inst.size] : [...new Set(Object.values(a.models))].join(' / ')) : null;
+      const st = ['M', 'T', 'Sv', 'InSv', 'W', 'Ld', 'OC'].filter(k => a[k] != null).map(k => `${k === 'InSv' ? 'invuln' : k} ${esc(a[k])}`).join(', ');
+      return `<div class="dim" style="font-size:.9rem">${esc(a.name)}${n ? ` (${esc(n)} models)` : ''}: ${st}. The other models use the line above.</div>`; }).join('');
+  }
+  /* ---- Black Templars effects. Moving layers are bitmaps baked once on a canvas (flame, halo, rays, glow, ember); only transform/opacity
+     animate, no CSS filter; off under prefers-reduced-motion. ---- */
+  const BTI = {};
+  function btBake() {
+    if (BTI.ok) return BTI;
+    const cv = (w, h, f) => { const c = document.createElement('canvas'); c.width = w; c.height = h; f(c.getContext('2d'), w, h); return c.toDataURL('image/png'); };
+    const rg = (g, x, y, r, st) => { const q = g.createRadialGradient(x, y, 0, x, y, r); st.forEach(([o, c]) => q.addColorStop(o, c)); return q; };
+    const drop = (g, w, h, k) => { g.beginPath(); g.moveTo(w / 2, h * (1 - k) + 2); g.bezierCurveTo(w * .97, h * (1 - k * .55), w * .9, h - 2, w / 2, h - 2); g.bezierCurveTo(w * .1, h - 2, w * .03, h * (1 - k * .55), w / 2, h * (1 - k) + 2); };
+    BTI.flame = cv(32, 80, (g, w, h) => {
+      drop(g, w, h, 1); g.fillStyle = rg(g, w / 2, h * .8, h * .78, [[0, '#fffbe8'], [.3, '#ffe08a'], [.62, '#ff9d32'], [1, 'rgba(255,110,20,0)']]); g.fill();
+      drop(g, w, h, .62); g.fillStyle = rg(g, w / 2, h * .84, h * .5, [[0, '#ffffff'], [.6, '#fff3c4'], [1, 'rgba(255,240,190,0)']]); g.fill();
+      g.fillStyle = rg(g, w / 2, h - 7, 9, [[0, 'rgba(110,150,255,.8)'], [1, 'rgba(110,150,255,0)']]); g.fillRect(0, h - 16, w, 16); });
+    BTI.halo = cv(160, 160, (g, w) => { g.fillStyle = rg(g, w / 2, w / 2, w / 2, [[0, 'rgba(246,226,176,.48)'], [.35, 'rgba(240,170,80,.15)'], [.7, 'rgba(240,170,80,0)']]); g.fillRect(0, 0, w, w); });
+    BTI.glow = cv(320, 320, (g, w) => { g.fillStyle = rg(g, w / 2, w / 2, w / 2, [[0, 'rgba(246,226,176,.5)'], [.4, 'rgba(163,22,28,.2)'], [.68, 'rgba(0,0,0,0)']]); g.fillRect(0, 0, w, w); });
+    BTI.ember = cv(12, 12, (g, w) => { g.fillStyle = rg(g, 6, 6, 6, [[0, '#fff2c8'], [.6, '#ff9d32'], [1, 'rgba(255,120,30,0)']]); g.fillRect(0, 0, w, w); });
+    BTI.rays = cv(600, 600, (g, w) => { const c = w / 2; g.fillStyle = 'rgba(246,226,176,.26)';
+      for (let i = 0; i < 18; i++) { const a = i * Math.PI * 2 / 18, d = .05; g.beginPath(); g.moveTo(c, c); g.lineTo(c + c * Math.cos(a - d), c + c * Math.sin(a - d)); g.lineTo(c + c * Math.cos(a + d), c + c * Math.sin(a + d)); g.closePath(); g.fill(); }
+      g.globalCompositeOperation = 'destination-in'; g.fillStyle = rg(g, c, c, c, [[0, 'rgba(0,0,0,1)'], [.16, 'rgba(0,0,0,1)'], [.5, 'rgba(0,0,0,.55)'], [1, 'rgba(0,0,0,0)']]); g.fillRect(0, 0, w, w); });
+    BTI.ok = 1; return BTI;
+  }
+  const BT_CROSS = 'M-9-9L-26-64L0-50L26-64L9-9L64-26L50 0L64 26L9 9L26 64L0 50L-26 64L-9 9L-64 26L-50 0L-64-26Z';
+  const btScale = () => Math.min(1, innerWidth / 420, innerHeight / 560).toFixed(3);
+  /* Templar Vow taken: the screen dims, six votive candles light one by one and flicker, a fan of light opens behind, the cross pattée
+     slams down (flash, two shock rings, dust), a parchment scroll unrolls under it and the Vow appears word by word. ~3.6 s. */
+  function vowFx(name) {
+    if (reducedMotion()) return;
+    const B = btBake(), R = (a, c) => a + Math.random() * (c - a), FADE_T = 3000, END_T = 3600, HIT = 1180;
+    const C = [[-168, 40, 64], [-122, 8, 88], [-76, 50, 52], [76, 50, 52], [122, 8, 88], [168, 40, 64]];
+    const fx = document.createElement('div'); fx.className = 'btfx'; fx.setAttribute('aria-hidden', 'true');
+    fx.innerHTML = '<div class="btf-vig"></div>'
+      + `<div class="btf-stage" style="transform:scale(${btScale()})"><img class="btf-glow" src="${B.glow}" alt=""><img class="btf-rays" src="${B.rays}" alt="">`
+      + C.map(([x, y, h], i) => `<div class="btf-cd" style="left:${x - 9}px;top:${y}px"><img class="btf-halo" src="${B.halo}" alt=""><img class="btf-fl" src="${B.flame}" alt=""><i class="btf-wick"></i><i class="btf-wax" style="height:${h}px"></i><i class="btf-drip" style="height:${12 + i * 5 % 17}px"></i><i class="btf-drip r" style="height:${6 + i * 7 % 11}px"></i>`
+        + Array.from({ length: 3 }, () => `<img class="btf-emb" src="${B.ember}" alt="">`).join('') + '</div>').join('')
+      + '<i class="btf-ring"></i><i class="btf-ring b"></i>' + Array.from({ length: 14 }, () => '<i class="btf-dust"></i>').join('')
+      + `<svg class="btf-cross" viewBox="-72 -72 144 144"><defs><linearGradient id="btEn" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3a3134"/><stop offset=".45" stop-color="#0d0a0b"/><stop offset="1" stop-color="#030202"/></linearGradient><linearGradient id="btIv" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFF4D6"/><stop offset=".5" stop-color="#E9DFC6"/><stop offset="1" stop-color="#9c8a62"/></linearGradient></defs><path d="${BT_CROSS}" fill="url(#btEn)" stroke="url(#btIv)" stroke-width="7" stroke-linejoin="round"/><path d="${BT_CROSS}" fill="none" stroke="#A3161C" stroke-width="2.2" transform="scale(.76)"/><path d="M-9-9L-26-64L0-50L26-64L9-9Z" fill="#fff" opacity=".07"/></svg>`
+      + `<div class="btf-scr"><div class="btf-win"><div class="btf-par"><i class="btf-k">TEMPLAR VOW</i><i class="btf-v">${String(name).split(' ').map(w => `<span>${esc(w)} </span>`).join('')}</i></div></div><i class="btf-rol"></i><i class="btf-rol btf-rb"></i></div>`
+      + '</div><div class="btf-flash"></div>';
+    document.body.appendChild(fx);
+    const q = s => fx.querySelector(s), qa = s => fx.querySelectorAll(s), E = 'cubic-bezier(.2,.8,.2,1)';
+    fxHold(END_T + 100);
+    swA(q('.btf-vig'), [{ opacity: 0 }, { opacity: 1 }], { duration: 450, easing: E });
+    qa('.btf-cd').forEach((c, i) => swA(c, [{ opacity: 0, transform: 'translateY(10px)' }, { opacity: 1, transform: 'translateY(0)' }], { delay: i * 40, duration: 450, easing: E }));
+    fx.querySelectorAll('.btf-cd').forEach((c, i) => { const d = 180 + i * 115, f = c.querySelector('.btf-fl'), h = c.querySelector('.btf-halo');
+      swA(f, [{ opacity: 0, transform: 'scale(.1,.3)' }, { opacity: 1, transform: 'scale(1.25,1.3)', offset: .5 }, { opacity: 1, transform: 'scale(1)' }], { delay: d, duration: 360, easing: E });
+      swA(h, [{ opacity: 0 }, { opacity: 1 }], { delay: d, duration: 500 });
+      f.animate([{ transform: 'scale(1,1) skewX(0)' }, { transform: 'scale(.94,1.12) skewX(2deg)' }, { transform: 'scale(1.04,.95) skewX(-1.5deg)' }, { transform: 'scale(.97,1.07) skewX(1deg)' }, { transform: 'scale(1,1) skewX(0)' }], { delay: d + 360, duration: 900 + i * 130, iterations: Infinity, easing: 'ease-in-out', composite: 'replace' });
+      c.querySelectorAll('.btf-emb').forEach((e, k) => swA(e, [{ opacity: 0, transform: 'translate(0,0)' }, { opacity: 1, offset: .15 }, { opacity: 0, transform: `translate(${R(-20, 20).toFixed(0)}px,-${R(80, 140).toFixed(0)}px)` }], { delay: d + 400 + k * 600, duration: R(1800, 2600), easing: 'ease-out' })); });
+    swA(q('.btf-glow'), [{ opacity: 0, transform: 'scale(.5)' }, { opacity: 1, transform: 'scale(1)' }], { delay: 650, duration: 900, easing: E });
+    swA(q('.btf-rays'), [{ opacity: 0, transform: 'rotate(-25deg) scale(.5)' }, { opacity: 1, transform: 'rotate(0) scale(1)', offset: .5 }, { opacity: 1, transform: 'rotate(14deg) scale(1)' }], { delay: 1000, duration: 2600, easing: 'cubic-bezier(.16,1,.3,1)' });
+    swA(q('.btf-cross'), [{ opacity: 0, transform: 'translateY(-30px) scale(2.8) rotate(-18deg)' }, { opacity: 1, transform: 'translateY(0) scale(.88) rotate(0)', offset: .78 }, { transform: 'scale(1.05)', offset: .9 }, { opacity: 1, transform: 'scale(1)' }], { delay: 700, duration: 620, easing: 'cubic-bezier(.6,0,.9,.5)' });
+    swA(q('.btf-flash'), [{ opacity: 0 }, { opacity: 1, offset: .15 }, { opacity: 0 }], { delay: HIT, duration: 600, easing: 'ease-out' });
+    swA(q('.btf-ring'), [{ opacity: 1, transform: 'scale(.5)' }, { opacity: 0, transform: 'scale(3.6)' }], { delay: HIT, duration: 900, easing: 'cubic-bezier(.1,.7,.3,1)', fill: 'forwards' });
+    swA(q('.btf-ring.b'), [{ opacity: .9, transform: 'scale(.5)' }, { opacity: 0, transform: 'scale(2.6)' }], { delay: HIT + 120, duration: 900, easing: 'cubic-bezier(.1,.7,.3,1)', fill: 'forwards' });
+    swA(q('.btf-stage'), [{ translate: '0 0' }, { translate: '-3px 2px' }, { translate: '3px -2px' }, { translate: '0 0' }], { delay: HIT, duration: 220, fill: 'none' });
+    qa('.btf-dust').forEach((p, k) => { const a = Math.PI + k * Math.PI / 13; swA(p, [{ opacity: .9, transform: 'translate(0,0)' }, { opacity: 0, transform: `translate(${(Math.cos(a) * (70 + k * 5)).toFixed(0)}px,${(Math.sin(a) * 40 - 10).toFixed(0)}px)` }], { delay: HIT, duration: 800, easing: 'cubic-bezier(.1,.7,.3,1)', fill: 'forwards' }); });
+    swA(q('.btf-scr'), [{ opacity: 0 }, { opacity: 1 }], { delay: HIT + 250, duration: 200 });
+    swA(q('.btf-par'), [{ transform: 'translateY(-100%)' }, { transform: 'translateY(0)' }], { delay: HIT + 300, duration: 700, easing: 'cubic-bezier(.3,.7,.2,1)' });
+    swA(q('.btf-rb'), [{ transform: 'translateY(0)' }, { transform: 'translateY(78px)' }], { delay: HIT + 300, duration: 700, easing: 'cubic-bezier(.3,.7,.2,1)' });
+    qa('.btf-v span').forEach((s, i) => swA(s, [{ opacity: 0, transform: 'translateY(5px)' }, { opacity: 1, transform: 'translateY(0)' }], { delay: HIT + 850 + i * 90, duration: 400, easing: E }));
+    swA(fx, [{ opacity: 1 }, { opacity: 0 }], { delay: FADE_T, duration: END_T - FADE_T });
+    setTimeout(() => fx.remove(), END_T + 60);
+    if (PL.android) { PL.haptic('confirm'); setTimeout(() => PL.haptic('confirm'), HIT); }
+  }
+  const BT_RELICS = {
+    banner: '<svg viewBox="0 0 90 110"><defs><linearGradient id="btG1" x1="0" x2="1"><stop offset="0" stop-color="#7a5a2a"/><stop offset=".5" stop-color="#f3dca0"/><stop offset="1" stop-color="#7a5a2a"/></linearGradient><linearGradient id="btCl" x1="0" x2="1"><stop offset="0" stop-color="#cdb98c"/><stop offset=".5" stop-color="#f6edd5"/><stop offset="1" stop-color="#bfa978"/></linearGradient></defs><rect x="22" y="4" width="5" height="104" rx="2" fill="url(#btG1)"/><rect x="18" y="14" width="56" height="5" rx="2" fill="url(#btG1)"/><path d="M27 19H72V78L60 70L49.5 80L39 70L27 78Z" fill="url(#btCl)"/><path d="' + BT_CROSS + '" transform="translate(49.5 44) scale(.24)" fill="#A3161C"/><circle cx="24.5" cy="5" r="5" fill="#f3dca0"/></svg>',
+    column: '<svg viewBox="0 0 90 110"><defs><linearGradient id="btMb" x1="0" x2="1"><stop offset="0" stop-color="#9c8d72"/><stop offset=".4" stop-color="#f2ebdb"/><stop offset=".7" stop-color="#d8ccb2"/><stop offset="1" stop-color="#8a7b60"/></linearGradient></defs><path d="M22 22L30 14L36 20L44 10L50 18L58 12L68 22Z" fill="url(#btMb)"/><rect x="16" y="22" width="58" height="10" rx="2" fill="url(#btMb)"/><rect x="24" y="32" width="42" height="62" fill="url(#btMb)"/><path d="M32 34v58M40 34v58M48 34v58M56 34v58" stroke="#8a7b60" stroke-width="2" opacity=".45"/><rect x="14" y="94" width="62" height="12" rx="2" fill="url(#btMb)"/></svg>',
+    stoup: '<svg viewBox="0 0 90 110"><defs><linearGradient id="btSv" x1="0" x2="1"><stop offset="0" stop-color="#6a6158"/><stop offset=".45" stop-color="#f1ead8"/><stop offset=".7" stop-color="#b9ae96"/><stop offset="1" stop-color="#5a5248"/></linearGradient></defs><path d="M8 46H82Q78 82 45 84T8 46Z" fill="url(#btSv)"/><ellipse cx="45" cy="46" rx="37" ry="7" fill="#d9cfb7"/><ellipse cx="45" cy="47" rx="31" ry="5" fill="#5f8fb0"/><ellipse cx="38" cy="46" rx="10" ry="1.6" fill="#e6f3ff" opacity=".7"/><rect x="39" y="83" width="12" height="14" fill="url(#btSv)"/><rect x="24" y="96" width="42" height="9" rx="3" fill="url(#btSv)"/><path d="' + BT_CROSS + '" transform="translate(45 64) scale(.13)" fill="#A3161C"/></svg>' };
+  /* Temple Relics picked: three reliquaries rise on stone plinths, a shaft of light with floating motes falls on the chosen one, it lifts in a
+     halo while the others sink into shadow, its name appears between two drawn lines. ~2.8 s. */
+  function relicFx(card, id) {
+    if (reducedMotion()) return;
+    const B = btBake(), R = (a, c) => a + Math.random() * (c - a), FADE_T = 2300, END_T = 2900, ids = ['banner', 'column', 'stoup'], k = Math.max(0, ids.indexOf(id)), X = [-130, 0, 130];
+    const names = { banner: 'Banner of the Emperor Victorious', column: 'Column from the Major Altar', stoup: 'Water from the Stoup of Elucidation' };
+    const fx = document.createElement('div'); fx.className = 'btfx'; fx.setAttribute('aria-hidden', 'true');
+    fx.innerHTML = '<div class="btf-vig"></div>' + `<div class="btf-stage" style="transform:scale(${btScale()})">`
+      + `<div class="btf-beam" style="left:${X[k] - 75}px"></div>` + Array.from({ length: 10 }, () => `<img class="btf-mote" src="${B.ember}" alt="" style="left:${(X[k] + R(-30, 30)).toFixed(0)}px;top:${R(20, 80).toFixed(0)}px">`).join('')
+      + ids.map((r, i) => `<div class="btf-rel${i === k ? ' on' : ''}" style="left:${X[i] - 45}px">${i === k ? `<img class="btf-rhalo" src="${B.halo}" alt="">` : ''}${BT_RELICS[r]}<i class="btf-plinth"></i></div>`).join('')
+      + `<i class="btf-rl a"></i><i class="btf-rl b"></i><i class="btf-rn">${esc(names[ids[k]])}</i></div>`;
+    document.body.appendChild(fx);
+    const q = s => fx.querySelector(s), E = 'cubic-bezier(.2,.8,.2,1)';
+    fxHold(END_T + 100);
+    swA(q('.btf-vig'), [{ opacity: 0 }, { opacity: 1 }], { duration: 400, easing: E });
+    fx.querySelectorAll('.btf-rel').forEach((g, i) => {
+      swA(g, i === k ? [{ opacity: 0, transform: 'translateY(18px)' }, { opacity: 1, transform: 'translateY(0) scale(1)', offset: .4 }, { opacity: 1, transform: 'translateY(-12px) scale(1.12)' }]
+        : [{ opacity: 0, transform: 'translateY(18px)' }, { opacity: 1, transform: 'translateY(0) scale(1)', offset: .4 }, { opacity: .28, transform: 'translateY(0) scale(.92)' }], { delay: i * 110, duration: 1600, easing: E }); });
+    swA(q('.btf-rhalo'), [{ opacity: 0, transform: 'scale(.4)' }, { opacity: 1, transform: 'scale(1)', offset: .5 }, { opacity: .75, transform: 'scale(1.04)', offset: .75 }, { opacity: 1, transform: 'scale(1)' }], { delay: 950, duration: 1600, easing: E });
+    swA(q('.btf-beam'), [{ opacity: 0, transform: 'scaleY(0)' }, { opacity: 1, transform: 'scaleY(1)' }], { delay: 700, duration: 800, easing: 'cubic-bezier(.16,1,.3,1)' });
+    fx.querySelectorAll('.btf-mote').forEach(m => swA(m, [{ opacity: 0, transform: 'translateY(0) scale(.6)' }, { opacity: .9, offset: .3 }, { opacity: 0, transform: `translate(${R(-10, 10).toFixed(0)}px,-${R(70, 140).toFixed(0)}px) scale(.6)` }], { delay: 900 + R(0, 700), duration: R(1300, 1900), easing: 'ease-out', fill: 'forwards' }));
+    fx.querySelectorAll('.btf-rl').forEach(l => swA(l, [{ opacity: 0, transform: 'scaleX(0)' }, { opacity: 1, transform: 'scaleX(1)' }], { delay: 1300, duration: 600, easing: E }));
+    swA(q('.btf-rn'), [{ opacity: 0, transform: 'translateY(8px)' }, { opacity: 1, transform: 'translateY(0)' }], { delay: 1250, duration: 500, easing: E });
+    swA(fx, [{ opacity: 1 }, { opacity: 0 }], { delay: FADE_T, duration: END_T - FADE_T });
+    setTimeout(() => fx.remove(), END_T + 60);
+    if (PL.android) PL.haptic('confirm');
+  }
+  /* Martial Honour: the crusade banner rises on its pole, the cloth unrolls from the crossbar with gold tassels, a soft ivory flash and a
+     ring of light leave the cross, rays open behind, the OC counter rolls 1 → 6 (+5), the banner sways in rising sparks. ~3.6 s. */
+  function bannerFx() {
+    if (reducedMotion()) return;
+    const B = btBake(), R = (a, c) => a + Math.random() * (c - a), FADE_T = 3000, END_T = 3600, HIT = 1270;
+    const fx = document.createElement('div'); fx.className = 'btfx'; fx.setAttribute('aria-hidden', 'true');
+    fx.innerHTML = '<div class="btf-vig"></div>' + `<div class="btf-stage" style="transform:scale(${btScale()})"><img class="btf-glow" src="${B.glow}" alt=""><img class="btf-rays" src="${B.rays}" alt="">`
+      + Array.from({ length: 12 }, () => `<img class="btf-emb b" src="${B.ember}" alt="" style="left:${R(-70, 70).toFixed(0)}px;top:${R(40, 120).toFixed(0)}px">`).join('')
+      + '<i class="btf-ring c"></i><div class="btf-ban"><i class="btf-pole"></i><i class="btf-fin"></i><i class="btf-bar"></i><div class="btf-cwin"><div class="btf-cloth">'
+      + `<svg viewBox="0 0 112 170" preserveAspectRatio="none"><defs><linearGradient id="btCw" x1="0" x2="1"><stop offset="0" stop-color="#b9a57a"/><stop offset=".12" stop-color="#efe3c4"/><stop offset=".48" stop-color="#f6edd5"/><stop offset=".75" stop-color="#e6d8b6"/><stop offset="1" stop-color="#b4a072"/></linearGradient></defs><path d="M0 0H112V170L56 146L0 170Z" fill="url(#btCw)"/><path d="M3 3H109V163L56 140L3 163Z" fill="none" stroke="#141113" stroke-width="5"/><path d="M8 8H104V155L56 134L8 155Z" fill="none" stroke="#A3161C" stroke-width="1.5"/><path d="${BT_CROSS}" transform="translate(56 68) scale(.55)" fill="#0d0a0b" stroke="#A3161C" stroke-width="5"/></svg>`
+      + '</div></div><i class="btf-tas a"></i><i class="btf-tas b"></i></div>'
+      + '<div class="btf-occ"><i class="btf-ocl">OC</i><div class="btf-ocb"><div class="btf-numc">' + [1, 2, 3, 4, 5, 6].map(n => `<i>${n}</i>`).join('') + '</div></div><i class="btf-plus">+5</i></div>'
+      + `<i class="btf-hl">${[...'MARTIAL HONOUR'].map(c => `<span>${c === ' ' ? ' ' : c}</span>`).join('')}</i><i class="btf-sub">Until the end of the battle</i></div><div class="btf-flash c"></div>`;
+    document.body.appendChild(fx);
+    const q = s => fx.querySelector(s), E = 'cubic-bezier(.2,.8,.2,1)';
+    fxHold(END_T + 100);
+    swA(q('.btf-vig'), [{ opacity: 0 }, { opacity: 1 }], { duration: 450, easing: E });
+    swA(q('.btf-ban'), [{ opacity: 0, transform: 'translateY(200px) rotate(0)' }, { opacity: 1, transform: 'translateY(-8px) rotate(0)', offset: .3 }, { opacity: 1, transform: 'translateY(0) rotate(0)', offset: .4 }, { transform: 'translateY(0) rotate(-1.2deg)', offset: .6 }, { transform: 'translateY(0) rotate(1.2deg)', offset: .8 }, { opacity: 1, transform: 'translateY(0) rotate(-.6deg)' }], { delay: 150, duration: 3200, easing: 'ease-in-out' });
+    swA(q('.btf-cloth'), [{ transform: 'translateY(-100%) skewY(0)' }, { transform: 'translateY(4%) skewY(0)', offset: .26 }, { transform: 'translateY(0) skewY(0)', offset: .33 }, { transform: 'translateY(0) skewY(1.6deg)', offset: .55 }, { transform: 'translateY(0) skewY(-1.2deg)', offset: .78 }, { transform: 'translateY(0) skewY(0)' }], { delay: 750, duration: 2500, easing: 'ease-in-out' });
+    fx.querySelectorAll('.btf-tas').forEach(t => swA(t, [{ opacity: 0, transform: 'translateY(-30px)' }, { opacity: 1, transform: 'translateY(0)' }], { delay: 1050, duration: 450, easing: E }));
+    swA(q('.btf-flash'), [{ opacity: 0 }, { opacity: 1, offset: .2 }, { opacity: 0 }], { delay: HIT, duration: 700, easing: 'ease-out' });
+    swA(q('.btf-ring'), [{ opacity: .9, transform: 'scale(.5)' }, { opacity: 0, transform: 'scale(3.2)' }], { delay: HIT, duration: 1000, easing: 'cubic-bezier(.1,.7,.3,1)', fill: 'forwards' });
+    swA(q('.btf-glow'), [{ opacity: 0, transform: 'scale(.5)' }, { opacity: 1, transform: 'scale(1)' }], { delay: 800, duration: 900, easing: E });
+    swA(q('.btf-rays'), [{ opacity: 0, transform: 'rotate(-20deg) scale(.5)' }, { opacity: 1, transform: 'rotate(0) scale(1)', offset: .5 }, { opacity: 1, transform: 'rotate(12deg) scale(1)' }], { delay: 900, duration: 2700, easing: 'cubic-bezier(.16,1,.3,1)' });
+    fx.querySelectorAll('.btf-emb.b').forEach(e => swA(e, [{ opacity: 0, transform: 'translate(0,0)' }, { opacity: 1, offset: .2 }, { opacity: 0, transform: `translate(${R(-20, 20).toFixed(0)}px,-${R(100, 180).toFixed(0)}px)` }], { delay: 1450 + R(0, 900), duration: R(1600, 2200), easing: 'ease-out', fill: 'forwards' }));
+    swA(q('.btf-occ'), [{ opacity: 0, transform: 'translateX(20px)' }, { opacity: 1, transform: 'translateX(0)' }], { delay: HIT + 150, duration: 450, easing: E });
+    /* OC rolls 1 → 6: a column of digits steps up one line every 170 ms (transform only, scrubbable) */
+    swA(q('.btf-numc'), [0, 1, 2, 3, 4, 5].flatMap(n => [{ transform: `translateY(${-n * 56}px)`, offset: n / 5 * .96 }, { transform: `translateY(${-n * 56}px)`, offset: Math.min(1, n / 5 * .96 + .04) }]).filter((k, i, a) => i === a.findIndex(x => x.offset === k.offset)), { delay: HIT + 450, duration: 850, easing: 'cubic-bezier(.2,.8,.2,1)', fill: 'both' });
+    swA(q('.btf-ocb'), [{ transform: 'scale(1)' }, { transform: 'scale(1.25)' }, { transform: 'scale(1)' }], { delay: HIT + 1130, duration: 400 });
+    swA(q('.btf-plus'), [{ opacity: 0, transform: 'translateY(6px)' }, { opacity: 1, transform: 'translateY(0)' }], { delay: HIT + 1130, duration: 400, easing: E });
+    fx.querySelectorAll('.btf-hl span').forEach((s, i) => swA(s, [{ opacity: 0, transform: 'translateY(8px)' }, { opacity: 1, transform: 'translateY(0)' }], { delay: HIT + 300 + i * 35, duration: 350, easing: E }));
+    swA(q('.btf-sub'), [{ opacity: 0, transform: 'translateY(8px)' }, { opacity: 1, transform: 'translateY(0)' }], { delay: HIT + 900, duration: 500, easing: E });
+    swA(fx, [{ opacity: 1 }, { opacity: 0 }], { delay: FADE_T, duration: END_T - FADE_T });
+    setTimeout(() => fx.remove(), END_T + 60);
+    if (PL.android) { PL.haptic('confirm'); setTimeout(() => PL.haptic('confirm'), HIT); }
+  }
+  const ONCE_FX = { saviour: saviourFx, finest: finestFx, howl: howlFx, frost: frostFx, banner: bannerFx };
   /* Lion El'Jonson picks a Primarch ability: the dark of the Shadow Forest washes over the screen, branches and leaves grow up
      from the bottom with a faint glow, the Lion's helm rises in the middle and its eyes burn red, outlasting the helm.
      Timings follow the Silent King (2.8 s). transform/opacity only; off under prefers-reduced-motion. */
@@ -2553,7 +2693,8 @@
       <button class="hop hop-frost hop-rune ${done ? 'done' : now ? 'now' : ''}" data-act="howlmaw" data-u="${u.instanceId}" aria-pressed="${done}" ${dead ? 'aria-disabled="true"' : ''}><span class="hop-t"><b>Start of the Fight phase</b></span><span class="hop-s">${done ? 'Used ✓' : 'Howl'}</span></button></div>`;
   }
   function oncePanelHTML(r, p, u, def) {
-    if (def.oncePerBattle.fx === 'saviour') setTimeout(svAssets, 0);   // bitmaps ready before the first tap
+    if (def.oncePerBattle.fx === 'saviour') setTimeout(svAssets, 0);
+    if (def.oncePerBattle.fx === 'banner') setTimeout(btBake, 0);   // bitmaps ready before the first tap
     const o = def.oncePerBattle, used = (p.once || {})[u.instanceId], dead = unitDead(p, u);
     const dup = r.units.filter(x => { const d2 = unitDef(r.factionId, x.datasheetId); return d2 && d2.oncePerBattle && d2.oncePerBattle.title === o.title && onceNeeds(x, d2.oncePerBattle); }).length > 1;
     return panel2(dup ? `${o.title} · ${dispName(r, u)}` : o.title, dead ? '<span class="badge">Dead</span>' : used ? `<span class="badge">Used · round ${used}</span>` : '<span class="badge gold">Ready</span>',
@@ -3054,7 +3195,7 @@
       <div class="modal-body">
         ${r ? `<div class="row"><div class="seg" role="group" aria-label="Show values"><button aria-pressed="${!S.dsBuff}" data-act="dsBuff" data-v="0">Base</button><button aria-pressed="${S.dsBuff}" data-act="dsBuff" data-v="1">With detachment buffs</button></div>${group ? `<button class="btn sm" data-act="dsCombined">${m.combined ? 'Single view' : 'Combined view'}</button>` : ''}</div>${useBuff && B.notes.length ? `<div class="dim" style="font-size:.9rem">Highlighted values include: ${esc(B.notes.join(', '))}. Conditional effects (charges, Blessings, stratagems) are not applied.</div>` : ''}` : ''}
         ${combined}
-        ${m.combined ? '' : `${statlineHTML(prof, pm)}${def.leadModel ? `<div class="dim" style="font-size:.9rem">${esc(def.leadModel.name)}: ${['M', 'T', 'Sv', 'InSv', 'W', 'Ld', 'OC'].filter(k => def.leadModel[k] != null).map(k => `${k === 'InSv' ? 'invuln' : k} ${esc(def.leadModel[k])}`).join(', ')}. The other models use the line above.</div>` : ''}
+        ${m.combined ? '' : `${statlineHTML(prof, pm)}${def.leadModel ? `<div class="dim" style="font-size:.9rem">${esc(def.leadModel.name)}: ${['M', 'T', 'Sv', 'InSv', 'W', 'Ld', 'OC'].filter(k => def.leadModel[k] != null).map(k => `${k === 'InSv' ? 'invuln' : k} ${esc(def.leadModel[k])}`).join(', ')}. The other models use the line above.</div>` : ''}${altProfilesHTML(def, inst)}
         ${def.damaged ? `<div class="abil"><b>Damaged profile</b>${esc(def.damaged.text)}</div>` : ''}
         ${weaponTable(W.ranged, 'Ranged')}${weaponTable(W.melee, 'Melee', meleeBonus(roster, def, inst))}${wToggle ? `<div class="row">${wToggle}</div>` : ''}
         <div class="stack" style="gap:8px"><span class="eyebrow">Abilities</span>
@@ -4045,7 +4186,7 @@
       playChange(r, p => { p.rpick = p.rpick || {}; const m = p.rpick[iid] = p.rpick[iid] || {};
         if (multi) { const a = rpSel(p, u, rpx).filter(x => x !== id); if (on) a.push(id); if (a.length) m[p.round] = a; else delete m[p.round]; }
         else if (m[p.round] === id) delete m[p.round]; else m[p.round] = id; }, null, 'confirm');
-      if (on) { const c = document.querySelector(`.rpk[data-u="${iid}"][data-id="${id}"]`); if (def.roundPick.style === 'wrath') wrathFx(c); else if (def.roundPick.style === 'slaanesh') slaaneshFx(c); else { const ox = def.roundPick.options.find(o => o.id === id) || {}, fk = ox.fx || def.roundPick.fx; if (fk === 'king') kingFx(c); else if (fk === 'lion') lionFx(c); else if (fk && fk.startsWith('canticle')) canticleFx(c, fk.split('-')[1]); else if (fk) mechFx(c, fk); else eyeFx(c); } }
+      if (on) { const c = document.querySelector(`.rpk[data-u="${iid}"][data-id="${id}"]`); if (def.roundPick.style === 'wrath') wrathFx(c); else if (def.roundPick.style === 'slaanesh') slaaneshFx(c); else { const ox = def.roundPick.options.find(o => o.id === id) || {}, fk = ox.fx || def.roundPick.fx; if (fk === 'king') kingFx(c); else if (fk === 'lion') lionFx(c); else if (fk === 'relic') relicFx(c, id); else if (fk && fk.startsWith('canticle')) canticleFx(c, fk.split('-')[1]); else if (fk) mechFx(c, fk); else eyeFx(c); } }
     },
     asGain: el => { const r = cur(), v = +el.dataset.v; playChange(r, p => { p.miracle = (p.miracle || []).concat(v); S.mNew = p.miracle.length - 1; }, `Miracle dice ${v} added.`, 'confirm'); holyFx(document.querySelector('.mdie.new'), 'die'); setTimeout(() => { S.mNew = null; }, 50); },
     asSpend: el => {
@@ -4135,6 +4276,7 @@
       playChange(r, p => { const a = p[key] || []; p[key] = a.includes(id) ? a.filter(x => x !== id) : cap === 1 ? [id] : a.concat(id); }, null, 'tick');
       if (!wasOn && el.dataset.fx === 'warpfire') { dreadFx(document.querySelector(`.dread[data-key="${key}"][data-id="${id}"]`)); return; }
       if (!wasOn && !matchMedia('(prefers-reduced-motion: reduce)').matches) { const rg = document.querySelector('.ct-clause.on .ct-ring'); if (rg) rg.classList.add('fresh'); }
+      if (!wasOn && el.dataset.fx === 'vow') { const o = (d.battlePick.options || []).find(x => x.id === id); vowFx(o ? o.name : ''); return; }
       if (!wasOn && el.dataset.fx) mechFx(document.querySelector(`.cchip[data-act="csmAug"][data-id="${id}"]`), el.dataset.fx);
     },
     resetWounds: () => { const r = cur(); playChange(r, p => { p.wounds = {}; }, 'Wounds reset.'); },

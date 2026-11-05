@@ -179,6 +179,20 @@ for (const f of L.factions(data)) {
 
   for (const u of fd.units || []) {
     if (u.damaged && !(u.damaged.threshold > 0)) err('E-MECH', `${f}.${u.id}.damaged`, 'damaged needs a positive threshold');
+    /* altProfiles: [{name, models: {unitSize: count}, M/T/Sv/InSv/W/Ld/OC as strings}] — a group of non-leader models with their own statline */
+    if (u.altProfiles !== undefined) {
+      const w = `${f}.${u.id}.altProfiles`;
+      if (!Array.isArray(u.altProfiles)) err('E-TYPE', w, 'must be an array');
+      else u.altProfiles.forEach((a, i) => {
+        if (!a || typeof a.name !== 'string' || !a.name) { err('E-MECH', `${w}[${i}]`, 'needs a name'); return; }
+        Object.keys(a).filter(k => !['name', 'models', 'M', 'T', 'Sv', 'InSv', 'W', 'Ld', 'OC'].includes(k)).forEach(k => err('E-MECH', `${w}[${i}].${k}`, 'unknown key'));
+        ['M', 'T', 'Sv', 'InSv', 'W', 'Ld', 'OC'].forEach(k => { if (a[k] != null && typeof a[k] !== 'string') err('E-TYPE', `${w}[${i}].${k}`, 'must be a string'); });
+        if (a.models != null) Object.entries(a.models).forEach(([sz, n]) => {
+          if (!(u.sizes || []).some(s => s.models === +sz)) err('E-MECH', `${w}[${i}].models.${sz}`, 'not a unit size of this datasheet');
+          if (!(n > 0 && n < +sz)) err('E-MECH', `${w}[${i}].models.${sz}`, 'count must be between 1 and the unit size − 1');
+        });
+      });
+    }
     for (const a of u.abilities || []) {
       if (!a.name) { err('E-MISSING', `${f}.${u.id}`, 'ability without a name cannot be addressed by a slot file'); continue; }
       /* The wound tracker and the DAMAGED badge read def.damaged, not ability

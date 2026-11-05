@@ -1,0 +1,74 @@
+VOWS OF THE CRUSADE (1030 Points)
+
+Black Templars
+Vow-Sworn Crusaders (2 Detachment Points)
+Purge the Foe
+Strike Force (2,000 Points)
+
+ATTACHED UNITS
+
+Attached unit 1
+
+Marshal (80 Points)
+- Attached as: Leader (Character)
+- 1x Master-crafted Power Weapon
+- 1x Plasma Pistol
+
+Crusade Ancient (70 Points)
+- Attached as: Support (Character)
+- 1x Bolt Pistol
+- 1x Master-crafted Power Weapon
+- Enhancements: Zealous Vanguard
+
+Crusader Squad (160 Points)
+- Attached as: Bodyguard (Infantry)
+- 1x Sword Brother
+◦ 1x Heavy Bolt Pistol
+◦ 1x Master-crafted Power Weapon
+- 4x Neophyte
+◦ 4x Bolt Pistol
+◦ 4x Neophyte Chainsword
+- 5x Initiate
+◦ 5x Bolt Pistol
+◦ 5x Bolt Rifle
+◦ 5x Close combat weapon
+
+Attached unit 2
+
+Captain (90 Points)
+- Attached as: Leader (Character)
+- 1x Heavy Bolt Pistol
+- 1x Master-crafted Bolter
+- 1x Master-crafted Power Weapon
+
+Sword Brethren Squad (140 Points)
+- Attached as: Bodyguard (Infantry)
+- 5x Sword Brother
+◦ 5x Chainsword
+◦ 5x Heavy Bolt Pistol
+
+EPIC HERO
+
+High Marshal Helbrecht (125 Points)
+- Warlord
+- 1x Ferocity
+- 1x Sword of the High Marshals
+
+OTHER DATASHEETS
+
+Gladiator Lancer (165 Points)
+- 1x Armoured Hull
+- 1x Defensive Array
+- 1x Laser Destroyer
+
+Impulsor (80 Points)
+- 1x Armoured Hull
+- 1x Orbital Comms Array
+- 1x Storm Bolters
+
+Chaplain Grimaldus (120 Points)
+- 1x Chaplain Grimaldus
+◦ 1x Artificier Crozius
+◦ 1x Plasma Pistol
+- 3x Cenobyte Servitor
+◦ 3x Servitor Combat Weapon

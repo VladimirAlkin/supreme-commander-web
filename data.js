@@ -18,7 +18,8 @@ const DATA = {
    "darkAngels": "2026-10-22-da-app-bsdata",
    "bloodAngels": "2026-10-25-ba-app-bsdata",
    "spaceWolves": "2026-10-26-sw-wahapedia-bsdata",
-   "chaosKnights": "2026-11-04-bsd-fp12"
+   "chaosKnights": "2026-11-04-bsd-fp12",
+   "blackTemplars": "2026-11-05-bt-wahapedia-bsdata"
   },
   "stamp": "Data as of: MFM v1.5 (30/09/2026), Faction Packs World Eaters v1.3, Tyranids v1.2, Death Guard v1.3, Thousand Sons v1.3, Adepta Sororitas v1.2 and Imperial Agents v1.1. Rules text: official wording (Wahapedia export 28/09/2026 + 30/09/2026 Faction Pack changes). Checked 08.10.2026",
   "checked": "2026-10-05"
@@ -1002,6 +1003,68 @@ const DATA = {
    "abilityTips": {},
    "logo": "sw_logo",
    "rosterIcon": "sw_roster"
+  },
+  {
+   "id": "blackTemplars",
+   "name": "Black Templars",
+   "enabled": true,
+   "theme": {
+    "bg": "#141113",
+    "bg2": "#3A2A26",
+    "bgDeep": "#070506",
+    "accent": "#E9DFC6",
+    "accent2": "#A3161C",
+    "bone": "#CDB98C",
+    "glow": "#F6E2B0",
+    "panel": "rgba(20,17,19,.86)",
+    "card1": "#201A1C",
+    "card2": "#141113",
+    "icon1": "#E9DFC6",
+    "icon2": "#CDB98C",
+    "iconRim": "#141113"
+   },
+   "emblemSvg": "<svg viewBox=\"0 0 64 64\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\"><circle cx=\"32\" cy=\"32\" r=\"30\" fill=\"#E9DFC6\" stroke=\"#141113\" stroke-width=\"2\"/><g transform=\"translate(32 32) scale(.42)\"><path d=\"M-9-9L-26-64L0-50L26-64L9-9L64-26L50 0L64 26L9 9L26 64L0 50L-26 64L-9 9L-64 26L-50 0L-64-26Z\" fill=\"#141113\" stroke=\"#A3161C\" stroke-width=\"4\"/></g></svg>",
+   "highlights": [
+    {
+     "id": "neophytes",
+     "label": "NEOPHYTES",
+     "tone": "steel",
+     "title": "Neophytes: 4 (10 models) or 8 (20 models) of the unit are Neophytes with T 4 and Sv 4+.",
+     "none": "No Crusader Squads in this roster",
+     "unitIds": {
+      "crusader_squad": "NEOPHYTES: 4 / 8 Neophytes, T 4, Sv 4+."
+     }
+    },
+    {
+     "id": "one_per_army",
+     "label": "ONE PER ARMY",
+     "tone": "bone",
+     "title": "Chosen of the Emperor: only one Emperor’s Champion per army.",
+     "none": "No Emperor’s Champion in this roster",
+     "unitIds": {
+      "emperors_champion": "ONE PER ARMY (Chosen of the Emperor)."
+     }
+    },
+    {
+     "id": "vow",
+     "label": "VOW",
+     "tone": "gold",
+     "title": "Templar Vows: the Vow picked at the start of the battle applies to this unit.",
+     "none": "Vow-Sworn Crusaders not selected",
+     "detachments": {
+      "vow_sworn_crusaders": {
+       "keywordsAll": [
+        "Adeptus Astartes"
+       ],
+       "cond": true,
+       "note": "The Vow picked at the start of the battle applies to this unit."
+      }
+     }
+    }
+   ],
+   "abilityTips": {},
+   "logo": "bt_logo",
+   "rosterIcon": "bt_roster"
   },
   {
    "id": "astraMilitarum",
@@ -116225,6 +116288,2850 @@ const DATA = {
     "Super-heavy Walker",
     "DAMNED",
     "detection range"
+   ]
+  },
+  "blackTemplars": {
+   "armyFaction": "Adeptus Astartes",
+   "armyKeyword": "Black Templars",
+   "inherits": {
+    "source": "spaceMarines",
+    "exclude": {
+     "unitIds": [
+      "librarian",
+      "librarian_in_phobos_armour",
+      "librarian_in_terminator_armour",
+      "gladiator_lancer",
+      "gladiator_reaper",
+      "gladiator_valiant",
+      "repulsor",
+      "repulsor_executioner",
+      "impulsor"
+     ]
+    }
+   },
+   "grantKeywords": [],
+   "leaderOfExtra": {
+    "lieutenant": [
+     "crusader_squad",
+     "sword_brethren_squad"
+    ],
+    "judiciar": [
+     "crusader_squad",
+     "sword_brethren_squad"
+    ],
+    "techmarine": [
+     "crusader_squad",
+     "sword_brethren_squad"
+    ],
+    "apothecary": [
+     "crusader_squad",
+     "sword_brethren_squad"
+    ],
+    "ancient": [
+     "crusader_squad",
+     "sword_brethren_squad"
+    ],
+    "chaplain": [
+     "crusader_squad",
+     "sword_brethren_squad"
+    ],
+    "captain": [
+     "crusader_squad",
+     "sword_brethren_squad"
+    ]
+   },
+   "armyRules": [],
+   "detachments": [
+    {
+     "id": "vow_sworn_crusaders",
+     "name": "Vow-Sworn Crusaders",
+     "dp": 2,
+     "dispositions": [
+      "Purge the Foe"
+     ],
+     "tags": [],
+     "summary": "Pick one Templar Vow at the start of the first battle round; it lasts all battle for your Adeptus Astartes units.",
+     "rule": {
+      "name": "Templar Vows",
+      "text": "At the start of the first battle round, you can select one Vow listed below. That Vow is active for friendly ADEPTUS ASTARTES units until the end of the battle. ABHOR THE WITCH, DESTROY THE WITCH: This unit’s melee attacks that target a PSYKER unit: ■ Have [PRECISION]. ■ Have [LANCE]. ACCEPT ANY CHALLENGE, NO MATTER THE ODDS: Friendly melee attacks that target a unit with a T greater than this unit’s S have +1 to wound rolls. UPHOLD THE HONOUR OF THE EMPEROR: Friendly INFANTRY units have: ■ At the end of your Movement phase, if this unit is controlling an objective, that objective is secured. ■ When this unit is selected to make an advance move, that advance move does not prevent this unit from being eligible to start an action. Restrictions: Your army can include BLACK TEMPLARS units, but it cannot include any ADEPTUS ASTARTES units drawn from any other Chapter."
+     },
+     "buffs": [],
+     "enhancements": [
+      {
+       "id": "augury_servo_host",
+       "name": "Augury Servo-host",
+       "pts": 20,
+       "upgrade": false,
+       "text": "ADEPTUS ASTARTES model only. In your Shooting phase, you can select one visible enemy unit within 18\" of this unit. That enemy unit cannot have the benefit of cover.",
+       "eligible": {
+        "keywordsAll": [
+         "Adeptus Astartes"
+        ]
+       }
+      },
+      {
+       "id": "consecrating_aura",
+       "name": "Consecrating Aura",
+       "pts": 20,
+       "upgrade": false,
+       "text": "ADEPTUS ASTARTES model only. This unit has 5+ InSv.",
+       "eligible": {
+        "keywordsAll": [
+         "Adeptus Astartes"
+        ]
+       }
+      },
+      {
+       "id": "incendiary_animus",
+       "name": "Incendiary Animus",
+       "pts": 25,
+       "upgrade": false,
+       "text": "Chaplain/Judiciar model only. This unit’s melee attacks have +1 S.",
+       "eligible": {
+        "keywordsAll": [
+         "Adeptus Astartes"
+        ],
+        "keywordsAny": [
+         "Chaplain",
+         "Judiciar"
+        ]
+       }
+      },
+      {
+       "id": "zealous_vanguard",
+       "name": "Zealous Vanguard",
+       "pts": 25,
+       "upgrade": false,
+       "text": "ADEPTUS ASTARTES model only. This unit has Scouts 6\".",
+       "eligible": {
+        "keywordsAll": [
+         "Adeptus Astartes"
+        ]
+       }
+      }
+     ],
+     "stratagems": [
+      {
+       "id": "for_the_emperors_honour",
+       "name": "For the Emperor's Honour!",
+       "cp": 1,
+       "type": "Vow-Sworn Crusaders",
+       "phases": [
+        "Fight"
+       ],
+       "when": "The Fight phase, when a friendly ADEPTUS ASTARTES INFANTRY unit is selected to fight.",
+       "target": "That ADEPTUS ASTARTES INFANTRY unit.",
+       "effect": "Your unit’s melee attacks have [PRECISION]."
+      },
+      {
+       "id": "pious_enmity",
+       "name": "Pious Enmity",
+       "cp": 1,
+       "type": "Vow-Sworn Crusaders",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Fight phase, when a friendly Chaplain/Judiciar unit is selected to fight.",
+       "target": "That CHAPLIN/JUDICIAR unit.",
+       "effect": "■ Your unit’s melee attacks can re-roll hit rolls of 1. ■ Or: Your unit’s melee attacks that target a MONSTER/VEHICLE unit can re-roll hit rolls of 1 and wound rolls of 1."
+      },
+      {
+       "id": "devout_push",
+       "name": "Devout Push",
+       "cp": 1,
+       "type": "Vow-Sworn Crusaders",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Fight phase, when a friendly ADEPTUS ASTARTES INFANTRY unit is selected to make a pile-in/consolidation move.",
+       "target": "That ADEPTUS ASTARTES INFANTRY unit.",
+       "effect": "When making that pile-in/consolidation move, your unit can move up to D3+3\"."
+      },
+      {
+       "id": "heresy_begets_retribution",
+       "name": "Heresy Begets Retribution",
+       "cp": 1,
+       "type": "Vow-Sworn Crusaders",
+       "phases": [
+        "Movement"
+       ],
+       "when": "Your opponent’s Movement phase, when an enemy unit ends a move within 8\" of a friendly ADEPTUS ASTARTES INFANTRY unit.",
+       "target": "That ADEPTUS ASTARTES INFANTRY unit.",
+       "effect": "Your unit can make a surge move of up to D6\"."
+      },
+      {
+       "id": "dread_crusaders",
+       "name": "Dread Crusaders",
+       "cp": 1,
+       "type": "Vow-Sworn Crusaders",
+       "phases": [
+        "Charge"
+       ],
+       "when": "Your opponent’s Charge phase, when an enemy unit selects charge targets.",
+       "target": "One ADEPTUS ASTARTES INFANTRY unit that was selected as a charge target by that enemy unit this phase.",
+       "effect": "That enemy unit must make a battle-shock roll, with -1 to that battle-shock roll."
+      },
+      {
+       "id": "spoor_of_the_unholy",
+       "name": "Spoor of the Unholy",
+       "cp": 1,
+       "type": "Vow-Sworn Crusaders",
+       "phases": [
+        "Shooting",
+        "Fight"
+       ],
+       "when": "Your Shooting phase or the Fight phase, when a friendly ADEPTUS ASTARTES unit is selected to attack.",
+       "target": "That ADEPTUS ASTARTES unit.",
+       "effect": "Your unit can ignore modifiers to your unit’s: ■ BS and WS. ■ Hit rolls."
+      }
+     ],
+     "battlePick": {
+      "key": "vow",
+      "title": "Templar Vows",
+      "count": 1,
+      "fx": "vow",
+      "note": "Start of the first battle round: pick one Vow. It is active for your ADEPTUS ASTARTES units until the end of the battle.",
+      "options": [
+       {
+        "id": "witch",
+        "name": "Abhor the Witch, Destroy the Witch",
+        "effect": "Melee attacks that target a PSYKER unit have [PRECISION] and [LANCE]."
+       },
+       {
+        "id": "challenge",
+        "name": "Accept Any Challenge, No Matter the Odds",
+        "effect": "Melee attacks that target a unit with a Toughness greater than the attack’s Strength have +1 to wound."
+       },
+       {
+        "id": "honour",
+        "name": "Uphold the Honour of the Emperor",
+        "effect": "INFANTRY: an objective you control at the end of your Movement phase is secured; an advance move does not stop the unit starting an action."
+       }
+      ]
+     }
+    },
+    {
+     "id": "fist_of_the_god_emperor",
+     "name": "Fist of the God-Emperor",
+     "dp": 1,
+     "dispositions": [
+      "Take and Hold"
+     ],
+     "tags": [],
+     "summary": "Crusader Squads can surge towards the closest objective instead of a surge target.",
+     "rule": {
+      "name": "Purge and Sanctify",
+      "text": "Each time a friendly CRUSADER SQUAD unit makes a surge move, instead of selecting a surge target, you can select the closest objective to that unit. When that unit makes that surge move, each model in that unit must end that surge move as close as possible to that objective instead. Restrictions: Your army can include BLACK TEMPLARS units, but it cannot include any ADEPTUS ASTARTES units drawn from any other Chapter."
+     },
+     "buffs": [],
+     "enhancements": [
+      {
+       "id": "righteous_fervour",
+       "name": "Righteous Fervour",
+       "pts": 15,
+       "upgrade": true,
+       "text": "CRUSADER SQUAD unit only. This unit can re-roll Advance rolls.",
+       "eligible": {
+        "unitIds": [
+         "crusader_squad"
+        ]
+       }
+      },
+      {
+       "id": "oathbound_exemplar",
+       "name": "Oathbound Exemplar",
+       "pts": 10,
+       "upgrade": false,
+       "text": "ADEPTUS ASTARTES INFANTRY unit only. When this unit is selected to make an advance/fall-back move, that advance/fall-back move does not prevent this unit from being eligible to start an action.",
+       "eligible": {
+        "keywordsAll": [
+         "Adeptus Astartes",
+         "Infantry"
+        ]
+       }
+      }
+     ],
+     "stratagems": [
+      {
+       "id": "doctrinal_flexibility",
+       "name": "Doctrinal Flexibility",
+       "cp": 1,
+       "type": "Fist of the God-Emperor",
+       "phases": [
+        "Command"
+       ],
+       "when": "Your Command phase.",
+       "target": "One friendly Crusader Squad unit.",
+       "effect": "Select one combat doctrine. That combat doctrine is active for your unit until the start of your next Command phase."
+      },
+      {
+       "id": "avowed_destruction",
+       "name": "Avowed Destruction",
+       "cp": 1,
+       "type": "Fist of the God-Emperor",
+       "phases": [
+        "Fight"
+       ],
+       "when": "The Fight phase, when a friendly CRUSADER SQUAD unit is selected to fight.",
+       "target": "That CRUSADER SQUAD unit.",
+       "effect": "Your unit’s melee attacks: ■ Have [LETHAL HITS]. ■ Or: Have [SUSTAINED HITS 1]."
+      },
+      {
+       "id": "angels_defiant",
+       "name": "Angels Defiant",
+       "cp": 1,
+       "type": "Fist of the God-Emperor",
+       "phases": [
+        "Shooting",
+        "Fight"
+       ],
+       "when": "Your opponent’s Shooting phase or the Fight phase, when an enemy unit targets a friendly CRUSADER SQUAD unit.",
+       "target": "That CRUSADER SQUAD unit.",
+       "effect": "Attacks that target your unit with a S greater than your unit’s T have -1 to wound rolls."
+      }
+     ],
+     "reminder": {
+      "title": "Purge and Sanctify",
+      "phase": [
+       "Shooting",
+       "Fight"
+      ],
+      "text": "When a CRUSADER SQUAD makes a surge move, you can move it towards the closest objective instead of a surge target; every model ends as close as possible to that objective."
+     }
+    },
+    {
+     "id": "marshals_household",
+     "name": "Marshal's Household",
+     "dp": 1,
+     "dispositions": [
+      "Priority Assets"
+     ],
+     "tags": [],
+     "summary": "Sword Brethren Squads within range of an objective get +1 Attack in melee.",
+     "rule": {
+      "name": "Faith-fuelled Resolve",
+      "text": "In the Fight phase, if a friendly Sword Brethren Squad unit is within range of an objective, that unit’s melee attacks have +1 A. Restrictions: Your army can include BLACK TEMPLARS units, but it cannot include any ADEPTUS ASTARTES units drawn from any other Chapter."
+     },
+     "buffs": [],
+     "enhancements": [
+      {
+       "id": "fervent_exemplars",
+       "name": "Fervent Exemplars",
+       "pts": 10,
+       "upgrade": true,
+       "text": "Sword Brethren Squad unit only. This unit has +1 to charge rolls.",
+       "eligible": {
+        "unitIds": [
+         "sword_brethren_squad"
+        ]
+       }
+      },
+      {
+       "id": "inheritors_of_sigismund",
+       "name": "Inheritors of Sigismund",
+       "pts": 15,
+       "upgrade": true,
+       "text": "Sword Brethren Squad unit only. This unit has Fights First.",
+       "eligible": {
+        "unitIds": [
+         "sword_brethren_squad"
+        ]
+       }
+      }
+     ],
+     "stratagems": [
+      {
+       "id": "slayers_of_abominations",
+       "name": "Slayers of Abominations",
+       "cp": 1,
+       "type": "Marshal's Household",
+       "phases": [
+        "Fight"
+       ],
+       "when": "Fight phase, when a friendly Sword Brethren Squad unit is selected to fight.",
+       "target": "That SWORD BRETHREN SQUAD unit.",
+       "effect": "Your unit’s melee attacks that target a MONSTER/VEHICLE unit have +2 S."
+      },
+      {
+       "id": "unsparing_execution",
+       "name": "Unsparing Execution",
+       "cp": 1,
+       "type": "Marshal's Household",
+       "phases": [
+        "Movement"
+       ],
+       "when": "Your opponent’s Movement phase, when a unit is selected to make a fall-back move, if that unit is engaged with a friendly Sword Brethren Squad unit.",
+       "target": "That SWORD BRETHREN SQUAD unit.",
+       "effect": "When an enemy unit engaged with your unit is selected to make a fall-back move , that enemy unit must use the desperate escape mode, with -1 to those hazard rolls if that enemy unit is battle-shocked."
+      },
+      {
+       "id": "blade_of_detestation",
+       "name": "Blade of Detestation",
+       "cp": 1,
+       "type": "Marshal's Household",
+       "phases": [
+        "Charge"
+       ],
+       "when": "Your Charge phase, when a friendly Sword Brethren Squad unit ends a charge move.",
+       "target": "That SWORD BRETHREN SQUAD.",
+       "effect": "Select one enemy unit engaged with your unit. Roll one D6 for each model in your unit engaged with that enemy unit: ■ For each 4+, that enemy unit suffers 1 mortal wound (to a maximum of 6 mortal wounds)."
+      }
+     ]
+    }
+   ],
+   "units": [
+    {
+     "id": "bt_impulsor",
+     "name": "Impulsor",
+     "role": "transport",
+     "faction": "Adeptus Astartes",
+     "keywords": [
+      "Black Templars",
+      "Adeptus Astartes",
+      "Imperium",
+      "Frame",
+      "Dedicated Transport",
+      "Transport",
+      "Vehicle"
+     ],
+     "image": "bt_impulsor",
+     "baseSize": "100mm",
+     "profile": {
+      "M": "12\"",
+      "T": "9",
+      "Sv": "3+",
+      "W": "11",
+      "OC": "2",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Bellicatus Missile Array - Frag",
+       "range": "48\"",
+       "A": "4",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Blast 1"
+       ]
+      },
+      {
+       "name": "Bellicatus Missile Array - Icarus",
+       "range": "48\"",
+       "A": "3",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Anti-Fly 2+"
+       ]
+      },
+      {
+       "name": "Bellicatus Missile Array - Krak",
+       "range": "48\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "10",
+       "AP": "-2",
+       "D": "D3+3",
+       "kw": []
+      },
+      {
+       "name": "Ironhail Heavy Stubber",
+       "range": "36\"",
+       "A": "3",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Rapid Fire 3"
+       ]
+      },
+      {
+       "name": "Multi-melta",
+       "range": "18\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "10",
+       "AP": "-3",
+       "D": "D3+2",
+       "kw": [
+        "Melta 3"
+       ]
+      },
+      {
+       "name": "Fragstorm Grenade Launchers",
+       "range": "18\"",
+       "A": "6",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Blast 2"
+       ]
+      },
+      {
+       "name": "Storm Bolters",
+       "range": "24\"",
+       "A": "4",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Rapid Fire 4"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Armoured Hull",
+       "range": "Melee",
+       "A": "3",
+       "skill": "4+",
+       "S": "6",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D3",
+      "Firing Deck 7"
+     ],
+     "factionAbilities": [
+      "Combat Doctrines"
+     ],
+     "abilities": [
+      {
+       "name": "Rapid Disembarkation",
+       "text": "In your Movement phase, when this unit ends an advance move, units embarked within this unit can make a shock disembark move.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Orbital Comms Array",
+       "text": "This unit has Scouts 6\".",
+       "kind": "wargear"
+      },
+      {
+       "name": "Shield Dome",
+       "text": "This unit has 5+ InSv.",
+       "kind": "wargear"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 70,
+       "ptsLater": 80
+      }
+     ],
+     "stepFrom": 4,
+     "leaderOf": [],
+     "composition": "1 Impulsor. This model is equipped with: 1 Armoured Hull; 1 Storm Bolters.",
+     "options": [
+      {
+       "id": "sponsons",
+       "type": "choice",
+       "label": "Storm Bolters replaced with",
+       "choices": [
+        {
+         "id": "sb",
+         "label": "Storm Bolters",
+         "pts": 0
+        },
+        {
+         "id": "frag",
+         "label": "Fragstorm Grenade Launchers",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "pintle",
+       "type": "choice",
+       "label": "Pintle weapon",
+       "choices": [
+        {
+         "id": "none",
+         "label": "None",
+         "pts": 0
+        },
+        {
+         "id": "stubber",
+         "label": "Ironhail Heavy Stubber",
+         "pts": 0
+        },
+        {
+         "id": "mm",
+         "label": "Multi-melta (+10 pts)",
+         "pts": 10
+        }
+       ]
+      },
+      {
+       "id": "system",
+       "type": "choice",
+       "label": "Additional system",
+       "choices": [
+        {
+         "id": "none",
+         "label": "None",
+         "pts": 0
+        },
+        {
+         "id": "bellicatus",
+         "label": "Bellicatus Missile Array",
+         "pts": 0
+        },
+        {
+         "id": "comms",
+         "label": "Orbital Comms Array (+10 pts)",
+         "pts": 10
+        },
+        {
+         "id": "dome",
+         "label": "Shield Dome",
+         "pts": 0
+        }
+       ]
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "transport": "This model has a transport capacity of 7 Adeptus Astartes Infantry models. It cannot transport Terminator or Jump Pack models. Each Gravis model takes up the space of 2 models."
+    },
+    {
+     "id": "bt_gladiator_lancer",
+     "name": "Gladiator Lancer",
+     "role": "vehicle",
+     "faction": "Adeptus Astartes",
+     "keywords": [
+      "Black Templars",
+      "Adeptus Astartes",
+      "Imperium",
+      "Smoke",
+      "Frame",
+      "Vehicle"
+     ],
+     "image": "bt_gladiator_lancer",
+     "baseSize": "100mm",
+     "profile": {
+      "M": "10\"",
+      "T": "10",
+      "Sv": "3+",
+      "W": "12",
+      "OC": "3",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Laser Destroyer",
+       "range": "72\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "14",
+       "AP": "-3",
+       "D": "D6+3",
+       "kw": [
+        "Heavy"
+       ]
+      },
+      {
+       "name": "Multi-melta",
+       "range": "18\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "10",
+       "AP": "-3",
+       "D": "D3+2",
+       "kw": [
+        "Melta 3"
+       ]
+      },
+      {
+       "name": "Defensive Array",
+       "range": "24\"",
+       "A": "6",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Rapid Fire 6"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Armoured Hull",
+       "range": "Melee",
+       "A": "3",
+       "skill": "4+",
+       "S": "6",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D3"
+     ],
+     "factionAbilities": [
+      "Combat Doctrines"
+     ],
+     "abilities": [
+      {
+       "name": "Aquilon Optics",
+       "text": "This unit’s ranged attacks that target a MONSTER/VEHICLE unit can: ■ Re-roll one hit roll. ■ Re-roll one wound roll. ■ Re-roll one damage roll.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 165,
+       "ptsLater": 185
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [],
+     "composition": "1 Gladiator Lancer. This model is equipped with: 1 Armoured Hull; 1 Defensive Array; 1 Laser Destroyer.",
+     "options": [
+      {
+       "id": "mm",
+       "type": "toggle",
+       "label": "Multi-melta (+10 pts)",
+       "pts": 10
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "bt_gladiator_valiant",
+     "name": "Gladiator Valiant",
+     "role": "vehicle",
+     "faction": "Adeptus Astartes",
+     "keywords": [
+      "Black Templars",
+      "Adeptus Astartes",
+      "Imperium",
+      "Frame",
+      "Smoke",
+      "Vehicle"
+     ],
+     "image": "bt_gladiator_valiant",
+     "baseSize": "100mm",
+     "profile": {
+      "M": "10\"",
+      "T": "10",
+      "Sv": "3+",
+      "W": "12",
+      "OC": "3",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Twin Las-talon",
+       "range": "36\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "10",
+       "AP": "-3",
+       "D": "D3+3",
+       "kw": [
+        "Twin-linked"
+       ]
+      },
+      {
+       "name": "Defensive Array",
+       "range": "24\"",
+       "A": "6",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Rapid Fire 6"
+       ]
+      },
+      {
+       "name": "Multi-melta",
+       "range": "18\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "10",
+       "AP": "-3",
+       "D": "D3+2",
+       "kw": [
+        "Melta 3"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Armoured Hull",
+       "range": "Melee",
+       "A": "3",
+       "skill": "4+",
+       "S": "6",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D3"
+     ],
+     "factionAbilities": [
+      "Combat Doctrines"
+     ],
+     "abilities": [
+      {
+       "name": "Priority Target Acquisition",
+       "text": "This unit’s ranged attacks that target a unit within 12\" of this unit have +1 S.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 145,
+       "ptsLater": 165
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [],
+     "composition": "1 Gladiator Valiant. This model is equipped with: 1 Armoured Hull; 1 Defensive Array; 2 Multi-melta; 1 Twin Las-talon.",
+     "options": [
+      {
+       "id": "mm",
+       "type": "toggle",
+       "label": "Multi-melta (+10 pts)",
+       "pts": 10
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "bt_gladiator_reaper",
+     "name": "Gladiator Reaper",
+     "role": "vehicle",
+     "faction": "Adeptus Astartes",
+     "keywords": [
+      "Black Templars",
+      "Adeptus Astartes",
+      "Frame",
+      "Vehicle",
+      "Imperium",
+      "Smoke"
+     ],
+     "image": "bt_gladiator_reaper",
+     "baseSize": "100mm",
+     "profile": {
+      "M": "10\"",
+      "T": "10",
+      "Sv": "3+",
+      "W": "12",
+      "OC": "3",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Twin Heavy Onslaught Gatling Cannon",
+       "range": "24\"",
+       "A": "12",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Devastating Wounds: Non-Monster/Vehicle",
+        "Sustained Hits 2: Non-Monster/Vehicle Twin-linked"
+       ]
+      },
+      {
+       "name": "Defensive Array",
+       "range": "24\"",
+       "A": "12",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Rapid Fire 12"
+       ]
+      },
+      {
+       "name": "Multi-melta",
+       "range": "18\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "10",
+       "AP": "-3",
+       "D": "D3+2",
+       "kw": [
+        "Melta 3"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Armoured Hull",
+       "range": "Melee",
+       "A": "3",
+       "skill": "4+",
+       "S": "6",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D3"
+     ],
+     "factionAbilities": [
+      "Combat Doctrines"
+     ],
+     "abilities": [
+      {
+       "name": "Reaping Tally",
+       "text": "This unit’s ranged attacks that target a unit (excluding MONSTER/VEHICLE units) have +1 AP.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 165,
+       "ptsLater": 185
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [],
+     "composition": "1 Gladiator Reaper. This model is equipped with: 1 Armoured Hull; 1 Defensive Array; 1 Twin Heavy Onslaught Gatling Cannon.",
+     "options": [
+      {
+       "id": "mm",
+       "type": "toggle",
+       "label": "Multi-melta (+10 pts)",
+       "pts": 10
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "bt_repulsor_executioner",
+     "name": "Repulsor Executioner",
+     "role": "vehicle",
+     "faction": "Adeptus Astartes",
+     "keywords": [
+      "Adeptus Astartes",
+      "Black Templars",
+      "Vehicle",
+      "Transport",
+      "Frame",
+      "Imperium",
+      "Smoke"
+     ],
+     "image": "bt_repulsor_executioner",
+     "baseSize": "100mm",
+     "profile": {
+      "M": "10\"",
+      "T": "12",
+      "Sv": "3+",
+      "W": "16",
+      "OC": "5",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Heavy Laser Destroyer",
+       "range": "72\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "16",
+       "AP": "-4",
+       "D": "D6+4",
+       "kw": [
+        "Devastating Wounds",
+        "Heavy"
+       ]
+      },
+      {
+       "name": "Macro Plasma Incinerator - Standard",
+       "range": "36\"",
+       "A": "D3+3",
+       "skill": "3+",
+       "S": "9",
+       "AP": "-3",
+       "D": "2",
+       "kw": [
+        "Blast 1"
+       ]
+      },
+      {
+       "name": "Macro Plasma Incinerator - Supercharge",
+       "range": "36\"",
+       "A": "D3+3",
+       "skill": "3+",
+       "S": "10",
+       "AP": "-4",
+       "D": "3",
+       "kw": [
+        "Blast 1",
+        "Hazardous"
+       ]
+      },
+      {
+       "name": "Defensive Array",
+       "range": "24\"",
+       "A": "18",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Heavy Onslaught Gatling Cannon",
+       "range": "24\"",
+       "A": "12",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Devastating Wounds: Non-Monster/Vehicle",
+        "Sustained Hits 2: Non-Monster/Vehicles"
+       ]
+      },
+      {
+       "name": "Twin Heavy Bolter",
+       "range": "36\"",
+       "A": "3",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Rapid Fire 2",
+        "Sustained Hits 1",
+        "Twin-linked"
+       ]
+      },
+      {
+       "name": "Multi-melta",
+       "range": "18\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "10",
+       "AP": "-3",
+       "D": "D3+2",
+       "kw": [
+        "Melta 3"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Armoured Hull",
+       "range": "Melee",
+       "A": "6",
+       "skill": "4+",
+       "S": "8",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D6"
+     ],
+     "factionAbilities": [
+      "Combat Doctrines"
+     ],
+     "abilities": [
+      {
+       "name": "Executioner",
+       "text": "This unit’s ranged attacks that target a unit not below half-strength have +1 to hit rolls.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 265,
+       "ptsLater": 285
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [],
+     "composition": "1 Repulsor Executioner. This model is equipped with: 1 Armoured Hull; 1 Defensive Array; 1 Heavy Laser Destroyer; 1 Heavy Onslaught Gatling Cannon; 1 Twin Heavy Bolter.",
+     "options": [
+      {
+       "id": "main",
+       "type": "choice",
+       "label": "Heavy Laser Destroyer replaced with",
+       "choices": [
+        {
+         "id": "hld",
+         "label": "Heavy Laser Destroyer",
+         "pts": 0
+        },
+        {
+         "id": "mpi",
+         "label": "Macro Plasma Incinerator",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "mm",
+       "type": "toggle",
+       "label": "Multi-melta (+10 pts)",
+       "pts": 10
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "transport": "This model has a transport capacity of 7 Adeptus Astartes Infantry models. Each Terminator, Gravis, Jump Pack, Wulfen model takes up the space of 2 models."
+    },
+    {
+     "id": "bt_repulsor",
+     "name": "Repulsor",
+     "role": "vehicle",
+     "faction": "Adeptus Astartes",
+     "keywords": [
+      "Adeptus Astartes",
+      "Black Templars",
+      "Vehicle",
+      "Transport",
+      "Frame",
+      "Imperium",
+      "Smoke"
+     ],
+     "image": "bt_repulsor",
+     "baseSize": "100mm",
+     "profile": {
+      "M": "10\"",
+      "T": "12",
+      "Sv": "3+",
+      "W": "16",
+      "OC": "5",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Twin Heavy Bolter",
+       "range": "36\"",
+       "A": "3",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Rapid Fire 2",
+        "Sustained Hits 1",
+        "Twin-linked"
+       ]
+      },
+      {
+       "name": "Twin Lascannon",
+       "range": "48\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "12",
+       "AP": "-3",
+       "D": "D3+3",
+       "kw": [
+        "Twin-linked"
+       ]
+      },
+      {
+       "name": "Heavy Onslaught Gatling Cannon",
+       "range": "24\"",
+       "A": "12",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Devastating Wounds: Non-Monster/Vehicle",
+        "Sustained Hits 2: Non-Monster/Vehicles"
+       ]
+      },
+      {
+       "name": "Las-talon",
+       "range": "36\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "10",
+       "AP": "-3",
+       "D": "D3+3",
+       "kw": []
+      },
+      {
+       "name": "Multi-melta",
+       "range": "18\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "10",
+       "AP": "-3",
+       "D": "D3+2",
+       "kw": [
+        "Melta 3"
+       ]
+      },
+      {
+       "name": "Hunter-slayer Missile",
+       "range": "48\"",
+       "A": "1",
+       "skill": "2+",
+       "S": "14",
+       "AP": "-3",
+       "D": "D3+3",
+       "kw": [
+        "Indirect Fire",
+        "One Shot"
+       ]
+      },
+      {
+       "name": "Defensive Array",
+       "range": "24\"",
+       "A": "18",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "melee": [
+      {
+       "name": "Armoured Hull",
+       "range": "Melee",
+       "A": "6",
+       "skill": "4+",
+       "S": "8",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Deadly Demise D6"
+     ],
+     "factionAbilities": [
+      "Combat Doctrines"
+     ],
+     "abilities": [
+      {
+       "name": "Combat Embarkation",
+       "text": "In your opponent’s Charge phase, when an enemy unit has selected charge targets, you can select one friendly unengaged ADEPTUS ASTARTES unit that was one of those charge targets and is eligible to embark within this TRANSPORT. If every model in that unit is within 3\" of this TRANSPORT, that unit can embark within this TRANSPORT. That enemy unit can then select new charge targets for that charge move.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 190,
+       "ptsLater": 210
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [],
+     "composition": "1 Repulsor. This model is equipped with: 1 Armoured Hull; 1 Defensive Array; 1 Heavy Onslaught Gatling Cannon; 1 Hunter-slayer Missile; 1 Twin Heavy Bolter.",
+     "options": [
+      {
+       "id": "thb",
+       "type": "choice",
+       "label": "Twin Heavy Bolter replaced with",
+       "choices": [
+        {
+         "id": "thb",
+         "label": "Twin Heavy Bolter",
+         "pts": 0
+        },
+        {
+         "id": "tlc",
+         "label": "Twin Lascannon",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "hogc",
+       "type": "choice",
+       "label": "Heavy Onslaught Gatling Cannon replaced with",
+       "choices": [
+        {
+         "id": "hogc",
+         "label": "Heavy Onslaught Gatling Cannon",
+         "pts": 0
+        },
+        {
+         "id": "lt",
+         "label": "Las-talon",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "mm",
+       "type": "toggle",
+       "label": "Multi-melta (+10 pts)",
+       "pts": 10
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "transport": "This model has a transport capacity of 14 Adeptus Astartes Infantry models. Each Terminator, Gravis, Jump Pack, Wulfen model takes up the space of 2 models."
+    },
+    {
+     "id": "chaplain_grimaldus",
+     "name": "Chaplain Grimaldus",
+     "role": "epic hero",
+     "faction": "Adeptus Astartes",
+     "keywords": [
+      "Adeptus Astartes",
+      "Black Templars",
+      "Character",
+      "Infantry",
+      "Chaplain",
+      "Epic Hero",
+      "Imperium",
+      "Tacticus"
+     ],
+     "image": "bt_chaplain_grimaldus",
+     "baseSize": "40mm",
+     "profile": {
+      "M": "6\"",
+      "T": "4",
+      "Sv": "3+",
+      "InSv": "4+",
+      "W": "1",
+      "OC": "1",
+      "Ld": "8+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Plasma Pistol - Supercharge",
+       "range": "12\"",
+       "A": "1",
+       "skill": "2+",
+       "S": "8",
+       "AP": "-3",
+       "D": "2",
+       "kw": [
+        "Close-quarters",
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Plasma Pistol - Standard",
+       "range": "12\"",
+       "A": "1",
+       "skill": "2+",
+       "S": "7",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Close-quarters"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Artificer crozius",
+       "range": "Melee",
+       "A": "6",
+       "skill": "2+",
+       "S": "6",
+       "AP": "-2",
+       "D": "2",
+       "kw": []
+      },
+      {
+       "name": "Close combat weapon",
+       "range": "Melee",
+       "A": "1",
+       "skill": "4+",
+       "S": "3",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Feel No Pain 5+"
+     ],
+     "factionAbilities": [
+      "Combat Doctrines"
+     ],
+     "abilities": [
+      {
+       "name": "Temple Relics",
+       "text": "At the start of your Command phase, if this unit contains one or more Cenobyte Servitor models, select up to one of the abilities in the Temple Relics section. Until the start of your next Command phase, this model has that ability.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Faithful Cenobytes",
+       "text": "■ If this unit’s Chaplain Grimaldus model is destroyed, this unit’s remaining Cenobyte Servitor models are also destroyed. ■ Each Cenobyte Servitor model in this unit takes up 0 transport capacity.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Litanies of the Devout",
+       "text": "This unit’s melee attacks can re-roll hit rolls.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Banner of the Emperor Victorious",
+       "text": "This unit has +1 to advance rolls and charge rolls.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Column from the Major Altar",
+       "text": "This unit has +1 T.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Water from the Stoup of Elucidation",
+       "text": "This unit’s melee attacks have +1 AP.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 4,
+       "pts": 120
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "intercessor_squad",
+      "crusader_squad",
+      "sword_brethren_squad",
+      "infernus_squad",
+      "assault_intercessor_squad"
+     ],
+     "composition": "1 Chaplain Grimaldus, 3 Cenobyte Servitor. The Chaplain Grimaldus is equipped with: 1 Artificier Crozius; 1 Plasma Pistol. Every Cenobyte Servitor is equipped with: 1 Servitor Combat Weapon.",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "leadModel": {
+      "name": "Chaplain Grimaldus",
+      "M": "6\"",
+      "T": "5",
+      "Sv": "3+",
+      "InSv": "4+",
+      "W": "5",
+      "OC": "1",
+      "Ld": "5+"
+     },
+     "roundPick": {
+      "title": "Temple Relics",
+      "style": "relic",
+      "fx": "relic",
+      "who": "Chaplain Grimaldus",
+      "note": "Start of your Command phase, while a Cenobyte Servitor lives: Grimaldus has one relic until the start of your next Command phase.",
+      "deadNote": "Chaplain Grimaldus is destroyed.",
+      "options": [
+       {
+        "id": "banner",
+        "name": "Banner of the Emperor Victorious",
+        "effect": "+1 to Advance and Charge rolls."
+       },
+       {
+        "id": "column",
+        "name": "Column from the Major Altar",
+        "effect": "+1 Toughness."
+       },
+       {
+        "id": "stoup",
+        "name": "Water from the Stoup of Elucidation",
+        "effect": "Melee attacks have +1 AP."
+       }
+      ]
+     }
+    },
+    {
+     "id": "castellan",
+     "name": "Castellan",
+     "role": "character",
+     "faction": "Adeptus Astartes",
+     "keywords": [
+      "Adeptus Astartes",
+      "Black Templars",
+      "Infantry",
+      "Character",
+      "Lieutenant",
+      "Explosives",
+      "Imperium",
+      "Tacticus"
+     ],
+     "image": "bt_castellan",
+     "baseSize": "40mm",
+     "profile": {
+      "M": "6\"",
+      "T": "5",
+      "Sv": "3+",
+      "W": "4",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Heavy Bolt Pistol",
+       "range": "18\"",
+       "A": "1",
+       "skill": "2+",
+       "S": "4",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Combi-weapon - Damnatus",
+       "range": "12\"",
+       "A": "1",
+       "skill": "2+",
+       "S": "9",
+       "AP": "-3",
+       "D": "D3+2",
+       "kw": [
+        "Melta 2"
+       ]
+      },
+      {
+       "name": "Combi-weapon - Infernus",
+       "range": "12\"",
+       "A": "3",
+       "skill": "N/A",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Blast 1",
+        "Torrent"
+       ]
+      },
+      {
+       "name": "Combi-weapon - Purgatus",
+       "range": "24\"",
+       "A": "2",
+       "skill": "2+",
+       "S": "7",
+       "AP": "-2",
+       "D": "2",
+       "kw": []
+      }
+     ],
+     "melee": [
+      {
+       "name": "Chainsword",
+       "range": "Melee",
+       "A": "7",
+       "skill": "2+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Sustained Hits 1"
+       ]
+      },
+      {
+       "name": "Master-crafted Power Weapon",
+       "range": "Melee",
+       "A": "6",
+       "skill": "2+",
+       "S": "6",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Lethal Hits"
+       ]
+      }
+     ],
+     "coreAbilities": [],
+     "factionAbilities": [
+      "Combat Doctrines"
+     ],
+     "abilities": [
+      {
+       "name": "Vehement Aggression",
+       "text": "In the Fight phase, when this unit is selected to fight, you can use this ability. If you do, make a leadership roll for this unit: ■ This unit’s melee attacks can re-roll hit rolls of 1. ■ Or: If that roll succeeds: This unit’s melee attacks: ■ Can re-roll hit rolls of 1. ■ Can re-roll wound rolls of 1.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 75
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "sword_brethren_squad",
+      "sternguard_veteran_squad",
+      "assault_intercessor_squad",
+      "company_heroes",
+      "crusader_squad",
+      "infernus_squad",
+      "intercessor_squad",
+      "bladeguard_veteran_squad"
+     ],
+     "composition": "1 Castellan. This model is equipped with: 1 Combi-weapon; 1 Master-crafted Power Weapon.",
+     "options": [
+      {
+       "id": "ranged",
+       "type": "choice",
+       "label": "Combi-weapon replaced with",
+       "choices": [
+        {
+         "id": "combi",
+         "label": "Combi-weapon",
+         "pts": 0
+        },
+        {
+         "id": "hbp",
+         "label": "Heavy Bolt Pistol",
+         "pts": 0
+        }
+       ]
+      },
+      {
+       "id": "melee",
+       "type": "choice",
+       "label": "Master-crafted Power Weapon replaced with",
+       "choices": [
+        {
+         "id": "mcpw",
+         "label": "Master-crafted Power Weapon",
+         "pts": 0
+        },
+        {
+         "id": "chain",
+         "label": "Chainsword",
+         "pts": 0
+        }
+       ]
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "support": true
+    },
+    {
+     "id": "high_marshal_helbrecht",
+     "name": "High Marshal Helbrecht",
+     "role": "epic hero",
+     "faction": "Adeptus Astartes",
+     "keywords": [
+      "Black Templars",
+      "Adeptus Astartes",
+      "Epic Hero",
+      "Chapter Master",
+      "Character",
+      "Imperium",
+      "Tacticus",
+      "Infantry",
+      "Explosives"
+     ],
+     "image": "bt_high_marshal_helbrecht",
+     "baseSize": "60mm",
+     "profile": {
+      "M": "6\"",
+      "T": "5",
+      "Sv": "2+",
+      "InSv": "4+",
+      "W": "6",
+      "OC": "3",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Ferocity",
+       "range": "24\"",
+       "A": "2",
+       "skill": "2+",
+       "S": "5",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Anti-Infantry 4+",
+        "Devastating Wounds"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Sword of the High Marshals - Sweep",
+       "range": "Melee",
+       "A": "12",
+       "skill": "2+",
+       "S": "6",
+       "AP": "-3",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Sword of the High Marshals - Strike",
+       "range": "Melee",
+       "A": "6",
+       "skill": "2+",
+       "S": "9",
+       "AP": "-3",
+       "D": "3",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [],
+     "factionAbilities": [
+      "Combat Doctrines",
+      "Transhuman Strategist"
+     ],
+     "abilities": [
+      {
+       "name": "High Marshal",
+       "text": "At the start of the Fight phase, select up to one enemy unit engaged with this unit and roll one D6: ■ On a 2-3, that enemy unit suffers D3 mortal wounds. ■ On a 4-5, that enemy unit suffers 3 mortal wounds. ■ On a 6+, that enemy unit suffers D3+3 mortal wounds.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Crusade of Wrath",
+       "text": "This unit’s melee attacks have: ■ +1 A. ■ +1 S.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 125
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "bladeguard_veteran_squad",
+      "crusader_squad",
+      "assault_intercessor_squad",
+      "sword_brethren_squad",
+      "intercessor_squad",
+      "company_heroes"
+     ],
+     "composition": "1 High Marshal Helbrecht. This model is equipped with: 1 Ferocity; 1 Sword of the High Marshals.",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "cpEachCommand": {
+      "name": "Transhuman Strategist",
+      "who": "High Marshal Helbrecht",
+      "warlordOnly": true,
+      "when": "start of the battle round"
+     }
+    },
+    {
+     "id": "emperors_champion",
+     "name": "Emperor's Champion",
+     "role": "character",
+     "faction": "Adeptus Astartes",
+     "keywords": [
+      "Black Templars",
+      "Adeptus Astartes",
+      "Explosives",
+      "Character",
+      "Infantry",
+      "Imperium",
+      "Tacticus"
+     ],
+     "image": "bt_emperors_champion",
+     "baseSize": "40mm",
+     "profile": {
+      "M": "8\"",
+      "T": "5",
+      "Sv": "2+",
+      "InSv": "4+",
+      "W": "5",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Bolt Pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "2+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Close-quarters"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Black Sword - Strike",
+       "range": "Melee",
+       "A": "6",
+       "skill": "2+",
+       "S": "8",
+       "AP": "-3",
+       "D": "3",
+       "kw": [
+        "Anti-Character 5+",
+        "Devastating Wounds",
+        "Precision"
+       ]
+      },
+      {
+       "name": "Black Sword - Sweep",
+       "range": "Melee",
+       "A": "10",
+       "skill": "2+",
+       "S": "6",
+       "AP": "-2",
+       "D": "1",
+       "kw": []
+      }
+     ],
+     "coreAbilities": [
+      "Lone Operative"
+     ],
+     "factionAbilities": [
+      "Combat Doctrines"
+     ],
+     "abilities": [
+      {
+       "name": "Armour of Faith",
+       "text": "Attacks allocated to this model have -1 D.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Chosen of the Emperor",
+       "text": "You cannot include more than one EMPEROR’S CHAMPION unit in your army.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Sigismund's Heir",
+       "text": "This unit has +1 to charge rolls.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 100
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "assault_intercessor_squad",
+      "crusader_squad",
+      "sternguard_veteran_squad",
+      "sword_brethren_squad",
+      "intercessor_squad"
+     ],
+     "composition": "1 Emperor's Champion. This model is equipped with: 1 Black Sword; 1 Bolt Pistol.",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "copyMax": 1
+    },
+    {
+     "id": "marshal",
+     "name": "Marshal",
+     "role": "character",
+     "faction": "Adeptus Astartes",
+     "keywords": [
+      "Black Templars",
+      "Adeptus Astartes",
+      "Explosives",
+      "Imperium",
+      "Infantry",
+      "Tacticus",
+      "Captain",
+      "Character"
+     ],
+     "image": "bt_marshal",
+     "baseSize": "40mm",
+     "profile": {
+      "M": "6\"",
+      "T": "5",
+      "Sv": "3+",
+      "InSv": "4+",
+      "W": "5",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Plasma Pistol - Standard",
+       "range": "12\"",
+       "A": "1",
+       "skill": "2+",
+       "S": "7",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Plasma Pistol - Supercharge",
+       "range": "12\"",
+       "A": "1",
+       "skill": "2+",
+       "S": "8",
+       "AP": "-3",
+       "D": "2",
+       "kw": [
+        "Hazardous",
+        "Pistol"
+       ]
+      },
+      {
+       "name": "Combi-weapon - Damnatus",
+       "range": "12\"",
+       "A": "1",
+       "skill": "2+",
+       "S": "9",
+       "AP": "-3",
+       "D": "D3+2",
+       "kw": [
+        "Melta 2"
+       ]
+      },
+      {
+       "name": "Combi-weapon - Infernus",
+       "range": "12\"",
+       "A": "3",
+       "skill": "N/A",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Blast 1",
+        "Torrent"
+       ]
+      },
+      {
+       "name": "Combi-weapon - Purgatus",
+       "range": "24\"",
+       "A": "2",
+       "skill": "2+",
+       "S": "7",
+       "AP": "-2",
+       "D": "2",
+       "kw": []
+      }
+     ],
+     "melee": [
+      {
+       "name": "Master-crafted Power Weapon",
+       "range": "Melee",
+       "A": "7",
+       "skill": "2+",
+       "S": "6",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Lethal Hits"
+       ]
+      }
+     ],
+     "coreAbilities": [],
+     "factionAbilities": [
+      "Combat Doctrines",
+      "Transhuman Strategist"
+     ],
+     "abilities": [
+      {
+       "name": "Inspirational Exemplar",
+       "text": "This unit’s melee attacks have +1 to hit rolls.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Pious Fervour",
+       "text": "When this unit is selected to fight, you can use this ability. If you do, this model’s melee attacks have +1 A for each enemy unit within 6\" of this model (to a maximum of +3 A).",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 80
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "crusader_squad",
+      "bladeguard_veteran_squad",
+      "sword_brethren_squad",
+      "infernus_squad",
+      "assault_intercessor_squad",
+      "sternguard_veteran_squad",
+      "intercessor_squad"
+     ],
+     "composition": "1 Marshal. This model is equipped with: 1 Master-crafted Power Weapon; 1 Plasma Pistol.",
+     "options": [
+      {
+       "id": "pistol",
+       "type": "choice",
+       "label": "Plasma Pistol replaced with",
+       "choices": [
+        {
+         "id": "pp",
+         "label": "Plasma Pistol",
+         "pts": 0
+        },
+        {
+         "id": "combi",
+         "label": "Combi-weapon",
+         "pts": 0
+        }
+       ]
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "cpEachCommand": {
+      "name": "Transhuman Strategist",
+      "who": "Marshal",
+      "warlordOnly": true,
+      "when": "start of the battle round"
+     }
+    },
+    {
+     "id": "sword_brethren_squad",
+     "name": "Sword Brethren Squad",
+     "role": "infantry",
+     "faction": "Adeptus Astartes",
+     "keywords": [
+      "Black Templars",
+      "Adeptus Astartes",
+      "Explosives",
+      "Tacticus",
+      "Imperium",
+      "Infantry"
+     ],
+     "image": "bt_sword_brethren_squad",
+     "baseSize": "40mm",
+     "profile": {
+      "M": "6\"",
+      "T": "5",
+      "Sv": "3+",
+      "W": "3",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Heavy Bolt Pistol",
+       "range": "18\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Close-quarters"
+       ]
+      },
+      {
+       "name": "Plasma Pistol - Supercharge",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-3",
+       "D": "2",
+       "kw": [
+        "Hazardous",
+        "Close-quarters"
+       ]
+      },
+      {
+       "name": "Plasma Pistol - Standard",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "7",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Close-quarters"
+       ]
+      },
+      {
+       "name": "Hand Flamer",
+       "range": "9\"",
+       "A": "3",
+       "skill": "N/A",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Close-quarters",
+        "Torrent"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Thunder Hammer",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-2",
+       "D": "3",
+       "kw": [
+        "Devastating Wounds"
+       ]
+      },
+      {
+       "name": "Master-crafted Power Weapon",
+       "range": "Melee",
+       "A": "3",
+       "skill": "2+",
+       "S": "5",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Lethal Hits"
+       ]
+      },
+      {
+       "name": "Chainsword",
+       "range": "Melee",
+       "A": "6",
+       "skill": "2+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Sustained Hits 1"
+       ]
+      },
+      {
+       "name": "Twin Lightning Claws",
+       "range": "Melee",
+       "A": "5",
+       "skill": "2+",
+       "S": "5",
+       "AP": "-2",
+       "D": "1",
+       "kw": [
+        "Twin-linked"
+       ]
+      }
+     ],
+     "coreAbilities": [],
+     "factionAbilities": [
+      "Combat Doctrines"
+     ],
+     "abilities": [
+      {
+       "name": "Exploit their Cowardice",
+       "text": "In your opponent’s Movement phase, when an enemy unit that was engaged with this unit ends a fall-back move, if this unit is unengaged it can make a normal move of up to 6\".",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 4,
+       "pts": 115,
+       "ptsLater": 135
+      },
+      {
+       "models": 5,
+       "pts": 140,
+       "ptsLater": 160
+      },
+      {
+       "models": 6,
+       "pts": 250,
+       "ptsLater": 270
+      },
+      {
+       "models": 7,
+       "pts": 250,
+       "ptsLater": 270
+      },
+      {
+       "models": 8,
+       "pts": 250,
+       "ptsLater": 270
+      },
+      {
+       "models": 9,
+       "pts": 250,
+       "ptsLater": 270
+      },
+      {
+       "models": 10,
+       "pts": 275,
+       "ptsLater": 295
+      }
+     ],
+     "stepFrom": 3,
+     "leaderOf": [],
+     "composition": "4-10 Sword Brother. Every model is equipped with: 1 Chainsword; 1 Heavy Bolt Pistol.",
+     "options": [
+      {
+       "id": "flamer",
+       "type": "count",
+       "label": "Hand Flamer",
+       "slots": [
+        "pistol"
+       ],
+       "per": 4,
+       "n": 2
+      },
+      {
+       "id": "pp",
+       "type": "count",
+       "label": "Plasma Pistol",
+       "slots": [
+        "pistol"
+       ],
+       "per": 4,
+       "n": 1
+      },
+      {
+       "id": "mcpw",
+       "type": "count",
+       "label": "Master-crafted Power Weapon",
+       "slots": [
+        "melee"
+       ],
+       "max": "slot"
+      },
+      {
+       "id": "th",
+       "type": "count",
+       "label": "Thunder Hammer",
+       "slots": [
+        "melee"
+       ],
+       "per": 4,
+       "n": 1
+      },
+      {
+       "id": "tlc",
+       "type": "count",
+       "label": "Twin Lightning Claws",
+       "slots": [
+        "pistol",
+        "melee"
+       ],
+       "per": 4,
+       "n": 1
+      }
+     ],
+     "optionRules": [],
+     "slots": [
+      {
+       "id": "pistol",
+       "label": "Heavy bolt pistol",
+       "default": "Heavy Bolt Pistol",
+       "size": {
+        "models": 1
+       }
+      },
+      {
+       "id": "melee",
+       "label": "Chainsword",
+       "default": "Chainsword",
+       "size": {
+        "models": 1
+       }
+      }
+     ],
+     "optionGroups": []
+    },
+    {
+     "id": "crusader_squad",
+     "name": "Crusader Squad",
+     "role": "battleline",
+     "faction": "Adeptus Astartes",
+     "keywords": [
+      "Black Templars",
+      "Adeptus Astartes",
+      "Battleline",
+      "Infantry",
+      "Tacticus",
+      "Imperium",
+      "Explosives"
+     ],
+     "image": "bt_crusader_squad",
+     "baseSize": "32mm",
+     "profile": {
+      "M": "6\"",
+      "T": "5",
+      "Sv": "3+",
+      "W": "2",
+      "OC": "2",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Bolt Pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Close-quarters"
+       ]
+      },
+      {
+       "name": "Pyreblaster",
+       "range": "12\"",
+       "A": "3",
+       "skill": "N/A",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Blast 1",
+        "Torrent"
+       ]
+      },
+      {
+       "name": "Heavy Bolt Pistol",
+       "range": "18\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Close-quarters"
+       ]
+      },
+      {
+       "name": "Bolt Rifle - Focused Fire",
+       "range": "24\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "6",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Heavy",
+        "Rapid Fire 1"
+       ]
+      },
+      {
+       "name": "Bolt Rifle - Saturation",
+       "range": "24\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Assault",
+        "Rapid Fire 1"
+       ]
+      },
+      {
+       "name": "Shotgun",
+       "range": "18\"",
+       "A": "2",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Assault",
+        "Blast 1"
+       ]
+      },
+      {
+       "name": "Hand Flamer",
+       "range": "9\"",
+       "A": "3",
+       "skill": "N/A",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Close-quarters",
+        "Torrent"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Close combat weapon",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Power Fist",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "8",
+       "AP": "-2",
+       "D": "2",
+       "kw": []
+      },
+      {
+       "name": "Initiate Chainsword",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Sustained Hits 1"
+       ]
+      },
+      {
+       "name": "Combat Knife",
+       "range": "Melee",
+       "A": "3",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-1",
+       "D": "1",
+       "kw": []
+      },
+      {
+       "name": "Neophyte Chainsword",
+       "range": "Melee",
+       "A": "4",
+       "skill": "3+",
+       "S": "4",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Sustained Hits 1"
+       ]
+      },
+      {
+       "name": "Master-crafted Power Weapon",
+       "range": "Melee",
+       "A": "3",
+       "skill": "2+",
+       "S": "5",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Lethal Hits"
+       ]
+      }
+     ],
+     "coreAbilities": [],
+     "factionAbilities": [
+      "Combat Doctrines"
+     ],
+     "abilities": [
+      {
+       "name": "Righteous Zeal",
+       "text": "In your opponent’s Shooting phase, when an enemy unit has shot, if a model in this unit was destroyed by those attacks, this unit can make a surge move of up to D6+1\".",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 10,
+       "pts": 160
+      },
+      {
+       "models": 20,
+       "pts": 305
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [],
+     "composition": "1 Sword Brother, 4-8 Neophyte, 5-11 Initiate. The Sword Brother is equipped with: 1 Heavy Bolt Pistol; 1 Master-crafted Power Weapon. Every Neophyte is equipped with: 1 Bolt Pistol; 1 Neophyte Chainsword. Every Initiate is equipped with: 1 Bolt Pistol; 1 Bolt Rifle; 1 Close combat weapon.",
+     "options": [
+      {
+       "id": "sb_pistol",
+       "type": "choice",
+       "label": "Sword Brother: Heavy Bolt Pistol replaced with",
+       "choices": [
+        {
+         "id": "hbp",
+         "label": "Heavy Bolt Pistol",
+         "pts": 0
+        },
+        {
+         "id": "flamer",
+         "label": "Hand Flamer",
+         "pts": 0
+        }
+       ],
+       "single": true
+      },
+      {
+       "id": "chain",
+       "type": "count",
+       "label": "Heavy Bolt Pistol and Initiate Chainsword",
+       "slots": [
+        "init"
+       ],
+       "max": "slot"
+      },
+      {
+       "id": "pf",
+       "type": "count",
+       "label": "Heavy Bolt Pistol and Power Fist",
+       "slots": [
+        "init"
+       ],
+       "group": "spec",
+       "max": "slot"
+      },
+      {
+       "id": "pyre",
+       "type": "count",
+       "label": "Pyreblaster",
+       "slots": [
+        "init"
+       ],
+       "group": "spec",
+       "max": "slot"
+      },
+      {
+       "id": "shotgun",
+       "type": "count",
+       "label": "Shotgun and Combat Knife",
+       "slots": [
+        "neo"
+       ],
+       "max": "slot"
+      }
+     ],
+     "optionRules": [],
+     "slots": [
+      {
+       "id": "init",
+       "label": "Initiate bolt rifle",
+       "default": "Bolt Rifle",
+       "size": {
+        "per": [
+         10,
+         6
+        ],
+        "minus": 1
+       }
+      },
+      {
+       "id": "neo",
+       "label": "Neophyte chainsword",
+       "default": "Neophyte Chainsword",
+       "size": {
+        "per": [
+         10,
+         4
+        ]
+       }
+      }
+     ],
+     "optionGroups": [
+      {
+       "id": "spec",
+       "label": "Power fist or pyreblaster",
+       "per": 10,
+       "n": 2
+      }
+     ],
+     "altProfiles": [
+      {
+       "name": "Neophyte",
+       "models": {
+        "10": 4,
+        "20": 8
+       },
+       "T": "4",
+       "Sv": "4+"
+      }
+     ]
+    },
+    {
+     "id": "execrator",
+     "name": "Execrator",
+     "role": "character",
+     "faction": "Adeptus Astartes",
+     "keywords": [
+      "Adeptus Astartes",
+      "Black Templars",
+      "Explosives",
+      "Infantry",
+      "Chaplain",
+      "Character",
+      "Imperium",
+      "Tacticus"
+     ],
+     "image": "bt_execrator",
+     "baseSize": "40mm",
+     "profile": {
+      "M": "6\"",
+      "T": "5",
+      "Sv": "3+",
+      "InSv": "4+",
+      "W": "4",
+      "OC": "1",
+      "Ld": "5+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Hand Flamer",
+       "range": "9\"",
+       "A": "3",
+       "skill": "N/A",
+       "S": "4",
+       "AP": "0",
+       "D": "1",
+       "kw": [
+        "Close-quarters",
+        "Torrent"
+       ]
+      },
+      {
+       "name": "Absolvor Bolt Pistol",
+       "range": "18\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Close-quarters"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Master-crafted Power Weapon",
+       "range": "Melee",
+       "A": "3",
+       "skill": "2+",
+       "S": "6",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Extra Attacks",
+        "Lethal Hits"
+       ]
+      },
+      {
+       "name": "Crozius Arcanum",
+       "range": "Melee",
+       "A": "5",
+       "skill": "2+",
+       "S": "6",
+       "AP": "-1",
+       "D": "2",
+       "kw": [
+        "Cleave 1"
+       ]
+      }
+     ],
+     "coreAbilities": [],
+     "factionAbilities": [
+      "Combat Doctrines"
+     ],
+     "abilities": [
+      {
+       "name": "Remorseless Persecution",
+       "text": "In your Movement phase, when this unit is selected to make an advance move, that advance move does not prevent this unit from being eligible to declare a charge.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Condemnatory Annihilation",
+       "text": "After this unit has fought, if this unit destroyed an enemy model this phase, each enemy unit engaged with this unit makes a battle-shock roll, with -1 to that battle-shock roll.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 65
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "crusader_squad",
+      "sword_brethren_squad"
+     ],
+     "composition": "1 Execrator. This model is equipped with: 1 Absolvor Bolt Pistol; 1 Crozius Arcanum.",
+     "options": [
+      {
+       "id": "kit",
+       "type": "choice",
+       "label": "Wargear",
+       "choices": [
+        {
+         "id": "abp",
+         "label": "Absolvor Bolt Pistol",
+         "pts": 0
+        },
+        {
+         "id": "flamer",
+         "label": "Hand Flamer",
+         "pts": 0
+        },
+        {
+         "id": "abp_mcpw",
+         "label": "Absolvor Bolt Pistol and Master-crafted Power Weapon",
+         "pts": 0
+        }
+       ]
+      }
+     ],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": []
+    },
+    {
+     "id": "crusade_ancient",
+     "name": "Crusade Ancient",
+     "role": "character",
+     "faction": "Adeptus Astartes",
+     "keywords": [
+      "Black Templars",
+      "Adeptus Astartes",
+      "Tacticus",
+      "Imperium",
+      "Explosives",
+      "Character",
+      "Infantry"
+     ],
+     "image": "bt_crusade_ancient",
+     "baseSize": "40mm",
+     "profile": {
+      "M": "6\"",
+      "T": "5",
+      "Sv": "3+",
+      "W": "4",
+      "OC": "1",
+      "Ld": "6+"
+     },
+     "damaged": null,
+     "ranged": [
+      {
+       "name": "Bolt Pistol",
+       "range": "12\"",
+       "A": "1",
+       "skill": "3+",
+       "S": "5",
+       "AP": "-1",
+       "D": "1",
+       "kw": [
+        "Close-quarters"
+       ]
+      }
+     ],
+     "melee": [
+      {
+       "name": "Master-crafted Power Weapon",
+       "range": "Melee",
+       "A": "5",
+       "skill": "2+",
+       "S": "5",
+       "AP": "-2",
+       "D": "2",
+       "kw": [
+        "Lethal Hits"
+       ]
+      }
+     ],
+     "coreAbilities": [],
+     "factionAbilities": [
+      "Combat Doctrines"
+     ],
+     "abilities": [
+      {
+       "name": "Martial Honour (Once per battle, per unit)",
+       "text": "If this unit’s melee attacks destroyed an enemy unit this phase, you can use this ability. If you do, until the end of the battle, this model has +5 OC.",
+       "kind": "datasheet"
+      },
+      {
+       "name": "Vengeful Exhortation",
+       "text": "In the Fight phase, you can use this ability. If you do, when a model in this unit is destroyed, if this unit has not been selected to fight this phase, roll one D6: ■ On a 4+, do not remove this model from the battlefield. When your unit has fought, or at the end of the phase (whichever comes first), this model is removed from the battlefield.",
+       "kind": "datasheet"
+      }
+     ],
+     "sizes": [
+      {
+       "models": 1,
+       "pts": 45
+      }
+     ],
+     "stepFrom": null,
+     "leaderOf": [
+      "crusader_squad",
+      "sword_brethren_squad"
+     ],
+     "composition": "1 Crusade Ancient. This model is equipped with: 1 Bolt Pistol; 1 Master-crafted Power Weapon.",
+     "options": [],
+     "optionRules": [],
+     "slots": [],
+     "optionGroups": [],
+     "support": true,
+     "oncePerBattle": {
+      "title": "Martial Honour",
+      "when": "Once per battle, after its melee attacks destroy an enemy unit",
+      "fx": "banner",
+      "style": "honour",
+      "button": "Raise the banner",
+      "text": "This model has +5 OC until the end of the battle."
+     }
+    }
+   ],
+   "terms": [
+    "Templar Vows?",
+    "Neophytes?",
+    "Initiates?"
    ]
   }
  }
