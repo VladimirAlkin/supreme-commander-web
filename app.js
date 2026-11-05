@@ -836,7 +836,7 @@
       const mine = (def.options || []).filter(o => o.slots && o.slots[o.slots.length - 1] === sl.id);
       mine.forEach(o => placed.add(o.id));
       return `<div class="wslot"><div class="wslot-h"><span class="eyebrow">${esc(sl.label)}</span><span class="faint num">${size} model${size === 1 ? '' : 's'}</span></div>
-        <div class="opt wdefault"><div><div><b>${esc(sl.default)}</b> <span class="faint">(default)</span></div><div class="cap">Every model that does not take an option below</div></div><output class="num wcount">${Math.max(0, size - used)}</output></div>
+        <div class="opt wdefault"><div><div>${wgNameBtn(inst, sl.default)} <span class="faint">(default)</span></div><div class="cap">Every model that does not take an option below</div></div><output class="num wcount">${Math.max(0, size - used)}</output></div>
         ${mine.map(o => optionHTML(inst, o, def)).join('')}${sl.fixedNote ? `<div class="faint" style="font-size:.85rem">${esc(sl.fixedNote)}</div>` : ''}</div>`;
     }).join('');
     const rest = (def.options || []).filter(o => !placed.has(o.id));
@@ -888,8 +888,10 @@
     return r.weapons.map(w => wgCard(w, r.weapons.length === 1)).join('') + (r.text ? `<div class="wgtext">${esc(r.text)}</div>` : '');
   }
   function standardRow(def, inst) {
-    const ws = standardWeapons(def); if (!ws.length) return '';
-    return `<div class="wstd"><span class="eyebrow">Standard</span> ${ws.map(w => wgNameBtn(inst, w.name, 'std')).join('')}</div>`;
+    /* only what no slot's default row already names */
+    const inRows = new Set((def.slots || []).flatMap(sl => wgResolve(def, sl.default).weapons));
+    const ws = standardWeapons(def).filter(w => !inRows.has(w)); if (!ws.length) return '';
+    return `<div class="wstd"><span class="eyebrow">Also carried</span> ${ws.map(w => wgNameBtn(inst, w.name, 'std')).join('')}</div>`;
   }
   function optionHTML(inst, o, def) {
     const wg = inst.wargear || {};
