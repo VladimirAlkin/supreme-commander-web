@@ -2,7 +2,7 @@
 
 Applies to every army in the app: Chaos Space Marines, World Eaters, Death
 Guard, Thousand Sons, Tyranids, Adepta Sororitas (with Imperial Agents),
-Adeptus Mechanicus, Emperor's Children (with Legions of Excess), Drukhari (with Harlequins and Anhrathe allies), Necrons, T'au Empire, Imperial Knights (with Adeptus Mechanicus allies), Space Marines (codex Chapters, with Freeblades allies), Dark Angels (on the Space Marines pool by reference, Freeblades inherited), Blood Angels and Space Wolves (the same way), Chaos Knights (with Wretched Thralls allies by reference), and
+Adeptus Mechanicus, Emperor's Children (with Legions of Excess), Drukhari (with Harlequins and Anhrathe allies), Necrons, T'au Empire, Imperial Knights (with Adeptus Mechanicus allies), Space Marines (codex Chapters, with Freeblades allies), Dark Angels (on the Space Marines pool by reference, Freeblades inherited), Blood Angels, Space Wolves and Black Templars (the same way), Chaos Knights (with Wretched Thralls allies by reference), and
 any army added later.
 
 Current to: the 30 Sep 2026 update (MFM v1.5; Faction Packs World Eaters,
@@ -31,6 +31,11 @@ Chaos Knights (added 2026-11-04) is current to Faction Pack v1.2 (28.08.2026; Wa
 BSData d9156c6 (CK files last changed bb2746a 13.10.2026; the 30.09 import 119dab8 changed points only) and Wahapedia 30.10.2026. Points
 BSData = Wahapedia (MFM not reachable from here). Rebuilt with `IMPORT=119dab8~1..HEAD tools/rules/rebuild.sh chaosKnights` (109 slots,
 no overrides). Decisions: `claude/army-builder/data/chaosKnights_decisions.md`.
+
+Black Templars (added 2026-11-05) has no 11th-edition Faction Pack either (the June 2026 v1.0 pack, where Templar Vows was an army rule,
+was superseded by Codex: Space Marines): texts Wahapedia 30.10.2026 (source "Black Templars — App" 03.10.2026), structure BSData bf57faf
+(BT catalogue + BT detachments in the SM catalogue), points BSData = Wahapedia App (MFM not reachable). Rebuilt with an empty delta:
+`IMPORT=bf57faf..bf57faf tools/rules/rebuild.sh blackTemplars` (51 slots, no overrides). Decisions: `claude/army-builder/data/blackTemplars_decisions.md`.
 
 ## Order of precedence
 
@@ -242,3 +247,14 @@ Found by `bsdelta.py` across BSData's import (`374f505..HEAD`) plus reviews:
   Daemonic Pact (Chaos Daemons army), Titanicus Traitoris (Titans army), Dreadblades reverse link (CSM/WE/DG/TS/EC may take 1 TITANIC or
   up to 3 WAR DOG). Photos 20/20 (Imperial Armour knights in Mechanicum colours: no Chaos version of those kits). Import fixture
   `chaos_knights_synthetic` is synthetic: replace with a real export.
+- Black Templars (added 2026-11-05; Codex SM via Wahapedia App, BSData bf57faf): 15 own datasheets (6 are the BT versions of SM kits:
+  Gladiator Lancer/Reaper/Valiant, Repulsor, Repulsor Executioner, Impulsor; BSData hides the SM ones for BT), 3 detachments, 8
+  enhancements, 12 stratagems; the SM pool by reference without the 3 Librarians and those 6 vehicles. Templar Vows is the Vow-Sworn
+  Crusaders detachment rule (picked at the start of battle round 1, all battle). Decisions from the sources: Fist of the God-Emperor rule
+  name "Purge and Sanctify" (Wahapedia; BSData placeholder "New Rule"); Execrator Combat Doctrines (Wahapedia; missing in BSData);
+  Sword Brethren 4–10 models per BSData (owner; Wahapedia lists 4/5/9/10); Oathbound Exemplar on CHARACTER INFANTRY (BSData hidden
+  condition; Wahapedia says "unit only"); "Attached Unit" on Crusader Squad not taken (BSData only, leader lists give the same).
+  Check against the app: Templar Vows wording, Purge and Sanctify, Oathbound Exemplar target, DP and Force Dispositions (BSData only).
+  Open in the SM pool: no ANCIENT keyword on Ancient / Crusade Ancient (BSData has it) — Gladius "Standard of the Emperor Ascendant"
+  has no bearer. Photos 15/15 (the 6 vehicles use the SM photo of the same kit). Import fixture `black_templars_synthetic` is synthetic:
+  replace with a real export.
