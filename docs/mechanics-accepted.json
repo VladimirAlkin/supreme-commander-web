@@ -1332,7 +1332,7 @@
   {
    "path": ".blackTemplars.units[0].image",
    "change": "ADDED",
-   "value": "\"bt_impulsor\"",
+   "value": "\"sm_impulsor\"",
    "why": "New army Black Templars (2026-11-05): own datasheets (15, incl. own versions of 6 SM vehicles) and detachments only, the Space Marines pool by reference (fd.inherits, Librarians and the SM Gladiator/Repulsor/Impulsor excluded as BSData hides them for BT). Profiles and points BSData bf57faf = Wahapedia BT App 03.10.2026 (MFM not reachable); Sword Brethren sizes 4-10 per BSData (owner), Execrator Combat Doctrines (Wahapedia), DP 2/1/1 BSData, Templar Vows as Vow-Sworn Crusaders detachment rule per claude/army-builder/data/blackTemplars_decisions.md and data/blackTemplars_build/build_log.txt."
   },
   {
@@ -2256,7 +2256,7 @@
   {
    "path": ".blackTemplars.units[1].image",
    "change": "ADDED",
-   "value": "\"bt_gladiator_lancer\"",
+   "value": "\"sm_gladiator_lancer\"",
    "why": "New army Black Templars (2026-11-05): own datasheets (15, incl. own versions of 6 SM vehicles) and detachments only, the Space Marines pool by reference (fd.inherits, Librarians and the SM Gladiator/Repulsor/Impulsor excluded as BSData hides them for BT). Profiles and points BSData bf57faf = Wahapedia BT App 03.10.2026 (MFM not reachable); Sword Brethren sizes 4-10 per BSData (owner), Execrator Combat Doctrines (Wahapedia), DP 2/1/1 BSData, Templar Vows as Vow-Sworn Crusaders detachment rule per claude/army-builder/data/blackTemplars_decisions.md and data/blackTemplars_build/build_log.txt."
   },
   {
@@ -2724,7 +2724,7 @@
   {
    "path": ".blackTemplars.units[2].image",
    "change": "ADDED",
-   "value": "\"bt_gladiator_valiant\"",
+   "value": "\"sm_gladiator_valiant\"",
    "why": "New army Black Templars (2026-11-05): own datasheets (15, incl. own versions of 6 SM vehicles) and detachments only, the Space Marines pool by reference (fd.inherits, Librarians and the SM Gladiator/Repulsor/Impulsor excluded as BSData hides them for BT). Profiles and points BSData bf57faf = Wahapedia BT App 03.10.2026 (MFM not reachable); Sword Brethren sizes 4-10 per BSData (owner), Execrator Combat Doctrines (Wahapedia), DP 2/1/1 BSData, Templar Vows as Vow-Sworn Crusaders detachment rule per claude/army-builder/data/blackTemplars_decisions.md and data/blackTemplars_build/build_log.txt."
   },
   {
@@ -3192,7 +3192,7 @@
   {
    "path": ".blackTemplars.units[3].image",
    "change": "ADDED",
-   "value": "\"bt_gladiator_reaper\"",
+   "value": "\"sm_gladiator_reaper\"",
    "why": "New army Black Templars (2026-11-05): own datasheets (15, incl. own versions of 6 SM vehicles) and detachments only, the Space Marines pool by reference (fd.inherits, Librarians and the SM Gladiator/Repulsor/Impulsor excluded as BSData hides them for BT). Profiles and points BSData bf57faf = Wahapedia BT App 03.10.2026 (MFM not reachable); Sword Brethren sizes 4-10 per BSData (owner), Execrator Combat Doctrines (Wahapedia), DP 2/1/1 BSData, Templar Vows as Vow-Sworn Crusaders detachment rule per claude/army-builder/data/blackTemplars_decisions.md and data/blackTemplars_build/build_log.txt."
   },
   {
@@ -3672,7 +3672,7 @@
   {
    "path": ".blackTemplars.units[4].image",
    "change": "ADDED",
-   "value": "\"bt_repulsor_executioner\"",
+   "value": "\"sm_repulsor_executioner\"",
    "why": "New army Black Templars (2026-11-05): own datasheets (15, incl. own versions of 6 SM vehicles) and detachments only, the Space Marines pool by reference (fd.inherits, Librarians and the SM Gladiator/Repulsor/Impulsor excluded as BSData hides them for BT). Profiles and points BSData bf57faf = Wahapedia BT App 03.10.2026 (MFM not reachable); Sword Brethren sizes 4-10 per BSData (owner), Execrator Combat Doctrines (Wahapedia), DP 2/1/1 BSData, Templar Vows as Vow-Sworn Crusaders detachment rule per claude/army-builder/data/blackTemplars_decisions.md and data/blackTemplars_build/build_log.txt."
   },
   {
@@ -4452,7 +4452,7 @@
   {
    "path": ".blackTemplars.units[5].image",
    "change": "ADDED",
-   "value": "\"bt_repulsor\"",
+   "value": "\"sm_repulsor\"",
    "why": "New army Black Templars (2026-11-05): own datasheets (15, incl. own versions of 6 SM vehicles) and detachments only, the Space Marines pool by reference (fd.inherits, Librarians and the SM Gladiator/Repulsor/Impulsor excluded as BSData hides them for BT). Profiles and points BSData bf57faf = Wahapedia BT App 03.10.2026 (MFM not reachable); Sword Brethren sizes 4-10 per BSData (owner), Execrator Combat Doctrines (Wahapedia), DP 2/1/1 BSData, Templar Vows as Vow-Sworn Crusaders detachment rule per claude/army-builder/data/blackTemplars_decisions.md and data/blackTemplars_build/build_log.txt."
   },
   {

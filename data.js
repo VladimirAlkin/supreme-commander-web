@@ -1019,7 +1019,7 @@ const DATA = {
     "panel": "rgba(20,17,19,.86)",
     "card1": "#201A1C",
     "card2": "#141113",
-    "icon1": "#E9DFC6",
+    "icon1": "#F6EEDA",
     "icon2": "#CDB98C",
     "iconRim": "#141113"
    },
@@ -116694,7 +116694,7 @@ const DATA = {
       "Transport",
       "Vehicle"
      ],
-     "image": "bt_impulsor",
+     "image": "sm_impulsor",
      "baseSize": "100mm",
      "profile": {
       "M": "12\"",
@@ -116921,7 +116921,7 @@ const DATA = {
       "Frame",
       "Vehicle"
      ],
-     "image": "bt_gladiator_lancer",
+     "image": "sm_gladiator_lancer",
      "baseSize": "100mm",
      "profile": {
       "M": "10\"",
@@ -117030,7 +117030,7 @@ const DATA = {
       "Smoke",
       "Vehicle"
      ],
-     "image": "bt_gladiator_valiant",
+     "image": "sm_gladiator_valiant",
      "baseSize": "100mm",
      "profile": {
       "M": "10\"",
@@ -117139,7 +117139,7 @@ const DATA = {
       "Imperium",
       "Smoke"
      ],
-     "image": "bt_gladiator_reaper",
+     "image": "sm_gladiator_reaper",
      "baseSize": "100mm",
      "profile": {
       "M": "10\"",
@@ -117250,7 +117250,7 @@ const DATA = {
       "Imperium",
       "Smoke"
      ],
-     "image": "bt_repulsor_executioner",
+     "image": "sm_repulsor_executioner",
      "baseSize": "100mm",
      "profile": {
       "M": "10\"",
@@ -117429,7 +117429,7 @@ const DATA = {
       "Imperium",
       "Smoke"
      ],
-     "image": "bt_repulsor",
+     "image": "sm_repulsor",
      "baseSize": "100mm",
      "profile": {
       "M": "10\"",
