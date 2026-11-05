@@ -70,6 +70,12 @@ subtracts exact matches and fails on anything else, including a reviewed fix
 that has been undone (`REVERTED`). `--all` ignores the ledger. Add an entry
 only after verifying against the current rules; never to make the gate pass.
 
+Every time `main` moves ("переноси в main"), rotate the ledger in its own
+commit: move `docs/mechanics-accepted.json` as is (with every `why`) to
+`docs/mechanics-accepted-archive-<main SHA>.json` and start an empty active
+ledger (`entries: []`); `mechanics-diff main` must then show 0 rows. Last
+rotation: after main → 9284654 (archive `mechanics-accepted-archive-9284654.json`).
+
 ## Debugging a frozen UI
 
 If controls do nothing and the screen looks stale, it is almost never CSS
