@@ -1,0 +1,63 @@
+{
+ "roster": {
+  "name": "DREADBLADES TEST",
+  "factionId": "emperorsChildren",
+  "battleSize": "strike",
+  "detachmentIds": [
+   "carnival_of_excess"
+  ],
+  "forceDisposition": "Disruption",
+  "warlordUnitId": "imaoel42",
+  "units": [
+   {
+    "instanceId": "imaoel42",
+    "datasheetId": "lord_exultant",
+    "size": 1,
+    "wargear": {
+     "pistol": "plasma",
+     "spear": "spear"
+    },
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "cuaqf118",
+    "datasheetId": "tormentors",
+    "size": 5,
+    "wargear": {
+     "ob_pistol": "bolt",
+     "ob_sword": "sword"
+    },
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "wdchgqqj",
+    "datasheetId": "knight_despoiler",
+    "size": 1,
+    "wargear": {
+     "shoulder": "melta",
+     "arm1": "chain",
+     "arm2": "claw",
+     "carapace": "none"
+    },
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   }
+  ],
+  "notes": "",
+  "dataVersion": "2026-10-14-mfm16-fp12"
+ },
+ "points": 540,
+ "units": [
+  "lord_exultant:95",
+  "tormentors:85",
+  "knight_despoiler:360"
+ ]
+}

@@ -1,0 +1,131 @@
+{
+ "roster": {
+  "name": "HOUSE OF TEST",
+  "factionId": "imperialKnights",
+  "battleSize": "onslaught",
+  "detachmentIds": [
+   "questor_forgepact"
+  ],
+  "forceDisposition": "Disruption",
+  "warlordUnitId": "hg01x2na",
+  "units": [
+   {
+    "instanceId": "hg01x2na",
+    "datasheetId": "knight_paladin",
+    "size": 1,
+    "wargear": {
+     "gun": "stubber",
+     "arm": "gaunt",
+     "carapace": "icarus"
+    },
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "xpu16rul",
+    "datasheetId": "knight_crusader",
+    "size": 1,
+    "wargear": {
+     "gun": "melta",
+     "main": "battle",
+     "carapace": "none"
+    },
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "4zo5d8w5",
+    "datasheetId": "knight_castellan",
+    "size": 1,
+    "wargear": {
+     "siege": 1
+    },
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "7c6uyvwf",
+    "datasheetId": "acastus_knight_porphyrion",
+    "size": 1,
+    "wargear": {
+     "missile": "pod",
+     "lascannon": 1
+    },
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "g3rr4x75",
+    "datasheetId": "armiger_helverin",
+    "size": 1,
+    "wargear": {
+     "gun": "melta"
+    },
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "mmsyqvuk",
+    "datasheetId": "armiger_moirax",
+    "size": 1,
+    "wargear": {
+     "w1": "lock",
+     "w2": "pulsar"
+    },
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "hv4o7sr1",
+    "datasheetId": "tech_priest_dominus",
+    "size": 1,
+    "wargear": {
+     "macro": "macro",
+     "volk": "volk"
+    },
+    "enhancementId": "magos_questoris",
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "7olcaahp",
+    "datasheetId": "skitarii_rangers",
+    "size": 10,
+    "wargear": {
+     "tether": "none",
+     "arc": 1
+    },
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   }
+  ],
+  "notes": "",
+  "dataVersion": "2026-10-19-mfm16-fp12"
+ },
+ "points": 2390,
+ "units": [
+  "knight_paladin:375",
+  "knight_crusader:410",
+  "knight_castellan:425",
+  "acastus_knight_porphyrion:725",
+  "armiger_helverin:140",
+  "armiger_moirax:150",
+  "tech_priest_dominus:80",
+  "skitarii_rangers:85"
+ ]
+}

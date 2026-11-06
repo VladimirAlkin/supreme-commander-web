@@ -1,0 +1,59 @@
+{
+ "roster": {
+  "name": "DREADBLADES TEST",
+  "factionId": "chaosSpaceMarines",
+  "battleSize": "strike",
+  "detachmentIds": [
+   "cabal_of_chaos"
+  ],
+  "forceDisposition": "Disruption",
+  "warlordUnitId": "k6t8xwbu",
+  "units": [
+   {
+    "instanceId": "k6t8xwbu",
+    "datasheetId": "chaos_lord",
+    "size": 1,
+    "wargear": {
+     "melee": "hammer"
+    },
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "a8smwneh",
+    "datasheetId": "cultist_mob",
+    "size": 10,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "yko17eb0",
+    "datasheetId": "knight_despoiler",
+    "size": 1,
+    "wargear": {
+     "shoulder": "melta",
+     "arm1": "chain",
+     "arm2": "claw",
+     "carapace": "none"
+    },
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   }
+  ],
+  "notes": "",
+  "dataVersion": "2026-10-08-mfm15-csm"
+ },
+ "points": 505,
+ "units": [
+  "chaos_lord:95",
+  "cultist_mob:50",
+  "knight_despoiler:360"
+ ]
+}

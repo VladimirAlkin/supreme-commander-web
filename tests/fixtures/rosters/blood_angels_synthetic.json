@@ -1,0 +1,105 @@
+{
+ "roster": {
+  "name": "SONS OF SANGUINIUS",
+  "factionId": "bloodAngels",
+  "battleSize": "strike",
+  "detachmentIds": [
+   "wrath_of_the_doomed"
+  ],
+  "forceDisposition": "Purge the Foe",
+  "warlordUnitId": "tdawr5mc",
+  "units": [
+   {
+    "instanceId": "8kfz8qd0",
+    "datasheetId": "chaplain_with_jump_pack",
+    "size": 1,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": "qrc0l3u9",
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "qrc0l3u9",
+    "datasheetId": "death_company_marines_with_jump_packs",
+    "size": 5,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "tdawr5mc",
+    "datasheetId": "commander_dante",
+    "size": 1,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "zn3igekz",
+    "datasheetId": "death_company_captain",
+    "size": 1,
+    "wargear": {
+     "melee": "mcc",
+     "pistol": "hbp"
+    },
+    "enhancementId": "instinctive_interception",
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "3zadhjnz",
+    "datasheetId": "sanguinary_guard",
+    "size": 3,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "pqfggfub",
+    "datasheetId": "baal_predator",
+    "size": 1,
+    "wargear": {
+     "main": "tac",
+     "sponsons": "none"
+    },
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "8sb29s0c",
+    "datasheetId": "death_company_dreadnought",
+    "size": 1,
+    "wargear": {
+     "main": "thb",
+     "fists": "fists"
+    },
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   }
+  ],
+  "notes": "",
+  "dataVersion": "2026-10-25-ba-app-bsdata"
+ },
+ "points": 870,
+ "units": [
+  "chaplain_with_jump_pack:75",
+  "death_company_marines_with_jump_packs:130",
+  "commander_dante:140",
+  "death_company_captain:90",
+  "sanguinary_guard:135",
+  "baal_predator:135",
+  "death_company_dreadnought:165"
+ ]
+}

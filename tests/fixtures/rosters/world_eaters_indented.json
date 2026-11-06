@@ -1,0 +1,166 @@
+{
+ "roster": {
+  "name": "THE RED TIDE",
+  "factionId": "worldEaters",
+  "battleSize": "strike",
+  "detachmentIds": [
+   "berzerker_warband",
+   "butchers_of_khorne"
+  ],
+  "forceDisposition": "Purge the Foe",
+  "warlordUnitId": "y9gloqhm",
+  "units": [
+   {
+    "instanceId": "lb17p40e",
+    "datasheetId": "master_of_executions",
+    "size": 1,
+    "wargear": {},
+    "enhancementId": "berzerker_glaive",
+    "attachedTo": "nz80hvmy",
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "nz80hvmy",
+    "datasheetId": "khorne_berzerkers",
+    "size": 10,
+    "wargear": {
+     "champ_plasma": 1,
+     "plasma": 2,
+     "evisc": 2,
+     "icon": 1
+    },
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "furf5qh1",
+    "datasheetId": "master_of_executions",
+    "size": 1,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": "l9id87qq",
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "l9id87qq",
+    "datasheetId": "khorne_berzerkers",
+    "size": 10,
+    "wargear": {
+     "champ_plasma": 1,
+     "plasma": 2,
+     "evisc": 2,
+     "icon": 1
+    },
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "yt98j73m",
+    "datasheetId": "kharn_the_betrayer",
+    "size": 1,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": "ivvwsfgn",
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "ivvwsfgn",
+    "datasheetId": "khorne_berzerkers",
+    "size": 10,
+    "wargear": {
+     "champ_plasma": 1,
+     "plasma": 2,
+     "evisc": 2,
+     "icon": 1
+    },
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "y9gloqhm",
+    "datasheetId": "angron",
+    "size": 1,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "hupsa9r4",
+    "datasheetId": "chaos_rhino",
+    "size": 1,
+    "wargear": {
+     "extra": "none"
+    },
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "z2f4t125",
+    "datasheetId": "chaos_terminators",
+    "size": 10,
+    "wargear": {
+     "reaper": 2,
+     "fist": 6,
+     "chainfist": 2
+    },
+    "enhancementId": "gore_stained_veterans",
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "36tvyp7k",
+    "datasheetId": "chaos_terminators",
+    "size": 10,
+    "wargear": {
+     "reaper": 2,
+     "fist": 6,
+     "chainfist": 2
+    },
+    "enhancementId": "gore_stained_veterans",
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "4dyn33gp",
+    "datasheetId": "goremongers",
+    "size": 8,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   }
+  ],
+  "notes": "",
+  "dataVersion": "2026-10-02-mfm15-fp13"
+ },
+ "points": 1995,
+ "units": [
+  "master_of_executions:95",
+  "khorne_berzerkers:170",
+  "master_of_executions:60",
+  "khorne_berzerkers:170",
+  "kharn_the_betrayer:115",
+  "khorne_berzerkers:170",
+  "angron:330",
+  "chaos_rhino:75",
+  "chaos_terminators:370",
+  "chaos_terminators:370",
+  "goremongers:70"
+ ]
+}

@@ -1,0 +1,59 @@
+{
+ "roster": {
+  "name": "DREADBLADES TEST",
+  "factionId": "thousandSons",
+  "battleSize": "strike",
+  "detachmentIds": [
+   "grand_coven"
+  ],
+  "forceDisposition": "Disruption",
+  "warlordUnitId": "g6j6pehg",
+  "units": [
+   {
+    "instanceId": "g6j6pehg",
+    "datasheetId": "exalted_sorcerer",
+    "size": 1,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "ue2fc3ti",
+    "datasheetId": "rubric_marines",
+    "size": 5,
+    "wargear": {
+     "ch_gun": "bolt"
+    },
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "li7din1g",
+    "datasheetId": "knight_despoiler",
+    "size": 1,
+    "wargear": {
+     "shoulder": "melta",
+     "arm1": "chain",
+     "arm2": "claw",
+     "carapace": "none"
+    },
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   }
+  ],
+  "notes": "",
+  "dataVersion": "2026-10-04-mfm15-fp13"
+ },
+ "points": 575,
+ "units": [
+  "exalted_sorcerer:100",
+  "rubric_marines:115",
+  "knight_despoiler:360"
+ ]
+}

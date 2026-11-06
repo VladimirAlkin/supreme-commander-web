@@ -1,0 +1,108 @@
+{
+ "roster": {
+  "name": "FIRST LEGION",
+  "factionId": "darkAngels",
+  "battleSize": "strike",
+  "detachmentIds": [
+   "wrath_of_the_rock"
+  ],
+  "forceDisposition": "Take and Hold",
+  "warlordUnitId": "nt9jvlnr",
+  "units": [
+   {
+    "instanceId": "o5mjkpch",
+    "datasheetId": "captain_in_terminator_armour",
+    "size": 1,
+    "wargear": {
+     "relic": "rw",
+     "gun": "sb"
+    },
+    "enhancementId": "deathwing_assault",
+    "attachedTo": "y6a3vdkh",
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "y6a3vdkh",
+    "datasheetId": "deathwing_knights",
+    "size": 5,
+    "wargear": {
+     "km_melee": "gwu",
+     "knights_melee": "mace"
+    },
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "nt9jvlnr",
+    "datasheetId": "lion_eljonson",
+    "size": 1,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "11txklga",
+    "datasheetId": "outrider_squad",
+    "size": 3,
+    "wargear": {
+     "sgt_melee": "chain"
+    },
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "eexxb57o",
+    "datasheetId": "deathwing_terminator_squad",
+    "size": 5,
+    "wargear": {
+     "sgt_melee": "fist"
+    },
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "1k230wbg",
+    "datasheetId": "ravenwing_black_knights",
+    "size": 3,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "lmjalkbs",
+    "datasheetId": "land_speeder_vengeance",
+    "size": 1,
+    "wargear": {
+     "gun": "hb"
+    },
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   }
+  ],
+  "notes": "",
+  "dataVersion": "2026-10-22-da-app-bsdata"
+ },
+ "points": 1280,
+ "units": [
+  "captain_in_terminator_armour:105",
+  "deathwing_knights:255",
+  "lion_eljonson:415",
+  "outrider_squad:80",
+  "deathwing_terminator_squad:190",
+  "ravenwing_black_knights:85",
+  "land_speeder_vengeance:150"
+ ]
+}

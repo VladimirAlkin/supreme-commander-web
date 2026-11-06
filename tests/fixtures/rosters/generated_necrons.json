@@ -1,0 +1,86 @@
+{
+ "roster": {
+  "name": "generated necrons",
+  "factionId": "necrons",
+  "battleSize": "strike",
+  "detachmentIds": [
+   "annihilation_legion"
+  ],
+  "forceDisposition": "Purge the Foe",
+  "subfaction": null,
+  "warlordUnitId": null,
+  "units": [
+   {
+    "instanceId": "g0",
+    "datasheetId": "imotekh_the_stormlord",
+    "size": 1,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "g1",
+    "datasheetId": "overlord",
+    "size": 1,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "g2",
+    "datasheetId": "necron_warriors",
+    "size": 10,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "g3",
+    "datasheetId": "lychguard",
+    "size": 5,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "g4",
+    "datasheetId": "deathmarks",
+    "size": 5,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "g5",
+    "datasheetId": "flayed_ones",
+    "size": 5,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   }
+  ],
+  "notes": "",
+  "dataVersion": "2026-10-17-mfm16-fp12"
+ },
+ "points": 470,
+ "units": [
+  "imotekh_the_stormlord:100",
+  "overlord:90",
+  "necron_warriors:85",
+  "lychguard:80",
+  "deathmarks:60",
+  "flayed_ones:55"
+ ]
+}

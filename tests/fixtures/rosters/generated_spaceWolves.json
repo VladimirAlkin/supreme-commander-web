@@ -1,0 +1,86 @@
+{
+ "roster": {
+  "name": "generated spaceWolves",
+  "factionId": "spaceWolves",
+  "battleSize": "strike",
+  "detachmentIds": [
+   "saga_of_the_great_wolf"
+  ],
+  "forceDisposition": "Take and Hold",
+  "subfaction": null,
+  "warlordUnitId": null,
+  "units": [
+   {
+    "instanceId": "g0",
+    "datasheetId": "logan_grimnar",
+    "size": 1,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "g1",
+    "datasheetId": "blood_claws",
+    "size": 10,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "g2",
+    "datasheetId": "wolf_guard_terminators",
+    "size": 5,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "g3",
+    "datasheetId": "wulfen_dreadnought",
+    "size": 1,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "g4",
+    "datasheetId": "murderfang",
+    "size": 1,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "g5",
+    "datasheetId": "thunderwolf_cavalry",
+    "size": 3,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   }
+  ],
+  "notes": "",
+  "dataVersion": "2026-10-26-sw-wahapedia-bsdata"
+ },
+ "points": 885,
+ "units": [
+  "logan_grimnar:150",
+  "blood_claws:150",
+  "wolf_guard_terminators:180",
+  "wulfen_dreadnought:140",
+  "murderfang:150",
+  "thunderwolf_cavalry:115"
+ ]
+}

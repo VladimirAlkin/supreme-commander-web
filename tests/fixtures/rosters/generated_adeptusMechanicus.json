@@ -1,0 +1,86 @@
+{
+ "roster": {
+  "name": "generated adeptusMechanicus",
+  "factionId": "adeptusMechanicus",
+  "battleSize": "strike",
+  "detachmentIds": [
+   "cohort_acquisitus"
+  ],
+  "forceDisposition": "Reconnaissance",
+  "subfaction": null,
+  "warlordUnitId": null,
+  "units": [
+   {
+    "instanceId": "g0",
+    "datasheetId": "belisarius_cawl",
+    "size": 1,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "g1",
+    "datasheetId": "tech_priest_dominus",
+    "size": 1,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "g2",
+    "datasheetId": "skitarii_rangers",
+    "size": 10,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "g3",
+    "datasheetId": "skorpius_dunerider",
+    "size": 1,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "g4",
+    "datasheetId": "corpuscarii_electro_priests",
+    "size": 5,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "g5",
+    "datasheetId": "fulgurite_electro_priests",
+    "size": 5,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   }
+  ],
+  "notes": "",
+  "dataVersion": "2026-10-11-mfm15-fp12"
+ },
+ "points": 565,
+ "units": [
+  "belisarius_cawl:220",
+  "tech_priest_dominus:60",
+  "skitarii_rangers:85",
+  "skorpius_dunerider:75",
+  "corpuscarii_electro_priests:60",
+  "fulgurite_electro_priests:65"
+ ]
+}

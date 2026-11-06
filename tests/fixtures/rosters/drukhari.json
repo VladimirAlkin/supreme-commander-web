@@ -1,0 +1,313 @@
+{
+ "roster": {
+  "name": "111",
+  "factionId": "drukhari",
+  "battleSize": "strike",
+  "detachmentIds": [
+   "kabalite_agonysts",
+   "skysplinter_assault"
+  ],
+  "forceDisposition": "Reconnaissance",
+  "warlordUnitId": "w3y7joch",
+  "units": [
+   {
+    "instanceId": "w3y7joch",
+    "datasheetId": "archon",
+    "size": 1,
+    "wargear": {
+     "pistol": "soul",
+     "melee": "husk"
+    },
+    "enhancementId": null,
+    "attachedTo": "ho5pdvhj",
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "ho5pdvhj",
+    "datasheetId": "incubi",
+    "size": 5,
+    "wargear": {
+     "klaivex": "demi"
+    },
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "1it2mmws",
+    "datasheetId": "drazhar",
+    "size": 1,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": "be71tp6t",
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "be71tp6t",
+    "datasheetId": "incubi",
+    "size": 5,
+    "wargear": {
+     "klaivex": "demi"
+    },
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "qxptub6h",
+    "datasheetId": "lady_malys",
+    "size": 1,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": "sdrpzbfs",
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "sdrpzbfs",
+    "datasheetId": "incubi",
+    "size": 5,
+    "wargear": {
+     "klaivex": "demi"
+    },
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "jb4vwczx",
+    "datasheetId": "archon",
+    "size": 1,
+    "wargear": {
+     "pistol": "soul",
+     "melee": "husk"
+    },
+    "enhancementId": "skysplinter_assault_nightmare_shroud",
+    "attachedTo": "hmefdbcd",
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "hmefdbcd",
+    "datasheetId": "kabalite_warriors",
+    "size": 10,
+    "wargear": {
+     "syb_ranged": "rifle",
+     "syb_melee": "ccw",
+     "syb_equip": "none"
+    },
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "zyiammjt",
+    "datasheetId": "lelith_hesperax",
+    "size": 1,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": "6g2wkq92",
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "6g2wkq92",
+    "datasheetId": "wyches",
+    "size": 10,
+    "wargear": {
+     "hek_pistol": "spl",
+     "hek_blade": "blade"
+    },
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "89cgf5ng",
+    "datasheetId": "raider",
+    "size": 1,
+    "wargear": {
+     "weapon": "lance"
+    },
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "fm06zrc3",
+    "datasheetId": "venom",
+    "size": 1,
+    "wargear": {
+     "weapon": "cannon"
+    },
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "udlhga2x",
+    "datasheetId": "venom",
+    "size": 1,
+    "wargear": {
+     "weapon": "cannon"
+    },
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "m4vbfuz9",
+    "datasheetId": "venom",
+    "size": 1,
+    "wargear": {
+     "weapon": "cannon"
+    },
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "nkjtbsgz",
+    "datasheetId": "venom",
+    "size": 1,
+    "wargear": {
+     "weapon": "cannon"
+    },
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "ijz455kq",
+    "datasheetId": "cronos",
+    "size": 1,
+    "wargear": {
+     "vortex": 1
+    },
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "dwgfsbtj",
+    "datasheetId": "hand_of_the_archon",
+    "size": 10,
+    "wargear": {
+     "arch_ranged": "blast",
+     "arch_melee": "pw",
+     "arch_equip": "icon",
+     "dark_lance": 1,
+     "shardcarbine": 1,
+     "pain_sculptors": 1,
+     "razorflail": 1,
+     "stimm": 1
+    },
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "bnx75hw9",
+    "datasheetId": "mandrakes",
+    "size": 5,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "uv86wagv",
+    "datasheetId": "ravager",
+    "size": 1,
+    "wargear": {
+     "weapon1": "dl",
+     "weapon2": "dl",
+     "weapon3": "dl"
+    },
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "gk3ibvto",
+    "datasheetId": "scourges_with_heavy_weapons",
+    "size": 5,
+    "wargear": {
+     "solarite": "shard",
+     "dark_lance": 1,
+     "heat_lance": 2
+    },
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "3snxb2ta",
+    "datasheetId": "scourges_with_heavy_weapons",
+    "size": 5,
+    "wargear": {
+     "solarite": "shard",
+     "dark_lance": 3
+    },
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "k8znk7rp",
+    "datasheetId": "solitaire",
+    "size": 1,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   }
+  ],
+  "notes": "",
+  "dataVersion": "2026-10-17-mfm16-fp12"
+ },
+ "points": 1990,
+ "units": [
+  "archon:80",
+  "incubi:90",
+  "drazhar:85",
+  "incubi:90",
+  "lady_malys:100",
+  "incubi:100",
+  "archon:100",
+  "kabalite_warriors:110",
+  "lelith_hesperax:80",
+  "wyches:90",
+  "raider:75",
+  "venom:65",
+  "venom:65",
+  "venom:65",
+  "venom:75",
+  "cronos:55",
+  "hand_of_the_archon:115",
+  "mandrakes:80",
+  "ravager:125",
+  "scourges_with_heavy_weapons:115",
+  "scourges_with_heavy_weapons:125",
+  "solitaire:105"
+ ]
+}

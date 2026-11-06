@@ -1,0 +1,86 @@
+{
+ "roster": {
+  "name": "generated tyranids",
+  "factionId": "tyranids",
+  "battleSize": "strike",
+  "detachmentIds": [
+   "invasion_fleet"
+  ],
+  "forceDisposition": "Take and Hold",
+  "subfaction": null,
+  "warlordUnitId": null,
+  "units": [
+   {
+    "instanceId": "g0",
+    "datasheetId": "the_swarmlord",
+    "size": 1,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "g1",
+    "datasheetId": "termagants",
+    "size": 10,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "g2",
+    "datasheetId": "tyrannocyte",
+    "size": 1,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "g3",
+    "datasheetId": "spore_mines",
+    "size": 3,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "g4",
+    "datasheetId": "mucolid_spores",
+    "size": 1,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "g5",
+    "datasheetId": "barbgaunts",
+    "size": 5,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   }
+  ],
+  "notes": "",
+  "dataVersion": "2026-10-03-mfm15-fp12"
+ },
+ "points": 480,
+ "units": [
+  "the_swarmlord:210",
+  "termagants:55",
+  "tyrannocyte:80",
+  "spore_mines:55",
+  "mucolid_spores:30",
+  "barbgaunts:50"
+ ]
+}

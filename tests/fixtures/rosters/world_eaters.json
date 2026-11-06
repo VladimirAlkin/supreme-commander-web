@@ -1,0 +1,86 @@
+{
+ "roster": {
+  "name": "ааааааа",
+  "factionId": "worldEaters",
+  "battleSize": "strike",
+  "detachmentIds": [
+   "berzerker_warband",
+   "vessels_of_wrath"
+  ],
+  "forceDisposition": "Purge the Foe",
+  "warlordUnitId": "1h3yag9s",
+  "units": [
+   {
+    "instanceId": "1h3yag9s",
+    "datasheetId": "angron",
+    "size": 1,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "kjdwdr8s",
+    "datasheetId": "kharn_the_betrayer",
+    "size": 1,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "j320436j",
+    "datasheetId": "khorne_berzerkers",
+    "size": 20,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "s4htk1vl",
+    "datasheetId": "khorne_berzerkers",
+    "size": 20,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "czxrf4bk",
+    "datasheetId": "khorne_berzerkers",
+    "size": 20,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "mdrxtv1f",
+    "datasheetId": "khorne_berzerkers",
+    "size": 10,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   }
+  ],
+  "notes": "",
+  "dataVersion": "2026-10-02-mfm15-fp13"
+ },
+ "points": 1605,
+ "units": [
+  "angron:330",
+  "kharn_the_betrayer:115",
+  "khorne_berzerkers:330",
+  "khorne_berzerkers:330",
+  "khorne_berzerkers:330",
+  "khorne_berzerkers:170"
+ ]
+}

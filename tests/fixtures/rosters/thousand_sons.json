@@ -1,0 +1,181 @@
+{
+ "roster": {
+  "name": "2000",
+  "factionId": "thousandSons",
+  "battleSize": "strike",
+  "detachmentIds": [
+   "grand_coven"
+  ],
+  "forceDisposition": "Priority Assets",
+  "warlordUnitId": "cp7zba7f",
+  "units": [
+   {
+    "instanceId": "uspp5if6",
+    "datasheetId": "exalted_sorcerer_on_disc_of_tzeentch",
+    "size": 1,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": "8eyxfedn",
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "8eyxfedn",
+    "datasheetId": "rubric_marines",
+    "size": 10,
+    "wargear": {
+     "ch_gun": "warp",
+     "soulreaper": 1,
+     "warpflamer": 8,
+     "icon": 1
+    },
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "lqoydoz5",
+    "datasheetId": "infernal_master",
+    "size": 1,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": "2xe8sv0n",
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "2xe8sv0n",
+    "datasheetId": "rubric_marines",
+    "size": 10,
+    "wargear": {
+     "ch_gun": "warp",
+     "soulreaper": 1,
+     "warpflamer": 8,
+     "icon": 1
+    },
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "ap5zrdsc",
+    "datasheetId": "tzaangor_shaman",
+    "size": 1,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": "y8v2uf94",
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "y8v2uf94",
+    "datasheetId": "tzaangors",
+    "size": 10,
+    "wargear": {
+     "pistols": 9,
+     "horn": 1,
+     "banner": 1
+    },
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "cp7zba7f",
+    "datasheetId": "magnus_the_red",
+    "size": 1,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "vhp5nh1q",
+    "datasheetId": "chaos_rhino",
+    "size": 1,
+    "wargear": {
+     "extra": "none"
+    },
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "48cglz0e",
+    "datasheetId": "forgefiend",
+    "size": 1,
+    "wargear": {
+     "guns": "hades",
+     "jaws": "jaws"
+    },
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "qcf2traf",
+    "datasheetId": "mutalith_vortex_beast",
+    "size": 1,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "r6ikehid",
+    "datasheetId": "mutalith_vortex_beast",
+    "size": 1,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "b9lahwjq",
+    "datasheetId": "sekhetar_robots",
+    "size": 4,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "51ek3q1a",
+    "datasheetId": "tzaangor_enlightened_fatecaster",
+    "size": 3,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   }
+  ],
+  "notes": "",
+  "dataVersion": "2026-10-04-mfm15-fp13"
+ },
+ "points": 2000,
+ "units": [
+  "exalted_sorcerer_on_disc_of_tzeentch:95",
+  "rubric_marines:210",
+  "infernal_master:105",
+  "rubric_marines:210",
+  "tzaangor_shaman:65",
+  "tzaangors:75",
+  "magnus_the_red:455",
+  "chaos_rhino:80",
+  "forgefiend:135",
+  "mutalith_vortex_beast:170",
+  "mutalith_vortex_beast:170",
+  "sekhetar_robots:175",
+  "tzaangor_enlightened_fatecaster:55"
+ ]
+}

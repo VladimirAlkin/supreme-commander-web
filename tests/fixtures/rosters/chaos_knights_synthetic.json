@@ -1,0 +1,100 @@
+{
+ "roster": {
+  "name": "HOUSE OF DREAD",
+  "factionId": "chaosKnights",
+  "battleSize": "strike",
+  "detachmentIds": [
+   "iconoclast_fiefdom"
+  ],
+  "forceDisposition": "Take and Hold",
+  "warlordUnitId": "1xjv649o",
+  "units": [
+   {
+    "instanceId": "1xjv649o",
+    "datasheetId": "knight_tyrant",
+    "size": 1,
+    "wargear": {
+     "carapace": "two_one",
+     "main": "lance"
+    },
+    "enhancementId": "ck_cruel_lashmaster",
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "w2rmxb9x",
+    "datasheetId": "knight_despoiler",
+    "size": 1,
+    "wargear": {
+     "shoulder": "melta",
+     "arm1": "gatling",
+     "arm2": "claw",
+     "carapace": "none"
+    },
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "ooa3vp73",
+    "datasheetId": "war_dog_karnivore",
+    "size": 1,
+    "wargear": {
+     "stubber": "stubber"
+    },
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "bwkrhjzk",
+    "datasheetId": "war_dog_moirax",
+    "size": 1,
+    "wargear": {
+     "w1": "pulsar",
+     "w2": "veug"
+    },
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "vcvnqseb",
+    "datasheetId": "cultist_mob",
+    "size": 10,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "vyiy1ek4",
+    "datasheetId": "traitor_guardsmen",
+    "size": 10,
+    "wargear": {
+     "sgt_melee": "ccw"
+    },
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   }
+  ],
+  "notes": "",
+  "dataVersion": "2026-11-04-bsd-fp12"
+ },
+ "points": 1210,
+ "units": [
+  "knight_tyrant:415",
+  "knight_despoiler:385",
+  "war_dog_karnivore:145",
+  "war_dog_moirax:150",
+  "cultist_mob:50",
+  "traitor_guardsmen:65"
+ ]
+}

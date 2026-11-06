@@ -1,0 +1,86 @@
+{
+ "roster": {
+  "name": "generated spaceMarines",
+  "factionId": "spaceMarines",
+  "battleSize": "strike",
+  "detachmentIds": [
+   "gladius_task_force"
+  ],
+  "forceDisposition": "Priority Assets",
+  "subfaction": null,
+  "warlordUnitId": null,
+  "units": [
+   {
+    "instanceId": "g0",
+    "datasheetId": "aggressor_squad",
+    "size": 3,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "g1",
+    "datasheetId": "ancient_in_terminator_armour",
+    "size": 1,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "g2",
+    "datasheetId": "assault_intercessor_squad",
+    "size": 5,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "g3",
+    "datasheetId": "ballistus_dreadnought",
+    "size": 1,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "g4",
+    "datasheetId": "bladeguard_ancient",
+    "size": 1,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "g5",
+    "datasheetId": "bladeguard_veteran_squad",
+    "size": 3,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   }
+  ],
+  "notes": "",
+  "dataVersion": "2026-10-22-codex11-bsdata"
+ },
+ "points": 560,
+ "units": [
+  "aggressor_squad:90",
+  "ancient_in_terminator_armour:75",
+  "assault_intercessor_squad:85",
+  "ballistus_dreadnought:150",
+  "bladeguard_ancient:70",
+  "bladeguard_veteran_squad:90"
+ ]
+}

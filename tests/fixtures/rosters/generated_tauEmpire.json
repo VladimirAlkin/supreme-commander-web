@@ -1,0 +1,86 @@
+{
+ "roster": {
+  "name": "generated tauEmpire",
+  "factionId": "tauEmpire",
+  "battleSize": "strike",
+  "detachmentIds": [
+   "advanced_acquisition_cadre"
+  ],
+  "forceDisposition": "Reconnaissance",
+  "subfaction": null,
+  "warlordUnitId": null,
+  "units": [
+   {
+    "instanceId": "g0",
+    "datasheetId": "commander_in_coldstar_battlesuit",
+    "size": 1,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "g1",
+    "datasheetId": "commander_farsight",
+    "size": 1,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "g2",
+    "datasheetId": "strike_team",
+    "size": 10,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "g3",
+    "datasheetId": "kroot_carnivores",
+    "size": 10,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "g4",
+    "datasheetId": "krootox_riders",
+    "size": 1,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "g5",
+    "datasheetId": "kroot_hounds",
+    "size": 5,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   }
+  ],
+  "notes": "",
+  "dataVersion": "2026-10-17-mfm16-fp12"
+ },
+ "points": 390,
+ "units": [
+  "commander_in_coldstar_battlesuit:95",
+  "commander_farsight:70",
+  "strike_team:70",
+  "kroot_carnivores:65",
+  "krootox_riders:45",
+  "kroot_hounds:45"
+ ]
+}

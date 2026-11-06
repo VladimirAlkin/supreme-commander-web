@@ -1,0 +1,42 @@
+{
+ "roster": {
+  "name": "generated adeptaSororitas",
+  "factionId": "adeptaSororitas",
+  "battleSize": "strike",
+  "detachmentIds": [
+   "hallowed_martyrs"
+  ],
+  "forceDisposition": "Take and Hold",
+  "subfaction": null,
+  "warlordUnitId": null,
+  "units": [
+   {
+    "instanceId": "g0",
+    "datasheetId": "aestred_thurga_and_agathae_dolan",
+    "size": 2,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "g1",
+    "datasheetId": "aquila_kill_team",
+    "size": 5,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   }
+  ],
+  "notes": "",
+  "dataVersion": "2026-10-05-mfm15-fp12"
+ },
+ "points": 190,
+ "units": [
+  "aestred_thurga_and_agathae_dolan:80",
+  "aquila_kill_team:110"
+ ]
+}

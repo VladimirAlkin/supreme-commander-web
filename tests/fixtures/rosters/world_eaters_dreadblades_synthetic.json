@@ -1,0 +1,57 @@
+{
+ "roster": {
+  "name": "DREADBLADES TEST",
+  "factionId": "worldEaters",
+  "battleSize": "strike",
+  "detachmentIds": [
+   "berzerker_warband"
+  ],
+  "forceDisposition": "Purge the Foe",
+  "warlordUnitId": "y7vf3mty",
+  "units": [
+   {
+    "instanceId": "y7vf3mty",
+    "datasheetId": "daemon_prince",
+    "size": 1,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "c4p5kwa4",
+    "datasheetId": "khorne_berzerkers",
+    "size": 10,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "9cv0s4jk",
+    "datasheetId": "knight_despoiler",
+    "size": 1,
+    "wargear": {
+     "shoulder": "melta",
+     "arm1": "chain",
+     "arm2": "claw",
+     "carapace": "none"
+    },
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   }
+  ],
+  "notes": "",
+  "dataVersion": "2026-10-02-mfm15-fp13"
+ },
+ "points": 730,
+ "units": [
+  "daemon_prince:200",
+  "khorne_berzerkers:170",
+  "knight_despoiler:360"
+ ]
+}

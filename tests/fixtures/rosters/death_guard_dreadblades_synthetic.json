@@ -1,0 +1,60 @@
+{
+ "roster": {
+  "name": "DREADBLADES TEST",
+  "factionId": "deathGuard",
+  "battleSize": "strike",
+  "detachmentIds": [
+   "virulent_vectorium"
+  ],
+  "forceDisposition": "Take and Hold",
+  "warlordUnitId": "1hzc0wwv",
+  "units": [
+   {
+    "instanceId": "1hzc0wwv",
+    "datasheetId": "daemon_prince_of_nurgle",
+    "size": 1,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "akwa4wzq",
+    "datasheetId": "plague_marines",
+    "size": 5,
+    "wargear": {
+     "ch_gun": "bolt",
+     "ch_melee": "knives"
+    },
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "vn98t53l",
+    "datasheetId": "knight_despoiler",
+    "size": 1,
+    "wargear": {
+     "shoulder": "melta",
+     "arm1": "chain",
+     "arm2": "claw",
+     "carapace": "none"
+    },
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   }
+  ],
+  "notes": "",
+  "dataVersion": "2026-10-04-mfm15-fp13"
+ },
+ "points": 635,
+ "units": [
+  "daemon_prince_of_nurgle:185",
+  "plague_marines:90",
+  "knight_despoiler:360"
+ ]
+}

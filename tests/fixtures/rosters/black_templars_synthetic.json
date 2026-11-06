@@ -1,0 +1,129 @@
+{
+ "roster": {
+  "name": "VOWS OF THE CRUSADE",
+  "factionId": "blackTemplars",
+  "battleSize": "strike",
+  "detachmentIds": [
+   "vow_sworn_crusaders"
+  ],
+  "forceDisposition": "Purge the Foe",
+  "warlordUnitId": "bx728lau",
+  "units": [
+   {
+    "instanceId": "3atopbrp",
+    "datasheetId": "marshal",
+    "size": 1,
+    "wargear": {
+     "pistol": "pp"
+    },
+    "enhancementId": null,
+    "attachedTo": "nmd9icee",
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "75kagmqh",
+    "datasheetId": "crusade_ancient",
+    "size": 1,
+    "wargear": {},
+    "enhancementId": "zealous_vanguard",
+    "attachedTo": "nmd9icee",
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "nmd9icee",
+    "datasheetId": "crusader_squad",
+    "size": 10,
+    "wargear": {
+     "sb_pistol": "hbp"
+    },
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "sseg7gr5",
+    "datasheetId": "captain",
+    "size": 1,
+    "wargear": {
+     "ranged": "std",
+     "melee": "mcpw"
+    },
+    "enhancementId": null,
+    "attachedTo": "rbwu5771",
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "rbwu5771",
+    "datasheetId": "sword_brethren_squad",
+    "size": 5,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "bx728lau",
+    "datasheetId": "high_marshal_helbrecht",
+    "size": 1,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "0bg41s7i",
+    "datasheetId": "bt_gladiator_lancer",
+    "size": 1,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "2qfty34y",
+    "datasheetId": "bt_impulsor",
+    "size": 1,
+    "wargear": {
+     "sponsons": "sb",
+     "pintle": "none",
+     "system": "comms"
+    },
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   },
+   {
+    "instanceId": "s2s621yl",
+    "datasheetId": "chaplain_grimaldus",
+    "size": 4,
+    "wargear": {},
+    "enhancementId": null,
+    "attachedTo": null,
+    "notes": "",
+    "customName": ""
+   }
+  ],
+  "notes": "",
+  "dataVersion": "2026-11-05-bt-wahapedia-bsdata"
+ },
+ "points": 1030,
+ "units": [
+  "marshal:80",
+  "crusade_ancient:70",
+  "crusader_squad:160",
+  "captain:90",
+  "sword_brethren_squad:140",
+  "high_marshal_helbrecht:125",
+  "bt_gladiator_lancer:165",
+  "bt_impulsor:80",
+  "chaplain_grimaldus:120"
+ ]
+}
