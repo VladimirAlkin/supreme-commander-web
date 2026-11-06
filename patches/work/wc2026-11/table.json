@@ -1,0 +1,205 @@
+{
+ "patch": "wc2026-11",
+ "source": "Warhammer 40,000 World Championships — Rules Updates, November 2026 (event-only; not in the official app)",
+ "anchor": "6b1f3c71cae7dcf97a42c6a2e60308b8f97c28fc",
+ "rows": [
+  {
+   "n": 1,
+   "army": "bloodAngels",
+   "kind": "units",
+   "id": "chief_librarian_mephiston",
+   "field": "ranged[Plasma Pistol - Supercharge].kw",
+   "from": "Assault ¦ Close-quarters",
+   "to": "Assault ¦ Close-quarters ¦ Hazardous",
+   "src": "World Championships Rules Updates, November 2026, p. 2",
+   "how": "data"
+  },
+  {
+   "n": 2,
+   "army": "bloodAngels",
+   "kind": "units",
+   "id": "death_company_dreadnought",
+   "field": "ranged[Twin Heavy Bolter].kw",
+   "from": "Sustained Hits 1 ¦ Twin-linked",
+   "to": "Sustained Hits 1 ¦ Twin-linked ¦ Rapid Fire 2",
+   "src": "World Championships Rules Updates, November 2026, p. 2",
+   "how": "data"
+  },
+  {
+   "n": 3,
+   "army": "chaosSpaceMarines",
+   "kind": "units",
+   "id": "chaos_bikers",
+   "field": "ranged[Combi-weapon].S",
+   "from": "4",
+   "to": "5",
+   "src": "World Championships Rules Updates, November 2026, p. 3",
+   "how": "data"
+  },
+  {
+   "n": 4,
+   "army": "chaosSpaceMarines",
+   "kind": "units",
+   "id": "chaos_bikers",
+   "field": "ranged[Combi-weapon].AP",
+   "from": "0",
+   "to": "-1",
+   "src": "World Championships Rules Updates, November 2026, p. 3",
+   "how": "data"
+  },
+  {
+   "n": 5,
+   "army": "chaosSpaceMarines",
+   "kind": "units",
+   "id": "nemesis_claw",
+   "field": "melee[Close combat weapon].S",
+   "from": "4",
+   "to": "5",
+   "src": "World Championships Rules Updates, November 2026, p. 3",
+   "how": "data"
+  },
+  {
+   "n": 6,
+   "army": "deathGuard",
+   "kind": "detachments",
+   "id": "shamblerot_vectorium",
+   "field": "stratagems[shambling_wall].effect",
+   "from": "Until the end of the phase, each time you would allocate an attack to a model in your DEATH GUARD unit, if your POXWALKERS unit is visible to the attacking model and is an eligible target for that attack, no saving throw is made for that attack; instead a number of POXWALKERS from your POXWALKERS unit equal to the Damage characteristic of that attack are destroyed.",
+   "to": "When an enemy unit is making attacks, at the end of the Wound Rolls step, if those attacks target that DEATH GUARD unit, your opponent does the following: ■ Select one wound. ■ End the attack sequence for that wound. ■ A number of models in your POXWALKERS unit equal to that attack’s D are destroyed. Your opponent repeats these steps until there are no wounds to resolve, or until your POXWALKERS unit is destroyed (whichever happens first). When your POXWALKERS unit is destroyed, the attack sequence continues for any remaining attacks.",
+   "src": "World Championships Rules Updates, November 2026, p. 3",
+   "how": "slots"
+  },
+  {
+   "n": 7,
+   "army": "deathGuard",
+   "kind": "units",
+   "id": "lord_of_contagion",
+   "field": "abilities[Unholy Resilience].text",
+   "from": "The first time a model with this ability is destroyed in a battle round, roll one D6 at the end of the phase. On a 2+, set that model back up on the battlefield, as close as possible to where it was destroyed and not within Engagement Range of any enemy units, with 3 wounds remaining. Each model can only be set up in this way once per battle.",
+   "to": "(Once per battle, per unit) When a friendly model with this ability is destroyed, roll one D6 at the end of the phase. On a 2+, set that model back up on the battlefield, as close as possible to where it was destroyed, unengaged, with 3 wounds remaining. Each model can only be set up in this way once per battle.",
+   "src": "World Championships Rules Updates, November 2026, p. 3",
+   "how": "slots"
+  },
+  {
+   "n": 8,
+   "army": "drukhari",
+   "kind": "detachments",
+   "id": "kabalite_cartel",
+   "field": "stratagems[double_cross].effect",
+   "from": "Until the end of the phase, each time you would allocate an attack to a model in your KABAL or BLADES FOR HIRE unit, if your DRUKHARI unit is within Engagement Range of the attacking model, no saving throw is made for that attack; instead, your DRUKHARI unit suffers a number of mortal wounds equal to the Damage characteristic of that attack.",
+   "to": "When an enemy unit is making attacks, at the end of the Wound Rolls step, if those attacks target that KABAL or BLADES FOR HIRE unit and if your DRUKHARI unit is engaged with the attacking unit, your opponent does the following: ■ Select one wound. ■ End the attack sequence for that wound. ■ Your DRUKHARI unit suffers a number of mortal wounds equal to that attack’s D. Your opponent repeats these steps until there are no wounds to resolve, or until your DRUKHARI unit is destroyed (whichever happens first). When your DRUKHARI unit is destroyed, the attack sequence continues for any remaining attacks.",
+   "src": "World Championships Rules Updates, November 2026, p. 3",
+   "how": "slots"
+  },
+  {
+   "n": 9,
+   "army": "imperialKnights",
+   "kind": "units",
+   "id": "canis_rex",
+   "field": "abilities[Sir Hekhtur].text",
+   "from": "Sir Hekhtur is an EPIC HERO INFANTRY model that is part of this datasheet: M 6\", T 3, Sv 4+, W 3, Ld 5+, OC 1. He is equipped with Hekhtur’s pistol and a close combat weapon and has the Lone Operative ability. If your Canis Rex model is destroyed, this model is treated as a model disembarking from a destroyed TRANSPORT and must perform an Emergency Disembarkation. Sir Hekhtur cannot be selected as the target of any of your Stratagems other than Core Stratagems. Your Canis Rex unit is not considered to be destroyed until Sir Hekhtur is also destroyed.",
+   "to": "Sir Hekhtur is an EPIC HERO INFANTRY model that is part of this datasheet: M 6\", T 3, Sv 4+, W 3, Ld 5+, OC 1. He is equipped with Hekhtur’s pistol and a close combat weapon and has the Lone Operative ability. If your Canis Rex model is destroyed, this model is treated as a model disembarking from a destroyed TRANSPORT and must perform an Emergency Disembarkation. Sir Hekhtur cannot be selected as the target of any of your Stratagems other than Core Stratagems. Your Canis Rex model/unit is not considered to be destroyed or to have left the battlefield until Sir Hekhtur is also destroyed.",
+   "src": "World Championships Rules Updates, November 2026, p. 4",
+   "how": "slots"
+  },
+  {
+   "n": 10,
+   "army": "spaceMarines",
+   "kind": "units",
+   "id": "aggressor_squad",
+   "field": "ranged[Auto Boltstorm Gauntlets].kw",
+   "from": "Close-quarters ¦ Twin-linked",
+   "to": "Twin-linked",
+   "src": "World Championships Rules Updates, November 2026, p. 4",
+   "how": "data"
+  },
+  {
+   "n": 11,
+   "army": "spaceMarines",
+   "kind": "detachments",
+   "id": "medusas_wrath",
+   "field": "restrictions",
+   "from": null,
+   "to": "Your army can include IRON HANDS units, but it cannot include any ADEPTUS ASTARTES units drawn from any other Chapter.",
+   "src": "World Championships Rules Updates, November 2026, p. 4",
+   "how": "data"
+  },
+  {
+   "n": 12,
+   "army": "spaceMarines",
+   "kind": "detachments",
+   "id": "shadowmark_talon",
+   "field": "restrictions",
+   "from": null,
+   "to": "Your army can include RAVEN GUARD units, but it cannot include any ADEPTUS ASTARTES units drawn from any other Chapter.",
+   "src": "World Championships Rules Updates, November 2026, p. 4",
+   "how": "data"
+  },
+  {
+   "n": 13,
+   "army": "spaceMarines",
+   "kind": "detachments",
+   "id": "blade_of_ultramar",
+   "field": "restrictions",
+   "from": null,
+   "to": "Your army can include ULTRAMARINES units, but it cannot include any ADEPTUS ASTARTES units drawn from any other Chapter.",
+   "src": "World Championships Rules Updates, November 2026, p. 5",
+   "how": "data"
+  },
+  {
+   "n": 14,
+   "army": "spaceWolves",
+   "kind": "detachments",
+   "id": "champions_of_fenris",
+   "field": "restrictions",
+   "from": null,
+   "to": "Your army can include SPACE WOLVES units, but it cannot include any ADEPTUS ASTARTES units drawn from any other Chapter.",
+   "src": "World Championships Rules Updates, November 2026, p. 4",
+   "how": "data"
+  },
+  {
+   "n": 15,
+   "army": "spaceWolves",
+   "kind": "detachments",
+   "id": "saga_of_the_beastslayer",
+   "field": "restrictions",
+   "from": null,
+   "to": "Your army can include SPACE WOLVES units, but it cannot include any ADEPTUS ASTARTES units drawn from any other Chapter.",
+   "src": "World Championships Rules Updates, November 2026, p. 4",
+   "how": "data"
+  },
+  {
+   "n": 16,
+   "army": "thousandSons",
+   "kind": "detachments",
+   "id": "grand_coven",
+   "field": "enhancements[umbralefic_crystal].text",
+   "from": "THOUSAND SONS model only. (Once per battle, per army) In your Command phase, if this unit is unengaged, you can use this ability. If you do: ■ Place this unit in strategic reserves. ■ This unit has Deep Strike until the start of your next Shooting phase. ■ This unit must make an ingress move in your next Movement phase (including in your first turn).",
+   "to": "THOUSAND SONS model only. (Once per battle, per army) In your Command phase, if this unit is unengaged, you can use this ability. If you do: ■ If this unit is on the battlefield, place this unit in strategic reserves. ■ This unit has Deep Strike until the start of your next Shooting phase. ■ This unit must make an ingress move in your next Movement phase (including in your first turn).",
+   "src": "World Championships Rules Updates, November 2026, p. 5",
+   "how": "slots"
+  },
+  {
+   "n": 17,
+   "army": "worldEaters",
+   "kind": "units",
+   "id": "chaos_rhino",
+   "field": "abilities[Meet Any Challenge].text",
+   "from": "In your opponent’s Movement phase, each time an enemy unit is set up or ends a Normal, Advance or Fall Back move within 8\" of this model, any units embarked within it can disembark.",
+   "to": "In your opponent’s Movement phase, when an enemy unit ends a move within 8\" of this model, units embarked within this model can make a disembark move using the rapid disembark mode.",
+   "src": "World Championships Rules Updates, November 2026, p. 5",
+   "how": "slots"
+  },
+  {
+   "n": 18,
+   "army": "worldEaters",
+   "kind": "units",
+   "id": "defiler",
+   "field": "abilities[Unleash Wrath].text",
+   "from": "At the end of your opponent’s Movement phase, you can select one enemy unit that was set up on the battlefield within 12\" of this model; this model can then either: ■ Shoot at that unit, but only if it is an eligible target. ■ Declare a charge. This unit must end that charge move engaged with the enemy unit you selected (note that even if this charge is successful, this unit does not receive any Charge bonus this turn).",
+   "to": "At the end of your opponent’s Movement phase, you can select one enemy unit that was set up on the battlefield within 12\" of this model this phase; this model can then either: ■ Shoot at that unit, but only if it is an eligible target. ■ Declare a charge. This unit must end that charge move engaged with the enemy unit you selected (note that even if this charge is successful, this unit does not receive any Charge bonus this turn).",
+   "src": "World Championships Rules Updates, November 2026, p. 5",
+   "how": "slots"
+  }
+ ]
+}
